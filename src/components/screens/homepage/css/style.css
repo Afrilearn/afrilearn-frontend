@@ -1,0 +1,151 @@
+#homepage img.banner {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+#homepage .bannerSection{
+    color:white;
+    height: 100vh;
+}
+#homepage .bannerSection >.row {
+    position: relative;
+    z-index: 2;
+}
+#homepage .bannerSection h1 {
+    font-family: font2;
+    font-size: 3.124rem;
+    text-align: center;
+}
+#homepage .bannerSection h4 {
+    margin-top: 33px;
+    text-align: center;
+}
+#homepage .bannerSection h3 {
+    height: 80px;
+}
+#homepage .bannerSection .box{
+    padding: 110px 0px;
+}
+#homepage .bannerSection img.scroll {
+    width: 38px;
+    margin-top: -10px;
+    height: 44px;
+}
+#homepage .afterBanner {
+    margin-top: -76px;
+    background: black;
+    color: white !important;
+    position: relative;
+}
+#homepage .afterBanner img {
+    border: solid 5px #222;    
+    object-fit: cover;
+}
+#homepage .timer {
+    display: inline-block;
+}
+#homepage .react-countdown .digit {
+    font-size: 78px;
+}
+#homepage .react-countdown .text {
+    text-transform: uppercase;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+#homepage .react-countdown li::after {   
+    font-size: 55px;
+}
+#homepage .react-countdown { 
+    margin-left: -8px !important;
+}
+#homepage .afterBanner >.row {
+    padding: 132px 112px;
+    border-top: solid 9px #222;
+}
+#homepage h1 {
+  font-family: font2;
+  margin-bottom: 17px;;
+}
+#homepage img.bigThing {
+    width: 85%;
+    display: block;
+    margin-top: -30px;
+    height: 263px;
+    object-fit: cover;
+}
+#homepage img.classnote {
+   object-fit: fill;
+}
+#homepage input[type="email"], input[type="submit"]{
+    width: 100%;
+    padding: 16px 13px;
+    border: none;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+#homepage input[type="submit"]{
+    background: #2bb58e;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+    #homepage .shiftVideo {
+        margin-top: 37px;
+    }
+    #homepage .bannerSection .box {
+        padding: 100px 20px 50px 20px;
+    }
+    #homepage .bannerSection h1 {       
+        font-size: 27px;       
+    }
+    #homepage .bannerSection h3 {
+        height: 85px;
+        font-size: 18px;
+    }
+    #homepage .bannerSection h5{
+        font-size: 16px;
+    }
+    #homepage input[type="email"], input[type="submit"] {
+        padding: 10px 4px;
+        font-size: 11px;
+    }
+    #homepage .afterBanner > .row {
+        padding: 50px 20px;       
+    }
+    #homepage h1 {      
+        font-size: 27px;
+    }
+    #homepage h3 {      
+        font-size: 17px;
+    }
+    #homepage .react-countdown .digit {
+        font-size: 35px;
+    }
+    #homepage .react-countdown li::after {
+        font-size: 21px;
+        right: -13px;
+    }
+    #homepage img.bigThing {
+        width: 100%;
+        margin-top: 18px;
+        height: 160px;
+    }      
+    #homepage img.other {       
+        margin-top: 0px;
+        margin-bottom: 18px;
+    }    
+}
+@media screen and (max-width: 320px) {
+    #homepage .afterBanner {
+        margin-top: -142px;
+        position: relative;
+        z-index: 8888;
+    }
+}

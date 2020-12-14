@@ -1,0 +1,109 @@
+#partnershipFirstSection{
+	background-image: url('../../../../assets/img/sample.jpg');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-attachment: fixed;
+	background-size: cover;
+	margin-top: -115px;
+	color: white;
+}
+#partnershipFirstSection > .row {
+    padding: 162px 36px 100px 36px;
+    z-index: 2;
+    position: relative;
+}
+#partnershipFirstSection h1 {
+    letter-spacing: 1px;
+}
+#partnershipFirstSection hr {
+	width: 8%;
+	border: solid 2px #2bb58e; 
+	float: left;   
+}
+#partnershipFirstSection h3 {    
+    clear: both;
+    margin-bottom: 22px;
+}
+#partnershipSecondSection, #partnershipThirdSection{
+    padding: 70px 80px;
+}
+#partnershipSecondSection h1, #partnershipThirdSection h1{
+    margin-bottom: 20px;
+    color: #2bb58e;
+    font-family: font2;
+}
+#partnershipSecondSection .box {
+    font-size: 20px;
+    padding: 68px 52px;
+    box-shadow: 0 .5pt 10pt rgba(0,0,0,.1);
+    display: block;
+}
+#partnershipSecondSection .box1 { 
+    padding: 12px 52px; 
+    text-align: center;
+    font-size: 17px;
+}
+#partnershipSecondSection img {
+    width: 100%;  
+}
+#partnershipThirdSection p {
+    font-size: 20px;    
+}
+#partnershipThirdSection .partOne p {   
+    padding-right: 112px;
+}
+#partnershipThirdSection .partTwo p {
+    margin-top: 41px;
+}
+#partnershipThirdSection .partTwo {
+    padding: 75px 20px;
+}
+#partnership .b {
+    background-color: #f5f5f5;
+}
+#partnershipThirdSection svg {
+    font-size: 50px;
+    margin: auto;
+    display: block;
+    color: #2bb58e;
+}
+
+@media screen and (max-width: 768px) {
+    #partnershipFirstSection h1 {      
+        font-size: 27px;
+    }
+    #partnershipFirstSection h3 {
+        font-size: 18px;
+    }
+    #partnershipFirstSection .col-md-5 {
+        margin-top: 13px;
+    }
+    #partnershipFirstSection {
+        margin-top: -182px;
+    }
+    #partnershipSecondSection .partOne {
+        padding: 53px 30px;
+    }
+    #partnershipSecondSection h1 {      
+        margin-bottom: 20px;       
+    }
+    #partnershipFirstSection > .row {
+        padding: 235px 5px 100px 5px;    
+    }
+    #partnershipSecondSection, #partnershipThirdSection {
+        padding: 50px 20px;
+    }
+    #partnershipSecondSection .box {
+        font-size: 16px;
+        padding: 26px 21px;      
+    }
+    .rr {
+        margin-bottom: -74px;
+    }
+    .rr2 {
+        margin-bottom: -86px;
+    }
+  
+   
+  
+}

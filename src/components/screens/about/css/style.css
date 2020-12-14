@@ -1,0 +1,214 @@
+#aboutFirstSection{
+	background-image: url('../../../../assets/img/sample.jpg');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-attachment: fixed;
+	background-size: cover;
+	margin-top: -115px;
+	color: white;
+}
+#aboutFirstSection > .row {
+    padding: 264px 36px 200px 36px;
+    z-index: 2;
+    position: relative;
+}
+#aboutFirstSection h1 {
+    letter-spacing: 1px;
+}
+#aboutFirstSection hr {
+	width: 8%;
+	border: solid 2px #2bb58e; 
+	float: left;   
+}
+#aboutFirstSection .col-md-5 {
+    margin-top: -50px;
+}
+#aboutFirstSection img.groupPhoto {
+    width: 100% !important;   
+    border: solid 5px #222;
+    height:320px;
+    object-fit: cover;
+}
+#aboutFirstSection h3 {    
+    clear: both;
+    margin-bottom: 22px;
+}
+#aboutSecondSection .partOne {
+    background: #f5f5f5;
+    padding: 70px;
+}
+#aboutSecondSection h1{
+    font-family: font2;
+    margin-bottom: 40px;
+    color: #2bb58e;
+}
+#aboutSecondSection .partOne p{
+    font-size: 25px;
+}
+#aboutSecondSection .slide1 {
+    margin-top: 100px;
+}
+#aboutSecondSection .slide1 img {
+    border: solid 5px #222;
+    height: 360px;
+    object-fit: cover;
+    object-position: top;
+}
+#aboutSecondSection .partTwo{
+    padding: 70px;
+}
+#aboutSecondSection .partTwo svg {
+    font-size: 38px;
+    color: #2bb58e;
+}
+#aboutSecondSection .partTwo p {
+    font-size: 20px;
+    margin-bottom: 37px;
+}
+#aboutFourthSection, #aboutFifthSection {
+    padding: 70px 80px;
+}
+#aboutFourthSection h1, #aboutFifthSection h1{
+    margin-bottom: 100px;
+    color: #2bb58e;
+}
+#aboutFourthSection svg {
+    background: #2bb58e;
+    padding: 13px;
+    border-radius: 50%;
+    color: white;
+    height: 50px;
+    width: 50px;
+}
+#aboutFourthSection h4 {
+    font-family: font2;
+    margin-top: 7px;
+}
+#aboutFourthSection p {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 .5pt 10pt rgba(0,0,0,.1);
+}
+#aboutFourthSection .push1 {
+    margin-left: -51px;
+}
+#aboutFourthSection .push2 {
+    margin-left: 51px;
+}
+#aboutFifthSection img {
+    object-fit: cover;
+    height: 320px;
+    border-radius: 8px 8px 0px 0px;
+    box-shadow: 0 .5pt 10pt rgba(0,0,0,.1);
+}
+#aboutFifthSection h5{
+    text-align: center;
+    color: #2bb58e;
+}
+#aboutFifthSection .box {   
+    border-radius: 0px 0px 8px 8px;
+    box-shadow: 0 .5pt 10pt rgba(0,0,0,.1);
+    padding: 16px;  
+    margin-bottom: 30px;  
+}
+#aboutFifthSection span {   
+   display: block;  
+}
+#aboutFifthSection p {
+    position: absolute;
+    width: 91%;
+    top: 0;
+    left: 15px;
+    background: white;
+    height: 344px;
+    overflow-y: scroll;
+    display: none;
+    animation: moveDown 0.5s ease-in-out;
+}
+#aboutFifthSection .col-md-3:hover p {   
+   display: block;
+}
+#aboutFifthSection .other1 {
+    margin-top: -57px;
+    background: white;
+}
+#aboutFifthSection .other2 {
+    margin-top: -34px;
+    background: white;
+}
+#aboutFifthSection .other3 {
+    margin-top: -24px;
+    background: white;
+}
+
+@media screen and (max-width: 768px) {
+    #aboutFirstSection h1 {      
+        font-size: 27px;
+    }
+    #aboutFirstSection h3 {
+        font-size: 18px;
+    }
+    #aboutFirstSection .col-md-5 {
+        margin-top: 13px;
+    }
+    #aboutFirstSection {
+        margin-top: -182px;
+    }
+    #aboutSecondSection .partOne {
+        padding: 53px 30px;
+    }
+    #aboutSecondSection h1 {      
+        margin-bottom: 20px;       
+    }
+    #aboutSecondSection .partOne p {
+        font-size: 17px;
+    }
+    #aboutSecondSection .partTwo {
+        padding: 50px 20px;
+    }
+    #aboutSecondSection .partTwo p {
+        font-size: 17px;        
+    }
+    #aboutSecondSection .paddingLeftOff {
+        padding-left: 15px !important;
+    }
+    #aboutFourthSection, #aboutFifthSection {
+        padding: 50px 31px;
+    }
+    #aboutFourthSection .push1 {
+        margin-left: 1px;
+    }
+    #aboutFourthSection .push2 {
+        margin-left: 1px;
+    }
+    #aboutFourthSection h1, #aboutFifthSection h1 {
+        margin-bottom: 50px;    
+    }
+    #aboutFourthSection svg {
+        padding: 9px;
+        height: 38px;
+        width: 38px;
+    }
+    #aboutFourthSection p {
+        padding: 13px;
+        font-size: 14px;
+    }
+    #aboutFirstSection > .row {
+        padding: 264px 13px 200px 13px;  
+    }
+    #aboutFirstSection img.groupPhoto {     
+        height: 166px;      
+    }
+    #aboutFourthSection .push2 .col-2 {
+        margin-left: -27px;
+    } 
+    #aboutFifthSection img {       
+        object-position: top;
+        height: 273px;
+    }   
+    #aboutSecondSection .slide1 img {    
+        height: 200px;       
+    }
+  
+}
