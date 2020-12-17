@@ -1,0 +1,254 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&display=swap");
+
+#classPageFirstSection {
+  height: calc(100vh - 50px);
+  width: 100%;
+  margin-top: -80px;
+  background-color: #ddd;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  color: white;
+}
+#classPageFirstSection h1 {
+  position: absolute;
+  bottom: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: font2;
+  font-size: 150px;
+  font-weight: 800;
+}
+#classPageFirstSection .list {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  height: 180px;
+  width: 700px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#classPageFirstSection .list .item {
+  flex: 1 0 300px;
+  height: 70px;
+  margin: 5px;
+  /* font-weight: 600; */
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: font3;
+  font-size: 17px;
+}
+#classPageFirstSection .list .item .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  margin-right: 20px;
+}
+#classPageFirstSection .list .item .whiteIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.192);
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  margin-right: 20px;
+}
+
+#classPageFirstSection .subHead {
+  position: absolute;
+  bottom: 2%;
+  left: 6%;
+  height: 50px;
+  width: 300px;
+  font-size: 26px;
+  font-weight: 400;
+  font-family: font2;
+}
+@media screen and (max-width: 900px) {
+  #classPageFirstSection {
+    height: 650px;
+    margin-top: -248px;
+  }
+  #classPageFirstSection h1 {
+    bottom: 45%;
+    left: 5%;
+    transform: translateX(-0%);
+    font-size: 50px;
+  }
+  #classPageFirstSection .list {
+    bottom: 27%;
+    left: 0%;
+    height: 100px;
+    width: 300px;
+  }
+  #classPageFirstSection .list .item {
+    height: 40px;
+    font-weight: normal;
+  }
+  #classPageFirstSection .subHead {
+    height: 30px;
+    width: 100px;
+    font-weight: normal;
+  }
+  #classPageFirstSection .list .item .icon {
+    height: 40px;
+    width: 40px;
+  }
+  #classPageFirstSection .list .item .whiteIcon {
+    height: 40px;
+    width: 40px;
+  }
+  #classPageFirstSection .subHead {
+    width: 300px;
+    font-size: 20px;
+  }
+}
+
+#classPageSecondSection {
+  background-color: black;
+  min-height: 500px;
+  width: 100%;
+  padding: 50px 10px;
+}
+#classPageSecondSection .list {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#classPageSecondSection .item {
+  flex: 0 0 240px;
+  height: 160px;
+  background-color: rgba(255, 255, 255, 0.192);
+  margin: 15px 3px;
+  border-radius: 10px;
+  position: relative;
+}
+#classPageSecondSection .item .itemImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.192);
+  border-radius: 10px;
+  
+  overflow: hidden;
+}
+#classPageSecondSection .item .itemImage img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+#classPageSecondSection .item .itemPop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 370px;
+  height: 419px;
+  background-color: rgb(8, 8, 8);
+  margin: 15px 3px;
+  border-radius: 10px;
+  display: none;
+  z-index: 2;
+  color: white;
+  overflow: hidden;
+  box-shadow: 0 0.5pt 10pt rgba(0, 0, 0, 0.849);
+}
+#classPageSecondSection .item .itemPop .image {
+  height: 238px;
+  width: 100%;
+  background-color: #fff;
+  overflow: hidden;
+}
+#classPageSecondSection .item .itemPop .image img {
+  width: 100%;
+  /* object-fit: cover; */
+  /* object-position: top; */
+  height: 100%;
+}
+#classPageSecondSection .item .itemPop .details {
+  padding: 15px;
+  box-sizing: border-box;
+}
+#classPageSecondSection .item .itemPop .icons {
+  display: flex;
+  margin-bottom: 20px;
+}
+#classPageSecondSection .item .itemPop .icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.192);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 10px;
+  font-size: 14px;
+  position: relative;
+}
+#classPageSecondSection .item .itemPop .icon .icon_popup {
+  text-align: center;
+  font-size: 11px;
+  position: absolute;
+  top: -10%;
+  transform: translate(12%, -100%);
+  width: max-content;
+  padding: 2px 5px;
+  border-radius: 2px;
+  height: 30px;
+  color: black;
+  /* z-index: 2222; */
+  background-color: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 68%, 41% 68%, 38% 100%, 34% 68%, 0 68%);
+  display: none;
+}
+#classPageSecondSection .item .itemPop .icon:hover .icon_popup {
+  display: block;
+}
+
+#classPageSecondSection .item .itemPop .last_icon {
+  margin-left: auto;
+}
+#classPageSecondSection .item .itemPop .para {
+  color: limegreen;
+  margin-left: 20px;
+}
+#classPageSecondSection .item .itemPop .terms {
+  margin-left: 20px;
+}
+#classPageSecondSection .item .itemPop .terms span {
+  border: solid 1px currentColor;
+  padding: 0px 10px;
+  margin-right: 10px;
+}
+@media screen and (max-width: 900px) {
+  #classPageSecondSection .list {
+    justify-content: center;
+  }
+  #classPageSecondSection .item .itemPop {
+    width: 350px;
+    height: 400px;
+  }
+}
+@media screen and (max-width: 600px) {
+  #classPageSecondSection .item .itemPop {
+    width: 300px;
+    height: 400px;
+  }
+  #classPageSecondSection .item .itemPop .image {
+    height: 230px;
+  }
+}

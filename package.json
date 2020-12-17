@@ -22,7 +22,8 @@
     "react-typed": "^1.2.0",
     "reactjs-countdown": "0.0.8",
     "reactstrap": "^8.1.1",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
