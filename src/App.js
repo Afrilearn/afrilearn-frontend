@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import './App.css';
 import Navigation from './components/includes/nav.component';
 
-
 const App = () => {
  
   return (   

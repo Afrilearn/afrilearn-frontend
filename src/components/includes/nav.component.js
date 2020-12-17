@@ -26,20 +26,32 @@ const MyNav = props => {
 				</NavbarBrand>
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>
-					<Nav className="ml-auto" navbar>						
+					<Nav className="ml-auto" navbar>
+						<NavItem>
+							<NavLink tag={Link} className="relative searchArea">
+								{/* <img className="searchIcon" src={require('../../assets/img/search.png')} alt="Afrilearn Search button"/> */}
+								<input type="text" placeholder="Search" className="searchBox"/>
+								<img className="searchIcon" src={require('../../assets/img/search.png')} alt="Afrilearn Search button"/>
+							</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink tag={Link} to="/partnership">
+								Classes
+							</NavLink>
+						</NavItem>							
 						<NavItem>
 							<NavLink tag={Link} to="/about">
 								About Us
 							</NavLink>
-						</NavItem>						
+						</NavItem>	
 						<NavItem>
-							<NavLink tag={Link} to="/partnership">
-								Partnerships
+							<NavLink tag={Link} to="/contact" className="contact">
+								Login
 							</NavLink>
 						</NavItem>
 						<NavItem>
 							<NavLink tag={Link} to="/contact" className="contact">
-								Contact Us
+								Register
 							</NavLink>
 						</NavItem>
 					</Nav>
