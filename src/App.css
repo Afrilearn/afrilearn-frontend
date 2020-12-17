@@ -1,18 +1,18 @@
 @font-face {
   font-family: 'font1';
-  src: url('./assets/fonts/ubuntu-regular.ttf') format('opentype');
+  src: url('./assets/fonts/Nunito-SemiBold.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'font2';
-  src: url('./assets/fonts/ubuntu-medium.ttf') format('opentype');
+  src: url('./assets/fonts/Baloo-Regular-400.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'font3';
-  src: url('./assets/fonts/quicksand.ttf') format('opentype');
+  src: url('./assets/fonts/Nunito-Regular.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -134,8 +134,34 @@ img.logo {
 }
 .contact {
   background: #2bb58e !important;
-  border-radius: 4px;
-  color:white !important;
+  border-radius: 10px;
+  color: white !important;
+  margin-right: 21px;
+  width: 100px;
+  text-align: center;
+}
+img.searchIcon {
+  width: 22px;
+  height: 23px;
+}
+input.searchBox {
+  background: rgba(2, 2, 2, 0.6);
+  border: 1px solid #FFF;
+  box-sizing: border-box;
+  color: white;
+  padding: 8px 27px 8px 44px;
+  margin-top: -8px;
+  display: none;
+  -webkit-animation: moveDown .5s ease-in-out;
+  animation: moveDown .5s ease-in-out;
+}
+.searchArea:hover input.searchBox{
+  display: block;
+}
+.searchArea:hover img.searchIcon{
+  position: absolute;
+  left: 32px;
+  top: 9px;
 }
 
 @media screen and (max-width: 768px) {
@@ -164,9 +190,12 @@ img.logo {
  h4{
   font-size: 15px;
 }
-.contact {
+.contact {      
+  text-align: left;
   background: transparent !important;
-      
+}
+.ytp-title-channel-logo {
+  margin-top: 10px !important;
 }
  
 
