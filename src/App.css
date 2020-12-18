@@ -226,6 +226,12 @@ input.searchBox {
 .fly .col-md-12 {
   z-index: 99;
 }
+.optional {
+  position: absolute;
+  right: 40px;
+  top: 33px;
+  font-size: 12px;
+}
 
 select.general,
 input.general {
@@ -254,6 +260,15 @@ option {
 .white {
   color: white !important;
 }
+
+.custom-checkbox .custom-control-label::before {
+  margin-top: -3px;
+}
+
+.custom-control-label::after {
+  top: 0.15rem;
+}
+
 
 @media screen and (max-width: 768px) {
   .mobileOnly {
@@ -303,7 +318,7 @@ option {
     width: 95%;
     padding: 40px 10px;
     margin: auto;
-}
+  }
 
   .bg-light {
     background-color: transparent !important;
