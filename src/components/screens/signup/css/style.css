@@ -1,0 +1,48 @@
+#signupFirstSection{
+	background-image: url('../../../../assets/img/sample.jpg');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-attachment: fixed;
+	background-size: cover;
+	margin-top: -90px;
+    color: white;
+    height: 140vh;
+}
+
+#signupFirstSection h3 {
+    font-family: font1;
+    color: white;
+}
+
+#signupFirstSection img.social {
+    width: 23px;
+    height: 23px;
+    object-fit: contain;
+}
+
+#signupFirstSection .socialText {
+    color: #636060;
+    font-size: 13px;
+}
+#signupFirstSection .push {
+    margin-top: 15px;
+}
+#signupFirstSection input[type="submit"] {
+    border-radius: 4px !important;
+}
+#signupFirstSection .optional {
+    position: absolute;
+    right: 40px;
+    top: 33px;
+    font-size: 13px;
+}
+
+@media screen and (max-width: 768px) {
+    #signupFirstSection {     
+        height: 156vh;
+    }
+    #signupFirstSection .push7 {
+        margin-top: 15px;
+    }
+  
+}
