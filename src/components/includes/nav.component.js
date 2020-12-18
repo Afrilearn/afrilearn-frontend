@@ -17,6 +17,7 @@ import contact from "../screens/contact/contact.component";
 import classes from "../screens/classes/classes.component";
 import classPage from "../screens/class/class.component";
 import register from "../screens/signup/signup.component";
+import login from "../screens/login/login.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +57,7 @@ const MyNav = (props) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/contact" className="contact">
+              <NavLink tag={Link} to="/login" className="contact">
                 Login
               </NavLink>
             </NavItem>
@@ -76,6 +77,7 @@ const MyNav = (props) => {
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
 		<Route path="/register" component={register} />
+		<Route path="/login" component={login} />
       </Switch>
       <Footer />
     </Router>

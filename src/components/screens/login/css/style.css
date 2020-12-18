@@ -1,4 +1,4 @@
-#signupFirstSection{
+#loginFirstSection{
 	background-image: url('../../../../assets/img/sample.jpg');
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -6,37 +6,40 @@
 	background-size: cover;
 	margin-top: -90px;
     color: white;
-    height: 140vh;
+    height: 110vh;
 }
 
-#signupFirstSection h3 {
+#loginFirstSection h3 {
     font-family: font1;
     color: white;
 }
 
-#signupFirstSection img.social {
+#loginFirstSection img.social {
     width: 23px;
     height: 23px;
     object-fit: contain;
 }
 
-#signupFirstSection .socialText {
+#loginFirstSection .socialText {
     color: #636060;
     font-size: 13px;
 }
-#signupFirstSection .push {
+#loginFirstSection .push {
     margin-top: 15px;
 }
-#signupFirstSection input[type="submit"] {
+#loginFirstSection input[type="submit"] {
     border-radius: 4px !important;
 }
 
 @media screen and (max-width: 768px) {
-    #signupFirstSection {     
-        height: 156vh;
+    #loginFirstSection {
+        height: 125vh;
     }
-    #signupFirstSection .push7 {
-        margin-top: 15px;
+    #loginFirstSection .push7 {
+        margin-top: 15px;      
+    }
+    #loginFirstSection .push7 .floatRight{
+        float: left !important;
     }
   
 }

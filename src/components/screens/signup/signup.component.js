@@ -64,7 +64,7 @@ const Signup = props => {
                            </div>
                         </div>
                         <div className="col-md-12 socialText push">
-                            Already have an account? <b className="white">&nbsp; <Link>Login</Link></b>
+                            Already have an account? <b className="white">&nbsp; <Link>Log in</Link></b>
                         </div> 
                   
                 </div>
