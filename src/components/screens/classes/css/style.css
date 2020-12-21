@@ -265,7 +265,7 @@
   font-size: 30px;
 }
 .play {
-  margin-right: -6px;
+  margin-right: 15px;
 }
 @media screen and (max-width: 900px) {
   .microphone {
