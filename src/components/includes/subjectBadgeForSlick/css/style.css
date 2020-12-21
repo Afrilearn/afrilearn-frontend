@@ -1,0 +1,133 @@
+#subjectBadgeForSlick .item {
+  height: 160px;
+  background-color: rgba(255, 255, 255, 0.192);
+  margin: 15px 3px;
+  border-radius: 10px;
+  position: relative;
+}
+#subjectBadgeForSlick .item .itemImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.192);
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+#subjectBadgeForSlick .item .itemImage img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+#subjectBadgeForSlick .item .itemPop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 370px;
+  height: 419px;
+  background-color: rgb(8, 8, 8);
+  margin: 15px 3px;
+  border-radius: 10px;
+  display: none;
+  z-index: 2;
+  color: white;
+  overflow: hidden;
+  box-shadow: 0 0.5pt 10pt rgba(0, 0, 0, 0.849);
+}
+#subjectBadgeForSlick .item:hover {
+  transform: scale(1.01) translateY(-50%);
+  z-index: 22;
+}
+#subjectBadgeForSlick .item:hover .itemPop {
+  display: block;
+}
+#subjectBadgeForSlick .item .itemPop .image {
+  height: 238px;
+  width: 100%;
+  background-color: #fff;
+  overflow: hidden;
+}
+#subjectBadgeForSlick .item .itemPop .image img {
+  width: 100%;
+  height: 100%;
+}
+#subjectBadgeForSlick .item .itemPop .details {
+  padding: 15px;
+  box-sizing: border-box;
+}
+#subjectBadgeForSlick .item .itemPop .icons {
+  display: flex;
+  margin-bottom: 20px;
+}
+#subjectBadgeForSlick .item .itemPop .icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.192);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 10px;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+}
+#subjectBadgeForSlick .item .itemPop .icon:hover {
+  background-color: #fff;
+  color: black;
+}
+#subjectBadgeForSlick .item .itemPop .icon .icon_popup {
+  text-align: center;
+  font-size: 11px;
+  position: absolute;
+  top: -10%;
+  transform: translate(12%, -100%);
+  width: max-content;
+  padding: 2px 5px;
+  border-radius: 2px;
+  height: 30px;
+  color: black;
+  background-color: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 68%, 41% 68%, 38% 100%, 34% 68%, 0 68%);
+  display: none;
+}
+#subjectBadgeForSlick .item .itemPop .icon:hover .icon_popup {
+  display: block;
+}
+
+#subjectBadgeForSlick .item .itemPop .last_icon {
+  margin-left: auto;
+}
+#subjectBadgeForSlick .item .itemPop .para {
+  color: limegreen;
+  margin-left: 20px;
+}
+#subjectBadgeForSlick .item .itemPop .terms {
+  margin-left: 20px;
+}
+#subjectBadgeForSlick .item .itemPop .terms span {
+  border: solid 1px currentColor;
+  padding: 0px 10px;
+  margin-right: 10px;
+}
+@media screen and (max-width: 900px) {
+  #subjectBadgeForSlick .list {
+    justify-content: center;
+  }
+  #subjectBadgeForSlick .item .itemPop {
+    width: 350px;
+    height: 400px;
+  }
+}
+@media screen and (max-width: 600px) {
+  #subjectBadgeForSlick .item .itemPop {
+    width: 300px;
+    height: 400px;
+  }
+  #subjectBadgeForSlick .item .itemPop .image {
+    height: 230px;
+  }
+}
