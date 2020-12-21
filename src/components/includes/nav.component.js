@@ -22,6 +22,7 @@ import register from "../screens/signup/signup.component";
 import login from "../screens/login/login.component";
 import resetPassword from "../screens/resetPassword/resetPassword.component";
 import changePassword from "../screens/changePassword/changePassword.component";
+import instructions from "../screens/instructions/instructions.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,19 +55,14 @@ const MyNav = (props) => {
               <NavLink tag={Link} to="/classes">
                 Classes
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/content">
-                Content
-              </NavLink>
-            </NavItem> 
+            </NavItem>          
             <NavItem>
               <NavLink tag={Link} to="/about">
                 About Us
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/login" className="contact">
+              <NavLink tag={Link} to="/login" className="contact contact1">
                 Login
               </NavLink>
             </NavItem>
@@ -91,6 +87,7 @@ const MyNav = (props) => {
 		<Route path="/login" component={login} />
 		<Route path="/reset_password" component={resetPassword} />
 		<Route path="/change_password" component={changePassword} />
+		<Route path="/instructions" component={instructions} />
       </Switch>
       <Footer />
     </Router>

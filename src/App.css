@@ -168,7 +168,7 @@ img.logo {
 
 .bg-light {
   background-color: transparent !important;
-  padding: 17px 59px 17px 28px;
+  padding: 17px 28px;
   z-index: 20;
   color: white !important;
 }
@@ -181,9 +181,12 @@ img.logo {
   background: #2bb58e !important;
   border-radius: 10px;
   color: white !important;
-  margin-right: 21px;
   width: 100px;
   text-align: center;
+}
+
+.contact1 {
+  margin-right: 21px;
 }
 
 img.searchIcon {
