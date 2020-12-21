@@ -198,6 +198,11 @@
   margin: 5px 10px;
   font-size: 14px;
   position: relative;
+  cursor: pointer;
+}
+#classPageSecondSection .item .itemPop .icon:hover{
+  background-color: #fff;
+  color: black;
 }
 #classPageSecondSection .item .itemPop .icon .icon_popup {
   text-align: center;

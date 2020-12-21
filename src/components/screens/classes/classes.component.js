@@ -339,7 +339,7 @@ export default class Classes extends Component {
           <div className="classes_page_class_pop_up_page">
             <FontAwesomeIcon
               onClick={this.hidePopUp}
-              className="classes_page_class_pop_up_close"
+              className="classes_page_class_pop_up_close" 
               icon={faTimes}
             />
             <div

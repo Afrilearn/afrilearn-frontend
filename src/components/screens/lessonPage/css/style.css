@@ -135,7 +135,7 @@
 #lessonPageSectionTwo .right .mid {
   width: 100%;
   border-radius: 10px;
-  margin: 20px 0;
+  margin: 30px 0;
   background: linear-gradient(
     181.01deg,
     rgba(51, 50, 50, 0.36) 0.87%,
@@ -175,7 +175,6 @@
 }
 #lessonPageSectionTwo .right .mid .item .right {
   flex: 0 0 60%;
-  height: 100px;
 }
 #lessonPageSectionTwo .right .mid .right .button {
   border: solid 1px currentColor;
@@ -278,7 +277,7 @@
   #lessonPagePopUpOne h3,
   #lessonPagePopUpTwo h3 {
     font-size: 16px;
-    margin:  20px;
+    margin: 20px;
   }
   #lessonPagePopUpOne p,
   #lessonPagePopUpTwo p {

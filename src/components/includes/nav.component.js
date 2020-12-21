@@ -55,11 +55,11 @@ const MyNav = (props) => {
                 Classes
               </NavLink>
             </NavItem>
-            {/* <NavItem>
+            <NavItem>
               <NavLink tag={Link} to="/content">
                 Content
               </NavLink>
-            </NavItem> */}
+            </NavItem> 
             <NavItem>
               <NavLink tag={Link} to="/about">
                 About Us

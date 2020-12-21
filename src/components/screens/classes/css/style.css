@@ -125,6 +125,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  cursor: pointer;
 }
 .classes_page_classlist_section_class_subject_details_icon_popup {
   text-align: center;
@@ -210,6 +211,7 @@
   z-index: 3;
   top: 20px;
   right: 20px;
+  cursor: pointer;
 }
 @media screen and (max-width: 900px) {
   .classes_page_class_pop_up_page {
@@ -418,6 +420,7 @@
   flex: 0 0 251px;
   border-radius: 5px;
   margin-right: 20px;
+  margin-bottom: 10px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -447,7 +450,7 @@
   align-items: center;
   margin-right: 11px;
   margin-bottom: 10px;
-  padding: 4px 4px;
+  padding: 3px;
 }
 .classes_page_class_pop_up_page_term_item_left_bottom_item button {
   border: none;
