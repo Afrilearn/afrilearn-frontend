@@ -18,6 +18,9 @@ import classes from "../screens/classes/classes.component";
 import classPage from "../screens/class/class.component";
 import content from "../screens/content/content.component";
 import lessonPage from "../screens/lessonPage/lessonPage.component";
+import register from "../screens/signup/signup.component";
+import login from "../screens/login/login.component";
+import resetPassword from "../screens/resetPassword/resetPassword.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,6 +86,9 @@ const MyNav = (props) => {
         <Route path="/classes" component={classes} />
         <Route path="/content/:lessonId" component={lessonPage} />
         <Route path="/content" component={content} />
+		<Route path="/register" component={register} />
+		<Route path="/login" component={login} />
+		<Route path="/reset_password" component={resetPassword} />
       </Switch>
       <Footer />
     </Router>

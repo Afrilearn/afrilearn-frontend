@@ -280,7 +280,7 @@ option {
   }
 
   .bg-light {
-    padding: 15px 18px 3px 18px;
+    padding: 16px 18px;
   }
 
   .navbar-light .navbar-toggler {
@@ -329,6 +329,12 @@ option {
     background-position: top center;
     background-attachment: fixed;
     background-size: cover;
+  }
+  input.searchBox {
+    margin-top: 6px;   
+  }
+  .searchArea:hover img.searchIcon {
+    top: 23px;
   }
 
 

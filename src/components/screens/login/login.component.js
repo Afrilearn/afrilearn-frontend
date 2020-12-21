@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { CustomInput } from 'reactstrap';
 
 
-const Signup = props => {  
+const Login = props => {  
     const mounted = useRef(); 
     useEffect(()=>{
         if (!mounted.current) {
@@ -17,7 +17,7 @@ const Signup = props => {
     })       
    
 	return (        
-		<span id="signup">   
+		<span id="login">   
             <div id="loginFirstSection" className="container-fluid relative">                         
                 <div className="row fly">
                      <div className="overlay overlayAuth"></div>                   
@@ -29,7 +29,7 @@ const Signup = props => {
                         </div>
                         <div className="col-md-12 relative">
                            <input type="password" placeholder="Password" className="general"/>
-                           <p className="optional"><Link><i>Forgot Password?</i></Link></p>
+                           <p className="optional"><Link to="/reset_password"><i>Forgot Password?</i></Link></p>
                         </div>                       
                         <div className="col-md-12">
                            <input type="submit" value="Login" className="general"/>
@@ -55,7 +55,7 @@ const Signup = props => {
                            </div>
                         </div>
                         <div className="col-md-12 socialText push">
-                            New to Afrilearn? <b className="white">&nbsp; <Link>Register</Link></b>
+                            New to Afrilearn? <b className="white">&nbsp; <Link to="/register">Register</Link></b>
                         </div>                   
                 </div>
             </div>
@@ -63,4 +63,4 @@ const Signup = props => {
 	);
 };
 
-export default Signup;
+export default Login;
