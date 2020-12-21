@@ -144,7 +144,7 @@ class LessonPage extends Component {
                     />
                     Lesson 2
                   </div>
-                </div> 
+                </div>  
               </div>
               <div className="item">
                 <div className="img">

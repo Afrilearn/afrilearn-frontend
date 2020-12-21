@@ -186,7 +186,7 @@ class ClassPage extends Component {
                 key={item._id}
                 onClick={this.popClassUp}
               >
-                <div className="itemImage">
+                <div className="itemImage"> 
                   <img src={item.image} alt="class"></img>
                 </div>
                 <div className="itemPop" id={item._id}>
