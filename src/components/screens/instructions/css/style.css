@@ -1,0 +1,72 @@
+#instructions {
+    background-color: black;
+    margin-top: -90px;
+    padding: 90px;
+    color: white;
+}
+#instructions input[type="submit"] {
+    border-radius: 4px !important;
+}
+#instructions .firstSection h4 {
+    margin-top: 70px;
+    text-align: center;
+    color: #26AA76;
+    margin-bottom: 50px;
+}
+#instructions .secondSection .partTwo {
+    font-family: font3;
+    margin-top: 30px;
+}
+#instructions .subjectName {
+    background: #75EF9C;
+    color: #26AA76;
+    padding: 7px 19px;
+    opacity: 0.3;
+    border-radius: 5px;
+}
+#instructions  img.thumb{
+    width: 15px;
+    margin-top: -9px;
+}
+#instructions  a.proceed {
+    background: #2bb58e !important;
+    border-radius: 10px;
+    color: white !important;
+    text-align: center;
+    padding: 9px 24px;
+}
+#instructions  .push2{
+    margin-bottom: 30px;
+}
+#instructions  img.ready {
+    width: 374px;
+    height: 374px;
+    object-fit: contain;
+    object-position: top;
+    margin: auto;
+        margin-top: auto;
+    display: block;
+    margin-top: -36px;
+}
+
+@media screen and (max-width: 768px) {
+    #instructions { 
+        padding: 50px 20px;
+        margin-top: 0px;     
+    }
+    #instructions .firstSection h4 {
+        margin-top: 0px;
+        margin-bottom: 35px;
+        font-size: 22px;
+    }
+    #instructions .subjectName {
+        padding: 4px 14px;
+        float: right;      
+    }
+    #instructions img.ready {
+        width: 100%;
+        height: auto;
+        margin-top: 40px;
+    }
+    
+}

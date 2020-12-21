@@ -604,7 +604,7 @@ const Homepage = (props) => {
           <div className="col-md-6">
             <img
               className="bigThing floatRight"
-              src={require("../../../assets/img/gamified.png")}
+              src={require("../../../assets/img/gamified.gif")}
               alt="Next big thing"
             />
           </div>
@@ -1130,7 +1130,7 @@ const Homepage = (props) => {
           <div className="col-md-6">
             <img
               className="bigThing other"
-              src={require("../../../assets/img/personified.png")}
+              src={require("../../../assets/img/personified.gif")}
               alt="Personalised learning."
             />
           </div>
