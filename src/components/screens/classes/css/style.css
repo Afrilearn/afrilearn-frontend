@@ -5,6 +5,7 @@
   color: white;
   padding: 150px 0px 100px 30px;
   position: relative;
+  overflow: hidden;
 }
 .classes_page_head_section {
   display: flex;
@@ -337,7 +338,7 @@
   color: grey;
 }
 @media screen and (max-width: 900px) {
-  .classes_page_class_pop_up_page_subject_details{
+  .classes_page_class_pop_up_page_subject_details {
     padding: 20px;
   }
   .classes_page_class_pop_up_page_subject_details_right {
@@ -349,6 +350,28 @@
   .classes_page_class_pop_up_page_subject_details_right_head {
     width: 100%;
   }
+}
+.classes_page_class_pop_up_page_terms {
+  border-bottom: none;
+  position: relative;
+}
+.seeLess {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: rgba(39, 38, 38, 0.5);
+  border: 2px solid rgba(229, 229, 229, 0.5);
+  box-sizing: border-box;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  display: none;
 }
 .classes_page_class_pop_up_page_term {
   padding: 0 40px;
@@ -424,7 +447,7 @@
   align-items: center;
   margin-right: 10px;
   margin-bottom: 10px;
-  padding:  6px;
+  padding: 6px;
 }
 .classes_page_class_pop_up_page_term_item_left_bottom_item button {
   border: none;

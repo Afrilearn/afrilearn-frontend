@@ -9,6 +9,7 @@ import {
   faAngleDown,
   faTimes,
   faVolumeUp,
+  faAngleUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -45,14 +46,17 @@ class ClassPage extends Component {
     terms: [
       {
         _id: 1,
+        name: "First Term",
         classes: [{ _id: 1 }, { _id: 2 }],
       },
       {
         _id: 2,
+        name: "Second Term",
         classes: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       },
       {
         _id: 3,
+        name: "Third Term",
         classes: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       },
     ],
@@ -65,9 +69,7 @@ class ClassPage extends Component {
     this.setState({
       popUp: classId,
     });
-    // const page = document.getElementById("classes_page");
     const popUp = document.getElementById("class_pop_up");
-    // page.style.backgroundColor = "black";
     popUp.style.display = "block";
     // setTimeout(() => {
     //   console.log(this.state.popUp);
@@ -82,17 +84,21 @@ class ClassPage extends Component {
     ipop.style.display = "none";
   };
   seeMore = (event) => {
-    // const page = document.getElementById("classes_page");
-    const popUp = document.getElementById("class_pop_up");
-    // page.style.backgroundColor = "black";
-    popUp.style.display = "block";
     event.preventDefault();
+    const popUp = document.getElementById("class_pop_up");
+    const seeLess = document.querySelector(".seeLess");
+    const termPage = document.querySelector(
+      ".classes_page_class_pop_up_page_terms"
+    );
     const terms = document.querySelectorAll(
       ".classes_page_class_pop_up_page_term"
     );
     const seeMoreButtons = document.querySelectorAll(
       ".classes_page_class_pop_up_page_term_item_see_more"
     );
+    popUp.style.display = "block";
+    seeLess.style.display = "flex";
+    termPage.style.borderBottom = "1px solid #fff";
     for (let index = 0; index < terms.length; index++) {
       const term = terms[index];
       term.style.display = "block";
@@ -100,6 +106,35 @@ class ClassPage extends Component {
     for (let index = 0; index < seeMoreButtons.length; index++) {
       const seeMoreButton = seeMoreButtons[index];
       seeMoreButton.style.display = "none";
+    }
+  };
+  seeLess = (event) => {
+    event.preventDefault();
+    const popUp = document.getElementById("class_pop_up");
+    const seeLess = document.querySelector(".seeLess");
+    const terms = document.querySelectorAll(
+      ".classes_page_class_pop_up_page_term"
+    );
+    const seeMoreButtons = document.querySelectorAll(
+      ".classes_page_class_pop_up_page_term_item_see_more"
+    );
+    const termPage = document.querySelector(
+      ".classes_page_class_pop_up_page_terms"
+    );
+    popUp.style.display = "block";
+    seeLess.style.display = "none";
+    termPage.style.borderBottom = "none";
+    for (let index = 1; index < terms.length; index++) {
+      const term = terms[index];
+      term.style.display = "none";
+    }
+    for (
+      let index = this.state.terms[0].classes.length - 1;
+      index < seeMoreButtons.length;
+      index++
+    ) {
+      const seeMoreButton = seeMoreButtons[index];
+      seeMoreButton.style.display = "flex";
     }
   };
   render() {
@@ -158,7 +193,7 @@ class ClassPage extends Component {
                   <div className="image">
                     <img src={item.image} alt="class"></img>
                   </div>
-                  <div className="details"> 
+                  <div className="details">
                     <div className="icons">
                       <div className="icon">
                         <FontAwesomeIcon icon={faPlay} />
@@ -168,7 +203,9 @@ class ClassPage extends Component {
                         <FontAwesomeIcon icon={faBookReader} />
                       </div>
                       <div className="icon">
-                        <div className="icon_popup">13,000 Registered Students</div>
+                        <div className="icon_popup">
+                          13,000 Registered Students
+                        </div>
                         <FontAwesomeIcon icon={faUserAlt} />
                       </div>
                       <div className="icon last_icon">
@@ -250,7 +287,7 @@ class ClassPage extends Component {
                 </p>
               </div>
             </div>
-            <div>
+            <div className="classes_page_class_pop_up_page_terms">
               {this.state.terms.map((term) => (
                 <div
                   key={term._id}
@@ -258,7 +295,7 @@ class ClassPage extends Component {
                   // id="terms"
                 >
                   <h4 className="classes_page_class_pop_up_page_term_head">
-                    First Term
+                    {term.name}
                   </h4>
                   <div className="classes_page_class_pop_up_page_term_list">
                     {term.classes.map((clazz) => (
@@ -317,6 +354,9 @@ class ClassPage extends Component {
                   </div>
                 </div>
               ))}
+              <span className="seeLess">
+                <FontAwesomeIcon onClick={this.seeLess} icon={faAngleUp} />
+              </span>
             </div>
           </div>
         </div>

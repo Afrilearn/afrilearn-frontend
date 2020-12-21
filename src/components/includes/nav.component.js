@@ -16,8 +16,8 @@ import Footer from "../includes/footer/footer.component";
 import contact from "../screens/contact/contact.component";
 import classes from "../screens/classes/classes.component";
 import classPage from "../screens/class/class.component";
-import register from "../screens/signup/signup.component";
-import login from "../screens/login/login.component";
+import content from "../screens/content/content.component";
+import lessonPage from "../screens/lessonPage/lessonPage.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +51,11 @@ const MyNav = (props) => {
                 Classes
               </NavLink>
             </NavItem>
+            {/* <NavItem>
+              <NavLink tag={Link} to="/content">
+                Content
+              </NavLink>
+            </NavItem> */}
             <NavItem>
               <NavLink tag={Link} to="/about">
                 About Us
@@ -76,8 +81,8 @@ const MyNav = (props) => {
         <Route path="/contact" component={contact} />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
-		<Route path="/register" component={register} />
-		<Route path="/login" component={login} />
+        <Route path="/content/:lessonId" component={lessonPage} />
+        <Route path="/content" component={content} />
       </Switch>
       <Footer />
     </Router>

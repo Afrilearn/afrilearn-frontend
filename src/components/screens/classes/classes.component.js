@@ -17,6 +17,7 @@ import english_two from "../../../assets/img/english_two.png";
 import firstterm from "../../../assets/img/firstterm.png";
 import {
   faAngleDown,
+  faAngleUp,
   faMicrophone,
   faPlay,
   faTimes,
@@ -29,14 +30,17 @@ export default class Classes extends Component {
     terms: [
       {
         _id: 1,
-        classes: [{ _id: 1 }, { _id: 2 }],
+        name: "First Term",
+        classes: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       },
       {
         _id: 2,
+        name: "Second Term",
         classes: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       },
       {
         _id: 3,
+        name: "Third Term",
         classes: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       },
     ],
@@ -240,17 +244,23 @@ export default class Classes extends Component {
     // }, 200);
   };
   seeMore = (event) => {
+    event.preventDefault();
     const page = document.getElementById("classes_page");
     const popUp = document.getElementById("class_pop_up");
-    page.style.backgroundColor = "black";
-    popUp.style.display = "block";
-    event.preventDefault();
+    const seeLess = document.querySelector(".seeLess");
     const terms = document.querySelectorAll(
       ".classes_page_class_pop_up_page_term"
     );
     const seeMoreButtons = document.querySelectorAll(
       ".classes_page_class_pop_up_page_term_item_see_more"
     );
+    const termClass = document.querySelector(
+      ".classes_page_class_pop_up_page_terms"
+    );
+    seeLess.style.display = "flex";
+    termClass.style.borderBottom = "1px solid #fff";
+    page.style.backgroundColor = "black";
+    popUp.style.display = "block";
     for (let index = 0; index < terms.length; index++) {
       const term = terms[index];
       term.style.display = "block";
@@ -260,6 +270,38 @@ export default class Classes extends Component {
       seeMoreButton.style.display = "none";
     }
   };
+  seeLess = (event) => {
+    event.preventDefault();
+    const page = document.getElementById("classes_page");
+    const popUp = document.getElementById("class_pop_up");
+    const seeLess = document.querySelector(".seeLess");
+    const termClass = document.querySelector(
+      ".classes_page_class_pop_up_page_terms"
+    );
+    const terms = document.querySelectorAll(
+      ".classes_page_class_pop_up_page_term"
+    );
+    const seeMoreButtons = document.querySelectorAll(
+      ".classes_page_class_pop_up_page_term_item_see_more"
+    );
+    seeLess.style.display = "none";
+    termClass.style.borderBottom = "none";
+    page.style.backgroundColor = "black";
+    popUp.style.display = "block";
+    for (let index = 1; index < terms.length; index++) {
+      const term = terms[index];
+      term.style.display = "none";
+    }
+    for (
+      let index = this.state.terms[0].classes.length - 1;
+      index < seeMoreButtons.length;
+      index++
+    ) {
+      const seeMoreButton = seeMoreButtons[index];
+      seeMoreButton.style.display = "flex";
+    }
+  };
+
   render() {
     return (
       <div className="classes_page" id="classes_page">
@@ -299,7 +341,7 @@ export default class Classes extends Component {
               onClick={this.hidePopUp}
               className="classes_page_class_pop_up_close"
               icon={faTimes}
-            /> 
+            />
             <div
               className="classes_page_class_pop_up_page_video"
               style={{
@@ -357,7 +399,7 @@ export default class Classes extends Component {
                 </p>
               </div>
             </div>
-            <div>
+            <div className="classes_page_class_pop_up_page_terms">
               {this.state.terms.map((term) => (
                 <div
                   key={term._id}
@@ -365,7 +407,7 @@ export default class Classes extends Component {
                   // id="terms"
                 >
                   <h4 className="classes_page_class_pop_up_page_term_head">
-                    First Term
+                    {term.name}
                   </h4>
                   <div className="classes_page_class_pop_up_page_term_list">
                     {term.classes.map((clazz) => (
@@ -381,28 +423,40 @@ export default class Classes extends Component {
                             Geometrical Construction (1): Lines
                           </h5>
                           <div className="classes_page_class_pop_up_page_term_item_left_bottom">
-                            <div className="classes_page_class_pop_up_page_term_item_left_bottom_item">
+                            <Link
+                              to="/content/ljdn9836z3n"
+                              className="classes_page_class_pop_up_page_term_item_left_bottom_item"
+                            >
                               <FontAwesomeIcon
                                 onClick={this.hidePopUp}
                                 icon={faPlay}
                               />
                               <button>Lesson 1</button>
-                            </div>
-                            <div className="classes_page_class_pop_up_page_term_item_left_bottom_item">
+                            </Link>
+                            <Link
+                              to="/content/ljdn9836z3n"
+                              className="classes_page_class_pop_up_page_term_item_left_bottom_item"
+                            >
                               <FontAwesomeIcon
                                 onClick={this.hidePopUp}
                                 icon={faPlay}
                               />
                               <button>Lesson 1</button>
-                            </div>
-                            <div className="classes_page_class_pop_up_page_term_item_left_bottom_item">
+                            </Link>
+                            <Link
+                              to="/content/ljdn9836z3n"
+                              className="classes_page_class_pop_up_page_term_item_left_bottom_item"
+                            >
                               <FontAwesomeIcon
                                 onClick={this.hidePopUp}
                                 icon={faPlay}
                               />
                               <button>Lesson 1</button>
-                            </div>
-                            <div className="classes_page_class_pop_up_page_term_item_left_bottom_item">
+                            </Link>
+                            <div
+                              to="/content/ljdn9836z3n"
+                              className="classes_page_class_pop_up_page_term_item_left_bottom_item"
+                            >
                               <button>Quiz</button>
                             </div>
                           </div>
@@ -421,6 +475,9 @@ export default class Classes extends Component {
                   </div>
                 </div>
               ))}
+              <span className="seeLess">
+                <FontAwesomeIcon onClick={this.seeLess} icon={faAngleUp} />
+              </span>
             </div>
           </div>
         </div>
