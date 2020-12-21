@@ -1,0 +1,36 @@
+#changePassword{
+	background-image: url('../../../../assets/img/sample.jpg');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-attachment: fixed;
+	background-size: cover;
+	margin-top: -90px;
+    color: white;
+    height: 110vh;
+}
+
+#changePassword h3 {
+    font-family: font1;
+    color: white;
+}
+#changePassword p {
+    margin-top: 20px;
+    padding-right: 23px;
+    font-size: 17px;
+    font-family: font3;
+}
+
+#changePassword .push {
+    margin-top: 15px;
+    font-size: 13px;
+}
+#changePassword input[type="submit"] {
+    border-radius: 4px !important;
+}
+
+@media screen and (max-width: 768px) {
+    #changePassword {
+        height: 100vh;
+    }
+         
+}
