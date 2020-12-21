@@ -1,0 +1,297 @@
+#lessonPageSectionOne {
+  margin-bottom: -7px;
+}
+#lessonPageSectionOne video {
+  width: 100%;
+  height: 600px;
+}
+.negative_margin {
+  height: 310px;
+  margin-top: -300px;
+  width: 100%;
+  background-color: black;
+}
+@media screen and (max-width: 1200px) {
+  #lessonPageSectionOne video {
+    height: 100%;
+  }
+}
+#lessonPageSectionTwo {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 80px;
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+  justify-content: center;
+  font-family: font3;
+}
+#lessonPageSectionTwo .left {
+  flex: 0 0 55%;
+  margin-bottom: 10px;
+  margin-right: 30px;
+  border-radius: 10px;
+  padding: 10px;
+}
+#lessonPageSectionTwo .right {
+  flex: 0 0 30%;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: unset;
+}
+#lessonPageSectionTwo .left .top {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+#lessonPageSectionTwo .left .top .button {
+  flex: 0 0 100px;
+  height: 35px;
+  margin-right: 30px;
+  border: solid 1px currentColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+}
+#lessonPageSectionTwo .left .top .icon {
+  flex: 0 0 40px;
+  height: 40px;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  position: relative;
+}
+#lessonPageSectionTwo .left .top .icon:hover .icon_pop {
+  display: block;
+}
+#lessonPageSectionTwo .left .top .icon .icon_pop {
+  width: 100px;
+  position: absolute;
+  top: 0%;
+  transform: translate(10%, -100%);
+  display: none;
+}
+#lessonPageSectionTwo .left .top .icon .icon_pop p {
+  background-color: #fff;
+  margin-bottom: 0;
+  margin-top: 0;
+  height: 30px;
+  min-width: max-content;
+  color: black;
+  border-top: 1px solid #000;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+}
+#lessonPageSectionTwo .left .top .icon .icon_pop p:first-of-type {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+#lessonPageSectionTwo .left .top .icon .icon_pop p:last-of-type {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#lessonPageSectionTwo .left .top .icon .icon_pop span {
+  height: 5px;
+  width: 100%;
+  display: block;
+  clip-path: polygon(0 0, 100% 0, 100% 0%, 41% 0%, 38% 100%, 34% 0%, 0 0%);
+  background-color: #fff;
+}
+#lessonPageSectionTwo .left a {
+  text-decoration: underline;
+}
+#lessonPageSectionTwo .left h4 {
+  color: #26aa76;
+  font-size: 18px;
+  margin: 30px 0 20px 0;
+  font-family: font2;
+}
+#lessonPageSectionTwo .left p {
+  margin: 10px 0;
+  padding-right: 10px;
+}
+#lessonPageSectionTwo .left h5 {
+  margin: 20px 0;
+}
+#lessonPageSectionTwo .right .top {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+#lessonPageSectionTwo .right .top span {
+  color: grey;
+}
+#lessonPageSectionTwo .right .mid {
+  width: 100%;
+  border-radius: 10px;
+  margin: 20px 0;
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%,
+    rgba(51, 50, 50, 0) 142.59%,
+    rgba(51, 50, 50, 0) 145.33%
+  );
+}
+#lessonPageSectionTwo .right .mid .item {
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+#lessonPageSectionTwo .right .mid .item .img {
+  flex: 0 0 35%;
+  height: 100px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #201e1e;
+}
+#lessonPageSectionTwo .right .mid .item .img img {
+  width: 100%;
+  height: 80%;
+}
+#lessonPageSectionTwo .right .mid h4 {
+  border-bottom: 1px solid #e5e5e569;
+  padding: 20px;
+  font-size: 16px;
+  font-family: font2;
+}
+#lessonPageSectionTwo .right .mid p {
+  font-size: 14px;
+}
+#lessonPageSectionTwo .right .mid .item .right {
+  flex: 0 0 60%;
+  height: 100px;
+}
+#lessonPageSectionTwo .right .mid .right .button {
+  border: solid 1px currentColor;
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+#lessonPageSectionTwo .right .bottom {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+@media screen and (max-width: 900px) {
+  #lessonPageSectionTwo {
+    padding: 20px;
+  }
+  #lessonPageSectionTwo .left {
+    flex: 0 0 100%;
+  }
+  #lessonPageSectionTwo .right {
+    flex: 0 0 100%;
+  }
+  #lessonPageSectionTwo .left .top .button {
+    height: 30px;
+  }
+  #lessonPageSectionTwo .left .top .icon {
+    flex: 0 0 30px;
+    height: 30px;
+    margin: 0 5px;
+  }
+  #lessonPageSectionTwo .right .mid .item .img {
+    flex: 0 0 200px;
+    height: 150px;
+    margin-bottom: 5px;
+    margin-right: 0px;
+  }
+  #lessonPageSectionTwo .right .mid .item .right {
+    flex: 0 0 100%;
+  }
+}
+#lessonPagePopUpOne,
+#lessonPagePopUpTwo {
+  height: 400px;
+  width: 40%;
+  background-color: #fff;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  z-index: 100;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+#lessonPagePopUpOne h3,
+#lessonPagePopUpTwo h3 {
+  font-size: 22px;
+  margin: 40px 20px;
+}
+#lessonPagePopUpOne button,
+#lessonPagePopUpTwo button {
+  border: none;
+  background-color: #26aa76;
+  color: white;
+  height: 60px;
+  width: 300px;
+  border-radius: 100px;
+  margin-bottom: 30px;
+}
+#lessonPagePopUpOne a,
+#lessonPagePopUpTwo a {
+  text-decoration: underline;
+}
+#lessonPagePopUpOne .closePopUp,
+#lessonPagePopUpTwo .closePopUp {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #908989;
+  font-size: 20px;
+}
+@media screen and (max-width: 900px) {
+  #lessonPagePopUpOne,
+  #lessonPagePopUpTwo {
+    height: 300px;
+    width: 80%;
+  }
+  #lessonPagePopUpOne .closePopUp,
+  #lessonPagePopUpTwo .closePopUp {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 16px;
+  }
+
+  #lessonPagePopUpOne h3,
+  #lessonPagePopUpTwo h3 {
+    font-size: 16px;
+    margin:  20px;
+  }
+  #lessonPagePopUpOne p,
+  #lessonPagePopUpTwo p {
+    font-size: 12px;
+  }
+  #lessonPagePopUpOne button,
+  #lessonPagePopUpTwo button {
+    height: 40px;
+    width: 200px;
+    font-size: 13px;
+  }
+  #lessonPagePopUpOne a,
+  #lessonPagePopUpTwo a {
+    text-decoration: underline;
+  }
+}

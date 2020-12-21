@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&display=swap");
+
+#contentPageFirstSection {
+  height: calc(100vh - 50px);
+  width: 100%;
+  margin-top: -80px;
+  background-color: #ddd;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  color: white;
+}
+#contentPageFirstSection h1 {
+  position: absolute;
+  bottom: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: font2;
+  font-size: 150px;
+  font-weight: 800;
+}
+#contentPageFirstSection .subHead {
+  position: absolute;
+  bottom: 20%;
+  left: 6%;
+  height: 50px;
+  width: 300px;
+  font-size: 35px;
+  font-weight: 400;
+  font-family: font2;
+  margin-bottom: 10px;
+}
+#contentPageFirstSection .subHeadTwo {
+  position: absolute;
+  bottom: 15%;
+  left: 6%;
+  height: 50px;
+  width: 300px;
+  font-size: 20px;
+  font-family: font3;
+}
+@media screen and (max-width: 900px) {
+  #contentPageFirstSection {
+    height: 690px;
+    margin-top: -288px;
+  }
+  #contentPageFirstSection h1 {
+    bottom: 40%;
+    left: 5%;
+    transform: translateX(-0%);
+    font-size: 50px;
+  }
+  #contentPageFirstSection .subHead {
+    height: 30px;
+    bottom: 15%;
+    font-size: 20px;
+  }
+  #contentPageFirstSection .subHeadTwo {
+    bottom: 9%;
+    font-size: 16px;
+  }
+}
+#contentPageSecondSection {
+  padding: 40px;
+  background-color: black;
+  color: white;
+}
+
+#contentPageSecondSection .details {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 150px;
+  justify-content: space-between;
+}
+#contentPageSecondSection .right {
+  flex: 0 0 47%;
+  min-height: 100px;
+  box-sizing: border-box;
+  padding-right: 20px;
+  text-align: left;
+}
+#contentPageSecondSection .right_para {
+  font-size: 16px;
+  font-weight: 300;
+}
+#contentPageSecondSection .red_text {
+  font-size: 13px;
+  font-weight: 300;
+  color: #ff5b5b;
+  font-family: font3;
+  /* flex: 100%; */
+}
+#contentPageSecondSection .left {
+  flex: 0 0 40%;
+  min-height: 100px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+#contentPageSecondSection .right_head {
+  display: flex;
+  padding: 10px 0;
+  align-items: flex-start;
+  width: 80%;
+  margin-bottom: 10px;
+}
+#contentPageSecondSection .right_head h4 {
+  color: #26aa76;
+  margin: 0;
+  margin-right: auto;
+  font-size: 24px;
+  font-family: font2;
+}
+#contentPageSecondSection .right_head span {
+  border: solid 1px;
+  padding: 0px 10px;
+  margin: 0 20px;
+}
+#contentPageSecondSection .right_head p {
+  font-size: 17px;
+}
+#contentPageSecondSection .left_key {
+  color: grey;
+}
+@media screen and (max-width: 900px) {
+  #contentPageSecondSection .details {
+    padding: 20px;
+  }
+  #contentPageSecondSection .right {
+    flex: 0 0 100%;
+  }
+  #contentPageSecondSection .left {
+    flex: 0 0 100%;
+    font-size: 15px;
+  }
+  #contentPageSecondSection .right_head {
+    width: 100%;
+  }
+  #contentPageSecondSection .right_head h4 {
+    font-size: 20px;
+  }
+  #contentPageSecondSection .right_para {
+    text-align: center;
+    font-size: 15px;
+  }
+}
+#contentPageSecondSection .terms {
+  padding-bottom: 200px;
+  position: relative;
+  border-bottom: none;
+}
+#contentPageSecondSection .term {
+  padding: 0 150px;
+  margin-top: 30px;
+  margin-bottom: 70px;
+  display: none;
+}
+#contentPageSecondSection .term:first-of-type {
+  display: block;
+}
+#contentPageSecondSection .term_item {
+  width: 100%;
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid grey;
+  flex-wrap: wrap;
+  position: relative;
+}
+.term_item:last-child .term_item_see_more {
+  display: flex;
+}
+.term_item_see_more {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: rgba(39, 38, 38, 0.5);
+  border: 2px solid rgba(229, 229, 229, 0.5);
+  box-sizing: border-box;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  display: none;
+}
+.term_item_see_less {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: rgba(39, 38, 38, 0.5);
+  border: 2px solid rgba(229, 229, 229, 0.5);
+  box-sizing: border-box;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  display: none;
+}
+#contentPageSecondSection .term_item_right {
+  height: 179px;
+  flex: 0 0 251px;
+  border-radius: 5px;
+  margin-right: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-color: #201e1e;
+}
+
+#contentPageSecondSection .term_item_left {
+  flex: 1 0 60%;
+}
+#contentPageSecondSection .term_item_right img {
+  height: 70%;
+  width: 100%;
+}
+#contentPageSecondSection .term_item_left_bottom {
+  display: flex;
+  justify-content: space-between;
+}
+#contentPageSecondSection .term_item_left_top {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+#contentPageSecondSection .term_item_left_bottom_item {
+  flex: 0 0 18%;
+  display: inline-block;
+  border: 1px solid #a8a8a8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 6px;
+}
+#contentPageSecondSection .term_item_left_bottom_item button {
+  border: none;
+  display: inline-block;
+  background-color: transparent;
+  color: white;
+}
+@media screen and (max-width: 900px) {
+  #contentPageSecondSection .terms {
+    padding-bottom: 50px;
+  }
+  #contentPageSecondSection .term {
+    padding: 10px;
+  }
+  #contentPageSecondSection .term_item_right {
+    flex: 0 0 286px;
+    margin-bottom: 20px;
+  }
+  #contentPageSecondSection .term_item_left {
+    flex: 0 0 100%;
+  }
+  #contentPageSecondSection .term_item_left_top {
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  #contentPageSecondSection .term_item_left_bottom_item {
+    flex: 0 0 150px;
+  }
+  #contentPageSecondSection .term_item_left_bottom {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #contentPageSecondSection {
+    padding: 5px;
+  }
+}
