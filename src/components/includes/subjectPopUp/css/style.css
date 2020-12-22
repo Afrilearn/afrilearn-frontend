@@ -161,6 +161,9 @@
   padding: 40px;
   margin-bottom: 100px;
 }
+.lesson-list:last-child .term_item_see_more {
+  display: flex;
+}
 .seeLess {
   width: 40px;
   height: 40px;
