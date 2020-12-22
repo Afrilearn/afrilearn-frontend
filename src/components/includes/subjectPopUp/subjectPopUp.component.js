@@ -52,7 +52,7 @@ const SubjectPopUp = (props) => {
       seeMoreButton.style.display = "flex";
     }
   };
-  return (
+  return ( 
     <div>
       <Modal isOpen={show} className="subjectPopClass">
         <ModalHeader toggle={onToggle}>Modal title</ModalHeader>
@@ -118,7 +118,7 @@ const SubjectPopUp = (props) => {
                   <h4 className="term_head">{term.name}</h4>
                   <div className="term_list">
                     {term.classes.map((clazz) => (
-                      <div key={clazz._id}>
+                      <div key={clazz._id} className="lesson-list">
                         <LessonItem clazz={clazz} seeMore={seeMore} />
                       </div>
                     ))}
