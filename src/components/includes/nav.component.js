@@ -23,6 +23,7 @@ import login from "../screens/login/login.component";
 import resetPassword from "../screens/resetPassword/resetPassword.component";
 import changePassword from "../screens/changePassword/changePassword.component";
 import instructions from "../screens/instructions/instructions.component";
+import profilePage from "../screens/profile/profile.component";
 import classroomStudent from "../screens/classroomStudent/classroomStudent.component";
 import classWork from "../screens/classWork/classWork.component";
 
@@ -64,6 +65,11 @@ const MyNav = (props) => {
               </NavLink>
             </NavItem>
             <NavItem>
+              <NavLink tag={Link} to="/profile">
+                Profile
+              </NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink tag={Link} to="/login" className="contact contact1">
                 Login
               </NavLink>
@@ -93,6 +99,7 @@ const MyNav = (props) => {
         <Route path="/classes" component={classes} />
         <Route path="/content/:lessonId" component={lessonPage} />
         <Route path="/content" component={content} />
+        <Route path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
