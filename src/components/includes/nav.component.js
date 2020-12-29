@@ -23,6 +23,8 @@ import login from "../screens/login/login.component";
 import resetPassword from "../screens/resetPassword/resetPassword.component";
 import changePassword from "../screens/changePassword/changePassword.component";
 import instructions from "../screens/instructions/instructions.component";
+import classroomStudent from "../screens/classroomStudent/classroomStudent.component";
+import classWork from "../screens/classWork/classWork.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +57,7 @@ const MyNav = (props) => {
               <NavLink tag={Link} to="/classes">
                 Classes
               </NavLink>
-            </NavItem>          
+            </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/about">
                 About Us
@@ -79,15 +81,23 @@ const MyNav = (props) => {
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
         <Route path="/contact" component={contact} />
+        <Route
+          path="/classes/:classId/:subjectId/:classworkId"
+          component={classWork}
+        />
+        <Route
+          path="/classes/:classId/:subjectId"
+          component={classroomStudent}
+        />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
         <Route path="/content/:lessonId" component={lessonPage} />
         <Route path="/content" component={content} />
-		<Route path="/register" component={register} />
-		<Route path="/login" component={login} />
-		<Route path="/reset_password" component={resetPassword} />
-		<Route path="/change_password" component={changePassword} />
-		<Route path="/instructions" component={instructions} />
+        <Route path="/register" component={register} />
+        <Route path="/login" component={login} />
+        <Route path="/reset_password" component={resetPassword} />
+        <Route path="/change_password" component={changePassword} />
+        <Route path="/instructions" component={instructions} />
       </Switch>
       <Footer />
     </Router>
