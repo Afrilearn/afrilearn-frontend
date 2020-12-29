@@ -264,6 +264,10 @@ option {
   color: white !important;
 }
 
+.borderLeftOff {
+  border-left: none !important;
+}
+
 .custom-checkbox .custom-control-label::before {
   margin-top: -3px;
 }
@@ -271,6 +275,8 @@ option {
 .custom-control-label::after {
   top: 0.15rem;
 }
+
+
 
 
 @media screen and (max-width: 768px) {
@@ -317,21 +323,21 @@ option {
   }
 
   .fly {
-    top: 55%;
+    top: 67%;
     width: 95%;
     padding: 40px 10px;
     margin: auto;
-  }
+}
 
   .bg-light {
     background-color: transparent !important;
     z-index: 20;
     color: white !important;
-    background-image: url(/static/media/sample.a96a137f.jpg);
+    /* background-image: url(/static/media/sample.a96a137f.jpg);
     background-repeat: no-repeat;
     background-position: top center;
     background-attachment: fixed;
-    background-size: cover;
+    background-size: cover; */
   }
   input.searchBox {
     margin-top: 6px;   
@@ -339,6 +345,7 @@ option {
   .searchArea:hover img.searchIcon {
     top: 23px;
   }
+ 
 
 
 }

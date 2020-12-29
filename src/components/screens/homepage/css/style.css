@@ -6,52 +6,65 @@
     width: 100%;
     object-fit: cover;
 }
-#homepage .bannerSection{
-    color:white;
-    height: 100vh;
+
+#homepage .bannerSection {
+    height: 120vh;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.5)), url('../../../../assets/img/sample.jpg');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
+    background-size: cover;
+    margin-top: -115px;
+    color: white;
+    padding-top: 150px;
 }
-#homepage .bannerSection >.row {
+
+#homepage .bannerSection>.row {
     position: relative;
     z-index: 2;
 }
+
 #homepage .bannerSection h1 {
     font-family: font2;
     font-size: 3.124rem;
     text-align: center;
     margin-bottom: 65px;
 }
+
 #homepage .bannerSection h4 {
     margin-top: 33px;
     text-align: center;
 }
+
 #homepage .bannerSection h3 {
     height: 80px;
 }
-#homepage .bannerSection .box{
+
+#homepage .bannerSection .box {
     padding: 110px 0px;
 }
+
 #homepage .bannerSection img.scroll {
     width: 38px;
     margin-top: -10px;
     height: 44px;
 }
+
 #homepage .afterBanner {
-    margin-top: -76px;
     background: black;
     color: white !important;
     position: relative;
 }
-/* #homepage .afterBanner img {
-    border: solid 5px #222;    
-    object-fit: cover;
-} */
+
 #homepage ul {
     margin: 0;
     padding: 0;
 }
-#homepage ul li{
+
+#homepage ul li {
     list-style: none;
 }
+
 #homepage a.myPlaceholder {
     background: white !important;
     width: 100%;
@@ -65,29 +78,37 @@
 #homepage .timer {
     display: inline-block;
 }
+
 #homepage .react-countdown .digit {
     font-size: 78px;
 }
+
 #homepage .react-countdown .text {
     text-transform: uppercase;
     margin-bottom: 0;
     font-size: 16px;
 }
-#homepage .react-countdown li::after {   
+
+#homepage .react-countdown li::after {
     font-size: 55px;
 }
-#homepage .react-countdown { 
+
+#homepage .react-countdown {
     margin-left: -8px !important;
 }
-#homepage .afterBanner >.row {
+
+#homepage .afterBanner>.row {
     /* padding: 132px 112px; */
     border-top: solid 9px #222;
     padding: 186px 112px;
 }
+
 #homepage h1 {
-  font-family: font2;
-  margin-bottom: 17px;;
+    font-family: font2;
+    margin-bottom: 17px;
+    ;
 }
+
 #homepage img.bigThing {
     width: 401px;
     display: block;
@@ -95,30 +116,38 @@
     height: 268px;
     object-fit: contain;
 }
+
 #homepage img.classnote {
-   object-fit: fill;
+    object-fit: fill;
 }
-#homepage input[type="email"], #homepage input[type="submit"]{
+
+#homepage input[type="email"],
+#homepage input[type="submit"] {
     width: 100%;
     padding: 14px 13px;
     border: none;
     margin-bottom: 12px;
-    margin-top: 12px !important;;
+    margin-top: 12px !important;
+    ;
     border-radius: 5px 0px 0px 5px;
 }
-#homepage input[type="submit"]{
+
+#homepage input[type="submit"] {
     background: #2bb58e;
     color: white;
     border-radius: 0px 5px 5px 0px;
 }
-#homepage .courseSelectSection{
+
+#homepage .courseSelectSection {
     margin-top: 50px;
 }
+
 #homepage img.downArrow {
     position: absolute;
     right: 26px;
     top: 21px;
 }
+
 #homepage ul.courseSelectSectionDropDown {
     background: white;
     color: #787878 !important;
@@ -128,19 +157,24 @@
     -webkit-animation: moveDown .5s ease-in-out;
     animation: moveDown .5s ease-in-out;
 }
-#homepage .myDrop:hover .courseSelectSectionDropDown{
+
+#homepage .myDrop:hover .courseSelectSectionDropDown {
     display: block;
 }
+
 #homepage ul.courseSelectSectionDropDown li {
     padding: 6px 27px;
 }
-#homepage ul.courseSelectSectionDropDown li a{
+
+#homepage ul.courseSelectSectionDropDown li a {
     display: block;
 }
+
 #homepage ul.courseSelectSectionDropDown li:hover {
     background: #2bb58e;
     color: white;
 }
+
 #homepage a.startLearning {
     background: #2bb58e !important;
     border-radius: 10px;
@@ -148,42 +182,53 @@
     padding: 10px 28px;
     text-align: center;
 }
+
 #homepage h3 {
     margin-bottom: 30px;
 }
+
 #homepage .green {
     color: greenyellow;
-   }
+}
+
 #homepage h2.green {
     font-size: 48px;
 }
-#homepage img.iconSet{
+
+#homepage img.iconSet {
     width: 63px;
     height: 67px;
     border: none;
     object-fit: contain;
 }
-#homepage .students h5{
+
+#homepage .students h5 {
     color: #A8A8A8;
 }
-#homepage .students .push{
+
+#homepage .students .push {
     margin-bottom: 35px;
 }
+
 #homepage .students h1 {
     margin-top: 45px;
 }
-#homepage .slick-slider{
+
+#homepage .slick-slider {
     width: 100% !important;
 }
+
 #homepage .mobile .partOne img {
     border: none;
     width: 193px;
     object-fit: contain;
     height: 64px;
 }
+
 #homepage .mobile .push2 {
     margin-top: 60px;
 }
+
 #homepage .appreciation p {
     font-family: font1;
     font-style: normal;
@@ -194,6 +239,7 @@
     color: #D6D1D1;
     padding: 0px 146px;
 }
+
 #homepage img.photo {
     width: 166px;
     height: 166px;
@@ -203,13 +249,15 @@
     object-fit: contain;
     object-position: top;
 }
-#homepage .appreciationName{
+
+#homepage .appreciationName {
     text-align: center;
     display: block;
     margin-top: -60px;
     margin-left: -99px;
     color: greenyellow;
 }
+
 #tsparticles {
     position: absolute;
     width: 100%;
@@ -228,89 +276,109 @@
         width: 100%;
         height: 100%;
     }
+
     #homepage .shiftVideo {
         margin-top: 37px;
     }
+
     #homepage .bannerSection .box {
         padding: 100px 20px 50px 20px;
     }
-    #homepage .bannerSection h1 {       
-        font-size: 27px;       
+
+    #homepage .bannerSection {
+        margin-top: -288px;
+        padding-top: 263px;
+        height: 135vh;
     }
+
+    #homepage .bannerSection h1 {
+        font-size: 27px;
+    }
+
     #homepage .bannerSection h3 {
         height: 85px;
         font-size: 18px;
     }
-    #homepage .bannerSection h5{
+
+    #homepage .bannerSection h5 {
         font-size: 16px;
     }
-    #homepage input[type="email"], #homepage input[type="submit"] {
+
+    #homepage input[type="email"],
+    #homepage input[type="submit"] {
         padding: 19.4px 6px;
         font-size: 9px;
         margin-top: 12px !important;
     }
-    #homepage .afterBanner > .row {
-        padding: 50px 20px;       
-    }  
-    #homepage h1 {      
+
+    #homepage .afterBanner>.row {
+        padding: 50px 20px;
+    }
+
+    #homepage h1 {
         font-size: 27px;
         margin-top: 6px !important;
     }
-    #homepage h3 {      
+
+    #homepage h3 {
         font-size: 17px;
     }
+
     #homepage .react-countdown .digit {
         font-size: 35px;
     }
+
     #homepage .react-countdown li::after {
         font-size: 21px;
         right: -13px;
     }
+
     #homepage img.bigThing {
         width: 100%;
         margin-top: 18px;
         height: 160px;
-    }      
-    #homepage img.other {       
+    }
+
+    #homepage img.other {
         margin-top: 0px;
         margin-bottom: 18px;
-    } 
+    }
+
     #homepage .students h4 {
         margin-bottom: 50px;
     }
+
     #homepage .mobile .partOne img {
         width: 107px;
         height: 49px;
     }
+
     #homepage .mobile .push2 {
         margin-top: -13px;
     }
+
     #homepage .appreciation p {
         font-size: 17px;
         line-height: 26px;
         padding: 2px 9px;
     }
+
     #homepage img.photo {
         width: 115px;
-        height: 132px;      
+        height: 132px;
     }
-    #homepage .afterBanner > .row {
+
+    #homepage .afterBanner>.row {
         padding: 50px 27px;
-    }   
-}
-@media screen and (max-width: 320px) {
-    #homepage .afterBanner {
-        /* margin-top: -142px; */
-        position: relative;
-        /* z-index: 8888; */
     }
+
     #homepage a.myPlaceholder {
-        padding: 6.3px;
+        padding: 14.2px;
     }
+
     #homepage img.downArrow {
-        top: 14px;
+        top: 23px;
         width: 15px;
         right: 10px;
     }
-   
-} 
+}

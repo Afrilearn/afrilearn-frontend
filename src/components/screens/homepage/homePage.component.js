@@ -18,8 +18,8 @@ const Homepage = (props) => {
   return (
     <span id="homepage">
       <div className="container-fluid bannerSection">
-        <div className="overlay"></div>
-        <img
+        {/* <div className="overlay"></div> */}
+        {/* <img
           className="banner desktopOnly"
           src={require("../../../assets/img/sample.jpg")}
           alt="homepage banner"
@@ -28,7 +28,7 @@ const Homepage = (props) => {
           className="banner mobileOnly"
           src={require("../../../assets/img/sample.jpg")}
           alt="homepage banner"
-        />
+        /> */}
         <div className="row">
           <div className="col-md-3"> </div>
           <div className="col-md-6 box">

@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import './css/style.css';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
+import { inputChange } from './../../../redux/actions/authActions';
+import PropTypes from 'prop-types';
 import { CustomInput } from 'reactstrap';
 
 
@@ -10,14 +13,23 @@ const Login = props => {
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
-            window.scrollTo(0, 0);            
+            window.scrollTo(0, 0);  
+            props.inputChange('redirect', false)          
         } else {
+            props.inputChange('redirect', false)  
             // do componentDidUpdate logic          
           } 	       
-    })       
+    }) 
+    
+    const handleSubmit = () =>{
+        props.inputChange('location', '/classes/87687/9000')
+        props.inputChange('redirect', true)
+    }
+    const { redirect, location } = props;
    
 	return (        
-		<span id="login">   
+		<span id="login">  
+            {redirect ? <Redirect to={location} /> : null}  
             <div id="loginFirstSection" className="container-fluid relative">                         
                 <div className="row fly">
                      <div className="overlay overlayAuth"></div>                   
@@ -32,7 +44,7 @@ const Login = props => {
                            <p className="optional"><Link to="/reset_password"><i>Forgot Password?</i></Link></p>
                         </div>                       
                         <div className="col-md-12">
-                           <input type="submit" value="Login" className="general"/>
+                           <input type="submit" value="Login" className="general" onClick={handleSubmit}/>
                         </div>
                         <div className="col-md-12 socialText">
                            <div className="row push">
@@ -63,4 +75,11 @@ const Login = props => {
 	);
 };
 
-export default Login;
+Login.propTypes = {
+    inputChange: PropTypes.func.isRequired 
+};
+const mapStateToProps = (state) => ({
+    redirect: state.auth.redirect,   
+    location: state.auth.location, 
+});
+export default connect(mapStateToProps, {inputChange})(Login);

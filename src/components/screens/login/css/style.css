@@ -33,7 +33,8 @@
 
 @media screen and (max-width: 768px) {
     #loginFirstSection {
-        height: 125vh;
+        height: 150vh;
+        margin-top: -290px;
     }
     #loginFirstSection .push7 {
         margin-top: 15px;      

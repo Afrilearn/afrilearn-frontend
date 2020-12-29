@@ -79,7 +79,7 @@ class LessonPage extends Component {
                 </div>
               </div>
             </div>
-            <a href="#">Hide Transcript</a>
+            <a href="/">Hide Transcript</a>
             <h4>Geometrical Construction (2): Angles</h4>
             <p>
               "Construction" in Geometry means to draw shapes, angles or lines
@@ -221,7 +221,7 @@ class LessonPage extends Component {
             This action takes you to the complete <br /> class note page
           </h3>
           <button>Yes! Proceed to Class Note</button>
-          <a href="#">Share your progress</a>
+          <a href="/">Share your progress</a>
         </div>
         <div id="lessonPagePopUpTwo">
           <span className="closePopUp" onClick={this.closePopTwo}>
@@ -230,7 +230,7 @@ class LessonPage extends Component {
           <h3>Yay Feyikemi ! You are doing well</h3>
           <p>Keep up the good work</p>
           <button>Proceed to Lesson 3</button>
-          <a href="#">Share your progress</a>
+          <a href="/">Share your progress</a>
         </div>
       </React.Fragment>
     );

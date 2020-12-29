@@ -1,133 +1,159 @@
-#subjectBadgeForSlick .item {
-  height: 160px;
-  background-color: rgba(255, 255, 255, 0.192);
-  margin: 15px 3px;
-  border-radius: 10px;
-  position: relative;
+.modal-dialog.subjectBoxClass {
+  max-width: 55%;
 }
-#subjectBadgeForSlick .item .itemImage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.192);
-  border-radius: 10px;
 
-  overflow: hidden;
+.subjectBoxClass .modal-header {
+  border-bottom: none !important;
 }
-#subjectBadgeForSlick .item .itemImage img {
-  height: 100%;
+
+.subjectBoxClass .modal-header .close {
+  z-index: 4;
+  color: whitesmoke;
+}
+
+.subjectBoxClass .modal-body {
+  margin-top: -64px;
+  padding: 0px;
+}
+
+.subjectBoxClass .modal-content {
+  background-color: #000;
+  color: #fff;
+}
+
+.subjectBoxClass img.subjectImage {
+  height: 340px;
   object-fit: cover;
   width: 100%;
-}
-#subjectBadgeForSlick .item .itemPop {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 370px;
-  height: 419px;
-  background-color: rgb(8, 8, 8);
-  margin: 15px 3px;
-  border-radius: 10px;
-  display: none;
-  z-index: 2;
-  color: white;
-  overflow: hidden;
-  box-shadow: 0 0.5pt 10pt rgba(0, 0, 0, 0.849);
-}
-#subjectBadgeForSlick .item:hover {
-  transform: scale(1.01) translateY(-50%);
-  z-index: 22;
-}
-#subjectBadgeForSlick .item:hover .itemPop {
-  display: block;
-}
-#subjectBadgeForSlick .item .itemPop .image {
-  height: 238px;
-  width: 100%;
-  background-color: #fff;
-  overflow: hidden;
-}
-#subjectBadgeForSlick .item .itemPop .image img {
-  width: 100%;
-  height: 100%;
-}
-#subjectBadgeForSlick .item .itemPop .details {
-  padding: 15px;
-  box-sizing: border-box;
-}
-#subjectBadgeForSlick .item .itemPop .icons {
-  display: flex;
-  margin-bottom: 20px;
-}
-#subjectBadgeForSlick .item .itemPop .icon {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.192);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px 10px;
-  font-size: 14px;
-  position: relative;
-  cursor: pointer;
-}
-#subjectBadgeForSlick .item .itemPop .icon:hover {
-  background-color: #fff;
-  color: black;
-}
-#subjectBadgeForSlick .item .itemPop .icon .icon_popup {
-  text-align: center;
-  font-size: 11px;
-  position: absolute;
-  top: -10%;
-  transform: translate(12%, -100%);
-  width: max-content;
-  padding: 2px 5px;
-  border-radius: 2px;
-  height: 30px;
-  color: black;
-  background-color: #fff;
-  clip-path: polygon(0 0, 100% 0, 100% 68%, 41% 68%, 38% 100%, 34% 68%, 0 68%);
-  display: none;
-}
-#subjectBadgeForSlick .item .itemPop .icon:hover .icon_popup {
-  display: block;
+  border-radius: 5px 5px 0px 0px;
+  opacity: 0.6;
 }
 
-#subjectBadgeForSlick .item .itemPop .last_icon {
-  margin-left: auto;
+.subjectBoxClass h1 {
+  font-family: font2;
 }
-#subjectBadgeForSlick .item .itemPop .para {
-  color: limegreen;
-  margin-left: 20px;
+
+.subjectBoxClass .imageText {
+  padding: 0px 31px;
+  margin-top: -133px;
+  margin-bottom: 29px;
 }
-#subjectBadgeForSlick .item .itemPop .terms {
-  margin-left: 20px;
+
+.subjectBoxClass .playButton {
+  background: white;
+  padding: 5px 19px;
+  color: black;
+  border-radius: 3px;
 }
-#subjectBadgeForSlick .item .itemPop .terms span {
-  border: solid 1px currentColor;
-  padding: 0px 10px;
-  margin-right: 10px;
+
+.subjectBoxClass .contentSection {
+  padding: 34px 50px;
+  font-family: font1;
 }
-@media screen and (max-width: 900px) {
-  #subjectBadgeForSlick .list {
-    justify-content: center;
+
+.subjectBoxClass .title {
+  color: #26AA76;
+  font-family: font2;
+  font-size: 25px;
+}
+
+.subjectBoxClass .borderAll {
+  border: solid 0.4px gray;
+  padding: 0px 9px;
+  margin-right: 7px;
+}
+
+.subjectBoxClass .push2 {
+  margin-top: 20px;
+  padding-right: 20px;
+}
+
+.subjectBoxClass .details {
+  padding-left: 0px;
+  text-align: right;
+}
+
+.subjectBoxClass .title1 {
+  color: #433F3F;
+  text-align: left;
+}
+
+.subjectBoxClass h5 {
+  margin-top: 30px;
+  margin-bottom: 2px;
+}
+
+.subjectBoxClass img.thumbnail {
+  height: 99px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.subjectBoxClass .lessonBox {
+  padding: 5px 8px;
+}
+
+.subjectBoxClass .title3 {
+  margin-bottom: 20px;
+}
+
+.subjectBoxClass .bottomBorder {
+  border-bottom: solid 0.5px gray;
+  padding-bottom: 19px;
+  margin-top: 20px;
+}
+
+.subjectBoxClass .arrowBox {
+  padding: 3px 10px;
+  background: #272626 50%;
+  border: 0.5px solid #E5E5E5;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .modal-dialog.subjectBoxClass {
+    max-width: 100%;
   }
-  #subjectBadgeForSlick .item .itemPop {
-    width: 350px;
-    height: 400px;
+
+  .subjectBoxClass img.subjectImage {
+    height: 226px;
+
   }
-}
-@media screen and (max-width: 600px) {
-  #subjectBadgeForSlick .item .itemPop {
-    width: 300px;
-    height: 400px;
+
+  .subjectBoxClass .contentSection {
+    padding: 30px 25px;
+    font-family: font1;
+    font-size: 15px;
   }
-  #subjectBadgeForSlick .item .itemPop .image {
-    height: 230px;
+
+  .subjectBoxClass .push2 {
+    padding-right: 1px;
+    font-size: 15px;
+  }
+
+  .subjectBoxClass img.thumbnail {
+    height: 128px;
+  }
+
+  .subjectBoxClass .title3 {
+    margin-top: 20px;
+  }
+
+  .subjectBoxClass .lessonBox {
+    padding: 7px 8px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .subjectBoxClass .imageText {
+    padding: 0px 17px;
+    margin-top: -117px;
+    margin-bottom: 7px;
   }
 }
