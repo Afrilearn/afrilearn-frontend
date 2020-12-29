@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 import "./css/style.css";
 import dots from "../../../assets/img/dots.png";
 import user from "../../../assets/img/user.png";
@@ -9,6 +9,10 @@ import woman from "../../../assets/img/woman.png";
 import ellipse from "../../../assets/img/Ellipse.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { connect } from 'react-redux';
+import { inputChange } from './../../../redux/actions/authActions';
+import PropTypes from 'prop-types';
+
 import {
   faDotCircle,
   faEnvelope,
@@ -31,10 +35,13 @@ import {
 import { Link } from "react-router-dom";
 
 const ClassroomStudent = (props) => {
-  const [activeTab, setActiveTab] = useState("1");
+
+   const [activeTab, setActiveTab] = useState("1");
   const [activeVerticalTab, setActiveVerticalTab] = useState("1");
   useEffect(() => {
     showTab("0");
+    window.scrollTo(0, 0);  
+    props.inputChange('redirect', false)  
   }, [activeVerticalTab]);
   const [classItems, setclassItems] = useState([
     { _id: 1, name: "Mathematics" },
@@ -424,4 +431,8 @@ const ClassroomStudent = (props) => {
   );
 };
 
-export default ClassroomStudent;
+ClassroomStudent.propTypes = {
+  inputChange: PropTypes.func.isRequired 
+};
+
+export default connect(null, {inputChange})(ClassroomStudent);

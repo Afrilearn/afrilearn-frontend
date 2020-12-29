@@ -63,12 +63,7 @@ const MyNav = (props) => {
               <NavLink tag={Link} to="/about">
                 About Us
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/profile">
-                Profile
-              </NavLink>
-            </NavItem>
+            </NavItem>           
             <NavItem>
               <NavLink tag={Link} to="/login" className="contact contact1">
                 Login

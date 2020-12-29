@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import './css/style.css';
-import { Link } from "react-router-dom";
-
+import { Link, Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
+import { inputChange } from './../../../redux/actions/authActions';
+import PropTypes from 'prop-types';
 
 const Signup = props => {  
     const mounted = useRef(); 
@@ -9,14 +11,22 @@ const Signup = props => {
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
-            window.scrollTo(0, 0);            
+            window.scrollTo(0, 0);  
+            props.inputChange('redirect', false)          
         } else {
+            props.inputChange('redirect', false)  
             // do componentDidUpdate logic          
           } 	       
-    })       
-   
+    }) 
+    
+    const handleSubmit = () =>{
+        props.inputChange('location', '/profile')
+        props.inputChange('redirect', true)
+    }
+    const { redirect, location } = props;
 	return (        
-		<span id="signup">   
+		<span id="signup">  
+            {redirect ? <Redirect to={location} /> : null} 
             <div id="signupFirstSection" className="container-fluid relative">                         
                 <div className="row fly">
                      <div className="overlay overlayAuth"></div>                   
@@ -51,7 +61,7 @@ const Signup = props => {
                            <p className="optional"><i>Optional</i></p>
                         </div>
                         <div className="col-md-12">
-                           <input type="submit" value="Register" className="general"/>
+                           <input type="submit" value="Register" className="general" onClick={handleSubmit}/>
                         </div>
                         <div className="col-md-12">
                            <div className="row push">
@@ -73,4 +83,11 @@ const Signup = props => {
 	);
 };
 
-export default Signup;
+Signup.propTypes = {
+    inputChange: PropTypes.func.isRequired 
+};
+const mapStateToProps = (state) => ({
+    redirect: state.auth.redirect,   
+    location: state.auth.location, 
+});
+export default connect(mapStateToProps, {inputChange})(Signup);

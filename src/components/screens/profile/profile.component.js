@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./css/style.css";
 import Ellipse from "../../../assets/img/Ellipse.png";
 import woman from "../../../assets/img/woman.png";
@@ -17,8 +17,23 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { connect } from 'react-redux';
+import { inputChange } from './../../../redux/actions/authActions';
+import PropTypes from 'prop-types';
 
-function ProfilePage() {
+const ProfilePage = props => {
+  const mounted = useRef(); 
+  useEffect(()=>{
+      if (!mounted.current) {
+          // do componentDidMount logic
+          mounted.current = true;
+          window.scrollTo(0, 0);  
+          props.inputChange('redirect', false)          
+      } else {
+          props.inputChange('redirect', false)  
+          // do componentDidUpdate logic          
+        } 	       
+  }) 
   const showEditPage = () => {
     const shownTab = document.getElementById("profilePageSectionTwo");
     const hiddenTab = document.getElementById("hiddenProfilePageSectionTwo");
@@ -317,4 +332,7 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;
+ProfilePage.propTypes = {
+  inputChange: PropTypes.func.isRequired 
+};
+export default connect(null, {inputChange})(ProfilePage);

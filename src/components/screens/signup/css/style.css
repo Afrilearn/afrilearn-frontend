@@ -33,10 +33,14 @@
 
 @media screen and (max-width: 768px) {
     #signupFirstSection {     
-        height: 156vh;
+        height: 190vh;
+        margin-top: -290px;
     }
     #signupFirstSection .push7 {
         margin-top: 15px;
+    }
+    #signupFirstSection .fly {
+        top: 63%;       
     }
   
 }
