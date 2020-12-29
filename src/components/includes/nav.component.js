@@ -23,6 +23,7 @@ import login from "../screens/login/login.component";
 import resetPassword from "../screens/resetPassword/resetPassword.component";
 import changePassword from "../screens/changePassword/changePassword.component";
 import instructions from "../screens/instructions/instructions.component";
+import profilePage from "../screens/profile/profile.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,10 +56,15 @@ const MyNav = (props) => {
               <NavLink tag={Link} to="/classes">
                 Classes
               </NavLink>
-            </NavItem>          
+            </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/about">
                 About Us
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/profile">
+                Profile
               </NavLink>
             </NavItem>
             <NavItem>
@@ -83,11 +89,12 @@ const MyNav = (props) => {
         <Route path="/classes" component={classes} />
         <Route path="/content/:lessonId" component={lessonPage} />
         <Route path="/content" component={content} />
-		<Route path="/register" component={register} />
-		<Route path="/login" component={login} />
-		<Route path="/reset_password" component={resetPassword} />
-		<Route path="/change_password" component={changePassword} />
-		<Route path="/instructions" component={instructions} />
+        <Route path="/profile" component={profilePage} />
+        <Route path="/register" component={register} />
+        <Route path="/login" component={login} />
+        <Route path="/reset_password" component={resetPassword} />
+        <Route path="/change_password" component={changePassword} />
+        <Route path="/instructions" component={instructions} />
       </Switch>
       <Footer />
     </Router>
