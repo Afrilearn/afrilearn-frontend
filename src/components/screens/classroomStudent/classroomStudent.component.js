@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef  } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/style.css";
 import dots from "../../../assets/img/dots.png";
 import user from "../../../assets/img/user.png";
@@ -8,42 +8,25 @@ import man from "../../../assets/img/man.png";
 import woman from "../../../assets/img/woman.png";
 import ellipse from "../../../assets/img/Ellipse.png";
 import sendicon from "../../../assets/img/sendicon.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { connect } from 'react-redux';
-import { inputChange } from './../../../redux/actions/authActions';
-import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import { inputChange } from "./../../../redux/actions/authActions";
+import PropTypes from "prop-types";
 
-import {
-  faDotCircle,
-  faEnvelope,
-  faMailBulk,
-  faPlaneArrival,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  Row,
-  Col,
-} from "reactstrap";
+import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const ClassroomStudent = (props) => {
-
-   const [activeTab, setActiveTab] = useState("1");
+  const [activeTab, setActiveTab] = useState("1");
   const [activeVerticalTab, setActiveVerticalTab] = useState("1");
-  useEffect(() => {
-    showTab("0");
-    window.scrollTo(0, 0);  
-    props.inputChange('redirect', false)  
-  }, [activeVerticalTab]);
-  const [classItems, setclassItems] = useState([
+  useEffect(
+    (props) => {
+      showTab("0");
+      window.scrollTo(0, 0);
+      // props.inputChange("redirect", false);
+    },
+    [activeVerticalTab]
+  );
+  const [classItems] = useState([
     { _id: 1, name: "Mathematics" },
     { _id: 2, name: "English Language" },
     { _id: 3, name: "Business Studies" },
@@ -61,6 +44,7 @@ const ClassroomStudent = (props) => {
   };
 
   const showTab = (tabNum) => {
+    setActiveVerticalTab();
     const tabLink = document.querySelector(".vertical-nav-" + tabNum);
     const tabLinks = document.querySelectorAll(".vertical-nav-item");
     for (let index = 0; index < tabLinks.length; index++) {
@@ -73,9 +57,9 @@ const ClassroomStudent = (props) => {
     <div>
       <div id="classroomStudentSectionOne"></div>
       <div id="classroomStudentSectionTwo">
-        <div class="circle">
-          <img class="ellipse" src={ellipse}></img>
-          <img class="woman" src={woman}></img>
+        <div className="circle">
+          <img className="ellipse" src={ellipse} alt="ellipse"></img>
+          <img className="woman" src={woman} alt="user"></img>
         </div>
         <div className="tab">
           <Nav tabs>
@@ -123,7 +107,7 @@ const ClassroomStudent = (props) => {
                   <div className="upcoming-events">
                     <h4>Upcoming</h4>
                     <div className="item">
-                      <img src={event}></img>
+                      <img src={event} alt="event"></img>
                       <div>
                         <p>Posted: 03 Sept 2020</p>
                         <p>Due Date: 06 Sept 2020</p>
@@ -135,7 +119,7 @@ const ClassroomStudent = (props) => {
                 <main>
                   <article>
                     <div className="pic-text-heading">
-                      <img src={man} />
+                      <img src={man} alt="announce" />
                       <div>
                         <p>Announcements from teacher</p>
                       </div>
@@ -143,16 +127,16 @@ const ClassroomStudent = (props) => {
                   </article>
                   <section>
                     <div className="chat-block">
-                      <div class="sender">
+                      <div className="sender">
                         <div className="sender-head">
                           <div className="pic-text-heading">
-                            <img src={man} />
+                            <img src={man} alt="sender" />
                             <div>
                               <p>Mr Abraham O.(Teacher) </p>
                               <small className="small-grey">06 Sept 2020</small>
                             </div>
                           </div>
-                          <img src={dots} />
+                          <img src={dots} alt="see-more" />
                         </div>
                         <p className="sender-message">
                           Huloo! <br />
@@ -166,7 +150,7 @@ const ClassroomStudent = (props) => {
                       <div className="comments">
                         <small>1 class comment</small>
                         <div className="pic-text-heading">
-                          <img src={man} />
+                          <img src={man} alt="comment" />
                           <div>
                             <p>
                               Mr Abraham O.(Teacher) &nbsp;
@@ -180,16 +164,16 @@ const ClassroomStudent = (props) => {
                         </div>
                       </div>
                       <div className="send">
-                        <img src={woman} />
+                        <img src={woman} alt="sender" />
                         <div className="send-input">
                           <input />
-                          <img src={sendicon} />
+                          <img src={sendicon} alt="send" />
                         </div>
                       </div>
                     </div>
                     <div className="notification-block">
                       <div className="pic-text-heading">
-                        <img src={event} />
+                        <img src={event} alt="event" />
                         <div>
                           <p>
                             Mr Abraham O.(Teacher) posted a new study link:
@@ -200,19 +184,19 @@ const ClassroomStudent = (props) => {
                           </p>
                         </div>
                       </div>
-                      <img src={dots} />
+                      <img src={dots} alt="see-more" />
                     </div>
                     <div className="chat-block">
-                      <div class="sender">
+                      <div className="sender">
                         <div className="sender-head">
                           <div className="pic-text-heading">
-                            <img src={man} />
+                            <img src={man} alt="sender" />
                             <div>
                               <p>Mr Abraham O.(Teacher) </p>
                               <small className="small-grey">02 Sept 2020</small>
                             </div>
                           </div>
-                          <img src={dots} />
+                          <img src={dots} alt="see-more" />
                         </div>
                         <p className="sender-message">
                           Hello Everyone, Congratulations for successfully
@@ -227,7 +211,7 @@ const ClassroomStudent = (props) => {
                       <div className="comments">
                         <small>5 class comments</small>
                         <div className="pic-text-heading">
-                          <img src={user} />
+                          <img src={user} alt="user" />
                           <div>
                             <p>
                               Alli Olatunbosun &nbsp;
@@ -237,7 +221,7 @@ const ClassroomStudent = (props) => {
                           </div>
                         </div>
                         <div className="pic-text-heading">
-                          <img src={usertwo} />
+                          <img src={usertwo} alt="user" />
                           <div>
                             <p>
                               John Muhammed &nbsp;
@@ -247,7 +231,7 @@ const ClassroomStudent = (props) => {
                           </div>
                         </div>
                         <div className="pic-text-heading">
-                          <img src={user} />
+                          <img src={user} alt="user" />
                           <div>
                             <p>
                               Victoria Johnson &nbsp;
@@ -258,10 +242,10 @@ const ClassroomStudent = (props) => {
                         </div>
                       </div>
                       <div className="send">
-                        <img src={woman} />
+                        <img src={woman} alt="sender" />
                         <div className="send-input">
                           <input />
-                          <img src={sendicon} />
+                          <img src={sendicon} alt="send" />
                         </div>
                       </div>
                     </div>
@@ -280,6 +264,7 @@ const ClassroomStudent = (props) => {
                   </p>
                   {classItems.map((item) => (
                     <p
+                      key={item._id}
                       onClick={() => showTab(item._id)}
                       className={`vertical-nav-item vertical-nav-${item._id}`}
                     >
@@ -289,15 +274,15 @@ const ClassroomStudent = (props) => {
                 </nav>
                 <main>
                   {classItems.map((item) => (
-                    <div className="class-item">
+                    <div className="class-item" key={item._id}>
                       <h5>{item.name}</h5>
-                      <div class="items">
+                      <div className="items">
                         <Link
                           to={`/classes/9u09xunr90/jhdiujbep/dbuidhudo`}
                           className="item"
                         >
                           <div className="pic-text-heading first-section">
-                            <img src={event} />
+                            <img src={event} alt="event" />
                             <div>
                               <p>
                                 Attached is the link,complete the video lesson
@@ -311,14 +296,14 @@ const ClassroomStudent = (props) => {
                           <p className="small-grey no-margin">
                             Due 06 Sept 2020
                           </p>
-                          <img className="more" src={dots} />
+                          <img className="more" src={dots} alt="see-more" />
                         </Link>
                         <Link
                           to={`/classes/9u09xunr90/jhdiujbep/dbuidhudo`}
                           className="item"
                         >
                           <div className="pic-text-heading first-section">
-                            <img src={event} />
+                            <img src={event} alt="event" />
                             <div>
                               <p>
                                 Attached is the link,complete the video lesson
@@ -330,14 +315,14 @@ const ClassroomStudent = (props) => {
                             </div>
                           </div>
                           <p className="small-grey">Due 06 Sept 2020</p>
-                          <img className="more" src={dots} />
+                          <img className="more" src={dots} alt="see-more" />
                         </Link>
                         <Link
                           to={`/classes/9u09xunr90/jhdiujbep/dbuidhudo`}
                           className="item"
                         >
                           <div className="pic-text-heading first-section">
-                            <img src={event} />
+                            <img src={event} alt="event" />
                             <div>
                               <p>
                                 Attached is the link,complete the video lesson
@@ -349,7 +334,7 @@ const ClassroomStudent = (props) => {
                             </div>
                           </div>
                           <p className="small-grey">Due 06 Sept 2020</p>
-                          <img className="more" src={dots} />
+                          <img className="more" src={dots} alt="see-more" />
                         </Link>
                       </div>
                     </div>
@@ -364,7 +349,7 @@ const ClassroomStudent = (props) => {
                     <h5>Teacher</h5>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>Mr Abraham O.</p>
                   </div>
                 </section>
@@ -374,51 +359,51 @@ const ClassroomStudent = (props) => {
                     <p>46 pupils</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>Alli Olatunbosun</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>John Muhammed</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>Alli Olatunbosun</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>John Muhammed</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>Alli Olatunbosun</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>John Muhammed</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>Alli Olatunbosun</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>John Muhammed</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>Alli Olatunbosun</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>John Muhammed</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>Alli Olatunbosun</p>
                   </div>
                   <div className="pupil">
-                    <img src={man} />
+                    <img src={man} alt="pupil" />
                     <p>John Muhammed</p>
                   </div>
                 </section>
@@ -432,7 +417,7 @@ const ClassroomStudent = (props) => {
 };
 
 ClassroomStudent.propTypes = {
-  inputChange: PropTypes.func.isRequired 
+  inputChange: PropTypes.func.isRequired,
 };
 
-export default connect(null, {inputChange})(ClassroomStudent);
+export default connect(null, { inputChange })(ClassroomStudent);
