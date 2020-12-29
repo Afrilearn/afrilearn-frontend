@@ -24,6 +24,8 @@ import resetPassword from "../screens/resetPassword/resetPassword.component";
 import changePassword from "../screens/changePassword/changePassword.component";
 import instructions from "../screens/instructions/instructions.component";
 import profilePage from "../screens/profile/profile.component";
+import classroomStudent from "../screens/classroomStudent/classroomStudent.component";
+import classWork from "../screens/classWork/classWork.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,6 +87,14 @@ const MyNav = (props) => {
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
         <Route path="/contact" component={contact} />
+        <Route
+          path="/classes/:classId/:subjectId/:classworkId"
+          component={classWork}
+        />
+        <Route
+          path="/classes/:classId/:subjectId"
+          component={classroomStudent}
+        />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
         <Route path="/content/:lessonId" component={lessonPage} />
