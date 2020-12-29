@@ -1,33 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./css/style.css";
 import dots from "../../../assets/img/dots.png";
-import user from "../../../assets/img/user.png";
-import usertwo from "../../../assets/img/usertwo.png";
 import event from "../../../assets/img/event.png";
-import man from "../../../assets/img/man.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import woman from "../../../assets/img/woman.png";
-import ellipse from "../../../assets/img/Ellipse.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDotCircle,
-  faEnvelope,
-  faMailBulk,
-  faPlaneArrival,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  Row,
-  Col,
-} from "reactstrap";
 
 const ClassWork = (props) => {
   return (
@@ -35,9 +11,9 @@ const ClassWork = (props) => {
       <div id="classroomWorkSectionOne"></div>
       <div id="classroomWorkSectionTwo">
         <main>
-          <img src={dots} className="more" />
+          <img src={dots} className="more" alt="see more" />
           <div className="question">
-            <img src={event} />
+            <img src={event} alt="event" />
             <div>
               <p>Hello Everyone!</p>
               <p>
@@ -56,10 +32,10 @@ const ClassWork = (props) => {
           <div className="class-comment">
             <h6>Class comments</h6>
             <div className="comment-input">
-              <img className="user-image" src={woman} />
+              <img className="user-image" src={woman} alt="user" />
               <div>
                 <input placeholder="Add class comment" />
-                <img src={sendicon} />
+                <img src={sendicon} alt="send" />
               </div>
             </div>
           </div>
@@ -68,10 +44,10 @@ const ClassWork = (props) => {
           <div className="class-comment">
             <h6>Private Comments</h6>
             <div className="comment-input">
-              <img className="user-image" src={woman} />
+              <img className="user-image" src={woman} alt="user" />
               <div>
                 <input placeholder="Add private comment" />
-                <img src={sendicon} />
+                <img src={sendicon} alt="send" />
               </div>
             </div>
           </div>
