@@ -26,9 +26,7 @@ import instructions from "../screens/instructions/instructions.component";
 import profilePage from "../screens/profile/profile.component";
 import classroomStudent from "../screens/classroomStudent/classroomStudent.component";
 import classWork from "../screens/classWork/classWork.component";
-import selectPayment from "../screens/selectPayment/selectPayment.component";
-import cardPayment from "../screens/cardPayment/cardPayment.component";
-import bankDeposit from "../screens/bankDeposit/bankDeposit.component";
+import quizPage from "../screens/quizPage/quizPage.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,6 +83,11 @@ const MyNav = (props) => {
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
         <Route path="/contact" component={contact} />
+        <Route
+          path="/classes/:classId/:subjectId/quiz"
+          exact
+          component={quizPage}
+        />
         <Route
           path="/classes/:classId/:subjectId/:classworkId"
           component={classWork}
