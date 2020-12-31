@@ -26,6 +26,9 @@ import instructions from "../screens/instructions/instructions.component";
 import profilePage from "../screens/profile/profile.component";
 import classroomStudent from "../screens/classroomStudent/classroomStudent.component";
 import classWork from "../screens/classWork/classWork.component";
+import selectPayment from "../screens/selectPayment/selectPayment.component";
+import cardPayment from "../screens/cardPayment/cardPayment.component";
+import bankDeposit from "../screens/bankDeposit/bankDeposit.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +66,7 @@ const MyNav = (props) => {
               <NavLink tag={Link} to="/about">
                 About Us
               </NavLink>
-            </NavItem>           
+            </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/login" className="contact contact1">
                 Login
@@ -100,6 +103,9 @@ const MyNav = (props) => {
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
         <Route path="/instructions" component={instructions} />
+        <Route path="/select-pay" component={selectPayment} />
+        <Route path="/pay-with-card" component={cardPayment} />
+        <Route path="/pay-in-bank" component={bankDeposit} />
       </Switch>
       <Footer />
     </Router>

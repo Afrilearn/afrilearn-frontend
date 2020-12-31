@@ -10,30 +10,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ButtonToggle } from "reactstrap";
 import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
-import { Col, Form, FormGroup, Label, Row } from "reactstrap";
+import { Col, Form, FormGroup, Label } from "reactstrap";
 import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { connect } from 'react-redux';
-import { inputChange } from './../../../redux/actions/authActions';
-import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import { inputChange } from "./../../../redux/actions/authActions";
+import PropTypes from "prop-types";
 
-const ProfilePage = props => {
-  const mounted = useRef(); 
-  useEffect(()=>{
-      if (!mounted.current) {
-          // do componentDidMount logic
-          mounted.current = true;
-          window.scrollTo(0, 0);  
-          props.inputChange('redirect', false)          
-      } else {
-          props.inputChange('redirect', false)  
-          // do componentDidUpdate logic          
-        } 	       
-  }) 
+const ProfilePage = (props) => {
+  const mounted = useRef();
+  useEffect(() => {
+    if (!mounted.current) {
+      // do componentDidMount logic
+      mounted.current = true;
+      window.scrollTo(0, 0);
+      props.inputChange("redirect", false);
+    } else {
+      props.inputChange("redirect", false);
+      // do componentDidUpdate logic
+    }
+  });
   const showEditPage = () => {
     const shownTab = document.getElementById("profilePageSectionTwo");
     const hiddenTab = document.getElementById("hiddenProfilePageSectionTwo");
@@ -71,11 +71,10 @@ const ProfilePage = props => {
               />
               <p>Lagos State, Nigeria</p>
             </div>
-            <div className="item item-plus-icon">
+            <div className="item item-plus-icon" onClick={showEditPage}>
               <FontAwesomeIcon
                 icon={faEdit}
                 style={{ marginRight: "15px", fontSize: "20px" }}
-                onClick={showEditPage}
               />
               <p>Edit Profile</p>
             </div>
@@ -187,7 +186,7 @@ const ProfilePage = props => {
                 </Col>
               </FormGroup>
               <div className="phone-number">
-                <div className="local">ljdlddk</div>
+                <div className="local">Phone Number:</div>
                 <div className="input-column custom-input">
                   <span>
                     <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
@@ -204,8 +203,8 @@ const ProfilePage = props => {
                   <input />
                 </div>
               </div>
-              <Row form>
-                <Col md={6}>
+              <div class="row justify-content-between">
+                <div class="col-6">
                   <FormGroup row>
                     <Label for="age" sm={2}>
                       Age:
@@ -228,14 +227,14 @@ const ProfilePage = props => {
                       </Input>
                     </Col>
                   </FormGroup>
-                </Col>
-                <Col md={6}>
+                </div>
+                <div class="col-5">
                   <FormGroup row>
                     <Label for="gender" sm={2}>
                       Gender:
                     </Label>
-                    <Col sm={2}></Col>
-                    <Col sm={8}>
+                    <Col sm={1}></Col>
+                    <Col sm={9}>
                       <Input
                         bsSize="lg"
                         className="custom-input"
@@ -252,10 +251,10 @@ const ProfilePage = props => {
                       </Input>
                     </Col>
                   </FormGroup>
-                </Col>
-              </Row>
-              <Row form>
-                <Col md={6}>
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-6">
                   <FormGroup row>
                     <Label for="state" sm={2}>
                       State:
@@ -278,14 +277,14 @@ const ProfilePage = props => {
                       </Input>
                     </Col>
                   </FormGroup>
-                </Col>
-                <Col md={6}>
+                </div>
+                <div class="col-5">
                   <FormGroup row>
                     <Label for="city" sm={2}>
                       City:
                     </Label>
-                    <Col sm={2}></Col>
-                    <Col sm={8}>
+                    <Col sm={1}></Col>
+                    <Col sm={9}>
                       <Input
                         bsSize="lg"
                         className="custom-input"
@@ -302,8 +301,8 @@ const ProfilePage = props => {
                       </Input>
                     </Col>
                   </FormGroup>
-                </Col>
-              </Row>
+                </div>
+              </div>
             </Form>
           </div>
         </div>
@@ -330,9 +329,9 @@ const ProfilePage = props => {
       </div>
     </React.Fragment>
   );
-}
+};
 
 ProfilePage.propTypes = {
-  inputChange: PropTypes.func.isRequired 
+  inputChange: PropTypes.func.isRequired,
 };
-export default connect(null, {inputChange})(ProfilePage);
+export default connect(null, { inputChange })(ProfilePage);
