@@ -1,415 +1,425 @@
 #profilePageSectionOne {
-    background-image: linear-gradient(
-        1.17deg,
-        #000000 -14.82%,
-        rgba(0, 0, 0, 0) 118.73%
-      ),
-      url("../../../../assets/img/profile_page_back.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 350px;
-    margin-top: -80px;
-  }
-  #profilePageSectionTwo {
-    background-color: black;
-    position: relative;
-    color: white;
-    padding: 0 200px;
-    font-family: font3;
-  }
-  #profilePageSectionTwo .circle {
-    width: 149px;
-    height: 149px;
-    /* border-radius: 50%; */
-    transform: translate(100px, -50%);
-    /* overflow: hidden; */
-    /* background-color: rgba(229, 229, 229, 0.43); */
-    position: relative;
-  }
-  #profilePageSectionTwo .ellipse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -74%);
-  }
-  #profilePageSectionTwo .image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    height: 110px;
-  }
+  background-image: linear-gradient(
+      1.17deg,
+      #000000 -14.82%,
+      rgba(0, 0, 0, 0) 118.73%
+    ),
+    url("../../../../assets/img/profile_page_back.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 600px;
+  padding-top: 300px;
+  margin-top: -320px;
+}
+#profilePageSectionTwo {
+  background-color: black;
+  position: relative;
+  color: white;
+  padding: 0 200px;
+  font-family: font3;
+}
+#profilePageSectionTwo .circle {
+  width: 149px;
+  height: 149px;
+  /* border-radius: 50%; */
+  transform: translate(100px, -50%);
+  /* overflow: hidden; */
+  /* background-color: rgba(229, 229, 229, 0.43); */
+  position: relative;
+}
+#profilePageSectionTwo .ellipse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -74%);
+}
+#profilePageSectionTwo .image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  height: 110px;
+}
+#profilePageSectionTwo .top-details {
+  position: absolute;
+  top: 0;
+  width: 60%;
+  transform: translateX(40%);
+  padding-top: 20px;
+}
+#profilePageSectionTwo .top-details .items {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#profilePageSectionTwo .top-details .item {
+  flex: 0 0 30%;
+}
+#profilePageSectionTwo .top-details .item h4 {
+  font-family: font2;
+  font-size: 26px;
+}
+#profilePageSectionTwo .top-details .item p {
+  font-family: font1;
+  font-size: 15px;
+}
+#profilePageSectionTwo .top-details .item-plus-icon {
+  display: flex;
+  cursor: pointer;
+}
+@media screen and (max-width: 1230px) {
   #profilePageSectionTwo .top-details {
-    position: absolute;
-    top: 0;
-    width: 60%;
-    transform: translateX(40%);
-    padding-top: 20px;
-  }
-  #profilePageSectionTwo .top-details .items {
+    position: relative;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    transform: translateX(0%);
+    padding-top: 0;
+    padding-left: 20px;
+    margin-top: -20px;
   }
-  #profilePageSectionTwo .top-details .item {
-    flex: 0 0 30%;
-  }
-  #profilePageSectionTwo .top-details .item h4 {
-    font-family: font2;
-    font-size: 26px;
-  }
-  #profilePageSectionTwo .top-details .item p {
-    font-family: font1;
-    font-size: 15px;
-  }
-  #profilePageSectionTwo .top-details .item-plus-icon {
-    display: flex;
-  }
-  @media screen and (max-width: 1230px) {
-    #profilePageSectionTwo .top-details {
-      position: relative;
-      width: 100%;
-      transform: translateX(0%);
-      padding-top: 0;
-      padding-left: 20px;
-      margin-top: -20px;
-    }
-  }
-  
-  @media screen and (max-width: 900px) {
-    #profilePageSectionOne {
-      margin-top: 0;
-      height: 300px;
-    }
-    /* #profilePageSectionOne {
+}
+
+@media screen and (max-width: 900px) {
+
+  #profilePageSectionOne {
       margin-top: -302px;
       height: 550px;
-    } */
-    #profilePageSectionTwo {
-      padding: 0;
     }
-    #profilePageSectionTwo .circle {
-      transform: translate(calc(50vw - 50%), -50%);
-    }
-    #profilePageSectionTwo .top-details {
-      position: relative;
-      width: 100%;
-      transform: translateX(0%);
-    }
-    #profilePageSectionTwo .top-details .items {
-      flex-wrap: wrap;
-    }
-    #profilePageSectionTwo .top-details .item {
-      flex: 0 0 100%;
-      margin-bottom: 20px;
-    }
+  #profilePageSectionTwo {
+    padding: 0;
   }
-  #profilePageSectionTwo .personal-details h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
+  #profilePageSectionTwo .circle {
+    transform: translate(calc(50vw - 50%), -50%);
   }
-  #profilePageSectionTwo .personal-details-list {
-    width: 60%;
-    padding: 20px;
-    height: 170px;
-    display: flex;
-    flex-direction: column;
+  #profilePageSectionTwo .top-details {
+    position: relative;
+    width: 100%;
+    transform: translateX(0%);
+  }
+  #profilePageSectionTwo .top-details .items {
     flex-wrap: wrap;
   }
-  @media screen and (max-width: 900px) {
-    #profilePageSectionTwo .personal-details-list {
-      height: auto;
-      width: 100%;
-    }
+  #profilePageSectionTwo .top-details .item {
+    flex: 0 0 100%;
+    margin-bottom: 20px;
   }
-  #profilePageSectionTwo .classes table {
+}
+#profilePageSectionTwo .personal-details h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  font-family: font2;
+}
+#profilePageSectionTwo .personal-details-list {
+  width: 60%;
+  padding: 20px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 900px) {
+  #profilePageSectionTwo .personal-details-list {
+    height: auto;
     width: 100%;
   }
-  #profilePageSectionTwo .classes table thead {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  }
-  #profilePageSectionTwo .classes table th {
-    padding: 0 20px;
-  }
-  #profilePageSectionTwo .classes table td {
-    padding: 10px 20px;
-  }
-  
-  #profilePageSectionTwo .classes table th:last-child,
-  #profilePageSectionTwo .classes table td:last-child {
-    text-align: center;
-  }
-  #profilePageSectionTwo .button {
-    background: rgba(38, 170, 118, 0.51);
-    border: none;
-  }
-  #profilePageSectionTwo .referral-code {
-    padding-bottom: 50px;
-  }
-  #profilePageSectionTwo .referral-code h3 {
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  }
-  #profilePageSectionTwo .referral-code p,
-  #profilePageSectionTwo .referral-code .input-50 {
-    padding: 10px 20px;
-  }
-  #profilePageSectionTwo .button-2 {
-    background: #26aa76;
-    border: none;
-  }
+}
+#profilePageSectionTwo .classes h3 {
+  font-family: font2;
+}
+#profilePageSectionTwo .classes table {
+  width: 100%;
+}
+#profilePageSectionTwo .classes table thead {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+#profilePageSectionTwo .classes table th {
+  padding: 0 20px;
+}
+#profilePageSectionTwo .classes table td {
+  padding: 10px 20px;
+}
+
+#profilePageSectionTwo .classes table th:last-child,
+#profilePageSectionTwo .classes table td:last-child {
+  text-align: center;
+}
+#profilePageSectionTwo .button {
+  background: rgba(38, 170, 118, 0.51);
+  border: none;
+  padding: 8px 40px;
+}
+#profilePageSectionTwo .referral-code {
+  padding-bottom: 50px;
+}
+#profilePageSectionTwo .referral-code h3 {
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: font2;
+}
+#profilePageSectionTwo .referral-code p,
+#profilePageSectionTwo .referral-code .input-50 {
+  padding: 10px 20px;
+}
+#profilePageSectionTwo .button-2 {
+  background: #26aa76;
+  border: none;
+}
+#profilePageSectionTwo .input-50 {
+  width: 50%;
+}
+#profilePageSectionTwo .input-two {
+  background-color: transparent;
+  padding: 0 30px;
+  border: 0.1px solid #26aa76;
+}
+@media screen and (max-width: 1200px) {
   #profilePageSectionTwo .input-50 {
-    width: 50%;
+    width: 100%;
   }
-  #profilePageSectionTwo .input-two {
-    background-color: transparent;
-    padding: 0 30px;
-    border: 0.1px solid #26aa76;
-  }
-  @media screen and (max-width: 1200px) {
-    #profilePageSectionTwo .input-50 {
-      width: 100%;
-    }
-  }
+}
+#hiddenProfilePageSectionTwo {
+  background-color: black;
+  position: relative;
+  color: white;
+  padding: 0 200px 100px 200px;
+  font-family: font3;
+  display: none;
+}
+#hiddenProfilePageSectionTwo .round-image {
+  width: 149px;
+  height: 149px;
+  border-radius: 50%;
+  transform: translate(30px, -50%);
+  overflow: hidden;
+  background-color: rgba(229, 229, 229, 0.43);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#hiddenProfilePageSectionTwo .round-image img {
+  height: 100%;
+}
+#hiddenProfilePageSectionTwo .round-image-icon {
+  position: absolute;
+  font-size: 40px;
+}
+#hiddenProfilePageSectionTwo .save-changes {
+  position: absolute;
+  top: 20px;
+  right: 20%;
+  background-color: #1b7763;
+  border-radius: 100px;
+  padding: 10px 40px;
+}
+@media screen and (max-width: 900px) {
   #hiddenProfilePageSectionTwo {
-    background-color: black;
-    position: relative;
-    color: white;
-    padding: 0 200px 100px 200px;
-    font-family: font3;
-    display: none;
+    padding: 0;
+    padding-bottom: 100px;
   }
   #hiddenProfilePageSectionTwo .round-image {
-    width: 149px;
-    height: 149px;
-    border-radius: 50%;
-    transform: translate(100px, -50%);
-    overflow: hidden;
-    background-color: rgba(229, 229, 229, 0.43);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-  #hiddenProfilePageSectionTwo .round-image img {
-    height: 100%;
-  }
-  #hiddenProfilePageSectionTwo .round-image-icon {
-    position: absolute;
-    font-size: 40px;
+    transform: translate(calc(50vw - 50%), -50%);
   }
   #hiddenProfilePageSectionTwo .save-changes {
-    position: absolute;
-    /* font-size: 40px; */
-    top: 20px;
-    right: 20%;
-    background-color: #1b7763;
-    border-radius: 100px;
+    position: relative;
+    top: unset;
+    right: unset;
+    margin: 20px;
   }
-  @media screen and (max-width: 900px) {
-    #hiddenProfilePageSectionTwo {
-      padding: 0;
-      padding-bottom: 100px;
-    }
-    #hiddenProfilePageSectionTwo .round-image {
-      transform: translate(calc(50vw - 50%), -50%);
-    }
-    #hiddenProfilePageSectionTwo .save-changes {
-      position: relative;
-      top: unset;
-      right: unset;
-      margin: 20px;
-    }
-  }
-  #hiddenProfilePageSectionTwo .personal-details h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
+}
+#hiddenProfilePageSectionTwo .personal-details h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  font-family: font2;
+  font-size: 26px;
+
+}
+#hiddenProfilePageSectionTwo .personal-details-form {
+  width: 90%;
+  padding: 20px;
+}
+#hiddenProfilePageSectionTwo .personal-details-form .phone-number {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#hiddenProfilePageSectionTwo .personal-details-form .phone-number .local {
+  flex: 1;
+}
+#hiddenProfilePageSectionTwo
+  .personal-details-form
+  .phone-number
+  .input-column {
+  flex: 0 0 83%;
+  height: 45px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+#hiddenProfilePageSectionTwo
+  .personal-details-form
+  .phone-number
+  .input-column
+  span {
+  flex: 0 0 10%;
+}
+#hiddenProfilePageSectionTwo
+  .personal-details-form
+  .phone-number
+  .input-column
+  input {
+  flex: 1;
+  border: none;
+  border-left: solid 1px currentColor;
+  background-color: transparent;
+  color: #828282;
+  padding-left: 10px;
+}
+#hiddenProfilePageSectionTwo .custom-input {
+  background-color: transparent;
+  border: 0.1px solid #26aa76;
+  height: 45px;
+}
+@media screen and (max-width: 600px) {
+  #hiddenProfilePageSectionTwo .personal-details-list {
+    height: auto;
   }
   #hiddenProfilePageSectionTwo .personal-details-form {
-    width: 90%;
-    padding: 20px;
+    width: 100%;
   }
   #hiddenProfilePageSectionTwo .personal-details-form .phone-number {
-    width: 100%;
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  #hiddenProfilePageSectionTwo .personal-details-form .phone-number .local {
-    flex: 1;
+    flex-wrap: wrap;
   }
   #hiddenProfilePageSectionTwo
     .personal-details-form
     .phone-number
     .input-column {
-    flex: 0 0 83%;
-    height: 50px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  #hiddenProfilePageSectionTwo
-    .personal-details-form
-    .phone-number
-    .input-column
-    span {
-    flex: 0 0 10%;
-  }
-  #hiddenProfilePageSectionTwo
-    .personal-details-form
-    .phone-number
-    .input-column
-    input {
+    margin-top: 10px;
     flex: 1;
-    border: none;
-    border-left: solid 1px currentColor;
-    background-color: transparent;
-    color: #828282;
-    padding-left: 10px;
   }
-  #hiddenProfilePageSectionTwo .custom-input {
-    background-color: transparent;
-    border: 0.1px solid #26aa76;
-  }
-  @media screen and (max-width: 600px) {
-    #hiddenProfilePageSectionTwo .personal-details-list {
-      height: auto;
-    }
-    #hiddenProfilePageSectionTwo .personal-details-form {
-      width: 100%;
-    }
-    #hiddenProfilePageSectionTwo .personal-details-form .phone-number {
-      flex-wrap: wrap;
-    }
-    #hiddenProfilePageSectionTwo
-      .personal-details-form
-      .phone-number
-      .input-column {
-      margin-top: 10px;
-    }
-  }
-  #hiddenProfilePageSectionTwo .button {
-    background: rgba(38, 170, 118, 0.51);
-    border: none;
-  }
-  #hiddenProfilePageSectionTwo .button-2 {
-    background: #26aa76;
-    border: none;
-  }
-  #hiddenProfilePageSectionTwo .button-3 {
-    background: transparent;
-    border: #26aa76 0.1px solid;
-    border-left: solid #000000;
-  }
+}
+#hiddenProfilePageSectionTwo .button {
+  background: rgba(38, 170, 118, 0.51);
+  border: none;
+}
+#hiddenProfilePageSectionTwo .button-2 {
+  background: #26aa76;
+  border: none;
+}
+#hiddenProfilePageSectionTwo .button-3 {
+  background: transparent;
+  border: #26aa76 0.1px solid;
+  border-left: solid #000000;
+}
+#hiddenProfilePageSectionTwo .input-50 {
+  width: 50%;
+}
+#hiddenProfilePageSectionTwo .input-two {
+  background-color: transparent;
+  padding: 0 30px;
+  border: 0.1px solid #26aa76;
+}
+#hiddenProfilePageSectionTwo .input-three {
+  background-color: transparent;
+  /* padding: 0 30px; */
+  width: 100%;
+  border: none;
+}
+@media screen and (max-width: 900px) {
   #hiddenProfilePageSectionTwo .input-50 {
-    width: 50%;
-  }
-  #hiddenProfilePageSectionTwo .input-two {
-    background-color: transparent;
-    padding: 0 30px;
-    border: 0.1px solid #26aa76;
-  }
-  #hiddenProfilePageSectionTwo .input-three {
-    background-color: transparent;
-    /* padding: 0 30px; */
     width: 100%;
-    border: none;
   }
-  @media screen and (max-width: 900px) {
-    #hiddenProfilePageSectionTwo .input-50 {
-      width: 100%;
-    }
-  }
-  #hiddenProfilePageSectionTwo .class-details h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
-  }
+}
+#hiddenProfilePageSectionTwo .class-details h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  font-family: font2;
+  font-size: 26px;
+}
+#hiddenProfilePageSectionTwo .class-details-list {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  width: 87%;
+  justify-content: space-between;
+}
+#hiddenProfilePageSectionTwo .class-details-list div {
+  height: 45px;
+  flex: 0 0 83%;
+  background-color: transparent;
+  border-radius: 0.3rem;
+  padding: 10px;
+}
+#hiddenProfilePageSectionTwo .class-details-list span {
+  flex: 1;
+}
+#hiddenProfilePageSectionTwo .class-details-list div span {
+  padding: 0 10px;
+  border-left: 1px solid;
+  display: inline-block;
+}
+#hiddenProfilePageSectionTwo .class-details-list div span:first-child {
+  border-left: none;
+}
+#hiddenProfilePageSectionTwo .security h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+}
+#hiddenProfilePageSectionTwo .security-form {
+  height: 50px;
+  width: 86%;
+  padding: 20px 0;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#hiddenProfilePageSectionTwo .security-form div {
+  flex: 0 0 83%;
+  height: 45px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+#hiddenProfilePageSectionTwo .security-form div input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+}
+#hiddenProfilePageSectionTwo .security-form div span {
+  flex: 0 0 7%;
+  text-decoration: underline;
+  color: #ff5b5b;
+  font-weight: 600;
+}
+@media screen and (max-width: 900px) {
   #hiddenProfilePageSectionTwo .class-details-list {
     margin: 20px;
-    display: flex;
-    align-items: center;
-    width: 87%;
-    justify-content: space-between;
+    flex-wrap: wrap;
   }
   #hiddenProfilePageSectionTwo .class-details-list div {
-    height: 50px;
-    flex: 0 0 83%;
-    background-color: transparent;
-    border-radius: 0.3rem;
-    padding: 10px;
-  }
-  #hiddenProfilePageSectionTwo .class-details-list span {
-    flex: 1;
+    flex: 0 0 100%;
+    margin-left: 0px;
+    margin-top: 10px;
   }
   #hiddenProfilePageSectionTwo .class-details-list div span {
-    padding: 0 10px;
-    border-left: 1px solid;
-    display: inline-block;
-  }
-  #hiddenProfilePageSectionTwo .class-details-list div span:first-child {
-    border-left: none;
-  }
-  #hiddenProfilePageSectionTwo .security h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
+    margin-left: 0px;
   }
   #hiddenProfilePageSectionTwo .security-form {
-    height: 50px;
-    width: 86%;
-    padding: 20px 0;
-    margin: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    width: 100%;
     flex-wrap: wrap;
+  }
+  #hiddenProfilePageSectionTwo .security-form span {
+    flex: 0 0 100%;
   }
   #hiddenProfilePageSectionTwo .security-form div {
     flex: 0 0 83%;
-    height: 50px;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
+    margin: 10px 0;
   }
-  #hiddenProfilePageSectionTwo .security-form div input {
-    flex: 1;
-    background-color: transparent;
-    border: none;
-  }
-  #hiddenProfilePageSectionTwo .security-form div span {
-    flex: 0 0 7%;
-    text-decoration: underline;
-    color: #ff5b5b;
-    font-weight: 600;
-  }
-  @media screen and (max-width: 900px) {
-    #hiddenProfilePageSectionTwo .class-details-list {
-      margin: 20px;
-      flex-wrap: wrap;
-    }
-    #hiddenProfilePageSectionTwo .class-details-list div {
-      flex: 0 0 100%;
-      margin-left: 0px;
-      margin-top: 10px;
-    }
-    #hiddenProfilePageSectionTwo .class-details-list div span {
-      margin-left: 0px;
-    }
-    #hiddenProfilePageSectionTwo .security-form {
-      width: 100%;
-      flex-wrap: wrap;
-    }
-    #hiddenProfilePageSectionTwo .security-form span {
-      flex: 0 0 100%;
-    }
-    #hiddenProfilePageSectionTwo .security-form div {
-      flex: 0 0 83%;
-      height: 50px;
-      border-radius: 5px;
-      margin: 10px 0;
-    }
-  }
-  
+}

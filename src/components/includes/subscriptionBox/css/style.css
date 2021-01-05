@@ -1,0 +1,51 @@
+#subscriptionBox .item {
+  width: 100%;
+  height: 185.96px;
+  border-radius: 10.6873px;
+  background-color: rgba(255, 255, 255, 0.24);
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+#subscriptionBox .item:hover {
+  opacity: 0.8;
+}
+#subscriptionBox .item span {
+  font-family: font2;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 37.4056px;
+  line-height: 59px;
+}
+#subscriptionBox .item small {
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26.7183px;
+  line-height: 36px;
+}
+#subscriptionBox .monthly {
+  background-color: #fdad51;
+}
+#subscriptionBox .quaterly {
+  background-color: #26aa76;
+}
+#subscriptionBox .bi-annual {
+  background-color: #50e55a;
+}
+#subscriptionBox .yearly {
+  background-color: #fdc9a6;
+}
+@media screen and (max-width: 1200px) {
+  #subscriptionBox .item span {
+    font-size: 24px;
+    line-height: 59px;
+  }
+  #subscriptionBox .item small {
+    font-size: 18px;
+    line-height: 36px;
+  }
+}
