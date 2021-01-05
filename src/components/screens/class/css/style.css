@@ -33,6 +33,13 @@
 #classFirstSection .push2 {
   padding: 16px 90px;
 }
+#classFirstSection .push3 {
+  position: absolute;
+  bottom: -3px;
+  font-family: font3;
+  font-size: 14px;
+  width: 100%;
+}
 
 #classFirstSection .box4 {
   background: #3b3a3a;

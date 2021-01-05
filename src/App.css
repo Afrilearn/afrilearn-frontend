@@ -91,7 +91,10 @@ a {
 a:hover {
   text-decoration: none !important;
 }
-
+.bottomBorder {
+  border-bottom: 0.5px solid darkslategray;
+  padding-bottom: 18px;
+}
 .off {
   display: none;
 }
@@ -114,6 +117,9 @@ a:hover {
 
 .boldFont1 {
   font-family: font3;
+}
+.underline {
+  text-decoration: underline;
 }
 
 .green {
@@ -345,7 +351,9 @@ option {
   .searchArea:hover img.searchIcon {
     top: 23px;
   }
- 
+  .mobileCenter{
+    text-align: center;
+  }
 
 
 }

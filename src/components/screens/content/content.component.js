@@ -193,7 +193,7 @@ class Content extends Component {
                             <button>Lesson 1</button>
                           </Link>
                           <div className="term_item_left_bottom_item">
-                            <button>Quiz</button>
+                            <Link to="/instructions">Quiz</Link>
                           </div>
                         </div>
                       </div>
