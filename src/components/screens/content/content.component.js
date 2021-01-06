@@ -57,6 +57,9 @@ class Content extends Component {
       },
     ],
   };
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   seeMore = (event) => {
     event.preventDefault();
     const terms = document.querySelectorAll(".term");

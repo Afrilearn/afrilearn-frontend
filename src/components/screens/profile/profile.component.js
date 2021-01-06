@@ -16,7 +16,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-} from "reactstrap";
+} from "reactstrap"; 
 import { connect } from "react-redux";
 import { inputChange } from "./../../../redux/actions/authActions";
 import PropTypes from "prop-types";
