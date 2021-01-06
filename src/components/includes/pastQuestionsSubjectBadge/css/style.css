@@ -1,0 +1,61 @@
+#pastQuestionsSubjectBadge .item {
+  margin: 5px;
+  margin-bottom: 30px;
+}
+#pastQuestionsSubjectBadge .item p {
+  margin-bottom: 5px;
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 27px;
+
+  color: #ffffff;
+}
+#pastQuestionsSubjectBadge .itemRec {
+  width: 250px;
+  height: 160px;
+  background-color: #fff;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#pastQuestionsSubjectBadge .btn {
+  padding: 0;
+}
+#pastQuestionsSubjectBadge .btn-secondary {
+  color: #fff;
+  background-color: transparent;
+  border-color: transparent;
+}
+#pastQuestionsSubjectBadge .dropdown-menu {
+  width: 250px;
+  margin: 0;
+  margin-top: -1px;
+  text-align: center;
+}
+#pastQuestionsSubjectBadge .btn-secondary:focus,
+.btn-secondary.focus {
+  color: #fff;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+@media screen and (max-width: 900px) {
+  #pastQuestionsSubjectBadge .item {
+    margin: 5px;
+  }
+  #pastQuestionsSubjectBadge .item p {
+    font-size: 14px;
+    text-align: center;
+  }
+  #pastQuestionsSubjectBadge .itemRec {
+    width: 150px;
+    height: 100px;
+  }
+  #pastQuestionsSubjectBadge .dropdown-menu {
+    min-width: 100px;
+    width: 150px;
+  }
+}

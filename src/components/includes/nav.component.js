@@ -88,6 +88,17 @@ const MyNav = (props) => {
         <Route path="/partnership" component={partnership} />
         <Route path="/contact" component={contact} />
         <Route
+          path="/category/:subjectId/instruction"
+          exact
+          component={pastQuestionsInstruction}
+        />
+        <Route
+          path="/category/:subjectId/quiz"
+          exact
+          component={PastQuestionQuizPage}
+        />
+        <Route path="/category/:subjectId" exact component={pastQuestions} />
+        <Route
           path="/classes/:classId/:subjectId/quiz"
           exact
           component={quizPage}

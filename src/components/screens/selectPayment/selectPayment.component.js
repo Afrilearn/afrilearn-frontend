@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./css/style.css";
 import { Container, Row, Col } from "reactstrap";
 import cc from "../../../assets/img/cc.png";
@@ -7,9 +7,17 @@ import { Link } from "react-router-dom";
 import SubscriptionBox from "../../includes/subscriptionBox/subscriptionBox.component";
 
 const Payment = () => {
+  const mounted = useRef();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!mounted.current) {
+      // do componentDidMount logic
+      mounted.current = true;
+      window.scrollTo(0, 0);
+    } else {
+      // do componentDidUpdate logic
+    }
   });
+
   const [payType, setPayType] = useState("pay-in-bank");
   const handlePayType = (selectedType, classname) => {
     const items = document.querySelectorAll(".pay-methods .item");

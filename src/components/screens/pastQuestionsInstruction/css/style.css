@@ -1,0 +1,85 @@
+#pastQuestionsInstructionSectionOne {
+  background-color: black;
+  min-height: calc(100vh + 300px);
+  margin-top: -300px;
+  padding-top: 300px;
+}
+#pastQuestionsInstructionSectionOne h1 {
+  font-family: font2;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  font-size: 30px;
+  line-height: 47px;
+  margin: 30px 0;
+  color: #26aa76;
+}
+#pastQuestionsInstructionSectionOne .top-icons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#pastQuestionsInstructionSectionOne .top-icons .item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+#pastQuestionsInstructionSectionOne .top-icons span {
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 34px;
+  margin-left: 15px;
+  color: #26aa76;
+}
+#pastQuestionsInstructionSectionOne h5 {
+  font-family: font3;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 34px;
+  margin-top: 30px;
+  color: #ffffff;
+}
+#pastQuestionsInstructionSectionOne .para {
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 37px;
+  color: #ffffff;
+}
+#pastQuestionsInstructionSectionOne .row {
+  align-items: center;
+}
+#pastQuestionsInstructionSectionOne .dot {
+  width: 13px;
+  height: 13px;
+  display: flex;
+  justify-content: center;
+  background-color: #26aa76;
+  border-radius: 50%;
+  align-self: center;
+}
+#pastQuestionsInstructionSectionOne .small {
+  margin-top: 30px;
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 27px;
+
+  color: #26aa76;
+}
+
+#pastQuestionsInstructionSectionOne button {
+  margin-top: 40px;
+  width: 248px;
+  height: 59px;
+  color: white;
+  background: #249d6d;
+  border-radius: 100px;
+  border: none;
+
+}

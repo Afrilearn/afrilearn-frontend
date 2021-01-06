@@ -15,36 +15,27 @@
   color: #26aa76;
   text-align: center;
   padding-top: 50px;
+  margin-bottom: 70px;
 }
 
 #quizPageSectionOne .progress {
   height: 7px;
-  width: 500px;
+  width: 420px;
+  /* margin: 40px 0; */
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 #quizPageSectionOne .progress-bar {
   background-color: #26aa76;
 }
-#quizPageSectionOne .flex-section {
-  width: 65%;
-  margin: auto;
-  min-height: 500px;
-  display: flex;
-  justify-content: space-between;
-}
-#quizPageSectionOne .flex-section .left {
-  flex: 0 0 47%;
-  min-height: 300px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-#quizPageSectionOne .flex-section .left p {
+#quizPageSectionOne .left p {
   font-family: font3;
   font-style: normal;
   font-weight: normal;
   margin-bottom: 40px;
 }
-#quizPageSectionOne .flex-section .left p span {
-  padding: 10px;
+#quizPageSectionOne .left p span {
+  padding: 7px 10px;
   background-color: rgba(117, 239, 156, 0.3);
   margin-left: 20px;
   font-style: normal;
@@ -52,23 +43,23 @@
   color: #26aa76;
   border-radius: 5px;
 }
-#quizPageSectionOne .flex-section .left .image {
+#quizPageSectionOne .left .image {
   text-align: center;
   padding: 20px;
 }
-#quizPageSectionOne .flex-section .left .image img {
-  width: 200px;
+#quizPageSectionOne .left .image img {
+  height: 150px;
 }
-#quizPageSectionOne .flex-section .left h6 {
+#quizPageSectionOne .left h6 {
   font-family: font3;
   font-style: normal;
   font-weight: 600;
   font-size: 19px;
   line-height: 34px;
 }
-#quizPageSectionOne .flex-section .left .option-button {
+#quizPageSectionOne .left .option-button {
   width: 380px;
-  height: 50px;
+  height: 44px;
   margin-bottom: 20px;
   background-color: #fff;
   border: none;
@@ -80,25 +71,25 @@
   font-size: 18px;
   line-height: 34px;
 }
-#quizPageSectionOne .flex-section .left .option-button:hover {
+#quizPageSectionOne .left .option-button:hover {
   opacity: 0.7;
 }
-#quizPageSectionOne .flex-section .left .option-button:active {
+#quizPageSectionOne .left .option-button:active {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.226);
 }
-#quizPageSectionOne .flex-section .left .active {
+#quizPageSectionOne .left .active {
   background-color: transparent;
   border: solid 1px #26aa76;
   color: white;
 }
-#quizPageSectionOne .flex-section .left .action-buttons {
+#quizPageSectionOne .left .action-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 380px;
   margin-top: 20px;
 }
-#quizPageSectionOne .flex-section .left .action-buttons button {
+#quizPageSectionOne .left .action-buttons button {
   width: 100px;
   height: 35px;
   border: none;
@@ -107,7 +98,7 @@
   font-style: normal;
   color: white;
 }
-#quizPageSectionOne .flex-section .left .action-buttons .skip-button {
+#quizPageSectionOne .left .action-buttons .skip-button {
   background-color: #fdad51;
   width: 100px;
   height: 35px;
@@ -117,26 +108,26 @@
   font-style: normal;
   color: white;
 }
-#quizPageSectionOne .flex-section .left .action-buttons .submit-button {
+#quizPageSectionOne .left .action-buttons .submit-button {
   background-color: #249d6d;
 }
-#quizPageSectionOne .flex-section .right {
+#quizPageSectionOne .right {
   flex: 0 0 47%;
   min-height: 300px;
   padding: 10px;
   box-sizing: border-box;
 }
-#quizPageSectionOne .flex-section .right .questions-answered {
+#quizPageSectionOne .right .questions-answered {
   width: 450px;
   margin: auto;
-  height: 200px;
+  /* height: 200px; */
   display: flex;
   flex-wrap: wrap;
   margin-top: 70px;
 }
-#quizPageSectionOne .flex-section .right .questions-answered span {
-  width: 70px;
-  height: 70px;
+#quizPageSectionOne .right .questions-answered span {
+  width: 60px;
+  height: 60px;
   background-color: #fff;
   border-radius: 50%;
   margin: 10px;
@@ -146,21 +137,21 @@
   font-family: font2;
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 57px;
   color: #26aa76;
   box-shadow: 0px 1px 0px rgba(225, 225, 225, 0.5);
 }
-#quizPageSectionOne .flex-section .right .questions-answered .active {
+#quizPageSectionOne .right .questions-answered .active {
   color: white;
   background-color: #249d6d;
 }
-#quizPageSectionOne .flex-section .right .questions-answered .skipped {
+#quizPageSectionOne .right .questions-answered .skipped {
   color: white;
   background-color: #fdad51;
 }
 @media screen and (max-width: 1020px) {
-  #quizPageSectionOne .flex-section {
+  #quizPageSectionOne {
     width: 100%;
   }
 }
@@ -171,28 +162,27 @@
   #quizPageSectionOne .progress {
     width: 320px;
   }
-  #quizPageSectionOne .flex-section {
+  #quizPageSectionOne {
     flex-wrap: wrap;
   }
-  #quizPageSectionOne .flex-section .left {
+  #quizPageSectionOne .left {
     flex: 0 0 100%;
   }
-  #quizPageSectionOne .flex-section .left .option-button {
+  #quizPageSectionOne .left .option-button {
     width: 320px;
     margin-right: 5px;
   }
-  #quizPageSectionOne .flex-section .right {
+  #quizPageSectionOne .right {
     flex: 0 0 100%;
   }
-  #quizPageSectionOne .flex-section .left .action-buttons {
+  #quizPageSectionOne .left .action-buttons {
     width: 320px;
     margin-top: 20px;
   }
-  #quizPageSectionOne .flex-section .right .questions-answered {
+  #quizPageSectionOne .right .questions-answered {
     width: 320px;
-    margin-top: 20px;
   }
-  #quizPageSectionOne .flex-section .right .questions-answered span {
+  #quizPageSectionOne .right .questions-answered span {
     width: 50px;
     height: 50px;
     margin: 5px;
