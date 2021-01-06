@@ -1,0 +1,81 @@
+#myStudentsSectionOne {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.63), rgba(0, 0, 0, 0.63)),
+    url("../../../../assets/img/mystudentsone.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  height: 550px;
+  margin-top: -300px;
+  text-align: center;
+}
+#myStudentsSectionOne h1 {
+  padding-top: 350px;
+  font-family: font2;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 35px;
+  line-height: 55px;
+  /* identical to box height */
+  color: #ffffff;
+}
+#myStudentsSectiontwo {
+  min-height: 100vh;
+  background-color: black;
+  padding: 70px 100px;
+}
+#myStudentsSectiontwo .list {
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%,
+    rgba(51, 50, 50, 0) 142.59%,
+    rgba(51, 50, 50, 0) 145.33%
+  );
+  min-height: 500px;
+  border-radius: 10px;
+  padding: 0;
+  padding-bottom: 30px;
+}
+#myStudentsSectiontwo .row {
+  align-items: center;
+}
+#myStudentsSectiontwo .main-row {
+  padding: 20px 30px;
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.46);
+}
+#myStudentsSectiontwo .green-head {
+  color: #26aa76;
+  font-family: font2;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 47px;
+  color: #26aa76;
+}
+#myStudentsSectiontwo .white-head {
+  font-family: font3;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 900px) {
+  #myStudentsSectiontwo {
+    padding: 5px;
+  }
+  #myStudentsSectiontwo .list {
+    border-radius: 5px;
+  }
+  #myStudentsSectiontwo .main-row{
+      padding: 5px;
+  }
+  #myStudentsSectiontwo .green-head {
+    font-size: 18px;
+  }
+  #myStudentsSectiontwo .white-head {
+    font-size: 16px;
+  }
+}
