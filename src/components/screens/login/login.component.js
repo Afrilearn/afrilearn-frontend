@@ -22,7 +22,7 @@ const Login = props => {
     }) 
     
     const handleSubmit = () =>{
-        props.inputChange('location', '/classes/87687/9000')
+        props.inputChange('location', '/dashboard')
         props.inputChange('redirect', true)
     }
     const { redirect, location } = props;

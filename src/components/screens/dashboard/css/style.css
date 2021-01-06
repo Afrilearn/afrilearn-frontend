@@ -1,0 +1,227 @@
+#dashboardFirstSection {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.99)), url('../../../../assets/img/pencil.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  margin-top: -90px;
+  color: white;
+  height: 105vh;
+  padding-top: 165px;
+}
+
+#dashboardFirstSection h1 {
+  font-family: font2;
+  text-align: center;
+  font-size: 125px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#dashboardFirstSection .push2 {
+  padding: 16px 90px;
+}
+
+#dashboardSecondSection .push5 {
+  margin-top: 30px;
+}
+
+#dashboardFirstSection h5 {
+  font-family: font2;
+  margin-top: 30px;
+  margin-left: 5px;
+}
+
+.dashboard h4 {
+  font-family: font2;
+  margin-bottom: 20px;
+}
+
+.dashboard .pastQuestionsBox {
+  display: block;
+  background: #FC8A07;
+  padding: 23px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.dashboard .pastQuestionsBox1 {
+  background: #26AA76;
+}
+
+.dashboard .myChart svg {
+  width: 60%;
+  margin-top: -25px;
+}
+
+.dashboard .subjectList span {
+  display: block;
+  text-align: center;
+  opacity: 0.8;
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.dashboard .excel {
+  background: #1B7763;
+}
+
+.dashboard .average {
+  background: #FDAD51;
+}
+
+.dashboard .belowAverage {
+  background: #FF5B5B;
+}
+
+.dashboard .noRating {
+  background: #908989;
+}
+
+.dashboard .push6 {
+  margin-top: -4px;
+}
+
+.dashboard .push7 {
+  margin-bottom: 30px;
+}
+
+.dashboard .pastQuestionsBox img {
+  max-width: 70px;
+}
+
+.dashboard .pastQuestionsBox p {
+  font-size: 12px;
+}
+
+.dashboard img.bullet {
+  margin-top: -3px;
+}
+
+.dashboard .instructor,
+.dashboard .recommendT {
+  color: #636060;
+}
+
+.dashboard a.view {
+  padding: 5px 35px;
+  background: #26AA76 !important;
+  border-radius: 5px;
+}
+
+.dashboard .push8 {
+  margin-bottom: 6px;
+}
+
+.dashboard .push9 {
+  padding: 25px 0px;
+}
+
+.dashboard .push10 {
+  margin-bottom: 22px;
+}
+
+.dashboard .recommend {
+  display: block;
+  background: rgb(43, 38, 38);
+  padding: 34px 20px;
+  border-radius: 5px;
+}
+
+.dashboard img.recommendImg {
+  width: 40px;
+  margin: auto;
+  display: block;
+  height: 40px;
+  object-fit: contain;
+  object-position: top;
+}
+
+#dashboardSecondSection {
+  padding: 50px 107px 150px 107px;
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+#dashboardFirstSection .push3 {
+  position: absolute;
+  bottom: 20px;
+  font-family: font3;
+  font-size: 14px;
+}
+
+#dashboardSecondSection img.subjectImage {
+  margin-bottom: 24px;
+}
+
+#dashboardSecondSection .dropDownContent {
+  height: 0px !important;
+  top: -177px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  #dashboardFirstSection {
+    height: 118vh;
+    margin-top: -290px;
+  }
+
+  #dashboardFirstSection {
+    padding-top: 211px;
+  }
+
+  #dashboardFirstSection h1 {
+    font-size: 45px;
+    margin-top: 75px;
+    margin-bottom: 33px;
+  }
+
+  #dashboardFirstSection .push2 {
+    padding: 1px 20px;
+  }
+
+  #dashboardSecondSection {
+    padding: 50px 20px 1px 20px;
+    margin-bottom: -30px;
+}
+
+  #dashboardSecondSection .dropDownContent {
+    height: 0px !important;
+    top: -197px;
+  }
+
+  #dashboardFirstSection .push3 {
+    left: 0px;
+    width: 100%;
+  }
+
+  .dashboard .myChart svg {
+    margin-top: 3px;
+    display: block;
+    margin: auto;
+    margin-bottom: auto;
+    margin-bottom: 74px;
+    margin-top: -20px;
+  }
+
+  .dashboard .subjectList span {
+    margin-bottom: 20px;
+  }
+
+  .dashboard .myClassroom .right {
+    text-align: left;
+    margin-top: 9px;
+  }
+
+  .dashboard a.view {
+    padding: 3px 35px;
+  }
+
+  .dashboard .recommend {
+    margin-bottom: 20px;
+  }
+
+
+}

@@ -45,7 +45,7 @@ const ClassDisplay = props => {
                   <span className="box3 box4"><FontAwesomeIcon icon={faUser} color="white"/></span>&nbsp;&nbsp; 13,000 Registered Students
                </div>
             </div>
-            <div className="row push2">
+            <div className="row push2 push3">
                <div className="col-md-3 font2">
                  <h5>JSS One Subjects</h5>
                </div>              

@@ -48,8 +48,12 @@ const Box = props => {
                                 </Tooltip>                       
                             </div>
                             <div className="col-3">
-                                <Tooltip placement="top" trigger={['hover']} overlay={<span>More Info</span>}>
-                                    <Link onClick={toggle}><img src={require('../../../assets/img/more.png')} alt="English" className="subjectImage2"/></Link>
+                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{props.dashboard? 'Start Learning':'More Info'} </span>}>
+                                {props.dashboard? 
+                                <Link to="/content"><img src={require('../../../assets/img/more.png')} alt="English" className="subjectImage2"/></Link>
+                                :
+                                <Link onClick={toggle}><img src={require('../../../assets/img/more.png')} alt="English" className="subjectImage2"/></Link>
+                                }
                                 </Tooltip>                       
                             </div>
                         </div>
