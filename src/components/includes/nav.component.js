@@ -31,6 +31,10 @@ import dashboard from "../screens/dashboard/dashboard.component";
 import selectPayment from "../screens/selectPayment/selectPayment.component";
 import cardPayment from "../screens/cardPayment/cardPayment.component";
 import bankDeposit from "../screens/bankDeposit/bankDeposit.component";
+import pastQuestionsInstruction from "../screens/pastQuestionsInstruction/pastQuestionsInstruction.component";
+import pastQuestionQuizPage from "../screens/pastQuestionQuizPage/pastQuestionQuizPage.component";
+import PastQuestions from "../screens/pastQuestions/pastQuestions.component";
+import myStudents from "../screens/myStudents/myStudents.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,9 +99,9 @@ const MyNav = (props) => {
         <Route
           path="/category/:subjectId/quiz"
           exact
-          component={PastQuestionQuizPage}
+          component={pastQuestionQuizPage}
         />
-        <Route path="/category/:subjectId" exact component={pastQuestions} />
+        <Route path="/category/:subjectId" exact component={PastQuestions} />
         <Route
           path="/classes/:classId/:subjectId/quiz"
           exact
@@ -125,6 +129,7 @@ const MyNav = (props) => {
         <Route path="/pay-with-card" component={cardPayment} />
         <Route path="/pay-in-bank" component={bankDeposit} />
         <Route path="/dashboard" component={dashboard} />
+        <Route path="/my-students" component={myStudents} />
       </Switch>
       <Footer />
     </Router>

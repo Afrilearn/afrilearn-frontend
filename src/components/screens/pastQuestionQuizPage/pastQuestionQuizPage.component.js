@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Progress } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,6 +14,7 @@ import podcast from "../../../assets/img/podcast.png";
 import excla from "../../../assets/img/excla.png";
 import metric from "../../../assets/img/metric.png";
 import { Button, UncontrolledPopover, PopoverBody } from "reactstrap";
+import { Modal, ModalBody } from "reactstrap";
 
 const PastQuestionQuizPage = (props) => {
   const mounted = useRef();
@@ -26,22 +27,16 @@ const PastQuestionQuizPage = (props) => {
       // do componentDidUpdate logic
     }
   });
+  const [modal, setModal] = useState(false);
 
-  const showComfirmSubmitMessage = () => {
-    const confirmSubmit = document.querySelector(".full-page-for");
-    confirmSubmit.style.display = "flex";
-  };
-  const hideComfirmSubmitMessage = () => {
-    const confirmSubmit = document.querySelector(".full-page-for");
-    confirmSubmit.style.display = "none";
-  };
+  const toggle = () => setModal(!modal);
+
   const showCompleteMessage = () => {
     const quizPageSectionTwo = document.getElementById("pqQuizPageSectionTwo");
     const quizPageSectionOne = document.getElementById("pqQuizPageSectionOne");
-    const confirmSubmit = document.querySelector(".full-page-for");
-    confirmSubmit.style.display = "none";
     quizPageSectionOne.style.display = "none";
     quizPageSectionTwo.style.display = "block";
+    toggle();
   };
   const hideCompleteMessage = () => {
     const quizPageSectionTwo = document.getElementById("pqQuizPageSectionTwo");
@@ -52,21 +47,23 @@ const PastQuestionQuizPage = (props) => {
   return (
     <React.Fragment>
       <div id="pqQuizPageSectionOne">
-        <div class="full-page-for">
-          <div className="confirm-submit">
-            <FontAwesomeIcon
-              icon={faTimes}
-              className="top-right"
-              onClick={hideComfirmSubmitMessage}
-            />
-            <p>You sure you are ready to submit?</p>
-            <img src={excla} alt="excla" />
-            <div>
-              <span onClick={hideComfirmSubmitMessage}>No, Cancel</span>
-              <button onClick={showCompleteMessage}>Yes, Submit!</button>
+        <Modal isOpen={modal} toggle={toggle} className="completeQuizPopUp">
+          <ModalBody>
+            <div class="popup-body">
+              <FontAwesomeIcon
+                icon={faTimes}
+                style={{ position: "absolute", top: "5px", right: "10px" }}
+                onClick={toggle}
+              />
+              <h4>You sure you are ready to submit?</h4>
+              <img src={excla} alt="see" />
+              <div class="call-to-action">
+                <span onClick={toggle}>No, Cancel</span>
+                <button onClick={showCompleteMessage}>Yes, Submit!</button>
+              </div>
             </div>
-          </div>
-        </div>
+          </ModalBody>
+        </Modal>
         <UncontrolledPopover
           trigger="focus"
           placement="bottom"
@@ -100,10 +97,7 @@ const PastQuestionQuizPage = (props) => {
                 </Button>
                 <img src={podcast} alt="icon-mic" />
                 <img src={flag} alt="icon-flag" />
-                <button
-                  onClick={showComfirmSubmitMessage}
-                  className="submit-button"
-                >
+                <button onClick={toggle} className="submit-button">
                   Submit
                 </button>
               </div>

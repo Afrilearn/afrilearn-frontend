@@ -1,0 +1,97 @@
+#studentListItem .main-row {
+  padding: 20px 30px;
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.46);
+}
+#studentListItem img {
+  height: 30px;
+}
+#studentListItem .username {
+  font-family: font3;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 27px;
+
+  color: #ffffff;
+}
+#studentListItem .middle-txt {
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 27px;
+  text-decoration-line: underline;
+  cursor: pointer;
+  color: #aaa6a6;
+}
+#studentListItem .remove-link {
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 27px;
+  cursor: pointer;
+  color: #ff5b5b;
+}
+@media screen and (max-width: 900px) {
+  #studentListItem .main-row {
+    padding: 5px 0;
+  }
+  #studentListItem .username {
+    font-size: 13px;
+    line-height: 20px;
+    margin-left: 4px;
+  }
+  #studentListItem .middle-txt {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  #studentListItem .remove-link {
+    font-size: 13px;
+    line-height: 27px;
+
+    color: #ff5b5b;
+  }
+}
+.studentItemPopUp .modal-body {
+  position: relative;
+}
+.studentItemPopUp .modal-content {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: white;
+  padding: 20px;
+}
+.studentItemPopUp .popup-body {
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.studentItemPopUp .popup-body h4{
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 27px;
+  
+  color: #FFFFFF;
+  
+}
+.studentItemPopUp .popup-body img{
+  height: 100px;
+  margin: 20px 0;
+}
+.studentItemPopUp .popup-body .call-to-action {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.studentItemPopUp .popup-body .call-to-action button {
+  background: #e56b2b;
+  border: 0.0287187px solid rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: white;
+}

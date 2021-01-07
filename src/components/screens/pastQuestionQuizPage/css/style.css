@@ -386,3 +386,50 @@
     justify-content: center;
   }
 }
+
+.completeQuizPopUp .modal-body {
+  position: relative;
+}
+.completeQuizPopUp .modal-content {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  color: white;
+  padding: 20px;
+}
+.completeQuizPopUp .popup-body {
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.completeQuizPopUp .popup-body h4{
+  font-family: font3;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 27px;
+  
+  color: #FFFFFF;
+  
+}
+.completeQuizPopUp .popup-body img{
+  height: 100px;
+  margin: 20px 0;
+}
+.completeQuizPopUp .popup-body .call-to-action {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.completeQuizPopUp .popup-body .call-to-action span {
+  cursor: pointer;
+}
+.completeQuizPopUp .popup-body .call-to-action button {
+  background: #26aa76;
+  border: 0.0287187px solid rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: white;
+}
+
