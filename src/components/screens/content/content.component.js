@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlay,
-  faAngleDown,
-  faLock,
   faAngleUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 import "./css/style.css";
 import pencil from "../../../assets/img/pencil.png";
@@ -21,6 +17,7 @@ import social from "../../../assets/img/social.png";
 import health_two from "../../../assets/img/health_two.png";
 import english_two from "../../../assets/img/english_two.png";
 import firstterm from "../../../assets/img/firstterm.png";
+import LessonItem from "../../includes/lessonItem/lessonItem.component";
 class Content extends Component {
   state = {
     data: [
@@ -113,108 +110,57 @@ class Content extends Component {
           <div className="subHeadTwo">Explore the fun in learning</div>
         </div>
         <div id="contentPageSecondSection">
-          <div className="details">
-            <div className="right">
-              <div className="right_head">
-                <h4>Basic Technology</h4>
-                <span>03</span>
-                <p>Terms</p>
-              </div>
-              <p className="right_para">
-                Basic Technology is a very important subject in todays
-                curriculum for students especially at the junior secondary level
-                as knowledge impacted prepares them for the various experiences
-                at the senior level not withstanding their carrier paths.
-              </p>
-            </div>
-            <div className="left">
-              <p>
-                <span className="left_key">Class:</span>
-                &nbsp; &nbsp; Junior Sceondary School One
-              </p>
-              <p>
-                <span className="left_key">Lessons:</span>
-                &nbsp; &nbsp; 116 Video Lessons
-              </p>
-              <p>
-                <span className="left_key">Students:</span>
-                &nbsp; &nbsp; 13,000 Registered Students
-              </p>
-            </div>
-            <p className="red_text">Subscribe to Unlock Content</p>
-          </div>
-          <div className="terms">
-            {this.state.terms.map((term) => (
-              <div key={term._id} className="term">
-                <h4 className="term_head">{term.name}</h4>
-                <div className="term_list">
-                  {term.classes.map((clazz) => (
-                    <div key={clazz._id} className="term_item">
-                      <div className="term_item_right">
-                        <img src={firstterm} alt="see this"></img>
-                      </div>
-                      <div className="term_item_left">
-                        <h5 className="term_item_left_top">
-                          Geometrical Construction (1): Lines
-                          <FontAwesomeIcon
-                            icon={faLock}
-                            style={{ marginLeft: "10px" }}
-                          />
-                        </h5>
-                        <div className="term_item_left_bottom">
-                          <Link
-                            to="/content/68t387x87x67c7xg8"
-                            className="term_item_left_bottom_item"
-                          >
-                            <FontAwesomeIcon
-                              onClick={this.hidePopUp}
-                              className="play"
-                              icon={faPlay}
-                            />
-                            <button>Lesson 1</button>
-                          </Link>
-                          <Link
-                            to="/content/68t387x87x67c7xg8"
-                            className="term_item_left_bottom_item"
-                          >
-                            <FontAwesomeIcon
-                              onClick={this.hidePopUp}
-                              className="play"
-                              icon={faPlay}
-                            />
-                            <button>Lesson 1</button>
-                          </Link>
-                          <Link
-                            to="/content/68t387x87x67c7xg8"
-                            className="term_item_left_bottom_item"
-                          >
-                            <FontAwesomeIcon
-                              onClick={this.hidePopUp}
-                              className="play"
-                              icon={faPlay}
-                            />
-                            <button>Lesson 1</button>
-                          </Link>
-                          <div className="term_item_left_bottom_item">
-                            <Link to="/instructions">Quiz</Link>
-                          </div>
-                        </div>
-                      </div>
-                      <span
-                        className="term_item_see_more"
-                        onClick={this.seeMore}
-                      >
-                        <FontAwesomeIcon icon={faAngleDown} />
-                      </span>
-                    </div>
-                  ))}
+          <div class="container-fluid">
+            <div className="details row">
+              <div className="right col-md-7">
+                <div className="right_head">
+                  <h4>Basic Technology</h4>
+                  <span>03</span>
+                  <p>Terms</p>
                 </div>
+                <p className="right_para">
+                  Basic Technology is a very important subject in todays
+                  curriculum for students especially at the junior secondary
+                  level as knowledge impacted prepares them for the various
+                  experiences at the senior level not withstanding their carrier
+                  paths.
+                </p>
               </div>
-            ))}
-            <span className="term_item_see_less" onClick={this.seeLess}>
-              <FontAwesomeIcon icon={faAngleUp} />
-            </span>
+              <div className="col-md-2"></div>
+              <div className="left col-md-3">
+                <p>
+                  <span className="left_key">Class:</span>
+                  &nbsp; &nbsp; Junior Sceondary School One
+                </p>
+                <p>
+                  <span className="left_key">Lessons:</span>
+                  &nbsp; &nbsp; 116 Video Lessons
+                </p>
+                <p>
+                  <span className="left_key">Students:</span>
+                  &nbsp; &nbsp; 13,000 Registered Students
+                </p>
+              </div>
+              <p className="red_text">Subscribe to Unlock Content</p>
+            </div>
           </div>
+          <div class="container-fluid">
+            <div className="terms">
+              {this.state.terms.map((term) => (
+                <div key={term._id} className="term">
+                  <h4 className="term_head">{term.name}</h4>
+                  <div className="term_list">
+                    {term.classes.map((clazz) => (
+                      <LessonItem clazz={clazz} seeMore={this.seeMore} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <span className="term_item_see_less" onClick={this.seeLess}>
+                <FontAwesomeIcon icon={faAngleUp} />
+              </span>
+            </div>
+          </div>{" "}
         </div>
       </div>
     );

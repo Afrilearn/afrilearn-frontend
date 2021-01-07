@@ -1,15 +1,19 @@
+.container-fluid {
+  padding: 10px;
+}
 .term_item {
   width: 100%;
   padding: 30px 0;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   border-bottom: 1px solid grey;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   position: relative;
 }
 .lesson-list:last-of-type .term_item_see_more {
   display: flex;
 }
+
 .term_item_see_more {
   width: 40px;
   height: 40px;
@@ -28,10 +32,9 @@
   display: none;
 }
 .term_item_right {
+  width: 90%;
   height: 179px;
-  flex: 0 0 251px;
   border-radius: 5px;
-  margin-right: 20px;
   margin-bottom: 10px;
   overflow: hidden;
   display: flex;
@@ -42,29 +45,19 @@
   height: 70%;
   width: 100%;
 }
-.term_item_left {
-  flex: 1;
-}
-.term_item_left_bottom {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
 .term_item_left_top {
   font-size: 20px;
   margin-bottom: 30px;
 }
 .term_item_left_bottom_item {
-  flex: 0 0 96px;
   display: inline-block;
   border: 1px solid #a8a8a8;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 11px;
   margin-bottom: 10px;
-  padding: 3px 5px;
+  padding: 10px;
   box-sizing: border-box;
 }
 .term_item_left_bottom_item button {
@@ -76,18 +69,6 @@
 }
 @media screen and (max-width: 900px) {
   .term_item_right {
-    flex: 0 0 300px;
     margin-bottom: 20px;
-  }
-  .term_item_left {
-    flex: 0 0 100%;
-  }
-  .term_item_left_bottom {
-    justify-content: center;
-  }
-}
-@media screen and (max-width: 600px) {
-  .term_item_left_bottom_item {
-    flex: 0 0 40%;
   }
 }
