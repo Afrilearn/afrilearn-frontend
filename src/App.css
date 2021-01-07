@@ -1,20 +1,20 @@
 @font-face {
-  font-family: 'font1';
-  src: url('./assets/fonts/Nunito-SemiBold.ttf') format('opentype');
+  font-family: "font1";
+  src: url("./assets/fonts/Nunito-SemiBold.ttf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'font2';
-  src: url('./assets/fonts/Baloo-Regular-400.ttf') format('opentype');
+  font-family: "font2";
+  src: url("./assets/fonts/Baloo-Regular-400.ttf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'font3';
-  src: url('./assets/fonts/Nunito-Regular.ttf') format('opentype');
+  font-family: "font3";
+  src: url("./assets/fonts/Nunito-Regular.ttf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
@@ -60,7 +60,12 @@ body {
 .floatLeft {
   float: left;
 }
-
+.font2 {
+  font-family: font2;
+}
+.font3 {
+  font-family: font3;
+}
 @keyframes moveDown {
   from {
     transform: translateY(-5rem);
@@ -171,7 +176,6 @@ img.logo {
   opacity: 0.7;
 }
 
-
 .bg-light {
   background-color: transparent !important;
   padding: 17px 28px;
@@ -202,14 +206,14 @@ img.searchIcon {
 
 input.searchBox {
   background: rgba(2, 2, 2, 0.6);
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
   box-sizing: border-box;
   color: white;
   padding: 8px 27px 8px 44px;
   margin-top: -8px;
   display: none;
-  -webkit-animation: moveDown .5s ease-in-out;
-  animation: moveDown .5s ease-in-out;
+  -webkit-animation: moveDown 0.5s ease-in-out;
+  animation: moveDown 0.5s ease-in-out;
 }
 
 .searchArea:hover input.searchBox {
@@ -254,12 +258,11 @@ input.general {
 }
 
 input[type="submit"] {
-  background: #249D6D;
+  background: #249d6d;
   color: white;
   text-align: center;
   font-weight: bolder;
   margin-top: 38px !important;
-
 }
 
 option {
@@ -281,9 +284,6 @@ option {
 .custom-control-label::after {
   top: 0.15rem;
 }
-
-
-
 
 @media screen and (max-width: 768px) {
   .mobileOnly {
@@ -333,7 +333,7 @@ option {
     width: 95%;
     padding: 40px 10px;
     margin: auto;
-}
+  }
 
   .bg-light {
     background-color: transparent !important;
@@ -346,14 +346,12 @@ option {
     background-size: cover; */
   }
   input.searchBox {
-    margin-top: 6px;   
+    margin-top: 6px;
   }
   .searchArea:hover img.searchIcon {
     top: 23px;
   }
-  .mobileCenter{
+  .mobileCenter {
     text-align: center;
   }
-
-
 }

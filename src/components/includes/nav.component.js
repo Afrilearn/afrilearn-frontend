@@ -35,6 +35,8 @@ import pastQuestionsInstruction from "../screens/pastQuestionsInstruction/pastQu
 import pastQuestionQuizPage from "../screens/pastQuestionQuizPage/pastQuestionQuizPage.component";
 import PastQuestions from "../screens/pastQuestions/pastQuestions.component";
 import myStudents from "../screens/myStudents/myStudents.component";
+import classroomTeacherComponent from "../screens/classroomTeacher/classroomTeacher.component";
+import assignContent from "../screens/assignContent/assignContent.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,8 +117,10 @@ const MyNav = (props) => {
           path="/classes/:classId/:subjectId"
           component={classroomStudent}
         />
+        <Route path="/classes/teacher" component={classroomTeacherComponent} />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
+        <Route path="/content/:lessonId/assign-content" component={assignContent} />
         <Route path="/content/:lessonId" component={lessonPage} />
         <Route path="/content" component={content} />
         <Route path="/profile" component={profilePage} />

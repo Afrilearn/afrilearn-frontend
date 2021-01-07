@@ -1,35 +1,52 @@
 import { faAngleDown, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 import firstterm from "../../../assets/img/firstterm.png";
-import "./css/style.css"
+import "./css/style.css";
 
 const LessonItem = (props) => {
   const { clazz, seeMore } = props;
   return (
-    <div key={clazz._id} className="term_item">
-      <div className="term_item_right">
-        <img src={firstterm} alt="see this"></img>
+    <div key={clazz._id} className="term_item row">
+      <div class="col-md-3">
+        <div className="term_item_right">
+          <img src={firstterm} alt="see this"></img>
+        </div>
       </div>
-      <div className="term_item_left">
+      <div className="term_item_left col-md-9">
         <h5 className="term_item_left_top">
           Geometrical Construction (1): Lines
         </h5>
-        <div className="term_item_left_bottom">
-          <div className="term_item_left_bottom_item">
-            <FontAwesomeIcon icon={faPlay} />
-            <button>Lesson 1</button>
+        <div className="term_item_left_bottom row">
+          <div class="col-md-3">
+            <Link to="/content/bidodjo">
+              <div className="term_item_left_bottom_item ">
+                <FontAwesomeIcon icon={faPlay} />
+                <button>Lesson 1</button>
+              </div>
+            </Link>
           </div>
-          <div className="term_item_left_bottom_item">
-            <FontAwesomeIcon icon={faPlay} />
-            <button>Lesson 1</button>
+          <div class="col-md-3">
+            <Link to="/content/bidodjo">
+              <div className="term_item_left_bottom_item ">
+                <FontAwesomeIcon icon={faPlay} />
+                <button>Lesson 1</button>
+              </div>
+            </Link>
           </div>
-          <div className="term_item_left_bottom_item">
-            <FontAwesomeIcon icon={faPlay} />
-            <button>Lesson 1</button>
+          <div class="col-md-3">
+            <Link to="/content/bidodjo">
+              <div className="term_item_left_bottom_item ">
+                <FontAwesomeIcon icon={faPlay} />
+                <button>Lesson 1</button>
+              </div>
+            </Link>
           </div>
-          <div className="term_item_left_bottom_item">
-            <button>Quiz</button>
+          <div class="col-md-3">
+            <div className="term_item_left_bottom_item ">
+              <button>Quiz</button>
+            </div>
           </div>
         </div>
       </div>

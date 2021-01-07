@@ -1,7 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&display=swap");
-
 #contentPageFirstSection {
-  height: calc(100vh + 80px);
+  height: calc(100vh);
   width: 100%;
   margin-top: -80px;
   background-color: #ddd;
@@ -23,7 +21,7 @@
 #contentPageFirstSection .subHead {
   position: absolute;
   bottom: 20%;
-  left: 6%;
+  left: 120px;
   height: 50px;
   width: 300px;
   font-size: 35px;
@@ -34,7 +32,7 @@
 #contentPageFirstSection .subHeadTwo {
   position: absolute;
   bottom: 15%;
-  left: 6%;
+  left: 120px;
   height: 50px;
   width: 300px;
   font-size: 20px;
@@ -55,47 +53,45 @@
     height: 30px;
     bottom: 15%;
     font-size: 20px;
+    left: 20px;
   }
   #contentPageFirstSection .subHeadTwo {
     bottom: 9%;
     font-size: 16px;
+    left: 20px;
   }
 }
 #contentPageSecondSection {
-  padding: 40px;
+  padding: 40px 120px;
   background-color: black;
   color: white;
 }
-
-#contentPageSecondSection .details {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 30px 150px;
-  justify-content: space-between;
+#contentPageSecondSection .container-fluid {
+  margin: 0px;
+  padding: 1px;
 }
 #contentPageSecondSection .right {
-  flex: 0 0 47%;
   min-height: 100px;
   box-sizing: border-box;
-  padding-right: 20px;
   text-align: left;
 }
+#contentPageSecondSection .right.col-md-7{
+ padding: 0;
+}
 #contentPageSecondSection .right_para {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 300;
 }
 #contentPageSecondSection .red_text {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 300;
   color: #ff5b5b;
   font-family: font3;
-  /* flex: 100%; */
 }
 #contentPageSecondSection .left {
-  flex: 0 0 40%;
-  min-height: 100px;
   padding: 10px;
   box-sizing: border-box;
+  font-size: 17px;
 }
 #contentPageSecondSection .right_head {
   display: flex;
@@ -108,7 +104,7 @@
   color: #26aa76;
   margin: 0;
   margin-right: auto;
-  font-size: 24px;
+  font-size: 28px;
   font-family: font2;
 }
 #contentPageSecondSection .right_head span {
@@ -117,12 +113,15 @@
   margin: 0 20px;
 }
 #contentPageSecondSection .right_head p {
-  font-size: 17px;
+  font-size: 20px;
 }
 #contentPageSecondSection .left_key {
   color: grey;
 }
 @media screen and (max-width: 900px) {
+  #contentPageSecondSection .row {
+    margin: 0px;
+  }
   #contentPageSecondSection .details {
     padding: 20px;
   }
@@ -145,12 +144,10 @@
   }
 }
 #contentPageSecondSection .terms {
-  padding-bottom: 200px;
   position: relative;
   border-bottom: none;
 }
 #contentPageSecondSection .term {
-  padding: 0 150px;
   margin-top: 30px;
   margin-bottom: 70px;
   display: none;
@@ -159,12 +156,6 @@
   display: block;
 }
 #contentPageSecondSection .term_item {
-  width: 100%;
-  padding: 30px 0;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid grey;
-  flex-wrap: wrap;
   position: relative;
 }
 #contentPageSecondSection .term_item:last-child .term_item_see_more {
@@ -180,7 +171,7 @@
   background: rgba(39, 38, 38, 0.5);
   border: 2px solid rgba(229, 229, 229, 0.5);
   box-sizing: border-box;
-  border-radius: 50%; 
+  border-radius: 50%;
   justify-content: center;
   align-items: center;
   font-size: 20px;
@@ -205,72 +196,12 @@
   text-align: center;
   display: none;
 }
-#contentPageSecondSection .term_item_right {
-  height: 179px;
-  flex: 0 0 251px;
-  border-radius: 5px;
-  margin-right: 20px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  background-color: #201e1e;
-}
-
-#contentPageSecondSection .term_item_left {
-  flex: 1 0 60%;
-}
-#contentPageSecondSection .term_item_right img {
-  height: 70%;
-  width: 100%;
-}
-#contentPageSecondSection .term_item_left_bottom {
-  display: flex;
-  justify-content: space-between;
-}
-#contentPageSecondSection .term_item_left_top {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-#contentPageSecondSection .term_item_left_bottom_item {
-  flex: 0 0 18%;
-  display: inline-block;
-  border: 1px solid #a8a8a8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  padding: 6px;
-}
-#contentPageSecondSection .term_item_left_bottom_item button {
-  border: none;
-  display: inline-block;
-  background-color: transparent;
-  color: white;
-}
 @media screen and (max-width: 900px) {
   #contentPageSecondSection .terms {
     padding-bottom: 50px;
   }
   #contentPageSecondSection .term {
     padding: 10px;
-  }
-  #contentPageSecondSection .term_item_right {
-    flex: 0 0 286px;
-    margin-bottom: 20px;
-  }
-  #contentPageSecondSection .term_item_left {
-    flex: 0 0 100%;
-  }
-  #contentPageSecondSection .term_item_left_top {
-    font-size: 18px;
-    margin: 20px 0;
-  }
-  #contentPageSecondSection .term_item_left_bottom_item {
-    flex: 0 0 150px;
-  }
-  #contentPageSecondSection .term_item_left_bottom {
-    flex-wrap: wrap;
   }
 }
 

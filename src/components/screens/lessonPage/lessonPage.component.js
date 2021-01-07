@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import movie from "../../../assets/video/video.mp4";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,13 +6,15 @@ import {
   faBook,
   faMicrophone,
   faThumbsUp,
-  faDotCircle,
   faTimes,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
 import firstterm from "../../../assets/img/firstterm.png";
+import dots from "../../../assets/img/dots.png";
+import { Popover, PopoverBody } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const LessonPage = () => {
   const mounted = useRef();
@@ -25,6 +27,10 @@ const LessonPage = () => {
       // do componentDidUpdate logic
     }
   });
+
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  const toggle = () => setPopoverOpen(!popoverOpen);
   const openPopOne = () => {
     const popOne = document.getElementById("lessonPagePopUpOne");
     popOne.style.display = "flex";
@@ -75,13 +81,28 @@ const LessonPage = () => {
               </div>
             </div>
             <div className="icon">
-              <FontAwesomeIcon icon={faDotCircle} />
-              <div className="icon_pop">
-                <p>Community</p>
-                <p>Bookmark</p>
-                <p>Share</p>
-                <span></span>
-              </div>
+              <span
+                id="Popover1"
+                onMouseOver={() => setPopoverOpen("true")}
+                onMouseLeave={toggle}
+              >
+                <Popover
+                  placement="bottom"
+                  isOpen={popoverOpen}
+                  target="Popover1"
+                  toggle={toggle}
+                >
+                  <PopoverBody>
+                    <Link to="/content/hjdjhdiue/assign-content">
+                      Assign Content
+                    </Link>
+                    <p>Community</p>
+                    <p>Bookmark</p>
+                    <p>Share</p>
+                  </PopoverBody>
+                </Popover>
+                <img src={dots} alt="see more" />
+              </span>
             </div>
           </div>
           <a href="/">Hide Transcript</a>
