@@ -5,7 +5,8 @@ import {
 const initialState = {
   drop: false,
   redirect: false,
-  location:'/profile'  
+  location:'/profile',
+  chartSection:'pastQuestions'  
 };
 
 const authReducer = (state = initialState, action) => {

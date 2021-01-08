@@ -21,7 +21,8 @@
 
 html,
 body {
-  font-family: font1;
+  font-family: font1 !important;
+  overflow-x: hidden;
 }
 
 .absolute {
@@ -41,11 +42,11 @@ body {
 }
 
 .right {
-  text-align: right;
+  text-align: right !important;
 }
 
 .left {
-  text-align: left;
+  text-align: left !important;
 }
 
 .center {
@@ -284,6 +285,15 @@ option {
 .custom-control-label::after {
   top: 0.15rem;
 }
+.orange {
+  color: orangered;
+}
+.active{
+  color: white !important;
+  font-weight: bolder;
+}
+
+
 
 @media screen and (max-width: 768px) {
   .mobileOnly {

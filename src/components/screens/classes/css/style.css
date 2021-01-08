@@ -8,7 +8,7 @@
 .classes1 {
   background-color: black;
   margin-top: -90px;
-  padding: 175px 27px;
+  padding: 176px 27px !important;
   color: white;
   overflow: hidden;
 }

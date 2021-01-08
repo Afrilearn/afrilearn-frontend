@@ -112,7 +112,7 @@ class Content extends Component {
         <div id="contentPageSecondSection">
           <div class="container-fluid">
             <div className="details row">
-              <div className="right col-md-7">
+              <div className="right1 col-md-7">
                 <div className="right_head">
                   <h4>Basic Technology</h4>
                   <span>03</span>
@@ -125,9 +125,10 @@ class Content extends Component {
                   experiences at the senior level not withstanding their carrier
                   paths.
                 </p>
+                <p className="red_text">Subscribe to Unlock Content</p>
               </div>
-              <div className="col-md-2"></div>
-              <div className="left col-md-3">
+              <div className="col-md-1"></div>
+              <div className="left col-md-4">
                 <p>
                   <span className="left_key">Class:</span>
                   &nbsp; &nbsp; Junior Sceondary School One
@@ -139,9 +140,9 @@ class Content extends Component {
                 <p>
                   <span className="left_key">Students:</span>
                   &nbsp; &nbsp; 13,000 Registered Students
-                </p>
+                </p>               
               </div>
-              <p className="red_text">Subscribe to Unlock Content</p>
+              
             </div>
           </div>
           <div class="container-fluid">
