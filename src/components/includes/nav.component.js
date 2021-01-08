@@ -33,10 +33,11 @@ import cardPayment from "../screens/cardPayment/cardPayment.component";
 import bankDeposit from "../screens/bankDeposit/bankDeposit.component";
 import pastQuestionsInstruction from "../screens/pastQuestionsInstruction/pastQuestionsInstruction.component";
 import pastQuestionQuizPage from "../screens/pastQuestionQuizPage/pastQuestionQuizPage.component";
-import PastQuestions from "../screens/pastQuestions/pastQuestions.component";
+import pastQuestions from "../screens/pastQuestions/pastQuestions.component";
 import myStudents from "../screens/myStudents/myStudents.component";
 import classroomTeacherComponent from "../screens/classroomTeacher/classroomTeacher.component";
 import assignContent from "../screens/assignContent/assignContent.component";
+import performance from "../screens/performance/performance.component";
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -103,7 +104,7 @@ const MyNav = (props) => {
           exact
           component={pastQuestionQuizPage}
         />
-        <Route path="/category/:subjectId" exact component={PastQuestions} />
+        <Route path="/category/:subjectId" exact component={pastQuestions} />
         <Route
           path="/classes/:classId/:subjectId/quiz"
           exact
@@ -134,6 +135,7 @@ const MyNav = (props) => {
         <Route path="/pay-in-bank" component={bankDeposit} />
         <Route path="/dashboard" component={dashboard} />
         <Route path="/my-students" component={myStudents} />
+        <Route path="/performance" component={performance} />
       </Switch>
       <Footer />
     </Router>
