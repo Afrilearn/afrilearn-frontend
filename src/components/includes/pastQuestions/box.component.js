@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Box = props => { 
 	return (		
         <div className="col-md-3">
-            <Link to="/">
+            <Link to="/category/:subjectId">
                 <span className={props.other? 'pastQuestionsBox pastQuestionsBox1':'pastQuestionsBox'}>
                     <div className="row">
                         <div className="col-4">

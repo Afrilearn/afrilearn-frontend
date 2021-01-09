@@ -7,7 +7,12 @@ import {
   Nav,
   NavItem,
   NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from "reactstrap";
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import homepage from "../screens/homepage/homePage.component";
 import about from "../screens/about/about.component";
@@ -42,6 +47,7 @@ import performance from "../screens/performance/performance.component";
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const {authenticated} = props;
   return (
     <Router>
       <Navbar color="light" light expand="md">
@@ -55,6 +61,21 @@ const MyNav = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink tag={Link} to="/dashboard">
+                Dashboard
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/select-pay">
+                Subscribe
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/performance">
+                Performance Analysis
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink tag={Link} className="relative searchArea">
                 {/* <img className="searchIcon" src={require('../../assets/img/search.png')} alt="Afrilearn Search button"/> */}
@@ -76,16 +97,61 @@ const MyNav = (props) => {
                 About Us
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/login" className="contact contact1">
-                Login
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/register" className="contact">
-                Register
-              </NavLink>
-            </NavItem>
+            {authenticated? 
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                <img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon dropDownIcon1"/>
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem tag={Link} to="/dashboard">
+                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSS1</span>
+                </DropdownItem>            
+                <DropdownItem tag={Link} to="/classes/teacher">
+                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSS2</span>
+                </DropdownItem>            
+                <DropdownItem tag={Link} to="/about">                 
+                  Add A New Class                          
+                </DropdownItem>
+                <DropdownItem tag={Link} to="/profile">                 
+                  Manage Profile                        
+                </DropdownItem>
+                <DropdownItem divider />  
+                <DropdownItem tag={Link} to="/select-pay">                 
+                  Payment History                       
+                </DropdownItem>
+                <DropdownItem tag={Link} to="/profile">                 
+                  Invite Your Friends                    
+                </DropdownItem> 
+                <DropdownItem tag={Link} to="/login">                 
+                  Log in                   
+                </DropdownItem>   
+                <DropdownItem tag={Link} to="/register">                 
+                  Register                 
+                </DropdownItem>  
+                <DropdownItem tag={Link} to="/change_password">                 
+                  Change Password                 
+                </DropdownItem>
+                <DropdownItem tag={Link} to="/classes/teacher">                 
+                  Teacher's Dashboard               
+                </DropdownItem>
+                <DropdownItem tag={Link} to="/">                 
+                  Log Out                   
+                </DropdownItem>             
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            :
+            <>
+              <NavItem>
+                <NavLink tag={Link} to="/login" className="contact contact1">
+                  Login
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/register" className="contact">
+                  Register
+                </NavLink>
+              </NavItem>
+            </>}            
           </Nav>
         </Collapse>
       </Navbar>
@@ -141,4 +207,7 @@ const MyNav = (props) => {
     </Router>
   );
 };
-export default MyNav;
+const mapStateToProps = (state) => ({
+  authenticated: state.auth.authenticated
+});
+export default connect(mapStateToProps, null)(MyNav);

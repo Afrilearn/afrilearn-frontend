@@ -164,13 +164,9 @@
 
 @media screen and (max-width: 768px) {
   #dashboardFirstSection {
-    height: 118vh;
-    margin-top: -290px;
-  }
-
-  #dashboardFirstSection {
-    padding-top: 211px;
-  }
+    height: 110vh;
+    padding-top: 144px;
+}
 
   #dashboardFirstSection h1 {
     font-size: 45px;

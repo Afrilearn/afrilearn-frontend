@@ -62,10 +62,10 @@ const ClassDisplay = props => {
             <Box image={require('../../../assets/img/health_two.png')} singleClass={true}/>
             <Box image={require('../../../assets/img/english_two.png')} singleClass={true}/>  
             <Box image={require('../../../assets/img/health.png')} singleClass={true}/>
-            <Box image={require('../../../assets/img/Civic.png')} singleClass={true}/>    
-            <Box image={require('../../../assets/img/social.png')} singleClass={true}/>
-            <Box image={require('../../../assets/img/social.png')} singleClass={true}/>
-            <Box image={require('../../../assets/img/health_two.png')} singleClass={true}/>       
+            <Box image={require('../../../assets/img/Civic.png')} singleClass={true}/> 
+            <Box image={require('../../../assets/img/health_two.png')} singleClass={true}/>  
+            <Box image={require('../../../assets/img/science.png')} singleClass={true}/>
+            <Box image={require('../../../assets/img/Civic.png')} singleClass={true}/>      
           </div>
         </div>
     </span>

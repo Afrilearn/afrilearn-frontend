@@ -6,7 +6,8 @@ const initialState = {
   drop: false,
   redirect: false,
   location:'/profile',
-  chartSection:'pastQuestions'  
+  chartSection:'subject',
+  authenticated:true  
 };
 
 const authReducer = (state = initialState, action) => {

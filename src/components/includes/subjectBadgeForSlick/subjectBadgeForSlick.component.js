@@ -44,8 +44,7 @@ class SimpleSlider extends React.Component {
           <Box image={require('../../../assets/img/english.png')}/>
           <Box image={require('../../../assets/img/health.png')}/>
           <Box image={require('../../../assets/img/science.png')}/>
-          <Box image={require('../../../assets/img/Civic.png')}/>
-          <Box image={require('../../../assets/img/social.png')}/>
+          <Box image={require('../../../assets/img/Civic.png')}/>  
           <Box image={require('../../../assets/img/health_two.png')}/>
           <Box image={require('../../../assets/img/english_two.png')}/>        
      </Slider>

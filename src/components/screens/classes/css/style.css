@@ -54,12 +54,12 @@
 #classes .dropDownContent {
   display: none;
   position: relative;
-  top: -235px;
+  top: -291px;
   left: 14px;
   width: 310px;
   z-index: 9;
   animation: moveDown .5s ease-in-out;
-  height: 60px;
+  height: 0px;
 }
 
 #classes .slick-prev,
@@ -74,8 +74,8 @@
 
 #classes img.subjectImage {
   border-radius: 5px;
-  width: 191px;
-  height: 127px;
+  /* width: 191px; */
+  /* height: 127px; */
   object-fit: cover;
   object-position: top;
 }
@@ -140,9 +140,10 @@
 
 @media screen and (max-width: 768px) {
   #classes {
-    padding: 50px 20px;
-    margin-top: -290px;
-    padding-top: 296px;
+    padding: 50px 20px !important;
+        padding-top: 50px;
+    margin-top: -160px;
+    padding-top: 296px !important;
   }
 
   #classes img.subjectImage {
