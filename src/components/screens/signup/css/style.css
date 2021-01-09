@@ -32,9 +32,9 @@
 }
 
 @media screen and (max-width: 768px) {
-    #signupFirstSection {     
-        height: 190vh;
-        margin-top: -290px;
+    #signupFirstSection {
+        height: 196vh;
+        margin-top: -224px;
     }
     #signupFirstSection .push7 {
         margin-top: 15px;

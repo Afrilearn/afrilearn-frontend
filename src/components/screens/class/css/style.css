@@ -72,9 +72,9 @@
 @media screen and (max-width: 768px) {
   #classFirstSection {
     height: 118vh;
-    margin-top: -290px;
+    margin-top: -180px;
     padding-top: 211px;
-  }
+}
 
   #classFirstSection h1 {
     font-size: 45px;

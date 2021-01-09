@@ -30,7 +30,8 @@
 
 @media screen and (max-width: 768px) {
     #changePassword {
-        height: 100vh;
+        height: 140vh;
+        margin-top: -212px;
     }
          
 }

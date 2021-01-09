@@ -172,19 +172,19 @@ const ClassroomTeacher = (props) => {
                 image={require("../../../assets/img/Civic.png")}
                 singleClass={true}
                 dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/social.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/social.png")}
-                singleClass={true}
-                dashboard={true}
-              />
+              />             
               <Box
                 image={require("../../../assets/img/health_two.png")}
+                singleClass={true}
+                dashboard={true}
+              />
+               <Box
+                image={require("../../../assets/img/health_two.png")}
+                singleClass={true}
+                dashboard={true}
+              />
+              <Box
+                image={require("../../../assets/img/english_two.png")}
                 singleClass={true}
                 dashboard={true}
               />
