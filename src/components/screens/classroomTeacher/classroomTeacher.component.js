@@ -87,7 +87,7 @@ const ClassroomTeacher = (props) => {
         <div className="welcome">
           <h1 className="font2">Welcome Abraham</h1>
           <p>
-            <b>JSS One</b>
+            <b>JSS One</b> 
           </p>
           <small>Class code MxH8902</small>
         </div>

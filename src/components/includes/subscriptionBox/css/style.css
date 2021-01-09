@@ -1,6 +1,6 @@
 #subscriptionBox .item {
   width: 100%;
-  height: 185.96px;
+  padding: 10%;
   border-radius: 10.6873px;
   background-color: rgba(255, 255, 255, 0.24);
   margin: 10px auto;
@@ -13,12 +13,13 @@
 #subscriptionBox .item:hover {
   opacity: 0.8;
 }
-#subscriptionBox .item span {
+#subscriptionBox .item h4 {
   font-family: font2;
   font-style: normal;
   font-weight: normal;
-  font-size: 37.4056px;
+  /* font-size: 37.4056px; */
   line-height: 59px;
+  display: inline-block;
 }
 #subscriptionBox .item small {
   font-family: font3;

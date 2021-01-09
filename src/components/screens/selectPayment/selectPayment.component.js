@@ -9,7 +9,7 @@ import SubscriptionBox from "../../includes/subscriptionBox/subscriptionBox.comp
 const Payment = () => {
   const mounted = useRef();
   useEffect(() => {
-    if (!mounted.current) {
+    if (!mounted.current) { 
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
@@ -32,7 +32,7 @@ const Payment = () => {
   return (
     <div id="selectPaymentPageSectionOne">
       <div className="sub-lenght">
-        <h4>Step 1: Select Subscription Length</h4>
+        <h3>Step 1: Select Subscription Length</h3>
         <Container>
           <div className="row">
             <div className="col-6 col-md-3">
@@ -68,7 +68,7 @@ const Payment = () => {
                 onClick={() => handlePayType("pay-in-bank", "deposit")}
               >
                 <img src={bankicon} alt="bankicon" />
-                <span>Bank Deposit</span>
+                <h4>Bank Deposit</h4>
               </div>
             </Col>
             <Col>
@@ -77,7 +77,7 @@ const Payment = () => {
                 onClick={() => handlePayType("pay-with-card", "card-pay")}
               >
                 <img src={cc} alt="cc" />
-                <span>Debit/Credit Card</span>
+                <h4>Debit/Credit Card</h4>
               </div>
             </Col>
           </Row>

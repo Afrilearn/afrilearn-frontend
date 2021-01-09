@@ -4,7 +4,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;
-  height: 550px;
+  height: 550px; 
   margin-top: -300px;
   text-align: center;
 }
@@ -63,6 +63,9 @@
 }
 
 @media screen and (max-width: 900px) {
+  #myStudentsSectionOne {
+    margin-top: -200px;
+  }
   #myStudentsSectiontwo {
     padding: 5px;
   }

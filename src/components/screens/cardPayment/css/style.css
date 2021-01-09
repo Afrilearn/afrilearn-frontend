@@ -1,9 +1,9 @@
-#paymentSectionOne {
+#paymentWithCard {
   background-color: black;
   color: white;
   min-height: 100vh;
-  padding-top: 310px;
-  margin-top: -320px;
+  padding-top: 100px;
+  margin-top: -100px;
   font-family: font3;
   font-style: normal;
   font-weight: 300;
@@ -11,14 +11,14 @@
   line-height: 27px;
   color: #ffffff;
 }
-#paymentSectionOne .sub-details {
+#paymentWithCard .sub-details {
   min-height: 500px;
   min-width: 300px;
   margin: 10px auto;
   padding: 30px;
   border-right: solid 1px rgba(255, 255, 255, 0.4);
 }
-#paymentSectionOne .sub-details h4 {
+#paymentWithCard .sub-details h4 {
   font-family: font2;
   font-style: normal;
   font-weight: normal;
@@ -27,10 +27,10 @@
   color: #f6f6f6;
   margin-bottom: 30px;
 }
-#paymentSectionOne .sub-details .details-item {
+#paymentWithCard .sub-details .details-item {
   margin-bottom: 15px;
 }
-#paymentSectionOne .sub-details .details-key {
+#paymentWithCard .sub-details .details-key {
   font-family: font3;
   font-style: normal;
   font-weight: 300;
@@ -39,7 +39,7 @@
 
   color: #ffffff54;
 }
-#paymentSectionOne .sub-details .details-value {
+#paymentWithCard .sub-details .details-value {
   font-family: font3;
   font-style: normal;
   font-weight: 600;
@@ -48,7 +48,7 @@
 
   color: #ffffff;
 }
-#paymentSectionOne .sub-details .btn-secondary {
+#paymentWithCard .sub-details .btn-secondary {
   width: 120px;
   height: 40.29px;
   background-color: #26aa76 !important;
@@ -56,25 +56,25 @@
   border-radius: 3px;
   border: solid 1px #26aa76;
 }
-#paymentSectionOne .sub-details #input-class {
+#paymentWithCard .sub-details #input-class {
   background-color: transparent;
   height: 50px;
   padding: 0 20px;
   border: solid 1px #26aa76;
 }
-#paymentSectionOne .pay-details {
+#paymentWithCard .pay-details {
   min-width: 300px;
   margin: 10px auto;
   min-height: 500px;
   padding: 30px;
 }
-#paymentSectionOne .pay-details .head {
+#paymentWithCard .pay-details .head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 70px;
 }
-#paymentSectionOne .pay-details .head h4 {
+#paymentWithCard .pay-details .head h4 {
   font-family: font2;
   font-style: normal;
   font-weight: normal;
@@ -82,35 +82,35 @@
   line-height: 47px;
   color: #f6f6f6;
 }
-#paymentSectionOne .pay-details .head img {
+#paymentWithCard .pay-details .head img {
   width: 40px;
 }
-#paymentSectionOne .pay-details .card-num {
+#paymentWithCard .pay-details .card-num {
   background-color: transparent;
   height: 30px;
   border: none;
 }
-#paymentSectionOne .pay-details .form-group {
+#paymentWithCard .pay-details .form-group {
   margin-bottom: 20px;
 }
-#paymentSectionOne .pay-details .form-group label {
+#paymentWithCard .pay-details .form-group label {
   margin: 0;
 }
-#paymentSectionOne .pay-details .input-group {
+#paymentWithCard .pay-details .input-group {
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
 }
-#paymentSectionOne .pay-details .form-control {
+#paymentWithCard .pay-details .form-control {
   padding: 0;
 }
-#paymentSectionOne .pay-details .input-group-text {
+#paymentWithCard .pay-details .input-group-text {
   background-color: transparent;
   border: none;
 }
-#paymentSectionOne .pay-details .pay-button {
+#paymentWithCard .pay-details .pay-button {
   text-align: center;
   margin: 50px 0;
 }
-#paymentSectionOne .pay-details .pay-button button {
+#paymentWithCard .pay-details .pay-button button {
   border: none;
   width: 200px;
   height: 50px;
@@ -118,24 +118,27 @@
 }
 
 @media screen and (max-width: 1020px) {
-  #paymentSectionOne .sub-details {
+  #paymentWithCard  {
+    margin-top: -50px;
+  }
+  #paymentWithCard .sub-details {
     padding: 10px;
   }
 }
 @media screen and (max-width: 760px) {
-  #paymentSectionOne .sub-details {
+  #paymentWithCard .sub-details {
     border: none;
   }
-  #paymentSectionOne .sub-details .details-item {
+  #paymentWithCard .sub-details .details-item {
     margin-bottom: 5px;
   }
-  #paymentSectionOne .sub-details h4 {
+  #paymentWithCard .sub-details h4 {
     margin-bottom: 20px;
   }
-  #paymentSectionOne .pay-details {
+  #paymentWithCard .pay-details {
     padding: 10px;
   }
-  #paymentSectionOne .pay-details .head {
+  #paymentWithCard .pay-details .head {
     margin-bottom: 30px;
   }
 }

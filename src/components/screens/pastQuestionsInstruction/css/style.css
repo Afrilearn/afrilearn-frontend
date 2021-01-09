@@ -46,7 +46,7 @@
   font-family: font3;
   font-style: normal;
   font-weight: normal;
-  font-size: 20px;
+  /* font-size: 20px; */
   line-height: 37px;
   color: #ffffff;
 }
@@ -81,5 +81,10 @@
   background: #249d6d;
   border-radius: 100px;
   border: none;
-
+}
+@media screen and (max-width: 900px) {
+  #pastQuestionsInstructionSectionOne {
+    margin-top: -240px;
+    text-align: center;
+  }
 }
