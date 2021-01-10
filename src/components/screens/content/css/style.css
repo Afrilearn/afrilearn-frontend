@@ -7,7 +7,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  color: white;
+  color: white; 
 }
 #contentPageFirstSection h1 {
   position: absolute;
@@ -40,8 +40,7 @@
 }
 @media screen and (max-width: 900px) {
   #contentPageFirstSection {
-    height: 690px;
-    margin-top: -288px;
+    height: 500px;
   }
   #contentPageFirstSection h1 {
     bottom: 40%;

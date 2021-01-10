@@ -104,5 +104,5 @@ const QuizPage = () => {
     </React.Fragment>
   );
 };
-
+ 
 export default QuizPage;

@@ -14,7 +14,7 @@ import health from "../../../assets/img/health.png";
 import science from "../../../assets/img/science.png";
 import Civic from "../../../assets/img/Civic.png";
 import social from "../../../assets/img/social.png";
-import health_two from "../../../assets/img/health_two.png";
+import health_two from "../../../assets/img/health_two.png"; 
 import english_two from "../../../assets/img/english_two.png";
 import firstterm from "../../../assets/img/firstterm.png";
 import LessonItem from "../../includes/lessonItem/lessonItem.component";

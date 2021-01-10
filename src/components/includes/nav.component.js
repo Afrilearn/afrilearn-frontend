@@ -175,7 +175,7 @@ const MyNav = (props) => {
           path="/classes/:classId/:subjectId/quiz"
           exact
           component={quizPage}
-        />
+        /> 
         <Route
           path="/classes/:classId/:subjectId/:classworkId"
           component={classWork}

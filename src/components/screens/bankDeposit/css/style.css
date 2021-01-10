@@ -1,9 +1,9 @@
-#paymentSectionOne {
+#paymentInBank {
   background-color: black;
   color: white;
   min-height: 100vh;
-  padding-top: 310px;
-  margin-top: -320px;
+  padding-top: 100px;
+  margin-top: -100px;
   font-family: font3;
   font-style: normal;
   font-weight: 300;
@@ -11,14 +11,14 @@
   line-height: 27px;
   color: #ffffff;
 }
-#paymentSectionOne .sub-details {
+#paymentInBank .sub-details {
   min-height: 500px;
   min-width: 300px;
   margin: 10px auto;
   padding: 30px;
   border-right: solid 1px rgba(255, 255, 255, 0.4);
 }
-#paymentSectionOne .sub-details h4 {
+#paymentInBank .sub-details h4 {
   font-family: font2;
   font-style: normal;
   font-weight: normal;
@@ -27,10 +27,10 @@
   color: #f6f6f6;
   margin-bottom: 30px;
 }
-#paymentSectionOne .sub-details .details-item {
+#paymentInBank .sub-details .details-item {
   margin-bottom: 15px;
 }
-#paymentSectionOne .sub-details .details-key {
+#paymentInBank .sub-details .details-key {
   font-family: font3;
   font-style: normal;
   font-weight: 300;
@@ -39,7 +39,7 @@
 
   color: #ffffff54;
 }
-#paymentSectionOne .sub-details .details-value {
+#paymentInBank .sub-details .details-value {
   font-family: font3;
   font-style: normal;
   font-weight: 600;
@@ -48,7 +48,7 @@
 
   color: #ffffff;
 }
-#paymentSectionOne .sub-details .btn-secondary {
+#paymentInBank .sub-details .btn-secondary {
   width: 120px;
   height: 40.29px;
   background-color: #26aa76 !important;
@@ -56,25 +56,25 @@
   border-radius: 3px;
   border: solid 1px #26aa76;
 }
-#paymentSectionOne .sub-details #input-class {
+#paymentInBank .sub-details #input-class {
   background-color: transparent;
   height: 50px;
   padding: 0 20px;
   border: solid 1px #26aa76;
 }
-#paymentSectionOne .pay-details {
+#paymentInBank .pay-details {
   min-width: 300px;
   margin: 10px auto;
   min-height: 500px;
   padding: 30px;
 }
-#paymentSectionOne .pay-details .head {
+#paymentInBank .pay-details .head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
 }
-#paymentSectionOne .pay-details .head h4 {
+#paymentInBank .pay-details .head h4 {
   font-family: font2;
   font-style: normal;
   font-weight: normal;
@@ -83,46 +83,48 @@
   color: #f6f6f6;
   margin: 0;
 }
-#paymentSectionOne .pay-details .head img {
+#paymentInBank .pay-details .head img {
   width: 50px;
 }
-#paymentSectionOne .pay-details .grey-text {
+#paymentInBank .pay-details .grey-text {
   color: #aca5bf;
 }
-#paymentSectionOne .pay-details .mb-50 {
+#paymentInBank .pay-details .mb-50 {
   margin-bottom: 50px;
 }
-#paymentSectionOne .pay-details .mt-50 {
+#paymentInBank .pay-details .mt-50 {
   margin-top: 50px;
 }
-#paymentSectionOne .pay-details button {
+#paymentInBank .pay-details button {
   width: 150px;
   height: 40px;
   border: none;
   background: rgba(38, 170, 118, 0.45);
   border-radius: 5px;
   color: white;
-
 }
 @media screen and (max-width: 1020px) {
-  #paymentSectionOne .sub-details {
+  #paymentInBank {
+    margin-top: -50px;
+  }
+  #paymentInBank .sub-details {
     padding: 10px;
   }
 }
 @media screen and (max-width: 760px) {
-  #paymentSectionOne .sub-details {
+  #paymentInBank .sub-details {
     border: none;
   }
-  #paymentSectionOne .sub-details .details-item {
+  #paymentInBank .sub-details .details-item {
     margin-bottom: 5px;
   }
-  #paymentSectionOne .sub-details h4 {
+  #paymentInBank .sub-details h4 {
     margin-bottom: 20px;
   }
-  #paymentSectionOne .pay-details {
+  #paymentInBank .pay-details {
     padding: 10px;
   }
-  #paymentSectionOne .pay-details .head {
+  #paymentInBank .pay-details .head {
     margin-bottom: 30px;
   }
 }

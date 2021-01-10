@@ -19,7 +19,7 @@ import {
 import "./css/style.css";
 import mastercardlogo from "../../../assets/img/mastercardlogo.png";
 import colordots from "../../../assets/img/colordots.png";
-
+ 
 const CardPayment = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,7 +28,7 @@ const CardPayment = () => {
 
   const toggle = () => setOpen(!dropdownOpen);
   return (
-    <div id="paymentSectionOne">
+    <div id="paymentWithCard">
       <Container>
         <div class="row">
           <div class="col">

@@ -8,11 +8,11 @@ const assignContent = () => {
   return (
     <div id="assignContentPage">
       <div id="assignContentPageSectionOne">
-        <h1 className="font2">Assign Study Content</h1>
+        <h1 className="font2 text-bottom">Assign Study Content</h1>
         <h4 className="font2">Basic Technology</h4>
       </div>
       <div id="assignContentPageSectionTwo">
-        <div class="container-fluid">
+        <div class="container-fluid"> 
           <div className="row">
             <div className="col-md-6">
               <div className="input-textarea">

@@ -9,7 +9,7 @@ import {
   DropdownItem,
   Form,
   FormGroup,
-  Label,
+  Label, 
   Input,
 } from "reactstrap";
 
@@ -24,7 +24,7 @@ const BankDeposit = () => {
 
   const toggle = () => setOpen(!dropdownOpen);
   return (
-    <div id="paymentSectionOne">
+    <div id="paymentInBank">
       <Container>
         <div class="row">
           <div class="col">

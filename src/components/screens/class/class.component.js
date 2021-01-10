@@ -21,7 +21,7 @@ const ClassDisplay = props => {
           } 	       
     })       
    
-	return (        
+	return (         
 		<span id="classes">   
         <div id="classFirstSection" className="container-fluid relative">                         
             <div className="row">

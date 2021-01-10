@@ -11,12 +11,11 @@
   padding-top: 50px;
   padding-bottom: 100px;
 }
-#selectPaymentPageSectionOne h4 {
+#selectPaymentPageSectionOne h3 {
   margin-bottom: 50px;
   font-family: font2;
   font-style: normal;
   font-weight: normal;
-  font-size: 35px;
   line-height: 55px;
 }
 
@@ -38,12 +37,13 @@
   height: 333px;
   border-radius: 15px;
   border: 1px solid #f2efef;
-  margin: 10px auto;
+  margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  padding: 5%;
 }
 #selectPaymentPageSectionOne .pay-methods .item:hover {
   opacity: 0.9;
@@ -51,11 +51,11 @@
 #selectPaymentPageSectionOne .pay-methods .active {
   background-color: #26aa76;
 }
-#selectPaymentPageSectionOne .pay-methods .item span {
+#selectPaymentPageSectionOne .pay-methods .item h4 {
   font-family: font2;
   font-style: normal;
   font-weight: normal;
-  font-size: 35px;
+  /* font-size: 35px; */
   line-height: 55px;
 }
 #selectPaymentPageSectionOne .pay-methods {
@@ -72,4 +72,12 @@
   border-radius: 100px;
   background-color: transparent;
   color: white;
+}
+@media screen and (max-width: 900px) {
+  #selectPaymentPageSectionOne {
+    margin-top: -250px;
+  }
+  #selectPaymentPageSectionOne .pay-methods .item {
+    height: 95%;
+  }
 }

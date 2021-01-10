@@ -4,7 +4,7 @@
   height: 600px;
   margin-top: -320px;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; 
   background-position: center;
 }
 #classroomTeacherSectionTwo {
@@ -339,6 +339,9 @@
   }
   #classroomTeacherSectionTwo .announcements main section .chat-block .send {
     padding-left: 15px;
+  }
+  #classroomTeacherSectionTwo .announcements main section .chat-block .send .send-input {
+    padding: 3px;
   }
   #classroomTeacherSectionTwo
     .announcements

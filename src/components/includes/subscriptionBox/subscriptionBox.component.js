@@ -7,13 +7,13 @@ const SubscriptionBox = (props) => {
     <div id="subscriptionBox">
       <div className={"item " + props.classname}>
         <div className="top">
-          <span>{props.title}</span>
+          <h4>{props.title}</h4>
           <img src={subcircle} alt='subcircle' />
         </div>
         <small>₦{props.price}</small>
       </div>
     </div>
   );
-};
+}; 
 
 export default SubscriptionBox;

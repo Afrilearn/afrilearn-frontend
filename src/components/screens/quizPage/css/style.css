@@ -10,7 +10,7 @@
   font-family: font2;
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
+  /* font-size: 20px; */
   line-height: 47px;
   color: #26aa76;
   text-align: center;
@@ -157,10 +157,10 @@
 }
 @media screen and (max-width: 800px) {
   #quizPageSectionOne {
-    margin-top: -340px;
+    margin-top: -250px;
   }
   #quizPageSectionOne .progress {
-    width: 320px;
+    width: 100%;
   }
   #quizPageSectionOne {
     flex-wrap: wrap;
@@ -169,15 +169,18 @@
     flex: 0 0 100%;
   }
   #quizPageSectionOne .left .option-button {
-    width: 320px;
+    width: 100%;
     margin-right: 5px;
   }
   #quizPageSectionOne .right {
     flex: 0 0 100%;
   }
   #quizPageSectionOne .left .action-buttons {
-    width: 320px;
+    width: 100%;
     margin-top: 20px;
+  }
+  #quizPageSectionOne .left .action-buttons img {
+    height: 40px;
   }
   #quizPageSectionOne .right .questions-answered {
     width: 320px;
@@ -231,7 +234,7 @@
   height: 50px;
   border-radius: 100px;
   border: none;
-  margin-right: 30px;
+  margin: 20px;
   background-color: #249d6d;
   color: white;
 }
@@ -244,10 +247,14 @@
 @media screen and (max-width: 800px) {
   #quizPageSectionTwo {
     padding: 100px 10px;
-    padding-top: 400px;
+    padding-top: 400px; 
     margin-top: -320px;
   }
   #quizPageSectionTwo .complete-message {
     width: 90%;
+    text-align: center;
+  }
+  #quizPageSectionTwo button {
+    /* di */
   }
 }

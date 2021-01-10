@@ -53,7 +53,7 @@
 }
 #classroomStudentSectionTwo .nav-tabs .nav-link {
   border: none;
-  font-size: 17px;
+  font-size: 15px;
   padding: 7px 0 !important;
 }
 #classroomStudentSectionTwo .tab-nav-item {
@@ -67,7 +67,7 @@
 @media screen and (max-width: 1200px) {
   #classroomStudentSectionTwo .tab {
     position: relative;
-    width: 100%;
+    width: auto;
     top: 100px;
     right: unset;
   }

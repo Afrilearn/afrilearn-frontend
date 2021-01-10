@@ -9,7 +9,7 @@ import pqimagethree from "../../../assets/img/pqimagethree.png";
 import PastQuestionsSubjectBadge from "../../includes/pastQuestionsSubjectBadge/pastQuestionsSubjectBadge.component";
 
 const PastQuestions = () => {
-  return (
+  return ( 
     <React.Fragment>
       <div id="pastQuestionsSectionone">
         <h1>Junior WAEC</h1>
