@@ -6,6 +6,7 @@ import {
   CLEAR_FORM,  
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  PASSWORD_CHANGE_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   fullName:'',
   email:'',
   password:'',
+  confirmPassword:'',
   referralCode:'',
   passwordMode:true,
   roles:[],
@@ -33,7 +35,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         [action.payload.name]: action.payload.value,
       };
-
+    
     case GET_ROLES_SUCCESS:
       return {
         ...state,
@@ -86,7 +88,12 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         user: {},
       };
-
+    case PASSWORD_CHANGE_SUCCESS:
+        return {
+          ...state,
+          password: '',
+          confirmPassword: ''       
+      };     
     default:
       return state;
   }
