@@ -27,6 +27,7 @@ export default {
       headers: this.headers()   
     });
   },
+  
   registerUser(data) {
     return axios({
       method: 'post',
@@ -41,6 +42,13 @@ export default {
       url: `${this.url}/auth/login`,
       headers: this.headers(),
       data,
+    });
+  },
+  resetPassword(data) {
+    return axios({
+      method: 'get',
+      url: `${this.url}/auth/${data}/reset_password`,
+      headers: this.headers(),
     });
   },
 
@@ -107,14 +115,7 @@ export default {
     });
   },
 
-  resetPassword(data) {
-    return axios({
-      method: "post",
-      url: `${this.url}resetPassword`,
-      headers: this.headers(),
-      data
-    });
-  },
+ 
   changePassword(data) {
     return axios({
       method: "post",
