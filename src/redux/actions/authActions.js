@@ -90,13 +90,15 @@ export const registerUser = (user) => async (dispatch) => {
     });
   }
 };
-export const loginUser = (user, social = false) => async (dispatch) => {
+export const loginUser = (user, google = false, facebook = false) => async (dispatch) => {
   try {
     document.body.classList.add('loading-indicator');
     let result = null;
-    if (social) {
-      result = await API.socialLogin(user);
-    } else {
+    if (google) {
+      result = await API.socialLoginGoogle(user);
+    } else if(facebook){
+      result = await API.socialLoginFacebook(user);
+    }else {
       result = await API.login(user);
     }
     dispatch({

@@ -29,6 +29,7 @@
 #signupFirstSection .socialText {
     color: #636060;
     font-size: 13px;
+    display: block;
 }
 #signupFirstSection .push {
     margin-top: 15px;

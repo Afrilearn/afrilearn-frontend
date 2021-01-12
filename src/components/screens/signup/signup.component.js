@@ -2,13 +2,15 @@ import React, { useEffect, useRef } from "react";
 import './css/style.css';
 import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { inputChange, getRoles, registerUser } from './../../../redux/actions/authActions';
+import { inputChange, getRoles, registerUser, loginUser } from './../../../redux/actions/authActions';
 import { clearErrors } from './../../../redux/actions/errorActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faEye } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import 'animate.css';
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const Signup = props => {  
     const {
@@ -123,6 +125,28 @@ const Signup = props => {
           });
         }
     };
+
+    const onFailure = (error) => {
+        console.log(error);
+    }; 
+
+    const googleLoginResponse = (googleUser) => {
+        let token = googleUser.tokenId; 
+        console.log(token)
+        const data ={
+			token,		
+		}	
+		props.loginUser(data, true);
+    };
+
+    const facebookLoginResponse = (response) => {
+        let token = response.accessToken;
+        console.log(token)
+        const data ={
+            token                     
+        }    
+        props.loginUser(data, false, true);
+    };
 	return (        
 		<span id="signup">  
             {redirect ? <Redirect to={location} /> : null} 
@@ -163,11 +187,30 @@ const Signup = props => {
                         </div>
                         <div className="col-md-12">
                            <div className="row push">
-                                <div className="col-md-6">
-                                    <Link><span className="socialText"><img className="social" src={require('../../../assets/img/google.png')} alt="google"/> Register with Google</span></Link>
+                                <div className="col-md-6 social google">
+                                    <GoogleLogin
+                                        clientId="910724713990-2ucr6telcqf9h2hnor2afd8vinmkldl5.apps.googleusercontent.com"
+                                        render={renderProps => (
+                                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}><span className="socialText"><img className="social" src={require('../../../assets/img/google.png')} alt="google"/> Signup with Google</span></button>
+                                        )}
+                                        buttonText="Login"
+                                        onSuccess={googleLoginResponse}
+                                        onFailure={onFailure}
+                                        cookiePolicy={'single_host_origin'}
+                                    />  
                                 </div>
-                                <div className="col-md-6 push7">
-                                    <Link><span className="socialText"><img className="social" src={require('../../../assets/img/facebook.png')} alt="facebook"/> Register with Facebook</span></Link>
+                                <div className="col-md-6 push7 social facebook">
+                                    <FacebookLogin
+                                        appId='264373944539555'
+                                        autoLoad={false}
+                                        fields="name,email,picture"
+                                        isMobile={false}
+                                        redirectUri ='https://www.exambly.com/'
+                                        callback={facebookLoginResponse} 
+                                        render={renderProps => (
+                                            <button onClick={renderProps.onClick}><span className="socialText"><img className="social" src={require('../../../assets/img/facebook.png')} alt="facebook"/> Signup with Facebook</span></button>
+                                        )}
+                                    />
                                 </div>
                            </div>
                         </div>
@@ -186,7 +229,9 @@ Signup.propTypes = {
     getRoles: PropTypes.func.isRequired,
     registerUser: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
+    loginUser: PropTypes.func.isRequired    
 };
+
 const mapStateToProps = (state) => ({
     redirect: state.auth.redirect,   
     location: state.auth.location, 
@@ -202,4 +247,4 @@ const mapStateToProps = (state) => ({
     passwordMode: state.auth.passwordMode, 
     error: state.error
 });
-export default connect(mapStateToProps, {inputChange, getRoles, registerUser, clearErrors})(Signup);
+export default connect(mapStateToProps, {inputChange, getRoles, registerUser, clearErrors, loginUser})(Signup);
