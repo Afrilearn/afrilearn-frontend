@@ -29,9 +29,13 @@
 }
 
 @media screen and (max-width: 768px) {
-    #resetPassword {
+    /* #resetPassword {
         height: 135vh;
         margin-top: -200px;
+    } */
+    #resetPassword {
+        height: 100vh;
+        margin-top: 0px;
     }
            
 }

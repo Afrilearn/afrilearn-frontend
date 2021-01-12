@@ -10,7 +10,7 @@
 }
 
 #signupFirstSection h3 {
-    font-family: font1;
+    font-family: font2;
     color: white;
 }
 
@@ -18,6 +18,12 @@
     width: 23px;
     height: 23px;
     object-fit: contain;
+    margin-top: -5px;
+}
+#signupFirstSection .relative svg{
+    position: absolute;
+    right: 30px;
+    top: 33px;
 }
 
 #signupFirstSection .socialText {
@@ -32,15 +38,19 @@
 }
 
 @media screen and (max-width: 768px) {
-    #signupFirstSection {
+    /* #signupFirstSection {
         height: 196vh;
         margin-top: -224px;
+    } */
+    #signupFirstSection {
+        height: 165vh;
+        margin-top: 0px;
     }
     #signupFirstSection .push7 {
         margin-top: 15px;
     }
-    #signupFirstSection .fly {
+    /* #signupFirstSection .fly {
         top: 63%;       
-    }
+    } */
   
 }

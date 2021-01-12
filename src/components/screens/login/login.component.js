@@ -2,12 +2,22 @@ import React, { useEffect, useRef } from "react";
 import './css/style.css';
 import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { inputChange } from './../../../redux/actions/authActions';
+import { inputChange, loginUser } from './../../../redux/actions/authActions';
+import { clearErrors } from './../../../redux/actions/errorActions';
 import PropTypes from 'prop-types';
 import { CustomInput } from 'reactstrap';
+import Swal from 'sweetalert2';
+import 'animate.css';
 
 
-const Login = props => {  
+const Login = props => { 
+    const {
+        email, 
+        password,    
+        redirect,
+        location,    
+        error
+    } = props; 
     const mounted = useRef(); 
     useEffect(()=>{
         if (!mounted.current) {
@@ -16,17 +26,61 @@ const Login = props => {
             window.scrollTo(0, 0);  
             props.inputChange('redirect', false)          
         } else {
-            props.inputChange('redirect', false)  
-            // do componentDidUpdate logic          
+            if(error.id === 'LOGIN_FAILURE'){           
+                const message = typeof(error.msg) === 'object' ? error.msg.join('<br/>'): error.msg   
+                Swal.fire({
+                    html: message,
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    timer: 3500,
+                    position: 'top-end',
+                })                      
+                props.clearErrors();
+            }       
+                   
           } 	       
     }) 
-    
-    const handleSubmit = () =>{
-        props.inputChange('location', '/dashboard')
-        props.inputChange('redirect', true)
+
+    const handleChange = (e)=> {
+        const target = e.target;
+        const name = target.name;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        props.inputChange(name, value);
     }
-    const { redirect, location } = props;
-   
+
+    const handleSubmit = () => {
+        let message;
+        if (!email) {
+            message='Please enter email';  
+        } else if (!password) {
+            message='Please enter password';  
+        } 
+
+        if(!email || !password){               
+            Swal.fire({
+                title: message,
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                },
+                timer: 1500,
+                position: 'top-end',
+            })
+        }else{          
+            const user = {              
+                email,
+                password                           
+            };         
+            props.loginUser(user);
+        }
+    }
+     
 	return (        
 		<span id="login">  
             {redirect ? <Redirect to={location} /> : null}  
@@ -37,10 +91,10 @@ const Login = props => {
                             <h3>Log in</h3>
                         </div>                       
                         <div className="col-md-12">
-                           <input type="email" placeholder="Email" className="general"/>
+                           <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
                         </div>
                         <div className="col-md-12 relative">
-                           <input type="password" placeholder="Password" className="general"/>
+                           <input type="password" placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
                            <p className="optional"><Link to="/reset_password"><i>Forgot Password?</i></Link></p>
                         </div>                       
                         <div className="col-md-12">
@@ -76,10 +130,14 @@ const Login = props => {
 };
 
 Login.propTypes = {
-    inputChange: PropTypes.func.isRequired 
+    inputChange: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
     redirect: state.auth.redirect,   
     location: state.auth.location, 
+    email: state.auth.email, 
+    password: state.auth.password, 
+    error: state.error
 });
-export default connect(mapStateToProps, {inputChange})(Login);
+export default connect(mapStateToProps, {inputChange, clearErrors, loginUser})(Login);

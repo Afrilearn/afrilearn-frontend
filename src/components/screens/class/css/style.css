@@ -70,10 +70,15 @@
 
 
 @media screen and (max-width: 768px) {
-  #classFirstSection {
+  /* #classFirstSection {
     height: 118vh;
     margin-top: -180px;
     padding-top: 211px;
+} */
+#classFirstSection {
+  height: 100vh;
+  margin-top: -24px;
+  padding-top: 21px;
 }
 
   #classFirstSection h1 {
