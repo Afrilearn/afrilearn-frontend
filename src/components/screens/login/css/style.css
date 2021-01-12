@@ -23,6 +23,7 @@
 #loginFirstSection .socialText {
     color: #636060;
     font-size: 13px;
+    display: block;
 }
 #loginFirstSection .push {
     margin-top: 15px;

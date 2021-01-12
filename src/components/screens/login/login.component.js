@@ -8,9 +8,12 @@ import PropTypes from 'prop-types';
 import { CustomInput } from 'reactstrap';
 import Swal from 'sweetalert2';
 import 'animate.css';
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 
 const Login = props => { 
+    
     const {
         email, 
         password,    
@@ -18,6 +21,7 @@ const Login = props => {
         location,    
         error
     } = props; 
+
     const mounted = useRef(); 
     useEffect(()=>{
         if (!mounted.current) {
@@ -80,6 +84,28 @@ const Login = props => {
             props.loginUser(user);
         }
     }
+
+    const onFailure = (error) => {
+        console.log(error);
+    }; 
+
+    const googleLoginResponse = (googleUser) => {
+        let token = googleUser.tokenId; 
+        console.log(token)
+        const data ={
+			token,		
+		}	
+		props.loginUser(data, true);
+    };
+
+    const facebookLoginResponse = (response) => {
+        let token = response.accessToken;
+        console.log(token)
+        const data ={
+            token                     
+        }    
+        props.loginUser(data, false, true);
+    };
      
 	return (        
 		<span id="login">  
@@ -112,11 +138,30 @@ const Login = props => {
                         </div>
                         <div className="col-md-12">
                            <div className="row push">
-                                <div className="col-md-6">
-                                    <Link><span className="socialText"><img className="social" src={require('../../../assets/img/google.png')} alt="google"/> Log in with Google</span></Link>
+                                <div className="col-md-6 social google">
+                                    <GoogleLogin
+                                        clientId="910724713990-2ucr6telcqf9h2hnor2afd8vinmkldl5.apps.googleusercontent.com"
+                                        render={renderProps => (
+                                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}><span className="socialText"><img className="social" src={require('../../../assets/img/google.png')} alt="google"/> Log in with Google</span></button>
+                                        )}
+                                        buttonText="Login"
+                                        onSuccess={googleLoginResponse}
+                                        onFailure={onFailure}
+                                        cookiePolicy={'single_host_origin'}
+                                    />  
                                 </div>
-                                <div className="col-md-6 push7">
-                                    <Link className="floatRight"><span className="socialText"><img className="social" src={require('../../../assets/img/facebook.png')} alt="facebook"/> Log in with Facebook</span></Link>
+                                <div className="col-md-6 push7 social facebook">
+                                    <FacebookLogin
+                                        appId='264373944539555'
+                                        autoLoad={false}
+                                        fields="name,email,picture"
+                                        isMobile={false}
+                                        redirectUri ='https://www.exambly.com/'
+                                        callback={facebookLoginResponse} 
+                                        render={renderProps => (
+                                            <button onClick={renderProps.onClick}><span className="socialText"><img className="social" src={require('../../../assets/img/facebook.png')} alt="facebook"/> Log in with Facebook</span></button>
+                                        )}
+                                    />
                                 </div>
                            </div>
                         </div>

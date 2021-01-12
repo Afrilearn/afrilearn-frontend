@@ -36,6 +36,7 @@ export default {
       data,
     });
   },
+
   login(data) {
     return axios({
       method: 'post',
@@ -44,6 +45,7 @@ export default {
       data,
     });
   },
+
   resetPassword(data) {
     return axios({
       method: 'get',
@@ -51,6 +53,7 @@ export default {
       headers: this.headers(),
     });
   },
+
   changePassword(data) {
     return axios({
       method: 'post',
@@ -59,8 +62,24 @@ export default {
       data,
     });
   },
+  
+  socialLoginGoogle(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/social_login/google`,
+      headers: this.headers(),
+      data
+    });
+  },
 
-
+  socialLoginFacebook(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/social_login/facebook`,
+      headers: this.headers(),
+      data
+    });
+  },
 
 
 
@@ -93,23 +112,7 @@ export default {
 
 
 
-  socialLoginGoogle(data) {
-    return axios({
-      method: "post",
-      url: `${this.url}googleLogin`,
-      headers: this.headers(),
-      data
-    });
-  },
 
-  socialLoginFacebook(data) {
-    return axios({
-      method: "post",
-      url: `${this.url}facebookLogin`,
-      headers: this.headers(),
-      data
-    });
-  },
 
 
 

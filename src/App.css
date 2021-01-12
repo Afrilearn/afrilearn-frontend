@@ -131,6 +131,21 @@ a:hover {
   padding-bottom: 18px;
 }
 
+.social button {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  width: 100%;
+}
+
+.social.google .socialText {
+ text-align: left;
+}
+
+.social.facebook .socialText{
+  text-align: right;
+ }
+
 .off {
   display: none;
 }
