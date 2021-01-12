@@ -51,7 +51,14 @@ export default {
       headers: this.headers(),
     });
   },
-
+  changePassword(data) {
+    return axios({
+      method: 'post',
+      url: `${this.url}/auth/change_password`,
+      headers: this.headers(),
+      data,
+    });
+  },
 
 
 
@@ -116,14 +123,7 @@ export default {
   },
 
  
-  changePassword(data) {
-    return axios({
-      method: "post",
-      url: `${this.url}changePassword`,
-      headers: this.headers(),
-      data
-    });
-  },
+ 
   verifyToken(data) {
     return axios({
       method: "post",

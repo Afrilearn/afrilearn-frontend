@@ -13,6 +13,8 @@ import {
   LOGIN_FAILURE,
   RESET_PASSWORD_FAILURE,
   RESET_PASSWORD_SUCCESS,
+  PASSWORD_CHANGE_FAILURE,
+  PASSWORD_CHANGE_SUCCESS,
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -157,6 +159,37 @@ export const resetPassword = (user) => async (dispatch) => {
     );
     dispatch({
       type: RESET_PASSWORD_FAILURE,
+    });
+  }
+};
+export const changePassword = (user) => async (dispatch) => {
+  try {
+    document.body.classList.add('loading-indicator');
+    await API.changePassword(user);
+    dispatch({
+      type: PASSWORD_CHANGE_SUCCESS     
+    });
+    dispatch(
+      returnErrors(
+        'Password changed successfully',
+        '200',
+        'PASSWORD_CHANGE_SUCCESS'
+      )
+    );
+    document.body.classList.remove('loading-indicator');
+  } catch (err) {
+    document.body.classList.remove('loading-indicator');
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        'PASSWORD_CHANGE_FAILURE'
+      )
+    );
+    dispatch({
+      type: PASSWORD_CHANGE_FAILURE,
     });
   }
 };
