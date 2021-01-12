@@ -32,9 +32,13 @@
 }
 
 @media screen and (max-width: 768px) {
-    #loginFirstSection {
+    /* #loginFirstSection {
         height: 155vh;
         margin-top: -234px;
+    } */
+    #loginFirstSection {
+        height: 118vh;
+        margin-top: 0px;
     }
     #loginFirstSection .push7 {
         margin-top: 15px;      

@@ -43,11 +43,21 @@ import myStudents from "../screens/myStudents/myStudents.component";
 import classroomTeacherComponent from "../screens/classroomTeacher/classroomTeacher.component";
 import assignContent from "../screens/assignContent/assignContent.component";
 import performance from "../screens/performance/performance.component";
+import { inputChange } from './../../redux/actions/authActions';
+import ProtectedRoute from './protectedRoute.component';
+import PropTypes from 'prop-types';
 
 const MyNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const {authenticated} = props;
+  const {isAuthenticated} = props;
+
+  const handleLogout = (e) => {		
+    e.preventDefault();
+    localStorage.removeItem('token');
+    props.inputChange('logout', true);	 
+    props.inputChange('isAuthenticated', false);   	 
+ } 
   return (
     <Router>
       <Navbar color="light" light expand="md">
@@ -61,6 +71,8 @@ const MyNav = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
+          {isAuthenticated? 
+          <>
             <NavItem>
               <NavLink tag={Link} to="/dashboard">
                 Dashboard
@@ -76,6 +88,8 @@ const MyNav = (props) => {
                 Performance Analysis
               </NavLink>
             </NavItem>
+          </> 
+          : ''}
             <NavItem>
               <NavLink tag={Link} className="relative searchArea">
                 {/* <img className="searchIcon" src={require('../../assets/img/search.png')} alt="Afrilearn Search button"/> */}
@@ -97,7 +111,7 @@ const MyNav = (props) => {
                 About Us
               </NavLink>
             </NavItem>
-            {authenticated? 
+            {isAuthenticated? 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 <img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon dropDownIcon1"/>
@@ -121,20 +135,11 @@ const MyNav = (props) => {
                 </DropdownItem>
                 <DropdownItem tag={Link} to="/profile">                 
                   Invite Your Friends                    
-                </DropdownItem> 
-                <DropdownItem tag={Link} to="/login">                 
-                  Log in                   
-                </DropdownItem>   
-                <DropdownItem tag={Link} to="/register">                 
-                  Register                 
-                </DropdownItem>  
-                <DropdownItem tag={Link} to="/change_password">                 
-                  Change Password                 
-                </DropdownItem>
+                </DropdownItem>               
                 <DropdownItem tag={Link} to="/classes/teacher">                 
                   Teacher's Dashboard               
                 </DropdownItem>
-                <DropdownItem tag={Link} to="/">                 
+                <DropdownItem tag={Link} to="/" onClick={handleLogout}>                 
                   Log Out                   
                 </DropdownItem>             
               </DropdownMenu>
@@ -160,54 +165,58 @@ const MyNav = (props) => {
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
         <Route path="/contact" component={contact} />
-        <Route
+        <ProtectedRoute
           path="/category/:subjectId/instruction"
           exact
           component={pastQuestionsInstruction}
         />
-        <Route
+        <ProtectedRoute
           path="/category/:subjectId/quiz"
           exact
           component={pastQuestionQuizPage}
         />
-        <Route path="/category/:subjectId" exact component={pastQuestions} />
-        <Route
+        <ProtectedRoute path="/category/:subjectId" exact component={pastQuestions} />
+        <ProtectedRoute
           path="/classes/:classId/:subjectId/quiz"
           exact
           component={quizPage}
         /> 
-        <Route
+        <ProtectedRoute
           path="/classes/:classId/:subjectId/:classworkId"
           component={classWork}
         />
-        <Route
+        <ProtectedRoute
           path="/classes/:classId/:subjectId"
           component={classroomStudent}
         />
-        <Route path="/classes/teacher" component={classroomTeacherComponent} />
+        <ProtectedRoute path="/classes/teacher" component={classroomTeacherComponent} />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
-        <Route path="/content/:lessonId/assign-content" component={assignContent} />
-        <Route path="/content/:lessonId" component={lessonPage} />
-        <Route path="/content" component={content} />
-        <Route path="/profile" component={profilePage} />
+        <ProtectedRoute path="/content/:lessonId/assign-content" component={assignContent} />
+        <ProtectedRoute path="/content/:lessonId" component={lessonPage} />
+        <ProtectedRoute path="/content" component={content} />
+        <ProtectedRoute path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <Route path="/instructions" component={instructions} />
+        <ProtectedRoute path="/instructions" component={instructions} />
         <Route path="/select-pay" component={selectPayment} />
         <Route path="/pay-with-card" component={cardPayment} />
         <Route path="/pay-in-bank" component={bankDeposit} />
-        <Route path="/dashboard" component={dashboard} />
-        <Route path="/my-students" component={myStudents} />
-        <Route path="/performance" component={performance} />
+        <ProtectedRoute path="/dashboard" component={dashboard} />
+        <ProtectedRoute path="/my-students" component={myStudents} />
+        <ProtectedRoute path="/performance" component={performance} />
       </Switch>
       <Footer />
     </Router>
   );
 };
+
+MyNav.propTypes = {
+  inputChange: PropTypes.func.isRequired  
+};
 const mapStateToProps = (state) => ({
-  authenticated: state.auth.authenticated
+  isAuthenticated: state.auth.isAuthenticated
 });
-export default connect(mapStateToProps, null)(MyNav);
+export default connect(mapStateToProps, {inputChange})(MyNav);

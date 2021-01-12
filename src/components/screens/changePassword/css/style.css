@@ -29,9 +29,13 @@
 }
 
 @media screen and (max-width: 768px) {
-    #changePassword {
+    /* #changePassword {
         height: 140vh;
         margin-top: -212px;
+    } */
+    #changePassword {
+        height: 108vh;
+        margin-top: 0px;
     }
          
 }
