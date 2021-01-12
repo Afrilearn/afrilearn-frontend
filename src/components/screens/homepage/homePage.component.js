@@ -591,7 +591,7 @@ const Homepage = (props) => {
               Download your favorite videos to watch offline and always have
               something to learn.
             </h3>
-            <Link className="startLearning">Start Learning</Link>
+            <Link className="startLearning" to="/register">Start Learning</Link>
           </div>
         </div>
         <div className="row">
@@ -1140,7 +1140,7 @@ const Homepage = (props) => {
               Understand how you learn best, where to focus, and practice at
               your own pace.
             </h3>
-            <Link className="startLearning">Start Learning</Link>
+            <Link className="startLearning" to="/register">Start Learning</Link>
           </div>
         </div>
         <div className="row mobile relative">

@@ -157,7 +157,9 @@ a:hover {
 
 .swal2-title {
   font-weight: lighter !important;
+  font-size: 1.495em !important;
 }
+
 
 .swal2-styled.swal2-confirm {
   background-color: #249d6d !important;

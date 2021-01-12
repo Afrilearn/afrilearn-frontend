@@ -11,6 +11,8 @@ import {
   CLEAR_FORM,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  RESET_PASSWORD_FAILURE,
+  RESET_PASSWORD_SUCCESS,
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -120,6 +122,41 @@ export const loginUser = (user, social = false) => async (dispatch) => {
     );
     dispatch({
       type: LOGIN_FAILURE,
+    });
+  }
+};
+export const resetPassword = (user) => async (dispatch) => {
+  try {
+    document.body.classList.add('loading-indicator');
+    const result = await API.resetPassword(user);
+    dispatch({
+      type: RESET_PASSWORD_SUCCESS,
+      payload: result.data.data,
+    });
+    dispatch({
+      type: CLEAR_FORM,
+    });
+    dispatch(
+      returnErrors(
+        'Password reset code sent to your email',
+        '200',
+        'RESET_PASSWORD_SUCCESS'
+      )
+    );
+    document.body.classList.remove('loading-indicator');
+  } catch (err) {
+    document.body.classList.remove('loading-indicator');
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        'RESET_PASSWORD_FAILURE'
+      )
+    );
+    dispatch({
+      type: RESET_PASSWORD_FAILURE,
     });
   }
 };
