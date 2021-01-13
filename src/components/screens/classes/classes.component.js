@@ -2,18 +2,21 @@ import React, { useEffect, useRef } from "react";
 import './css/style.css';
 import SubjectBoxSlide from '../../includes/subjectBadgeForSlick/subjectBadgeForSlick.component';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { getCourses } from './../../../redux/actions/courseActions';
+import PropTypes from 'prop-types';
 
 const Classes = props => {  
-    const mounted = useRef(); 
-    useEffect(()=>{
-        if (!mounted.current) {
-            // do componentDidMount logic
-            mounted.current = true;
-            window.scrollTo(0, 0);            
-        } else {
-            // do componentDidUpdate logic          
-          } 	       
-    })       
+  const mounted = useRef(); 
+  useEffect(()=>{
+      if (!mounted.current) {
+          // do componentDidMount logic
+          mounted.current = true;
+          window.scrollTo(0, 0);            
+      } else {
+          // do componentDidUpdate logic          
+        } 	       
+  })       
    
 	return (  
         <div id="classes" className="classes1 container-fluid relative"> 

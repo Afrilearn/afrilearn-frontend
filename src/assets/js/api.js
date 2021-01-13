@@ -81,6 +81,32 @@ export default {
     });
   },
 
+  socialLoginUpdate(data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/profile-update`,
+      headers: this.headers(),
+      data
+    });
+  },
+
+  courseEnrolment(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}courses/enroll`,
+      headers: this.headers(),
+      data
+    });
+  },
+
+  getCourses() {
+    return axios({
+      method: "get",
+      url: `${this.url}courses`,
+      headers: this.headers()
+    });
+  },
+
 
 
 

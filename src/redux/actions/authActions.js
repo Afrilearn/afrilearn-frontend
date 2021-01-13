@@ -1,6 +1,6 @@
 
 import API from './../../assets/js/api';
-import { returnErrors } from './errorActions';
+import { returnErrors } from "./errorActions";
 
 import {
   INPUT_CHANGE,  
@@ -15,6 +15,10 @@ import {
   RESET_PASSWORD_SUCCESS,
   PASSWORD_CHANGE_FAILURE,
   PASSWORD_CHANGE_SUCCESS,
+  SOCIAL_LOGIN_UPDATE_SUCCESS,
+  SOCIAL_LOGIN_UPDATE_FAILURE,
+  COURSE_ENROLMENT_SUCCESS,
+  COURSE_ENROLMENT_FAILURE
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -70,6 +74,11 @@ export const registerUser = (user) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: result.data.data,
     });
+    const course = {
+      userId: result.data.data.user._id,
+      courseId:user.activeClass                          
+    };
+    await API.courseEnrolment(course);
     dispatch({
       type: CLEAR_FORM,
     });
@@ -192,6 +201,55 @@ export const changePassword = (user) => async (dispatch) => {
     );
     dispatch({
       type: PASSWORD_CHANGE_FAILURE,
+    });
+  }
+};
+export const socialLoginUpdate = (user, course) => async (dispatch) => {
+  try {
+    document.body.classList.add('loading-indicator');
+    const result = await API.socialLoginUpdate(user); 
+    dispatch({
+      type: SOCIAL_LOGIN_UPDATE_SUCCESS,
+      payload: result.data
+    });   
+    document.body.classList.remove('loading-indicator');
+  } catch (err) {
+    document.body.classList.remove('loading-indicator');
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        'SOCIAL_LOGIN_UPDATE_FAILURE'
+      )
+    );
+    dispatch({
+      type: SOCIAL_LOGIN_UPDATE_FAILURE,
+    });
+  }
+};
+export const courseEnrolment = (user) => async (dispatch) => {
+  try {
+    document.body.classList.add('loading-indicator');
+    await API.courseEnrolment(user);
+    dispatch({
+      type: COURSE_ENROLMENT_SUCCESS     
+    });   
+    document.body.classList.remove('loading-indicator');
+  } catch (err) {
+    document.body.classList.remove('loading-indicator');
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        'COURSE_ENROLMENT_FAILURE'
+      )
+    );
+    dispatch({
+      type: COURSE_ENROLMENT_FAILURE,
     });
   }
 };

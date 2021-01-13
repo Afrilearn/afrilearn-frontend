@@ -1,0 +1,34 @@
+#socialSignupFirstSection{
+	background-image: url('../../../../assets/img/sample.jpg');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-attachment: fixed;
+	background-size: cover;
+	margin-top: -90px;
+    color: white;
+    height: 105vh;
+}
+
+#socialSignupFirstSection h3 {
+    font-family: font2;
+    color: white;
+}
+#socialSignupFirstSection .push {
+    margin-top: 15px;
+}
+#socialSignupFirstSection input[type="submit"] {
+    border-radius: 4px !important;
+}
+
+@media screen and (max-width: 768px) {  
+    #socialSignupFirstSection {   
+        margin-top: 0px;
+    }
+    #socialSignupFirstSection .push7 {
+        margin-top: 15px;
+    }
+    /* #socialSignupFirstSection .fly {
+        top: 63%;       
+    } */
+  
+}
