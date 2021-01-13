@@ -6,7 +6,8 @@ import {
   CLEAR_FORM,  
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  PASSWORD_CHANGE_SUCCESS
+  PASSWORD_CHANGE_SUCCESS,
+  SOCIAL_LOGIN_UPDATE_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -24,8 +25,9 @@ const initialState = {
   referralCode:'',
   passwordMode:true,
   roles:[],
-  classes:[]
-
+  classes:[],
+  classLabel:'Select a Class',
+  userId:''
 };
 
 const authReducer = (state = initialState, action) => {
@@ -52,13 +54,16 @@ const authReducer = (state = initialState, action) => {
       }
       if (!action.payload.user.role) {
         myObj = {
-          location: '/login',
+          location: '/social-login',
           isAuthenticated: false,
+          redirect:true,
+          userId: action.payload.user._id
         }
       }else{
         myObj = { 
           isAuthenticated: true,
-          redirect:true
+          redirect:true,
+          userId: action.payload.user._id
         }
       } 
       return {      
@@ -89,10 +94,18 @@ const authReducer = (state = initialState, action) => {
         user: {},
       };
     case PASSWORD_CHANGE_SUCCESS:
-        return {
-          ...state,
-          password: '',
-          confirmPassword: ''       
+      return {
+        ...state,
+        password: '',
+        confirmPassword: ''       
+      };    
+    case  SOCIAL_LOGIN_UPDATE_SUCCESS:
+      return {
+        ...state,
+        role: action.payload.user.role,
+        location: '/dashboard',
+        isAuthenticated: true, 
+        redirect:true    
       };     
     default:
       return state;

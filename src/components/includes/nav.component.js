@@ -43,6 +43,7 @@ import myStudents from "../screens/myStudents/myStudents.component";
 import classroomTeacherComponent from "../screens/classroomTeacher/classroomTeacher.component";
 import assignContent from "../screens/assignContent/assignContent.component";
 import performance from "../screens/performance/performance.component";
+import socialLogin from "../screens/socialLogin/socialLogin.component";
 import { inputChange } from './../../redux/actions/authActions';
 import ProtectedRoute from './protectedRoute.component';
 import PropTypes from 'prop-types';
@@ -207,6 +208,7 @@ const MyNav = (props) => {
         <ProtectedRoute path="/dashboard" component={dashboard} />
         <ProtectedRoute path="/my-students" component={myStudents} />
         <ProtectedRoute path="/performance" component={performance} />
+        <Route path="/social-login" component={socialLogin} />
       </Switch>
       <Footer />
     </Router>

@@ -3,32 +3,40 @@ import { Link } from "react-router-dom";
 import "./css/style.css";
 import AppreciationBox from "../../includes/appreciationSlick.component";
 import Particles from "react-tsparticles";
+import { connect } from 'react-redux';
+import { inputChange, getRoles } from './../../../redux/actions/authActions';
+import PropTypes from 'prop-types';
 
 const Homepage = (props) => {
+  const {
+    classLabel,
+    classes
+  } =props;
+
   const mounted = useRef();
+
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
+      props.getRoles();  
     } else {
       // do componentDidUpdate logic
     }
   });
+
+  const classSet = () => {
+    if (classes.length) {         
+      return classes.map((item) => {
+        return <li><Link to={`/classes/${item._id}`}>{item.name}</Link></li>
+      });
+    }
+  };
+ 
   return (
     <span id="homepage">
       <div className="container-fluid bannerSection">
-        {/* <div className="overlay"></div> */}
-        {/* <img
-          className="banner desktopOnly"
-          src={require("../../../assets/img/sample.jpg")}
-          alt="homepage banner"
-        />
-        <img
-          className="banner mobileOnly"
-          src={require("../../../assets/img/sample.jpg")}
-          alt="homepage banner"
-        /> */}
         <div className="row">
           <div className="col-md-3"> </div>
           <div className="col-md-6 box">
@@ -43,7 +51,7 @@ const Homepage = (props) => {
                     <ul>
                       <li className="relative myDrop">
                         <Link className="myPlaceholder">
-                          Select a Class
+                          {classLabel}
                           <img
                             className="downArrow"
                             src={require("../../../assets/img/downarrow.png")}
@@ -51,48 +59,13 @@ const Homepage = (props) => {
                           />
                         </Link>
                         <ul className="courseSelectSectionDropDown">
-                          <li>
-                            <Link>Primary One</Link>
-                          </li>
-                          <li>
-                            <Link>Primary Two</Link>
-                          </li>
-                          <li>
-                            <Link>Primary Three</Link>
-                          </li>
-                          <li>
-                            <Link>Primary Four</Link>
-                          </li>
-                          <li>
-                            <Link>Primary Five</Link>
-                          </li>
-                          <li>
-                            <Link>Primary Six</Link>
-                          </li>
-                          <li>
-                            <Link>JSS One</Link>
-                          </li>
-                          <li>
-                            <Link>JSS Two</Link>
-                          </li>
-                          <li>
-                            <Link>JSS Three</Link>
-                          </li>
-                          <li>
-                            <Link>SSS One</Link>
-                          </li>
-                          <li>
-                            <Link>SSS Two</Link>
-                          </li>
-                          <li>
-                            <Link>SSS Three</Link>
-                          </li>
+                           {classSet()}
                         </ul>
                       </li>
                     </ul>
                   </div>
                   <div className="col-4 paddingLeftOff">
-                    <Link to="/classes/9u09xunr90">
+                    <Link to="/register">
                       <input
                         type="submit"
                         value="GET STARTED"
@@ -1744,4 +1717,13 @@ const Homepage = (props) => {
   );
 };
 
-export default Homepage;
+Homepage.propTypes = {
+  inputChange: PropTypes.func.isRequired,
+  getRoles: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  classes: state.auth.classes,
+  classLabel: state.auth.classLabel
+});
+export default connect(mapStateToProps, {inputChange, getRoles})(Homepage);

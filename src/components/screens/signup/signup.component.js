@@ -35,25 +35,26 @@ const Signup = props => {
             mounted.current = true;
             window.scrollTo(0, 0);  
             props.inputChange('redirect', false)    
-            props.getRoles();      
-        } else {
-                
-                if(error.id === 'REGISTER_FAILURE'){           
-                    const message = typeof(error.msg) === 'object' ? error.msg.join('<br/>'): error.msg   
-                    Swal.fire({
-                        html: message,
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        },
-                        timer: 3500,
-                        position: 'top-end',
-                    })                      
-                    props.clearErrors();
-                }       
-            } 	       
+            if(!roles.length) {
+                props.getRoles();  
+            }       
+        } else {                
+            if(error.id === 'REGISTER_FAILURE'){           
+                const message = typeof(error.msg) === 'object' ? error.msg.join('<br/>'): error.msg   
+                Swal.fire({
+                    html: message,
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    timer: 3500,
+                    position: 'top-end',
+                })                      
+                props.clearErrors();
+            }       
+        } 	       
     }) 
     
     const handleChange = (e)=> {
@@ -132,7 +133,7 @@ const Signup = props => {
 
     const googleLoginResponse = (googleUser) => {
         let token = googleUser.tokenId; 
-        console.log(token)
+    
         const data ={
 			token,		
 		}	
@@ -141,7 +142,7 @@ const Signup = props => {
 
     const facebookLoginResponse = (response) => {
         let token = response.accessToken;
-        console.log(token)
+      
         const data ={
             token                     
         }    

@@ -91,7 +91,7 @@ const Login = props => {
 
     const googleLoginResponse = (googleUser) => {
         let token = googleUser.tokenId; 
-        console.log(token)
+       
         const data ={
 			token,		
 		}	
@@ -100,7 +100,7 @@ const Login = props => {
 
     const facebookLoginResponse = (response) => {
         let token = response.accessToken;
-        console.log(token)
+      
         const data ={
             token                     
         }    
