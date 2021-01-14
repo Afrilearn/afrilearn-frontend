@@ -1,12 +1,26 @@
 import React from "react";
 import Slider from "react-slick";
 import Box from './subjectBox.component';
+import { connect } from 'react-redux';
 
-class SimpleSlider extends React.Component { 
+class SimpleSlider extends React.Component {
+
+  subjectList(){    
+    let courses = this.props.courses;
+    courses = courses.filter(el=> el._id === this.props.id);  
+    if(courses.length){
+      let subjectsArray = courses[0].relatedSubjects;
+        // eslint-disable-next-line array-callback-return
+        return subjectsArray.map((item) => { 
+          return <Box image={item.mainSubjectId.imageUrl} compiledNotes={item.relatedLessons.length} registeredUsers={50000}/>
+        })
+    }
+  } 
+
   render() {
     var settings = {
       dots: true,
-      autoplay:true,
+      autoplay:false,
       infinite: true,
       speed: 500,
       slidesToShow: 6,
@@ -40,15 +54,13 @@ class SimpleSlider extends React.Component {
     };
     return (
       <Slider {...settings}>  
-          <Box image={require('../../../assets/img/maths.png')}/>
-          <Box image={require('../../../assets/img/english.png')}/>
-          <Box image={require('../../../assets/img/health.png')}/>
-          <Box image={require('../../../assets/img/science.png')}/>
-          <Box image={require('../../../assets/img/Civic.png')}/>  
-          <Box image={require('../../../assets/img/health_two.png')}/>
-          <Box image={require('../../../assets/img/english_two.png')}/>        
+         {this.subjectList()}  
      </Slider>
     );
   }
 }
-export default SimpleSlider;
+const mapStateToProps = (state) => ({
+  courses: state.course.courses
+});
+
+export default connect(mapStateToProps, null)(SimpleSlider);

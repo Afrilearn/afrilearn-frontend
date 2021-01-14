@@ -22,8 +22,12 @@ const Box = props => {
     const toggle = () => setModal(!modal);
     const { drop } = props;
 
-    const handleDrop = () =>{
+    const handleDrop = () => {
        props.inputChange('drop', !drop) 
+    }
+
+    const numberWithCommas = x => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 	return (
         <>	
@@ -40,10 +44,10 @@ const Box = props => {
                                 <Tooltip placement="top" trigger={['hover']} overlay={<span>Play</span>}>
                                     <Link to="/content/56464"><img src={require('../../../assets/img/play.png')} alt="play" className="subjectImage2"/></Link>
                                 </Tooltip>     
-                                <Tooltip placement="top" trigger={['hover']} overlay={<span>1,300 Compiled Notes</span>}>
+                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{numberWithCommas(props.compiledNotes)} Compiled Notes</span>}>
                                     <Link ><img src={require('../../../assets/img/lessons.png')} alt="lesson" className="subjectImage2"/></Link>
                                 </Tooltip> 
-                                <Tooltip placement="top" trigger={['hover']} overlay={<span>13,000 Registered Users</span>}>
+                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{numberWithCommas(props.registeredUsers)} Registered Users</span>}>
                                     <Link><img src={require('../../../assets/img/users.png')} alt="users" className="subjectImage2"/></Link>
                                 </Tooltip>                       
                             </div>
@@ -59,7 +63,7 @@ const Box = props => {
                         </div>
                         <div className="row description">
                             <div className="col-12" id="UncontrolledTooltipExample">
-                                116 Video Lessons
+                                {numberWithCommas(props.compiledNotes)} Video Lessons
                             </div>
                         </div>
                         <div className="row description1">
