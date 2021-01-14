@@ -13,9 +13,10 @@
 #classFirstSection h1 {
   font-family: font2; 
   text-align: center;
-  font-size: 125px;
+  font-size: 110px;
   margin-top: 50px;
   margin-bottom: 50px;
+  text-transform: uppercase;
 }
 
 #classFirstSection .box3 {

@@ -24,7 +24,8 @@
   border-left: solid 0.5px;
   color: #E3E3E3;
   margin-bottom: 11px;
-  padding-left: 15px;
+  padding-left: 9px;
+  padding-right: 3px;
 }
 
 #classes .firstSection .partTwo {
@@ -83,7 +84,9 @@
 #classes .secondSection {
   margin-bottom: 15px;
 }
-
+/* #classes .slick-track{
+  width: auto !important;
+} */
 #classes img.subjectImage1 {
   border-radius: 5px 5px 0px 0px;
   width: 310px;

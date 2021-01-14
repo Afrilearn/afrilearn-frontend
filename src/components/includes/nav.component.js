@@ -49,6 +49,8 @@ import ProtectedRoute from './protectedRoute.component';
 import PropTypes from 'prop-types';
 
 const MyNav = (props) => {
+
+  const { user } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const {isAuthenticated} = props;
@@ -58,7 +60,22 @@ const MyNav = (props) => {
     localStorage.removeItem('token');
     props.inputChange('logout', true);	 
     props.inputChange('isAuthenticated', false);   	 
- } 
+  } 
+
+  const updateActiveClass = (id, e) => {
+    props.inputChange('activeClass', id);   	 
+  } 
+
+  const classList = () => {
+    if (user && user.enrolledCourses.length) {         
+      return user.enrolledCourses.map((item) => {
+        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateActiveClass.bind(null,item._id)}>
+                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
+                </DropdownItem>  
+      });
+    }
+  };
+
   return (
     <Router>
       <Navbar color="light" light expand="md">
@@ -118,12 +135,7 @@ const MyNav = (props) => {
                 <img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon dropDownIcon1"/>
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem tag={Link} to="/dashboard">
-                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSS1</span>
-                </DropdownItem>            
-                <DropdownItem tag={Link} to="/classes/teacher">
-                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSS2</span>
-                </DropdownItem>            
+                {classList()}
                 <DropdownItem tag={Link} to="/about">                 
                   Add A New Class                          
                 </DropdownItem>
@@ -219,6 +231,7 @@ MyNav.propTypes = {
   inputChange: PropTypes.func.isRequired  
 };
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 export default connect(mapStateToProps, {inputChange})(MyNav);

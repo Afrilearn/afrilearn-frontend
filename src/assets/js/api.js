@@ -107,6 +107,14 @@ export default {
     });
   },
 
+  getCourse(data) {
+    return axios({
+      method: "get",
+      url: `${this.url}courses/${data}`,
+      headers: this.headers()
+    });
+  },
+
 
 
 

@@ -48,19 +48,19 @@ const Dashboard = props => {
         <div id="dashboardSecondSection" className="container-fluid relative">
             <h4>My Subjects</h4>
             <div className="row">                      
-               <Box image={require('../../../assets/img/maths.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/english.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/health.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true}/>    
-               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true}/>      
-               <Box image={require('../../../assets/img/health_two.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/english_two.png')} singleClass={true} dashboard={true}/>  
-               <Box image={require('../../../assets/img/health.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/health_two.png')} singleClass={true} dashboard={true}/>   
-               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true}/>
-               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true}/>     
+               <Box image={require('../../../assets/img/maths.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/english.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/health.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>    
+               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>      
+               <Box image={require('../../../assets/img/health_two.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/english_two.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>  
+               <Box image={require('../../../assets/img/health.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/health_two.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>   
+               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
+               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>     
             </div>
             <h4 className="push5">Past Questions</h4>
             <div className="row">  
