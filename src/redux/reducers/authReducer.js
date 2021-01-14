@@ -27,7 +27,8 @@ const initialState = {
   roles:[],
   classes:[],
   classLabel:'Select a Class',
-  userId:''
+  userId:'',
+  user:{}  
 };
 
 const authReducer = (state = initialState, action) => {
@@ -48,6 +49,7 @@ const authReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       let myObj = {};
+      let otherObj = {}
 
       if (action.payload.token) {
         localStorage.setItem('token', action.payload.token);
@@ -56,27 +58,28 @@ const authReducer = (state = initialState, action) => {
         myObj = {
           location: '/social-login',
           isAuthenticated: false,
-          redirect:true,
-          userId: action.payload.user._id
         }
       }else{
         myObj = { 
-          isAuthenticated: true,
-          redirect:true,
-          userId: action.payload.user._id
+          isAuthenticated: true         
         }
       } 
+      otherObj = { 
+        userId: action.payload.user._id,
+        user: action.payload.user,
+        activeClass: action.payload.user.enrolledCourses[0]._id,
+        redirect:true, 
+      }
       return {      
         ...state,
         ...myObj,
-             
+        ...otherObj
       };
   
     case CLEAR_FORM:
       return {
         ...state,
-        role:'',
-        activeClass:'',
+        role:'',       
         fullName:'',
         email:'',
         password:'',
