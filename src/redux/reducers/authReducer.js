@@ -7,7 +7,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   PASSWORD_CHANGE_SUCCESS,
-  SOCIAL_LOGIN_UPDATE_SUCCESS
+  SOCIAL_LOGIN_UPDATE_SUCCESS,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
 } from '../actions/types';
 
 const initialState = {
@@ -48,6 +50,7 @@ const authReducer = (state = initialState, action) => {
 
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+    case AUTH_SUCCESS:
       let myObj = {};
       let otherObj = {}
 
@@ -61,13 +64,14 @@ const authReducer = (state = initialState, action) => {
         }
       }else{
         myObj = { 
-          isAuthenticated: true         
+          isAuthenticated: true,
+          location: '/dashboard'         
         }
       } 
       otherObj = { 
         userId: action.payload.user._id,
         user: action.payload.user,
-        activeClass: action.payload.user.enrolledCourses[0]._id,
+        activeClass: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',   
         redirect:true, 
       }
       return {      
@@ -88,7 +92,8 @@ const authReducer = (state = initialState, action) => {
       };
 
     case REGISTER_FAILURE:  
-    case LOGIN_FAILURE:  
+    case LOGIN_FAILURE:
+    case AUTH_FAILURE: 
       localStorage.removeItem('token');
       return {
         ...state,

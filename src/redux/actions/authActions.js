@@ -18,7 +18,9 @@ import {
   SOCIAL_LOGIN_UPDATE_SUCCESS,
   SOCIAL_LOGIN_UPDATE_FAILURE,
   COURSE_ENROLMENT_SUCCESS,
-  COURSE_ENROLMENT_FAILURE
+  COURSE_ENROLMENT_FAILURE,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -110,13 +112,7 @@ export const loginUser = (user, google = false, facebook = false) => async (disp
     }else {
       result = await API.login(user);
     }
-    dispatch({
-      type: INPUT_CHANGE,
-      payload: {
-        name: 'location',
-        value: '/dashboard',
-      }
-    });   
+    console.log('am here')
     dispatch({
       type: LOGIN_SUCCESS,
       payload: result.data.data,
@@ -250,6 +246,38 @@ export const courseEnrolment = (user) => async (dispatch) => {
     );
     dispatch({
       type: COURSE_ENROLMENT_FAILURE,
+    });
+  }
+};
+export const loadUser = () => async (dispatch) => {
+  try {
+    document.body.classList.add('loading-indicator');
+    const result = await API.loadUser(); 
+
+    dispatch({
+      type: GET_ROLES_SUCCESS,
+      payload: result.data.data
+    });
+ console.log('am here')
+    dispatch({
+      type: AUTH_SUCCESS,
+      payload: result.data.data,
+    });
+  
+    document.body.classList.remove('loading-indicator');
+  } catch (err) {
+    document.body.classList.remove('loading-indicator');
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        'AUTH_FAILURE'
+      )
+    );
+    dispatch({
+      type: AUTH_FAILURE,
     });
   }
 };
