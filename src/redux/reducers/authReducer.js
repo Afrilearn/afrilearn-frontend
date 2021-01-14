@@ -72,7 +72,8 @@ const authReducer = (state = initialState, action) => {
         userId: action.payload.user._id,
         user: action.payload.user,
         activeClass: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',   
-        redirect:true, 
+        redirect:true,
+        email: action.payload.user.email,
       }
       return {      
         ...state,

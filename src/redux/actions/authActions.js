@@ -71,7 +71,10 @@ export const registerUser = (user) => async (dispatch) => {
         name: 'location',
         value: '/dashboard',
       }
-    });   
+    }); 
+    dispatch({
+      type: CLEAR_FORM,
+    });  
     dispatch({
       type: REGISTER_SUCCESS,
       payload: result.data.data,
@@ -81,9 +84,7 @@ export const registerUser = (user) => async (dispatch) => {
       courseId:user.activeClass                          
     };
     await API.courseEnrolment(course);
-    dispatch({
-      type: CLEAR_FORM,
-    });
+   
     document.body.classList.remove('loading-indicator');
   } catch (err) {
     document.body.classList.remove('loading-indicator');
@@ -111,8 +112,7 @@ export const loginUser = (user, google = false, facebook = false) => async (disp
       result = await API.socialLoginFacebook(user);
     }else {
       result = await API.login(user);
-    }
-    console.log('am here')
+    }   
     dispatch({
       type: LOGIN_SUCCESS,
       payload: result.data.data,
@@ -258,7 +258,7 @@ export const loadUser = () => async (dispatch) => {
       type: GET_ROLES_SUCCESS,
       payload: result.data.data
     });
- console.log('am here')
+
     dispatch({
       type: AUTH_SUCCESS,
       payload: result.data.data,
