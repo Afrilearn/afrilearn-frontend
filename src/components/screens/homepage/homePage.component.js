@@ -20,7 +20,9 @@ const Homepage = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.getRoles();  
+      if(!classes.length){
+        props.getRoles();  
+      }
     } else {
       // do componentDidUpdate logic
     }

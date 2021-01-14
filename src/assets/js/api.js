@@ -115,6 +115,13 @@ export default {
     });
   },
 
+  loadUser() {
+    return axios({
+      method: 'get',
+      url: `${this.url}/auth/load-user`,
+      headers: this.headers()
+    });
+  },
 
 
 
@@ -142,14 +149,6 @@ export default {
     });
   },
 
- 
-
-
-
-
-
-
-
   submitScore(data) {
     return axios({
       method: "post",
@@ -158,8 +157,6 @@ export default {
       data
     });
   },
-
- 
  
   verifyToken(data) {
     return axios({
