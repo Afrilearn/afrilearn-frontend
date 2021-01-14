@@ -123,6 +123,23 @@ export default {
     });
   },
 
+  getPaymentPlans() {
+    return axios({
+      method: 'get',
+      url: `${this.url}/payments/plans`,
+      headers: this.headers()
+    });
+  },
+
+  createPaymentTransaction(data) {
+    return axios({
+      method: 'post',
+      url: `${this.url}/payments/add-transaction`,
+      headers: this.headers(),
+      data
+    });
+  },
+
 
 
 
