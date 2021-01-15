@@ -19,7 +19,7 @@ const initialState = {
   chartSection:'subject',
   isAuthenticated:false,
   role:'',
-  activeClass:'',
+  activeEnrolledCourseId:'',
   fullName:'',
   email:'',
   password:'',
@@ -71,9 +71,10 @@ const authReducer = (state = initialState, action) => {
       otherObj = { 
         userId: action.payload.user._id,
         user: action.payload.user,
-        activeClass: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',   
+        activeEnrolledCourseId: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',   
         redirect:true,
         email: action.payload.user.email,
+        fullName: action.payload.user.fullName,
       }
       return {      
         ...state,

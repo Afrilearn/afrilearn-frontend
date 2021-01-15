@@ -47,6 +47,7 @@ import socialLogin from "../screens/socialLogin/socialLogin.component";
 import { inputChange } from './../../redux/actions/authActions';
 import ProtectedRoute from './protectedRoute.component';
 import PropTypes from 'prop-types';
+import subject from "../screens/subject/subject.component";
 
 const MyNav = (props) => {
 
@@ -62,14 +63,14 @@ const MyNav = (props) => {
     props.inputChange('isAuthenticated', false);   	 
   } 
 
-  const updateActiveClass = (id, e) => {
-    props.inputChange('activeClass', id);   	 
+  const updateactiveEnrolledCourseId = (id, e) => {
+    props.inputChange('activeEnrolledCourseId', id);   	 
   } 
 
   const classList = () => {
     if (user && user.enrolledCourses.length) {         
       return user.enrolledCourses.map((item) => {
-        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateActiveClass.bind(null,item._id)}>
+        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id)}>
                   <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
                 </DropdownItem>  
       });
@@ -199,7 +200,7 @@ const MyNav = (props) => {
           component={classWork}
         />
         <ProtectedRoute
-          path="/classes/:classId/:subjectId"
+          path="/classroom/:classId"
           component={classroomStudent}
         />
         <ProtectedRoute path="/classes/teacher" component={classroomTeacherComponent} />
@@ -221,6 +222,7 @@ const MyNav = (props) => {
         <ProtectedRoute path="/my-students" component={myStudents} />
         <ProtectedRoute path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />
+        <Route path="/subject" component={subject} />
       </Switch>
       <Footer />
     </Router>

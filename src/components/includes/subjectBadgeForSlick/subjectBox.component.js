@@ -44,10 +44,10 @@ const Box = props => {
                                 <Tooltip placement="top" trigger={['hover']} overlay={<span>Play</span>}>
                                     <Link to="/content/56464"><img src={require('../../../assets/img/play.png')} alt="play" className="subjectImage2"/></Link>
                                 </Tooltip>     
-                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{numberWithCommas(props.compiledNotes)} Compiled Notes</span>}>
+                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{ props.compiledNotes? numberWithCommas(props.compiledNotes) : 3000} Compiled Notes</span>}>
                                     <Link ><img src={require('../../../assets/img/lessons.png')} alt="lesson" className="subjectImage2"/></Link>
                                 </Tooltip> 
-                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{numberWithCommas(props.registeredUsers)} Registered Users</span>}>
+                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{props.registeredUsers? numberWithCommas(props.registeredUsers): 2000} Registered Users</span>}>
                                     <Link><img src={require('../../../assets/img/users.png')} alt="users" className="subjectImage2"/></Link>
                                 </Tooltip>                       
                             </div>
@@ -63,7 +63,7 @@ const Box = props => {
                         </div>
                         <div className="row description">
                             <div className="col-12" id="UncontrolledTooltipExample">
-                                {numberWithCommas(props.compiledNotes)} Video Lessons
+                                {props.compiledNotes? numberWithCommas(props.compiledNotes): '2000'} Video Lessons
                             </div>
                         </div>
                         <div className="row description1">
@@ -87,7 +87,7 @@ const Box = props => {
                     <div className="col-md-12">
                         <div className="row">                            
                             <div className="col-md-12 right">                      
-                                <h1>English</h1>                               
+                                <h1>{props.subjectName? props.subjectName:'Unknown'}</h1>                               
                             </div>   
                         </div>
                         <div className="row">
@@ -112,11 +112,8 @@ const Box = props => {
                     <div className="col-md-12">
                         <div className="row">
                             <div className="col-md-7 padOff">                      
-                                <span className="title">Basic Technology</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="borderAll">03</span> Terms
-                                <p className="push2">Basic Technology is a very important subject in todays 
-                                    curriculum for students especially at the junior secondary 
-                                    level as knowledge impacted prepares them for the various 
-                                    experiences at the senior level not withstanding their carrier paths.
+                                <span className="title">{props.subjectName? props.subjectName:'Unknown'}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="borderAll">03</span> Terms
+                                <p className="push2">{props.introText? props.introText.substr(0,150): 'This is a very important subject in todays curriculum for students especially at the junior secondary level as knowledge impacted prepares them for the various experiences at the senior level not withstanding their carrier paths.'}
                                 </p>
                             </div>   
                             <div className="col-md-5 right padOff">                      
@@ -125,7 +122,7 @@ const Box = props => {
                                         Class:
                                    </div>
                                    <div className="col-9 details">
-                                        Junior Secondary School One
+                                        {props.courseName? props.courseName : 'Alias Subject Name'}
                                     </div>
                                </div>
                                <div className="row">
@@ -133,7 +130,7 @@ const Box = props => {
                                         Lessons:
                                    </div>
                                    <div className="col-9 details">
-                                        116 Video Lessons
+                                        {props.compiledNotes? numberWithCommas(props.compiledNotes): '2000'} Video Lessons
                                     </div>
                                </div>
                                <div className="row">
@@ -141,7 +138,7 @@ const Box = props => {
                                         Students:
                                    </div>
                                    <div className="col-9 details">
-                                        13,000 Registered Students
+                                        {props.registeredUsers? numberWithCommas(props.registeredUsers): '2000'} Registered Students
                                     </div>
                                </div>
                             </div>   

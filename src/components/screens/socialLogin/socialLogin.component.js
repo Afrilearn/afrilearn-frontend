@@ -11,7 +11,7 @@ import 'animate.css';
 const SocialSignup = props => {  
     const {
         role, 
-        activeClass,       
+        activeEnrolledCourseId,       
         error,
         roles,
         classes,
@@ -60,11 +60,11 @@ const SocialSignup = props => {
         let message;
         if (!role) {
             message='Please select a role';             
-        } else if (!activeClass) {
+        } else if (!activeEnrolledCourseId) {
             message='Please select a class';   
         } 
 
-        if(!role || !activeClass){               
+        if(!role || !activeEnrolledCourseId){               
             Swal.fire({
                 title: message,
                 showClass: {
@@ -82,7 +82,7 @@ const SocialSignup = props => {
             };   
             const course = {
                 userId,
-                courseId:activeClass                          
+                courseId:activeEnrolledCourseId                          
             };           
             props.socialLoginUpdate(user);        
             props.courseEnrolment(course)   
@@ -121,7 +121,7 @@ const SocialSignup = props => {
                             </select>
                         </div>
                         <div className="col-md-12">
-                            <select className="general" name="activeClass" value={activeClass} onChange={handleChange}>
+                            <select className="general" name="activeEnrolledCourseId" value={activeEnrolledCourseId} onChange={handleChange}>
                                 <option>Select class</option>
                                 {classSet()}                         
                             </select>
@@ -145,7 +145,7 @@ const mapStateToProps = (state) => ({
     redirect: state.auth.redirect,   
     location: state.auth.location, 
     role: state.auth.role, 
-    activeClass: state.auth.activeClass,  
+    activeEnrolledCourseId: state.auth.activeEnrolledCourseId,  
     roles: state.auth.roles,  
     classes: state.auth.classes,    
     error: state.error,

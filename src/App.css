@@ -87,6 +87,12 @@ body {
   z-index: 8888;
 }
 
+.swal2-validation-message {
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
 .font2 {
   font-family: font2;
 }
