@@ -7,13 +7,13 @@ const Box = props => {
 	return (		
         <div className="row bottomBorder push9 myClassroom">
             <div className="col-md-4">
-                <span><img src={props.bullet2? Bullet2: Bullet1} alt="classroom" className="bullet"/>&nbsp;&nbsp; Class code MxH8902</span>
+                <span><img src={props.bullet2? Bullet2: Bullet1} alt="classroom" className="bullet"/>&nbsp;&nbsp;{props.className} - {props.classCode}</span>
             </div>
             <div className="col-md-4">
-                <span className="instructor">Instructor:&nbsp;</span> A.B Adebayo
+                <span className="instructor">Instructor:&nbsp;</span> {props.teacher}
             </div> 
             <div className="col-md-4 right">
-                <Link className="view" to="/classes/8799879/89798">View</Link>  
+                <Link className="view" to={`/classroom/${props.id}`}>View</Link>  
             </div>               
         </div>
 	);

@@ -140,6 +140,14 @@ export default {
     });
   },
 
+  populateDashboard(data) {
+    return axios({
+      method: 'post',
+      url: `${this.url}/dashboard`,
+      headers: this.headers(),
+      data
+    });
+  },
 
 
 

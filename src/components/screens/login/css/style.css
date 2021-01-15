@@ -6,7 +6,7 @@
 	background-size: cover;
 	margin-top: -90px;
     color: white;
-    height: 110vh;
+    height: calc(110vh);
 }
 
 #loginFirstSection h3 {
@@ -38,7 +38,7 @@
         margin-top: -234px;
     } */
     #loginFirstSection {
-        height: 118vh;
+        height: calc(118vh);
         margin-top: 0px;
     }
     #loginFirstSection .push7 {

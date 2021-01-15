@@ -6,7 +6,7 @@
 	background-size: cover;
 	margin-top: -90px;
     color: white;
-    height: 105vh;
+    height: calc(105vh);
 }
 
 #socialSignupFirstSection h3 {

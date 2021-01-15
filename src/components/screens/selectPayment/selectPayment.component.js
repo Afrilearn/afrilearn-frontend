@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import "./css/style.css";
 import { Container, Row, Col } from "reactstrap";
@@ -15,7 +15,7 @@ const Payment = props => {
     paymentPlanId,
     paymentAmount,
     userId,
-    activeClass,
+    activeEnrolledCourseId,
     email
    } = props;
 
@@ -32,9 +32,10 @@ const Payment = props => {
 
   /*flutterwave settings*/
   const config = {
-    public_key: "FLWPUBK_TEST-5120f20f66db336ffc0f6131bcc49936-X",
+    public_key: "FLWPUBK-eebfdb05b05f2db521a8b0c9043bf248-X",
     tx_ref: Date.now()+userId,
-    amount: paymentAmount,
+    amount: 5,
+    // amount: paymentAmount,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
@@ -67,10 +68,11 @@ const Payment = props => {
         const data = {
           tx_ref: response.tx_ref,
           userId,
-          enrolledCourseId:activeClass,
+          enrolledCourseId:activeEnrolledCourseId,
           paymentPlanId,
           amount:paymentAmount
         }      
+        console.log('am here')
         props.createTransaction(data)
         closePaymentModal(); // this will close the modal programmatically
       },
@@ -133,7 +135,7 @@ const mapStateToProps = (state) => ({
   paymentPlanId: state.payment.paymentPlanId,
   paymentAmount: state.payment.paymentAmount,
   userId: state.auth.userId,
-  activeClass: state.auth.activeClass,
+  activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   email: state.auth.email
 });
 

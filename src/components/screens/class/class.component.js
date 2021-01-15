@@ -40,7 +40,7 @@ const ClassDisplay = props => {
       if (course && course.relatedSubjects) {    
          let subjects =  course.relatedSubjects;    
          return subjects.map((item) => {
-            return    <Box image={item.mainSubjectId.imageUrl} singleClass={true} compiledNotes={item.relatedLessons.length} registeredUsers={50000}/>
+            return    <Box image={item.mainSubjectId.imageUrl} singleClass={true} compiledNotes={item.relatedLessons.length} registeredUsers={50000} subjectName={item.mainSubjectId.name} introText={item.mainSubjectId.introText} courseName={course.alias}/>
          });
       }
    };
@@ -50,7 +50,7 @@ const ClassDisplay = props => {
         <div id="classFirstSection" className="container-fluid relative">                         
             <div className="row">
                <div className="col-md-12">
-                  <h1>{course.name}</h1>
+                  <h1>{course.name? course.name : 'Hi'}</h1>
                </div>
             </div>
             <div className="row push2">

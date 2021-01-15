@@ -29,9 +29,9 @@ export const paymentPlans = () => async (dispatch, getState) => {
     document.body.classList.add('loading-indicator');
     const result = await API.getPaymentPlans(); 
     let plan = result.data.paymentPlans;
-    if(getState().auth.user.role){
-       plan = result.data.paymentPlans.filter(el=>el.category === getState().auth.user.role)
-    }
+    // if(getState().auth.user.role){
+    //    plan = result.data.paymentPlans.filter(el=>el.category === getState().auth.user.role)
+    // }
 
     dispatch({
       type: GET_PAYMENT_PLANS_SUCCESS,

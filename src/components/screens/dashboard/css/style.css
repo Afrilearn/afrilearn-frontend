@@ -6,7 +6,7 @@
   background-size: cover;
   margin-top: -90px;
   color: white;
-  height: 105vh;
+  height: calc(105vh);
   padding-top: 165px;
 }
 
@@ -16,6 +16,7 @@
   font-size: 125px;
   margin-top: 50px;
   margin-bottom: 50px;
+  text-transform: uppercase;
 }
 
 #dashboardFirstSection .push2 {
@@ -168,7 +169,7 @@
     padding-top: 144px;
 } */
 #dashboardFirstSection {
-  height: 100vh;
+  height: calc(100vh);
   padding-top: 107px;
   margin-top: -26px;
 }

@@ -8,7 +8,7 @@
 }
 
 #homepage .bannerSection {
-    height: 120vh;
+    height: calc(120vh);
     background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.5)), url('../../../../assets/img/sample.jpg');
     background-repeat: no-repeat;
     background-position: top center;

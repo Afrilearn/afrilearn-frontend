@@ -21,6 +21,8 @@ import {
   COURSE_ENROLMENT_FAILURE,
   AUTH_SUCCESS,
   AUTH_FAILURE,
+  LOAD_QUESTIONS_SUCCESS,
+  LOAD_QUESTIONS_FAILURE,
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -81,7 +83,7 @@ export const registerUser = (user) => async (dispatch) => {
     });
     const course = {
       userId: result.data.data.user._id,
-      courseId:user.activeClass                          
+      courseId:user.activeEnrolledCourseId                          
     };
     await API.courseEnrolment(course);
    
@@ -281,3 +283,45 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+export const loadQuestions = (subjectId) => async dispatch => {    
+  try {   
+      document.body.classList.add('loading-indicator');	   
+      const result = await API.loadQuestions(subjectId);
+      let questions = [];  
+      let questionTags= []; 
+      let questionTime=60; 
+      let theSubjectId=-1;        
+      let motivations =[];
+
+      if(result.data.error === false){
+          theSubjectId = result.data.subject_details.subject_id
+          questions = result.data.questions;
+          let questionLength =questions.length;
+          for(let i =0; i<questionLength; i++){
+              questionTags.push(1)
+          }   
+          questionTime = result.data.subject_details.duration; 
+          questionTime = questionTime * 1000 * 60;   
+          motivations =  result.data.motivations                 
+      }          
+    
+      dispatch({
+          type: LOAD_QUESTIONS_SUCCESS,
+          payload:{
+              questions,
+              questionTags,
+              questionTime,
+              theSubjectId,
+              motivations               
+          }       
+      })    
+     
+      document.body.classList.remove('loading-indicator');      
+ 
+  } catch (err) {       
+      document.body.classList.remove('loading-indicator');         
+      dispatch({
+          type: LOAD_QUESTIONS_FAILURE          
+      })	
+  }
+}

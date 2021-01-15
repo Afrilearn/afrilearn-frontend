@@ -6,7 +6,7 @@
 	background-size: cover;
 	margin-top: -90px;
     color: white;
-    height: 110vh;
+    height: calc(110vh);
 }
 
 #changePassword h3 {
@@ -34,7 +34,7 @@
         margin-top: -212px;
     } */
     #changePassword {
-        height: 108vh;
+        height: calc(108vh);
         margin-top: 0px;
     }
          

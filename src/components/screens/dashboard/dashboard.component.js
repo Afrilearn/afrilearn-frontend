@@ -8,31 +8,111 @@ import ClassroomBox from '../../includes/dashboard/classroom.component';
 import RecommendBox from '../../includes/dashboard/recommend.component';
 import { PieChart } from 'react-minimal-pie-chart';
 import { Link } from "react-router-dom";
-
+import { connect } from 'react-redux';
+import { populateDashboard, inputChange } from './../../../redux/actions/courseActions';
+import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
+import 'animate.css';
 
 const Dashboard = props => {  
+   const {
+      activeEnrolledCourseId,
+      dashboardData,
+      fullName,
+      excelling,
+      average,
+      belowAverage,
+      noRating,
+      excellingText, 
+      averageText, 
+      belowAverageText, 
+      noRatingText, 
+   } = props; 
+
    const mounted = useRef(); 
+   
    useEffect(()=>{
       if (!mounted.current) {
          // do componentDidMount logic
          mounted.current = true;
-         window.scrollTo(0, 0);            
+         window.scrollTo(0, 0);  
+         const data = {
+            enrolledCourseId: activeEnrolledCourseId
+         }
+         props.populateDashboard(activeEnrolledCourseId? data:null)          
       } else {
          // do componentDidUpdate logic          
          } 	       
-   })       
+   })   
    
+   const subjectList = () => {     
+      if(Object.keys(dashboardData).length && Object.keys(dashboardData.enrolledCourse).length){         
+         let subjects =  dashboardData.enrolledCourse.courseId.relatedSubjects;  
+         return subjects.map((item) => {
+            return    <Box image={item.mainSubjectId.imageUrl} singleClass={true} dashboard={true} compiledNotes={item.relatedLessons.length} registeredUsers={50000}/>
+         }); 
+      }
+   };
+
+   const pastQuestionsList = () => {     
+      if(Object.keys(dashboardData).length && Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions).length){         
+         let pastQuestions =  dashboardData.enrolledCourse.courseId.relatedPastQuestions;  
+         return pastQuestions.map((item, index) => {
+            return    <PastQuestionsBox title={item.pastQuestionTypes[0].name} other={index % 2 === 0? true:false} categoryId={item.pastQuestionTypes[0].categoryId}/> 
+         }); 
+      }
+   };
+
+   const classList = () => {     
+      if(Object.keys(dashboardData).length && dashboardData.classMembership.length){         
+         let classes =   dashboardData.classMembership.filter(el=>el.status ==='approved');  
+         return classes.map((item, index) => {
+            return    <ClassroomBox bullet2={index % 2 === 0? true:false} id={item._id} className={item.classId.name} classCode={item.classId.classCode} teacher={item.userId.fullName}/>
+         }); 
+      }
+   };
+
+   // const recommendationList = () => {     
+   //    if(Object.keys(dashboardData).length && dashboardData.recommendation.length){         
+   //       let recommend =   dashboardData.recommendation; 
+   //       return recommend.map((item, index) => {
+   //          return    <ClassroomBox bullet2={index % 2 === 0? true:false} id={item._id} className={item.classId.name} classCode={item.classId.classCode} teacher={item.userId.fullName}/>
+   //       }); 
+   //    }
+   // };
+
+   const handleJoinClass = async (e) =>{
+      e.preventDefault()     
+      const { value: ipAddress } = await Swal.fire({
+         title: 'Enter the class code below',
+         input: 'text',
+         inputLabel: '',
+         inputValue: '',
+         showCancelButton: true,
+         inputValidator: (value) => {
+           if (!value) {
+             return 'Enter class code!'
+           }
+         }
+       })
+       
+       if (ipAddress) {
+         Swal.fire('Your request to join the class will sent to the class teacher for approval')
+       }
+
+   }
+    
 	return (        
 		<span id="classes" className="dashboard">   
         <div id="dashboardFirstSection" className="container-fluid relative">                         
             <div className="row">
                <div className="col-md-12">
-                  <h1>JSS - ONE</h1>
+                  <h1>{dashboardData.enrolledCourse? dashboardData.enrolledCourse.courseId.name : 'Hi'}</h1>
                </div>
             </div>
             <div className="row push2 mobileCenter">
                <div className="col-md-12">
-                  <h2 className="boldFont">Welcome Feyikemi</h2>
+                  <h2 className="boldFont">Welcome {fullName}</h2>
                   <p>Explore the fun in learning</p>
                </div>               
             </div>
@@ -48,56 +128,39 @@ const Dashboard = props => {
         <div id="dashboardSecondSection" className="container-fluid relative">
             <h4>My Subjects</h4>
             <div className="row">                      
-               <Box image={require('../../../assets/img/maths.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/english.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/health.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>    
-               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>      
-               <Box image={require('../../../assets/img/health_two.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/english_two.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>  
-               <Box image={require('../../../assets/img/health.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/health_two.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>   
-               <Box image={require('../../../assets/img/science.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>
-               <Box image={require('../../../assets/img/Civic.png')} singleClass={true} dashboard={true} compiledNotes={2000} registeredUsers={50000}/>     
+              {subjectList()}
             </div>
             <h4 className="push5">Past Questions</h4>
-            <div className="row">  
-               <PastQuestionsBox title="WAEC"/>      
-               <PastQuestionsBox title="NECO" other={true}/>  
-               <PastQuestionsBox title="JAMB"/>
+            <div className="row"> 
+               {pastQuestionsList()} 
             </div>
             <h4 className="push5">Performance Summary</h4>
-            <div className="row">  
+            <div className="row">              
                <div className="col-md-4 myChart">
                   <PieChart
                      data={[
-                        { title: 'One', value: 20, color: '#FF5B5B'},
-                        { title: 'Two', value: 15, color: '#FDAD51' },
-                        { title: 'Three', value: 5, color: '#908989' },
-                        { title: 'Four', value: 40, color: '#1B7763' },
+                        { title: 'Below Average', value: belowAverage, color: '#FF5B5B'},
+                        { title: 'Average', value: average, color: '#FDAD51' },
+                        { title: 'No Rating', value: noRating, color: '#908989' },
+                        { title: 'Excelling', value: excelling, color: '#1B7763' },
                      ]}
                      lineWidth={32} rounded
                   />
                </div>
                <div className="col-md-8 subjectList">
-                  <PerformanceBox excel={true} title="Excelling In" data={"Mathematics&nbsp;&nbsp;&nbsp;Civic&nbsp;&nbsp;&nbsp;Education&nbsp;&nbsp;&nbsp;Computer Science&nbsp;&nbsp;&nbsp;Basic Science&nbsp;&nbsp;&nbsp;Home Economics&nbsp;&nbsp;&nbsp;Social Studies&nbsp;&nbsp;&nbsp;English Language&nbsp;&nbsp;&nbsp;"}/>
-                  <PerformanceBox average={true} title="Average In" data={"Business Studies&nbsp;&nbsp;&nbsp;Basic Technology"}/>
-                  <PerformanceBox belowAverage={true} title="Below Average In" data={"Health Education&nbsp;&nbsp;&nbsp;Yoruba"}/>
-                  <PerformanceBox noRating={true} title="No rating" data={"French"}/>
+                  <PerformanceBox excel={true} title="Excelling In" data={excellingText}/>
+                  <PerformanceBox average={true} title="Average In" data={averageText}/>
+                  <PerformanceBox belowAverage={true} title="Below Average In" data={belowAverageText}/>
+                  <PerformanceBox noRating={true} title="No rating" data={noRatingText}/>
                </div>
             </div>
             <h4 className="push5">Classroom</h4>
             <div className="row push8">  
               <div className="col-md-12 right underline">
-                  <Link to="/">Join A Classroom</Link>
+                  <Link onClick={handleJoinClass}>Join A Classroom</Link>
               </div>
             </div>
-            <ClassroomBox/>
-            <ClassroomBox bullet2={true}/>
-            <ClassroomBox/>
-            <ClassroomBox bullet2={true}/>
+            {classList()}
             <h4 className="push5">Recommendations</h4>
             <RecommendBox title="Geometrical Contruction : Lines" recommend="Geometrical Contruction : Angles"/>
             <RecommendBox title="WAEC Agricultural Science" recommend="NECO Agricultural Science" pastQuestions={true}/>
@@ -110,4 +173,23 @@ const Dashboard = props => {
 	);
 };
 
-export default Dashboard;
+Dashboard.propTypes = {
+   populateDashboard: PropTypes.func.isRequired,
+   inputChange: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
+   dashboardData: state.course.dashboardData,
+   fullName: state.auth.fullName,
+   excelling:state.course.excelling,
+   average:state.course.average,
+   belowAverage:state.course.belowAverage,
+   noRating:state.course.noRating, 
+   excellingText:state.course.excellingText, 
+   averageText:state.course.averageText, 
+   belowAverageText:state.course.belowAverageText, 
+   noRatingText:state.course.noRatingText, 
+});
+
+export default connect(mapStateToProps, { populateDashboard, inputChange })(Dashboard);

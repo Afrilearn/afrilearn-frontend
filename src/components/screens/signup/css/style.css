@@ -6,7 +6,7 @@
 	background-size: cover;
 	margin-top: -90px;
     color: white;
-    height: 140vh;
+    height: calc(140vh);
 }
 
 #signupFirstSection h3 {
@@ -44,7 +44,7 @@
         margin-top: -224px;
     } */
     #signupFirstSection {
-        height: 165vh;
+        height: calc(165vh);
         margin-top: 0px;
     }
     #signupFirstSection .push7 {
