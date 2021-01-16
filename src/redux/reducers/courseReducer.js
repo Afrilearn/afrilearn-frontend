@@ -44,7 +44,7 @@ import {
                 subjectCount:action.payload.subjectCount                
             };
         
-        case POPULATE_DASHBOARD_SUCCESS:
+        case POPULATE_DASHBOARD_SUCCESS:          
             return {
                 ...state,
                 excelling:action.payload.excelling,

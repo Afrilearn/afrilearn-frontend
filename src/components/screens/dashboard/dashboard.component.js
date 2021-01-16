@@ -46,20 +46,24 @@ const Dashboard = props => {
    })   
    
    const subjectList = () => {     
-      if(Object.keys(dashboardData).length && Object.keys(dashboardData.enrolledCourse).length){         
+      if(Object.keys(dashboardData).length && dashboardData.enrolledCourse && Object.keys(dashboardData.enrolledCourse).length){         
          let subjects =  dashboardData.enrolledCourse.courseId.relatedSubjects;  
          return subjects.map((item) => {
             return    <Box image={item.mainSubjectId.imageUrl} singleClass={true} dashboard={true} compiledNotes={item.relatedLessons.length} registeredUsers={50000}/>
          }); 
+      }else{
+         return <h6>No Subject list yet</h6>
       }
    };
 
    const pastQuestionsList = () => {     
-      if(Object.keys(dashboardData).length && Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions).length){         
+      if(Object.keys(dashboardData).length && dashboardData.enrolledCourse && Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions).length){         
          let pastQuestions =  dashboardData.enrolledCourse.courseId.relatedPastQuestions;  
          return pastQuestions.map((item, index) => {
             return    <PastQuestionsBox title={item.pastQuestionTypes.name} other={index % 2 === 0? true:false} categoryId={item.pastQuestionTypes.categoryId}/> 
          }); 
+      }else{
+         return <h6>No past questions yet</h6>
       }
    };
 
@@ -69,28 +73,36 @@ const Dashboard = props => {
          return classes.map((item, index) => {
             return    <ClassroomBox bullet2={index % 2 === 0? true:false} id={item._id} className={item.classId.name} classCode={item.classId.classCode} teacher={item.userId.fullName}/>
          }); 
+      }else{
+         return <h6>No class list yet</h6>
       }
    };
 
    const recommendationList = () => {     
       if(Object.keys(dashboardData).length && dashboardData.recommendation.length){         
          let recommend =   dashboardData.recommendation; 
+         // eslint-disable-next-line array-callback-return
          return recommend.map((item, index) => {
             if(index<3){
                return     <RecommendBox pastQuestions={item.type === 'lesson'? false : true} title={item.reason.title} recommend={item.recommended.title} recommendedId={item.recommended._id}/>
             }           
          }); 
+      }else{
+         return <h6>No recommendations yet</h6>
       }
    };
 
    const recentActivitiesList = () => {     
       if(Object.keys(dashboardData).length && dashboardData.recentActivities.length){         
          let activity =   dashboardData.recentActivities; 
+           // eslint-disable-next-line array-callback-return
          return activity.map((item, index) => {
             if(index<3){
-               return  <RecentActivitesBox category={item.type} title={item.lessonId.title} subject={item.lessonId.subjectId.mainSubjectId.name} excel={true} time="02/02/2020"/>
+               return  <RecentActivitesBox category={item.type} title={item.lessonId.title} subject={item.lessonId.subjectId.mainSubjectId.name}  excel={index % 2 === 0? true:false} time={item.createdAt}/>
             }           
          }); 
+      }else{
+         return <h6>No captured recent activities</h6>
       }
    };
 
@@ -139,34 +151,39 @@ const Dashboard = props => {
             </div>
         </div>
         <div id="dashboardSecondSection" className="container-fluid relative">
-            <h4>My Subjects</h4>
-            <div className="row">                      
-              {subjectList()}
-            </div>
-            <h4 className="push5">Past Questions</h4>
-            <div className="row"> 
-               {pastQuestionsList()} 
-            </div>
-            <h4 className="push5">Performance Summary</h4>
-            <div className="row">              
-               <div className="col-md-4 myChart">
-                  <PieChart
-                     data={[
-                        { title: 'Below Average', value: belowAverage, color: '#FF5B5B'},
-                        { title: 'Average', value: average, color: '#FDAD51' },
-                        { title: 'No Rating', value: noRating, color: '#908989' },
-                        { title: 'Excelling', value: excelling, color: '#1B7763' },
-                     ]}
-                     lineWidth={32} rounded
-                  />
+           { Object.keys(dashboardData).length && dashboardData.enrolledCourse? 
+            <>
+               <h4>My Subjects</h4>
+               <div className="row">                      
+               {subjectList()}
                </div>
-               <div className="col-md-8 subjectList">
-                  <PerformanceBox excel={true} title="Excelling In" data={excellingText}/>
-                  <PerformanceBox average={true} title="Average In" data={averageText}/>
-                  <PerformanceBox belowAverage={true} title="Below Average In" data={belowAverageText}/>
-                  <PerformanceBox noRating={true} title="No rating" data={noRatingText}/>
+               <h4 className="push5">Past Questions</h4>
+               <div className="row jj"> 
+                  {pastQuestionsList()} 
                </div>
-            </div>
+               <h4 className="push5">Performance Summary</h4>
+               <div className="row">              
+                  <div className="col-md-4 myChart">
+                     <PieChart
+                        data={[
+                           { title: 'Below Average', value: belowAverage, color: '#FF5B5B'},
+                           { title: 'Average', value: average, color: '#FDAD51' },
+                           { title: 'No Rating', value: noRating, color: '#908989' },
+                           { title: 'Excelling', value: excelling, color: '#1B7763' },
+                        ]}
+                        lineWidth={32} rounded
+                     />
+                  </div>
+                  <div className="col-md-8 subjectList">
+                     <PerformanceBox excel={true} title="Excelling In" data={excellingText}/>
+                     <PerformanceBox average={true} title="Average In" data={averageText}/>
+                     <PerformanceBox belowAverage={true} title="Below Average In" data={belowAverageText}/>
+                     <PerformanceBox noRating={true} title="No rating" data={noRatingText}/>
+                  </div>
+               </div>
+            </>
+            :
+            ''}
             <h4 className="push5">Classroom</h4>
             <div className="row push8">  
               <div className="col-md-12 right underline">
