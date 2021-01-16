@@ -14,7 +14,7 @@ const Box = props => {
             <div className="col-md-6">
                 <p>Because you {props.pastQuestions? 'practiced': 'watched'} "{props.title}"</p>
                 <p className="recommendT">Recommended:</p>
-                <Link className="underline" to={props.pastQuestions? '/instructions': '/content/56464'}>"{props.recommend}"</Link>
+                <Link className="underline" to={props.pastQuestions? '/instructions': `/content/${props.recommendedId}`}>"{props.recommend}"</Link>
             </div>
         </div>
 	);

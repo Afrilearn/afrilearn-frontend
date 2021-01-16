@@ -90,7 +90,7 @@ body {
 .swal2-validation-message {
   width: 100%;
   text-align: center;
-  margin: auto;
+  margin: auto !important;
 }
 
 .font2 {

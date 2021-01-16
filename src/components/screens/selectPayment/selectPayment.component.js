@@ -72,7 +72,8 @@ const Payment = props => {
           paymentPlanId,
           amount:paymentAmount
         }      
-        console.log('am here')
+        console.log(response)
+        console.log(data)
         props.createTransaction(data)
         closePaymentModal(); // this will close the modal programmatically
       },
