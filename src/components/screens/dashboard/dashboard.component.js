@@ -58,7 +58,7 @@ const Dashboard = props => {
       if(Object.keys(dashboardData).length && Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions).length){         
          let pastQuestions =  dashboardData.enrolledCourse.courseId.relatedPastQuestions;  
          return pastQuestions.map((item, index) => {
-            return    <PastQuestionsBox title={item.pastQuestionTypes[0].name} other={index % 2 === 0? true:false} categoryId={item.pastQuestionTypes[0].categoryId}/> 
+            return    <PastQuestionsBox title={item.pastQuestionTypes.name} other={index % 2 === 0? true:false} categoryId={item.pastQuestionTypes.categoryId}/> 
          }); 
       }
    };
@@ -72,14 +72,27 @@ const Dashboard = props => {
       }
    };
 
-   // const recommendationList = () => {     
-   //    if(Object.keys(dashboardData).length && dashboardData.recommendation.length){         
-   //       let recommend =   dashboardData.recommendation; 
-   //       return recommend.map((item, index) => {
-   //          return    <ClassroomBox bullet2={index % 2 === 0? true:false} id={item._id} className={item.classId.name} classCode={item.classId.classCode} teacher={item.userId.fullName}/>
-   //       }); 
-   //    }
-   // };
+   const recommendationList = () => {     
+      if(Object.keys(dashboardData).length && dashboardData.recommendation.length){         
+         let recommend =   dashboardData.recommendation; 
+         return recommend.map((item, index) => {
+            if(index<3){
+               return     <RecommendBox pastQuestions={item.type === 'lesson'? false : true} title={item.reason.title} recommend={item.recommended.title} recommendedId={item.recommended._id}/>
+            }           
+         }); 
+      }
+   };
+
+   const recentActivitiesList = () => {     
+      if(Object.keys(dashboardData).length && dashboardData.recentActivities.length){         
+         let activity =   dashboardData.recentActivities; 
+         return activity.map((item, index) => {
+            if(index<3){
+               return  <RecentActivitesBox category={item.type} title={item.lessonId.title} subject={item.lessonId.subjectId.mainSubjectId.name} excel={true} time="02/02/2020"/>
+            }           
+         }); 
+      }
+   };
 
    const handleJoinClass = async (e) =>{
       e.preventDefault()     
@@ -97,7 +110,7 @@ const Dashboard = props => {
        })
        
        if (ipAddress) {
-         Swal.fire('Your request to join the class will sent to the class teacher for approval')
+         Swal.fire('Your request to join the class will be sent to the class teacher for approval')
        }
 
    }
@@ -162,12 +175,9 @@ const Dashboard = props => {
             </div>
             {classList()}
             <h4 className="push5">Recommendations</h4>
-            <RecommendBox title="Geometrical Contruction : Lines" recommend="Geometrical Contruction : Angles"/>
-            <RecommendBox title="WAEC Agricultural Science" recommend="NECO Agricultural Science" pastQuestions={true}/>
-            <RecommendBox title="Geometrical Contruction : Lines" recommend="Geometrical Contruction : Angles"/>
+            {recommendationList()}
             <h4 className="push5">Recent Activities</h4>
-            <RecentActivitesBox pastQuestions={true} category="Quiz" title="Trigonometric" subject="English" excel={true} time="02/02/2020"/>
-            <RecentActivitesBox category="Lesson 5" title="Communication " subject="Mathematics" average={true} time="08/05/2020"/>
+            {recentActivitiesList()}
          </div>
     </span>
 	);

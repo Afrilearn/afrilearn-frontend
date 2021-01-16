@@ -6,7 +6,7 @@ const Box = props => {
 	return (		
         <div className="row push10 bottomBorder subjectList">
             <div className="col-md-2">              
-                <img src={props.pastQuestions? PastQuestions: Lessons}alt="icon" className="recommendImg"/>
+                <img src={props.category === 'lesson'? Lessons : PastQuestions}alt="icon" className="recommendImg"/>
             </div>
             <div className="col-md-3">
                 <p className="green">{props.category}</p>
