@@ -30,7 +30,8 @@ const initialState = {
   classes:[],
   classLabel:'Select a Class',
   userId:'',
-  user:{}  
+  user:{},
+  courseId:''  
 };
 
 const authReducer = (state = initialState, action) => {

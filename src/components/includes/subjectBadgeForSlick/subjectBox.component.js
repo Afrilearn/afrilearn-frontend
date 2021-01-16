@@ -44,10 +44,10 @@ const Box = props => {
                                 <Tooltip placement="top" trigger={['hover']} overlay={<span>Play</span>}>
                                     <Link to="/content/56464"><img src={require('../../../assets/img/play.png')} alt="play" className="subjectImage2"/></Link>
                                 </Tooltip>     
-                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{ props.compiledNotes? numberWithCommas(props.compiledNotes) : 3000} Compiled Notes</span>}>
+                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{ props.compiledNotes? numberWithCommas(props.compiledNotes) : 0} Compiled Notes</span>}>
                                     <Link ><img src={require('../../../assets/img/lessons.png')} alt="lesson" className="subjectImage2"/></Link>
                                 </Tooltip> 
-                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{props.registeredUsers? numberWithCommas(props.registeredUsers): 2000} Registered Users</span>}>
+                                <Tooltip placement="top" trigger={['hover']} overlay={<span>{props.registeredUsers? numberWithCommas(props.registeredUsers): 0} Registered Users</span>}>
                                     <Link><img src={require('../../../assets/img/users.png')} alt="users" className="subjectImage2"/></Link>
                                 </Tooltip>                       
                             </div>
@@ -63,7 +63,7 @@ const Box = props => {
                         </div>
                         <div className="row description">
                             <div className="col-12" id="UncontrolledTooltipExample">
-                                {props.compiledNotes? numberWithCommas(props.compiledNotes): '2000'} Video Lessons
+                                {props.compiledNotes? numberWithCommas(props.compiledNotes): '0'} Video Lessons
                             </div>
                         </div>
                         <div className="row description1">
@@ -130,7 +130,7 @@ const Box = props => {
                                         Lessons:
                                    </div>
                                    <div className="col-9 details">
-                                        {props.compiledNotes? numberWithCommas(props.compiledNotes): '2000'} Video Lessons
+                                        {props.compiledNotes? numberWithCommas(props.compiledNotes): '0'} Video Lessons
                                     </div>
                                </div>
                                <div className="row">
@@ -138,7 +138,7 @@ const Box = props => {
                                         Students:
                                    </div>
                                    <div className="col-9 details">
-                                        {props.registeredUsers? numberWithCommas(props.registeredUsers): '2000'} Registered Students
+                                        {props.registeredUsers? numberWithCommas(props.registeredUsers): '0'} Registered Students
                                     </div>
                                </div>
                             </div>   
