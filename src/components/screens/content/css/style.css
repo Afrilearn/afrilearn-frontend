@@ -1,5 +1,5 @@
 #contentPageFirstSection {
-  height: calc(100vh);
+  height: calc(100vh + 26px);
   width: 100%;
   margin-top: -80px;
   background-color: #ddd;
@@ -7,7 +7,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  color: white; 
+  color: white;
 }
 #contentPageFirstSection h1 {
   position: absolute;
@@ -74,8 +74,8 @@
   box-sizing: border-box;
   text-align: left;
 }
-#contentPageSecondSection .right.col-md-7{
- padding: 0;
+#contentPageSecondSection .right.col-md-7 {
+  padding: 0;
 }
 #contentPageSecondSection .right_para {
   font-size: 17px;

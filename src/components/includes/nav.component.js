@@ -10,9 +10,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from "reactstrap";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import homepage from "../screens/homepage/homePage.component";
 import about from "../screens/about/about.component";
@@ -44,35 +44,47 @@ import classroomTeacherComponent from "../screens/classroomTeacher/classroomTeac
 import assignContent from "../screens/assignContent/assignContent.component";
 import performance from "../screens/performance/performance.component";
 import socialLogin from "../screens/socialLogin/socialLogin.component";
-import { inputChange } from './../../redux/actions/authActions';
-import ProtectedRoute from './protectedRoute.component';
-import PropTypes from 'prop-types';
+import { inputChange } from "./../../redux/actions/authActions";
+import ProtectedRoute from "./protectedRoute.component";
+import PropTypes from "prop-types";
 import subject from "../screens/subject/subject.component";
 
 const MyNav = (props) => {
-
   const { user } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const {isAuthenticated} = props;
+  const { isAuthenticated } = props;
 
-  const handleLogout = (e) => {		
+  const handleLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem('token');
-    props.inputChange('logout', true);	 
-    props.inputChange('isAuthenticated', false);   	 
-  } 
+    localStorage.removeItem("token");
+    props.inputChange("logout", true);
+    props.inputChange("isAuthenticated", false);
+  };
 
   const updateactiveEnrolledCourseId = (id, e) => {
-    props.inputChange('activeEnrolledCourseId', id);   	 
-  } 
+    props.inputChange("activeEnrolledCourseId", id);
+  };
 
   const classList = () => {
-    if (user && user.enrolledCourses.length) {         
+    if (user && user.enrolledCourses.length) {
       return user.enrolledCourses.map((item) => {
-        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id)}>
-                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
-                </DropdownItem>  
+        return (
+          <DropdownItem
+            tag={Link}
+            to="/dashboard"
+            onClick={updateactiveEnrolledCourseId.bind(null, item._id)}
+          >
+            <span>
+              <img
+                src={require("./../../assets/img/profile.png")}
+                alt="profile"
+                className="dropDownIcon"
+              />{" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}
+            </span>
+          </DropdownItem>
+        );
       });
     }
   };
@@ -90,25 +102,27 @@ const MyNav = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-          {isAuthenticated? 
-          <>
-            <NavItem>
-              <NavLink tag={Link} to="/dashboard">
-                Dashboard
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/select-pay">
-                Subscribe
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/performance">
-                Performance Analysis
-              </NavLink>
-            </NavItem>
-          </> 
-          : ''}
+            {isAuthenticated ? (
+              <>
+                <NavItem>
+                  <NavLink tag={Link} to="/dashboard">
+                    Dashboard
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/select-pay">
+                    Subscribe
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/performance">
+                    Performance Analysis
+                  </NavLink>
+                </NavItem>
+              </>
+            ) : (
+              ""
+            )}
             <NavItem>
               <NavLink tag={Link} className="relative searchArea">
                 {/* <img className="searchIcon" src={require('../../assets/img/search.png')} alt="Afrilearn Search button"/> */}
@@ -130,47 +144,52 @@ const MyNav = (props) => {
                 About Us
               </NavLink>
             </NavItem>
-            {isAuthenticated? 
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                <img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon dropDownIcon1"/>
-              </DropdownToggle>
-              <DropdownMenu right>
-                {classList()}
-                <DropdownItem tag={Link} to="/about">                 
-                  Add A New Class                          
-                </DropdownItem>
-                <DropdownItem tag={Link} to="/profile">                 
-                  Manage Profile                        
-                </DropdownItem>
-                <DropdownItem divider />  
-                <DropdownItem tag={Link} to="/select-pay">                 
-                  Payment History                       
-                </DropdownItem>
-                <DropdownItem tag={Link} to="/profile">                 
-                  Invite Your Friends                    
-                </DropdownItem>               
-                <DropdownItem tag={Link} to="/classes/teacher">                 
-                  Teacher's Dashboard               
-                </DropdownItem>
-                <DropdownItem tag={Link} to="/" onClick={handleLogout}>                 
-                  Log Out                   
-                </DropdownItem>             
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            :
-            <>
-              <NavItem>
-                <NavLink tag={Link} to="/login" className="contact contact1">
-                  Login
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/register" className="contact">
-                  Register
-                </NavLink>
-              </NavItem>
-            </>}            
+            {isAuthenticated ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  <img
+                    src={require("./../../assets/img/profile.png")}
+                    alt="profile"
+                    className="dropDownIcon dropDownIcon1"
+                  />
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {classList()}
+                  <DropdownItem tag={Link} to="/about">
+                    Add A New Class
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/profile">
+                    Manage Profile
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem tag={Link} to="/select-pay">
+                    Payment History
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/profile">
+                    Invite Your Friends
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/classes/teacher">
+                    Teacher's Dashboard
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/" onClick={handleLogout}>
+                    Log Out
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : (
+              <>
+                <NavItem>
+                  <NavLink tag={Link} to="/login" className="contact contact1">
+                    Login
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/register" className="contact">
+                    Register
+                  </NavLink>
+                </NavItem>
+              </>
+            )}
           </Nav>
         </Collapse>
       </Navbar>
@@ -189,12 +208,16 @@ const MyNav = (props) => {
           exact
           component={pastQuestionQuizPage}
         />
-        <ProtectedRoute path="/category/:subjectId" exact component={pastQuestions} />
+        <ProtectedRoute
+          path="/category/:subjectId"
+          exact
+          component={pastQuestions}
+        />
         <ProtectedRoute
           path="/classes/:classId/:subjectId/quiz"
           exact
           component={quizPage}
-        /> 
+        />
         <ProtectedRoute
           path="/classes/:classId/:subjectId/:classworkId"
           component={classWork}
@@ -203,12 +226,24 @@ const MyNav = (props) => {
           path="/classroom/:classId"
           component={classroomStudent}
         />
-        <ProtectedRoute path="/classes/teacher" component={classroomTeacherComponent} />
+        <ProtectedRoute
+          path="/classes/teacher"
+          component={classroomTeacherComponent}
+        />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
-        <ProtectedRoute path="/content/:lessonId/assign-content" component={assignContent} />
-        <ProtectedRoute path="/content/:lessonId" component={lessonPage} />
-        <ProtectedRoute path="/content" component={content} />
+        <ProtectedRoute
+          path="/content/:courseId/:subjectId/:lessonId/:videoId/assign-content"
+          component={assignContent}
+        />
+        <ProtectedRoute
+          path="/content/:courseId/:subjectId/:lessonId/:videoId"
+          component={lessonPage}
+        />
+        <ProtectedRoute
+          path="/content/:courseId/:subjectId"
+          component={content}
+        />
         <ProtectedRoute path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
         <Route path="/login" component={login} />
@@ -230,10 +265,10 @@ const MyNav = (props) => {
 };
 
 MyNav.propTypes = {
-  inputChange: PropTypes.func.isRequired  
+  inputChange: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
+  user: state.auth.user,
 });
-export default connect(mapStateToProps, {inputChange})(MyNav);
+export default connect(mapStateToProps, { inputChange })(MyNav);

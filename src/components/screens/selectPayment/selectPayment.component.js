@@ -80,7 +80,6 @@ const Payment = props => {
       onClose: () => {},
     });
   };
-  
   return (
     <div id="selectPaymentPageSectionOne">
       <div className="sub-lenght">
