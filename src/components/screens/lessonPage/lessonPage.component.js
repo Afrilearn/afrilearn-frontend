@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import movie from "../../../assets/video/video.mp4";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -15,9 +14,68 @@ import firstterm from "../../../assets/img/firstterm.png";
 import dots from "../../../assets/img/dots.png";
 import { Popover, PopoverBody } from "reactstrap";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import moment from "moment";
 
-const LessonPage = () => {
+import { getCourse } from "./../../../redux/actions/courseActions";
+
+const LessonPage = (props) => {
+  const { course } = props;
+
+  const subject =
+    course.relatedSubjects &&
+    course.relatedSubjects.find(
+      (su) => su.courseId === props.match.params.courseId
+    );
+
+  const lesson =
+    subject.relatedLessons &&
+    subject.relatedLessons.find((su) => su._id === props.match.params.lessonId);
+
+  const video =
+    lesson.videoUrls &&
+    lesson.videoUrls.find((vid) => vid._id === props.match.params.videoId);
+
+  const videoIndex =
+    lesson.videoUrls &&
+    lesson.videoUrls.findIndex((vid) => vid._id === props.match.params.videoId);
+
+  const relatedVideos = lesson.videoUrls.filter(
+    (vid) => vid._id !== props.match.params.videoId
+  );
+
+  const relatedVideosList = () => {
+    if (relatedVideos.length) {
+      return relatedVideos.map((vid, index) => {
+        return (
+          <div className="item" key={index}>
+            <div className="img">
+              <img src={firstterm} alt="see this"></img>
+            </div>
+            <div className="right">
+              <p>{lesson && lesson.title}</p>
+              <div className="button">
+                <FontAwesomeIcon icon={faPlay} style={{ marginRight: "5px" }} />
+                Lesson {index + 1}
+              </div>
+            </div>
+          </div>
+        );
+      });
+    }
+  };
+
+  const termIds = [
+    { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
+    { id: "600047f67cabf80f88f61735", name: "Second Term" },
+    { id: "600048197cabf80f88f61736", name: "Third Term" },
+  ];
+
+  const term = termIds.find((term) => term._id === lesson.terId);
+
   const mounted = useRef();
+
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -31,28 +89,33 @@ const LessonPage = () => {
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   const toggle = () => setPopoverOpen(!popoverOpen);
+
   const openPopOne = () => {
     const popOne = document.getElementById("lessonPagePopUpOne");
     popOne.style.display = "flex";
   };
+
   const openPopTwo = () => {
     const popTwo = document.getElementById("lessonPagePopUpTwo");
     popTwo.style.display = "flex";
   };
+
   const closePopOne = () => {
     const popOne = document.getElementById("lessonPagePopUpOne");
     popOne.style.display = "none";
   };
+
   const closePopTwo = () => {
     const popTwo = document.getElementById("lessonPagePopUpTwo");
     popTwo.style.display = "none";
   };
+
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
         <video controls>
-          <source src={movie} type="video/mp4" />
+          <source src={video.videoUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -61,7 +124,7 @@ const LessonPage = () => {
           <div className="top">
             <div className="button" onClick={openPopOne}>
               <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
-              Lesson 2
+              Lesson {videoIndex + 1}
             </div>
             <div className="icon">
               <FontAwesomeIcon icon={faBook} />
@@ -93,8 +156,10 @@ const LessonPage = () => {
                   toggle={toggle}
                 >
                   <PopoverBody>
-                    <Link to="/content/hjdjhdiue/assign-content">
-                      Assign Content
+                    <Link
+                      to={`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${props.match.params.videoId}/assign-content`}
+                    >
+                      <p>Assign Content</p>
                     </Link>
                     <p>Community</p>
                     <p>Bookmark</p>
@@ -106,134 +171,33 @@ const LessonPage = () => {
             </div>
           </div>
           <a href="/">Hide Transcript</a>
-          <h4>Geometrical Construction (2): Angles</h4>
-          <p>
-            "Construction" in Geometry means to draw shapes, angles or lines
-            accurately. These constructions use only compass, straightedge (i.e.
-            ruler) and a pencil. straightedge. T.his is the "pure" form of
-            geometric construction: no numbers involved!
-          </p>
-          <h5> Angles</h5>
-          <p>
-            And it is useful to know how to do 30°, 45° and 60° angles. We can
-            use the angle bisector method (above) to create other angles such as
-            15°, etc.
-          </p>
-          <h5> Angles</h5>
-          <p>
-            And it is useful to know how to do 30°, 45° and 60° angles. We can
-            use the angle bisector method (above) to create other angles such as
-            15°, etc.
-          </p>
-          <p>
-            "Construction" in Geometry means to draw shapes, angles or lines
-            accurately. These constructions use only compass, straightedge (i.e.
-            ruler) and a pencil. straightedge. T.his is the "pure" form of
-            geometric construction: no numbers involved!
-          </p>
-          <p>
-            "Construction" in Geometry means to draw shapes, angles or lines
-            accurately. These constructions use only compass, straightedge (i.e.
-            ruler) and a pencil. straightedge. T.his is the "pure" form of
-            geometric construction: no numbers involved!
-          </p>
+          <h4>{lesson && lesson.title}</h4>
+          <p>{lesson && lesson.content}</p>
         </div>
         <div className="right">
           <div className="top">
             <p>
-              <span>Class:&nbsp;&nbsp; &nbsp; </span> Junior Sceondary School
-              One
+              <span>Class:&nbsp;&nbsp; &nbsp; </span> {course.name}
             </p>
             <p>
-              <span>Subject:&nbsp;&nbsp; &nbsp; </span> Basic Technology
+              <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
+              {subject && subject.mainSubjectId.name}
             </p>
             <p>
-              <span>Term:&nbsp;&nbsp; &nbsp; </span> First Term
+              <span>Term:&nbsp;&nbsp; &nbsp; </span> {term.name}
             </p>
             <p>
-              <span>Date Created:&nbsp;&nbsp; &nbsp; </span> 14th Seotember 2020
+              <span>Date Created:&nbsp;&nbsp; &nbsp; </span>{" "}
+              {moment(lesson.createdAt).format("LL")}
             </p>
           </div>
           <div className="mid">
             <h4>Related Videos</h4>
-            <div className="item">
-              <div className="img">
-                <img src={firstterm} alt="see this"></img>
-              </div>
-              <div className="right">
-                <p>Geometrical Construction (1): Lines</p>
-                <div className="button">
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    style={{ marginRight: "5px" }}
-                  />
-                  Lesson 2
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div className="img">
-                <img src={firstterm} alt="see this"></img>
-              </div>
-              <div className="right">
-                <p>Geometrical Construction (1): Lines</p>
-                <div className="button">
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    style={{ marginRight: "5px" }}
-                  />
-                  Lesson 2
-                </div>
-              </div>
-            </div>
+            {relatedVideosList()}
           </div>
           <div className="mid">
-            <h4>Related Videos</h4>
-            <div className="item">
-              <div className="img">
-                <img src={firstterm} alt="see this"></img>
-              </div>
-              <div className="right">
-                <p>Geometrical Construction (1): Lines</p>
-                <div className="button">
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    style={{ marginRight: "5px" }}
-                  />
-                  Lesson 2
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div className="img">
-                <img src={firstterm} alt="see this"></img>
-              </div>
-              <div className="right">
-                <p>Geometrical Construction (1): Lines</p>
-                <div className="button">
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    style={{ marginRight: "5px" }}
-                  />
-                  Lesson 2
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div className="img">
-                <img src={firstterm} alt="see this"></img>
-              </div>
-              <div className="right">
-                <p>Geometrical Construction (1): Lines</p>
-                <div className="button">
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    style={{ marginRight: "5px" }}
-                  />
-                  Lesson 2
-                </div>
-              </div>
-            </div>
+            <h4>Recommended for you</h4>
+            {relatedVideosList()}{" "}
           </div>
         </div>
       </div>
@@ -261,4 +225,11 @@ const LessonPage = () => {
   );
 };
 
-export default LessonPage;
+LessonPage.propTypes = {
+  getCourse: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  course: state.course.course,
+});
+export default connect(mapStateToProps, { getCourse })(LessonPage);

@@ -43,7 +43,7 @@
   flex: 0 0 35%;
   border-radius: 10px;
   padding: 10px;
-  text-align: unset;
+  text-align: unset !important;
 }
 #lessonPageSectionTwo .left .top {
   width: 100%;
@@ -196,10 +196,11 @@
 }
 @media screen and (max-width: 900px) {
   #lessonPageSectionTwo {
-    padding: 20px;
+    padding: 10px;
   }
   #lessonPageSectionTwo .left {
     flex: 0 0 100%;
+    margin: 0px;
   }
   #lessonPageSectionTwo .right {
     flex: 0 0 100%;

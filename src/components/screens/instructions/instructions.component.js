@@ -12,7 +12,7 @@ const Instructions = (props) => {
     } else {
       // do componentDidUpdate logic
     }
-  });
+  }); 
 
   return (
     <div id="instructions" className="container-fluid relative">
