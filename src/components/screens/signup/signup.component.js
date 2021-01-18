@@ -15,7 +15,7 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 const Signup = props => {  
     const {
         role, 
-        activeEnrolledCourseId, 
+        courseId, 
         fullName, 
         email, 
         password,    
@@ -76,7 +76,7 @@ const Signup = props => {
         let message;
         if (!role) {
             message='Please select a role';             
-        } else if (!activeEnrolledCourseId) {
+        } else if (!courseId) {
             message='Please select a class';   
         } else if (!fullName) {
             message='Please enter full name';   
@@ -86,7 +86,7 @@ const Signup = props => {
             message='Please enter password';  
         } 
 
-        if(!role || !activeEnrolledCourseId || !fullName || !email || !password){               
+        if(!role || !courseId || !fullName || !email || !password){               
             Swal.fire({
                 title: message,
                 showClass: {
@@ -101,7 +101,7 @@ const Signup = props => {
         }else{          
             const user = {
                 role,
-                activeEnrolledCourseId,
+                courseId,
                 fullName,
                 email,
                 password,
@@ -164,7 +164,7 @@ const Signup = props => {
                             </select>
                         </div>
                         <div className="col-md-12">
-                            <select className="general" name="activeEnrolledCourseId" value={activeEnrolledCourseId} onChange={handleChange}>
+                            <select className="general" name="courseId" value={courseId} onChange={handleChange}>
                                 <option>Select class</option>
                                 {classSet()}                         
                             </select>
@@ -237,7 +237,7 @@ const mapStateToProps = (state) => ({
     redirect: state.auth.redirect,   
     location: state.auth.location, 
     role: state.auth.role, 
-    activeEnrolledCourseId: state.auth.activeEnrolledCourseId, 
+    courseId: state.auth.courseId, 
     fullName: state.auth.fullName, 
     email: state.auth.email, 
     password: state.auth.password, 
