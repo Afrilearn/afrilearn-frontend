@@ -1,21 +1,22 @@
 import axios from "axios";
-const URL = "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/"; 
+const URL =
+  "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/";
 
 export default {
   url: URL,
   headers(fileupload = false) {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     let header = {};
     if (fileupload) {
-      header['Content-type'] = 'multipart/form-data';
+      header["Content-type"] = "multipart/form-data";
     } else {
-      header['Content-type'] = 'application/json';
-      header['Accept'] = '*/*';
-      header['Access-Control-Allow-Origin'] = '*';
+      header["Content-type"] = "application/json";
+      header["Accept"] = "*/*";
+      header["Access-Control-Allow-Origin"] = "*";
     }
     if (token && token !== undefined) {
-      header['token'] = token;
+      header["token"] = token;
     }
     return header;
   },
@@ -24,13 +25,13 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}auth/roles`,
-      headers: this.headers()   
+      headers: this.headers(),
     });
   },
-  
+
   registerUser(data) {
     return axios({
-      method: 'post',
+      method: "post",
       url: `${this.url}/auth/signup`,
       headers: this.headers(),
       data,
@@ -39,7 +40,7 @@ export default {
 
   login(data) {
     return axios({
-      method: 'post',
+      method: "post",
       url: `${this.url}/auth/login`,
       headers: this.headers(),
       data,
@@ -48,7 +49,7 @@ export default {
 
   resetPassword(data) {
     return axios({
-      method: 'get',
+      method: "get",
       url: `${this.url}/auth/${data}/reset_password`,
       headers: this.headers(),
     });
@@ -56,19 +57,19 @@ export default {
 
   changePassword(data) {
     return axios({
-      method: 'post',
+      method: "post",
       url: `${this.url}/auth/change_password`,
       headers: this.headers(),
       data,
     });
   },
-  
+
   socialLoginGoogle(data) {
     return axios({
       method: "post",
       url: `${this.url}auth/social_login/google`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 
@@ -77,7 +78,7 @@ export default {
       method: "post",
       url: `${this.url}auth/social_login/facebook`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 
@@ -86,7 +87,7 @@ export default {
       method: "patch",
       url: `${this.url}auth/profile-update`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 
@@ -95,7 +96,7 @@ export default {
       method: "post",
       url: `${this.url}courses/enroll`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 
@@ -103,7 +104,7 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}courses`,
-      headers: this.headers()
+      headers: this.headers(),
     });
   },
 
@@ -111,66 +112,57 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}courses/${data}`,
-      headers: this.headers()
+      headers: this.headers(),
     });
   },
 
   loadUser() {
     return axios({
-      method: 'get',
+      method: "get",
       url: `${this.url}/auth/load-user`,
-      headers: this.headers()
+      headers: this.headers(),
     });
   },
 
   getPaymentPlans() {
     return axios({
-      method: 'get',
+      method: "get",
       url: `${this.url}/payments/plans`,
-      headers: this.headers()
+      headers: this.headers(),
     });
   },
 
   createPaymentTransaction(data) {
     return axios({
-      method: 'post',
+      method: "post",
       url: `${this.url}/payments/add-transaction`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 
   populateDashboard(data) {
     return axios({
-      method: 'post',
+      method: "post",
       url: `${this.url}/dashboard`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 
+  getSubjectAndRelatedLessons(courseId, subjectId) {
+    return axios({
+      method: "post",
+      url: `${this.url}lessons/${courseId}/${subjectId}/subject-lessons`,
+    });
+  },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   loadQuestions(id) {
     return axios({
       method: "get",
       url: `${this.url}getQuestions/${id}`,
       //  url: `${this.url}getQuestions/1`,
-      headers: this.headers()      
+      headers: this.headers(),
     });
   },
 
@@ -179,23 +171,23 @@ export default {
       method: "post",
       url: `${this.url}submitResult`,
       headers: this.headers(),
-      data
+      data,
     });
   },
- 
+
   verifyToken(data) {
     return axios({
       method: "post",
       url: `${this.url}verifyResetPasswordToken`,
       headers: this.headers(),
-      data
+      data,
     });
   },
   search(data) {
     return axios({
       method: "post",
       url: `${this.url}search/${data}`,
-      headers: this.headers(),   
+      headers: this.headers(),
     });
   },
 
@@ -203,8 +195,7 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}getResultHistory/${data}`,
-      headers: this.headers(),   
+      headers: this.headers(),
     });
   },
-  
 };

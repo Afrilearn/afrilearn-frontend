@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import { getCourse } from "./../../../redux/actions/courseActions";
+import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -12,12 +13,8 @@ import LessonItem from "../../includes/lessonItem/lessonItem.component";
 import { Link } from "react-router-dom";
 
 const Content = (props) => {
-  const { course } = props;
-  const subject =
-    course.relatedSubjects &&
-    course.relatedSubjects.find(
-      (su) => su.courseId === props.match.params.courseId
-    );
+  const { subject } = props;
+  console.log(subject);
 
   const mounted = useRef();
   useEffect(() => {
@@ -26,9 +23,10 @@ const Content = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
 
-      if (!course.length) {
-        props.getCourse(props.match.params.courseId);
-      }
+      props.getSubjectAndRelatedLessons(
+        props.match.params.courseId,
+        props.match.params.subjectId
+      );
     } else {
       // do componentDidUpdate logic
     }
@@ -84,10 +82,10 @@ const Content = (props) => {
   ];
   termIds.forEach((item) => {
     const lessons =
-      subject && subject.relatedLessons.filter((les) => les.termId === item.id);
+      subject.relatedLessons &&
+      subject.relatedLessons.filter((les) => les.termId === item.id);
     terms.push({ id: item.id, name: item.name, lessons });
   });
-
   /*
   
   */
@@ -101,8 +99,10 @@ const Content = (props) => {
       url(${pencil})`,
         }}
       >
-        <h1>{course.name ? course.name.toUpperCase() : course.name}</h1>
-        <div className="subHead">{subject && subject.mainSubjectId.name}</div>
+        <h1>{subject.courseId ? subject.courseId.name.toUpperCase() : "Hi"}</h1>
+        <div className="subHead">
+          {subject.mainSubjectId && subject.mainSubjectId.name}
+        </div>
         <div className="subHeadTwo">Explore the fun in learning</div>
       </div>
       <div id="contentPageSecondSection">
@@ -110,12 +110,12 @@ const Content = (props) => {
           <div className="details row">
             <div className="right1 col-md-7">
               <div className="right_head">
-                <h4>{subject && subject.mainSubjectId.name}</h4>
+                <h4>{subject.mainSubjectId && subject.mainSubjectId.name}</h4>
                 <span>0{terms.length && terms.length}</span>
                 <p>Terms</p>
               </div>
               <p className="right_para">
-                {subject && subject.mainSubjectId.introText}
+                {subject.mainSubjectId && subject.mainSubjectId.introText}
               </p>
               <Link to="/select-pay">
                 <p className="red_text">Subscribe to Unlock Content</p>
@@ -125,15 +125,13 @@ const Content = (props) => {
             <div className="left col-md-4">
               <p>
                 <span className="left_key">Class:</span>
-                &nbsp; &nbsp; {course.name}
+                {/* &nbsp; &nbsp; {subject.courseId.name} */}
               </p>
               <p>
                 <span className="left_key">Lessons:</span>
                 &nbsp; &nbsp;{" "}
-                {course &&
-                  subject &&
-                  course.relatedSubjects.length *
-                    subject.relatedLessons.length}{" "}
+                {subject.length &&
+                  subject.length * subject.relatedLessons.length}{" "}
                 Video Lessons
               </p>
               <p>
@@ -145,7 +143,7 @@ const Content = (props) => {
         </div>
         <div class="container-fluid">
           <div className="terms">
-            {course.relatedSubjects &&
+            {subject &&
               terms.map((term, index) => (
                 <div key={term.id} className="term">
                   <h4 className="term_head">{term.name}</h4>
@@ -173,9 +171,14 @@ const Content = (props) => {
 
 Content.propTypes = {
   getCourse: PropTypes.func.isRequired,
+  getSubjectAndRelatedLessons: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   course: state.course.course,
+  subject: state.subject.subject,
 });
-export default connect(mapStateToProps, { getCourse })(Content);
+export default connect(mapStateToProps, {
+  getCourse,
+  getSubjectAndRelatedLessons,
+})(Content);
