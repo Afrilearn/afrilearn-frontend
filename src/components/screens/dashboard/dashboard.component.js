@@ -138,7 +138,7 @@ const Dashboard = props => {
             <div className="row push2 mobileCenter">
                <div className="col-md-12">
                   <h2 className="boldFont">Welcome {fullName}</h2>
-                  <p>Explore the fun in learning</p>
+                  <p>Explore the fun in learning!</p>
                </div>               
             </div>
             <div className="row push2">
