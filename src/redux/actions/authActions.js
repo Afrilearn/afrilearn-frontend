@@ -1,9 +1,8 @@
-
-import API from './../../assets/js/api';
+import API from "./../../assets/js/api";
 import { returnErrors } from "./errorActions";
 
 import {
-  INPUT_CHANGE,  
+  INPUT_CHANGE,
   GET_ROLES_SUCCESS,
   GET_ROLES_FAILURE,
   REGISTER_SUCCESS,
@@ -23,7 +22,7 @@ import {
   AUTH_FAILURE,
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_FAILURE,
-} from './types';
+} from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
   try {
@@ -40,22 +39,22 @@ export const inputChange = (name, value) => async (dispatch) => {
 };
 export const getRoles = () => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');   
-    const result = await API.getRoles();    
+    document.body.classList.add("loading-indicator");
+    const result = await API.getRoles();
     dispatch({
       type: GET_ROLES_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'GET_ROLES_FAILURE'
+        "GET_ROLES_FAILURE"
       )
     );
     dispatch({
@@ -65,38 +64,40 @@ export const getRoles = () => async (dispatch) => {
 };
 export const registerUser = (user) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');
+    document.body.classList.add("loading-indicator");
     const result = await API.registerUser(user);
+    console.log("am here");
+    console.log(result);
     dispatch({
       type: INPUT_CHANGE,
       payload: {
-        name: 'location',
-        value: '/dashboard',
-      }
-    }); 
+        name: "location",
+        value: "/dashboard",
+      },
+    });
     dispatch({
       type: CLEAR_FORM,
-    });  
+    });
     dispatch({
       type: REGISTER_SUCCESS,
       payload: result.data.data,
     });
-    const course = {
-      userId: result.data.data.user._id,
-      courseId:user.activeEnrolledCourseId                          
-    };
-    await API.courseEnrolment(course);
-   
-    document.body.classList.remove('loading-indicator');
+    // const course = {
+    //   userId: result.data.data.user._id,
+    //   courseId:user.activeEnrolledCourseId
+    // };
+    // await API.courseEnrolment(course);
+
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'REGISTER_FAILURE'
+        "REGISTER_FAILURE"
       )
     );
     dispatch({
@@ -104,31 +105,33 @@ export const registerUser = (user) => async (dispatch) => {
     });
   }
 };
-export const loginUser = (user, google = false, facebook = false) => async (dispatch) => {
+export const loginUser = (user, google = false, facebook = false) => async (
+  dispatch
+) => {
   try {
-    document.body.classList.add('loading-indicator');
+    document.body.classList.add("loading-indicator");
     let result = null;
     if (google) {
       result = await API.socialLoginGoogle(user);
-    } else if(facebook){
+    } else if (facebook) {
       result = await API.socialLoginFacebook(user);
-    }else {
+    } else {
       result = await API.login(user);
-    }   
+    }
     dispatch({
       type: LOGIN_SUCCESS,
       payload: result.data.data,
     });
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'LOGIN_FAILURE'
+        "LOGIN_FAILURE"
       )
     );
     dispatch({
@@ -138,7 +141,7 @@ export const loginUser = (user, google = false, facebook = false) => async (disp
 };
 export const resetPassword = (user) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');
+    document.body.classList.add("loading-indicator");
     const result = await API.resetPassword(user);
     dispatch({
       type: RESET_PASSWORD_SUCCESS,
@@ -149,21 +152,21 @@ export const resetPassword = (user) => async (dispatch) => {
     });
     dispatch(
       returnErrors(
-        'Password reset code sent to your email',
-        '200',
-        'RESET_PASSWORD_SUCCESS'
+        "Password reset code sent to your email",
+        "200",
+        "RESET_PASSWORD_SUCCESS"
       )
     );
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'RESET_PASSWORD_FAILURE'
+        "RESET_PASSWORD_FAILURE"
       )
     );
     dispatch({
@@ -173,28 +176,28 @@ export const resetPassword = (user) => async (dispatch) => {
 };
 export const changePassword = (user) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');
+    document.body.classList.add("loading-indicator");
     await API.changePassword(user);
     dispatch({
-      type: PASSWORD_CHANGE_SUCCESS     
+      type: PASSWORD_CHANGE_SUCCESS,
     });
     dispatch(
       returnErrors(
-        'Password changed successfully',
-        '200',
-        'PASSWORD_CHANGE_SUCCESS'
+        "Password changed successfully",
+        "200",
+        "PASSWORD_CHANGE_SUCCESS"
       )
     );
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'PASSWORD_CHANGE_FAILURE'
+        "PASSWORD_CHANGE_FAILURE"
       )
     );
     dispatch({
@@ -204,22 +207,22 @@ export const changePassword = (user) => async (dispatch) => {
 };
 export const socialLoginUpdate = (user, course) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');
-    const result = await API.socialLoginUpdate(user); 
+    document.body.classList.add("loading-indicator");
+    const result = await API.socialLoginUpdate(user);
     dispatch({
       type: SOCIAL_LOGIN_UPDATE_SUCCESS,
-      payload: result.data
-    });   
-    document.body.classList.remove('loading-indicator');
+      payload: result.data,
+    });
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'SOCIAL_LOGIN_UPDATE_FAILURE'
+        "SOCIAL_LOGIN_UPDATE_FAILURE"
       )
     );
     dispatch({
@@ -229,21 +232,21 @@ export const socialLoginUpdate = (user, course) => async (dispatch) => {
 };
 export const courseEnrolment = (user) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');
+    document.body.classList.add("loading-indicator");
     await API.courseEnrolment(user);
     dispatch({
-      type: COURSE_ENROLMENT_SUCCESS     
-    });   
-    document.body.classList.remove('loading-indicator');
+      type: COURSE_ENROLMENT_SUCCESS,
+    });
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'COURSE_ENROLMENT_FAILURE'
+        "COURSE_ENROLMENT_FAILURE"
       )
     );
     dispatch({
@@ -253,29 +256,29 @@ export const courseEnrolment = (user) => async (dispatch) => {
 };
 export const loadUser = () => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');
-    const result = await API.loadUser(); 
+    document.body.classList.add("loading-indicator");
+    const result = await API.loadUser();
 
     dispatch({
       type: GET_ROLES_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: AUTH_SUCCESS,
       payload: result.data.data,
     });
-  
-    document.body.classList.remove('loading-indicator');
+
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        'AUTH_FAILURE'
+        "AUTH_FAILURE"
       )
     );
     dispatch({
@@ -283,45 +286,44 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
-export const loadQuestions = (subjectId) => async dispatch => {    
-  try {   
-      document.body.classList.add('loading-indicator');	   
-      const result = await API.loadQuestions(subjectId);
-      let questions = [];  
-      let questionTags= []; 
-      let questionTime=60; 
-      let theSubjectId=-1;        
-      let motivations =[];
+export const loadQuestions = (subjectId) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.loadQuestions(subjectId);
+    let questions = [];
+    let questionTags = [];
+    let questionTime = 60;
+    let theSubjectId = -1;
+    let motivations = [];
 
-      if(result.data.error === false){
-          theSubjectId = result.data.subject_details.subject_id
-          questions = result.data.questions;
-          let questionLength =questions.length;
-          for(let i =0; i<questionLength; i++){
-              questionTags.push(1)
-          }   
-          questionTime = result.data.subject_details.duration; 
-          questionTime = questionTime * 1000 * 60;   
-          motivations =  result.data.motivations                 
-      }          
-    
-      dispatch({
-          type: LOAD_QUESTIONS_SUCCESS,
-          payload:{
-              questions,
-              questionTags,
-              questionTime,
-              theSubjectId,
-              motivations               
-          }       
-      })    
-     
-      document.body.classList.remove('loading-indicator');      
- 
-  } catch (err) {       
-      document.body.classList.remove('loading-indicator');         
-      dispatch({
-          type: LOAD_QUESTIONS_FAILURE          
-      })	
+    if (result.data.error === false) {
+      theSubjectId = result.data.subject_details.subject_id;
+      questions = result.data.questions;
+      let questionLength = questions.length;
+      for (let i = 0; i < questionLength; i++) {
+        questionTags.push(1);
+      }
+      questionTime = result.data.subject_details.duration;
+      questionTime = questionTime * 1000 * 60;
+      motivations = result.data.motivations;
+    }
+
+    dispatch({
+      type: LOAD_QUESTIONS_SUCCESS,
+      payload: {
+        questions,
+        questionTags,
+        questionTime,
+        theSubjectId,
+        motivations,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: LOAD_QUESTIONS_FAILURE,
+    });
   }
-}
+};
