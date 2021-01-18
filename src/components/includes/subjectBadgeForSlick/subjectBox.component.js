@@ -20,7 +20,7 @@ import PropTypes from "prop-types";
 const Box = (props) => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
-  const { drop } = props;
+  const { drop, lessons } = props;
 
   const handleDrop = () => {
     props.inputChange("drop", !drop);
@@ -29,6 +29,57 @@ const Box = (props) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
+
+  const terms = [];
+  const termIds = [
+    { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
+    { id: "600047f67cabf80f88f61735", name: "Second Term" },
+    { id: "600048197cabf80f88f61736", name: "Third Term" },
+  ];
+  termIds.forEach((item) => {
+    const lessonsList =
+      lessons && lessons.filter((les) => les.termId === item.id);
+    terms.push({ id: item.id, name: item.name, lessonsList });
+  });
+
+  const sliceOne = () => {
+    if (lessons) {
+      return terms.slice(0, 1).map((term, index) => {
+        return (
+          <div>
+            <div className="row">
+              <div className="col-md-12 padOff">
+                <h5>{term.name}</h5>
+              </div>
+            </div>
+            {term.lessonsList.map((lesson) => (
+              <LessonBox lesson={lesson} />
+            ))}
+          </div>
+        );
+      });
+    }
+  };
+
+  const sliceTwo = () => {
+    if (lessons) {
+      return terms.slice(1).map((term, index) => {
+        return (
+          <div>
+            <div className="row">
+              <div className="col-md-12 padOff">
+                <h5>{term.name}</h5>
+              </div>
+            </div>
+            {term.lessonsList.map((lesson) => (
+              <LessonBox lesson={lesson} />
+            ))}
+          </div>
+        );
+      });
+    }
+  };
+
   return (
     <>
       <div
@@ -221,7 +272,7 @@ const Box = (props) => {
                     <div className="col-9 details">
                       {props.courseName
                         ? props.courseName
-                        : "Alias Subject Name"}
+                        : "Alias Course Name"}
                     </div>
                   </div>
                   <div className="row">
@@ -246,15 +297,7 @@ const Box = (props) => {
               </div>
             </div>
             <div className="col-md-12">
-              <div className="row">
-                <div className="col-md-12 padOff">
-                  <h5>First Term</h5>
-                </div>
-              </div>
-              <LessonBox />
-              <LessonBox />
-              <LessonBox />
-              <LessonBox />
+              {sliceOne()}
               {!drop ? (
                 <div className="row">
                   <div className="col-md-12 center">
@@ -269,20 +312,7 @@ const Box = (props) => {
 
               {drop ? (
                 <>
-                  <div className="row">
-                    <div className="col-md-12 padOff">
-                      <h5>Second Term</h5>
-                    </div>
-                  </div>
-                  <LessonBox />
-                  <LessonBox />
-                  <div className="row">
-                    <div className="col-md-12 padOff">
-                      <h5>Third Term</h5>
-                    </div>
-                  </div>
-                  <LessonBox />
-                  <LessonBox />
+                  <>{sliceTwo()}</>
                   <div className="row">
                     <div className="col-md-12 center">
                       <Link onClick={handleDrop}>

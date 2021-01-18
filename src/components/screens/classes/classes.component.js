@@ -42,7 +42,7 @@ const Classes = (props) => {
 
   const courseList = () => {
     if (courses.length) {
-      return courses.map((item, index) => {
+      return courses.map((item, index) => { 
         return (
           <div className="row secondSection">
             <div className="col-md-12 heading">

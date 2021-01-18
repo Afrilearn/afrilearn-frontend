@@ -65,6 +65,19 @@
 #selectPaymentPageSectionOne .proceed-button {
   padding-bottom: 100px;
 }
+#selectPaymentPageSectionOne select {
+  width: 200px;
+  height: 50px;
+  border: solid 1px currentColor;
+  border-radius: 100px;
+  background-color: transparent;
+  color: white;
+  padding: 10px;
+}
+#selectPaymentPageSectionOne select option{
+  color: black;
+  text-align: center;
+}
 #selectPaymentPageSectionOne button {
   width: 200px;
   height: 50px;
