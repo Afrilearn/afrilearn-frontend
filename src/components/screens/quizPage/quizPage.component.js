@@ -35,7 +35,7 @@ const QuizPage = () => {
         <UncontrolledPopover
           trigger="focus"
           placement="bottom"
-          target="PopoverFocus"
+          target="PopoverFocus" 
         >
           <PopoverBody>
             <h6>Well done Feyikemi!</h6>

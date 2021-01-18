@@ -1,222 +1,290 @@
 import React, { useEffect, useRef } from "react";
-import './css/style.css';
-import Box from './../../includes/subjectBadgeForSlick/subjectBox.component';
-import PastQuestionsBox from '../../includes/pastQuestions/box.component';
-import PerformanceBox from '../../includes/dashboard/performance.component';
-import RecentActivitesBox from '../../includes/dashboard/recentActivities.component';
-import ClassroomBox from '../../includes/dashboard/classroom.component';
-import RecommendBox from '../../includes/dashboard/recommend.component';
-import { PieChart } from 'react-minimal-pie-chart';
+import "./css/style.css";
+import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
+import PastQuestionsBox from "../../includes/pastQuestions/box.component";
+import PerformanceBox from "../../includes/dashboard/performance.component";
+import RecentActivitesBox from "../../includes/dashboard/recentActivities.component";
+import ClassroomBox from "../../includes/dashboard/classroom.component";
+import RecommendBox from "../../includes/dashboard/recommend.component";
+import { PieChart } from "react-minimal-pie-chart";
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
-import { populateDashboard, inputChange } from './../../../redux/actions/courseActions';
-import PropTypes from 'prop-types';
-import Swal from 'sweetalert2';
-import 'animate.css';
+import { connect } from "react-redux";
+import {
+  populateDashboard,
+  inputChange,
+} from "./../../../redux/actions/courseActions";
+import PropTypes from "prop-types";
+import Swal from "sweetalert2";
+import "animate.css";
 
-const Dashboard = props => {  
-   const {
-      activeEnrolledCourseId,
-      dashboardData,
-      fullName,
-      excelling,
-      average,
-      belowAverage,
-      noRating,
-      excellingText, 
-      averageText, 
-      belowAverageText, 
-      noRatingText, 
-   } = props; 
+const Dashboard = (props) => {
+  const {
+    activeEnrolledCourseId,
+    dashboardData,
+    fullName,
+    excelling,
+    average,
+    belowAverage,
+    noRating,
+    excellingText,
+    averageText,
+    belowAverageText,
+    noRatingText,
+  } = props;
 
-   const mounted = useRef(); 
-   
-   useEffect(()=>{
-      if (!mounted.current) {
-         // do componentDidMount logic
-         mounted.current = true;
-         window.scrollTo(0, 0);  
-         const data = {
-            enrolledCourseId: activeEnrolledCourseId
-         }
-         props.populateDashboard(activeEnrolledCourseId? data:null)          
-      } else {
-         // do componentDidUpdate logic          
-         } 	       
-   })   
-   
-   const subjectList = () => {     
-      if(Object.keys(dashboardData).length && dashboardData.enrolledCourse && Object.keys(dashboardData.enrolledCourse).length){         
-         let subjects =  dashboardData.enrolledCourse.courseId.relatedSubjects;  
-         return subjects.map((item) => {
-            return    <Box image={item.mainSubjectId.imageUrl} singleClass={true} dashboard={true} compiledNotes={item.relatedLessons.length} registeredUsers={50000}/>
-         }); 
-      }else{
-         return <h6>No Subject list yet</h6>
-      }
-   };
+  const mounted = useRef();
 
-   const pastQuestionsList = () => {     
-      if(Object.keys(dashboardData).length && dashboardData.enrolledCourse && Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions).length){         
-         let pastQuestions =  dashboardData.enrolledCourse.courseId.relatedPastQuestions;  
-         return pastQuestions.map((item, index) => {
-            return    <PastQuestionsBox title={item.pastQuestionTypes.name} other={index % 2 === 0? true:false} categoryId={item.pastQuestionTypes.categoryId}/> 
-         }); 
-      }else{
-         return <h6>No past questions yet</h6>
-      }
-   };
+  useEffect(() => {
+    if (!mounted.current) {
+      // do componentDidMount logic
+      mounted.current = true;
+      window.scrollTo(0, 0);
+      const data = {
+        enrolledCourseId: activeEnrolledCourseId,
+      };
+      props.populateDashboard(activeEnrolledCourseId ? data : null);
+    } else {
+      // do componentDidUpdate logic
+    }
+  });
 
-   const classList = () => {     
-      if(Object.keys(dashboardData).length && dashboardData.classMembership.length){         
-         let classes =   dashboardData.classMembership.filter(el=>el.status ==='approved');  
-         return classes.map((item, index) => {
-            return    <ClassroomBox bullet2={index % 2 === 0? true:false} id={item._id} className={item.classId.name} classCode={item.classId.classCode} teacher={item.userId.fullName}/>
-         }); 
-      }else{
-         return <h6>No class list yet</h6>
-      }
-   };
+  const subjectList = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      Object.keys(dashboardData.enrolledCourse).length
+    ) {
+      let subjects = dashboardData.enrolledCourse.courseId.relatedSubjects;
+      return subjects.map((item) => {
+        return (
+          <Box
+            image={item.mainSubjectId.imageUrl}
+            singleClass={true}
+            dashboard={true}
+            compiledNotes={item.relatedLessons.length}
+            courseId={dashboardData.enrolledCourse.courseId._id}
+            subjectId={item._id}
+            registeredUsers={50000}
+          />
+        );
+      });
+    }
+  };
 
-   const recommendationList = () => {     
-      if(Object.keys(dashboardData).length && dashboardData.recommendation.length){         
-         let recommend =   dashboardData.recommendation; 
-         // eslint-disable-next-line array-callback-return
-         return recommend.map((item, index) => {
-            if(index<3){
-               return     <RecommendBox pastQuestions={item.type === 'lesson'? false : true} title={item.reason.title} recommend={item.recommended.title} recommendedId={item.recommended._id}/>
-            }           
-         }); 
-      }else{
-         return <h6>No recommendations yet</h6>
-      }
-   };
+  const pastQuestionsList = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions)
+        .length
+    ) {
+      let pastQuestions =
+        dashboardData.enrolledCourse.courseId.relatedPastQuestions;
+      return pastQuestions.map((item, index) => {
+        return (
+          <PastQuestionsBox
+            title={item.pastQuestionTypes.name}
+            other={index % 2 === 0 ? true : false}
+            categoryId={item.pastQuestionTypes.categoryId}
+          />
+        );
+      });
+    }
+  };
 
-   const recentActivitiesList = () => {     
-      if(Object.keys(dashboardData).length && dashboardData.recentActivities.length){         
-         let activity =   dashboardData.recentActivities; 
-           // eslint-disable-next-line array-callback-return
-         return activity.map((item, index) => {
-            if(index<3){
-               return  <RecentActivitesBox category={item.type} title={item.lessonId.title} subject={item.lessonId.subjectId.mainSubjectId.name}  excel={index % 2 === 0? true:false} time={item.createdAt}/>
-            }           
-         }); 
-      }else{
-         return <h6>No captured recent activities</h6>
-      }
-   };
+  const classList = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      dashboardData.classMembership.length
+    ) {
+      let classes = dashboardData.classMembership.filter(
+        (el) => el.status === "approved"
+      );
+      return classes.map((item, index) => {
+        return (
+          <ClassroomBox
+            bullet2={index % 2 === 0 ? true : false}
+            id={item._id}
+            className={item.classId.name}
+            classCode={item.classId.classCode}
+            teacher={item.userId.fullName}
+          />
+        );
+      });
+    }
+  };
 
-   const handleJoinClass = async (e) =>{
-      e.preventDefault()     
-      const { value: ipAddress } = await Swal.fire({
-         title: 'Enter the class code below',
-         input: 'text',
-         inputLabel: '',
-         inputValue: '',
-         showCancelButton: true,
-         inputValidator: (value) => {
-           if (!value) {
-             return 'Enter class code!'
-           }
-         }
-       })
-       
-       if (ipAddress) {
-         Swal.fire('Your request to join the class will be sent to the class teacher for approval')
-       }
+  const recommendationList = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      dashboardData.recommendation.length
+    ) {
+      let recommend = dashboardData.recommendation;
+      return recommend.map((item, index) => {
+        if (index < 3) {
+          return (
+            <RecommendBox
+              pastQuestions={item.type === "lesson" ? false : true}
+              title={item.reason.title}
+              recommend={item.recommended.title}
+              recommendedId={item.recommended._id}
+            />
+          );
+        }
+      });
+    }
+  };
 
-   }
-    
-	return (        
-		<span id="classes" className="dashboard">   
-        <div id="dashboardFirstSection" className="container-fluid relative">                         
-            <div className="row">
-               <div className="col-md-12">
-                  <h1>{dashboardData.enrolledCourse? dashboardData.enrolledCourse.courseId.name : 'Hi'}</h1>
-               </div>
-            </div>
-            <div className="row push2 mobileCenter">
-               <div className="col-md-12">
-                  <h2 className="boldFont">Welcome {fullName}</h2>
-                  <p>Explore the fun in learning</p>
-               </div>               
-            </div>
-            <div className="row push2">
-              
-            </div>
-            <div className="row push2 push3">
-               <div className="col-md-12">
-                  My Subjects &nbsp;|&nbsp; Past Questions &nbsp;|&nbsp; Performance Summary &nbsp;|&nbsp; Classroom &nbsp;|&nbsp; Recommendations &nbsp;|&nbsp; Recent Activities
-               </div>              
-            </div>
+  const recentActivitiesList = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      dashboardData.recentActivities.length
+    ) {
+      let activity = dashboardData.recentActivities;
+      return activity.map((item, index) => {
+        if (index < 3) {
+          return (
+            <RecentActivitesBox
+              category={item.type}
+              title={item.lessonId.title}
+              subject={item.lessonId.subjectId.mainSubjectId.name}
+              excel={true}
+              time="02/02/2020"
+            />
+          );
+        }
+      });
+    }
+  };
+
+  const handleJoinClass = async (e) => {
+    e.preventDefault();
+    const { value: ipAddress } = await Swal.fire({
+      title: "Enter the class code below",
+      input: "text",
+      inputLabel: "",
+      inputValue: "",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Enter class code!";
+        }
+      },
+    });
+
+    if (ipAddress) {
+      Swal.fire(
+        "Your request to join the class will be sent to the class teacher for approval"
+      );
+    }
+  };
+
+  return (
+    <span id="classes" className="dashboard">
+      <div id="dashboardFirstSection" className="container-fluid relative">
+        <div className="row">
+          <div className="col-md-12">
+            <h1>
+              {dashboardData.enrolledCourse
+                ? dashboardData.enrolledCourse.courseId.name
+                : "Hi"}
+            </h1>
+          </div>
         </div>
-        <div id="dashboardSecondSection" className="container-fluid relative">
-           { Object.keys(dashboardData).length && dashboardData.enrolledCourse? 
-            <>
-               <h4>My Subjects</h4>
-               <div className="row">                      
-               {subjectList()}
-               </div>
-               <h4 className="push5">Past Questions</h4>
-               <div className="row jj"> 
-                  {pastQuestionsList()} 
-               </div>
-               <h4 className="push5">Performance Summary</h4>
-               <div className="row">              
-                  <div className="col-md-4 myChart">
-                     <PieChart
-                        data={[
-                           { title: 'Below Average', value: belowAverage, color: '#FF5B5B'},
-                           { title: 'Average', value: average, color: '#FDAD51' },
-                           { title: 'No Rating', value: noRating, color: '#908989' },
-                           { title: 'Excelling', value: excelling, color: '#1B7763' },
-                        ]}
-                        lineWidth={32} rounded
-                     />
-                  </div>
-                  <div className="col-md-8 subjectList">
-                     <PerformanceBox excel={true} title="Excelling In" data={excellingText}/>
-                     <PerformanceBox average={true} title="Average In" data={averageText}/>
-                     <PerformanceBox belowAverage={true} title="Below Average In" data={belowAverageText}/>
-                     <PerformanceBox noRating={true} title="No rating" data={noRatingText}/>
-                  </div>
-               </div>
-            </>
-            :
-            ''}
-            <h4 className="push5">Classroom</h4>
-            <div className="row push8">  
-              <div className="col-md-12 right underline">
-                  <Link onClick={handleJoinClass}>Join A Classroom</Link>
-              </div>
-            </div>
-            {classList()}
-            <h4 className="push5">Recommendations</h4>
-            {recommendationList()}
-            <h4 className="push5">Recent Activities</h4>
-            {recentActivitiesList()}
-         </div>
+        <div className="row push2 mobileCenter">
+          <div className="col-md-12">
+            <h2 className="boldFont">Welcome {fullName}</h2>
+            <p>Explore the fun in learning</p>
+          </div>
+        </div>
+        <div className="row push2"></div>
+        <div className="row push2 push3">
+          <div className="col-md-12">
+            My Subjects &nbsp;|&nbsp; Past Questions &nbsp;|&nbsp; Performance
+            Summary &nbsp;|&nbsp; Classroom &nbsp;|&nbsp; Recommendations
+            &nbsp;|&nbsp; Recent Activities
+          </div>
+        </div>
+      </div>
+      <div id="dashboardSecondSection" className="container-fluid relative">
+        <h4>My Subjects</h4>
+        <div className="row">{subjectList()}</div>
+        <h4 className="push5">Past Questions</h4>
+        <div className="row">{pastQuestionsList()}</div>
+        <h4 className="push5">Performance Summary</h4>
+        <div className="row">
+          <div className="col-md-4 myChart">
+            <PieChart
+              data={[
+                {
+                  title: "Below Average",
+                  value: belowAverage,
+                  color: "#FF5B5B",
+                },
+                { title: "Average", value: average, color: "#FDAD51" },
+                { title: "No Rating", value: noRating, color: "#908989" },
+                { title: "Excelling", value: excelling, color: "#1B7763" },
+              ]}
+              lineWidth={32}
+              rounded
+            />
+          </div>
+          <div className="col-md-8 subjectList">
+            <PerformanceBox
+              excel={true}
+              title="Excelling In"
+              data={excellingText}
+            />
+            <PerformanceBox
+              average={true}
+              title="Average In"
+              data={averageText}
+            />
+            <PerformanceBox
+              belowAverage={true}
+              title="Below Average In"
+              data={belowAverageText}
+            />
+            <PerformanceBox
+              noRating={true}
+              title="No rating"
+              data={noRatingText}
+            />
+          </div>
+        </div>
+        <h4 className="push5">Classroom</h4>
+        <div className="row push8">
+          <div className="col-md-12 right underline">
+            <Link onClick={handleJoinClass}>Join A Classroom</Link>
+          </div>
+        </div>
+        {classList()}
+        <h4 className="push5">Recommendations</h4>
+        {recommendationList()}
+        <h4 className="push5">Recent Activities</h4>
+        {recentActivitiesList()}
+      </div>
     </span>
-	);
+  );
 };
 
 Dashboard.propTypes = {
-   populateDashboard: PropTypes.func.isRequired,
-   inputChange: PropTypes.func.isRequired,
+  populateDashboard: PropTypes.func.isRequired,
+  inputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
-   dashboardData: state.course.dashboardData,
-   fullName: state.auth.fullName,
-   excelling:state.course.excelling,
-   average:state.course.average,
-   belowAverage:state.course.belowAverage,
-   noRating:state.course.noRating, 
-   excellingText:state.course.excellingText, 
-   averageText:state.course.averageText, 
-   belowAverageText:state.course.belowAverageText, 
-   noRatingText:state.course.noRatingText, 
+  activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
+  dashboardData: state.course.dashboardData,
+  fullName: state.auth.fullName,
+  excelling: state.course.excelling,
+  average: state.course.average,
+  belowAverage: state.course.belowAverage,
+  noRating: state.course.noRating,
+  excellingText: state.course.excellingText,
+  averageText: state.course.averageText,
+  belowAverageText: state.course.belowAverageText,
+  noRatingText: state.course.noRatingText,
 });
 
-export default connect(mapStateToProps, { populateDashboard, inputChange })(Dashboard);
+export default connect(mapStateToProps, { populateDashboard, inputChange })(
+  Dashboard
+);

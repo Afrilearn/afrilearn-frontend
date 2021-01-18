@@ -11,7 +11,7 @@ import {
   POPULATE_DASHBOARD_SUCCESS,
   POPULATE_DASHBOARD_FAILURE 
 } from './types';
-
+ 
 export const inputChange = (name, value) => async (dispatch) => {
   try {
     dispatch({
@@ -93,20 +93,15 @@ export const getCourse = (data) => async (dispatch) => {
 
 export const populateDashboard = (data) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');  
-   
+    document.body.classList.add('loading-indicator');   
     const result = await API.populateDashboard(data); 
-      
-    let excelling = [];
-    let average = [];
-    let belowAverage = [];
-    let noRating = [];
+    let excelling, average, belowAverage, noRating = [];
     let excellingText = '';
     let averageText = '';
     let belowAverageText = '';
     let noRatingText = '';
-   
-    if(Object.keys(result.data.data).length && result.data.data.subjectsList && result.data.data.subjectsList.length){         
+
+    if(Object.keys(result.data.data).length && Object.keys(result.data.data.subjectsList).length){         
       let subjects =  result.data.data.subjectsList; 
       excelling = subjects.filter(item=>item.performance>70); 
       average = subjects.filter(item=>item.performance>40 && item.performance<70);
@@ -125,8 +120,8 @@ export const populateDashboard = (data) => async (dispatch) => {
       noRating.forEach(element => {
         noRatingText+=element.subject+"&nbsp;&nbsp;&nbsp;"
       });
-    }  
-    
+      console.log(excellingText)
+    }   
     dispatch({
       type: POPULATE_DASHBOARD_SUCCESS,
       payload: {
@@ -140,7 +135,7 @@ export const populateDashboard = (data) => async (dispatch) => {
         belowAverageText,
         noRatingText
       }
-    });  
+    });    
     document.body.classList.remove('loading-indicator');
   } catch (err) {
     document.body.classList.remove('loading-indicator');

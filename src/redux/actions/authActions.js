@@ -67,8 +67,6 @@ export const registerUser = (user) => async (dispatch) => {
   try {
     document.body.classList.add('loading-indicator');
     const result = await API.registerUser(user);
-    console.log('am here')
-    console.log(result)
     dispatch({
       type: INPUT_CHANGE,
       payload: {
@@ -82,12 +80,12 @@ export const registerUser = (user) => async (dispatch) => {
     dispatch({
       type: REGISTER_SUCCESS,
       payload: result.data.data,
-    });    
-    // const course = {
-    //   userId: result.data.data.user._id,
-    //   courseId:user.activeEnrolledCourseId                          
-    // };
-    // await API.courseEnrolment(course);
+    });
+    const course = {
+      userId: result.data.data.user._id,
+      courseId:user.activeEnrolledCourseId                          
+    };
+    await API.courseEnrolment(course);
    
     document.body.classList.remove('loading-indicator');
   } catch (err) {
