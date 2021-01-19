@@ -18,7 +18,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(140%, -69%);
+  transform: translate(100%, -69%);
   width: 178px;
   height: 178px;
   background: transparent;
@@ -43,10 +43,11 @@
 #classroomStudentSectionTwo .tab {
   position: absolute;
   top: 0;
-  right: 10%;
+  right: 15%;
   width: 57%;
   height: 40px;
   transform: translateY(-100%);
+  /* overflow-y: auto; */
 }
 #classroomStudentSectionTwo .nav-tabs {
   border-bottom: none;
@@ -68,8 +69,9 @@
   #classroomStudentSectionTwo .tab {
     position: relative;
     width: auto;
-    top: 100px;
+    top: 120px;
     right: unset;
+    height: auto;
   }
 }
 #classroomStudentSectionTwo .content-section {
@@ -88,7 +90,7 @@
 }
 #classroomStudentSectionTwo .announcements {
   display: flex;
-  padding-left: 100px;
+  /* padding-left: 50px; */
   justify-content: center;
 }
 #classroomStudentSectionTwo .announcements aside {
@@ -174,6 +176,7 @@
   min-height: 200px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 7px;
+  margin-bottom: 10px;
 }
 #classroomStudentSectionTwo .announcements main section .chat-block .sender {
   padding: 5px 15px;
@@ -280,6 +283,9 @@
   height: 25px;
   margin: 0;
 }
+#classroomStudentSectionTwo img.subjectImage {
+  margin-bottom: 24px;
+}
 #classroomStudentSectionTwo .announcements main section .notification-block {
   display: flex;
   align-items: center;
@@ -357,8 +363,8 @@
 }
 #classroomStudentSectionTwo .classwork {
   display: flex;
-  /* padding-left: 100px; */
-  width: 80%;
+  padding: 0 60px 0 50px;
+  width: 100%;
   margin: auto;
 }
 #classroomStudentSectionTwo .classwork nav {

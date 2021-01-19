@@ -95,7 +95,6 @@ const Dashboard = (props) => {
       return <h6>No past questions yet</h6>;
     }
   };
-
   const classList = () => {
     if (
       Object.keys(dashboardData).length &&
@@ -110,6 +109,7 @@ const Dashboard = (props) => {
             bullet2={index % 2 === 0 ? true : false}
             id={item._id}
             className={item.classId.name}
+            classId={item.classId._id}
             classCode={item.classId.classCode}
             teacher={item.userId.fullName}
           />

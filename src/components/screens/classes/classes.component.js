@@ -57,7 +57,7 @@ const Classes = (props) => {
         );
       });
     }
-  };
+  }; 
 
   return (
     <div id="classes" className="classes1 container-fluid relative">

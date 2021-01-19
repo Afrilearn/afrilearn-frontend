@@ -1,37 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import moment from "moment";
 import "./css/style.css";
 import dots from "../../../assets/img/dots.png";
-import user from "../../../assets/img/user.png";
-import usertwo from "../../../assets/img/usertwo.png";
 import event from "../../../assets/img/event.png";
 import man from "../../../assets/img/man.png";
 import woman from "../../../assets/img/woman.png";
 import ellipse from "../../../assets/img/Ellipse.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import { connect } from "react-redux";
-import { inputChange } from "./../../../redux/actions/authActions";
+import { getClass, createComment } from "./../../../redux/actions/classActions";
 import PropTypes from "prop-types";
+import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const ClassroomStudent = (props) => {
+  const { classMembers, clazz } = props;
+
   const [activeTab, setActiveTab] = useState("1");
   const [activeVerticalTab, setActiveVerticalTab] = useState("1");
-  useEffect(
-    (props) => {
-      showTab("0");
+  const mounted = useRef();
+  useEffect(() => {
+    if (!mounted.current) {
+      // do componentDidMount logic
+      mounted.current = true;
       window.scrollTo(0, 0);
-      // props.inputChange("redirect", false);
-    },
-    [activeVerticalTab]
-  );
-  const [classItems] = useState([
-    { _id: 1, name: "Mathematics" },
-    { _id: 2, name: "English Language" },
-    { _id: 3, name: "Business Studies" },
-    { _id: 4, name: "Business Studies" },
-  ]);
+
+      if (!classMembers.length) {
+        props.getClass(props.match.params.classId);
+      }
+    } else {
+      // do componentDidUpdate logic
+    }
+  });
+
+
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
     const items = document.querySelectorAll(".tab-nav-item");
@@ -42,6 +46,188 @@ const ClassroomStudent = (props) => {
     }
     item.style.borderBottom = "4px solid #26AA76";
   };
+
+  const subjectList = () => {
+    if (Object.keys(clazz) && clazz.relatedSubjects) {
+      return clazz.relatedSubjects.map((item) => {
+        return (
+          <Box
+            image={item.mainSubjectId.imageUrl}
+            singleClass={true}
+            dashboard={true}
+            compiledNotes={item.relatedLessons.length}
+            registeredUsers={50000}
+            courseId={clazz.courseId._id}
+            subjectId={item._id}
+          />
+        );
+      });
+    } else {
+      return <h6>No Subject list yet</h6>;
+    }
+  };
+
+  const classMembersList = () => {
+    if (Object.keys(classMembers)) {
+      return classMembers.map((classMember) => {
+        return (
+          <div className="pupil">
+            <img src={man} height="50px" alt="pupil" />
+            <p>{classMember.userId.fullName}</p>
+          </div>
+        );
+      });
+    } else {
+      return <h6>No Members list yet</h6>;
+    }
+  };
+
+  const classWorksList = () => {
+    if (subjects) {
+      return subjects.map((item) => {
+        return (
+          item.assignedContent.length > 0 && (
+            <div className="class-item" key={item._id}>
+              <h5>{item.name}</h5>
+              <div className="items">
+                {item.assignedContent.map((content) => (
+                  <Link
+                    to={`/classes/${clazz._id}/${item._id}/${content._id}`}
+                    className="item"
+                  >
+                    <div className="pic-text-heading first-section">
+                      <img src={event} alt="event" />
+                      <div>
+                        <p>
+                          {content.description.length > 100
+                            ? content.description.slice(0, 100) + "..."
+                            : content.description}
+                        </p>
+                        <small className="small-grey">
+                          {moment(content.createdAt).startOf("hour").fromNow()}
+                        </small>
+                      </div>
+                    </div>
+                    <p className="small-grey no-margin">
+                      Due {moment(content.dueDate).format("LL")}
+                    </p>
+                    <img className="more" src={dots} alt="see-more" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )
+        );
+      });
+    } else {
+      return <h6>No Members list yet</h6>;
+    }
+  };
+
+  const subjectNavList = () => {
+    if (subjects) {
+      return subjects.map((subject) => {
+        return (
+          subject.assignedContent.length > 0 && (
+            <p
+              key={subject._id}
+              onClick={() => showTab(subject._id)}
+              className={`vertical-nav-item vertical-nav-${subject._id}`}
+            >
+              {subject.name}
+            </p>
+          )
+        );
+      });
+    }
+  };
+
+  const classAnonouncements = () => {
+    if (clazz.classAnnouncements) {
+      return clazz.classAnnouncements.map((classAnnouncement) => {
+        const sendComment = (e) => {
+          e.preventDefault();
+          const targetComment = document.getElementById(classAnnouncement._id)
+            .value;
+          if (targetComment !== "") {
+            props.createComment(classAnnouncement._id, targetComment);
+            document.getElementById("commentForm").reset();
+          }
+        };
+        return (
+          <div className="chat-block">
+            <div className="sender">
+              <div className="sender-head">
+                <div className="pic-text-heading">
+                  <img src={man} alt="sender" />
+                  <div>
+                    <p>{classAnnouncement.teacher.fullName} </p>
+                    <small className="small-grey">
+                      {moment(classAnnouncement.createdAt)
+                        .startOf("hour")
+                        .fromNow()}
+                    </small>
+                  </div>
+                </div>
+                <img src={dots} alt="see-more" />
+              </div>
+              <p className="sender-message">{classAnnouncement.text}</p>
+            </div>
+            <div className="comments">
+              <small>
+                {classAnnouncement.comments.length} class comment
+                {classAnnouncement.comments.length > 0 ? "s" : ""}
+              </small>
+              {classAnnouncement.comments.map((comment) => (
+                <div className="pic-text-heading">
+                  <img src={man} alt="comment" />
+                  <div>
+                    <p>
+                     {comment.student.fullName} &nbsp;
+                      <span className="small-grey">
+                        {moment(comment.createdAt).startOf("hour").fromNow()}
+                      </span>
+                    </p>
+                    <p>{comment.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="send">
+              <img src={woman} alt="sender" />
+              <form
+                className="send-input"
+                id="commentForm"
+                onSubmit={(e) => sendComment(e)}
+              >
+                <input id={classAnnouncement._id} />
+                <img
+                  src={sendicon}
+                  alt="send"
+                  onClick={(e) => sendComment(e)}
+                />
+              </form>
+            </div>
+          </div>
+        );
+      });
+    } else {
+      return <h6>No Announcement list yet</h6>;
+    }
+  };
+
+  const subjects = [];
+  clazz.relatedSubjects &&
+    clazz.relatedSubjects.forEach((subject) => {
+      const assignedContent = clazz.teacherAssignedContents.filter(
+        (content) => content.subjectId._id === subject._id
+      );
+      subjects.push({
+        _id: subject._id,
+        name: subject.mainSubjectId.name,
+        assignedContent,
+      });
+    });
 
   const showTab = (tabNum) => {
     setActiveVerticalTab();
@@ -78,7 +264,7 @@ const ClassroomStudent = (props) => {
                   toggle("2");
                 }}
               >
-                Classwork
+                Materials
               </NavLink>
             </NavItem>
             <NavItem className="tab-nav-item tab-nav-item-3">
@@ -87,7 +273,25 @@ const ClassroomStudent = (props) => {
                   toggle("3");
                 }}
               >
+                Classwork
+              </NavLink>
+            </NavItem>
+            <NavItem className="tab-nav-item tab-nav-item-4">
+              <NavLink
+                onClick={() => {
+                  toggle("4");
+                }}
+              >
                 People
+              </NavLink>
+            </NavItem>
+            <NavItem className="tab-nav-item tab-nav-item-5">
+              <NavLink
+                onClick={() => {
+                  toggle("5");
+                }}
+              >
+                Class Performance
               </NavLink>
             </NavItem>
           </Nav>
@@ -98,10 +302,10 @@ const ClassroomStudent = (props) => {
               <div className="announcements">
                 <aside>
                   <div className="student-details">
-                    <h2>Alaka Feyikemi</h2>
-                    <p>feyikemi199@gmail.com</p>
+                    <h2>{props.fullName && props.fullName}</h2>
+                    <p>{props.email && props.email}</p>
                     <Button className="button-green button-p-20" size="sm">
-                      JSS 1
+                      {clazz.courseId && clazz.courseId.alias}
                     </Button>
                   </div>
                   <div className="upcoming-events">
@@ -109,11 +313,30 @@ const ClassroomStudent = (props) => {
                     <div className="item">
                       <img src={event} alt="event"></img>
                       <div>
-                        <p>Posted: 03 Sept 2020</p>
-                        <p>Due Date: 06 Sept 2020</p>
+                        <p>
+                          Posted:&nbsp;
+                          {clazz.teacherAssignedContents &&
+                            moment(
+                              clazz.teacherAssignedContents[0].createdAt
+                            ).format("LL")}
+                        </p>
+                        <p>
+                          Due Date:&nbsp;
+                          {clazz.teacherAssignedContents &&
+                            moment(
+                              clazz.teacherAssignedContents[0].dueDate
+                            ).format("LL")}
+                        </p>
                       </div>
                     </div>
-                    <a href="/classes">View All</a>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        toggle("3");
+                      }}
+                    >
+                      View All
+                    </a>
                   </div>
                 </aside>
                 <main>
@@ -126,134 +349,51 @@ const ClassroomStudent = (props) => {
                     </div>
                   </article>
                   <section>
-                    <div className="chat-block">
-                      <div className="sender">
-                        <div className="sender-head">
-                          <div className="pic-text-heading">
-                            <img src={man} alt="sender" />
-                            <div>
-                              <p>Mr Abraham O.(Teacher) </p>
-                              <small className="small-grey">06 Sept 2020</small>
-                            </div>
-                          </div>
-                          <img src={dots} alt="see-more" />
-                        </div>
-                        <p className="sender-message">
-                          Huloo! <br />
-                          Well done to those that were able to complete the
-                          video lessons for this week.
-                          <br />
-                          <br />
-                          Cheers!
-                        </p>
-                      </div>
-                      <div className="comments">
-                        <small>1 class comment</small>
-                        <div className="pic-text-heading">
-                          <img src={man} alt="comment" />
-                          <div>
-                            <p>
-                              Mr Abraham O.(Teacher) &nbsp;
-                              <span className="small-grey">06 Sept 2020</span>
-                            </p>
-                            <p>
-                              Course to be read for second week will be shared
-                              soon
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="send">
-                        <img src={woman} alt="sender" />
-                        <div className="send-input">
-                          <input />
-                          <img src={sendicon} alt="send" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="notification-block">
+                    {classAnonouncements()}
+                    <Link
+                      to={`/classes/${clazz._id}/${
+                        clazz.teacherAssignedContents &&
+                        clazz.teacherAssignedContents[0].subjectId
+                      }/${
+                        clazz.teacherAssignedContents &&
+                        clazz.teacherAssignedContents[0]._id
+                      }`}
+                      className="notification-block"
+                    >
                       <div className="pic-text-heading">
                         <img src={event} alt="event" />
                         <div>
                           <p>
-                            Mr Abraham O.(Teacher) posted a new study link:
-                            Hello everyone, here is the video ...
+                            {clazz.teacherAssignedContents &&
+                              clazz.teacherAssignedContents[0].description}
                           </p>
                           <p>
-                            <small className="small-grey">03 Sept 2020</small>
+                            <small className="small-grey">
+                              {clazz.teacherAssignedContents &&
+                                moment(
+                                  clazz.teacherAssignedContents[0].createdAt
+                                ).format("LL")}
+                            </small>
                           </p>
                         </div>
                       </div>
                       <img src={dots} alt="see-more" />
-                    </div>
-                    <div className="chat-block">
-                      <div className="sender">
-                        <div className="sender-head">
-                          <div className="pic-text-heading">
-                            <img src={man} alt="sender" />
-                            <div>
-                              <p>Mr Abraham O.(Teacher) </p>
-                              <small className="small-grey">02 Sept 2020</small>
-                            </div>
-                          </div>
-                          <img src={dots} alt="see-more" />
-                        </div>
-                        <p className="sender-message">
-                          Hello Everyone, Congratulations for successfully
-                          joining Class MxH8902 . This is a class for JSS One
-                          student. Feel free to ask questions and answers shall
-                          be provided accordingly
-                          <br />
-                          <br />
-                          Cheers!
-                        </p>
-                      </div>
-                      <div className="comments">
-                        <small>5 class comments</small>
-                        <div className="pic-text-heading">
-                          <img src={user} alt="user" />
-                          <div>
-                            <p>
-                              Alli Olatunbosun &nbsp;
-                              <span className="small-grey">06 Sept 2020</span>
-                            </p>
-                            <p>Thank you sir</p>
-                          </div>
-                        </div>
-                        <div className="pic-text-heading">
-                          <img src={usertwo} alt="user" />
-                          <div>
-                            <p>
-                              John Muhammed &nbsp;
-                              <span className="small-grey">06 Sept 2020</span>
-                            </p>
-                            <p>okay</p>
-                          </div>
-                        </div>
-                        <div className="pic-text-heading">
-                          <img src={user} alt="user" />
-                          <div>
-                            <p>
-                              Victoria Johnson &nbsp;
-                              <span className="small-grey">06 Sept 2020</span>
-                            </p>
-                            <p>Nice. Thank you sir!</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="send">
-                        <img src={woman} alt="sender" />
-                        <div className="send-input">
-                          <input />
-                          <img src={sendicon} alt="send" />
-                        </div>
-                      </div>
-                    </div>
+                    </Link>
                   </section>
                 </main>
               </div>
             </TabPane>
             <TabPane tabId="2">
+              <div id="classes">
+                <div
+                  className="container-fluid relative"
+                  style={{ display: "flex", padding: "50px 107px 150px 107px" }}
+                >
+                  <div class="row">{subjectList()}</div>
+                </div>
+              </div>
+            </TabPane>
+            <TabPane tabId="3">
               <div className="classwork">
                 <nav>
                   <p
@@ -262,153 +402,35 @@ const ClassroomStudent = (props) => {
                   >
                     All Subjeccts
                   </p>
-                  {classItems.map((item) => (
-                    <p
-                      key={item._id}
-                      onClick={() => showTab(item._id)}
-                      className={`vertical-nav-item vertical-nav-${item._id}`}
-                    >
-                      {item.name}
-                    </p>
-                  ))}
+                  {subjectNavList()}
                 </nav>
-                <main>
-                  {classItems.map((item) => (
-                    <div className="class-item" key={item._id}>
-                      <h5>{item.name}</h5>
-                      <div className="items">
-                        <Link
-                          to={`/classes/9u09xunr90/jhdiujbep/dbuidhudo`}
-                          className="item"
-                        >
-                          <div className="pic-text-heading first-section">
-                            <img src={event} alt="event" />
-                            <div>
-                              <p>
-                                Attached is the link,complete the video lesson
-                                for Algebrai...
-                              </p>
-                              <small className="small-grey">
-                                Posted: 02 Sept 2020
-                              </small>
-                            </div>
-                          </div>
-                          <p className="small-grey no-margin">
-                            Due 06 Sept 2020
-                          </p>
-                          <img className="more" src={dots} alt="see-more" />
-                        </Link>
-                        <Link
-                          to={`/classes/9u09xunr90/jhdiujbep/dbuidhudo`}
-                          className="item"
-                        >
-                          <div className="pic-text-heading first-section">
-                            <img src={event} alt="event" />
-                            <div>
-                              <p>
-                                Attached is the link,complete the video lesson
-                                for Algebrai...
-                              </p>
-                              <small className="small-grey">
-                                Posted: 02 Sept 2020
-                              </small>
-                            </div>
-                          </div>
-                          <p className="small-grey">Due 06 Sept 2020</p>
-                          <img className="more" src={dots} alt="see-more" />
-                        </Link>
-                        <Link
-                          to={`/classes/9u09xunr90/jhdiujbep/dbuidhudo`}
-                          className="item"
-                        >
-                          <div className="pic-text-heading first-section">
-                            <img src={event} alt="event" />
-                            <div>
-                              <p>
-                                Attached is the link,complete the video lesson
-                                for Algebrai...
-                              </p>
-                              <small className="small-grey">
-                                Posted: 02 Sept 2020
-                              </small>
-                            </div>
-                          </div>
-                          <p className="small-grey">Due 06 Sept 2020</p>
-                          <img className="more" src={dots} alt="see-more" />
-                        </Link>
-                      </div>
-                    </div>
-                  ))}{" "}
-                </main>
+                <main>{classWorksList()}</main>
               </div>
             </TabPane>
-            <TabPane tabId="3">
+            <TabPane tabId="4">
               <div className="people">
                 <section>
                   <div className="heading">
                     <h5>Teacher</h5>
                   </div>
                   <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>Mr Abraham O.</p>
+                    <img src={man} height="50px" alt="pupil" />
+                    <p>{clazz.userId && clazz.userId.fullName}</p>
                   </div>
                 </section>
                 <section>
                   <div className="heading">
                     <h5>Classmates</h5>
-                    <p>46 pupils</p>
+                    <p>
+                      {classMembers.length} pupil
+                      {classMembers.length > 0 ? "s" : ""}
+                    </p>
                   </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>Alli Olatunbosun</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>John Muhammed</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>Alli Olatunbosun</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>John Muhammed</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>Alli Olatunbosun</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>John Muhammed</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>Alli Olatunbosun</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>John Muhammed</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>Alli Olatunbosun</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>John Muhammed</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>Alli Olatunbosun</p>
-                  </div>
-                  <div className="pupil">
-                    <img src={man} alt="pupil" />
-                    <p>John Muhammed</p>
-                  </div>
+                  {classMembersList()}
                 </section>
               </div>
             </TabPane>
+            <TabPane tabId="5">5</TabPane>
           </TabContent>
         </div>
       </div>
@@ -417,7 +439,17 @@ const ClassroomStudent = (props) => {
 };
 
 ClassroomStudent.propTypes = {
-  inputChange: PropTypes.func.isRequired,
+  getClass: PropTypes.func.isRequired,
 };
 
-export default connect(null, { inputChange })(ClassroomStudent);
+const mapStateToProps = (state) => ({
+  clazz: state.class.class,
+  classMembers: state.class.classMembers,
+  fullName: state.auth.fullName,
+  email: state.auth.email,
+  userId: state.auth.userId,
+});
+
+export default connect(mapStateToProps, { getClass, createComment })(
+  ClassroomStudent
+);

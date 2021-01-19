@@ -81,6 +81,7 @@
 #classroomWorkSectionTwo main .class-comment .comment-input {
   display: flex;
   align-items: center;
+  
 }
 #classroomWorkSectionTwo main .class-comment .comment-input .user-image {
   width: 38px;
@@ -98,6 +99,7 @@
   flex: 1;
   background-color: transparent;
   border: none;
+  color: white;
 }
 
 #classroomWorkSectionTwo aside .class-comment {
