@@ -9,7 +9,7 @@ const initialState = {
   paymentAmount:0,
   tx_ref:''
 };
-
+ 
 const paymentReducer = (state = initialState, action) => {
   switch (action.type) {
     case PAYMENT_INPUT_CHANGE:

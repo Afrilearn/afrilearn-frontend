@@ -11,7 +11,7 @@ const Box = (props) => {
       return lesson.videoUrls.map((item, index) => {
         return (
           <div className="col-md-3 paddingRightOff">
-            <Link to="/register">
+            <Link to="/select-pay">
               <span className="borderAll lessonBox">
                 <FontAwesomeIcon icon={faPlay} /> &nbsp;Lesson {index + 1}
               </span>

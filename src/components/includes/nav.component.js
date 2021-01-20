@@ -250,7 +250,7 @@ const MyNav = (props) => {
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
         <ProtectedRoute path="/instructions" component={instructions} />
-        <Route path="/select-pay" component={selectPayment} />
+        <ProtectedRoute path="/select-pay" component={selectPayment} />
         <Route path="/pay-with-card" component={cardPayment} />
         <Route path="/pay-in-bank" component={bankDeposit} />
         <ProtectedRoute path="/dashboard" component={dashboard} />

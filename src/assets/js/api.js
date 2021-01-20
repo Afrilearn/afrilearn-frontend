@@ -116,6 +116,13 @@ export default {
     });
   },
 
+  getClass(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}`,
+    });
+  },
+
   loadUser() {
     return axios({
       method: "get",
@@ -138,6 +145,24 @@ export default {
       url: `${this.url}/payments/add-transaction`,
       headers: this.headers(),
       data,
+    });
+  },
+
+  addCommentToAnnouncement(announcementId, text) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/${announcementId}/comment`,
+      headers: this.headers(),
+      data: { text },
+    });
+  },
+
+  addCommentToAssignedContent(assignedContentId, text) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/${assignedContentId}/comment-on-content`,
+      headers: this.headers(),
+      data: { text },
     });
   },
 
