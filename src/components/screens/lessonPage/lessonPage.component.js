@@ -30,23 +30,26 @@ const LessonPage = (props) => {
     );
 
   const lesson =
+    subject &&
     subject.relatedLessons &&
     subject.relatedLessons.find((su) => su._id === props.match.params.lessonId);
 
   const video =
+    lesson &&
     lesson.videoUrls &&
     lesson.videoUrls.find((vid) => vid._id === props.match.params.videoId);
 
   const videoIndex =
+    lesson &&
     lesson.videoUrls &&
     lesson.videoUrls.findIndex((vid) => vid._id === props.match.params.videoId);
 
-  const relatedVideos = lesson.videoUrls.filter(
-    (vid) => vid._id !== props.match.params.videoId
-  );
+  const relatedVideos =
+    lesson &&
+    lesson.videoUrls.filter((vid) => vid._id !== props.match.params.videoId);
 
   const relatedVideosList = () => {
-    if (relatedVideos.length) {
+    if (relatedVideos && relatedVideos.length) {
       return relatedVideos.map((vid, index) => {
         return (
           <div className="item" key={index}>
@@ -72,7 +75,7 @@ const LessonPage = (props) => {
     { id: "600048197cabf80f88f61736", name: "Third Term" },
   ];
 
-  const term = termIds.find((term) => term._id === lesson.terId);
+  const term = termIds.find((term) => term.id === lesson && lesson.termId);
 
   const mounted = useRef();
 
@@ -81,6 +84,7 @@ const LessonPage = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
+      props.getCourse(props.match.params.courseId);
     } else {
       // do componentDidUpdate logic
     }
@@ -115,7 +119,7 @@ const LessonPage = (props) => {
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
         <video controls>
-          <source src={video.videoUrl} type="video/mp4" />
+          <source src={video && video.videoUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -157,7 +161,11 @@ const LessonPage = (props) => {
                 >
                   <PopoverBody>
                     <Link
-                      to={`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${props.match.params.videoId}/assign-content`}
+                      to={`/content/${lesson && lesson.courseId}/${
+                        lesson && lesson.subjectId
+                      }/${lesson && lesson._id}/${
+                        props.match.params.videoId
+                      }/assign-content`}
                     >
                       <p>Assign Content</p>
                     </Link>
@@ -184,11 +192,11 @@ const LessonPage = (props) => {
               {subject && subject.mainSubjectId.name}
             </p>
             <p>
-              <span>Term:&nbsp;&nbsp; &nbsp; </span> {term.name}
+              <span>Term:&nbsp;&nbsp; &nbsp; </span> {term && term.name}
             </p>
             <p>
               <span>Date Created:&nbsp;&nbsp; &nbsp; </span>{" "}
-              {moment(lesson.createdAt).format("LL")}
+              {moment(lesson && lesson.createdAt).format("LL")}
             </p>
           </div>
           <div className="mid">
