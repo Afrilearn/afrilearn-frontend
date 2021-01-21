@@ -64,31 +64,17 @@ export const getRoles = () => async (dispatch) => {
 };
 export const registerUser = (user) => async (dispatch) => {
   try {
-    document.body.classList.add("loading-indicator");
-    const result = await API.registerUser(user);
-    console.log("am here");
-    console.log(result);
-    dispatch({
-      type: INPUT_CHANGE,
-      payload: {
-        name: "location",
-        value: "/dashboard",
-      },
-    });
+    document.body.classList.add('loading-indicator');
+    const result = await API.registerUser(user);    
     dispatch({
       type: CLEAR_FORM,
     });
     dispatch({
       type: REGISTER_SUCCESS,
       payload: result.data.data,
-    });
-    // const course = {
-    //   userId: result.data.data.user._id,
-    //   courseId:user.activeEnrolledCourseId
-    // };
-    // await API.courseEnrolment(course);
-
-    document.body.classList.remove("loading-indicator");
+    });    
+  
+    document.body.classList.remove('loading-indicator');
   } catch (err) {
     document.body.classList.remove("loading-indicator");
     dispatch(

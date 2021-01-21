@@ -3,19 +3,19 @@
   padding: 30px 100px;
   padding-top: 300px;
   margin-top: -300px;
-  background-image: linear-gradient(
-      1.17deg,
-      #000000 -14.82%, 
-      rgba(0, 0, 0, 0) 118.73%
-    ),
+  background-image: linear-gradient(1.17deg,
+      #000000 -14.82%,
+      rgba(0, 0, 0, 0) 118.73%),
     url("../../../../assets/img/pqimageone.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
+
 #pastQuestionsSectionone aside {
   margin-top: 20px;
 }
+
 #pastQuestionsSectionone h1 {
   font-family: font2;
   font-weight: normal;
@@ -25,6 +25,7 @@
   padding-top: 70px;
   color: #ffffff;
 }
+
 #pastQuestionsSectionone p {
   font-family: font3;
   font-weight: normal;
@@ -32,6 +33,7 @@
   line-height: 27px;
   color: #ffffff;
 }
+
 #pastQuestionsSectionone h5 {
   font-family: font2;
   font-weight: normal;
@@ -39,38 +41,213 @@
   line-height: 47px;
   color: #ffffff;
 }
+
 #pastQuestionsSectionTwo {
   min-height: 600px;
   background-color: black;
   padding: 30px 100px;
 }
-#pastQuestionsSectionTwo .items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
+
 @media screen and (max-width: 900px) {
   #pastQuestionsSectionone {
     padding: 20px;
     padding-top: 300px;
   }
+
   #pastQuestionsSectionone h1 {
     font-size: 50px;
     text-align: left;
   }
+
   #pastQuestionsSectionone p {
     font-size: 16px;
   }
+
   #pastQuestionsSectionone h5 {
     font-size: 24px;
     line-height: 26px;
     color: #ffffff;
   }
-  #pastQuestionsSectionTwo {
-    padding: 10px;
-  }
-  #pastQuestionsSectionTwo .items {
-    justify-content: center;
+}
+
+/* .MySubject{
+  padding: 50px 90px;
+} */
+
+.MySubject .sectionThree {
+  margin-top: 50px;
+  font-size: 11pt;
+  margin-bottom: 170px;
+}
+
+.MySubject img.MySubject {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  display: block;
+}
+
+.MySubject .sectionThree span {
+  display: block;
+  border-radius: 8pt;
+  box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
+  padding: 24px 1px;
+  margin-top: -8px;
+  margin-bottom: 35px;
+  background: white;
+}
+
+.MySubject .yearDropDown {
+  font-size: 11px;
+  margin-top: -26px;
+  display: none;
+  width: 100%;
+  position: relative;
+}
+
+.MySubject .kk {
+  margin-bottom: 14px;
+}
+
+.MySubject .yearDropDown select {
+  padding: 3px 0px;
+  width: 82%;
+}
+
+.MySubject .yearDropDown .dateTitle {
+  margin-top: 3px;
+}
+
+.MySubject .yearDropDown ul li {
+  margin-bottom: 6px;
+  font-family: font1;
+  margin-top: 8px !important;
+  text-align: center;
+}
+
+.MySubject .yearDropDown ul li a {
+  display: block;
+}
+
+.MySubject .yearDropDown ul {
+  position: absolute;
+  background: white;
+  box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
+  width: 100%;
+  z-index: 30;
+  top: -17px;
+  border-radius: 4px;
+  height: 100px;
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  left: 15px;
+}
+
+.MySubject .yearDropDown .active {
+  font-family: font1;
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+.MySubject .dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+.MySubject .dropdown-content {
+  display: none;
+
+}
+
+.MySubject .dropdown:hover .yearDropDown {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .MySubject {
+    padding: 20px;
   }
 
+  .MySubject .badgeSection {
+    margin-left: 0px;
+  }
+
+  .MySubject .afterNav {
+    padding-left: 15px;
+  }
+
+  .MySubject .MySubjectBadge {
+    margin-right: 0px;
+    margin-bottom: 9px;
+    display: inline-block;
+    margin-left: 15px;
+    font-size: 14px;
+    width: 44%;
+  }
+
+  .MySubject .headingOne {
+    font-size: 15pt;
+    margin-bottom: -22px;
+  }
+
+  #pastQuestionsSectionone h1 {
+    font-size: 30px;
+    text-align: left;
+  }
+
+  .MySubject .sectionThree {
+    margin-top: 0px;
+    font-size: 11pt;
+    margin-bottom: 90px;
+  }
+
+  #pastQuestionsSectionTwo {
+    min-height: auto;
+    background-color: black;
+    padding: 30px 20px;
+  }
+
+  .MySubject .headingTwo {
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .MySubject .filterBadge {
+    margin-right: 0px;
+    margin-bottom: 9px;
+    display: inline-block;
+    margin-left: 15px;
+    width: 44%;
+  }
+
+  .MySubject .sectionThree span {
+    padding: 19px 1px;
+    margin-bottom: -62px;
+  }
+
+  .MySubject .sectionThree .col-md-2 {
+    margin: 40px;
+  }
+
+  .MySubject img.MySubject {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    display: block;
+  }
+
+  .MySubject .sectionThree p {
+    padding: 2px 0px;
+  }
+
+  .MySubject .yearDropDown {
+    font-size: 12px;
+    width: 100%;
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+  }
 }

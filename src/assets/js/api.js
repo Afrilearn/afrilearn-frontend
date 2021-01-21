@@ -1,9 +1,10 @@
 import axios from "axios";
-const URL =
-  "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/";
+const URL = "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/"; 
+const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/"; 
 
 export default {
   url: URL,
+  url2:PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
 
@@ -11,13 +12,20 @@ export default {
     if (fileupload) {
       header["Content-type"] = "multipart/form-data";
     } else {
-      header["Content-type"] = "application/json";
-      header["Accept"] = "*/*";
-      header["Access-Control-Allow-Origin"] = "*";
+      header['Content-type'] = 'application/json';
+      header['Accept'] = '*/*';
+      header['Access-Control-Allow-Origin'] = '*';      
     }
     if (token && token !== undefined) {
       header["token"] = token;
     }
+    return header;
+  },
+
+  headers2() { 
+    let header = {};   
+    header["Content-type"] = "application/json";
+    header["authorization"] = "F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv";        
     return header;
   },
 
@@ -199,46 +207,55 @@ export default {
       url: `${this.url}lessons/${courseId}/${subjectId}/subject-lessons`,
     });
   },
+  
+  loadSubjects(examId) {
+    return axios({
+      method: "get",
+      url: `${this.url2}getMySubjects/${examId}`,     
+      headers: this.headers2()      
+    });
+  }, 
+
+  loadSchools() {
+    return axios({
+      method: "get",
+      url: `${this.url2}getMySchools`,    
+      headers: this.headers2()      
+    });
+  },
 
   loadQuestions(id) {
     return axios({
       method: "get",
-      url: `${this.url}getQuestions/${id}`,
-      //  url: `${this.url}getQuestions/1`,
-      headers: this.headers(),
+      url: `${this.url2}getQuestions/${id}`,    
+      headers: this.headers2()      
     });
   },
 
-  submitScore(data) {
+  flagQuestion(data) {
     return axios({
       method: "post",
-      url: `${this.url}submitResult`,
+      url: `${this.url2}reportQuestion`,    
+      headers: this.headers2(),
+      data      
+    });
+  },
+
+  submitPastQuestionResult(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}past-questions/save-past-question-result`,
       headers: this.headers(),
       data,
     });
   },
 
-  verifyToken(data) {
+  submitPastQuestionProgress(data) {
     return axios({
       method: "post",
-      url: `${this.url}verifyResetPasswordToken`,
+      url: `${this.url}past-questions/add-progress`,
       headers: this.headers(),
-      data,
-    });
-  },
-  search(data) {
-    return axios({
-      method: "post",
-      url: `${this.url}search/${data}`,
-      headers: this.headers(),
-    });
-  },
-
-  getHistory(data) {
-    return axios({
-      method: "get",
-      url: `${this.url}getResultHistory/${data}`,
-      headers: this.headers(),
+      data
     });
   },
 };

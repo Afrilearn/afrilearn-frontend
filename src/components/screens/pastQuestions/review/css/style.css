@@ -1,0 +1,318 @@
+.Review{
+    padding: 115px 90px 90px 90px;
+    background: black;
+    margin-top: -81px;
+    color: white;
+}
+.Review .partOne {
+    padding-right: 150px;
+}
+.Review .headingOne {    
+    font-size: 15pt;
+    color: #2d3e51;
+}
+.Review img.myBadge{
+    width: 26px;
+    margin-top: -3px;
+}
+.Review .categoryBadge {
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0pt 0.5pt 10pt rgba(0,0,0,0.1);
+    padding: 5px 15px 8px 10px;
+    color: #2d3e51;
+    font-size: 15px;
+    font-family: font2;
+    text-align: center;
+} 
+.Review .categoryBadgeActive {
+    background: #1b7763 !important;
+    color: white !important;
+}
+.Review .push33{
+    margin-top: -2px;
+}
+.Review .p3 {
+    margin-top: 20px;
+}
+.Review .headingTwo {
+    font-family: font2;  
+    color: #2d3e51;   
+}
+.Review .comment svg {
+    font-size: 35px;
+    margin-top: 6px;
+}
+.Review .comment {
+    margin-top: 27px;
+    font-size: 18px;
+}
+.Review .comment1 {
+    margin-top: 27px;
+    font-size: 13px;
+    line-height: 16px;
+    margin-bottom:50px;
+}
+.Review .nameSection {
+    font-size: 17px;
+    padding-left: 0px;
+}
+.Review .summary {
+    padding-right: 0px;
+    text-align: right;
+}
+.Review img.myBadge1 {
+    width: 33px;
+    margin-top: -3px;
+}
+.Review .marginAdjust {
+    margin-top: 5px;
+}
+.Review .paddingAdjust {
+    padding-left: 7px !important;
+}
+.Review img.myBadge2 {
+    width: 29px;
+    margin-top: -3px;
+}
+.Review .boxUp{
+    margin-top: 10px;
+}
+.Review .sectionTwo{
+    margin-top: 37px;
+    font-size: 11pt;
+}
+.Review .sectionTwo .paddingLeftOff {
+    margin-left: -10px;
+}
+.Review .filterBadge {
+    border-radius: 7px;
+    background: #969fa9;
+    box-shadow: 0pt 0.5pt 10pt rgba(0,0,0,0.1);
+    padding: 4px 10px 4px 9px;
+    color: white;
+    font-size: 11px;
+    font-family: font2;
+    margin-right: 9px;
+} 
+.Review .filterBadgeActive {
+    background: #2d3e51;
+}
+.Review .second {
+    margin-left: 39px;
+}
+.Review .third {
+    margin-left: 19px;
+}
+.Review .first{
+    margin-left: 30px;
+}
+.Review .myProgress, .Review .question{
+    margin-top: 37px;
+}
+.Review .myQuestion{
+    box-shadow: 0pt 0.5pt 4pt rgba(0, 0, 0, 0.1);
+    padding: 10px 21px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    width: 81%;
+    background: white;
+    color: black;
+}
+.Review .beforeOptions{
+    margin-bottom: 27px;
+}
+.Review .selectedOption {
+    background: #2d3e51 !important;
+    color: white;
+}
+.Review a.report{
+    border-radius: 6px;
+    background: #2bb58e !important; 
+    color: white !important;
+    font-family: font2;
+    padding: 7px 13px;
+}
+.Review .afterReport {
+    float: right;
+    text-align: right;
+}
+.Review .beforeReport{
+    margin-top: 19px;
+    width: 86%;
+}
+
+.Review .timerSection {
+    padding-left: 0px;
+}
+.Review .timerSection svg{
+    /* font-size: 49px; */
+    color: #2d3e51;
+}
+.Review img.myBadge4 {
+    width: 29px;
+    margin-top: -3px;
+    position: absolute;
+    right: -34px;
+}
+.Review .questionImgSection, .Review .questionSection, .Review .questionSection span,  .Review .questionSection  p {
+    width: 90%;
+    font-size: 17px !important;
+    font-family: font1 !important;
+    color: white !important;
+    line-height: 24px !important;
+    background: transparent !important;
+}
+.Review img.questionImg {
+    height: 147px;
+    width: 180px;
+    border: solid 5px gray;
+}
+.Review .timerTitle{
+    margin-right: 16px;
+}
+.Review img.myBadge7 {
+    width: 50px;
+    margin-top: -3px;
+}
+.Review img.myBadge3 {
+    width: 100px;
+    margin-top: -9px;
+    margin-left: -11px;
+    height: 100px;
+    object-fit: contain;
+    object-position: top;
+    border-radius: 20px;
+}
+.Review .checkUps {
+    margin-top: 43px;
+    margin-left: 0px;
+    padding: 0px 20px;
+}
+.Review .status {
+    background: #e36b6b;
+    border-radius: 10px;
+    padding: 3px 2px;
+    color: white;
+    font-family: font2;
+    display: block;
+    margin-bottom: 20px;
+}
+.Review .push3 {
+    margin-left: 0px;
+    text-align: center;
+    padding: 0px 9px;
+}
+.Review .push2 {
+    margin-top: 28px;
+}
+.Review a.myReport {
+    list-style: none;
+    margin-right: 11px;
+}
+
+.Review  a.previous, .Review a.skip {
+    border-radius: 6px;
+    background: #1b7763 !important;
+    color: white !important;
+    font-family: font1;
+    padding: 7px 35px;
+}
+.Review a.previous img {
+    width: 14px;
+    height: 12px;
+}
+.Review  a.skip {
+    background: #fabf61 !important;
+    margin-left: 16px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .Review {
+        padding: 155px 20px 20px 20px;
+    }
+   .Review  .badgeSection {
+        margin-left: 0px;
+    }
+    .Review .partOne {
+        padding-right: 15px;
+        padding-left: 29px;
+    }
+    .Review .headingOne {      
+        color: white;
+    }
+    .Review .p3 {
+        margin-top: 0px;
+    }
+   .Review .categoryBadge {      
+        margin-right: 0px;
+        margin-bottom: 9px;
+        display: block;
+        margin-left: 15px;
+        font-size: 14px;
+        width: 39%; 
+    }
+    .Review .filterBadge {
+        margin-right: 0px;
+        margin-bottom: 9px;
+        display: inline-block;
+        margin-left: 24px;
+        width: 37%;
+    }
+    .Review .p4{
+        margin-top: 30px;
+    }
+   .Review .headingOne {
+        font-size: 15pt;
+        margin-bottom: 10px;
+    }
+   .Review .headingTwo {      
+        margin-bottom: 10px;
+        display: block;
+    }
+    .Review .marginAdjust {
+        margin-left: 42px;
+        font-size: 14px;
+    }
+   .Review .push4 {
+        width: 100%;
+    }
+   .Review .beforeReport {
+        margin-top: 16px;
+        width: 100%;
+    }
+    .Review a.report, .Review .previous, .Review .skip {
+        margin-bottom: 20px;
+        display: block;
+        width: 92%;
+        text-align: center;
+    }
+    .Review a.skip, .Review a.previous {        
+        margin-left: 0px;
+        text-align: left;
+    }
+    .Review .myQuestion {
+        padding: 6px 14px;
+        width: 92% !important;
+        font-size: 14px;
+    }
+    .Review a.report {
+        padding: 5px 6px;
+        font-size: 13px;
+    }
+    .Review .questionImgSection, .Review .questionSection {
+        width: 100%;
+    }
+    .Review img.myBadge3 {
+        width: 80px;
+        margin-top: 2px;            
+    }
+    .Review a.previous, .Review a.skip {
+        padding: 7px 3px;
+        text-align: center;
+    }
+    .Review  .afterReport {
+        padding-right: 0px;
+    }
+}

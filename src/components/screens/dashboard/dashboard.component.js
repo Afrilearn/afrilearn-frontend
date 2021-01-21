@@ -89,6 +89,7 @@ const Dashboard = (props) => {
             title={item.pastQuestionTypes.name}
             other={index % 2 === 0 ? true : false}
             categoryId={item.pastQuestionTypes.categoryId}
+            categoryName={item.pastQuestionTypes.name}
           />
         );
       });

@@ -19,6 +19,7 @@ const ClassroomStudent = (props) => {
   const { classMembers, clazz } = props;
 
   const [activeTab, setActiveTab] = useState("1");
+  // eslint-disable-next-line no-unused-vars
   const [activeVerticalTab, setActiveVerticalTab] = useState("1");
   const mounted = useRef();
   useEffect(() => {
@@ -329,8 +330,9 @@ const ClassroomStudent = (props) => {
                       </div>
                     </div>
                     <a
-                      href="#"
-                      onClick={() => {
+                      href="/"
+                      onClick={(e) => {
+                        e.preventDefault()
                         toggle("3");
                       }}
                     >

@@ -18,7 +18,9 @@ import {
     excellingText:'',
     averageText:'',
     belowAverageText:'',
-    noRatingText:''
+    noRatingText:'',
+    selectedCategory:'Unknown Category'
+
   };
   
   const courseReducer = (state = initialState, action) => {
