@@ -147,6 +147,13 @@
   border: none;
   padding: 8px 40px;
 }
+#profilePageSectionTwo .link-button {
+  background: rgba(38, 170, 118, 0.51) !important;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 8px 40px;
+}
 #profilePageSectionTwo .referral-code {
   padding-bottom: 50px;
 }

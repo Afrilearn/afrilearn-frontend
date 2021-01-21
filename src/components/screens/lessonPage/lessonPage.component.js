@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
+import ReactPlayer from "react-player";
 
 import { getCourse } from "./../../../redux/actions/courseActions";
 
@@ -118,10 +119,12 @@ const LessonPage = (props) => {
     <React.Fragment>
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
-        <video controls>
-          <source src={video && video.videoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <ReactPlayer
+          url={video && video.videoUrl}
+          controls="true"
+          width="100%"
+          height="500px"
+        />
       </div>
       <div id="lessonPageSectionTwo">
         <div className="left">

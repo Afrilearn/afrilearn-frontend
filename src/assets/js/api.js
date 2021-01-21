@@ -22,18 +22,26 @@ export default {
     return header;
   },
 
-  headers2() { 
-    let header = {};   
-    header["Content-type"] = "application/json";
-    header["authorization"] = "F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv";        
-    return header;
+  checkUserExistJoinClass(email, classId) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/check-join-class`,
+      data: { email, classId },
+    });
   },
-
   getRoles() {
     return axios({
       method: "get",
       url: `${this.url}auth/roles`,
       headers: this.headers(),
+    });
+  },
+
+  joinApproved(classId, email, fullName, password) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/${classId}/join-class`,
+      data: { email, fullName, password },
     });
   },
 
@@ -121,6 +129,13 @@ export default {
       method: "get",
       url: `${this.url}courses/${data}`,
       headers: this.headers(),
+    });
+  },
+
+  getClasses() {
+    return axios({
+      method: "get",
+      url: `${this.url}classes`,
     });
   },
 

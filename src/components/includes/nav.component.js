@@ -48,6 +48,7 @@ import { inputChange } from "./../../redux/actions/authActions";
 import ProtectedRoute from "./protectedRoute.component";
 import PropTypes from "prop-types";
 import subject from "../screens/subject/subject.component";
+import joinClassComponent from "../screens/joinClass/joinClass.component";
 
 const MyNav = (props) => {
   const { user } = props;
@@ -237,6 +238,7 @@ const MyNav = (props) => {
         />
         <ProtectedRoute path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
+        <Route path="/join-class" component={joinClassComponent} />
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
