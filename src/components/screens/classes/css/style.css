@@ -127,6 +127,8 @@
 
 #classes .slick-slider {
   width: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 #classes .slick-list {

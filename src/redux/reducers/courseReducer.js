@@ -19,8 +19,7 @@ import {
     averageText:'',
     belowAverageText:'',
     noRatingText:'',
-    selectedCategory:'Unknown Category'
-
+    selectedCategory:'Unknown Category',    
   };
   
   const courseReducer = (state = initialState, action) => {

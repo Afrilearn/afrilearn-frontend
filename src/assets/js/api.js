@@ -258,4 +258,13 @@ export default {
       data
     });
   },
+
+  submitLessonQuizResult(lessonId,data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/lessons/${lessonId}/save-test-results`,
+      headers: this.headers(),
+      data
+    });
+  },
 };

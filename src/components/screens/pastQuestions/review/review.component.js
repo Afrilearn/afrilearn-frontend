@@ -31,7 +31,9 @@ const Review = props => {
         report4,
         report5,
         report6,
-        report7  
+        report7,
+        examType,
+        lessonSubjectName  
     }=props;  
 
     const mounted = useRef(); 
@@ -218,7 +220,7 @@ const Review = props => {
                     <div className="col-md-3 timerSection desktopOnly">
                         <div className="row nameSection">
                             <div className="col-8">
-                              {selectedSubject}<br/> {selectedYear}
+                                { examType ==='pastQuestions'? <>  {selectedSubject}<br/> {selectedYear}</>: lessonSubjectName}
                             </div>
                             <div className="col-4 summary">
                                 Key Stats
@@ -364,5 +366,7 @@ const mapStateToProps = state => ({
     report5: state.pastQuestion.report5,
     report6: state.pastQuestion.report6,
     report7: state.pastQuestion.report7,
+    examType: state.pastQuestion.examType,  
+    lessonSubjectName:  state.subject.lessonSubjectName
 })
 export default connect(mapStateToProps, {inputChange, submitUserScore, flagQuestion})(Review);

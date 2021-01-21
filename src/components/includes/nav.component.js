@@ -192,6 +192,11 @@ const MyNav = (props) => {
           component={pastQuestionsInstruction}
         />
          <Route
+          path="/lesson/quiz/instructions"
+          exact
+          component={pastQuestionsInstruction}
+        />
+         <Route
           path="/past-questions/remark"
           exact
           component={pastQuestionsRemark}

@@ -4,9 +4,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import firstterm from "../../../assets/img/firstterm.png";
 import "./css/style.css";
+import { connect } from 'react-redux';
+import { inputChange, loadQuizQuestions } from './../../../redux/actions/pastQuestionsActions';
+import PropTypes from 'prop-types';
+
 
 const LessonItem = (props) => {
   const { lesson, seeMore } = props;
+
+  const updateQuizType = () => {  
+    props.inputChange('examType', 'quiz');
+    props.inputChange('quizTitle', lesson.title);
+    props.inputChange('quizLessonId', lesson._id);
+      
+    props.loadQuizQuestions(lesson.questions); 
+  }
 
   const lessonVideos = () => {
     if (lesson.videoUrls.length) {
@@ -40,7 +52,7 @@ const LessonItem = (props) => {
           {lessonVideos()}
           <div class="col-md-3">
             <div className="term_item_left_bottom_item ">
-              <button>Quiz</button>
+              <Link to="/lesson/quiz/instructions" onClick={updateQuizType} className="quizButton">Quiz</Link>
             </div>
           </div>
         </div>
@@ -52,4 +64,9 @@ const LessonItem = (props) => {
   );
 };
 
-export default LessonItem;
+LessonItem.propTypes = {
+  inputChange: PropTypes.func.isRequired,
+  loadQuizQuestions: PropTypes.func.isRequired,
+}; 
+
+export default connect(null, { inputChange, loadQuizQuestions })(LessonItem);

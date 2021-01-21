@@ -86,10 +86,10 @@ const Dashboard = (props) => {
       return pastQuestions.map((item, index) => {
         return (
           <PastQuestionsBox
-            title={item.pastQuestionTypes.name}
+            title={item.pastQuestionTypes[0].name}
             other={index % 2 === 0 ? true : false}
-            categoryId={item.pastQuestionTypes.categoryId}
-            categoryName={item.pastQuestionTypes.name}
+            categoryId={item.pastQuestionTypes[0].categoryId}
+            categoryName={item.pastQuestionTypes[0].name}
           />
         );
       });

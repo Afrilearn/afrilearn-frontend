@@ -32,6 +32,20 @@ export const inputChange = (name, value) => async (dispatch) => {
   }
 };
 
+export const pastQuestionInputChange = (name, value) => async (dispatch) => {
+    try {
+      dispatch({
+        type: PAST_QUESTIONS_INPUT_CHANGE,
+        payload: {
+          name: name,
+          value: value,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export const loadSubjects = (examId) => async dispatch => {    
     try {   
         document.body.classList.add('loading-indicator');  
@@ -119,6 +133,37 @@ export const loadQuestions = (subjectId) => async dispatch => {
     }
 }
 
+export const loadQuizQuestions = (questions) => async dispatch => {    
+    try { 
+
+        let questionTags= []; 
+        let questionTime=60 * 1000 * 60;         
+        let motivations =[];
+
+       
+        let questionLength = questions.length;
+        for(let i =0; i<questionLength; i++){
+            questionTags.push(1)
+        }        
+      
+        dispatch({
+            type: LOAD_QUESTIONS_SUCCESS,
+            payload:{
+                questions,
+                questionTags,
+                questionTime,
+                theSubjectId:-1,
+                motivations               
+            }       
+        })
+   
+    } catch (err) {  
+        dispatch({
+            type: LOAD_QUESTIONS_FAILURE          
+        })	
+    }
+}
+
 export const flagQuestion = data => async dispatch => {    
     try {      
         const result = await API.flagQuestion(data); 
@@ -187,37 +232,59 @@ export const populateSubmittedAnswer = (answer) => async dispatch => {
 export const submitUserScore = (remark, score) => async (dispatch, getState) => {    
     try {           
         const { userId, activeCourseId } = getState().auth;
-        const { pastQuestionCategoryId, submittedAnswers, subjectId, speed, correctAnswers, answers, questionLength, selectedSubject } = getState().pastQuestion;
-
-        const response = {
-            "results":submittedAnswers,
-            "userId": userId,
-            "courseId":activeCourseId,
-            "subjectCategoryId":subjectId,
-            "subjectName":selectedSubject,
-            pastQuestionCategoryId,
-            "pastQuestionTypeId": "5fc8e7134bfe993c34a9689c", //not needed
-            "subjectId": "5fc8e7134bfe993c34a9689c", //not needed 
-            "timeSpent":`${speed}`,
-            "numberOfCorrectAnswers":correctAnswers,
-            "numberOfWrongAnswers":questionLength - (correctAnswers + answers.filter(item => item === -1).length),
-            "numberOfSkippedQuestions":answers.filter(item => item === -1).length,        
-            "score": score,
-            "remark": remark, 
+        const { pastQuestionCategoryId, quizLessonId, submittedAnswers, subjectId, speed, correctAnswers, answers, questionLength, selectedSubject, examType } = getState().pastQuestion;
+        const { lessonSubjectId } = getState().subject;
+        
+        if(examType === 'quiz'){
+            const response = {
+                "results":submittedAnswers,
+                "userId": userId,
+                "courseId":activeCourseId,
+                "lessonId":quizLessonId,
+                "subjectId":lessonSubjectId,
+                "subjectName":selectedSubject,               
+                "timeSpent":`${speed}`,
+                "numberOfCorrectAnswers":correctAnswers,
+                "numberOfWrongAnswers":questionLength - (correctAnswers + answers.filter(item => item === -1).length),
+                "numberOfSkippedQuestions":answers.filter(item => item === -1).length,        
+                "score": score,
+                "remark": remark, 
+            }        
+            console.log('am her')
+            await API.submitLessonQuizResult(quizLessonId,response);      
+            dispatch({
+                type: SUBMIT_RESULT_SUCCESS                     
+            }) 
+        }else{
+            const response = {
+                "results":submittedAnswers,
+                "userId": userId,
+                "courseId":activeCourseId,
+                "subjectCategoryId":subjectId,
+                "subjectName":selectedSubject,
+                pastQuestionCategoryId,
+                "pastQuestionTypeId": "5fc8e7134bfe993c34a9689c", //not needed
+                "subjectId": "5fc8e7134bfe993c34a9689c", //not needed 
+                "timeSpent":`${speed}`,
+                "numberOfCorrectAnswers":correctAnswers,
+                "numberOfWrongAnswers":questionLength - (correctAnswers + answers.filter(item => item === -1).length),
+                "numberOfSkippedQuestions":answers.filter(item => item === -1).length,        
+                "score": score,
+                "remark": remark, 
+            }        
+            await API.submitPastQuestionResult(response);      
+            dispatch({
+                type: SUBMIT_RESULT_SUCCESS                     
+            })  
+            const progress = {   
+                subjectCategoryId:subjectId,        
+                pastQuestionCategoryId,
+               "courseId": activeCourseId            
+            }         
+            await API.submitPastQuestionProgress(progress);
         }
         
-        await API.submitPastQuestionResult(response);      
-        dispatch({
-            type: SUBMIT_RESULT_SUCCESS                     
-        })  
-        
-        const progress = {   
-             subjectCategoryId:subjectId,        
-             pastQuestionCategoryId,
-            "courseId": activeCourseId            
-        } 
-         
-       await API.submitPastQuestionProgress(progress);
+       
        
     } catch (err) {   
        

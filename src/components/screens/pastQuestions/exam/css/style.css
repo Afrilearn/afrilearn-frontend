@@ -144,11 +144,8 @@ img.motivation {
     background: #1b7763;
 }
 
-.Exam .questionImgSection,
-.Exam .questionSection,
-.Exam .questionSection span,
-.Exam .questionSection p {
-    width: 90%;
+.Exam .questionImgSection, .Exam .questionSection, .Exam .questionSection span, .Exam .questionSection p {
+    width: 81%;
     font-size: 17px !important;
     font-family: font1 !important;
     color: white !important;

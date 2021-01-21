@@ -46,7 +46,10 @@ import {
     speed:0,
     speedRange1:0,
     speedRange2: 0,  
-    speedRange3: 0,      
+    speedRange3: 0,
+    examType:'quiz',
+    quizTitle:'',
+    quizLessonId:'',     
   };
   
   const pastQuestionsReducer = (state = initialState, action) => {

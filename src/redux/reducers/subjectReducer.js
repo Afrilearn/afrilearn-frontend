@@ -2,6 +2,8 @@ import { GET_SUBJECT_AND_RELATED_LESSONS_SUCCESS } from "../actions/types";
 
 const initialState = {
   subject: {},
+  lessonSubjectName:'',
+  lessonSubjectId:''
 };
 
 const subjectReducer = (state = initialState, action) => {
@@ -10,6 +12,8 @@ const subjectReducer = (state = initialState, action) => {
       return {
         ...state,
         subject: action.payload.subject,
+        lessonSubjectName:action.payload.subject.mainSubjectId.name,
+        lessonSubjectId:action.payload.subject._id
       };
 
     default:
