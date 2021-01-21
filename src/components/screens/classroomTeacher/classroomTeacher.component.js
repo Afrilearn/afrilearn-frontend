@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import moment from "moment";
 import "./css/style.css";
 import dots from "../../../assets/img/dots.png";
-import user from "../../../assets/img/user.png";
-import usertwo from "../../../assets/img/usertwo.png";
 import event from "../../../assets/img/event.png";
 import man from "../../../assets/img/man.png";
 import woman from "../../../assets/img/woman.png";
@@ -10,14 +9,20 @@ import sendicon from "../../../assets/img/sendicon.png";
 import addstudent from "../../../assets/img/addstudent.png";
 import { connect } from "react-redux";
 import { inputChange } from "../../../redux/actions/authActions";
+import { getClass, createComment } from "./../../../redux/actions/classActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Popover, PopoverBody, Modal, ModalBody } from "reactstrap";
+import { Popover, PopoverBody, Modal, ModalBody, Alert } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const ClassroomTeacher = (props) => {
+  const [visible, setVisible] = useState(false);
+  const onDismiss = () => setVisible(false);
+
+  const { clazz, classMembers } = props;
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => setModal(!modal);
@@ -30,10 +35,120 @@ const ClassroomTeacher = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
+      if (!classMembers.length) {
+        props.getClass("5fc8f0fd5194183bf09b94fb");
+      }
     } else {
       // do componentDidUpdate logic
     }
   });
+
+  const copyToClipboard = (e) => {
+    e.preventDefault();
+    var textField = document.createElement("textarea");
+    textField.innerText = `${clazz.classCode}`;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand("copy");
+    textField.classList.add("hide");
+    setVisible(true);
+  };
+
+  const subjectList = () => {
+    if (Object.keys(clazz) && clazz.relatedSubjects) {
+      return clazz.relatedSubjects.map((item) => {
+        return (
+          <Box
+            image={item.mainSubjectId.imageUrl}
+            singleClass={true}
+            dashboard={true}
+            compiledNotes={item.relatedLessons.length}
+            registeredUsers={50000}
+            courseId={clazz.courseId._id}
+            subjectId={item._id}
+            key={item._id}
+          />
+        );
+      });
+    } else {
+      return <h6>No Subject list yet</h6>;
+    }
+  };
+
+  const classAnonouncements = () => {
+    if (clazz.classAnnouncements) {
+      return clazz.classAnnouncements.map((classAnnouncement) => {
+        const sendComment = (e, id) => {
+          e.preventDefault();
+          const targetComment = document.getElementById(classAnnouncement._id)
+            .value;
+          if (targetComment !== "") {
+            props.createComment(classAnnouncement._id, targetComment);
+            document.getElementById("commentForm" + id).reset();
+          }
+        };
+        return (
+          <div className="chat-block" key={classAnnouncement._id}>
+            <div className="sender">
+              <div className="sender-head">
+                <div className="pic-text-heading">
+                  <img src={man} alt="sender" />
+                  <div>
+                    <p>{classAnnouncement.teacher.fullName} </p>
+                    <small className="small-grey">
+                      {moment(classAnnouncement.createdAt)
+                        .startOf("hour")
+                        .fromNow()}
+                    </small>
+                  </div>
+                </div>
+                <img src={dots} alt="see-more" />
+              </div>
+              <p className="sender-message">{classAnnouncement.text}</p>
+            </div>
+            <div className="comments">
+              <small>
+                {classAnnouncement.comments.length} class comment
+                {classAnnouncement.comments.length > 0 ? "s" : ""}
+              </small>
+              {classAnnouncement.comments.map((comment) => (
+                <div className="pic-text-heading" key={comment._id}>
+                  <img src={man} alt="comment" />
+                  <div>
+                    <p>
+                      {comment.student.fullName} &nbsp;
+                      <span className="small-grey">
+                        {moment(comment.createdAt).startOf("hour").fromNow()}
+                      </span>
+                    </p>
+                    <p>{comment.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="send">
+              <img src={woman} alt="sender" />
+              <form
+                className="send-input"
+                id={`commentForm${classAnnouncement._id}`}
+                onSubmit={(e) => sendComment(e, classAnnouncement._id)}
+              >
+                <input id={classAnnouncement._id} placeholder="To Everyone" />
+                <img
+                  src={sendicon}
+                  alt="send"
+                  onClick={(e) => sendComment(e, classAnnouncement._id)}
+                />
+              </form>
+            </div>
+          </div>
+        );
+      });
+    } else {
+      return <h6>No Announcement list yet</h6>;
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -73,31 +188,37 @@ const ClassroomTeacher = (props) => {
               id="copyLink"
               class="form-control"
               aria-describedby="copyLinkText"
-              placeholder="thurieo/js1/uriouti/5768"
+              placeholder={clazz.classCode}
             />
-            <small id="copyLinkText" class="form-text text-right c-green">
+            <small
+              id="copyLinkText"
+              class="form-text text-right c-green cursor-pointer"
+              onClick={(e) => copyToClipboard(e)}
+            >
               Copy link
             </small>
           </div>
         </ModalBody>
       </Modal>
+
       <div id="classroomTeacherSectionOne"></div>
+
       <div id="classroomTeacherSectionTwo">
         <img src={man} className="image" alt="user" />
         <div className="welcome">
-          <h1 className="font2">Welcome Abraham</h1>
+          <h1 className="font2">Welcome {props.fullName}</h1>
           <p>
-            <b>JSS One</b> 
+            <b>{clazz.courseId && clazz.courseId.name}</b>
           </p>
-          <small>Class code MxH8902</small>
+          <small>Class code {clazz.classCode && clazz.classCode}</small>
         </div>
         <div className="text">
           <FontAwesomeIcon
             icon={faLink}
             style={{ fontSize: "20px", marginRight: "10px" }}
           />
-          <span>
-            <u>Copy Class Link</u>
+          <span className="copy-class-code">
+            <u onClick={(e) => copyToClipboard(e)}>Copy Class Link</u>
           </span>{" "}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Popover
@@ -117,79 +238,22 @@ const ClassroomTeacher = (props) => {
           >
             <FontAwesomeIcon icon={faPlus} />
           </span>
+          <Alert
+            color="info"
+            isOpen={visible}
+            toggle={onDismiss}
+            style={{ zIndex: 22 }}
+          >
+            Classcode copied to Clipboard!
+          </Alert>
         </div>
 
         <div className="content-section">
           <div id="classes" className="container-fluid relative subjects">
             <h4>My Subjects</h4>
-            <div className="row">
-              <Box
-                image={require("../../../assets/img/maths.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/english.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/health.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/science.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/Civic.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/science.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/health_two.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/english_two.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/health.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/Civic.png")}
-                singleClass={true}
-                dashboard={true}
-              />             
-              <Box
-                image={require("../../../assets/img/health_two.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-               <Box
-                image={require("../../../assets/img/health_two.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-              <Box
-                image={require("../../../assets/img/english_two.png")}
-                singleClass={true}
-                dashboard={true}
-              />
-            </div>
+            <div className="row">{subjectList()}</div>
           </div>
+
           <div className="announcements ">
             <main>
               <article>
@@ -201,128 +265,36 @@ const ClassroomTeacher = (props) => {
                 </div>
               </article>
               <section>
-                <div className="chat-block">
-                  <div className="sender">
-                    <div className="sender-head">
-                      <div className="pic-text-heading">
-                        <img src={man} alt="sender" />
-                        <div>
-                          <p>Mr Abraham O.(Teacher) </p>
-                          <small className="small-grey">06 Sept 2020</small>
-                        </div>
-                      </div>
-                      <img src={dots} alt="see-more" />
-                    </div>
-                    <p className="sender-message">
-                      Huloo! <br />
-                      Well done to those that were able to complete the video
-                      lessons for this week.
-                      <br />
-                      <br />
-                      Cheers!
-                    </p>
-                  </div>
-                  <div className="comments">
-                    <small>1 class comment</small>
-                    <div className="pic-text-heading">
-                      <img src={man} alt="comment" />
-                      <div>
-                        <p>
-                          Mr Abraham O.(Teacher) &nbsp;
-                          <span className="small-grey">06 Sept 2020</span>
-                        </p>
-                        <p>
-                          Course to be read for second week will be shared soon
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="send">
-                    <img src={woman} alt="sender" />
-                    <div className="send-input">
-                      <input />
-                      <img src={sendicon} alt="send" />
-                    </div>
-                  </div>
-                </div>
-                <div className="notification-block">
+                {classAnonouncements()}
+                <Link
+                  to={`/classes/${clazz._id}/${
+                    clazz.teacherAssignedContents &&
+                    clazz.teacherAssignedContents[0].subjectId._id
+                  }/${
+                    clazz.teacherAssignedContents &&
+                    clazz.teacherAssignedContents[0]._id
+                  }`}
+                  className="notification-block"
+                >
                   <div className="pic-text-heading">
                     <img src={event} alt="event" />
                     <div>
                       <p>
-                        Mr Abraham O.(Teacher) posted a new study link: Hello
-                        everyone, here is the video ...
+                        {clazz.teacherAssignedContents &&
+                          clazz.teacherAssignedContents[0].description}
                       </p>
                       <p>
-                        <small className="small-grey">03 Sept 2020</small>
+                        <small className="small-grey">
+                          {clazz.teacherAssignedContents &&
+                            moment(
+                              clazz.teacherAssignedContents[0].createdAt
+                            ).format("LL")}
+                        </small>
                       </p>
                     </div>
                   </div>
                   <img src={dots} alt="see-more" />
-                </div>
-                <div className="chat-block">
-                  <div className="sender">
-                    <div className="sender-head">
-                      <div className="pic-text-heading">
-                        <img src={man} alt="sender" />
-                        <div>
-                          <p>Mr Abraham O.(Teacher) </p>
-                          <small className="small-grey">02 Sept 2020</small>
-                        </div>
-                      </div>
-                      <img src={dots} alt="see-more" />
-                    </div>
-                    <p className="sender-message">
-                      Hello Everyone, Congratulations for successfully joining
-                      Class MxH8902 . This is a class for JSS One student. Feel
-                      free to ask questions and answers shall be provided
-                      accordingly
-                      <br />
-                      <br />
-                      Cheers!
-                    </p>
-                  </div>
-                  <div className="comments">
-                    <small>5 class comments</small>
-                    <div className="pic-text-heading">
-                      <img src={user} alt="user" />
-                      <div>
-                        <p>
-                          Alli Olatunbosun &nbsp;
-                          <span className="small-grey">06 Sept 2020</span>
-                        </p>
-                        <p>Thank you sir</p>
-                      </div>
-                    </div>
-                    <div className="pic-text-heading">
-                      <img src={usertwo} alt="user" />
-                      <div>
-                        <p>
-                          John Muhammed &nbsp;
-                          <span className="small-grey">06 Sept 2020</span>
-                        </p>
-                        <p>okay</p>
-                      </div>
-                    </div>
-                    <div className="pic-text-heading">
-                      <img src={user} alt="user" />
-                      <div>
-                        <p>
-                          Victoria Johnson &nbsp;
-                          <span className="small-grey">06 Sept 2020</span>
-                        </p>
-                        <p>Nice. Thank you sir!</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="send">
-                    <img src={woman} alt="sender" />
-                    <div className="send-input">
-                      <input />
-                      <img src={sendicon} alt="send" />
-                    </div>
-                  </div>
-                </div>
+                </Link>
               </section>
             </main>
           </div>
@@ -334,6 +306,21 @@ const ClassroomTeacher = (props) => {
 
 ClassroomTeacher.propTypes = {
   inputChange: PropTypes.func.isRequired,
+  getClass: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
 };
 
-export default connect(null, { inputChange })(ClassroomTeacher);
+const mapStateToProps = (state) => ({
+  clazz: state.class.class,
+  classMembers: state.class.classMembers,
+  fullName: state.auth.fullName,
+  email: state.auth.email,
+  userId: state.auth.userId,
+  user: state.auth.user.role,
+});
+
+export default connect(mapStateToProps, {
+  inputChange,
+  getClass,
+  createComment,
+})(ClassroomTeacher);

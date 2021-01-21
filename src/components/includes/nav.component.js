@@ -232,10 +232,7 @@ const MyNav = (props) => {
         />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
-        <ProtectedRoute
-          path="/content/:courseId/:subjectId/:lessonId/:videoId/assign-content"
-          component={assignContent}
-        />
+        <ProtectedRoute path="/assign-content" component={assignContent} />
         <ProtectedRoute
           path="/content/:courseId/:subjectId/:lessonId/:videoId"
           component={lessonPage}
@@ -253,7 +250,14 @@ const MyNav = (props) => {
         <ProtectedRoute path="/select-pay" component={selectPayment} />
         <Route path="/pay-with-card" component={cardPayment} />
         <Route path="/pay-in-bank" component={bankDeposit} />
-        <ProtectedRoute path="/dashboard" component={dashboard} />
+        <ProtectedRoute
+          path="/dashboard"
+          component={
+            user.role !== "5fc8cc978e28fa50986ecac9"
+              ? dashboard
+              : classroomTeacherComponent
+          }
+        />
         <ProtectedRoute path="/my-students" component={myStudents} />
         <ProtectedRoute path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />

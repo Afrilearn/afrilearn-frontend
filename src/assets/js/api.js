@@ -157,12 +157,30 @@ export default {
     });
   },
 
-  addCommentToAssignedContent(assignedContentId, text) {
+  addCommentToAssignedContent(assignedContentId, text, student) {
     return axios({
       method: "post",
       url: `${this.url}/classes/${assignedContentId}/comment-on-content`,
       headers: this.headers(),
-      data: { text },
+      data: { text, student },
+    });
+  },
+
+  sendClassRequest(classCode) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/send-class-request`,
+      headers: this.headers(),
+      data: { classCode },
+    });
+  },
+
+  assignContentToStudent(description, lessonId, classId, dueDate, userId) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/${classId}/assign-content`,
+      headers: this.headers(),
+      data: { description, lessonId, classId, dueDate, userId },
     });
   },
 

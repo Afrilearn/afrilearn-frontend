@@ -209,3 +209,17 @@
     padding: 5px;
   }
 }
+.teacher-assign-content-green {
+  padding: 5px;
+  background-color: #26aa76;
+  width: fit-content;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.hide{
+  display: none;
+}

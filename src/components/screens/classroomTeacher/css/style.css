@@ -4,7 +4,7 @@
   height: 600px;
   margin-top: -320px;
   background-size: cover;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
   background-position: center;
 }
 #classroomTeacherSectionTwo {
@@ -198,6 +198,7 @@
   min-height: 200px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 7px;
+  margin-bottom: 10px;
 }
 #classroomTeacherSectionTwo .announcements main section .chat-block .sender {
   padding: 5px 15px;
@@ -247,7 +248,7 @@
 #classroomTeacherSectionTwo .announcements main section .chat-block .send {
   padding: 10px;
   margin: 10px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  border-top: 1px solid rgba(255, 255, 255, 0.28); 
   display: flex;
   align-items: center;
   padding-left: 30px;
@@ -340,7 +341,13 @@
   #classroomTeacherSectionTwo .announcements main section .chat-block .send {
     padding-left: 15px;
   }
-  #classroomTeacherSectionTwo .announcements main section .chat-block .send .send-input {
+  #classroomTeacherSectionTwo
+    .announcements
+    main
+    section
+    .chat-block
+    .send
+    .send-input {
     padding: 3px;
   }
   #classroomTeacherSectionTwo
@@ -573,4 +580,7 @@
   box-sizing: border-box;
   border-radius: 5px;
   color: white;
+}
+.copy-class-code {
+  cursor: pointer;
 }

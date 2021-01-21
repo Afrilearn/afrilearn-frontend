@@ -35,7 +35,6 @@ const ClassroomStudent = (props) => {
     }
   });
 
-
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
     const items = document.querySelectorAll(".tab-nav-item");
@@ -183,7 +182,7 @@ const ClassroomStudent = (props) => {
                   <img src={man} alt="comment" />
                   <div>
                     <p>
-                     {comment.student.fullName} &nbsp;
+                      {comment.student.fullName} &nbsp;
                       <span className="small-grey">
                         {moment(comment.createdAt).startOf("hour").fromNow()}
                       </span>
@@ -200,7 +199,7 @@ const ClassroomStudent = (props) => {
                 id="commentForm"
                 onSubmit={(e) => sendComment(e)}
               >
-                <input id={classAnnouncement._id} />
+                <input id={classAnnouncement._id} placeholder="To Everyone" />
                 <img
                   src={sendicon}
                   alt="send"
@@ -220,7 +219,7 @@ const ClassroomStudent = (props) => {
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
       const assignedContent = clazz.teacherAssignedContents.filter(
-        (content) => content.subjectId._id === subject._id
+        (content) => content.subjectId && content.subjectId._id === subject._id
       );
       subjects.push({
         _id: subject._id,
@@ -389,7 +388,7 @@ const ClassroomStudent = (props) => {
                   className="container-fluid relative"
                   style={{ display: "flex", padding: "50px 107px 150px 107px" }}
                 >
-                  <div class="row">{subjectList()}</div>
+                  <div className="row">{subjectList()}</div>
                 </div>
               </div>
             </TabPane>

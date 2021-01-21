@@ -56,8 +56,11 @@
   color: white;
 }
 #assignContentPageSectionTwo .attachment {
-  height: 240px;
   color: white;
+}
+#assignContentPageSectionTwo .attachment legend {
+  color: #26aa76;
+  font-size: 16px;
 }
 #assignContentPageSectionTwo .attachment .row {
   padding: 20px 30px;
@@ -69,6 +72,18 @@
 #assignContentPageSectionTwo .date {
   height: 150px;
   padding: 20px 30px;
+}
+#assignContentPageSectionTwo select {
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%
+  );
+  border: none;
+  color: white;
+}
+#assignContentPageSectionTwo select option{
+  color: black;
 }
 #assignContentPageSectionTwo .date input {
   width: 250px;
