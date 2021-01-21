@@ -10,6 +10,7 @@ import {
   SOCIAL_LOGIN_UPDATE_SUCCESS,
   AUTH_SUCCESS,
   AUTH_FAILURE,
+  CHECK_USER_AND_JOIN_CLASS_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -43,6 +44,11 @@ const authReducer = (state = initialState, action) => {
         [action.payload.name]: action.payload.value,
       };
 
+    case CHECK_USER_AND_JOIN_CLASS_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+      };
     case GET_ROLES_SUCCESS:
       return {
         ...state,

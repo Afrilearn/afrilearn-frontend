@@ -16,12 +16,25 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-} from "reactstrap"; 
+} from "reactstrap";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { inputChange } from "./../../../redux/actions/authActions";
+import { populateDashboard } from "./../../../redux/actions/courseActions";
+import { getClasses } from "./../../../redux/actions/classActions";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 const ProfilePage = (props) => {
+  const {
+    user,
+    dashboardData,
+    populateDashboard,
+    activeEnrolledCourseId,
+    getClasses,
+    classes,
+  } = props;
+
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -29,6 +42,11 @@ const ProfilePage = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.inputChange("redirect", false);
+      const data = {
+        enrolledCourseId: activeEnrolledCourseId,
+      };
+      populateDashboard(activeEnrolledCourseId ? data : null);
+      getClasses();
     } else {
       props.inputChange("redirect", false);
       // do componentDidUpdate logic
@@ -50,6 +68,50 @@ const ProfilePage = (props) => {
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
+  const classListForStudents = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      dashboardData.classMembership.length
+    ) {
+      let classes = dashboardData.classMembership.filter(
+        (el) => el.status === "approved"
+      );
+      return classes.map((item, index) => {
+        return (
+          <tr>
+            <td>{item.classId.name}</td>
+            <td>
+              <ButtonToggle className="button" size="sm">
+                Subscribed
+              </ButtonToggle>
+            </td>
+          </tr>
+        );
+      });
+    } else {
+      return <h6>No class list yet</h6>;
+    }
+  };
+
+  const classListForTeachers = () => {
+    if (classes && classes.length) {
+      let myClasses = classes.filter((element) => element.userId === user._id);
+      return myClasses.map((item, index) => {
+        return (
+          <tr>
+            <td>{item.name}</td>
+            <td>
+              <Link to={`/classes/teacher`} className="link-button" size="sm">
+                Goto classroom
+              </Link>
+            </td>
+          </tr>
+        );
+      });
+    } else {
+      return <h6>No class list yet</h6>;
+    }
+  };
   return (
     <React.Fragment>
       <div id="profilePageSectionOne"></div>
@@ -61,15 +123,18 @@ const ProfilePage = (props) => {
         <div className="top-details">
           <div className="items">
             <div className="item">
-              <h4>Abraham Olatunbosun</h4>
-              <p>abrahamO@gmail.com</p>
+              <h4>{user.fullName ? user.fullName : "N/A"}</h4>
+              <p>{user.email ? user.email : "N/A"}</p>
             </div>
             <div className="item item-plus-icon">
               <FontAwesomeIcon
                 icon={faMapMarker}
                 style={{ marginRight: "15px", fontSize: "20px" }}
               />
-              <p>Lagos State, Nigeria</p>
+              <p>
+                {user.state ? user.state : "N/A"} State,{" "}
+                {user.country ? user.country : "N/A"}
+              </p>
             </div>
             <div className="item item-plus-icon" onClick={showEditPage}>
               <FontAwesomeIcon
@@ -83,11 +148,18 @@ const ProfilePage = (props) => {
         <div className="personal-details">
           <h3>Personal Details</h3>
           <div className="personal-details-list">
-            <p>Phone Number: &nbsp; 09023457689</p>
-            <p>State: &nbsp; Lagos</p>
-            <p>Gender: &nbsp; Female</p>
-            <p>Age: &nbsp; 16</p>
-            <p>City: &nbsp; Lagos</p>
+            <p>
+              Phone Number: &nbsp; {user.phoneNumber ? user.phoneNumber : "N/A"}
+            </p>
+            <p>State: &nbsp; {user.state ? user.state : "N/A"}</p>
+            <p>Gender: &nbsp; {user.gender ? user.gender : "N/A"}</p>
+            <p>
+              Age: &nbsp;{" "}
+              {moment(user.dateOfBirth, "YYYYMMDD")
+                .fromNow()
+                .replace("years ago", "")}
+            </p>
+            <p>City: &nbsp; {user.state ? user.state : "N/A"}</p>
           </div>
         </div>
         <div className="classes">
@@ -103,22 +175,9 @@ const ProfilePage = (props) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Junior Secondary School 1 (JSS1)</td>
-                <td>
-                  <ButtonToggle className="button" size="sm">
-                    Subscribed
-                  </ButtonToggle>
-                </td>
-              </tr>
-              <tr>
-                <td>Junior Secondary School 2 (JSS2)</td>
-                <td>
-                  <ButtonToggle className="button" size="sm">
-                    Subscribed
-                  </ButtonToggle>
-                </td>
-              </tr>
+              {user && user.role === "5fc8cc978e28fa50986ecac9"
+                ? classListForTeachers()
+                : classListForStudents()}
             </tbody>
           </table>
         </div>
@@ -333,5 +392,17 @@ const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   inputChange: PropTypes.func.isRequired,
+  populateDashboard: PropTypes.func.isRequired,
+  getClasses: PropTypes.func.isRequired,
 };
-export default connect(null, { inputChange })(ProfilePage);
+const mapStateToProps = (state) => ({
+  activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
+  user: state.auth.user,
+  dashboardData: state.course.dashboardData,
+  classes: state.class.classes,
+});
+export default connect(mapStateToProps, {
+  inputChange,
+  populateDashboard,
+  getClasses,
+})(ProfilePage);

@@ -22,6 +22,7 @@ import {
   AUTH_FAILURE,
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_FAILURE,
+  CHECK_USER_AND_JOIN_CLASS_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -37,6 +38,35 @@ export const inputChange = (name, value) => async (dispatch) => {
     console.error(error);
   }
 };
+export const checkUserExists = (email, classId) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    await API.checkUserExistJoinClass(email, classId);
+    dispatch(
+      returnErrors(
+        "Class request has been approved. Login to continue",
+        "200",
+        "CHECK_USER_AND_JOIN_CLASS_SUCCESS"
+      )
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "CHECK_USER_AND_JOIN_CLASS_FAILURE"
+      )
+    );
+    dispatch({
+      type: CHECK_USER_AND_JOIN_CLASS_FAILURE,
+    });
+  }
+};
+
 export const getRoles = () => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
