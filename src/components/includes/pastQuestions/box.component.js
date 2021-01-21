@@ -1,12 +1,15 @@
 import React  from "react";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+import { pastQuestionInputChange } from './../../../redux/actions/pastQuestionsActions';
 import { inputChange } from './../../../redux/actions/courseActions';
 import PropTypes from 'prop-types';
 
 const Box = props => { 
     const updatePastQuestionName = () => {
-        props.inputChange('selectedCategory', props.categoryName)
+        props.inputChange('selectedCategory', props.categoryName);
+        props.pastQuestionInputChange('examType', 'pastQuestions');
+        
     }
 	return (		
         <div className="col-md-3">
@@ -31,4 +34,4 @@ Box.propTypes = {
     inputChange: PropTypes.func.isRequired,
 }; 
  
-export default connect(null, { inputChange })(Box);
+export default connect(null, { inputChange, pastQuestionInputChange })(Box);

@@ -61,48 +61,53 @@ const QuestionBox = props => {
     motivationItemNo,
     motivationInterval,
     motivateGoodPerformance, 
+    examType
     }=props;   
 
-    const handleNextQuestion = async answer => {        
-        const CheckPoint25Percent = Math.round(0.25 * questionLength);
-        const CheckPoint50Percent = Math.round(0.50 * questionLength);
-        const CheckPoint75Percent = Math.round(0.75 * questionLength);    
-        const performanceCheckPoint = CheckPoint50Percent/2;
-    
-        if(currentQuestion === CheckPoint25Percent){
-          props.inputChange('motivationInterval', 0);
-          props.inputChange('motivateGoodPerformance', false);
-          let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-          props.inputChange('motivationItemNo', itemNo);
-          setModal1(true);
-          setTimeout(function(){ setModal1(false)}, 4000);       
-        }
-    
-        if(currentQuestion === CheckPoint50Percent && correctAnswers >= performanceCheckPoint){
-          props.inputChange('motivationInterval', 1);
-          props.inputChange('motivateGoodPerformance', true);
-          let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-          props.inputChange('motivationItemNo', itemNo);
-          setModal1(true);
-          setTimeout(function(){ setModal1(false)}, 4000);       
-        }else if(currentQuestion === CheckPoint50Percent){
-          props.inputChange('motivationInterval', 1);
-          props.inputChange('motivateGoodPerformance', false);
-          let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-          props.inputChange('motivationItemNo', itemNo);
-          setModal1(true);
-          setTimeout(function(){ setModal1(false)}, 4000);     
+    const handleNextQuestion = async answer => {   
+        
+        if(examType ==='pastQuestions'){
+            const CheckPoint25Percent = Math.round(0.25 * questionLength);
+            const CheckPoint50Percent = Math.round(0.50 * questionLength);
+            const CheckPoint75Percent = Math.round(0.75 * questionLength);    
+            const performanceCheckPoint = CheckPoint50Percent/2;
+        
+            if(currentQuestion === CheckPoint25Percent){
+              props.inputChange('motivationInterval', 0);
+              props.inputChange('motivateGoodPerformance', false);
+              let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
+              props.inputChange('motivationItemNo', itemNo);
+              setModal1(true);
+              setTimeout(function(){ setModal1(false)}, 4000);       
+            }
+        
+            if(currentQuestion === CheckPoint50Percent && correctAnswers >= performanceCheckPoint){
+              props.inputChange('motivationInterval', 1);
+              props.inputChange('motivateGoodPerformance', true);
+              let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
+              props.inputChange('motivationItemNo', itemNo);
+              setModal1(true);
+              setTimeout(function(){ setModal1(false)}, 4000);       
+            }else if(currentQuestion === CheckPoint50Percent){
+              props.inputChange('motivationInterval', 1);
+              props.inputChange('motivateGoodPerformance', false);
+              let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
+              props.inputChange('motivationItemNo', itemNo);
+              setModal1(true);
+              setTimeout(function(){ setModal1(false)}, 4000);     
+            }
+           
+            if(currentQuestion === CheckPoint75Percent){
+              props.inputChange('motivationInterval', 2);
+              props.inputChange('motivateGoodPerformance', false);
+              let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
+              props.inputChange('motivationItemNo', itemNo);
+              setModal1(true);
+              setTimeout(function(){ setModal1(false)}, 4000);       
+            }
+            
         }
        
-        if(currentQuestion === CheckPoint75Percent){
-          props.inputChange('motivationInterval', 2);
-          props.inputChange('motivateGoodPerformance', false);
-          let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-          props.inputChange('motivationItemNo', itemNo);
-          setModal1(true);
-          setTimeout(function(){ setModal1(false)}, 4000);       
-        }
-        
         await handleCorrectAnswerCheck(answer);
         await handleSaveAnswer(answer);
         await prepareSubmittedAnswer(answer);
@@ -249,6 +254,8 @@ const QuestionBox = props => {
             { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous"><span className=""><img src={require('../../../assets/img/next.svg')} alt='logo' className=""/> Previous</span> </Link> : null}   { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip"><span className=""><img src={require('../../../assets/img/skip.svg')} alt='logo' className=""/> Skip</span> </Link>:null}                                                                                          
             </div>
         </div>
+        { examType ==='pastQuestions'? 
+      
         <Modal isOpen={modal1} toggle={toggle1}>
             <ModalBody>                    
                 <div className="container-fluid forgotPassword">
@@ -267,7 +274,7 @@ const QuestionBox = props => {
                 </div>     
             </ModalBody> 
         </Modal> 
-         
+        :''}
     
     </>
     );
@@ -290,5 +297,6 @@ const mapStateToProps = state => ({
     motivationItemNo:state.pastQuestion.motivationItemNo,
     motivationInterval: state.pastQuestion.motivationInterval,
     motivateGoodPerformance: state.pastQuestion.motivateGoodPerformance,
+    examType: state.pastQuestion.examType,
 })
 export default connect(mapStateToProps, {inputChange, saveUserAnswer, populateSubmittedAnswer})(QuestionBox);

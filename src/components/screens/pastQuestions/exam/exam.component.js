@@ -49,7 +49,8 @@ const Exam = props => {
         report7, 
         subjectTag,
         pastQuestionRedirect,
-        pastQuestionRedirectLocation,      
+        pastQuestionRedirectLocation,   
+        examType   
     }=props;     
     
     const questionList = () => {         
@@ -130,7 +131,9 @@ const Exam = props => {
            {pastQuestionRedirect ? <Redirect to={pastQuestionRedirectLocation} /> : null}          
            <div className="container-fluid Exam">
                 <div className="row">                            
-                   <div className="col-md-9 partOne">                      
+                   <div className="col-md-9 partOne">  
+                   { examType ==='pastQuestions'? 
+                      <>                    
                         <div className="row">                          
                             <div className="col-md-2 push33">
                                <span className="headingOne">Examination:</span>   
@@ -157,75 +160,57 @@ const Exam = props => {
                         </div>
                         <div className="row p4 mobileOnly">
                             <div className="col-md-12">
-                            <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
-                                <Timer
-                                    initialTime={questionTime}
-                                    lastUnit="m"
-                                    direction="backward"
-                                    checkpoints={[
-                                        {
-                                            time: 600000,
-                                            callback: () => Swal.fire('Time Left!', 'You have 10 mins left')
-                                        }, 
-                                        {
-                                            time: speedRange3,
-                                            callback: () =>  props.inputChange('speed', 'Good')
-                                        },
-                                        {
-                                            time: speedRange2,
-                                            callback: () =>  props.inputChange('speed', 'Medium')
-                                        },  
-                                        {
-                                            time: speedRange1,
-                                            callback: () =>  props.inputChange('speed', 'fair')
-                                        },                                                                            
-                                        {
-                                            time: 0,
-                                            callback: () => {
-                                                Swal.fire('Time Up!', 'Thanks for attempting the test').then((result) => {
-                                                    if(isAuthenticated){
-                                                        Swal.fire(
-                                                            'Submitted!',
-                                                            'Your test details are been recorded.',
-                                                            'success'
-                                                        )       
-                                                    }else{
-                                                        Swal.fire({
-                                                            title: 'Thanks!',
-                                                            text: 'Please create free account/login to see your test result.',
-                                                            icon: 'warning',
-                                                            showCancelButton: true,
-                                                            confirmButtonText: 'Login',
-                                                            cancelButtonText: 'Create Account'
-                                                        }).then((result) => {
-                                                            if (result.value) {
-                                                                props.inputChange('showLogin', true);
-                                                            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                                                props.inputChange('showSignup', true);
-                                                            }
-                                    
-                                                        }) 
-                                                        props.inputChange('location', '/');
-                                                        props.inputChange('redirectToReview', true);                    
-                                                    }
-                                                    props.inputChange('redirect', true); 
-                                                    props.inputChange('currentQuestion', 0);
-                                                    props.inputChange('speed', 'Slow');
+                                <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
+                                    <Timer
+                                        initialTime={questionTime}
+                                        lastUnit="m"
+                                        direction="backward"
+                                        checkpoints={[
+                                            {
+                                                time: 600000,
+                                                callback: () => Swal.fire('Time Left!', 'You have 10 mins left')
+                                            }, 
+                                            {
+                                                time: speedRange3,
+                                                callback: () =>  props.inputChange('speed', speedRange3/60000)
+                                            },
+                                            {
+                                                time: speedRange2,
+                                                callback: () =>  props.inputChange('speed', speedRange2/60000)
+                                            },  
+                                            {
+                                                time: speedRange1,
+                                                callback: () =>  props.inputChange('speed', speedRange1/60000)
+                                            },                                                                            
+                                            {
+                                                time: 0,
+                                                callback: () => {
+                                                    Swal.fire('Time Up!', 'Thanks for attempting the test').then(() => {
+                                                        if(isAuthenticated){
+                                                            Swal.fire(
+                                                                'Submitted!',
+                                                                'Your test details are been recorded.',
+                                                                'success'
+                                                            )       
+                                                        }                                                 
+                                                        props.inputChange('currentQuestion', 0);
+                                                        props.inputChange('speed', questionTime/60000);
 
-                                                }) 
-                                            } 
-                                        }                                         
-                                    ]}
-                                >
-                                    {() => (
-                                        <React.Fragment>
-                                            <Timer.Minutes /> mins <Timer.Seconds /> sec                                        
-                                        </React.Fragment>
-                                    )}
-                                </Timer>
-                             </span>                           
+                                                    }) 
+                                                } 
+                                            }                                         
+                                        ]}
+                                    >
+                                        {() => (
+                                            <React.Fragment>
+                                                <Timer.Minutes /> mins <Timer.Seconds /> sec                                        
+                                            </React.Fragment>
+                                        )}
+                                    </Timer>
+                                </span>                           
                             </div>
                         </div>
+                    </> :''}
                         <div className="row myProgress push4">
                             <div className="col-md-12">
                                 <Progress animated  color="success" value={progressBarStatus} />
@@ -234,6 +219,7 @@ const Exam = props => {
                         {questionList()}                        
                    </div>
                    <div className="col-md-3 timerSection desktopOnly">
+                   { examType ==='pastQuestions'?  
                       <div className="row push3">
                             <div className="col-md-12">
                                 <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
@@ -287,6 +273,7 @@ const Exam = props => {
                                 </span> 
                             </div>
                       </div>
+                      :''}
                       <div className="row checkUps center">
                            {questionTagsList()}                                                               
                       </div>
@@ -392,6 +379,7 @@ const mapStateToProps = state => ({
     report7: state.pastQuestion.report7,
     subjectTag: state.pastQuestion.subjectTag,
     pastQuestionRedirect:state.pastQuestion.pastQuestionRedirect,
-    pastQuestionRedirectLocation:state.pastQuestion.pastQuestionRedirectLocation,      
+    pastQuestionRedirectLocation:state.pastQuestion.pastQuestionRedirectLocation,  
+    examType: state.pastQuestion.examType,    
 })
 export default connect(mapStateToProps, {inputChange, flagQuestion})(Exam);

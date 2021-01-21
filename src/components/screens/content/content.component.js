@@ -14,9 +14,6 @@ import { Link } from "react-router-dom";
 
 const Content = (props) => {
   const { subject, role } = props;
-  console.log(subject);
-  console.log(role);
-
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -142,18 +139,7 @@ const Content = (props) => {
                 &nbsp; &nbsp; 13,000 Registered Students
               </p>
               {role && role === "5fc8cc978e28fa50986ecac9" && (
-                <Link
-                  // to={`/content/${props.match.params.courseId}/${
-                  //   props.match.params.subjectId
-                  // }/${
-                  //   subject &&
-                  //   subject.relatedLessons &&
-                  //   subject.relatedLessons[0]._id
-                  // }/${
-                  //   subject &&
-                  //   subject.relatedLessons &&
-                  //   subject.relatedLessons[0].videoUrls[0]._id
-                  // }/assign-content`}
+                <Link              
                   to="/assign-content"
                 >
                   <p className="teacher-assign-content-green">
