@@ -5,6 +5,8 @@ import courseReducer from "./courseReducer";
 import paymentReducer from "./paymentReducer";
 import subjectReducer from "./subjectReducer";
 import classReducer from "./classReducer";
+import pastQuestionsReducer from './pastQuestionsReducer';
+
 
 export default combineReducers({
   auth: authReducer,
@@ -13,4 +15,6 @@ export default combineReducers({
   payment: paymentReducer,
   class: classReducer,
   subject: subjectReducer,
+  pastQuestion:pastQuestionsReducer 
+
 });

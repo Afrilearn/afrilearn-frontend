@@ -27,7 +27,6 @@ import register from "../screens/signup/signup.component";
 import login from "../screens/login/login.component";
 import resetPassword from "../screens/resetPassword/resetPassword.component";
 import changePassword from "../screens/changePassword/changePassword.component";
-import instructions from "../screens/instructions/instructions.component";
 import profilePage from "../screens/profile/profile.component";
 import classroomStudent from "../screens/classroomStudent/classroomStudent.component";
 import classWork from "../screens/classWork/classWork.component";
@@ -36,9 +35,10 @@ import dashboard from "../screens/dashboard/dashboard.component";
 import selectPayment from "../screens/selectPayment/selectPayment.component";
 import cardPayment from "../screens/cardPayment/cardPayment.component";
 import bankDeposit from "../screens/bankDeposit/bankDeposit.component";
-import pastQuestionsInstruction from "../screens/pastQuestionsInstruction/pastQuestionsInstruction.component";
-import pastQuestionQuizPage from "../screens/pastQuestionQuizPage/pastQuestionQuizPage.component";
 import pastQuestions from "../screens/pastQuestions/pastQuestions.component";
+import pastQuestionsInstruction from "../screens/pastQuestions/instructions/instructions.component";
+import pastQuestionsRemark from "../screens/pastQuestions/review/review.component";
+import pastQuestionExamPage from "../screens/pastQuestions/exam/exam.component";
 import myStudents from "../screens/myStudents/myStudents.component";
 import classroomTeacherComponent from "../screens/classroomTeacher/classroomTeacher.component";
 import assignContent from "../screens/assignContent/assignContent.component";
@@ -62,29 +62,17 @@ const MyNav = (props) => {
     props.inputChange("isAuthenticated", false);
   };
 
-  const updateactiveEnrolledCourseId = (id, e) => {
-    props.inputChange("activeEnrolledCourseId", id);
-  };
+  const updateactiveEnrolledCourseId = (id, courseId, e) => {
+    props.inputChange('activeEnrolledCourseId', id);  
+    props.inputChange('activeCourseId', courseId);    	 
+  } 
 
   const classList = () => {
     if (user && user.enrolledCourses.length) {
       return user.enrolledCourses.map((item) => {
-        return (
-          <DropdownItem
-            tag={Link}
-            to="/dashboard"
-            onClick={updateactiveEnrolledCourseId.bind(null, item._id)}
-          >
-            <span>
-              <img
-                src={require("./../../assets/img/profile.png")}
-                alt="profile"
-                className="dropDownIcon"
-              />{" "}
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}
-            </span>
-          </DropdownItem>
-        );
+        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id)}>
+                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
+                </DropdownItem>  
       });
     }
   };
@@ -198,21 +186,22 @@ const MyNav = (props) => {
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
         <Route path="/contact" component={contact} />
-        <ProtectedRoute
-          path="/category/:subjectId/instruction"
+        <Route
+          path="/past-questions/instructions"
           exact
           component={pastQuestionsInstruction}
         />
-        <ProtectedRoute
-          path="/category/:subjectId/quiz"
+         <Route
+          path="/past-questions/remark"
           exact
-          component={pastQuestionQuizPage}
+          component={pastQuestionsRemark}
         />
         <ProtectedRoute
-          path="/category/:subjectId"
+          path="/past-questions/exam"
           exact
-          component={pastQuestions}
+          component={pastQuestionExamPage}
         />
+        <Route path="/past-questions/:categoryId" component={pastQuestions} />
         <ProtectedRoute
           path="/classes/:classId/:subjectId/quiz"
           exact
@@ -246,7 +235,6 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <ProtectedRoute path="/instructions" component={instructions} />
         <ProtectedRoute path="/select-pay" component={selectPayment} />
         <Route path="/pay-with-card" component={cardPayment} />
         <Route path="/pay-in-bank" component={bankDeposit} />
@@ -261,7 +249,7 @@ const MyNav = (props) => {
         <ProtectedRoute path="/my-students" component={myStudents} />
         <ProtectedRoute path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />
-        <Route path="/subject" component={subject} />
+        <Route path="/subject" component={subject} />              
       </Switch>
       <Footer />
     </Router>

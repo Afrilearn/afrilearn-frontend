@@ -1,10 +1,16 @@
 import React  from "react";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { inputChange } from './../../../redux/actions/courseActions';
+import PropTypes from 'prop-types';
 
 const Box = props => { 
+    const updatePastQuestionName = () => {
+        props.inputChange('selectedCategory', props.categoryName)
+    }
 	return (		
         <div className="col-md-3">
-            <Link to={`/category/${props.categoryId}`}>
+            <Link onClick={updatePastQuestionName} to={`/past-questions/${props.categoryId}`}>
                 <span className={props.other? 'pastQuestionsBox pastQuestionsBox1':'pastQuestionsBox'}>
                     <div className="row">
                         <div className="col-4">
@@ -21,5 +27,8 @@ const Box = props => {
 	);
 };
 
-
-export default Box;
+Box.propTypes = {
+    inputChange: PropTypes.func.isRequired,
+}; 
+ 
+export default connect(null, { inputChange })(Box);

@@ -1,50 +1,76 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./css/style.css";
-import pqimagetwo from "../../../assets/img/pqimagetwo.png";
-import pqimageseven from "../../../assets/img/pqimageseven.png";
-import pqimagesix from "../../../assets/img/pqimagesix.png";
-import pqimagefive from "../../../assets/img/pqimagefive.png";
-import pqimagefour from "../../../assets/img/pqimagefour.png";
-import pqimagethree from "../../../assets/img/pqimagethree.png";
-import PastQuestionsSubjectBadge from "../../includes/pastQuestionsSubjectBadge/pastQuestionsSubjectBadge.component";
+import { connect } from 'react-redux';
+import { loadSubjects, inputChange } from './../../../redux/actions/pastQuestionsActions';
+import Box from './../../includes/pastQuestions/subjectBox.component'
+import PropTypes from 'prop-types';
 
-const PastQuestions = () => {
+const PastQuestions = props => {
+  const {
+    selectedCategory,
+    subjectTag,
+    subjects    
+  } = props; 
+
+  const mounted = useRef(); 
+   
+  useEffect(()=>{
+     if (!mounted.current) {
+        // do componentDidMount logic
+        mounted.current = true;
+        window.scrollTo(0, 0); 
+        const { match: { params } } = props;            
+        props.loadSubjects(params.categoryId) 
+        props.inputChange('pastQuestionCategoryId', params.categoryId)                 
+     } else {
+        // do componentDidUpdate logic          
+        } 	       
+  }) 
+  
+  const subjectList = () => {         
+    if(subjects && subjects.length){
+        return subjects.map((item, index) => {            
+            return <Box 
+                    key={index}
+                    subjectId={item.id} 
+                    imageUrl={item.subject_image}
+                    title={item.subject}
+                    years={item.years}
+                />               
+        })
+    }else{
+       return <h5>0ops!, No item found</h5>
+    }
+
+}
+
   return ( 
-    <React.Fragment>
+    <>
       <div id="pastQuestionsSectionone">
-        <h1>Junior WAEC</h1>
+        <h1>{selectedCategory}</h1>
         <aside>
           <p>Past Question</p>
-          <h5>Select Subject</h5>
+          <h5>Select {subjectTag}</h5>
         </aside>
       </div>
-      <div id="pastQuestionsSectionTwo">
-        <div className="items">
-          <PastQuestionsSubjectBadge
-            image={pqimagetwo}
-            title="Arigultural Science"
-          />
-          <PastQuestionsSubjectBadge image={pqimagethree} title="Mathematics" />
-          <PastQuestionsSubjectBadge
-            image={pqimagefour}
-            title="English Language"
-          />
-          <PastQuestionsSubjectBadge
-            image={pqimagefive}
-            title="Computer Science"
-          />
-          <PastQuestionsSubjectBadge
-            image={pqimagesix}
-            title="Civic Education"
-          />
-          <PastQuestionsSubjectBadge
-            image={pqimageseven}
-            title="Civic Education"
-          />
+      <div id="pastQuestionsSectionTwo" className="MySubject container-fluid">
+        <div className="row sectionThree">
+        {subjectList()} 
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
-export default PastQuestions;
+PastQuestions.propTypes = {
+  loadSubjects: PropTypes.func.isRequired,
+  inputChange: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  selectedCategory: state.course.selectedCategory,
+  subjectTag: state.pastQuestion.subjectTag,
+  subjects: state.pastQuestion.subjects 
+});
+
+export default connect(mapStateToProps, { loadSubjects, inputChange })(PastQuestions);
