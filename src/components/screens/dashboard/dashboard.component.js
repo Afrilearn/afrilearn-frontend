@@ -13,6 +13,7 @@ import {
   populateDashboard,
   inputChange,
 } from "./../../../redux/actions/courseActions";
+import { sendClassRequest } from "./../../../redux/actions/classActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import "animate.css";
@@ -185,6 +186,7 @@ const Dashboard = (props) => {
     });
 
     if (ipAddress) {
+      props.sendClassRequest(ipAddress);
       Swal.fire(
         "Your request to join the class will be sent to the class teacher for approval"
       );
@@ -289,6 +291,7 @@ const Dashboard = (props) => {
 Dashboard.propTypes = {
   populateDashboard: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
+  sendClassRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -305,6 +308,8 @@ const mapStateToProps = (state) => ({
   noRatingText: state.course.noRatingText,
 });
 
-export default connect(mapStateToProps, { populateDashboard, inputChange })(
-  Dashboard
-);
+export default connect(mapStateToProps, {
+  populateDashboard,
+  inputChange,
+  sendClassRequest,
+})(Dashboard);

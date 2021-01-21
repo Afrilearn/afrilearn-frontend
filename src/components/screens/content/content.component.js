@@ -13,8 +13,9 @@ import LessonItem from "../../includes/lessonItem/lessonItem.component";
 import { Link } from "react-router-dom";
 
 const Content = (props) => {
-  const { subject } = props;
+  const { subject, role } = props;
   console.log(subject);
+  console.log(role);
 
   const mounted = useRef();
   useEffect(() => {
@@ -118,14 +119,16 @@ const Content = (props) => {
                 {subject.mainSubjectId && subject.mainSubjectId.introText}
               </p>
               <Link to="/select-pay">
-                <p className="red_text">Subscribe to Unlock Content</p>
+                {role && role !== "5fc8cc978e28fa50986ecac9" && (
+                  <p className="red_text">Subscribe to Unlock Content</p>
+                )}
               </Link>
             </div>
             <div className="col-md-1"></div>
             <div className="left col-md-4">
               <p>
                 <span className="left_key">Class:</span>
-                {/* &nbsp; &nbsp; {subject.courseId.name} */}
+                &nbsp; &nbsp; {subject.courseId && subject.courseId.name}
               </p>
               <p>
                 <span className="left_key">Lessons:</span>
@@ -138,6 +141,26 @@ const Content = (props) => {
                 <span className="left_key">Students:</span>
                 &nbsp; &nbsp; 13,000 Registered Students
               </p>
+              {role && role === "5fc8cc978e28fa50986ecac9" && (
+                <Link
+                  // to={`/content/${props.match.params.courseId}/${
+                  //   props.match.params.subjectId
+                  // }/${
+                  //   subject &&
+                  //   subject.relatedLessons &&
+                  //   subject.relatedLessons[0]._id
+                  // }/${
+                  //   subject &&
+                  //   subject.relatedLessons &&
+                  //   subject.relatedLessons[0].videoUrls[0]._id
+                  // }/assign-content`}
+                  to="/assign-content"
+                >
+                  <p className="teacher-assign-content-green">
+                    Assign study content to students
+                  </p>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -177,6 +200,7 @@ Content.propTypes = {
 const mapStateToProps = (state) => ({
   course: state.course.course,
   subject: state.subject.subject,
+  role: state.auth.user.role,
 });
 export default connect(mapStateToProps, {
   getCourse,

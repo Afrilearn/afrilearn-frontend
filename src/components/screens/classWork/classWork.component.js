@@ -14,18 +14,77 @@ import {
 } from "./../../../redux/actions/classActions";
 
 const ClassWork = (props) => {
-  console.log(props.clazz);
-  const classWork = props.clazz.teacherAssignedContents.find(
+  const { role, classMembers, clazz } = props;
+  const classWork = clazz.teacherAssignedContents.find(
     (work) => work._id === props.match.params.classworkId
   );
-  const sendComment = (e) => {
+
+  const studentSendComment = (e, student) => {
     e.preventDefault();
-    const targetComment = document.getElementById(classWork._id).value;
+    const targetComment = document.getElementById("commentForm").value;
     if (targetComment !== "") {
-      props.createCommentForContent(classWork._id, targetComment);
+      props.createCommentForContent(classWork._id, targetComment, student);
       document.getElementById("commentForm").reset();
     }
   };
+  const sendComment = (e, index, student) => {
+    e.preventDefault();
+    const targetComment = document.getElementById(index).value;
+    if (targetComment !== "") {
+      props.createCommentForContent(classWork._id, targetComment, student);
+      document.getElementById("commentForm" + index).reset();
+    }
+  };
+
+  const commentList = (studentId, index) => {
+    const myComments = classWork.comments.filter(
+      (comment) => comment.student === studentId
+    );
+    if (classWork && classWork.comments) {
+      return (
+        <div>
+          <div className="comments">
+            <small>
+              {myComments.length} conversation
+              {myComments.length > 0 ? "s" : ""}
+            </small>
+            {myComments.map((comment) => (
+              <div className="pic-text-heading">
+                <img src={man} alt="comment" />
+                <div>
+                  <p>
+                    {comment.sender && comment.sender.fullName} &nbsp;
+                    <span className="small-grey">
+                      {moment(comment.createdAt).startOf("hour").fromNow()}
+                    </span>
+                  </p>
+                  <p>{comment.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="send">
+            <img src={woman} alt="sender" />
+            <form
+              className="send-input"
+              id={`commentForm${index}`}
+              onSubmit={(e) => sendComment(e, index, studentId)}
+            >
+              <input id={index} placeholder="Private conversation" />
+              <img
+                src={sendicon}
+                alt="send"
+                onClick={(e) => sendComment(e, index, studentId)}
+              />
+            </form>
+          </div>
+        </div>
+      );
+    } else {
+      return <h6>No Subject list yet</h6>;
+    }
+  };
+
   return (
     <div>
       <div id="classroomWorkSectionOne"></div>
@@ -44,44 +103,85 @@ const ClassWork = (props) => {
               <p>Due {classWork && moment(classWork.dueDate).format("LL")}</p>
             </div>
           </div>
-          <div className="class-comment">
-            <h6>Add replies</h6>
-            <form
-              className="comment-input"
-              id="commentForm"
-              onSubmit={(e) => sendComment(e)}
-            >
-              <img className="user-image" src={woman} alt="user" />
-              <div>
-                <input id={classWork._id} placeholder="Add class comment" />
-                <img
-                  src={sendicon}
-                  alt="send"
-                  onClick={(e) => sendComment(e)}
-                />
-              </div>
-            </form>
-          </div>
-        </main>
-        <aside>
-          <div className="class-comment">
-            <h6>Private comments</h6>
-            {classWork.comments.map((comment) => (
-              <div className="pic-text-heading">
-                <img src={man} alt="comment" />
+          {role && role !== "5fc8cc978e28fa50986ecac9" && (
+            <div className="class-comment">
+              <h6>Add replies</h6>
+              <form
+                className="comment-input"
+                id="commentForm"
+                onSubmit={(e) => studentSendComment(e, props.userId)}
+              >
+                <img className="user-image" src={woman} alt="user" />
                 <div>
-                  <p>
-                    {/* {comment.student.fullName} &nbsp; */}
-                    Ayobami Usman
-                    <span className="small-grey">
-                      {moment(comment.createdAt).startOf("hour").fromNow()}
-                    </span>
-                  </p>
-                  <p>{comment.text}</p>
+                  <input id={classWork._id} placeholder="Add class comment" />
+                  <img
+                    src={sendicon}
+                    alt="send"
+                    onClick={(e) => studentSendComment(e, props.userId)}
+                  />
                 </div>
+              </form>
+            </div>
+          )}
+        </main>
+
+        <aside>
+          {role && role === "5fc8cc978e28fa50986ecac9" ? (
+            <div className="class-comment">
+              <h6>Send comment to students</h6>
+              <div class="accordion accordion-flush" id="accordionExample">
+                {classMembers.map((member, index) => (
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id={`heading${index + 1}`}>
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={`#collapse${index + 1}`}
+                        aria-expanded="false"
+                        aria-controls={`collapse${index + 1}`}
+                      >
+                        <div className="pic-text-heading">
+                          <img src={man} alt="comment" />
+                          <div>
+                            <p>{member.userId.fullName}</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div
+                      id={`collapse${index + 1}`}
+                      class="accordion-collapse collapse show"
+                      aria-labelledby={`heading${index + 1}`}
+                      data-bs-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        {commentList(member.userId._id, index)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="class-comment">
+              <h6>Private comments</h6>
+              {classWork.comments.map((comment) => (
+                <div className="pic-text-heading">
+                  <img src={man} alt="comment" />
+                  <div>
+                    <p>
+                      {comment.sender.fullName}
+                      <span className="small-grey">
+                        {moment(comment.createdAt).startOf("hour").fromNow()}
+                      </span>
+                    </p>
+                    <p>{comment.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </aside>
       </div>
     </div>
@@ -94,8 +194,24 @@ ClassWork.propTypes = {
 
 const mapStateToProps = (state) => ({
   clazz: state.class.class,
+  role: state.auth.user.role,
+  userId: state.auth.user._id,
+  classMembers: state.class.classMembers,
 });
 
 export default connect(mapStateToProps, { getClass, createCommentForContent })(
   ClassWork
 );
+
+/*<div className="pic-text-heading">
+                <img src={man} alt="comment" />
+                <div>
+                  <p>
+                    {comment.student.fullName} &nbsp;
+                    <span className="small-grey">
+                      {moment(comment.createdAt).startOf("hour").fromNow()}
+                    </span>
+                  </p>
+                  <p>{comment.text}</p>
+                </div>
+              </div> */

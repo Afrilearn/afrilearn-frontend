@@ -21,7 +21,7 @@ import moment from "moment";
 import { getCourse } from "./../../../redux/actions/courseActions";
 
 const LessonPage = (props) => {
-  const { course } = props;
+  const { course, role } = props;
 
   const subject =
     course.relatedSubjects &&
@@ -160,15 +160,18 @@ const LessonPage = (props) => {
                   toggle={toggle}
                 >
                   <PopoverBody>
-                    <Link
-                      to={`/content/${lesson && lesson.courseId}/${
-                        lesson && lesson.subjectId
-                      }/${lesson && lesson._id}/${
-                        props.match.params.videoId
-                      }/assign-content`}
-                    >
-                      <p>Assign Content</p>
-                    </Link>
+                    {role && role === "5fc8cc978e28fa50986ecac9" && (
+                      <Link
+                        // to={`/content/${lesson && lesson.courseId}/${
+                        //   lesson && lesson.subjectId
+                        // }/${lesson && lesson._id}/${
+                        //   props.match.params.videoId
+                        // }/assign-content`}
+                        to="/assign-content"
+                      >
+                        <p>Assign Content</p>
+                      </Link>
+                    )}
                     <p>Community</p>
                     <p>Bookmark</p>
                     <p>Share</p>
@@ -239,5 +242,6 @@ LessonPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   course: state.course.course,
+  role: state.auth.user.role,
 });
 export default connect(mapStateToProps, { getCourse })(LessonPage);
