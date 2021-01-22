@@ -23,6 +23,14 @@ export default {
     return header;
   },
 
+  
+  headers2() { 
+    let header = {};   
+    header["Content-type"] = "application/json";
+    header["authorization"] = "F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv";        
+    return header;
+  },
+
   checkUserExistJoinClass(email, classId) {
     return axios({
       method: "post",
