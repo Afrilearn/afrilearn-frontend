@@ -1,10 +1,11 @@
 import axios from "axios";
-const URL = "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/"; 
-const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/"; 
+const URL =
+  "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/";
+const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
   url: URL,
-  url2:PastQuestionURL,
+  url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
 
@@ -12,9 +13,9 @@ export default {
     if (fileupload) {
       header["Content-type"] = "multipart/form-data";
     } else {
-      header['Content-type'] = 'application/json';
-      header['Accept'] = '*/*';
-      header['Access-Control-Allow-Origin'] = '*';      
+      header["Content-type"] = "application/json";
+      header["Accept"] = "*/*";
+      header["Access-Control-Allow-Origin"] = "*";
     }
     if (token && token !== undefined) {
       header["token"] = token;
@@ -113,6 +114,13 @@ export default {
       url: `${this.url}courses/enroll`,
       headers: this.headers(),
       data,
+    });
+  },
+
+  getSearchResults(searchQuery) {
+    return axios({
+      method: "get",
+      url: `${this.url}lessons?searchQuery=${searchQuery}`,
     });
   },
 
@@ -222,37 +230,37 @@ export default {
       url: `${this.url}lessons/${courseId}/${subjectId}/subject-lessons`,
     });
   },
-  
+
   loadSubjects(examId) {
     return axios({
       method: "get",
-      url: `${this.url2}getMySubjects/${examId}`,     
-      headers: this.headers2()      
+      url: `${this.url2}getMySubjects/${examId}`,
+      headers: this.headers2(),
     });
-  }, 
+  },
 
   loadSchools() {
     return axios({
       method: "get",
-      url: `${this.url2}getMySchools`,    
-      headers: this.headers2()      
+      url: `${this.url2}getMySchools`,
+      headers: this.headers2(),
     });
   },
 
   loadQuestions(id) {
     return axios({
       method: "get",
-      url: `${this.url2}getQuestions/${id}`,    
-      headers: this.headers2()      
+      url: `${this.url2}getQuestions/${id}`,
+      headers: this.headers2(),
     });
   },
 
   flagQuestion(data) {
     return axios({
       method: "post",
-      url: `${this.url2}reportQuestion`,    
+      url: `${this.url2}reportQuestion`,
       headers: this.headers2(),
-      data      
+      data,
     });
   },
 
@@ -270,16 +278,16 @@ export default {
       method: "post",
       url: `${this.url}past-questions/add-progress`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 
-  submitLessonQuizResult(lessonId,data) {
+  submitLessonQuizResult(lessonId, data) {
     return axios({
       method: "post",
       url: `${this.url}/lessons/${lessonId}/save-test-results`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 };

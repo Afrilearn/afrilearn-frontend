@@ -1,0 +1,47 @@
+#searchPage {
+  min-height: 100vh;
+  background-color: black;
+  color: white;
+}
+#searchPage .negative-margin {
+  height: 180px;
+  margin-top: -180px;
+  background-color: black;
+}
+#searchPage .mt-10 {
+  margin-top: 10px;
+}
+#searchPage .m-0 {
+  /* margin-top: 10px; */
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+#searchPage .bg-black {
+  background-color: black;
+}
+#searchPage .card.no-border {
+  /* background-color: rgba(0, 0, 0,.9); */
+  border: none !important;
+}
+#searchPage .result {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+@media screen and (max-width: 996px) {
+  #searchPage .hide-later {
+    display: none;
+  }
+  @media screen and (max-width: 900px) {
+    #searchPage .negative-margin {
+      height: 180px;
+      margin-top: -180px;
+      background-color: black;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  #searchPage .negative-margin {
+    height: 180px;
+    margin-top: -110px;
+    background-color: black;
+  }
+}

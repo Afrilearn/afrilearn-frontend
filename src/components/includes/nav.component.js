@@ -13,7 +13,13 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import homepage from "../screens/homepage/homePage.component";
 import about from "../screens/about/about.component";
 import partnership from "../screens/partnership/partnership.component";
@@ -49,9 +55,14 @@ import ProtectedRoute from "./protectedRoute.component";
 import PropTypes from "prop-types";
 import subject from "../screens/subject/subject.component";
 import joinClassComponent from "../screens/joinClass/joinClass.component";
+import SearchPage from "../screens/searchPage/searchPage.component";
+import {
+  getSearchResults,
+  searchInputChange,
+} from "./../../redux/actions/searchActions";
 
 const MyNav = (props) => {
-  const { user } = props;
+  const { user, searchRedirect, searchLocation } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { isAuthenticated } = props;
@@ -64,22 +75,39 @@ const MyNav = (props) => {
   };
 
   const updateactiveEnrolledCourseId = (id, courseId, e) => {
-    props.inputChange('activeEnrolledCourseId', id);  
-    props.inputChange('activeCourseId', courseId);    	 
-  } 
+    props.inputChange("activeEnrolledCourseId", id);
+    props.inputChange("activeCourseId", courseId);
+  };
 
   const classList = () => {
     if (user && user.enrolledCourses.length) {
       return user.enrolledCourses.map((item) => {
-        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id)}>
-                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
-                </DropdownItem>  
+        return (
+          <DropdownItem
+            tag={Link}
+            to="/dashboard"
+            onClick={updateactiveEnrolledCourseId.bind(
+              null,
+              item._id,
+              item.courseId._id
+            )}
+          >
+            <span>
+              <img
+                src={require("./../../assets/img/profile.png")}
+                alt="profile"
+                className="dropDownIcon"
+              />{" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}
+            </span>
+          </DropdownItem>
+        );
       });
     }
   };
-
   return (
     <Router>
+      {searchRedirect ? <Redirect to={searchLocation} /> : null}
       <Navbar color="light" light expand="md">
         <NavbarBrand tag={Link} to="/">
           <img
@@ -114,13 +142,35 @@ const MyNav = (props) => {
             )}
             <NavItem>
               <NavLink tag={Link} className="relative searchArea">
-                {/* <img className="searchIcon" src={require('../../assets/img/search.png')} alt="Afrilearn Search button"/> */}
-                <input type="text" placeholder="Search" className="searchBox" />
-                <img
-                  className="searchIcon"
-                  src={require("../../assets/img/search.png")}
-                  alt="Afrilearn Search button"
-                />
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const searchQuery = document.getElementById("searchBox")
+                      .value;
+                    props.searchInputChange("searchText", searchQuery);
+                    props.getSearchResults(searchQuery);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="searchBox"
+                    id="searchBox"
+                    onFocus={(e) => {
+                      e.preventDefault();
+                      props.inputChange("searchRedirect", true);
+                    }}
+                    onBlur={(e) => {
+                      e.preventDefault();
+                      props.inputChange("searchRedirect", false);
+                    }}
+                  />
+                  <img
+                    className="searchIcon"
+                    src={require("../../assets/img/search.png")}
+                    alt="Afrilearn Search button"
+                  />
+                </form>
               </NavLink>
             </NavItem>
             <NavItem>
@@ -192,12 +242,12 @@ const MyNav = (props) => {
           exact
           component={pastQuestionsInstruction}
         />
-         <Route
+        <Route
           path="/lesson/quiz/instructions"
           exact
           component={pastQuestionsInstruction}
         />
-         <Route
+        <Route
           path="/past-questions/remark"
           exact
           component={pastQuestionsRemark}
@@ -239,6 +289,7 @@ const MyNav = (props) => {
         <ProtectedRoute path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
         <Route path="/join-class" component={joinClassComponent} />
+        <Route path="/search" component={SearchPage} />
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
@@ -256,7 +307,7 @@ const MyNav = (props) => {
         <ProtectedRoute path="/my-students" component={myStudents} />
         <ProtectedRoute path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />
-        <Route path="/subject" component={subject} />              
+        <Route path="/subject" component={subject} />
       </Switch>
       <Footer />
     </Router>
@@ -265,9 +316,18 @@ const MyNav = (props) => {
 
 MyNav.propTypes = {
   inputChange: PropTypes.func.isRequired,
+  getSearchResults: PropTypes.func.isRequired,
+  searchInputChange: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  searchLocation: state.auth.searchLocation,
+  searchRedirect: state.auth.searchRedirect,
   user: state.auth.user,
+  searchResults: state.search.searchResults,
 });
-export default connect(mapStateToProps, { inputChange })(MyNav);
+export default connect(mapStateToProps, {
+  inputChange,
+  getSearchResults,
+  searchInputChange,
+})(MyNav);
