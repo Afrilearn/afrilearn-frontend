@@ -74,34 +74,18 @@ const MyNav = (props) => {
     props.inputChange("isAuthenticated", false);
   };
 
-  const updateactiveEnrolledCourseId = (id, courseId, e) => {
-    props.inputChange("activeEnrolledCourseId", id);
-    props.inputChange("activeCourseId", courseId);
-  };
+  const updateactiveEnrolledCourseId = (id, courseId, courseName, e) => {
+    props.inputChange('activeEnrolledCourseId', id);  
+    props.inputChange('activeCourseId', courseId); 
+    props.inputChange('activeCourseName', courseName);        	 
+  } 
 
   const classList = () => {
     if (user && user.enrolledCourses.length) {
       return user.enrolledCourses.map((item) => {
-        return (
-          <DropdownItem
-            tag={Link}
-            to="/dashboard"
-            onClick={updateactiveEnrolledCourseId.bind(
-              null,
-              item._id,
-              item.courseId._id
-            )}
-          >
-            <span>
-              <img
-                src={require("./../../assets/img/profile.png")}
-                alt="profile"
-                className="dropDownIcon"
-              />{" "}
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}
-            </span>
-          </DropdownItem>
-        );
+        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id, item.courseId.name)}>
+                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
+                </DropdownItem>  
       });
     }
   };
@@ -305,7 +289,7 @@ const MyNav = (props) => {
           }
         />
         <ProtectedRoute path="/my-students" component={myStudents} />
-        <ProtectedRoute path="/performance" component={performance} />
+        <Route path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />
         <Route path="/subject" component={subject} />
       </Switch>

@@ -2,7 +2,8 @@ import {
     COURSE_INPUT_CHANGE,
     GET_ALL_COURSES_SUCCESS,
     GET_SINGLE_COURSE_SUCCESS,
-    POPULATE_DASHBOARD_SUCCESS  
+    POPULATE_DASHBOARD_SUCCESS,
+    GET_PERFORMANCE_SUCCESS  
   } from '../actions/types';
   
   const initialState = {
@@ -19,7 +20,10 @@ import {
     averageText:'',
     belowAverageText:'',
     noRatingText:'',
-    selectedCategory:'Unknown Category',    
+    selectedCategory:'Unknown Category', 
+    performance:[],
+    barChart:[],
+    barChartTitles:[]   
   };
   
   const courseReducer = (state = initialState, action) => {
@@ -59,6 +63,13 @@ import {
                 dashboardData:action.payload.dashboard,
             };
 
+        case GET_PERFORMANCE_SUCCESS:
+            return {
+                ...state,
+                performance:action.payload.data,
+                barChart:action.payload.barChart,
+                barChartTitles:action.payload.barChartTitles              
+            };
       default:
         return state;
     }

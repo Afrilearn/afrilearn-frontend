@@ -9,7 +9,9 @@ import {
   GET_SINGLE_COURSE_SUCCESS,
   GET_SINGLE_COURSE_FAILURE,
   POPULATE_DASHBOARD_SUCCESS,
-  POPULATE_DASHBOARD_FAILURE 
+  POPULATE_DASHBOARD_FAILURE,
+  GET_PERFORMANCE_SUCCESS,
+  GET_PERFORMANCE_FAILURE 
 } from './types';
  
 export const inputChange = (name, value) => async (dispatch) => {
@@ -150,6 +152,56 @@ export const populateDashboard = (data) => async (dispatch) => {
     );
     dispatch({
       type: POPULATE_DASHBOARD_FAILURE,
+    });
+  }
+};
+
+export const getPerformance = (data) => async (dispatch) => {
+  try {
+    document.body.classList.add('loading-indicator');   
+    const result = await API.getPerformance(data);  
+    let barChart = [];
+    let barChartTitles = [];
+    // let overallProgress = 0;
+    // let overallPerformance = 0;
+
+    if(result.data.data.subjectsList.length){
+        barChart = result.data.data.subjectsList.map((item)=>{
+        return {
+          key:item.subject,
+          value:item.progress
+        }
+      })
+    }
+
+    if(result.data.data.subjectsList.length){
+      barChartTitles = result.data.data.subjectsList.map((item)=>{
+      return item.subject
+      })
+    }
+
+    dispatch({
+      type: GET_PERFORMANCE_SUCCESS,
+      payload: {
+        data:result.data.data,
+        barChart,
+        barChartTitles
+      }
+  });    
+    document.body.classList.remove('loading-indicator');
+  } catch (err) {
+    document.body.classList.remove('loading-indicator');
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        'GET_PERFORMANCE_FAILURE'
+      )
+    );
+    dispatch({
+      type: GET_PERFORMANCE_FAILURE,
     });
   }
 };

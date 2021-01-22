@@ -7,19 +7,19 @@ const Box = props => {
         <>
         <div className="row push3">
             <div className="col-md-12">
-                <span className={`subjectbadge ${props.performance>70?'excellent' : props.performance<40? 'average':'belowAverage'}`}>{props.subject}</span>
+                <span className={`subjectbadge ${props.performance === null? 'noRating':props.performance>70?'excellent' : props.performance<40? 'average':'belowAverage'}`}>{props.subject}</span>
             </div>
         </div>
         <div className="row subjectPerformance bottomBorder">
             <div className="col-md-4 relative">
                 <CircularProgressbar 
-                    value={props.performance}
-                    text={props.performance+'%'}
+                    value={props.performance === null? 0:props.performance}
+                    text={props.performance === null? '':props.performance+'%'}
                     strokeWidth={10}
                     styles={{
                         path: {
                         // Path color
-                        stroke: `${props.performance>70?'rgba(38, 170, 118, 0.6)' : props.performance<40? 'rgba(255, 91, 91, 0.41)':'rgba(253, 173, 81, 0.5)'}`,
+                        stroke: `${props.performance === null? '#908989':props.performance>70?'rgba(38, 170, 118, 0.6)' : props.performance<40? 'rgba(255, 91, 91, 0.41)':'rgba(253, 173, 81, 0.5)'}`,
                         // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                         strokeLinecap: 'butt'     
                         },   
@@ -32,7 +32,7 @@ const Box = props => {
                         }   
                     }}
                 />
-                <p className="title">{props.performance>70?'EXCELLENT' : props.performance<40? 'BELOW AVERAGE':'AVERAGE'} <br/>PERFORMANCE</p>
+                <p className="title">{props.performance === null? 'No rated':props.performance>70?'EXCELLENT' : props.performance<40? 'BELOW AVERAGE':'AVERAGE'} <br/>PERFORMANCE</p>
             </div>
             <div className="col-md-4">
                 <div className="row push4">
