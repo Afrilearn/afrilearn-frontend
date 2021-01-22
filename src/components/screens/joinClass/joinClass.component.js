@@ -105,9 +105,7 @@ const Signup = (props) => {
       props.joinClassApproved(parsed.classId, email, fullName, password);
     }
   };
-  console.log(props);
   const parsed = queryString.parse(props.location.search);
-  console.log(parsed);
 
   return (
     <span id="signup">
