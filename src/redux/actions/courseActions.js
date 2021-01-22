@@ -162,11 +162,16 @@ export const getPerformance = (data) => async (dispatch) => {
     const result = await API.getPerformance(data);  
     let barChart = [];
     let barChartTitles = [];
-    // let overallProgress = 0;
-    // let overallPerformance = 0;
+    let overallProgress = 0;
+    let overallPerformance = 0;
 
     if(result.data.data.subjectsList.length){
         barChart = result.data.data.subjectsList.map((item)=>{
+          overallProgress+=overallProgress+item.progress;
+          if(typeof(item.performance) == 'number'){
+            overallPerformance+=overallPerformance+item.performance;
+          }
+          
         return {
           key:item.subject,
           value:item.progress
@@ -185,7 +190,9 @@ export const getPerformance = (data) => async (dispatch) => {
       payload: {
         data:result.data.data,
         barChart,
-        barChartTitles
+        barChartTitles,
+        overallPerformance,
+        overallProgress
       }
   });    
     document.body.classList.remove('loading-indicator');

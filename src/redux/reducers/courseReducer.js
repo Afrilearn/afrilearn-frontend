@@ -23,7 +23,9 @@ import {
     selectedCategory:'Unknown Category', 
     performance:[],
     barChart:[],
-    barChartTitles:[]   
+    barChartTitles:[],
+    overallPerformance:0,
+    overallProgress:0   
   };
   
   const courseReducer = (state = initialState, action) => {
@@ -68,7 +70,9 @@ import {
                 ...state,
                 performance:action.payload.data,
                 barChart:action.payload.barChart,
-                barChartTitles:action.payload.barChartTitles              
+                barChartTitles:action.payload.barChartTitles,
+                overallPerformance: action.payload.overallPerformance,
+                overallProgress: action.payload.overallProgress              
             };
       default:
         return state;

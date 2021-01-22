@@ -3,6 +3,22 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Box = props => { 
+
+    const subjectList = () => {
+        if (props.subjects && props.subjects.length) {
+          let subject = props.subjects;
+          return subject.map((item) => {
+            return (
+                <div className="col-md-6">
+                    <p>{item.name}: {item.score}%</p>
+                </div>
+            );
+          });
+        } else {
+          return <h6>Performance loading...</h6>;
+        }
+    };
+
 	return (		
         <>
         <div className="row push3">
@@ -57,28 +73,7 @@ const Box = props => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
-                        <p>Mathematics: 70%</p>
-                    </div>
-                    <div className="col-md-6">
-                        <p>C.R.K: 55%</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <p>Basic Tech: 50%</p>
-                    </div>
-                    <div className="col-md-6">
-                        <p>Basic Science: 63%</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <p>English Language: 72%</p>
-                    </div>
-                    <div className="col-md-6">
-                        <p>Home Economics: 70%</p>
-                    </div>
+                   {subjectList()} 
                 </div>
             </div>
         </div>

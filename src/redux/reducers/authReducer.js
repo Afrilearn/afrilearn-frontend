@@ -95,7 +95,7 @@ const authReducer = (state = initialState, action) => {
         activeEnrolledCourseId: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',  
         activeCourseId: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId._id:'', 
         activeCourseName: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId.name:'', 
-        activeCoursePaidStatus: action.payload.user.enrolledCourses.length &&  new Date()>action.payload.user.enrolledCourses[0].startDate? false:true, 
+        activeCoursePaidStatus: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].paymentIsActive:'', 
         redirect:true,
         email: action.payload.user.email,
         fullName: action.payload.user.fullName,

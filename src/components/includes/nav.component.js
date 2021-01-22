@@ -39,8 +39,6 @@ import classWork from "../screens/classWork/classWork.component";
 import quizPage from "../screens/quizPage/quizPage.component";
 import dashboard from "../screens/dashboard/dashboard.component";
 import selectPayment from "../screens/selectPayment/selectPayment.component";
-import cardPayment from "../screens/cardPayment/cardPayment.component";
-import bankDeposit from "../screens/bankDeposit/bankDeposit.component";
 import pastQuestions from "../screens/pastQuestions/pastQuestions.component";
 import pastQuestionsInstruction from "../screens/pastQuestions/instructions/instructions.component";
 import pastQuestionsRemark from "../screens/pastQuestions/review/review.component";
@@ -74,16 +72,17 @@ const MyNav = (props) => {
     props.inputChange("isAuthenticated", false);
   };
 
-  const updateactiveEnrolledCourseId = (id, courseId, courseName, e) => {
+  const updateactiveEnrolledCourseId = (id, courseId, courseName, paymentStatus, e) => {
     props.inputChange('activeEnrolledCourseId', id);  
     props.inputChange('activeCourseId', courseId); 
-    props.inputChange('activeCourseName', courseName);        	 
+    props.inputChange('activeCourseName', courseName); 
+    props.inputChange('paymentIsActive', paymentStatus);
   } 
 
   const classList = () => {
     if (user && user.enrolledCourses.length) {
       return user.enrolledCourses.map((item) => {
-        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id, item.courseId.name)}>
+        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id, item.courseId.name, item.paymentIsActive)}>
                   <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
                 </DropdownItem>  
       });
@@ -277,9 +276,7 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <ProtectedRoute path="/select-pay" component={selectPayment} />
-        <Route path="/pay-with-card" component={cardPayment} />
-        <Route path="/pay-in-bank" component={bankDeposit} />
+        <ProtectedRoute path="/select-pay" component={selectPayment} />      
         <ProtectedRoute
           path="/dashboard"
           component={

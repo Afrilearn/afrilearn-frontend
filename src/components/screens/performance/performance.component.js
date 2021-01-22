@@ -21,7 +21,9 @@ const Performance = props => {
       address,
       barChart,
       barChartTitles,
-      performance
+      performance,
+      overallPerformance,
+      overallProgress
    } = props;
 
    const mounted = useRef(); 
@@ -46,7 +48,7 @@ const Performance = props => {
         let subjects = performance.subjectsList;
         return subjects.map((item) => {
           return (
-            <SubjectBox subject={item.subject} performance={item.performance} correctAnswers={`${item.totalQuestionsCorrect}/${item.totalQuestions}`} textAttempted={'19/50'} time={item.averageTimePerTest ===null?'No Rating':item.averageTimePerTest}/>     
+            <SubjectBox subject={item.subject} performance={item.performance} correctAnswers={`${item.totalQuestionsCorrect}/${item.totalQuestions}`} textAttempted={`${item.numberOfTests}/${item.totalTests}`} time={item.averageTimePerTest ===null?'No Rating':item.averageTimePerTest}/>     
           );
         });
       } else {
@@ -59,7 +61,7 @@ const Performance = props => {
         let exam = performance.examsList;
         return exam.map((item) => {
           return (
-            <PastQuestionBox subject={item.name} performance={item.performance} subjectAttempted={`${item.subjectsAttempted}/${item.totalSubjectsCount}`} time={item.averageTimePerSubject ===null?'No Rating':item.averageTimePerSubject}/>
+            <PastQuestionBox subject={item.name} performance={item.performance} subjectAttempted={`${item.subjectsAttempted}/${item.totalSubjectsCount}`} time={item.averageTimePerSubject ===null?'No Rating':item.averageTimePerSubject} subjects={item.perSubjectResults}/>
           );
         });
       } else {
@@ -136,9 +138,9 @@ const Performance = props => {
                         <div className="col-md-7">
                            <PieChart
                               data={[
-                                 { title: 'One', value: 20, color: '#50E55A'},
+                                 { title: 'One', value: overallProgress, color: '#50E55A'},
                                  // { title: 'Two', value: 15, color: '#FDAD51' },
-                                 { title: 'Three', value: 5, color: '#FF5B5B' }                              
+                                 { title: 'Three', value: overallPerformance, color: '#FF5B5B' }                              
                               ]}
                               lineWidth={40}
                            />
@@ -146,10 +148,10 @@ const Performance = props => {
                         <div className="col-md-5">
                            <div className="row push2">
                               <div className="col-md-12 push1">
-                                 <span className="legend commitment"></span>&nbsp;&nbsp; Progress: 30%
+                                 <span className="legend commitment"></span>&nbsp;&nbsp; Progress: {overallProgress}%
                               </div>
                               <div className="col-md-12 push1">
-                                 <span className="legend speed"></span>&nbsp;&nbsp; Performance: 20%
+                                 <span className="legend speed"></span>&nbsp;&nbsp; Performance: {overallPerformance}%
                               </div>
                               {/* <div className="col-md-12 push1">
                                  <span className="legend comprehension"></span>&nbsp;&nbsp; Comprehension: 50%
@@ -194,6 +196,8 @@ const mapStateToProps = (state) => ({
    address: state.auth.address,
    barChart: state.course.barChart,
    barChartTitles: state.course.barChartTitles,
-   performance: state.course.performance
+   performance: state.course.performance,
+   overallPerformance:state.course.overallPerformance,
+   overallProgress:state.course.overallProgress
 });
 export default connect(mapStateToProps, {inputChange, getPerformance})(Performance);
