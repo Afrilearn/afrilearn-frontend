@@ -290,4 +290,12 @@ export default {
       data,
     });
   },
+
+  getPerformance(courseId) {
+    return axios({
+      method: "get",
+      url: `${this.url}/courses/${courseId}/progress-and-performance`,
+      headers: this.headers()     
+    });
+  },
 };

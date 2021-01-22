@@ -1,4 +1,4 @@
-import { faAngleDown, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faPlay, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 
 const LessonItem = (props) => {
-  const { lesson, seeMore } = props;
+  const { lesson, seeMore, activeCoursePaidStatus } = props;
 
   const updateQuizType = () => {  
     props.inputChange('examType', 'quiz');
@@ -26,7 +26,7 @@ const LessonItem = (props) => {
         return (
           <div class="col-md-3" key={index}>
             <Link
-              to={`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`}
+              to={activeCoursePaidStatus?`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`:'/select-pay'}          
             >
               <div className="term_item_left_bottom_item ">
                 <FontAwesomeIcon icon={faPlay} />
@@ -47,7 +47,7 @@ const LessonItem = (props) => {
         </div>
       </div>
       <div className="term_item_left col-md-9">
-        <h5 className="term_item_left_top">{lesson.title}</h5>
+        <h5 className="term_item_left_top">{lesson.title} {!activeCoursePaidStatus? <FontAwesomeIcon icon={faLock} />:''}</h5>
         <div className="term_item_left_bottom row">
           {lessonVideos()}
           <div class="col-md-3">
@@ -69,4 +69,8 @@ LessonItem.propTypes = {
   loadQuizQuestions: PropTypes.func.isRequired,
 }; 
 
-export default connect(null, { inputChange, loadQuizQuestions })(LessonItem);
+const mapStateToProps = (state) => ({ 
+  activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
+});
+
+export default connect(mapStateToProps, { inputChange, loadQuizQuestions })(LessonItem);

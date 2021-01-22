@@ -5,27 +5,69 @@ import './css/style.css';
 import Chart from "r-chart";
 import { connect } from 'react-redux';
 import { inputChange } from './../../../redux/actions/authActions';
+import { getPerformance } from './../../../redux/actions/courseActions';
 import PropTypes from 'prop-types';
 import SubjectBox from './../../includes/performance/subjectBox.component';
 import PastQuestionBox from './../../includes/performance/pastQuestions.component';
 
 const Performance = props => {  
+
+   const {
+      chartSection,
+      activeCourseId,
+      fullName,
+      email,
+      activeCourseName,
+      address,
+      barChart,
+      barChartTitles,
+      performance,
+      overallPerformance,
+      overallProgress
+   } = props;
+
    const mounted = useRef(); 
    useEffect(()=>{
       if (!mounted.current) {
          // do componentDidMount logic
          mounted.current = true;
-         window.scrollTo(0, 0);            
+         window.scrollTo(0, 0);    
+         props.getPerformance(activeCourseId? activeCourseId: '5fff5bab3fd2d54b08047c82')
       } else {
          // do componentDidUpdate logic          
          } 	       
    }) 
+
    const handleNavigation = (section, e) => {
       e.preventDefault();
       props.inputChange('chartSection', section);
-   };  
-   
-   const {chartSection} = props;
+   };
+
+   const subjectList = () => {
+      if (performance.subjectsList && performance.subjectsList.length) {
+        let subjects = performance.subjectsList;
+        return subjects.map((item) => {
+          return (
+            <SubjectBox subject={item.subject} performance={item.performance} correctAnswers={`${item.totalQuestionsCorrect}/${item.totalQuestions}`} textAttempted={`${item.numberOfTests}/${item.totalTests}`} time={item.averageTimePerTest ===null?'No Rating':item.averageTimePerTest}/>     
+          );
+        });
+      } else {
+        return <h6>Performance loading...</h6>;
+      }
+   };
+
+   const pastQuestionsList = () => {
+      if (performance.examsList && performance.examsList.length) {
+        let exam = performance.examsList;
+        return exam.map((item) => {
+          return (
+            <PastQuestionBox subject={item.name} performance={item.performance} subjectAttempted={`${item.subjectsAttempted}/${item.totalSubjectsCount}`} time={item.averageTimePerSubject ===null?'No Rating':item.averageTimePerSubject} subjects={item.perSubjectResults}/>
+          );
+        });
+      } else {
+        return <h6>Performance loading...</h6>;
+      }
+   };
    
 	return (        
 		<span id="performance">   
@@ -44,10 +86,10 @@ const Performance = props => {
                   <span className="box">
                      <div className="row">
                         <div className="col-md-12">
-                           <h3>Alaka Feyikemi</h3>
-                           <p>feyikemi199@gmail.com</p>
-                           <span className="myBadge">JSS1</span>
-                           <span className="location"><img src={require('../../../assets/img/location.png')} alt="location"/>&nbsp;&nbsp; Lagos State, Nigeria </span>
+                           <h3>{fullName}</h3>
+                           <p>{email}</p>
+                           <span className="myBadge">{activeCourseName}</span>
+                           <span className="location"><img src={require('../../../assets/img/location.png')} alt="location"/>&nbsp;&nbsp; {address} </span>
                            <small className="underline invite"><Link>Invite Your Friend</Link></small>
                         </div>
                      </div>
@@ -61,35 +103,21 @@ const Performance = props => {
                      </div>
                      <div className="row">
                         <div className="col-md-12">
-                           {/* <p className="barChart">&nbsp;&nbsp;&nbsp;90%</p><span>am here</span>
-                           <p className="barChart">&nbsp;&nbsp;&nbsp;90%</p> */}
-                           <Chart
-                              data={[
-                                 {
-                                 type:'bar',
-                                 title:'Subject Progress',
-                                 color:'#26AA76',
-                                 points:[
-                                    {key:'Mathematics',value:10},
-                                    {key:'Agricultural Sci',value:15},
-                                    {key:'Computer Sci',value:25},
-                                    {key:'C.R.K',value:30},
-                                    {key:'Civil Education',value:40},
-                                    {key:'Health Edu.',value:35},
-                                    {key:'Business Stud.',value:40},
-                                    {key:'P.H.E',value:60},
-                                    {key:'Social Studies',value:60},
-                                    {key:'Basic Tech',value:75},
-                                    {key:'Home Econs',value:80},
-                                    {key:'Basic Science',value:100}
-                                 ],
+                         {barChart && barChart.length? 
+                         <Chart
+                           data={[
+                              {
+                              type:'bar',
+                              title:'Subject Progress',
+                              color:'#26AA76',
+                              points:barChart
 
-                                 }     
-                              ]}
-                              keys={[
-                                 'Mathematics','Agricultural Sci','Computer Sci','C.R.K','Civil Education','Health Edu.','Business Stud.','P.H.E','Social Studies','Basic Tech','Home Econs','Basic Science'
-                              ]}
-                           />
+                              }     
+                           ]}
+                           keys={barChartTitles}
+                        />
+                         :'Loading Chart...'}
+                           
                         </div>
                      </div>
                   </span>
@@ -110,9 +138,9 @@ const Performance = props => {
                         <div className="col-md-7">
                            <PieChart
                               data={[
-                                 { title: 'One', value: 20, color: '#50E55A'},
-                                 { title: 'Two', value: 15, color: '#FDAD51' },
-                                 { title: 'Three', value: 5, color: '#FF5B5B' }                              
+                                 { title: 'One', value: overallProgress, color: '#50E55A'},
+                                 // { title: 'Two', value: 15, color: '#FDAD51' },
+                                 { title: 'Three', value: overallPerformance, color: '#FF5B5B' }                              
                               ]}
                               lineWidth={40}
                            />
@@ -120,14 +148,14 @@ const Performance = props => {
                         <div className="col-md-5">
                            <div className="row push2">
                               <div className="col-md-12 push1">
-                                 <span className="legend commitment"></span>&nbsp;&nbsp; Commitment: 30%
+                                 <span className="legend commitment"></span>&nbsp;&nbsp; Progress: {overallProgress}%
                               </div>
                               <div className="col-md-12 push1">
-                                 <span className="legend speed"></span>&nbsp;&nbsp; Speed: 20%
+                                 <span className="legend speed"></span>&nbsp;&nbsp; Performance: {overallPerformance}%
                               </div>
-                              <div className="col-md-12 push1">
+                              {/* <div className="col-md-12 push1">
                                  <span className="legend comprehension"></span>&nbsp;&nbsp; Comprehension: 50%
-                              </div>
+                              </div> */}
                            </div>
                         </div>                      
                      </div>
@@ -141,20 +169,10 @@ const Performance = props => {
                      </div>
                      { chartSection === 'subject' ? 
                      <>
-                     <SubjectBox subject='Mathematics' performance={75} correctAnswers={'45/80'} textAttempted={'19/50'} time={67}/>
-                     <SubjectBox subject='Business Studies' performance={40} correctAnswers={'20/70'} textAttempted={'29/50'} time={67}/>
-                     <SubjectBox subject='French' performance={50} correctAnswers={'26/60'} textAttempted={'9/50'} time={67}/>
-                     <SubjectBox subject='Basic Tech' performance={25} correctAnswers={'15/80'} textAttempted={'29/50'} time={67}/>
-                     <SubjectBox subject='Computer Sci' performance={80} correctAnswers={'66/90'} textAttempted={'19/50'} time={67}/>
-                     <SubjectBox subject='Social Studies' performance={55} correctAnswers={'60/80'} textAttempted={'19/50'} time={67}/>                   
+                        {subjectList()}
                      </> : chartSection === 'pastQuestions'? 
                             <>
-                              <PastQuestionBox subject='Mathematics' performance={75} subjectAttempted={'45/80'} time={67}/>
-                              <PastQuestionBox subject='Business Studies' performance={40} subjectAttempted={'20/70'} time={67}/>
-                              <PastQuestionBox subject='French' performance={50} subjectAttempted={'26/60'} time={67}/>
-                              <PastQuestionBox subject='Basic Tech' performance={25} subjectAttempted={'15/80'} time={67}/>
-                              <PastQuestionBox subject='Computer Sci' performance={80} subjectAttempted={'66/90'} time={67}/>
-                              <PastQuestionBox subject='Social Studies' performance={55} subjectAttempted={'60/80'} time={67}/>                   
+                             {pastQuestionsList()}
                             </>: null}
                  </span>                
                </div>
@@ -165,9 +183,21 @@ const Performance = props => {
 };
 
 Performance.propTypes = {
-   inputChange: PropTypes.func.isRequired 
+   inputChange: PropTypes.func.isRequired,
+   getPerformance : PropTypes.func.isRequired,
+   
 };
 const mapStateToProps = (state) => ({
-   chartSection: state.auth.chartSection
+   chartSection: state.auth.chartSection,
+   activeCourseId: state.auth.activeCourseId,
+   fullName: state.auth.fullName,
+   email: state.auth.email,
+   activeCourseName: state.auth.activeCourseName,
+   address: state.auth.address,
+   barChart: state.course.barChart,
+   barChartTitles: state.course.barChartTitles,
+   performance: state.course.performance,
+   overallPerformance:state.course.overallPerformance,
+   overallProgress:state.course.overallProgress
 });
-export default connect(mapStateToProps, {inputChange})(Performance);
+export default connect(mapStateToProps, {inputChange, getPerformance})(Performance);

@@ -3,23 +3,39 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Box = props => { 
+
+    const subjectList = () => {
+        if (props.subjects && props.subjects.length) {
+          let subject = props.subjects;
+          return subject.map((item) => {
+            return (
+                <div className="col-md-6">
+                    <p>{item.name}: {item.score}%</p>
+                </div>
+            );
+          });
+        } else {
+          return <h6>Performance loading...</h6>;
+        }
+    };
+
 	return (		
         <>
         <div className="row push3">
             <div className="col-md-12">
-                <span className={`subjectbadge ${props.performance>70?'excellent' : props.performance<40? 'average':'belowAverage'}`}>{props.subject}</span>
+                <span className={`subjectbadge ${props.performance === null? 'noRating':props.performance>70?'excellent' : props.performance<40? 'average':'belowAverage'}`}>{props.subject}</span>
             </div>
         </div>
         <div className="row subjectPerformance bottomBorder">
             <div className="col-md-4 relative">
                 <CircularProgressbar 
-                    value={props.performance}
-                    text={props.performance+'%'}
+                    value={props.performance === null? 0:props.performance}
+                    text={props.performance === null? '':props.performance+'%'}
                     strokeWidth={10}
                     styles={{
                         path: {
                         // Path color
-                        stroke: `${props.performance>70?'rgba(38, 170, 118, 0.6)' : props.performance<40? 'rgba(255, 91, 91, 0.41)':'rgba(253, 173, 81, 0.5)'}`,
+                        stroke: `${props.performance === null? '#908989':props.performance>70?'rgba(38, 170, 118, 0.6)' : props.performance<40? 'rgba(255, 91, 91, 0.41)':'rgba(253, 173, 81, 0.5)'}`,
                         // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                         strokeLinecap: 'butt'     
                         },   
@@ -32,7 +48,7 @@ const Box = props => {
                         }   
                     }}
                 />
-                <p className="title">{props.performance>70?'EXCELLENT' : props.performance<40? 'BELOW AVERAGE':'AVERAGE'} <br/>PERFORMANCE</p>
+                <p className="title">{props.performance === null? 'No rated':props.performance>70?'EXCELLENT' : props.performance<40? 'BELOW AVERAGE':'AVERAGE'} <br/>PERFORMANCE</p>
             </div>
             <div className="col-md-4">
                 <div className="row push4">
@@ -57,28 +73,7 @@ const Box = props => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
-                        <p>Mathematics: 70%</p>
-                    </div>
-                    <div className="col-md-6">
-                        <p>C.R.K: 55%</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <p>Basic Tech: 50%</p>
-                    </div>
-                    <div className="col-md-6">
-                        <p>Basic Science: 63%</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <p>English Language: 72%</p>
-                    </div>
-                    <div className="col-md-6">
-                        <p>Home Economics: 70%</p>
-                    </div>
+                   {subjectList()} 
                 </div>
             </div>
         </div>
