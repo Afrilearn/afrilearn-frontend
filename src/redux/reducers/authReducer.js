@@ -22,7 +22,6 @@ const initialState = {
   location: localStorage.getItem("location"),
   chartSection: "subject",
   searchLocation: "/search",
-<<<<<<< HEAD
   isAuthenticated:false,
   role:'',
   activeEnrolledCourseId:'',
@@ -44,27 +43,6 @@ const initialState = {
   activeCoursePaidStatus:false,
   dashboardRoute:false,
   className:'' 
-=======
-  isAuthenticated: false,
-  role: "",
-  activeEnrolledCourseId: "",
-  activeCourseId: "",
-  activeCourseName: "",
-  fullName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  referralCode: "",
-  passwordMode: true,
-  roles: [],
-  classes: [],
-  classLabel: "Select a Class",
-  userId: "",
-  user: {},
-  courseId: "",
-  address: "unknown",
-  activeCoursePaidStatus: false,
->>>>>>> 46f1561... Fix: General fixes
 };
 
 const authReducer = (state = initialState, action) => {
@@ -119,27 +97,11 @@ const authReducer = (state = initialState, action) => {
       otherObj = {
         userId: action.payload.user._id,
         user: action.payload.user,
-<<<<<<< HEAD
         activeEnrolledCourseId: action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',  
         activeCourseId:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId._id:'', 
         activeCourseName:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId.name:'', 
         activeCoursePaidStatus:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].paymentIsActive:'', 
         redirect:true,
-=======
-        activeEnrolledCourseId: action.payload.user.enrolledCourses.length
-          ? action.payload.user.enrolledCourses[0]._id
-          : "",
-        activeCourseId: action.payload.user.enrolledCourses.length
-          ? action.payload.user.enrolledCourses[0].courseId._id
-          : "",
-        activeCourseName: action.payload.user.enrolledCourses.length
-          ? action.payload.user.enrolledCourses[0].courseId.name
-          : "",
-        activeCoursePaidStatus: action.payload.user.enrolledCourses.length
-          ? action.payload.user.enrolledCourses[0].paymentIsActive
-          : "",
-        redirect: true,
->>>>>>> 46f1561... Fix: General fixes
         email: action.payload.user.email,
         fullName: action.payload.user.fullName,
         role: action.payload.user.role? action.payload.user.role:'',
@@ -179,26 +141,6 @@ const authReducer = (state = initialState, action) => {
         password: "",
         confirmPassword: "",
       };
-<<<<<<< HEAD
-    // case SOCIAL_LOGIN_UPDATE_SUCCESS:
-    //   let myObj6 = {};
-    //   if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {      
-    //     myObj6 = {         
-    //       location: "/classes/teacher",
-    //     };
-    //   } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
-    //     myObj6 = {         
-    //       location: "/dashboard",
-    //     };
-    //   }
-    //   return {
-    //     ...state,
-    //     ...myObj6,
-    //     role: action.payload.user.role,
-    //     isAuthenticated: true,
-    //     redirect: true,
-    //   };
-=======
     case PASSWORD_CHANGE_FROM_PROFILE_SUCCESS:
       return {
         ...state,
@@ -222,7 +164,6 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
         redirect: true,
       };
->>>>>>> 46f1561... Fix: General fixes
     default:
       return state;
   }
