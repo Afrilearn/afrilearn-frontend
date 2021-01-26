@@ -32,7 +32,7 @@ const ResetPassword = props => {
                         popup: 'animate__animated animate__fadeOutUp'
                     },
                     timer: 3500,
-                    position: 'top-end',
+                    // position: 'top-end',,
                 })                      
                 props.clearErrors();
             }           
@@ -56,7 +56,7 @@ const ResetPassword = props => {
                   popup: 'animate__animated animate__fadeOutUp'
                 },
                 timer: 1500,
-                position: 'top-end',
+                // position: 'top-end',,
             })
         }else{  
             props.resetPassword(email);

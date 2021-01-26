@@ -58,9 +58,12 @@ import {
   getSearchResults,
   searchInputChange,
 } from "./../../redux/actions/searchActions";
+import {
+  populateDashboard  
+} from "./../../redux/actions/courseActions";
 
 const MyNav = (props) => {
-  const { user, searchRedirect, searchLocation } = props;
+  const { user, searchRedirect, searchLocation, dashboardRoute } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { isAuthenticated } = props;
@@ -77,12 +80,18 @@ const MyNav = (props) => {
     props.inputChange('activeCourseId', courseId); 
     props.inputChange('activeCourseName', courseName); 
     props.inputChange('paymentIsActive', paymentStatus);
+     if(dashboardRoute){
+      const data = {
+        enrolledCourseId: id,
+      };
+       props.populateDashboard(data)
+     }
   } 
 
   const classList = () => {
     if (user && user.enrolledCourses.length) {
       return user.enrolledCourses.map((item) => {
-        return  <DropdownItem tag={Link} to="/dashboard" onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id, item.courseId.name, item.paymentIsActive)}>
+        return  <DropdownItem onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id, item.courseId.name, item.paymentIsActive)} tag={Link} to="/dashboard">
                   <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
                 </DropdownItem>  
       });
@@ -184,7 +193,7 @@ const MyNav = (props) => {
                     Manage Profile
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem tag={Link} to="/select-pay">
+                  {/* <DropdownItem tag={Link} to="/select-pay">
                     Payment History
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/profile">
@@ -192,7 +201,7 @@ const MyNav = (props) => {
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/classes/teacher">
                     Teacher's Dashboard
-                  </DropdownItem>
+                  </DropdownItem> */}
                   <DropdownItem tag={Link} to="/" onClick={handleLogout}>
                     Log Out
                   </DropdownItem>
@@ -220,17 +229,17 @@ const MyNav = (props) => {
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
         <Route path="/contact" component={contact} />
-        <Route
+        <ProtectedRoute
           path="/past-questions/instructions"
           exact
           component={pastQuestionsInstruction}
         />
-        <Route
+        <ProtectedRoute
           path="/lesson/quiz/instructions"
           exact
           component={pastQuestionsInstruction}
         />
-        <Route
+        <ProtectedRoute
           path="/past-questions/remark"
           exact
           component={pastQuestionsRemark}
@@ -240,7 +249,7 @@ const MyNav = (props) => {
           exact
           component={pastQuestionExamPage}
         />
-        <Route path="/past-questions/:categoryId" component={pastQuestions} />
+        <ProtectedRoute path="/past-questions/:categoryId" component={pastQuestions} />
         <ProtectedRoute
           path="/classes/:classId/:subjectId/quiz"
           exact
@@ -286,7 +295,7 @@ const MyNav = (props) => {
           }
         />
         <ProtectedRoute path="/my-students" component={myStudents} />
-        <Route path="/performance" component={performance} />
+        <ProtectedRoute path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />
         <Route path="/subject" component={subject} />
       </Switch>
@@ -306,9 +315,11 @@ const mapStateToProps = (state) => ({
   searchRedirect: state.auth.searchRedirect,
   user: state.auth.user,
   searchResults: state.search.searchResults,
+  dashboardRoute: state.auth.dashboardRoute,
 });
 export default connect(mapStateToProps, {
   inputChange,
   getSearchResults,
   searchInputChange,
+  populateDashboard
 })(MyNav);

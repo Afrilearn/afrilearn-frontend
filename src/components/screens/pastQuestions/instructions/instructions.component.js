@@ -11,7 +11,8 @@ const InstructionsPage = props => {
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
-            window.scrollTo(0, 0);            
+            window.scrollTo(0, 0);  
+            props.inputChange('pastQuestionRedirect', false)          
         } else {
             // do componentDidUpdate logic          
           } 	       

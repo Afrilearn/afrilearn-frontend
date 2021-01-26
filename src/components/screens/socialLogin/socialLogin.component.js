@@ -14,8 +14,7 @@ const SocialSignup = props => {
         activeEnrolledCourseId,       
         error,
         roles,
-        classes,
-        userId,
+        classes,      
         redirect,
         location
     } = props;
@@ -42,7 +41,7 @@ const SocialSignup = props => {
                             popup: 'animate__animated animate__fadeOutUp'
                         },
                         timer: 3500,
-                        position: 'top-end',
+                        // position: 'top-end',,
                     })                      
                     props.clearErrors();
                 }       
@@ -74,18 +73,15 @@ const SocialSignup = props => {
                   popup: 'animate__animated animate__fadeOutUp'
                 },
                 timer: 1500,
-                position: 'top-end',
+                // position: 'top-end',,
             })
         }else{          
             const user = {
-                role                          
-            };   
-            const course = {
-                userId,
-                courseId:activeEnrolledCourseId                          
-            };           
+                role,
+                courseId:activeEnrolledCourseId                            
+            }; 
             props.socialLoginUpdate(user);        
-            props.courseEnrolment(course)   
+            
         }
     }
 
@@ -148,7 +144,6 @@ const mapStateToProps = (state) => ({
     activeEnrolledCourseId: state.auth.activeEnrolledCourseId,  
     roles: state.auth.roles,  
     classes: state.auth.classes,    
-    error: state.error,
-    userId: state.auth.userId
+    error: state.error,   
 });
 export default connect(mapStateToProps, {inputChange, getRoles, clearErrors, socialLoginUpdate, courseEnrolment})(SocialSignup);

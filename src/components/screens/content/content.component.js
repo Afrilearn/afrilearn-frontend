@@ -13,7 +13,7 @@ import LessonItem from "../../includes/lessonItem/lessonItem.component";
 import { Link } from "react-router-dom";
 
 const Content = (props) => {
-  const { subject, role } = props;
+  const { subject, role, activeCoursePaidStatus } = props;
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -115,11 +115,11 @@ const Content = (props) => {
               <p className="right_para">
                 {subject.mainSubjectId && subject.mainSubjectId.introText}
               </p>
+              {!activeCoursePaidStatus?  
               <Link to="/select-pay">
-                {role && role !== "5fc8cc978e28fa50986ecac9" && (
                   <p className="red_text">Subscribe to Unlock Content</p>
-                )}
-              </Link>
+              </Link>:''}
+             
             </div>
             <div className="col-md-1"></div>
             <div className="left col-md-4">
@@ -187,6 +187,7 @@ const mapStateToProps = (state) => ({
   course: state.course.course,
   subject: state.subject.subject,
   role: state.auth.user.role,
+  activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
 });
 export default connect(mapStateToProps, {
   getCourse,

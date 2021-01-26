@@ -41,7 +41,7 @@ const Login = props => {
                         popup: 'animate__animated animate__fadeOutUp'
                     },
                     timer: 3500,
-                    position: 'top-end',
+                    // // position: 'top-end',,
                 })                      
                 props.clearErrors();
             }       
@@ -74,7 +74,7 @@ const Login = props => {
                   popup: 'animate__animated animate__fadeOutUp'
                 },
                 timer: 1500,
-                position: 'top-end',
+                // position: 'top-end',
             })
         }else{          
             const user = {              

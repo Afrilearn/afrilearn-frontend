@@ -13,6 +13,9 @@ import {
   populateDashboard,
   inputChange,
 } from "./../../../redux/actions/courseActions";
+import {  
+  inputChange as authInputChange
+} from "./../../../redux/actions/authActions";
 import { sendClassRequest } from "./../../../redux/actions/classActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
@@ -40,6 +43,7 @@ const Dashboard = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
+      props.authInputChange('dashboardRoute',true)      
       const data = {
         enrolledCourseId: activeEnrolledCourseId,
       };
@@ -314,4 +318,5 @@ export default connect(mapStateToProps, {
   populateDashboard,
   inputChange,
   sendClassRequest,
+  authInputChange
 })(Dashboard);

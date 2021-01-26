@@ -38,7 +38,9 @@ const initialState = {
   user:{},
   courseId:'',
   address:'unknown',
-  activeCoursePaidStatus:false 
+  activeCoursePaidStatus:false,
+  dashboardRoute:false,
+  className:'' 
 };
 
 const authReducer = (state = initialState, action) => {
@@ -64,6 +66,7 @@ const authReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
     case AUTH_SUCCESS:
+    case SOCIAL_LOGIN_UPDATE_SUCCESS:
       let myObj = {};
       let otherObj = {};
 
@@ -71,10 +74,10 @@ const authReducer = (state = initialState, action) => {
         localStorage.setItem("token", action.payload.token);
       }
 
-      if (!action.payload.user.role) {
-        localStorage.setItem("location", "/social-login");
+      if (!action.payload.user.role) {      
         myObj = {
           isAuthenticated: false,
+          location: "/social-login"
         };
       } else {
         if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {
@@ -88,18 +91,18 @@ const authReducer = (state = initialState, action) => {
             location: "/dashboard",
           };
         }
-      }
+      }    
       otherObj = {
         userId: action.payload.user._id,
         user: action.payload.user,
-        activeEnrolledCourseId: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',  
-        activeCourseId: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId._id:'', 
-        activeCourseName: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId.name:'', 
-        activeCoursePaidStatus: action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].paymentIsActive:'', 
+        activeEnrolledCourseId: action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',  
+        activeCourseId:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId._id:'', 
+        activeCourseName:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId.name:'', 
+        activeCoursePaidStatus:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].paymentIsActive:'', 
         redirect:true,
         email: action.payload.user.email,
         fullName: action.payload.user.fullName,
-        role: action.payload.user.role,
+        role: action.payload.user.role? action.payload.user.role:'',
       };
 
       return {
@@ -136,19 +139,24 @@ const authReducer = (state = initialState, action) => {
         password: "",
         confirmPassword: "",
       };
-    case SOCIAL_LOGIN_UPDATE_SUCCESS:
-      localStorage.setItem("location", "/dashboard");
-      if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {
-        localStorage.setItem("location", "/classes/teacher");
-      } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
-        localStorage.setItem("location", "/dashboard");
-      }
-      return {
-        ...state,
-        role: action.payload.user.role,
-        isAuthenticated: true,
-        redirect: true,
-      };
+    // case SOCIAL_LOGIN_UPDATE_SUCCESS:
+    //   let myObj6 = {};
+    //   if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {      
+    //     myObj6 = {         
+    //       location: "/classes/teacher",
+    //     };
+    //   } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
+    //     myObj6 = {         
+    //       location: "/dashboard",
+    //     };
+    //   }
+    //   return {
+    //     ...state,
+    //     ...myObj6,
+    //     role: action.payload.user.role,
+    //     isAuthenticated: true,
+    //     redirect: true,
+    //   };
     default:
       return state;
   }

@@ -25,7 +25,8 @@ import {
     barChart:[],
     barChartTitles:[],
     overallPerformance:0,
-    overallProgress:0   
+    overallProgress:0,
+    dashboardRoute:false    
   };
   
   const courseReducer = (state = initialState, action) => {

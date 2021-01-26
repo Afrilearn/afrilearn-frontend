@@ -35,7 +35,7 @@ const ChangePassword = props => {
                         popup: 'animate__animated animate__fadeOutUp'
                     },
                     timer: 3500,
-                    position: 'top-end',
+                    // position: 'top-end',,
                 })                      
                 props.clearErrors();
             }          
@@ -69,7 +69,7 @@ const ChangePassword = props => {
                   popup: 'animate__animated animate__fadeOutUp'
                 },
                 timer: 1500,
-                position: 'top-end',
+                // position: 'top-end',,
             })
         }else{          
            
