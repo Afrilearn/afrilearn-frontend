@@ -16,7 +16,8 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const ClassroomStudent = (props) => {
-  const { classMembers, clazz } = props;
+  const { classMembers, clazz, fullName } = props;
+  const [newComment, setNewComment] = useState(null);
 
   const [activeTab, setActiveTab] = useState("1");
   // eslint-disable-next-line no-unused-vars
@@ -84,16 +85,32 @@ const ClassroomStudent = (props) => {
 
   const classWorksList = () => {
     if (subjects) {
-      return subjects.map((item) => {
+      return subjects.map((item, index) => {
         return (
           item.assignedContent.length > 0 && (
-            <div className="class-item" key={item._id}>
-              <h5>{item.name}</h5>
-              <div className="items">
+            <div className="class-item accordion-item" key={item._id}>
+              <h5 class="accordion-header" id={`heading${index + 1}`}>
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target={`#collapse${index + 1}`}
+                  aria-expanded="true"
+                  aria-controls={`collapse${index + 1}`}
+                >
+                  {item.name}
+                </button>
+              </h5>
+              <div
+                id={`collapse${index + 1}`}
+                className="items accordion-collapse collapse"
+                aria-labelledby={`heading${index + 1}`}
+                data-bs-parent="#accordionExample"
+              >
                 {item.assignedContent.map((content) => (
                   <Link
                     to={`/classes/${clazz._id}/${item._id}/${content._id}`}
-                    className="item"
+                    className="item accordion-body"
                   >
                     <div className="pic-text-heading first-section">
                       <img src={event} alt="event" />
@@ -124,23 +141,6 @@ const ClassroomStudent = (props) => {
     }
   };
 
-  const subjectNavList = () => {
-    if (subjects) {
-      return subjects.map((subject) => {
-        return (
-          subject.assignedContent.length > 0 && (
-            <p
-              key={subject._id}
-              onClick={() => showTab(subject._id)}
-              className={`vertical-nav-item vertical-nav-${subject._id}`}
-            >
-              {subject.name}
-            </p>
-          )
-        );
-      });
-    }
-  };
 
   const classAnonouncements = () => {
     if (clazz.classAnnouncements) {
@@ -151,6 +151,12 @@ const ClassroomStudent = (props) => {
             .value;
           if (targetComment !== "") {
             props.createComment(classAnnouncement._id, targetComment);
+            setNewComment({
+              student: { fullName },
+              createdAt: Date.now(),
+              text: targetComment,
+              announcementId: classAnnouncement._id,
+            });
             document.getElementById("commentForm").reset();
           }
         };
@@ -185,13 +191,28 @@ const ClassroomStudent = (props) => {
                     <p>
                       {comment.student.fullName} &nbsp;
                       <span className="small-grey">
-                        {moment(comment.createdAt).startOf("hour").fromNow()}
+                        {moment(comment.createdAt).fromNow()}
                       </span>
                     </p>
                     <p>{comment.text}</p>
                   </div>
                 </div>
               ))}
+              {newComment &&
+                newComment.announcementId === classAnnouncement._id && (
+                  <div className="pic-text-heading">
+                    <img src={man} alt="comment" />
+                    <div>
+                      <p>
+                        {newComment.student.fullName} &nbsp;
+                        <span className="small-grey">
+                          {moment(newComment.createdAt).fromNow()}
+                        </span>
+                      </p>
+                      <p>{newComment.text}</p>
+                    </div>
+                  </div>
+                )}
             </div>
             <div className="send">
               <img src={woman} alt="sender" />
@@ -205,6 +226,7 @@ const ClassroomStudent = (props) => {
                   src={sendicon}
                   alt="send"
                   onClick={(e) => sendComment(e)}
+                  className="cursor-pointer"
                 />
               </form>
             </div>
@@ -229,16 +251,7 @@ const ClassroomStudent = (props) => {
       });
     });
 
-  const showTab = (tabNum) => {
-    setActiveVerticalTab();
-    const tabLink = document.querySelector(".vertical-nav-" + tabNum);
-    const tabLinks = document.querySelectorAll(".vertical-nav-item");
-    for (let index = 0; index < tabLinks.length; index++) {
-      const link = tabLinks[index];
-      link.classList.remove("active");
-    }
-    tabLink.classList.add("active");
-  };
+  
   return (
     <div>
       <div id="classroomStudentSectionOne"></div>
@@ -332,7 +345,7 @@ const ClassroomStudent = (props) => {
                     <a
                       href="/"
                       onClick={(e) => {
-                        e.preventDefault()
+                        e.preventDefault();
                         toggle("3");
                       }}
                     >
@@ -340,7 +353,7 @@ const ClassroomStudent = (props) => {
                     </a>
                   </div>
                 </aside>
-                <main>
+                <main className="container-fluid">
                   <article>
                     <div className="pic-text-heading">
                       <img src={man} alt="announce" />
@@ -387,7 +400,7 @@ const ClassroomStudent = (props) => {
             <TabPane tabId="2">
               <div id="classes">
                 <div
-                  className="container-fluid relative"
+                  className="container-fluid relative classes"
                   style={{ display: "flex", padding: "50px 107px 150px 107px" }}
                 >
                   <div className="row">{subjectList()}</div>
@@ -396,15 +409,6 @@ const ClassroomStudent = (props) => {
             </TabPane>
             <TabPane tabId="3">
               <div className="classwork">
-                <nav>
-                  <p
-                    onClick={() => showTab(0)}
-                    className="vertical-nav-item vertical-nav-0"
-                  >
-                    All Subjeccts
-                  </p>
-                  {subjectNavList()}
-                </nav>
                 <main>{classWorksList()}</main>
               </div>
             </TabPane>

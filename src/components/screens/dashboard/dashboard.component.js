@@ -35,7 +35,6 @@ const Dashboard = (props) => {
     belowAverageText,
     noRatingText,
   } = props;
-
   const mounted = useRef();
 
   useEffect(() => {
@@ -101,16 +100,13 @@ const Dashboard = (props) => {
       return <h6>No past questions yet</h6>;
     }
   };
-  
+
   const classList = () => {
     if (
       Object.keys(dashboardData).length &&
       dashboardData.classMembership.length
     ) {
-      let classes = dashboardData.classMembership.filter(
-        (el) => el.status === "approved"
-      );
-      return classes.map((item, index) => {
+      return dashboardData.classMembership.map((item, index) => {
         return (
           <ClassroomBox
             bullet2={index % 2 === 0 ? true : false}
@@ -118,12 +114,13 @@ const Dashboard = (props) => {
             className={item.classId.name}
             classId={item.classId._id}
             classCode={item.classId.classCode}
-            teacher={item.userId.fullName}
+            teacher={item.classId.userId && item.classId.userId.fullName}
+            item={item}
           />
         );
       });
     } else {
-      return <h6>No class list yet</h6>;
+      return <div className="container-fluid">No class list yet</div>;
     }
   };
 

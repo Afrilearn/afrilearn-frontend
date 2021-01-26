@@ -63,7 +63,7 @@ body {
 }
 
 .loading-indicator:after {
-  content: url('./assets/img/logo.png');
+  content: url("./assets/img/logo.png");
   position: fixed;
   width: 100%;
   top: 50%;
@@ -77,7 +77,7 @@ body {
 }
 
 .loading-indicator:before {
-  content: '';
+  content: "";
   background: #000000cc;
   position: fixed;
   width: 100%;
@@ -145,13 +145,12 @@ a:hover {
 }
 
 .social.google .socialText {
- text-align: left;
+  text-align: left;
 }
 
-.social.facebook .socialText{
+.social.facebook .socialText {
   text-align: right;
- }
-
+}
 
 .off {
   display: none;
@@ -181,7 +180,6 @@ a:hover {
   font-weight: lighter !important;
   font-size: 1.495em !important;
 }
-
 
 .swal2-styled.swal2-confirm {
   background-color: #249d6d !important;
@@ -390,26 +388,25 @@ img.dropDownIcon1 {
   color: white !important;
   font-size: 14px;
 }
-.attempted{
-  background: #2bb58e !important; 
+.attempted {
+  background: #2bb58e !important;
   color: white !important;
 }
-.skipped{
+.skipped {
   background: #fabf61 !important;
   color: white !important;
 }
-.pending{
+.pending {
   background: white !important;
-  color:#2bb58e !important; 
-  box-shadow: 0pt 0.5pt 4pt rgba(0,0,0,0.1);
+  color: #2bb58e !important;
+  box-shadow: 0pt 0.5pt 4pt rgba(0, 0, 0, 0.1);
 }
-.incorrect{
+.incorrect {
   background: #e36b6b !important;
 }
 .mobilePadRightOff {
   padding-right: 0px !important;
 }
-
 
 @media screen and (max-width: 768px) {
   .mobileOnly {
@@ -419,11 +416,10 @@ img.dropDownIcon1 {
   .desktopOnly {
     display: none !important;
   }
-  
+
   .mobilePadOff {
     padding: 0px !important;
   }
-
 
   .navbar-light .navbar-toggler {
     color: white !important;
@@ -485,7 +481,6 @@ img.dropDownIcon1 {
     padding: 16px 18px;
   }
 
-
   input.searchBox {
     margin-top: 6px;
     width: 100%;
@@ -501,7 +496,18 @@ img.dropDownIcon1 {
 
   .swal2-title {
     font-size: 1.475em !important;
-
   }
-
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.accordion-button:not(.collapsed) {
+  color: #0c63e4;
+  background-color: transparent;
+}
+.accordion-button:focus {
+  z-index: 3;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
 }

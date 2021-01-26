@@ -1,29 +1,44 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./css/style.css";
-import Ellipse from "../../../assets/img/Ellipse.png";
-import woman from "../../../assets/img/woman.png";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import {
+  ButtonToggle,
+  InputGroup,
+  InputGroupAddon,
+  Input,
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
+import PropTypes from "prop-types";
+import moment from "moment";
+import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarker,
   faEdit,
   faPencilAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { ButtonToggle } from "reactstrap";
-import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
-import { Col, Form, FormGroup, Label } from "reactstrap";
+
 import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { inputChange } from "./../../../redux/actions/authActions";
+  inputChange,
+  updateProfile,
+  changePasswordFromProfile,
+} from "./../../../redux/actions/authActions";
+import { clearErrors } from "./../../../redux/actions/errorActions";
 import { populateDashboard } from "./../../../redux/actions/courseActions";
 import { getClasses } from "./../../../redux/actions/classActions";
-import PropTypes from "prop-types";
-import moment from "moment";
+
+import Ellipse from "../../../assets/img/Ellipse.png";
+import woman from "../../../assets/img/woman.png";
+
+import "./css/style.css";
 
 const ProfilePage = (props) => {
   const {
@@ -33,8 +48,60 @@ const ProfilePage = (props) => {
     activeEnrolledCourseId,
     getClasses,
     classes,
+    error,
   } = props;
 
+  const [newName, setNewName] = useState(null);
+  const [newPhone, setNewPhone] = useState(null);
+  const [newAge, setnewAge] = useState(null);
+  const [newState, setnewState] = useState(null);
+  const [newPassword, setNewPassword] = useState(null);
+
+  const statesInNigeria = [
+    { id: 1, name: "Abia" },
+    { id: 2, name: "Adamawa" },
+    { id: 3, name: "Akwa Ibom" },
+    {
+      id: 4,
+      name: "Anambra",
+    },
+    { id: 5, name: "Bauchi" },
+    { id: 6, name: "Bayelsa" },
+    { id: 7, name: "Benue" },
+    { id: 8, name: "Borno" },
+    { id: 10, name: "Cross River" },
+    { id: 11, name: "Delta" },
+    { id: 12, name: "Ebonyi" },
+    { id: 13, name: "Edo" },
+    { id: 14, name: "Ekiti" },
+    { id: 15, name: "Enugu" },
+    { id: 16, name: "Gombe" },
+    { id: 17, name: "Imo" },
+    { id: 18, name: "Jigawa" },
+    { id: 19, name: "Kaduna" },
+    { id: 20, name: "Kano" },
+    { id: 21, name: "Katsina" },
+    { id: 22, name: "Kebbi" },
+    { id: 23, name: "Kogi" },
+    { id: 24, name: "Kwara" },
+
+    { id: 25, name: "Lagos" },
+    { id: 26, name: "Nasarawa" },
+    { id: 27, name: "Niger" },
+    { id: 28, name: "Ogun" },
+    { id: 29, name: "Ondo" },
+    { id: 30, name: "Osun" },
+    { id: 31, name: "Oyo" },
+    { id: 32, name: "Plateau" },
+    {
+      id: 33,
+      name: "Rivers",
+    },
+    { id: 34, name: "Sokoto" },
+    { id: 35, name: "Taraba" },
+    { id: 36, name: "Yobe" },
+    { id: 37, name: "Zamfara" },
+  ];
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -47,11 +114,43 @@ const ProfilePage = (props) => {
       };
       populateDashboard(activeEnrolledCourseId ? data : null);
       getClasses();
+    } else if (error.id === "UPDATE_PROFILE_SUCCES") {
+      const message =
+        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+      Swal.fire({
+        html: message,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        position: "top-end",
+      });
+      props.clearErrors();
+      // do componentDidUpdate logic
+    } else if (error.id === "PASSWORD_CHANGE_FROM_PROFILE_SUCCESS") {
+      const message =
+        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+      Swal.fire({
+        html: message,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        position: "top-end",
+      });
+      props.clearErrors();
+      // do componentDidUpdate logic
     } else {
       props.inputChange("redirect", false);
-      // do componentDidUpdate logic
     }
   });
+
   const showEditPage = () => {
     const shownTab = document.getElementById("profilePageSectionTwo");
     const hiddenTab = document.getElementById("hiddenProfilePageSectionTwo");
@@ -59,6 +158,35 @@ const ProfilePage = (props) => {
     hiddenTab.style.display = "block";
   };
   const showDetailsPage = () => {
+    if (!newName && !newAge && !newPhone && !newState) {
+      Swal.fire({
+        html: `No changes made`,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        position: "top-end",
+      });
+    } else {
+      const userData = {};
+      if (newName) {
+        userData.fullName = newName;
+      }
+      if (newAge) {
+        userData.dateOfBirth = newAge;
+      }
+      if (newPhone) {
+        userData.phoneNumber = newPhone;
+      }
+      if (newState) {
+        userData.state = newState;
+      }
+      props.updateProfile(userData);
+    }
+
     const shownTab = document.getElementById("profilePageSectionTwo");
     const hiddenTab = document.getElementById("hiddenProfilePageSectionTwo");
     shownTab.style.display = "block";
@@ -68,25 +196,36 @@ const ProfilePage = (props) => {
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
+
   const classListForStudents = () => {
     if (
       Object.keys(dashboardData).length &&
       dashboardData.classMembership.length
     ) {
-      let classes = dashboardData.classMembership.filter(
-        (el) => el.status === "approved"
-      );
-      return classes.map((item, index) => {
+      return dashboardData.classMembership.map((item, index) => {
         return (
           <tr>
             <td>{item.classId.name}</td>
             <td>
               <ButtonToggle className="button" size="sm">
-                Subscribed
+                {item.status.toUpperCase()}
               </ButtonToggle>
             </td>
           </tr>
         );
+      });
+    } else {
+      return <h6>No class list yet</h6>;
+    }
+  };
+
+  const classListForStudentsOne = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      dashboardData.classMembership.length
+    ) {
+      return dashboardData.classMembership.map((item, index) => {
+        return <span>{item.classId.name}</span>;
       });
     } else {
       return <h6>No class list yet</h6>;
@@ -112,6 +251,39 @@ const ProfilePage = (props) => {
       return <h6>No class list yet</h6>;
     }
   };
+
+  const classListForTeachersOne = () => {
+    if (classes && classes.length) {
+      let myClasses = classes.filter((element) => element.userId === user._id);
+      return myClasses.map((item, index) => {
+        return <span>{item.name}</span>;
+      });
+    } else {
+      return <h6>No class list yet</h6>;
+    }
+  };
+
+  const handlePasswordChange = () => {
+    if (!newPassword) {
+      Swal.fire({
+        html: "Password is empty",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        position: "top-end",
+      });
+    } else {
+      props.changePasswordFromProfile({
+        email: user.email,
+        password: newPassword,
+      });
+    }
+  };
+
   return (
     <React.Fragment>
       <div id="profilePageSectionOne"></div>
@@ -123,8 +295,8 @@ const ProfilePage = (props) => {
         <div className="top-details">
           <div className="items">
             <div className="item">
-              <h4>{user.fullName ? user.fullName : "N/A"}</h4>
-              <p>{user.email ? user.email : "N/A"}</p>
+              <h4>{user.fullName ? user.fullName : "Not Available"}</h4>
+              <p>{user.email ? user.email : "Not Available"}</p>
             </div>
             <div className="item item-plus-icon">
               <FontAwesomeIcon
@@ -132,8 +304,8 @@ const ProfilePage = (props) => {
                 style={{ marginRight: "15px", fontSize: "20px" }}
               />
               <p>
-                {user.state ? user.state : "N/A"} State,{" "}
-                {user.country ? user.country : "N/A"}
+                {user.state ? user.state + " State," : ""}{" "}
+                {user.country ? user.country : ""}
               </p>
             </div>
             <div className="item item-plus-icon" onClick={showEditPage}>
@@ -149,17 +321,18 @@ const ProfilePage = (props) => {
           <h3>Personal Details</h3>
           <div className="personal-details-list">
             <p>
-              Phone Number: &nbsp; {user.phoneNumber ? user.phoneNumber : "N/A"}
+              Phone Number: &nbsp;{" "}
+              {user.phoneNumber ? user.phoneNumber : "Not Available"}
             </p>
-            <p>State: &nbsp; {user.state ? user.state : "N/A"}</p>
-            <p>Gender: &nbsp; {user.gender ? user.gender : "N/A"}</p>
+            <p>State: &nbsp; {user.state ? user.state : "Not Available"}</p>
+            <p>Gender: &nbsp; {user.gender ? user.gender : "Not Available"}</p>
             <p>
               Age: &nbsp;{" "}
               {moment(user.dateOfBirth, "YYYYMMDD")
                 .fromNow()
                 .replace("years ago", "")}
             </p>
-            <p>City: &nbsp; {user.state ? user.state : "N/A"}</p>
+            <p>City: &nbsp; {user.state ? user.state : "Not Available"}</p>
           </div>
         </div>
         <div className="classes">
@@ -225,7 +398,11 @@ const ProfilePage = (props) => {
                     type="text"
                     name="fullName"
                     id="fullName"
-                    placeholder="Feyikemi Alaka"
+                    placeholder={user && user.fullName}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setNewName(e.target.value);
+                    }}
                   />
                 </Col>
               </FormGroup>
@@ -236,11 +413,12 @@ const ProfilePage = (props) => {
                 <Col sm={10}>
                   <Input
                     bsSize="lg"
-                    className="custom-input"
+                    className="custom-input "
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="feyikemi199@gmail.com"
+                    placeholder={user && user.email}
+                    readOnly
                   />
                 </Col>
               </FormGroup>
@@ -259,36 +437,44 @@ const ProfilePage = (props) => {
                       </DropdownMenu>
                     </ButtonDropdown>
                   </span>
-                  <input />
+                  <input
+                    placeholder={
+                      user && user.phoneNumber ? user.phoneNumber : ""
+                    }
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setNewPhone(e.target.value);
+                    }}
+                  />
                 </div>
               </div>
               <div class="row justify-content-between">
                 <div class="col-6">
                   <FormGroup row>
                     <Label for="age" sm={2}>
-                      Age:
+                      Date Of Birth:
                     </Label>
                     <Col sm={2}></Col>
                     <Col sm={8}>
                       <Input
                         bsSize="lg"
                         className="custom-input"
-                        type="select"
+                        type="date"
                         name="age"
                         id="age"
-                      >
-                        <option></option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </Input>
+                        placeholder={moment(user.dateOfBirth, "YYYYMMDD")
+                          .fromNow()
+                          .replace("years ago", "")}
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setnewAge(e.target.value);
+                        }}
+                      ></Input>
                     </Col>
                   </FormGroup>
                 </div>
-                <div class="col-5">
-                  <FormGroup row>
+                <div class="col-6">
+                  {/* <FormGroup row>
                     <Label for="gender" sm={2}>
                       Gender:
                     </Label>
@@ -309,7 +495,7 @@ const ProfilePage = (props) => {
                         <option>5</option>
                       </Input>
                     </Col>
-                  </FormGroup>
+                  </FormGroup> */}
                 </div>
               </div>
               <div class="row justify-content-between">
@@ -326,19 +512,21 @@ const ProfilePage = (props) => {
                         type="select"
                         name="state"
                         id="state"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setnewState(e.target.value);
+                        }}
                       >
-                        <option></option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>{user && user.state}</option>
+                        {statesInNigeria.map((state) => (
+                          <option key={state.id}>{state.name}</option>
+                        ))}
                       </Input>
                     </Col>
                   </FormGroup>
                 </div>
-                <div class="col-5">
-                  <FormGroup row>
+                <div class="col-6">
+                  {/* <FormGroup row>
                     <Label for="city" sm={2}>
                       City:
                     </Label>
@@ -359,7 +547,7 @@ const ProfilePage = (props) => {
                         <option>5</option>
                       </Input>
                     </Col>
-                  </FormGroup>
+                  </FormGroup> */}
                 </div>
               </div>
             </Form>
@@ -369,20 +557,35 @@ const ProfilePage = (props) => {
           <h3>Class Details</h3>
           <div className="class-details-list">
             <span>Subscribed Class:</span>
-            <div className="input-two">
-              <span>JSS 1</span>
-              <span>JSS 2</span>
+            <div className="input-like-box">
+              {user && user.role === "5fc8cc978e28fa50986ecac9"
+                ? classListForTeachersOne()
+                : classListForStudentsOne()}
             </div>
           </div>
         </div>
         <div className="security">
           <h3>Security</h3>
           <div className="security-form">
-            <span>Subscribed Class:</span>
-            <div className="custom-input">
-              <input placeholder="*********" />
-              <span>Reset</span>
-            </div>
+            <span>Password::</span>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handlePasswordChange();
+              }}
+              className="custom-input"
+            >
+              <input
+                placeholder="Enter new password"
+                type="text"
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                }}
+              />
+              <span className="cursor-pointer" onClick={handlePasswordChange}>
+                Reset
+              </span>
+            </form>
           </div>
         </div>
       </div>
@@ -394,15 +597,23 @@ ProfilePage.propTypes = {
   inputChange: PropTypes.func.isRequired,
   populateDashboard: PropTypes.func.isRequired,
   getClasses: PropTypes.func.isRequired,
+  updateProfile: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  changePasswordFromProfile: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
+  classOwnership: state.auth.user.classOwnership,
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   user: state.auth.user,
   dashboardData: state.course.dashboardData,
   classes: state.class.classes,
+  error: state.error,
 });
 export default connect(mapStateToProps, {
   inputChange,
   populateDashboard,
   getClasses,
+  updateProfile,
+  clearErrors,
+  changePasswordFromProfile,
 })(ProfilePage);

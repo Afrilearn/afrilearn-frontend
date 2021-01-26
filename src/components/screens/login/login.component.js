@@ -85,7 +85,7 @@ const Login = props => {
         }
     }
 
-    const onFailure = (error) => {
+    const onFailure = (error) => { 
         console.log(error);
     }; 
 

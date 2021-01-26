@@ -2,6 +2,8 @@ import {
   GET_SINGLE_CLASS_SUCCESS,
   GET_CLASSES_SUCCESS,
   USER_JOIN_THROUGH_INVITE_SUCCESS,
+  SEND_CLASS_INVITE_SUCCESS,
+  ACCEPT_REJECT_CLASSMEMBER_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -24,6 +26,14 @@ const classReducer = (state = initialState, action) => {
         classes: action.payload.classes,
       };
     case USER_JOIN_THROUGH_INVITE_SUCCESS:
+      return {
+        ...state,
+      };
+    case SEND_CLASS_INVITE_SUCCESS:
+      return {
+        ...state,
+      };
+    case ACCEPT_REJECT_CLASSMEMBER_SUCCESS:
       return {
         ...state,
       };

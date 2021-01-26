@@ -16,6 +16,10 @@ import {
   SEND_CLASS_REQUEST_FAILURE,
   USER_JOIN_THROUGH_INVITE_SUCCESS,
   USER_JOIN_THROUGH_INVITE_FAILURE,
+  SEND_CLASS_INVITE_SUCCESS,
+  SEND_CLASS_INVITE_FAILURE,
+  ACCEPT_REJECT_CLASSMEMBER_SUCCESS,
+  ACCEPT_REJECT_CLASSMEMBER_FAILURE,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -52,6 +56,76 @@ export const joinClassApproved = (classId, email, fullName, password) => async (
     );
     dispatch({
       type: USER_JOIN_THROUGH_INVITE_FAILURE,
+    });
+  }
+};
+
+export const acceptRejectClassmember = (classId, userId, status) => async (
+  dispatch
+) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.acceptRejectClassmember(classId, userId, status);
+
+    dispatch({
+      type: ACCEPT_REJECT_CLASSMEMBER_SUCCESS,
+      payload: {
+        user: result.data.data.user,
+      },
+    });
+    dispatch(
+      returnErrors(
+        "Classmember status changed",
+        "200",
+        "ACCEPT_REJECT_CLASSMEMBER_SUCCESS"
+      )
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "ACCEPT_REJECT_CLASSMEMBER_FAILURE"
+      )
+    );
+    dispatch({
+      type: ACCEPT_REJECT_CLASSMEMBER_FAILURE,
+    });
+  }
+};
+
+export const sendClassInvitation = (email, link) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.sendClassInvite(email, link);
+
+    dispatch({
+      type: SEND_CLASS_INVITE_SUCCESS,
+      payload: {
+        user: result.data.data.user,
+      },
+    });
+    dispatch(
+      returnErrors("Class invite sent.", "200", "SEND_CLASS_INVITE_SUCCESS")
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "SEND_CLASS_INVITE_FAILURE"
+      )
+    );
+    dispatch({
+      type: SEND_CLASS_INVITE_FAILURE,
     });
   }
 };
@@ -208,6 +282,13 @@ export const assignContent = (
     dispatch({
       type: ASSIGN_CONTENT_TO_STUDENT_SUCCESS,
     });
+    dispatch(
+      returnErrors(
+        "Content has been assigned",
+        "200",
+        "ASSIGN_CONTENT_TO_STUDENT_SUCCESS"
+      )
+    );
   } catch (err) {
     dispatch(
       returnErrors(
