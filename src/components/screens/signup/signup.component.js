@@ -25,6 +25,7 @@ const Signup = props => {
         redirect,
         location,
         passwordMode,
+        className,
         error
     } = props;
 
@@ -50,7 +51,7 @@ const Signup = props => {
                         popup: 'animate__animated animate__fadeOutUp'
                     },
                     timer: 3500,
-                    position: 'top-end',
+                    // position: 'top-end',,
                 })                      
                 props.clearErrors();
             }       
@@ -84,9 +85,11 @@ const Signup = props => {
             message='Please enter email';  
         } else if (!password) {
             message='Please enter password';  
+        }else if(!className && role ==='5fc8cc978e28fa50986ecac9'){
+            message='Please enter class name';  
         } 
 
-        if(!role || !courseId || !fullName || !email || !password){               
+        if(!role || !courseId || !fullName || !email || !password || (!className && role ==='5fc8cc978e28fa50986ecac9') ){               
             Swal.fire({
                 title: message,
                 showClass: {
@@ -96,7 +99,7 @@ const Signup = props => {
                   popup: 'animate__animated animate__fadeOutUp'
                 },
                 timer: 1500,
-                position: 'top-end',
+                // position: 'top-end',,
             })
         }else{          
             const user = {
@@ -105,7 +108,8 @@ const Signup = props => {
                 fullName,
                 email,
                 password,
-                confirmPassword: password,               
+                confirmPassword: password,   
+                className            
             };         
             props.registerUser(user);
         }
@@ -169,6 +173,12 @@ const Signup = props => {
                                 {classSet()}                         
                             </select>
                         </div>
+                        {
+                            role ==='5fc8cc978e28fa50986ecac9'?
+                            <div className="col-md-12">
+                                <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
+                            </div>:''
+                        }                       
                         <div className="col-md-12">
                            <input type="text" placeholder="Full Name" className="general" name="fullName" value={fullName} onChange={handleChange}/>
                         </div>
@@ -245,6 +255,7 @@ const mapStateToProps = (state) => ({
     referralCode: state.auth.referralCode,  
     roles: state.auth.roles,  
     classes: state.auth.classes, 
+    className: state.auth.className, 
     passwordMode: state.auth.passwordMode, 
     error: state.error
 });

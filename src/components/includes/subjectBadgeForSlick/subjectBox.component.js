@@ -95,11 +95,25 @@ const Box = (props) => {
           />
           <div className="dropDownContent row">
             <div className="col-12 padOff">
-              <img
-                src={props.image}
-                alt="English"
-                className="fullWidth subjectImage1"
-              />
+              {props.dashboard ? (
+                      <Link
+                        to={`/content/${props.courseId}/${props.subjectId}`}
+                      >
+                        <img               
+                          src={props.image}
+                          alt="English"
+                          className="fullWidth subjectImage1"
+                        />
+                      </Link>
+                    ) : (
+                      <Link onClick={toggle}>
+                       <img               
+                          src={props.image}
+                          alt="English"
+                          className="fullWidth subjectImage1"
+                        />
+                      </Link>
+              )}             
             </div>
             <div className="col-12 box">
               <div className="row">
@@ -124,18 +138,16 @@ const Box = (props) => {
                       <span>
                         {props.compiledNotes
                           ? numberWithCommas(props.compiledNotes)
-                          : 3000}{" "}
+                          : 0}{" "}
                         Compiled Notes
                       </span>
                     }
-                  >
-                    <Link>
+                  >                 
                       <img
                         src={require("../../../assets/img/lessons.png")}
                         alt="lesson"
                         className="subjectImage2"
                       />
-                    </Link>
                   </Tooltip>
                   <Tooltip
                     placement="top"
@@ -144,18 +156,17 @@ const Box = (props) => {
                       <span>
                         {props.registeredUsers
                           ? numberWithCommas(props.registeredUsers)
-                          : 2000}{" "}
+                          : 0}{" "}
                         Registered Users
                       </span>
                     }
                   >
-                    <Link>
-                      <img
+                     <img
                         src={require("../../../assets/img/users.png")}
                         alt="users"
                         className="subjectImage2"
                       />
-                    </Link>
+                
                   </Tooltip>
                 </div>
                 <div className="col-3">
@@ -194,7 +205,7 @@ const Box = (props) => {
                 <div className="col-12" id="UncontrolledTooltipExample">
                   {props.compiledNotes
                     ? numberWithCommas(props.compiledNotes)
-                    : "2000"}{" "}
+                    : "0"}{" "}
                   Video Lessons
                 </div>
               </div>
@@ -280,7 +291,7 @@ const Box = (props) => {
                     <div className="col-9 details">
                       {props.compiledNotes
                         ? numberWithCommas(props.compiledNotes)
-                        : "2000"}{" "}
+                        : "0"}{" "}
                       Video Lessons
                     </div>
                   </div>
@@ -289,7 +300,7 @@ const Box = (props) => {
                     <div className="col-9 details">
                       {props.registeredUsers
                         ? numberWithCommas(props.registeredUsers)
-                        : "2000"}{" "}
+                        : "0"}{" "}
                       Registered Students
                     </div>
                   </div>

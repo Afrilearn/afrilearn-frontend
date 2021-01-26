@@ -227,7 +227,7 @@ export const socialLoginUpdate = (user, course) => async (dispatch) => {
     const result = await API.socialLoginUpdate(user);
     dispatch({
       type: SOCIAL_LOGIN_UPDATE_SUCCESS,
-      payload: result.data,
+      payload: result.data.data,
     });
     document.body.classList.remove("loading-indicator");
   } catch (err) {

@@ -120,6 +120,10 @@ const LessonPage = (props) => {
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
         <ReactPlayer
+          config={{ file: { attributes: { controlsList: 'nodownload' } } }}
+          // Disable right click
+          onContextMenu={e => e.preventDefault()}
+        
           url={video && video.videoUrl}
           controls="true"
           width="100%"

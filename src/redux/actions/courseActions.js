@@ -177,6 +177,8 @@ export const getPerformance = (data) => async (dispatch) => {
           value:item.progress
         }
       })
+      overallProgress = (overallProgress/result.data.data.subjectsList.length)
+      overallPerformance = (overallPerformance/result.data.data.subjectsList.length)
     }
 
     if(result.data.data.subjectsList.length){

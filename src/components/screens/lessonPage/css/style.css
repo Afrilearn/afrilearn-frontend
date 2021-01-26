@@ -126,6 +126,7 @@
 #lessonPageSectionTwo .left p {
   margin: 10px 0;
   padding-right: 10px;
+  text-align: justify;
 }
 #lessonPageSectionTwo .left h5 {
   margin: 20px 0;
