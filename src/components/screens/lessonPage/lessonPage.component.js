@@ -76,10 +76,9 @@ const LessonPage = (props) => {
     { id: "600048197cabf80f88f61736", name: "Third Term" },
   ];
 
-  const term = termIds.find((term) => term.id === lesson && lesson.termId);
+  const term = lesson && termIds.find((term) => term.id === lesson.termId);
 
   const mounted = useRef();
-
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -168,14 +167,7 @@ const LessonPage = (props) => {
                 >
                   <PopoverBody>
                     {role && role === "5fc8cc978e28fa50986ecac9" && (
-                      <Link
-                        // to={`/content/${lesson && lesson.courseId}/${
-                        //   lesson && lesson.subjectId
-                        // }/${lesson && lesson._id}/${
-                        //   props.match.params.videoId
-                        // }/assign-content`}
-                        to="/assign-content"
-                      >
+                      <Link to="/assign-content">
                         <p>Assign Content</p>
                       </Link>
                     )}
@@ -209,10 +201,10 @@ const LessonPage = (props) => {
               {moment(lesson && lesson.createdAt).format("LL")}
             </p>
           </div>
-          <div className="mid">
+          {/* <div className="mid">
             <h4>Related Videos</h4>
             {relatedVideosList()}
-          </div>
+          </div> */}
           <div className="mid">
             <h4>Recommended for you</h4>
             {relatedVideosList()}{" "}

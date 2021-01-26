@@ -79,11 +79,10 @@
 }
 
 @media screen and (max-width: 900px) {
-
   #profilePageSectionOne {
-      margin-top: -302px;
-      height: 550px;
-    }
+    margin-top: -302px;
+    height: 550px;
+  }
   #profilePageSectionTwo {
     padding: 0;
   }
@@ -238,7 +237,6 @@
   padding: 10px 20px;
   font-family: font2;
   font-size: 26px;
-
 }
 #hiddenProfilePageSectionTwo .personal-details-form {
   width: 90%;
@@ -289,6 +287,9 @@
   border: 0.1px solid #26aa76;
   height: 45px;
 }
+#hiddenProfilePageSectionTwo .custom-input input {
+  color: white;
+}
 @media screen and (max-width: 600px) {
   #hiddenProfilePageSectionTwo .personal-details-list {
     height: auto;
@@ -327,7 +328,9 @@
   background-color: transparent;
   padding: 0 30px;
   border: 0.1px solid #26aa76;
+  height: auto;
 }
+
 #hiddenProfilePageSectionTwo .input-three {
   background-color: transparent;
   /* padding: 0 30px; */
@@ -352,18 +355,17 @@
   width: 87%;
   justify-content: space-between;
 }
-#hiddenProfilePageSectionTwo .class-details-list div {
-  height: 45px;
-  flex: 0 0 83%;
+#hiddenProfilePageSectionTwo .input-like-box {
   background-color: transparent;
-  border-radius: 0.3rem;
-  padding: 10px;
-}
-#hiddenProfilePageSectionTwo .class-details-list span {
-  flex: 1;
+  padding: 10px 0px !important;
+  border: 0.1px solid #26aa76;
+  width: 100%;
+  height: auto !important;
+  border-radius: 5px;
 }
 #hiddenProfilePageSectionTwo .class-details-list div span {
   padding: 0 10px;
+  /* padding-left: 10px; */
   border-left: 1px solid;
   display: inline-block;
 }
@@ -384,7 +386,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
-#hiddenProfilePageSectionTwo .security-form div {
+#hiddenProfilePageSectionTwo .security-form form {
   flex: 0 0 83%;
   height: 45px;
   border-radius: 5px;
@@ -393,12 +395,12 @@
   justify-content: space-between;
   padding: 0 20px;
 }
-#hiddenProfilePageSectionTwo .security-form div input {
+#hiddenProfilePageSectionTwo .security-form form input {
   flex: 1;
   background-color: transparent;
   border: none;
 }
-#hiddenProfilePageSectionTwo .security-form div span {
+#hiddenProfilePageSectionTwo .security-form form span {
   flex: 0 0 7%;
   text-decoration: underline;
   color: #ff5b5b;
@@ -423,7 +425,7 @@
   #hiddenProfilePageSectionTwo .security-form span {
     flex: 0 0 100%;
   }
-  #hiddenProfilePageSectionTwo .security-form div {
+  #hiddenProfilePageSectionTwo .security-form form {
     flex: 0 0 83%;
     border-radius: 5px;
     margin: 10px 0;

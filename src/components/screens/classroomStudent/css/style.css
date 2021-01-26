@@ -35,9 +35,20 @@
   transform: translate(-30%, -60%);
 }
 @media screen and (max-width: 900px) {
+  #classroomStudentSectionTwo .ellipse {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   #classroomStudentSectionTwo .circle {
     left: 50%;
     transform: translate(-50%, -69%);
+  }
+  #classroomStudentSectionTwo .woman {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
   }
 }
 #classroomStudentSectionTwo .tab {
@@ -51,6 +62,7 @@
 }
 #classroomStudentSectionTwo .nav-tabs {
   border-bottom: none;
+  /* margin-bottom: 10px; */
 }
 #classroomStudentSectionTwo .nav-tabs .nav-link {
   border: none;
@@ -77,7 +89,6 @@
 #classroomStudentSectionTwo .content-section {
   width: 90%;
   margin: auto;
-  padding: 10px;
   top: 75px;
   padding-bottom: 100px;
   position: relative;
@@ -100,9 +111,9 @@
 #classroomStudentSectionTwo .announcements main {
   flex: 1;
   min-height: 500px;
-  padding: 10px;
   padding-top: 0;
   box-sizing: border-box;
+  padding: 10px;
 }
 #classroomStudentSectionTwo .announcements aside .student-details {
   height: 250px;
@@ -164,6 +175,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 10px 20px;
+  box-sizing: border-box;
 }
 #classroomStudentSectionTwo .announcements main section {
   min-height: 200px;
@@ -306,18 +318,19 @@
 @media screen and (max-width: 900px) {
   #classroomStudentSectionTwo .announcements {
     flex-wrap: wrap;
-    padding-left: unset;
   }
   #classroomStudentSectionTwo .announcements aside {
     flex: 0 0 100%;
     margin-bottom: 50px;
     margin-right: 1px;
+    padding: 10px;
   }
   #classroomStudentSectionTwo .announcements main {
     flex: 1;
+    padding: 10px;
   }
   #classroomStudentSectionTwo .announcements main section {
-    padding: 0;
+    padding: 3px;
   }
   #classroomStudentSectionTwo .announcements main section .chat-block .send {
     padding-left: 15px;
@@ -330,11 +343,20 @@
     .comments {
     padding-left: 15px;
   }
+  #classroomStudentSectionTwo
+  .announcements
+  main
+  section
+  .chat-block
+  .send
+  .send-input {
+  padding: 0 10px;
+}
 }
 .pic-text-heading {
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  margin: 10px;
 }
 .pic-text-heading img {
   height: 50px;
@@ -361,10 +383,13 @@
 .no-margin {
   margin: 0;
 }
+#classroomStudentSectionTwo .classes.container-fluid {
+  padding: 0 !important;
+}
 #classroomStudentSectionTwo .classwork {
   display: flex;
   padding: 0 60px 0 50px;
-  width: 100%;
+  width: 90%;
   margin: auto;
 }
 #classroomStudentSectionTwo .classwork nav {
@@ -396,7 +421,7 @@
   #classroomStudentSectionTwo .classwork {
     width: 100%;
     flex-wrap: wrap;
-    padding-left: 1px;
+    padding: 10px;
   }
   #classroomStudentSectionTwo .classwork nav {
     flex: 0 0 100%;

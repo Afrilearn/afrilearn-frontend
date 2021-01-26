@@ -3,14 +3,16 @@ import event from "../../../assets/img/event.png";
 import "./css/style.css";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import { getClass, assignContent } from "./../../../redux/actions/classActions";
+import { clearErrors } from "./../../../redux/actions/errorActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 
 const AssignContent = (props) => {
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
-      // do componentDidMount logic
+      // do componentDidMount logic 
       mounted.current = true;
       window.scrollTo(0, 0);
       if (!classMembers.length) {
@@ -18,9 +20,25 @@ const AssignContent = (props) => {
       }
     } else {
       // do componentDidUpdate logic
+      if (error.id === "ASSIGN_CONTENT_TO_STUDENT_SUCCESS") {
+        const message =
+          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+        Swal.fire({
+          html: message,
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+          timer: 3500,
+          position: "top-end",
+        }); 
+        props.clearErrors();
+      }
     }
   });
-  const { clazz, classMembers } = props;
+  const { clazz, classMembers, error } = props;
 
   const lessons = [];
   clazz.relatedSubjects.forEach((subject) => {
@@ -35,11 +53,45 @@ const AssignContent = (props) => {
       members.push({ _id: member._id, name: member.userId.fullName });
   });
 
-  const [selectedStudent, setSelectedStudent] = useState("");
-  const [selectedQuizOrLesson, setSelectedQuizOrLesson] = useState("");
-  const [assignedText, setAssignedText] = useState("");
-  const [date, setDate] = useState("");
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedQuizOrLesson, setSelectedQuizOrLesson] = useState(null);
+  const [assignedText, setAssignedText] = useState(null);
+  const [date, setDate] = useState(null);
 
+  const handleSubmit = () => {
+    let message;
+    if (!assignedText) {
+      message = "Please enter text";
+    } else if (!selectedStudent) {
+      message = "Please select Student";
+    } else if (!selectedQuizOrLesson) {
+      message = "Please select lesson";
+    } else if (!date) {
+      message = "Please select date";
+    }
+
+    if (!selectedStudent || !selectedQuizOrLesson || !assignedText || !date) {
+      Swal.fire({
+        title: message,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 1500,
+        position: "top-end",
+      });
+    } else {
+      props.assignContent(
+        assignedText,
+        selectedQuizOrLesson,
+        clazz._id,
+        date,
+        selectedStudent
+      );
+    }
+  };
   return (
     <div id="assignContentPage">
       <div id="assignContentPageSectionOne">
@@ -98,7 +150,7 @@ const AssignContent = (props) => {
                 ))}
               </select>
               <div className="date">
-                <h3 className="text-white">Due Date</h3>
+                <p className="text-white">Due Date</p>
                 <input
                   type="date"
                   onChange={(e) => {
@@ -116,15 +168,7 @@ const AssignContent = (props) => {
               selectedStudent === "" ||
               date === ""
             }
-            onClick={() => {
-              props.assignContent(
-                assignedText,
-                selectedQuizOrLesson,
-                clazz._id,
-                date,
-                selectedStudent
-              );
-            }}
+            onClick={handleSubmit}
           >
             Done
           </button>
@@ -137,13 +181,18 @@ const AssignContent = (props) => {
 AssignContent.propTypes = {
   getClass: PropTypes.func.isRequired,
   assignContent: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   role: state.auth.user.role,
   clazz: state.class.class,
   classMembers: state.class.classMembers,
+  error: state.error,
 });
-export default connect(mapStateToProps, { getCourse, getClass, assignContent })(
-  AssignContent
-);
+export default connect(mapStateToProps, {
+  getCourse,
+  getClass,
+  assignContent,
+  clearErrors,
+})(AssignContent);

@@ -4,29 +4,61 @@ import React from "react";
 import { Link } from "react-router-dom";
 import firstterm from "../../../assets/img/firstterm.png";
 import "./css/style.css";
-import { connect } from 'react-redux';
-import { inputChange, loadQuizQuestions } from './../../../redux/actions/pastQuestionsActions';
-import PropTypes from 'prop-types';
-
+import { connect } from "react-redux";
+import {
+  inputChange,
+  loadQuizQuestions,
+} from "./../../../redux/actions/pastQuestionsActions";
+import {
+  addRecentActivity,
+  addSubjectProgress,
+} from "./../../../redux/actions/subjectActions";
+import PropTypes from "prop-types";
 
 const LessonItem = (props) => {
-  const { lesson, seeMore, activeCoursePaidStatus } = props;
+  const { lesson, seeMore, activeCoursePaidStatus, relatedLessons } = props;
 
-  const updateQuizType = () => {  
-    props.inputChange('examType', 'quiz');
-    props.inputChange('quizTitle', lesson.title);
-    props.inputChange('quizLessonId', lesson._id);
-      
-    props.loadQuizQuestions(lesson.questions); 
-  }
+  const updateQuizType = () => {
+    props.inputChange("examType", "quiz");
+    props.inputChange("quizTitle", lesson.title);
+    props.inputChange("quizLessonId", lesson._id);
+
+    props.loadQuizQuestions(lesson.questions);
+  };
+
+  const recommendation = (id) => {
+    const mainList =
+      relatedLessons && relatedLessons.filter((vid) => vid._id !== id);
+    const random = Math.floor(Math.random() * mainList.length);
+
+    return mainList[random];
+  };
 
   const lessonVideos = () => {
     if (lesson.videoUrls.length) {
       return lesson.videoUrls.map((item, index) => {
         return (
-          <div class="col-md-3" key={index}>
+          <div
+            class="col-md-3"
+            key={index}
+            onClick={() => {
+              props.addRecentActivity(lesson._id, "lesson");
+              props.addSubjectProgress(
+                lesson.classId,
+                lesson._id,
+                lesson.subjectId,
+                lesson.courseId,
+                recommendation(lesson._id),
+                lesson._id
+              );
+            }}
+          >
             <Link
-              to={activeCoursePaidStatus?`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`:'/select-pay'}          
+              to={
+                activeCoursePaidStatus
+                  ? `/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`
+                  : "/select-pay"
+              }
             >
               <div className="term_item_left_bottom_item ">
                 <FontAwesomeIcon icon={faPlay} />
@@ -47,12 +79,26 @@ const LessonItem = (props) => {
         </div>
       </div>
       <div className="term_item_left col-md-9">
-        <h5 className="term_item_left_top">{lesson.title} {!activeCoursePaidStatus? <FontAwesomeIcon icon={faLock} />:''}</h5>
+        <h5 className="term_item_left_top">
+          {lesson.title}{" "}
+          {!activeCoursePaidStatus ? <FontAwesomeIcon icon={faLock} /> : ""}
+        </h5>
         <div className="term_item_left_bottom row">
           {lessonVideos()}
           <div class="col-md-3">
-            <div className="term_item_left_bottom_item ">
-              <Link to="/lesson/quiz/instructions" onClick={updateQuizType} className="quizButton">Quiz</Link>
+            <div
+              className="term_item_left_bottom_item "
+              onClick={() => {
+                props.addRecentActivity(lesson._id, "quiz");
+              }}
+            >
+              <Link
+                to="/lesson/quiz/instructions"
+                onClick={updateQuizType}
+                className="quizButton"
+              >
+                Quiz
+              </Link>
             </div>
           </div>
         </div>
@@ -67,10 +113,17 @@ const LessonItem = (props) => {
 LessonItem.propTypes = {
   inputChange: PropTypes.func.isRequired,
   loadQuizQuestions: PropTypes.func.isRequired,
-}; 
+  addRecentActivity: PropTypes.func.isRequired,
+  addSubjectProgress: PropTypes.func.isRequired,
+};
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
 });
 
-export default connect(mapStateToProps, { inputChange, loadQuizQuestions })(LessonItem);
+export default connect(mapStateToProps, {
+  inputChange,
+  loadQuizQuestions,
+  addRecentActivity,
+  addSubjectProgress,
+})(LessonItem);

@@ -60,6 +60,21 @@ const Signup = (props) => {
           position: "top-end",
         });
         props.clearErrors();
+      } else if (error.id === "USER_JOIN_THROUGH_INVITE_FAILURE") {
+        const message =
+          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+        Swal.fire({
+          html: message,
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+          timer: 3500,
+          position: "top-end",
+        });
+        props.clearErrors();
       }
     }
   });

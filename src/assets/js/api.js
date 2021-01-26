@@ -1,6 +1,5 @@
 import axios from "axios";
-const URL =
-  "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/";
+const URL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
@@ -23,12 +22,21 @@ export default {
     return header;
   },
 
-  
-  headers2() { 
-    let header = {};   
+  headers2() {
+    let header = {};
     header["Content-type"] = "application/json";
-    header["authorization"] = "F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv";        
+    header["authorization"] =
+      "F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv";
     return header;
+  },
+
+  acceptRejectClassmember(classId, userId, status) {
+    return axios({
+      method: "patch",
+      url: `${this.url}classes/accept-reject-class-request`,
+      headers: this.headers(),
+      data: { classId, userId, status },
+    });
   },
 
   checkUserExistJoinClass(email, classId) {
@@ -43,6 +51,15 @@ export default {
       method: "get",
       url: `${this.url}auth/roles`,
       headers: this.headers(),
+    });
+  },
+
+  sendClassInvite(email, link) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/send-class-invite`,
+      headers: this.headers(),
+      data: { email, link },
     });
   },
 
@@ -80,10 +97,65 @@ export default {
     });
   },
 
+  updateProfile(data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}/auth/profile-update`,
+      headers: this.headers(),
+      data,
+    });
+  },
+
+  addRecentActivity(lessonId, type) {
+    return axios({
+      method: "post",
+      url: `${this.url}/recents/add-recent-activity`,
+      headers: this.headers(),
+      data: {
+        lessonId,
+        type,
+      },
+    });
+  },
+
+  addSubjectProgress(
+    classId,
+    lessonId,
+    subjectId,
+    courseId,
+    recommended,
+    reason,
+    type
+  ) {
+    return axios({
+      method: "post",
+      url: `${this.url}/courses/subject-progress`,
+      headers: this.headers(),
+      data: {
+        classId,
+        lessonId,
+        subjectId,
+        courseId,
+        recommended,
+        reason,
+        type,
+      },
+    });
+  },
+
   changePassword(data) {
     return axios({
       method: "post",
       url: `${this.url}/auth/change_password`,
+      headers: this.headers(),
+      data,
+    });
+  },
+
+  changePasswordDirectly(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/auth/change-password`,
       headers: this.headers(),
       data,
     });
@@ -303,7 +375,7 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}/courses/${courseId}/progress-and-performance`,
-      headers: this.headers()     
+      headers: this.headers(),
     });
   },
 };

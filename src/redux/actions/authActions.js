@@ -23,6 +23,10 @@ import {
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_FAILURE,
   CHECK_USER_AND_JOIN_CLASS_FAILURE,
+  UPDATE_PROFILE_SUCCES,
+  UPDATE_PROFILE_FAILURE,
+  PASSWORD_CHANGE_FROM_PROFILE_SUCCESS,
+  PASSWORD_CHANGE_FROM_PROFILE_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -94,17 +98,17 @@ export const getRoles = () => async (dispatch) => {
 };
 export const registerUser = (user) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator');
-    const result = await API.registerUser(user);    
+    document.body.classList.add("loading-indicator");
+    const result = await API.registerUser(user);
     dispatch({
       type: CLEAR_FORM,
     });
     dispatch({
       type: REGISTER_SUCCESS,
       payload: result.data.data,
-    });    
-  
-    document.body.classList.remove('loading-indicator');
+    });
+
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
     document.body.classList.remove("loading-indicator");
     dispatch(
@@ -190,6 +194,38 @@ export const resetPassword = (user) => async (dispatch) => {
     });
   }
 };
+export const updateProfile = (user) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    await API.updateProfile(user);
+    dispatch({
+      type: UPDATE_PROFILE_SUCCES,
+    });
+    dispatch(
+      returnErrors(
+        "Profile Updated successfully",
+        "200",
+        "UPDATE_PROFILE_SUCCES"
+      )
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "UPDATE_PROFILE_FAILURE"
+      )
+    );
+    dispatch({
+      type: UPDATE_PROFILE_FAILURE,
+    });
+  }
+};
+
 export const changePassword = (user) => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
@@ -218,6 +254,38 @@ export const changePassword = (user) => async (dispatch) => {
     );
     dispatch({
       type: PASSWORD_CHANGE_FAILURE,
+    });
+  }
+};
+
+export const changePasswordFromProfile = (user) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    await API.changePasswordDirectly(user);
+    dispatch({
+      type: PASSWORD_CHANGE_FROM_PROFILE_SUCCESS,
+    });
+    dispatch(
+      returnErrors(
+        "Password changed successfully",
+        "200",
+        "PASSWORD_CHANGE_FROM_PROFILE_SUCCESS"
+      )
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "PASSWORD_CHANGE_FROM_PROFILE_FAILURE"
+      )
+    );
+    dispatch({
+      type: PASSWORD_CHANGE_FROM_PROFILE_FAILURE,
     });
   }
 };

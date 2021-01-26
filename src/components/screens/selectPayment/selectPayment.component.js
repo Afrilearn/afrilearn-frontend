@@ -41,7 +41,7 @@ const Payment = (props) => {
 
   /*flutterwave settings*/
   const config = {
-    public_key: process.env.REACT_APP_FLUTTER_KEY,
+    public_key: "FLWPUBK-eebfdb05b05f2db521a8b0c9043bf248-X",
     tx_ref: Date.now() + userId,
     amount: 5,
     currency: "NGN",

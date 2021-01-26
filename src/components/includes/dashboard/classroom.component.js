@@ -17,13 +17,22 @@ const Box = (props) => {
         </span>
       </div>
       <div className="col-md-4">
-        <span className="instructor">Instructor:&nbsp;</span> {props.teacher}
+        <span className="instructor">Instructor: &nbsp;</span>
+        {props.teacher ? props.teacher : "Anonymous"}
       </div>
-      <div className="col-md-4 right">
-        <Link className="view" to={`/classroom/${props.classId}`}>
-          View
-        </Link>
-      </div>
+      {props.item.status === "approved" ? (
+        <div className="col-md-4 right">
+          <Link className="view" to={`/classroom/${props.classId}`}>
+            View
+          </Link>
+        </div>
+      ) : (
+        <div className="col-md-4 right ">
+          <button className="view" disabled>
+            {props.item.status}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

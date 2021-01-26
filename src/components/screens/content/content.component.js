@@ -73,11 +73,13 @@ const Content = (props) => {
   };
 
   const terms = [];
+
   const termIds = [
     { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
     { id: "600047f67cabf80f88f61735", name: "Second Term" },
     { id: "600048197cabf80f88f61736", name: "Third Term" },
   ];
+
   termIds.forEach((item) => {
     const lessons =
       subject.relatedLessons &&
@@ -139,9 +141,7 @@ const Content = (props) => {
                 &nbsp; &nbsp; 13,000 Registered Students
               </p>
               {role && role === "5fc8cc978e28fa50986ecac9" && (
-                <Link              
-                  to="/assign-content"
-                >
+                <Link to="/assign-content">
                   <p className="teacher-assign-content-green">
                     Assign study content to students
                   </p>
@@ -163,6 +163,7 @@ const Content = (props) => {
                           key={clazz._id}
                           lesson={clazz}
                           seeMore={seeMore}
+                          relatedLessons={subject.relatedLessons}
                         />
                       ))}
                   </div>
