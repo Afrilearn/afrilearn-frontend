@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+// import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { usePaystackPayment } from "react-paystack";
 import "./css/style.css";
 import { Container, Row, Col } from "reactstrap";
 import SubscriptionBox from "../../includes/subscriptionBox/subscriptionBox.component";
@@ -40,23 +41,23 @@ const Payment = (props) => {
   });
 
   /*flutterwave settings*/
-  const config = {
-    public_key: "FLWPUBK-eebfdb05b05f2db521a8b0c9043bf248-X",
-    tx_ref: Date.now() + userId,
-    amount: 5,
-    currency: "NGN",
-    payment_options: "card,mobilemoney,ussd",
-    customer: {
-      email,
-    },
-    customizations: {
-      title: "Subscribe to Course",
-      description: "Payment for course Access",
-      logo: "https://afrilearn.s3.amazonaws.com/logo.png",
-    },
-    redirect_url: "/dashboard",
-  };
-  const handleFlutterPayment = useFlutterwave(config);
+  // const config = {
+  //   public_key: "FLWPUBK-eebfdb05b05f2db521a8b0c9043bf248-X",
+  //   tx_ref: Date.now() + userId,
+  //   amount: 5,
+  //   currency: "NGN",
+  //   payment_options: "card,mobilemoney,ussd",
+  //   customer: {
+  //     email,
+  //   },
+  //   customizations: {
+  //     title: "Subscribe to Course",
+  //     description: "Payment for course Access",
+  //     logo: "https://afrilearn.s3.amazonaws.com/logo.png",
+  //   },
+  //   redirect_url: "/dashboard",
+  // };
+  // const handleFlutterPayment = useFlutterwave(config);
 
   const setBB = (price) => {
     //change background onClick
@@ -70,25 +71,56 @@ const Payment = (props) => {
   };
 
   const [courseId, setCourseId] = useState(null);
-  const initializePayment = () => {
-    //initialize flutterwave payment
-    handleFlutterPayment({
-      callback: (response) => {
-        const data = {
-          tx_ref: response.tx_ref,
-          userId,
-          enrolledCourseId: activeEnrolledCourseId,
-          courseId,
-          paymentPlanId,
-          amount: 5,
-        };
-        props.createTransaction(data);
-        closePaymentModal(); // this will close the modal programmatically
-      },
-      onClose: () => {},
-    });
+  
+  // const initializePayment = () => {
+  //   //initialize flutterwave payment
+  //   handleFlutterPayment({
+  //     callback: (response) => {
+  //       const data = {
+  //         tx_ref: response.tx_ref,
+  //         userId,
+  //         enrolledCourseId: activeEnrolledCourseId,
+  //         courseId,
+  //         paymentPlanId,
+  //         amount: 5,
+  //       };
+  //       props.createTransaction(data);
+  //       closePaymentModal(); // this will close the modal programmatically
+  //     },
+  //     onClose: () => {},
+  //   });
+  // };
+
+  //paystack settings
+  const config = {
+    reference: new Date().getTime(),
+    email,
+    amount: paymentAmount * 100,
+    publicKey: "pk_test_ba917c15436529318ec4ae9f8d8605c7d57f20e9",
   };
 
+  // you can call this function anything
+  const onSuccess = (reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    const data = {
+      tx_ref: reference.reference,
+      userId,
+      enrolledCourseId: activeEnrolledCourseId,
+      courseId,
+      paymentPlanId,
+      amount: paymentAmount,
+    };
+    console.log(reference);
+    props.createTransaction(data);
+  };
+
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
+
+  const initializePayment = usePaystackPayment(config);
   const courseList = () => {
     if (courses.length) {
       return courses.map((course, index) => {
@@ -141,7 +173,9 @@ const Payment = (props) => {
             <Col>
               <button
                 disabled={paymentAmount === 0 ? true : false}
-                onClick={initializePayment}
+                onClick={() => {
+                  initializePayment(onSuccess, onClose);
+                }}
               >
                 Proceed &rarr;
               </button>

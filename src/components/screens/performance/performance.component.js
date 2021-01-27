@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import SubjectBox from './../../includes/performance/subjectBox.component';
 import PastQuestionBox from './../../includes/performance/pastQuestions.component';
 
-const Performance = props => {  
+const Performance = props => {   
 
    const {
       chartSection,

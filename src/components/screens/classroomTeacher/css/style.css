@@ -454,6 +454,7 @@
   margin-left: auto;
   border: none;
   border-radius: 3px;
+  padding: 3px;
 }
 @media screen and (max-width: 900px) {
   #classroomTeacherSectionTwo .people {
@@ -597,3 +598,26 @@
     right: 0;
   }
 }
+   .classwork main .class-item .item .more {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+
+  #classroomTeacherSectionTwo .h4 {
+    font-family: font2;
+    margin-bottom: 20px;
+  }
+  
+ #classroomTeacherSectionTwo  .pastQuestionsBox {
+    display: block;
+    background: #FC8A07;
+    padding: 23px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+  }
+  
+  #classroomTeacherSectionTwo .pastQuestionsBox1 {
+    background: #26AA76;
+  }

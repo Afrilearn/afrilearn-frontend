@@ -379,4 +379,13 @@ export default {
       headers: this.headers(),
     });
   },
+
+  getPerformanceInClass(courseId, classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}/courses/${courseId}/progress-and-performance`,
+      headers: this.headers(),
+      data: { classId },
+    });
+  },
 };

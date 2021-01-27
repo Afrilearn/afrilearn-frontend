@@ -9,14 +9,36 @@ import ellipse from "../../../assets/img/Ellipse.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import { connect } from "react-redux";
 import { getClass, createComment } from "./../../../redux/actions/classActions";
+import { getPerformanceInClass } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
+import { PieChart } from "react-minimal-pie-chart";
+import Chart from "r-chart";
+import { inputChange } from "./../../../redux/actions/authActions";
+import SubjectBox from "./../../includes/performance/subjectBox.component";
+import PastQuestionBox from "./../../includes/performance/pastQuestions.component";
 
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const ClassroomStudent = (props) => {
-  const { classMembers, clazz, fullName } = props;
+  const {
+    classMembers,
+    clazz,
+    chartSection,
+    activeCourseId,
+    fullName,
+    email,
+    activeCourseName,
+    address,
+    barChart,
+    barChartTitles,
+    performance,
+    overallPerformance,
+    overallProgress,
+  } = props;
+
+  
   const [newComment, setNewComment] = useState(null);
 
   const [activeTab, setActiveTab] = useState("1");
@@ -28,7 +50,10 @@ const ClassroomStudent = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-
+      props.getPerformanceInClass(
+        activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
+        props.match.params.classId
+      );
       if (!classMembers.length) {
         props.getClass(props.match.params.classId);
       }
@@ -36,6 +61,57 @@ const ClassroomStudent = (props) => {
       // do componentDidUpdate logic
     }
   });
+
+  const handleNavigation = (section, e) => {
+    e.preventDefault();
+    props.inputChange("chartSection", section);
+  };
+
+  const performanceSubjectList = () => {
+    if (performance.subjectsList && performance.subjectsList.length) {
+      let subjects = performance.subjectsList;
+      return subjects.map((item) => {
+        return (
+          <SubjectBox
+            subject={item.subject}
+            performance={item.performance}
+            correctAnswers={`${item.totalQuestionsCorrect}/${item.totalQuestions}`}
+            textAttempted={`${item.numberOfTests}/${item.totalTests}`}
+            time={
+              item.averageTimePerTest === null
+                ? "No Rating"
+                : item.averageTimePerTest
+            }
+          />
+        );
+      });
+    } else {
+      return <h6>Performance loading...</h6>;
+    }
+  };
+
+  const pastQuestionsList = () => {
+    if (performance.examsList && performance.examsList.length) {
+      let exam = performance.examsList;
+      return exam.map((item) => {
+        return (
+          <PastQuestionBox
+            subject={item.name}
+            performance={item.performance}
+            subjectAttempted={`${item.subjectsAttempted}/${item.totalSubjectsCount}`}
+            time={
+              item.averageTimePerSubject === null
+                ? "No Rating"
+                : item.averageTimePerSubject
+            }
+            subjects={item.perSubjectResults}
+          />
+        );
+      });
+    } else {
+      return <h6>Performance loading...</h6>;
+    }
+  };
 
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -140,7 +216,6 @@ const ClassroomStudent = (props) => {
       return <h6>No Members list yet</h6>;
     }
   };
-
 
   const classAnonouncements = () => {
     if (clazz.classAnnouncements) {
@@ -251,7 +326,6 @@ const ClassroomStudent = (props) => {
       });
     });
 
-  
   return (
     <div>
       <div id="classroomStudentSectionOne"></div>
@@ -435,7 +509,167 @@ const ClassroomStudent = (props) => {
                 </section>
               </div>
             </TabPane>
-            <TabPane tabId="5">5</TabPane>
+            <TabPane tabId="5">
+              <span id="performance">
+                <div id="performanceSecondSection" className="container-fluid">
+                  <div className="row">
+                    <div className="col-md-5">
+                      <span className="box">
+                        <div className="row">
+                          <div className="col-md-12">
+                            <h3>{fullName}</h3>
+                            <p>{email}</p>
+                            <span className="myBadge">{activeCourseName}</span>
+                            <span className="location">
+                              <img
+                                src={require("../../../assets/img/location.png")}
+                                alt="location"
+                              />
+                              &nbsp;&nbsp; {address}{" "}
+                            </span>
+                            <small className="underline invite">
+                              {/* <Link>Invite Your Friend</Link> */}
+                            </small>
+                          </div>
+                        </div>
+                      </span>
+                      <span className="box box1">
+                        <div className="row">
+                          <div className="col-md-12">
+                            <h3>Progress</h3>
+                            <p>
+                              <span className="orange">☢</span> Progress level
+                              per subject
+                            </p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-12">
+                            {barChart && barChart.length ? (
+                              <Chart
+                                data={[
+                                  {
+                                    type: "bar",
+                                    title: "Subject Progress",
+                                    color: "#26AA76",
+                                    points: barChart,
+                                  },
+                                ]}
+                                keys={barChartTitles}
+                              />
+                            ) : (
+                              "Loading Chart..."
+                            )}
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+                    <div className="col-md-7">
+                      <div className="row">
+                        <div className="col-md-12">
+                          <h3>Class Performance</h3>
+                        </div>
+                      </div>
+                      <span className="box box1 box2">
+                        <div className="row">
+                          <div className="col-md-12">Overrall</div>
+                        </div>
+                        <div className="row bottomBorder">
+                          <div className="col-md-7">
+                            <PieChart
+                              data={[
+                                {
+                                  title: "One",
+                                  value: overallProgress,
+                                  color: "#50E55A",
+                                },
+                                // { title: 'Two', value: 15, color: '#FDAD51' },
+                                {
+                                  title: "Three",
+                                  value: overallPerformance,
+                                  color: "#FF5B5B",
+                                },
+                              ]}
+                              lineWidth={40}
+                            />
+                          </div>
+                          <div className="col-md-5">
+                            <div className="row push2">
+                              <div className="col-md-12 push1">
+                                <span className="legend commitment"></span>
+                                &nbsp;&nbsp; Progress:{" "}
+                                {overallProgress.toFixed(2)}%
+                              </div>
+                              <div className="col-md-12 push1">
+                                <span className="legend speed"></span>
+                                &nbsp;&nbsp; Performance:{" "}
+                                {overallPerformance.toFixed(2)}%
+                              </div>
+                              {/* <div className="col-md-12 push1">
+                                 <span className="legend comprehension"></span>&nbsp;&nbsp; Comprehension: 50%
+                              </div> */}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <ul>
+                              <li
+                                className={
+                                  chartSection === "subject" ? "active" : null
+                                }
+                              >
+                                <Link
+                                  onClick={handleNavigation.bind(
+                                    null,
+                                    "subject"
+                                  )}
+                                >
+                                  Subject
+                                </Link>{" "}
+                                {chartSection === "subject" ? (
+                                  <span>
+                                    <br />
+                                    <hr />
+                                  </span>
+                                ) : null}
+                              </li>
+                              <li
+                                className={
+                                  chartSection === "pastQuestions"
+                                    ? "active"
+                                    : null
+                                }
+                              >
+                                <Link
+                                  onClick={handleNavigation.bind(
+                                    null,
+                                    "pastQuestions"
+                                  )}
+                                >
+                                  Past Questions
+                                </Link>
+                                {chartSection === "pastQuestions" ? (
+                                  <span>
+                                    <br />
+                                    <hr />
+                                  </span>
+                                ) : null}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        {chartSection === "subject" ? (
+                          <>{performanceSubjectList()}</>
+                        ) : chartSection === "pastQuestions" ? (
+                          <>{pastQuestionsList()}</>
+                        ) : null}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </TabPane>
           </TabContent>
         </div>
       </div>
@@ -445,16 +679,31 @@ const ClassroomStudent = (props) => {
 
 ClassroomStudent.propTypes = {
   getClass: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  inputChange: PropTypes.func.isRequired,
+  getPerformanceInClass: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   clazz: state.class.class,
   classMembers: state.class.classMembers,
+  userId: state.auth.userId,
+  chartSection: state.auth.chartSection,
+  activeCourseId: state.auth.activeCourseId,
   fullName: state.auth.fullName,
   email: state.auth.email,
-  userId: state.auth.userId,
+  activeCourseName: state.auth.activeCourseName,
+  address: state.auth.address,
+  barChart: state.course.barChart,
+  barChartTitles: state.course.barChartTitles,
+  performance: state.course.performance,
+  overallPerformance: state.course.overallPerformance,
+  overallProgress: state.course.overallProgress,
 });
 
-export default connect(mapStateToProps, { getClass, createComment })(
-  ClassroomStudent
-);
+export default connect(mapStateToProps, {
+  getClass,
+  createComment,
+  inputChange,
+  getPerformanceInClass,
+})(ClassroomStudent);
