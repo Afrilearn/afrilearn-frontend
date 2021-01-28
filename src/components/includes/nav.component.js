@@ -58,9 +58,7 @@ import {
   getSearchResults,
   searchInputChange,
 } from "./../../redux/actions/searchActions";
-import {
-  populateDashboard  
-} from "./../../redux/actions/courseActions";
+import { populateDashboard } from "./../../redux/actions/courseActions";
 
 const MyNav = (props) => {
   const { user, searchRedirect, searchLocation, dashboardRoute } = props;
@@ -75,25 +73,50 @@ const MyNav = (props) => {
     props.inputChange("isAuthenticated", false);
   };
 
-  const updateactiveEnrolledCourseId = (id, courseId, courseName, paymentStatus, e) => {
-    props.inputChange('activeEnrolledCourseId', id);  
-    props.inputChange('activeCourseId', courseId); 
-    props.inputChange('activeCourseName', courseName); 
-    props.inputChange('paymentIsActive', paymentStatus);
-     if(dashboardRoute){
+  const updateactiveEnrolledCourseId = (
+    id,
+    courseId,
+    courseName,
+    paymentStatus,
+    e
+  ) => {
+    props.inputChange("activeEnrolledCourseId", id);
+    props.inputChange("activeCourseId", courseId);
+    props.inputChange("activeCourseName", courseName);
+    props.inputChange("paymentIsActive", paymentStatus);
+    if (dashboardRoute) {
       const data = {
         enrolledCourseId: id,
       };
-       props.populateDashboard(data)
-     }
-  } 
+      props.populateDashboard(data);
+    }
+  };
 
   const classList = () => {
     if (user && user.enrolledCourses.length) {
       return user.enrolledCourses.map((item) => {
-        return  <DropdownItem onClick={updateactiveEnrolledCourseId.bind(null,item._id, item.courseId._id, item.courseId.name, item.paymentIsActive)} tag={Link} to="/dashboard">
-                  <span><img src={require('./../../assets/img/profile.png')} alt="profile" className="dropDownIcon"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}</span>
-                </DropdownItem>  
+        return (
+          <DropdownItem
+            onClick={updateactiveEnrolledCourseId.bind(
+              null,
+              item._id,
+              item.courseId._id,
+              item.courseId.name,
+              item.paymentIsActive
+            )}
+            tag={Link}
+            to="/dashboard"
+          >
+            <span>
+              <img
+                src={require("./../../assets/img/profile.png")}
+                alt="profile"
+                className="dropDownIcon"
+              />{" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}
+            </span>
+          </DropdownItem>
+        );
       });
     }
   };
@@ -124,9 +147,11 @@ const MyNav = (props) => {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/performance">
-                    Performance Analysis
-                  </NavLink>
+                  {user.role !== "5fc8cc978e28fa50986ecac9" && (
+                    <NavLink tag={Link} to="/performance">
+                      Performance Analysis
+                    </NavLink>
+                  )}
                 </NavItem>
               </>
             ) : (
@@ -249,7 +274,10 @@ const MyNav = (props) => {
           exact
           component={pastQuestionExamPage}
         />
-        <ProtectedRoute path="/past-questions/:categoryId" component={pastQuestions} />
+        <ProtectedRoute
+          path="/past-questions/:categoryId"
+          component={pastQuestions}
+        />
         <ProtectedRoute
           path="/classes/:classId/:subjectId/quiz"
           exact
@@ -285,7 +313,7 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <ProtectedRoute path="/select-pay" component={selectPayment} />      
+        <ProtectedRoute path="/select-pay" component={selectPayment} />
         <ProtectedRoute
           path="/dashboard"
           component={
@@ -321,5 +349,5 @@ export default connect(mapStateToProps, {
   inputChange,
   getSearchResults,
   searchInputChange,
-  populateDashboard
+  populateDashboard,
 })(MyNav);

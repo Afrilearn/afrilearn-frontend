@@ -16,17 +16,26 @@ import {
   sendClassInvitation,
   acceptRejectClassmember,
 } from "./../../../redux/actions/classActions";
+import { populateDashboard } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
+import PastQuestionsBox from "../../includes/pastQuestions/box.component";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Popover, PopoverBody, Modal, ModalBody, Alert } from "reactstrap";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { TabContent, TabPane } from "reactstrap";
 
 const ClassroomTeacher = (props) => {
+  const {
+    dashboardData,
+    activeEnrolledCourseId,
+    clazz,
+    classMembers,
+    error,
+  } = props;
   const [activeTab, setActiveTab] = useState("1");
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -41,8 +50,6 @@ const ClassroomTeacher = (props) => {
   const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState(null);
   const onDismiss = () => setVisible(false);
-
-  const { clazz, classMembers, error } = props;
 
   const subjects = [];
   clazz.relatedSubjects &&
@@ -75,6 +82,10 @@ const ClassroomTeacher = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
+      const data = {
+        enrolledCourseId: activeEnrolledCourseId,
+      };
+      props.populateDashboard(activeEnrolledCourseId ? data : null);
       toggleTab("1");
       if (!classMembers.length) {
         props.getClass("5fc8f0fd5194183bf09b94fb");
@@ -307,6 +318,30 @@ const ClassroomTeacher = (props) => {
     }
   };
 
+  const pastQuestionsList = () => {
+    if (
+      Object.keys(dashboardData).length &&
+      dashboardData.enrolledCourse &&
+      Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions)
+        .length
+    ) {
+      let pastQuestions =
+        dashboardData.enrolledCourse.courseId.relatedPastQuestions;
+      return pastQuestions.map((item, index) => {
+        return (
+          <PastQuestionsBox
+            title={item.pastQuestionTypes[0].name}
+            other={index % 2 === 0 ? true : false}
+            categoryId={item.pastQuestionTypes[0].categoryId}
+            categoryName={item.pastQuestionTypes[0].name}
+          />
+        );
+      });
+    } else {
+      return <h6>No past questions yet</h6>;
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -455,6 +490,8 @@ const ClassroomTeacher = (props) => {
               <div id="classes" className="container-fluid relative subjects">
                 <h4 className="font2">My Subjects</h4>
                 <div className="row">{subjectList()}</div>
+                <h4 className="push5 h4">Past Questions</h4>
+                <div className="row jj">{pastQuestionsList()}</div>
               </div>
 
               <div className="announcements ">
@@ -547,7 +584,9 @@ ClassroomTeacher.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   clazz: state.class.class,
+  dashboardData: state.course.dashboardData,
   classMembers: state.class.classMembers,
   fullName: state.auth.fullName,
   email: state.auth.email,
@@ -558,6 +597,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   inputChange,
+  populateDashboard,
   getClass,
   createComment,
   sendClassInvitation,
