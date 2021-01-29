@@ -61,7 +61,7 @@ import {
 import { populateDashboard } from "./../../redux/actions/courseActions";
 
 const MyNav = (props) => {
-  const { user, searchRedirect, searchLocation, dashboardRoute } = props;
+  const { user, searchRedirect, searchLocation, dashboardRoute, role } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { isAuthenticated } = props;
@@ -77,8 +77,7 @@ const MyNav = (props) => {
     id,
     courseId,
     courseName,
-    paymentStatus,
-    e
+    paymentStatus    
   ) => {
     props.inputChange("activeEnrolledCourseId", id);
     props.inputChange("activeCourseId", courseId);
@@ -93,7 +92,7 @@ const MyNav = (props) => {
   };
 
   const classList = () => {
-    if (user && user.enrolledCourses.length) {
+    if (user && user.enrolledCourses.length && role === "5fd08fba50964811309722d5") {
       return user.enrolledCourses.map((item) => {
         return (
           <DropdownItem
@@ -114,6 +113,31 @@ const MyNav = (props) => {
                 className="dropDownIcon"
               />{" "}
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.courseId.name}
+            </span>
+          </DropdownItem>
+        );
+      });
+    }else if (user && user.classOwnership.length && role === "5fc8cc978e28fa50986ecac9") {
+      return user.classOwnership.map((item) => {
+        return (
+          <DropdownItem
+            onClick={updateactiveEnrolledCourseId.bind(
+              null,
+              item._id,
+              item.enrolledCourse._id,
+              item.name,
+              item.enrolledCourse.paymentIsActive
+            )}
+            tag={Link}
+            to="/classes/teacher"
+          >
+            <span>
+              <img
+                src={require("./../../assets/img/profile.png")}
+                alt="profile"
+                className="dropDownIcon"
+              />{" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}
             </span>
           </DropdownItem>
         );
@@ -344,6 +368,7 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
   searchResults: state.search.searchResults,
   dashboardRoute: state.auth.dashboardRoute,
+  role: state.auth.role
 });
 export default connect(mapStateToProps, {
   inputChange,

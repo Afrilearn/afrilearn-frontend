@@ -86,21 +86,26 @@ const authReducer = (state = initialState, action) => {
           myObj = {
             isAuthenticated: true,
             location: "/classes/teacher",
+            activeEnrolledCourseId: action.payload.user.classOwnership && action.payload.user.classOwnership.length? action.payload.user.classOwnership[0]._id:'',  
+            activeCourseId:  action.payload.user.classOwnership && action.payload.user.classOwnership.length? action.payload.user.classOwnership[0].enrolledCourse._id:'', 
+            activeCourseName:  action.payload.user.classOwnership && action.payload.user.classOwnership.length? action.payload.user.classOwnership[0].name:'', 
+            activeCoursePaidStatus:  action.payload.user.classOwnership && action.payload.user.classOwnership.length? action.payload.user.classOwnership[0].enrolledCourse.paymentIsActive:'', 
           };
         } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
           myObj = {
+            activeEnrolledCourseId: action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',  
+            activeCourseId:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId._id:'', 
+            activeCourseName:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId.name:'', 
+            activeCoursePaidStatus:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].paymentIsActive:'', 
             isAuthenticated: true,
             location: "/dashboard",
+
           };
         }
       }    
       otherObj = {
         userId: action.payload.user._id,
-        user: action.payload.user,
-        activeEnrolledCourseId: action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0]._id:'',  
-        activeCourseId:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId._id:'', 
-        activeCourseName:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].courseId.name:'', 
-        activeCoursePaidStatus:  action.payload.user.enrolledCourses && action.payload.user.enrolledCourses.length? action.payload.user.enrolledCourses[0].paymentIsActive:'', 
+        user: action.payload.user,      
         redirect:true,
         email: action.payload.user.email,
         fullName: action.payload.user.fullName,
@@ -151,19 +156,19 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    case SOCIAL_LOGIN_UPDATE_SUCCESS:
-      localStorage.setItem("location", "/dashboard");
-      if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {
-        localStorage.setItem("location", "/classes/teacher");
-      } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
-        localStorage.setItem("location", "/dashboard");
-      }
-      return {
-        ...state,
-        role: action.payload.user.role,
-        isAuthenticated: true,
-        redirect: true,
-      };
+    // case SOCIAL_LOGIN_UPDATE_SUCCESS:
+    //   localStorage.setItem("location", "/dashboard");
+    //   if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {
+    //     localStorage.setItem("location", "/classes/teacher");
+    //   } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
+    //     localStorage.setItem("location", "/dashboard");
+    //   }
+    //   return {
+    //     ...state,
+    //     role: action.payload.user.role,
+    //     isAuthenticated: true,
+    //     redirect: true,
+    //   };
     default:
       return state;
   }

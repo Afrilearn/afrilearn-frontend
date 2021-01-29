@@ -16,7 +16,8 @@ const SocialSignup = props => {
         roles,
         classes,      
         redirect,
-        location
+        location,
+        className
     } = props;
 
     const mounted = useRef(); 
@@ -61,9 +62,11 @@ const SocialSignup = props => {
             message='Please select a role';             
         } else if (!activeEnrolledCourseId) {
             message='Please select a class';   
-        } 
+        } else if(!className && role ==='5fc8cc978e28fa50986ecac9'){
+            message='Please enter class name';  
+        }  
 
-        if(!role || !activeEnrolledCourseId){               
+        if(!role || !activeEnrolledCourseId || (!className && role ==='5fc8cc978e28fa50986ecac9')){               
             Swal.fire({
                 title: message,
                 showClass: {
@@ -78,8 +81,11 @@ const SocialSignup = props => {
         }else{          
             const user = {
                 role,
-                courseId:activeEnrolledCourseId                            
+                courseId:activeEnrolledCourseId                                            
             }; 
+            if(className){
+                user['className'] = className;
+            }
             props.socialLoginUpdate(user);        
             
         }
@@ -116,12 +122,19 @@ const SocialSignup = props => {
                                 {roleSet()}                      
                             </select>
                         </div>
+
                         <div className="col-md-12">
                             <select className="general" name="activeEnrolledCourseId" value={activeEnrolledCourseId} onChange={handleChange}>
                                 <option>Select class</option>
                                 {classSet()}                         
                             </select>
-                        </div>                       
+                        </div>  
+                        {
+                            role ==='5fc8cc978e28fa50986ecac9'?
+                            <div className="col-md-12">
+                                <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
+                            </div>:''
+                        }                         
                         <div className="col-md-12">
                            <input type="submit" value="Update" className="general" onClick={handleSubmit}/>
                         </div>
@@ -145,5 +158,6 @@ const mapStateToProps = (state) => ({
     roles: state.auth.roles,  
     classes: state.auth.classes,    
     error: state.error,   
+    className: state.auth.className, 
 });
 export default connect(mapStateToProps, {inputChange, getRoles, clearErrors, socialLoginUpdate, courseEnrolment})(SocialSignup);
