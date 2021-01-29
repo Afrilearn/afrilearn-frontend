@@ -12,7 +12,7 @@
   background-color: black;
   position: relative;
   color: white;
-  font-family: font3;
+  font-family: font1;
 }
 #classroomTeacherSectionTwo .image {
   position: absolute;
@@ -49,6 +49,7 @@
 #classroomTeacherSectionTwo .main-tab-item.active {
   background-color: #26aa76;
   border: none;
+  font-weight: normal !important;
 }
 #classroomTeacherSectionTwo .welcome p {
   margin: 0;
@@ -403,6 +404,7 @@
 }
 .pic-text-heading div p {
   margin: 0;
+  font-weight: normal !important;
 }
 .small-grey {
   font-size: 13px !important;
@@ -621,3 +623,11 @@
   #classroomTeacherSectionTwo .pastQuestionsBox1 {
     background: #26AA76;
   }
+  #classroomTeacherSectionTwo .pastQuestionsBox img {
+    max-width: 70px;
+  }
+  
+  #classroomTeacherSectionTwo .pastQuestionsBox p {
+    font-size: 12px;
+    font-weight: normal !important;
+ }

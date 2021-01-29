@@ -20,6 +20,7 @@ import moment from "moment";
 import ReactPlayer from "react-player";
 
 import { getCourse } from "./../../../redux/actions/courseActions";
+import parse from 'html-react-parser';
 
 const LessonPage = (props) => {
   const { course, role } = props;
@@ -181,8 +182,8 @@ const LessonPage = (props) => {
             </div>
           </div>
           <a href="/">Hide Transcript</a>
-          <h4>{lesson && lesson.title}</h4>
-          <p>{lesson && lesson.content}</p>
+          <h4>{lesson && parse(lesson.title)}</h4>
+          <p className="lessonContent">{lesson && parse(lesson.content)}</p>
         </div>
         <div className="right">
           <div className="top">

@@ -82,13 +82,14 @@ const ClassroomTeacher = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      const data = {
-        enrolledCourseId: activeEnrolledCourseId,
-      };
-      props.populateDashboard(activeEnrolledCourseId ? data : null);
+      props.inputChange('dashboardRoute',true) 
+      // const data = {
+      //   enrolledCourseId: activeEnrolledCourseId,
+      // };
+      // props.populateDashboard(activeEnrolledCourseId ? data : null);
       toggleTab("1");
       if (!classMembers.length) {
-        props.getClass("5fc8f0fd5194183bf09b94fb");
+        props.getClass(activeEnrolledCourseId);
       }
     } else {
       // do componentDidUpdate logic
@@ -508,11 +509,11 @@ const ClassroomTeacher = (props) => {
                     {classAnonouncements()}
                     <Link
                       to={`/classes/${clazz._id}/${
-                        clazz.teacherAssignedContents &&
-                        clazz.teacherAssignedContents[0].subjectId._id
+                        clazz.teacherAssignedContents &&  clazz.teacherAssignedContents.lenght?
+                        clazz.teacherAssignedContents[0].subjectId._id :''
                       }/${
-                        clazz.teacherAssignedContents &&
-                        clazz.teacherAssignedContents[0]._id
+                        clazz.teacherAssignedContents && clazz.teacherAssignedContents.lenght?
+                        clazz.teacherAssignedContents[0]._id:''
                       }`}
                       className="notification-block"
                     >
@@ -520,15 +521,15 @@ const ClassroomTeacher = (props) => {
                         <img src={event} alt="event" />
                         <div>
                           <p>
-                            {clazz.teacherAssignedContents &&
-                              clazz.teacherAssignedContents[0].description}
+                            {clazz.teacherAssignedContents && clazz.teacherAssignedContents.lenght?
+                              clazz.teacherAssignedContents[0].description :''}
                           </p>
                           <p>
                             <small className="small-grey">
-                              {clazz.teacherAssignedContents &&
+                              {clazz.teacherAssignedContents && clazz.teacherAssignedContents.lenght?
                                 moment(
                                   clazz.teacherAssignedContents[0].createdAt
-                                ).format("LL")}
+                                ).format("LL") :''}
                             </small>
                           </p>
                         </div>

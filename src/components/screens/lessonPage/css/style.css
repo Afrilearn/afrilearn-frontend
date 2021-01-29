@@ -30,7 +30,12 @@
   background-color: black;
   color: white;
   justify-content: center;
-  font-family: font3;
+  font-family: font1 !important;
+}
+.lessonContent img {
+  display: block;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 #lessonPageSectionTwo .left {
   flex: 0 0 55%;
@@ -126,7 +131,7 @@
 #lessonPageSectionTwo .left p {
   margin: 10px 0;
   padding-right: 10px;
-  text-align: justify;
+  text-align: justify !important;
 }
 #lessonPageSectionTwo .left h5 {
   margin: 20px 0;
