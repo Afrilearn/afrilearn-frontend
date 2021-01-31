@@ -313,8 +313,8 @@ const Box = (props) => {
                 <div className="row">
                   <div className="col-md-12 center">
                     <Link onClick={handleDrop}>
-                      <span className="arrowBox">
-                        <FontAwesomeIcon icon={faAngleDown} />
+                      <span className="arrowBox cursor-pointer">
+                        <FontAwesomeIcon icon={faAngleDown}  />
                       </span>
                     </Link>
                   </div>
@@ -327,7 +327,7 @@ const Box = (props) => {
                   <div className="row">
                     <div className="col-md-12 center">
                       <Link onClick={handleDrop}>
-                        <span className="arrowBox">
+                        <span className="arrowBox cursor-pointer">
                           <FontAwesomeIcon icon={faAngleUp} />
                         </span>
                       </Link>

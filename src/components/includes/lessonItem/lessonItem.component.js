@@ -86,7 +86,7 @@ const LessonItem = (props) => {
         <div className="term_item_left_bottom row">
           {lessonVideos()}
           <div class="col-md-3">
-            <div
+            {/* <div
               className="term_item_left_bottom_item "
               onClick={() => {
                 props.addRecentActivity(lesson._id, "quiz");
@@ -99,11 +99,11 @@ const LessonItem = (props) => {
               >
                 Quiz
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
-      <span className="term_item_see_more" onClick={seeMore}>
+      <span className="term_item_see_more cursor-pointer" onClick={seeMore}>
         <FontAwesomeIcon icon={faAngleDown} />
       </span>
     </div>

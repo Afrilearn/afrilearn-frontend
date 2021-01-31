@@ -117,11 +117,13 @@ const Content = (props) => {
               <p className="right_para">
                 {subject.mainSubjectId && subject.mainSubjectId.introText}
               </p>
-              {!activeCoursePaidStatus?  
-              <Link to="/select-pay">
+              {!activeCoursePaidStatus ? (
+                <Link to="/select-pay">
                   <p className="red_text">Subscribe to Unlock Content</p>
-              </Link>:''}
-             
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-md-1"></div>
             <div className="left col-md-4">
@@ -153,6 +155,10 @@ const Content = (props) => {
         <div class="container-fluid">
           <div className="terms">
             {subject &&
+            terms &&
+            terms[0].length !== 0 &&
+            terms[1].length !== 0 &&
+            terms[2].length !== 0 ? (
               terms.map((term, index) => (
                 <div key={term.id} className="term">
                   <h4 className="term_head">{term.name}</h4>
@@ -168,7 +174,10 @@ const Content = (props) => {
                       ))}
                   </div>
                 </div>
-              ))}
+              ))
+            ) : (
+              <p>No lessons found</p>
+            )}
             <span className="term_item_see_less" onClick={seeLess}>
               <FontAwesomeIcon icon={faAngleUp} />
             </span>
