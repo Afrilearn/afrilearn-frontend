@@ -164,11 +164,12 @@ const Content = (props) => {
                   <h4 className="term_head">{term.name}</h4>
                   <div className="term_list">
                     {term.lessons &&
-                      term.lessons.map((clazz) => (
+                      term.lessons.map((clazz, index) => (
                         <LessonItem
                           key={clazz._id}
                           lesson={clazz}
                           seeMore={seeMore}
+                          unlocked={index === 0}
                           relatedLessons={subject.relatedLessons}
                         />
                       ))}

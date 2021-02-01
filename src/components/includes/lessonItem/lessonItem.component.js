@@ -16,7 +16,13 @@ import {
 import PropTypes from "prop-types";
 
 const LessonItem = (props) => {
-  const { lesson, seeMore, activeCoursePaidStatus, relatedLessons } = props;
+  const {
+    lesson,
+    seeMore,
+    activeCoursePaidStatus,
+    relatedLessons,
+    unlocked,
+  } = props;
 
   const updateQuizType = () => {
     props.inputChange("examType", "quiz");
@@ -49,13 +55,14 @@ const LessonItem = (props) => {
                 lesson.subjectId,
                 lesson.courseId,
                 recommendation(lesson._id),
-                lesson._id
+                lesson._id,
+                "lesson"
               );
             }}
           >
             <Link
               to={
-                activeCoursePaidStatus
+                activeCoursePaidStatus || unlocked
                   ? `/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`
                   : "/select-pay"
               }

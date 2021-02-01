@@ -136,7 +136,7 @@ const Dashboard = (props) => {
               pastQuestions={item.type === "lesson" ? false : true}
               title={item.reason.title}
               recommend={item.recommended.title}
-              recommendedId={item.recommended._id}
+              recommended={item.recommended}
             />
           );
         }
