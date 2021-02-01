@@ -82,7 +82,7 @@ const ClassroomTeacher = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.inputChange('dashboardRoute',true) 
+      props.inputChange("dashboardRoute", true);
       // const data = {
       //   enrolledCourseId: activeEnrolledCourseId,
       // };
@@ -497,23 +497,29 @@ const ClassroomTeacher = (props) => {
 
               <div className="announcements ">
                 <main>
-                  <article>
-                    <div className="pic-text-heading">
-                      <img src={man} alt="announce" />
-                      <div>
-                        <p>Announcements from teacher</p>
+                  {clazz.classAnnouncements && (
+                    <article>
+                      <div className="pic-text-heading">
+                        <img src={man} alt="announce" />
+                        <div>
+                          <p>Announcements from teacher</p>
+                        </div>
                       </div>
-                    </div>
-                  </article>
+                    </article>
+                  )}
                   <section>
                     {classAnonouncements()}
                     <Link
                       to={`/classes/${clazz._id}/${
-                        clazz.teacherAssignedContents &&  clazz.teacherAssignedContents.lenght?
-                        clazz.teacherAssignedContents[0].subjectId._id :''
+                        clazz.teacherAssignedContents &&
+                        clazz.teacherAssignedContents.lenght
+                          ? clazz.teacherAssignedContents[0].subjectId._id
+                          : ""
                       }/${
-                        clazz.teacherAssignedContents && clazz.teacherAssignedContents.lenght?
-                        clazz.teacherAssignedContents[0]._id:''
+                        clazz.teacherAssignedContents &&
+                        clazz.teacherAssignedContents.lenght
+                          ? clazz.teacherAssignedContents[0]._id
+                          : ""
                       }`}
                       className="notification-block"
                     >
@@ -521,15 +527,19 @@ const ClassroomTeacher = (props) => {
                         <img src={event} alt="event" />
                         <div>
                           <p>
-                            {clazz.teacherAssignedContents && clazz.teacherAssignedContents.lenght?
-                              clazz.teacherAssignedContents[0].description :''}
+                            {clazz.teacherAssignedContents &&
+                            clazz.teacherAssignedContents.lenght
+                              ? clazz.teacherAssignedContents[0].description
+                              : ""}
                           </p>
                           <p>
                             <small className="small-grey">
-                              {clazz.teacherAssignedContents && clazz.teacherAssignedContents.lenght?
-                                moment(
-                                  clazz.teacherAssignedContents[0].createdAt
-                                ).format("LL") :''}
+                              {clazz.teacherAssignedContents &&
+                              clazz.teacherAssignedContents.lenght
+                                ? moment(
+                                    clazz.teacherAssignedContents[0].createdAt
+                                  ).format("LL")
+                                : ""}
                             </small>
                           </p>
                         </div>

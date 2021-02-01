@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -20,7 +22,7 @@ import moment from "moment";
 import ReactPlayer from "react-player";
 
 import { getCourse } from "./../../../redux/actions/courseActions";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 const LessonPage = (props) => {
   const { course, role } = props;
@@ -45,6 +47,10 @@ const LessonPage = (props) => {
     lesson &&
     lesson.videoUrls &&
     lesson.videoUrls.findIndex((vid) => vid._id === props.match.params.videoId);
+  const nextVideo =
+    lesson && lesson.videoUrls && videoIndex !== lesson.videoUrls.length
+      ? lesson.videoUrls[videoIndex + 1]
+      : null;
 
   const relatedVideos =
     lesson &&
@@ -114,21 +120,61 @@ const LessonPage = (props) => {
     const popTwo = document.getElementById("lessonPagePopUpTwo");
     popTwo.style.display = "none";
   };
+  const [modal, setModal] = useState(false);
+  const { className } = props;
+  const toggleModal = () => setModal(!modal);
 
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
-        <ReactPlayer
-          config={{ file: { attributes: { controlsList: 'nodownload' } } }}
-          // Disable right click
-          onContextMenu={e => e.preventDefault()}
-        
-          url={video && video.videoUrl}
-          controls="true"
-          width="100%"
-          height="500px"
-        />
+
+        <div>
+          <Modal isOpen={modal} toggle={toggleModal} className={className}>
+            <ModalHeader toggle={toggleModal}></ModalHeader>
+            <ModalBody style={{ textAlign: "center" }}>
+              {nextVideo ? (
+                <div>
+                  <p>Lesson completed</p>
+                  <Link
+                    to={`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${nextVideo._id}`}
+                    className="btn btn-primary"
+                  >
+                    Go to next lesson
+                  </Link>
+                </div>
+              ) : (
+                <div>
+                  <p>Lessons completed for this section</p>
+                  <h2>Congratulations</h2>
+                  <Button
+                    tag={Link}
+                    to={`/content/${lesson && lesson.courseId}/${
+                      lesson && lesson.subjectId
+                    }/${lesson && lesson._id}`}
+                    className="btn btn-success"
+                  >
+                    Go to topics page
+                  </Button>
+                </div>
+              )}
+            </ModalBody>
+          </Modal>
+        </div>
+        {video && video.videoUrl && (
+          <ReactPlayer
+            config={{ file: { attributes: { controlsList: "nodownload" } } }}
+            // Disable right click
+            onContextMenu={(e) => e.preventDefault()}
+            onEnded={(e) => {
+              toggleModal();
+            }}
+            url={video && video.videoUrl}
+            controls="true"
+            width="100%"
+            height="500px"
+          />
+        )}
       </div>
       <div id="lessonPageSectionTwo">
         <div className="left">
@@ -207,7 +253,9 @@ const LessonPage = (props) => {
             {relatedVideosList()}
           </div> */}
           <div className="mid">
-            <h4>Recommended for you</h4>
+            {relatedVideos && relatedVideos.length !== 0 && (
+              <h4>Recommended for you</h4>
+            )}
             {relatedVideosList()}{" "}
           </div>
         </div>

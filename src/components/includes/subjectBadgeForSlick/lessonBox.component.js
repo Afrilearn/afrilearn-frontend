@@ -38,9 +38,9 @@ const Box = (props) => {
           {videoList()}
           <div className="col-md-3 paddingRightOff">
             <Link to="/register">
-              <span className="borderAll lessonBox">
+              {/* <span className="borderAll lessonBox">
                 &nbsp;&nbsp;Quiz&nbsp;&nbsp;
-              </span>
+              </span> */}
             </Link>
           </div>
         </div>

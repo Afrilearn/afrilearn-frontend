@@ -13,9 +13,7 @@ import {
   populateDashboard,
   inputChange,
 } from "./../../../redux/actions/courseActions";
-import {  
-  inputChange as authInputChange
-} from "./../../../redux/actions/authActions";
+import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import { sendClassRequest } from "./../../../redux/actions/classActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
@@ -42,7 +40,7 @@ const Dashboard = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.authInputChange('dashboardRoute',true)      
+      props.authInputChange("dashboardRoute", true);
       const data = {
         enrolledCourseId: activeEnrolledCourseId,
       };
@@ -120,7 +118,7 @@ const Dashboard = (props) => {
         );
       });
     } else {
-      return <div className="container-fluid">No class list yet</div>;
+      return <h6>No class list yet</h6>;
     }
   };
 
@@ -315,5 +313,5 @@ export default connect(mapStateToProps, {
   populateDashboard,
   inputChange,
   sendClassRequest,
-  authInputChange
+  authInputChange,
 })(Dashboard);
