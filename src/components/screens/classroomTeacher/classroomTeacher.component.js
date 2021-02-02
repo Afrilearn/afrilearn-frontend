@@ -105,7 +105,7 @@ const ClassroomTeacher = (props) => {
             popup: "animate__animated animate__fadeOutUp",
           },
           timer: 3500,
-          position: "top-end",
+          // position: "top-end",
         });
         props.clearErrors();
       } else if (error.id === "ACCEPT_REJECT_CLASSMEMBER_SUCCESS") {
@@ -120,7 +120,7 @@ const ClassroomTeacher = (props) => {
             popup: "animate__animated animate__fadeOutUp",
           },
           timer: 3500,
-          position: "top-end",
+          // position: "top-end",
         });
         props.clearErrors();
       }

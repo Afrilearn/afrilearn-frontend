@@ -88,7 +88,11 @@ const LessonItem = (props) => {
       <div className="term_item_left col-md-9">
         <h5 className="term_item_left_top">
           {lesson.title}{" "}
-          {!activeCoursePaidStatus ? <FontAwesomeIcon icon={faLock} /> : ""}
+          {!activeCoursePaidStatus && !unlocked ? (
+            <FontAwesomeIcon icon={faLock} />
+          ) : (
+            ""
+          )}
         </h5>
         <div className="term_item_left_bottom row">
           {lessonVideos()}

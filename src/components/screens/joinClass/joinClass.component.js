@@ -42,7 +42,7 @@ const Signup = (props) => {
             popup: "animate__animated animate__fadeOutUp",
           },
           timer: 3500,
-          position: "top-end",
+          // position: "top-end",
         });
         props.clearErrors();
       } else if (error.id === "USER_JOIN_THROUGH_INVITE_SUCCESS") {
@@ -57,7 +57,7 @@ const Signup = (props) => {
             popup: "animate__animated animate__fadeOutUp",
           },
           timer: 3500,
-          position: "top-end",
+          // position: "top-end",
         });
         props.clearErrors();
       } else if (error.id === "USER_JOIN_THROUGH_INVITE_FAILURE") {
@@ -72,7 +72,7 @@ const Signup = (props) => {
             popup: "animate__animated animate__fadeOutUp",
           },
           timer: 3500,
-          position: "top-end",
+          // position: "top-end",
         });
         props.clearErrors();
       }
@@ -114,7 +114,7 @@ const Signup = (props) => {
           popup: "animate__animated animate__fadeOutUp",
         },
         timer: 1500,
-        position: "top-end",
+        // position: "top-end",
       });
     } else {
       props.joinClassApproved(parsed.classId, email, fullName, password);
