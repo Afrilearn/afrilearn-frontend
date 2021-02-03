@@ -11,7 +11,11 @@ import {
   createTransaction,
 } from "./../../../redux/actions/paymentActions";
 import { getCourses } from "./../../../redux/actions/courseActions";
+import { addClass } from "./../../../redux/actions/classActions";
+import { getRoles } from "./../../../redux/actions/authActions";
+import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 
 const Payment = (props) => {
   const mounted = useRef();
@@ -24,19 +28,40 @@ const Payment = (props) => {
     activeEnrolledCourseId,
     email,
     courses,
+    role,
+    error,
   } = props;
 
+  console.log(role);
+  console.log(courses);
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
       props.paymentPlans();
-      if (!courses.length) {
-        props.getCourses();
-      }
+      props.getCourses();
     } else {
       // do componentDidUpdate logic
+      if (
+        error.id === "ADD_CLASS_SUCCESS" ||
+        error.id === "ADD_CLASS_FAILURE"
+      ) {
+        const message =
+          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+        Swal.fire({
+          html: message,
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+          timer: 3500,
+          // position: 'top-end',,
+        });
+        props.clearErrors();
+      }
     }
   });
 
@@ -71,7 +96,8 @@ const Payment = (props) => {
   };
 
   const [courseId, setCourseId] = useState(null);
-  
+  const [nameOfClass, setNameOfClass] = useState(null);
+
   // const initializePayment = () => {
   //   //initialize flutterwave payment
   //   handleFlutterPayment({
@@ -112,6 +138,9 @@ const Payment = (props) => {
     };
     console.log(reference);
     props.createTransaction(data);
+    if (role && role === "5fc8cc978e28fa50986ecac9") {
+      props.addClass(courseId, nameOfClass);
+    }
   };
 
   // you can call this function anything
@@ -126,6 +155,51 @@ const Payment = (props) => {
       return courses.map((course, index) => {
         return <option value={course._id}>{course.name}</option>;
       });
+    }
+  };
+
+  const checkAndMakePayment = () => {
+    if (!paymentAmount) {
+      Swal.fire({
+        html: "Select amount to pay",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();
+    } else if (!courseId) {
+      Swal.fire({
+        html: "Select a course",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();
+    } else if (role && role === "5fc8cc978e28fa50986ecac9" && !nameOfClass) {
+      Swal.fire({
+        html: "Name of class cannnot be empty",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();
+    } else {
+      initializePayment(onSuccess, onClose);
     }
   };
 
@@ -170,12 +244,21 @@ const Payment = (props) => {
                 {courseList()}
               </select>
             </Col>
+            {role && role === "5fc8cc978e28fa50986ecac9" && (
+              <Col>
+                <input
+                  className="form-control"
+                  placeholder="Add class name"
+                  onChange={(e) => {
+                    setNameOfClass(e.target.value);
+                  }}
+                />
+              </Col>
+            )}
             <Col>
               <button
                 disabled={paymentAmount === 0 ? true : false}
-                onClick={() => {
-                  initializePayment(onSuccess, onClose);
-                }}
+                onClick={checkAndMakePayment}
               >
                 Proceed &rarr;
               </button>
@@ -191,6 +274,9 @@ Payment.propTypes = {
   paymentPlans: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
   getCourses: PropTypes.func.isRequired,
+  getRoles: PropTypes.func.isRequired,
+  addClass: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -201,6 +287,8 @@ const mapStateToProps = (state) => ({
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   email: state.auth.email,
   courses: state.course.courses,
+  role: state.auth.role,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, {
@@ -208,4 +296,7 @@ export default connect(mapStateToProps, {
   inputChange,
   createTransaction,
   getCourses,
+  getRoles,
+  addClass,
+  clearErrors,
 })(Payment);

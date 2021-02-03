@@ -119,6 +119,18 @@ export default {
     });
   },
 
+  addClass(courseId, name) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/add-class`,
+      headers: this.headers(),
+      data: {
+        courseId,
+        name,
+      },
+    });
+  },
+
   addSubjectProgress(
     classId,
     lessonId,

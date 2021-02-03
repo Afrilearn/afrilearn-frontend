@@ -4,6 +4,7 @@ import {
   USER_JOIN_THROUGH_INVITE_SUCCESS,
   SEND_CLASS_INVITE_SUCCESS,
   ACCEPT_REJECT_CLASSMEMBER_SUCCESS,
+  ADD_CLASS_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +35,10 @@ const classReducer = (state = initialState, action) => {
         ...state,
       };
     case ACCEPT_REJECT_CLASSMEMBER_SUCCESS:
+      return {
+        ...state,
+      };
+    case ADD_CLASS_SUCCESS:
       return {
         ...state,
       };

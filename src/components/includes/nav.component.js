@@ -123,7 +123,7 @@ const MyNav = (props) => {
       });
     } else if (
       user &&
-      user.classOwnership.length &&
+      user.classOwnership.length > 0 &&
       role === "5fc8cc978e28fa50986ecac9"
     ) {
       return user.classOwnership.map((item) => {
@@ -132,9 +132,9 @@ const MyNav = (props) => {
             onClick={updateactiveEnrolledCourseId.bind(
               null,
               item._id,
-              item.enrolledCourse._id,
+              item.enrolledCourse && item.enrolledCourse._id,
               item.name,
-              item.enrolledCourse.paymentIsActive
+              item.enrolledCourse && item.enrolledCourse.paymentIsActive
             )}
             tag={Link}
             to="/classes/teacher"

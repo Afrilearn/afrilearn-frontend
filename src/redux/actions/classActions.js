@@ -20,6 +20,8 @@ import {
   SEND_CLASS_INVITE_FAILURE,
   ACCEPT_REJECT_CLASSMEMBER_SUCCESS,
   ACCEPT_REJECT_CLASSMEMBER_FAILURE,
+  ADD_CLASS_SUCCESS,
+  ADD_CLASS_FAILURE,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -187,6 +189,31 @@ export const getClass = (classId) => async (dispatch) => {
     );
     dispatch({
       type: GET_SINGLE_CLASS_FAILURE,
+    });
+  }
+};
+
+export const addClass = (courseId, name) => async (dispatch, getState) => {
+  try {
+    await API.addClass(courseId, name);
+    dispatch({
+      type: ADD_CLASS_SUCCESS,
+    });
+    dispatch(
+      returnErrors("Class registered successfully.", "200", "ADD_CLASS_SUCCESS")
+    );
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "ADD_CLASS_FAILURE"
+      )
+    );
+    dispatch({
+      type: ADD_CLASS_FAILURE,
     });
   }
 };
