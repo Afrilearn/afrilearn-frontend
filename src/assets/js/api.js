@@ -1,5 +1,6 @@
 import axios from "axios";
-const URL = "http://localhost:5000/api/v1/";
+const URL =
+  "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
@@ -114,6 +115,18 @@ export default {
       data: {
         lessonId,
         type,
+      },
+    });
+  },
+
+  addClass(courseId, name) {
+    return axios({
+      method: "post",
+      url: `${this.url}/classes/add-class`,
+      headers: this.headers(),
+      data: {
+        courseId,
+        name,
       },
     });
   },
