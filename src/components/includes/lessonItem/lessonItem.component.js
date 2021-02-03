@@ -44,6 +44,7 @@ const LessonItem = (props) => {
     if (lesson.videoUrls.length) {
       return lesson.videoUrls.map((item, index) => {
         return (
+          <>
           <div
             class="col-md-3"
             key={index}
@@ -73,6 +74,25 @@ const LessonItem = (props) => {
               </div>
             </Link>
           </div>
+          {lesson.questions.length?
+           <div class="col-md-3">
+              <div
+                className="term_item_left_bottom_item "
+                onClick={() => {
+                  props.addRecentActivity(lesson._id, "quiz");
+                }}
+              >
+                <Link
+                  to="/lesson/quiz/instructions"
+                  onClick={updateQuizType}
+                  className="quizButton"
+                >
+                  Quiz
+                </Link>
+              </div>
+            </div>
+           :''}
+          </>
         );
       });
     }
@@ -96,22 +116,7 @@ const LessonItem = (props) => {
         </h5>
         <div className="term_item_left_bottom row">
           {lessonVideos()}
-          <div class="col-md-3">
-            {/* <div
-              className="term_item_left_bottom_item "
-              onClick={() => {
-                props.addRecentActivity(lesson._id, "quiz");
-              }}
-            >
-              <Link
-                to="/lesson/quiz/instructions"
-                onClick={updateQuizType}
-                className="quizButton"
-              >
-                Quiz
-              </Link>
-            </div> */}
-          </div>
+         
         </div>
       </div>
       <span className="term_item_see_more cursor-pointer" onClick={seeMore}>

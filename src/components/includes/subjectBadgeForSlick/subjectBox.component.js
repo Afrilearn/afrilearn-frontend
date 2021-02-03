@@ -200,13 +200,11 @@ const Box = (props) => {
               </div>
 
               <div className="row description1">
-                <div className="col-12">
-                  <p style={{ marginBottom: "0", marginTop: "10px" }}>
-                    {props.subjectName}
-                  </p>
+                <div className="col-12 description">                  
+                    {props.subjectName}                 
                 </div>
               </div>
-              <div className="row description">
+              <div className="row description2">
                 <div className="col-12" id="UncontrolledTooltipExample">
                   {props.compiledNotes
                     ? numberWithCommas(props.compiledNotes)
