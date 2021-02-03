@@ -17,7 +17,7 @@ class SimpleSlider extends React.Component {
             compiledNotes={item.relatedLessons.length}
             registeredUsers={50000}
             subjectName={item.mainSubjectId.name}
-            introText={item.mainSubjectId.introText}
+            introText={item.mainSubjectId.introText} 
             lessons={item.relatedLessons}
             courseName={courses[0].name}
           />

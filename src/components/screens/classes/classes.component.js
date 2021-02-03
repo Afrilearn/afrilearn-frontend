@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getCourses } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
-
+ 
 const Classes = (props) => {
   const { courses } = props;
 

@@ -10,7 +10,7 @@ import { PieChart } from "react-minimal-pie-chart";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  populateDashboard,
+  populateDashboard, 
   inputChange,
 } from "./../../../redux/actions/courseActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
@@ -61,10 +61,11 @@ const Dashboard = (props) => {
         return (
           <Box
             image={item.mainSubjectId.imageUrl}
-            singleClass={true}
+            singleClass={true} 
             dashboard={true}
             compiledNotes={item.relatedLessons.length}
             registeredUsers={50000}
+            subjectName={item.mainSubjectId.name}
             courseId={dashboardData.enrolledCourse.courseId._id}
             subjectId={item._id}
           />
@@ -136,7 +137,7 @@ const Dashboard = (props) => {
               pastQuestions={item.type === "lesson" ? false : true}
               title={item.reason.title}
               recommend={item.recommended.title}
-              recommendedId={item.recommended._id}
+              recommended={item.recommended}
             />
           );
         }

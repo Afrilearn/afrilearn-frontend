@@ -126,7 +126,7 @@ const ProfilePage = (props) => {
           popup: "animate__animated animate__fadeOutUp",
         },
         timer: 3500,
-        position: "top-end",
+        // position: "top-end",
       });
       props.clearErrors();
       // do componentDidUpdate logic
@@ -142,7 +142,7 @@ const ProfilePage = (props) => {
           popup: "animate__animated animate__fadeOutUp",
         },
         timer: 3500,
-        position: "top-end",
+        // position: "top-end",
       });
       props.clearErrors();
       // do componentDidUpdate logic
@@ -168,7 +168,7 @@ const ProfilePage = (props) => {
           popup: "animate__animated animate__fadeOutUp",
         },
         timer: 3500,
-        position: "top-end",
+        // position: "top-end",
       });
     } else {
       const userData = {};
@@ -274,7 +274,7 @@ const ProfilePage = (props) => {
           popup: "animate__animated animate__fadeOutUp",
         },
         timer: 3500,
-        position: "top-end",
+        // position: "top-end",
       });
     } else {
       props.changePasswordFromProfile({

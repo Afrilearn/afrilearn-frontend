@@ -77,7 +77,7 @@ const MyNav = (props) => {
     id,
     courseId,
     courseName,
-    paymentStatus    
+    paymentStatus
   ) => {
     props.inputChange("activeEnrolledCourseId", id);
     props.inputChange("activeCourseId", courseId);
@@ -92,7 +92,11 @@ const MyNav = (props) => {
   };
 
   const classList = () => {
-    if (user && user.enrolledCourses.length && role === "5fd08fba50964811309722d5") {
+    if (
+      user &&
+      user.enrolledCourses.length &&
+      role === "5fd08fba50964811309722d5"
+    ) {
       return user.enrolledCourses.map((item) => {
         return (
           <DropdownItem
@@ -117,7 +121,11 @@ const MyNav = (props) => {
           </DropdownItem>
         );
       });
-    }else if (user && user.classOwnership.length && role === "5fc8cc978e28fa50986ecac9") {
+    } else if (
+      user &&
+      user.classOwnership.length &&
+      role === "5fc8cc978e28fa50986ecac9"
+    ) {
       return user.classOwnership.map((item) => {
         return (
           <DropdownItem
@@ -235,9 +243,19 @@ const MyNav = (props) => {
                 </DropdownToggle>
                 <DropdownMenu right>
                   {classList()}
-                  <DropdownItem tag={Link} to="/about">
-                    Add A New Class
-                  </DropdownItem>
+
+                  {user.role === "5fd08fba50964811309722d5" ? (
+                    <DropdownItem tag={Link} to="/select-pay">
+                      Add A New Course
+                    </DropdownItem>
+                  ) : user.role === "5fc8cc978e28fa50986ecac9" ? (
+                    <DropdownItem tag={Link} to="/select-pay">
+                      Add A New Class
+                    </DropdownItem>
+                  ) : (
+                    ""
+                  )}
+
                   <DropdownItem tag={Link} to="/profile">
                     Manage Profile
                   </DropdownItem>
@@ -368,7 +386,7 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
   searchResults: state.search.searchResults,
   dashboardRoute: state.auth.dashboardRoute,
-  role: state.auth.role
+  role: state.auth.role,
 });
 export default connect(mapStateToProps, {
   inputChange,

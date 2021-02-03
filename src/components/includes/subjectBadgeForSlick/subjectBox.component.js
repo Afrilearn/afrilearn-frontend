@@ -24,7 +24,7 @@ const Box = (props) => {
 
   const handleDrop = () => {
     props.inputChange("drop", !drop);
-  }; 
+  };
 
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -96,24 +96,22 @@ const Box = (props) => {
           <div className="dropDownContent row">
             <div className="col-12 padOff">
               {props.dashboard ? (
-                      <Link
-                        to={`/content/${props.courseId}/${props.subjectId}`}
-                      >
-                        <img               
-                          src={props.image}
-                          alt="English"
-                          className="fullWidth subjectImage1"
-                        />
-                      </Link>
-                    ) : (
-                      <Link onClick={toggle}>
-                       <img               
-                          src={props.image}
-                          alt="English"
-                          className="fullWidth subjectImage1"
-                        />
-                      </Link>
-              )}             
+                <Link to={`/content/${props.courseId}/${props.subjectId}`}>
+                  <img
+                    src={props.image}
+                    alt="English"
+                    className="fullWidth subjectImage1"
+                  />
+                </Link>
+              ) : (
+                <Link onClick={toggle}>
+                  <img
+                    src={props.image}
+                    alt="English"
+                    className="fullWidth subjectImage1"
+                  />
+                </Link>
+              )}
             </div>
             <div className="col-12 box">
               <div className="row">
@@ -142,12 +140,12 @@ const Box = (props) => {
                         Compiled Notes
                       </span>
                     }
-                  >                 
-                      <img
-                        src={require("../../../assets/img/lessons.png")}
-                        alt="lesson"
-                        className="subjectImage2"
-                      />
+                  >
+                    <img
+                      src={require("../../../assets/img/lessons.png")}
+                      alt="lesson"
+                      className="subjectImage2"
+                    />
                   </Tooltip>
                   <Tooltip
                     placement="top"
@@ -161,12 +159,11 @@ const Box = (props) => {
                       </span>
                     }
                   >
-                     <img
-                        src={require("../../../assets/img/users.png")}
-                        alt="users"
-                        className="subjectImage2"
-                      />
-                
+                    <img
+                      src={require("../../../assets/img/users.png")}
+                      alt="users"
+                      className="subjectImage2"
+                    />
                   </Tooltip>
                 </div>
                 <div className="col-3">
@@ -199,6 +196,14 @@ const Box = (props) => {
                       </Link>
                     )}
                   </Tooltip>
+                </div>
+              </div>
+
+              <div className="row description1">
+                <div className="col-12">
+                  <p style={{ marginBottom: "0", marginTop: "10px" }}>
+                    {props.subjectName}
+                  </p>
                 </div>
               </div>
               <div className="row description">
@@ -314,7 +319,7 @@ const Box = (props) => {
                   <div className="col-md-12 center">
                     <Link onClick={handleDrop}>
                       <span className="arrowBox cursor-pointer">
-                        <FontAwesomeIcon icon={faAngleDown}  />
+                        <FontAwesomeIcon icon={faAngleDown} />
                       </span>
                     </Link>
                   </div>
