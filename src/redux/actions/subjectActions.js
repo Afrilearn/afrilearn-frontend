@@ -16,6 +16,9 @@ export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
   try {
     document.body.classList.add("loading-indicator");
     const result = await API.getSubjectAndRelatedLessons(courseId, subjectId);
+    // if(result.data.data.subject){
+
+    // }
     dispatch({
       type: GET_SUBJECT_AND_RELATED_LESSONS_SUCCESS,
       payload: {

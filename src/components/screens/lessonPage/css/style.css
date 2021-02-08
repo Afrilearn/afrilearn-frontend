@@ -11,6 +11,14 @@
   width: 100%;
   background-color: black;
 }
+.react-player {
+  width: 100%;
+  border-radius: 8px 8px 0px 0px;
+  height:800px;
+  max-height: 800px;
+  object-fit: cover;
+  object-position: top;
+}
 @media screen and (max-width: 1200px) {
   #lessonPageSectionOne video {
     height: 100%;

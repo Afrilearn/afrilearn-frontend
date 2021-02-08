@@ -153,8 +153,8 @@
     border-radius: 0px 0px 5px 5px;
     margin-top: -5px;
     display: none;
-    -webkit-animation: moveDown .5s ease-in-out;
-    animation: moveDown .5s ease-in-out;
+    /* -webkit-animation: moveDown .5s ease-in-out;
+    animation: moveDown .5s ease-in-out; */
 }
 
 #homepage .myDrop:hover .courseSelectSectionDropDown {

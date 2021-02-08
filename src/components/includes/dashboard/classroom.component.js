@@ -4,6 +4,9 @@ import Bullet1 from "../../../assets/img/redBullet.png";
 import Bullet2 from "../../../assets/img/greenBullet.png";
 
 const Box = (props) => {
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div className="row bottomBorder push9 myClassroom">
       <div className="col-md-4">
@@ -29,7 +32,7 @@ const Box = (props) => {
       ) : (
         <div className="col-md-4 right ">
           <button className="view" disabled>
-            {props.item.status}
+            { capitalizeFirstLetter(props.item.status)}
           </button>
         </div>
       )}

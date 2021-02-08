@@ -95,10 +95,13 @@
 
 .r-chart-axis {
   writing-mode: sideways-lr;
+  -webkit-text-orientation: mixed;
   text-orientation: mixed;
-  bottom: 13px;
   color: #f5f5f5;
   font-family: font1;
+  left: 0px;
+  z-index: 9999;
+  top: -81px;
 }
 .r-range-slider.horizontal .r-range-slider-label {
   top: -2px !important;

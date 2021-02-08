@@ -13,6 +13,7 @@ import {
   CHECK_USER_AND_JOIN_CLASS_SUCCESS,
   UPDATE_PROFILE_SUCCES,
   PASSWORD_CHANGE_FROM_PROFILE_SUCCESS,
+  LOGOUT_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -156,19 +157,38 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    // case SOCIAL_LOGIN_UPDATE_SUCCESS:
-    //   localStorage.setItem("location", "/dashboard");
-    //   if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {
-    //     localStorage.setItem("location", "/classes/teacher");
-    //   } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
-    //     localStorage.setItem("location", "/dashboard");
-    //   }
-    //   return {
-    //     ...state,
-    //     role: action.payload.user.role,
-    //     isAuthenticated: true,
-    //     redirect: true,
-    //   };
+    case LOGOUT_SUCCESS: 
+      localStorage.removeItem("token");    
+      return {
+        ...state,
+        drop: false,       
+        searchRedirect: false,
+        redirect: false,
+        location: '',
+        chartSection: "subject",
+        searchLocation: "/search",
+        isAuthenticated:false,
+        role:'',
+        activeEnrolledCourseId:'',
+        activeCourseId:'',
+        activeCourseName:'',
+        fullName:'',
+        email:'',
+        password:'',
+        confirmPassword:'',
+        referralCode:'',
+        passwordMode:true,
+        roles:[],
+        classes:[],
+        classLabel:'Select a Class',
+        userId:'',
+        user:{},
+        courseId:'',
+        address:'unknown',
+        activeCoursePaidStatus:false,
+        dashboardRoute:false,
+        className:'' 
+      };
     default:
       return state;
   }

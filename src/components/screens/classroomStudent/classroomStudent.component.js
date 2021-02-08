@@ -50,6 +50,7 @@ const ClassroomStudent = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
+      console.log(props.match.params.classId)
       props.getPerformanceInClass(
         activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
         props.match.params.classId
@@ -397,34 +398,38 @@ const ClassroomStudent = (props) => {
                   </div>
                   <div className="upcoming-events">
                     <h4>Upcoming</h4>
-                    <div className="item">
-                      <img src={event} alt="event"></img>
-                      <div>
-                        <p>
-                          Posted:&nbsp;
-                          {clazz.teacherAssignedContents &&
-                            moment(
-                              clazz.teacherAssignedContents[0].createdAt
-                            ).format("LL")}
-                        </p>
-                        <p>
-                          Due Date:&nbsp;
-                          {clazz.teacherAssignedContents &&
-                            moment(
-                              clazz.teacherAssignedContents[0].dueDate
-                            ).format("LL")}
-                        </p>
+                    {clazz.teacherAssignedContents && clazz.teacherAssignedContents.length?                    
+                    <>
+                      <div className="item">
+                        <img src={event} alt="event"></img>
+                        <div>
+                          <p>
+                            Posted:&nbsp;
+                            {clazz.teacherAssignedContents &&
+                              moment(
+                                clazz.teacherAssignedContents[0].createdAt
+                              ).format("LL")}
+                          </p>
+                          <p>
+                            Due Date:&nbsp;
+                            {clazz.teacherAssignedContents &&
+                              moment(
+                                clazz.teacherAssignedContents[0].dueDate
+                              ).format("LL")}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <a
-                      href="/"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        toggle("3");
-                      }}
-                    >
-                      View All
-                    </a>
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggle("3");
+                        }}
+                      >
+                        View All
+                      </a>
+                    </>
+                    :'No Event'}
                   </div>
                 </aside>
                 <main className="container-fluid">
@@ -440,10 +445,10 @@ const ClassroomStudent = (props) => {
                     {classAnonouncements()}
                     <Link
                       to={`/classes/${clazz._id}/${
-                        clazz.teacherAssignedContents &&
+                        clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
                         clazz.teacherAssignedContents[0].subjectId
                       }/${
-                        clazz.teacherAssignedContents &&
+                        clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
                         clazz.teacherAssignedContents[0]._id
                       }`}
                       className="notification-block"
@@ -452,12 +457,12 @@ const ClassroomStudent = (props) => {
                         <img src={event} alt="event" />
                         <div>
                           <p>
-                            {clazz.teacherAssignedContents &&
+                            {clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
                               clazz.teacherAssignedContents[0].description}
                           </p>
                           <p>
                             <small className="small-grey">
-                              {clazz.teacherAssignedContents &&
+                              {clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
                                 moment(
                                   clazz.teacherAssignedContents[0].createdAt
                                 ).format("LL")}

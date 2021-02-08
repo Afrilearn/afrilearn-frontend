@@ -17,7 +17,10 @@ const Classes = (props) => {
       window.scrollTo(0, 0);
 
       if (!courses.length) {
+        document.body.classList.add("loading-indicator");
         props.getCourses();
+      }else{
+        document.body.classList.remove("loading-indicator");
       }
     } else {
       // do componentDidUpdate logic

@@ -48,7 +48,7 @@ import classroomTeacherComponent from "../screens/classroomTeacher/classroomTeac
 import assignContent from "../screens/assignContent/assignContent.component";
 import performance from "../screens/performance/performance.component";
 import socialLogin from "../screens/socialLogin/socialLogin.component";
-import { inputChange } from "./../../redux/actions/authActions";
+import { inputChange, logout } from "./../../redux/actions/authActions";
 import ProtectedRoute from "./protectedRoute.component";
 import PropTypes from "prop-types";
 import subject from "../screens/subject/subject.component";
@@ -66,11 +66,8 @@ const MyNav = (props) => {
   const toggle = () => setIsOpen(!isOpen);
   const { isAuthenticated } = props;
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-    props.inputChange("logout", true);
-    props.inputChange("isAuthenticated", false);
+  const handleLogout = () => {
+    props.logout()
   };
 
   const updateactiveEnrolledCourseId = (
@@ -393,4 +390,5 @@ export default connect(mapStateToProps, {
   getSearchResults,
   searchInputChange,
   populateDashboard,
+  logout
 })(MyNav);

@@ -74,7 +74,8 @@ const LessonItem = (props) => {
               </div>
             </Link>
           </div>
-          {lesson.questions.length?
+          {lesson.questions.length && (lesson.videoUrls.length -1) ===index?
+          
            <div class="col-md-3">
               <div
                 className="term_item_left_bottom_item "

@@ -27,6 +27,7 @@ import {
   UPDATE_PROFILE_FAILURE,
   PASSWORD_CHANGE_FROM_PROFILE_SUCCESS,
   PASSWORD_CHANGE_FROM_PROFILE_FAILURE,
+  LOGOUT_SUCCESS
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -409,5 +410,15 @@ export const loadQuestions = (subjectId) => async (dispatch) => {
     dispatch({
       type: LOAD_QUESTIONS_FAILURE,
     });
+  } 
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: LOGOUT_SUCCESS       
+    });
+  } catch (error) {
+    console.error(error);
   }
 };

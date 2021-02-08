@@ -77,6 +77,7 @@ import {
                 questionTime: action.payload.questionTime,
                 answers:[],
                 correctAnswers:0,
+                currentQuestion:0,
                 subjectId:action.payload.theSubjectId ,
                 speedRange1: action.payload.questionTime/4,
                 speedRange2: (action.payload.questionTime/4) * 2,  

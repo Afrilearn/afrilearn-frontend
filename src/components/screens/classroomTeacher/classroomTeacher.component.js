@@ -87,10 +87,9 @@ const ClassroomTeacher = (props) => {
       //   enrolledCourseId: activeEnrolledCourseId,
       // };
       // props.populateDashboard(activeEnrolledCourseId ? data : null);
-      toggleTab("1");
-      if (!classMembers.length) {
+      toggleTab("1");     
         props.getClass(activeEnrolledCourseId);
-      }
+      
     } else {
       // do componentDidUpdate logic
       if (error.id === "SEND_CLASS_INVITE_SUCCESS") {

@@ -4,6 +4,9 @@ import Lessons from "../../../assets/img/play.png";
 import moment from "moment";
 
 const Box = (props) => {
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div className="row push10 bottomBorder subjectList">
       <div className="col-md-2">
@@ -14,7 +17,7 @@ const Box = (props) => {
         />
       </div>
       <div className="col-md-3">
-        <p className="green">{props.category}</p>
+        <p className="green">{capitalizeFirstLetter(props.category)}</p>
         <p>{props.title}</p>
       </div>
       <div className="col-md-3">
