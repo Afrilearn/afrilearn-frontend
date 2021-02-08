@@ -11,7 +11,7 @@ import PaticleOption from '../../../assets/js/particles'
 const Homepage = (props) => {
   const {
     classLabel,
-    classes
+    classes,
   } =props;
 
   const mounted = useRef();
@@ -267,6 +267,6 @@ Homepage.propTypes = {
 
 const mapStateToProps = (state) => ({
   classes: state.auth.classes,
-  classLabel: state.auth.classLabel
+  classLabel: state.auth.classLabel,
 });
 export default connect(mapStateToProps, {inputChange, getRoles})(Homepage);

@@ -9,11 +9,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./App.css";
 import { loadUser } from "./redux/actions/authActions";
+import { getCourses } from "./redux/actions/courseActions";
 import Navigation from "./components/includes/nav.component";
+
 
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(getCourses());
   });
   return (
     <Provider store={store}>
@@ -22,3 +25,4 @@ const App = () => {
   );
 };
 export default App;
+

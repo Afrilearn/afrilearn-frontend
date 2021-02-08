@@ -129,14 +129,13 @@ const Content = (props) => {
             <div className="left col-md-4">
               <p>
                 <span className="left_key">Class:</span>
-                &nbsp; &nbsp; {subject.courseId && subject.courseId.name}
+                &nbsp; &nbsp; {subject.courseId && subject.courseId.alias}
               </p>
               <p>
                 <span className="left_key">Lessons:</span>
                 &nbsp; &nbsp;{" "}
-                {subject.length &&
-                  subject.length * subject.relatedLessons.length}{" "}
-                Video Lessons
+                {subject &&  subject.relatedLessons?  subject.relatedLessons.length : 0}
+                &nbsp;Video Lessons
               </p>
               <p>
                 <span className="left_key">Students:</span>

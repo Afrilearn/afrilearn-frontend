@@ -58,7 +58,7 @@ export default {
   sendClassInvite(email, link) {
     return axios({
       method: "post",
-      url: `${this.url}/classes/send-class-invite`,
+      url: `${this.url}classes/send-class-invite`,
       headers: this.headers(),
       data: { email, link },
     });
@@ -67,7 +67,7 @@ export default {
   joinApproved(classId, email, fullName, password) {
     return axios({
       method: "post",
-      url: `${this.url}/classes/${classId}/join-class`,
+      url: `${this.url}classes/${classId}/join-class`,
       data: { email, fullName, password },
     });
   },
@@ -75,7 +75,7 @@ export default {
   registerUser(data) {
     return axios({
       method: "post",
-      url: `${this.url}/auth/signup`,
+      url: `${this.url}auth/signup`,
       headers: this.headers(),
       data,
     });
@@ -84,7 +84,7 @@ export default {
   login(data) {
     return axios({
       method: "post",
-      url: `${this.url}/auth/login`,
+      url: `${this.url}auth/login`,
       headers: this.headers(),
       data,
     });
@@ -93,7 +93,7 @@ export default {
   resetPassword(data) {
     return axios({
       method: "get",
-      url: `${this.url}/auth/${data}/reset_password`,
+      url: `${this.url}auth/${data}/reset_password`,
       headers: this.headers(),
     });
   },
@@ -101,7 +101,7 @@ export default {
   updateProfile(data) {
     return axios({
       method: "patch",
-      url: `${this.url}/auth/profile-update`,
+      url: `${this.url}auth/profile-update`,
       headers: this.headers(),
       data,
     });
@@ -110,7 +110,7 @@ export default {
   addRecentActivity(lessonId, type) {
     return axios({
       method: "post",
-      url: `${this.url}/recents/add-recent-activity`,
+      url: `${this.url}recents/add-recent-activity`,
       headers: this.headers(),
       data: {
         lessonId,
@@ -122,7 +122,7 @@ export default {
   addClass(courseId, name) {
     return axios({
       method: "post",
-      url: `${this.url}/classes/add-class`,
+      url: `${this.url}classes/add-class`,
       headers: this.headers(),
       data: {
         courseId,
@@ -142,7 +142,7 @@ export default {
   ) {
     return axios({
       method: "post",
-      url: `${this.url}/courses/subject-progress`,
+      url: `${this.url}courses/subject-progress`,
       headers: this.headers(),
       data: {
         classId,
@@ -159,7 +159,7 @@ export default {
   changePassword(data) {
     return axios({
       method: "post",
-      url: `${this.url}/auth/change_password`,
+      url: `${this.url}auth/change_password`,
       headers: this.headers(),
       data,
     });
@@ -168,7 +168,7 @@ export default {
   changePasswordDirectly(data) {
     return axios({
       method: "post",
-      url: `${this.url}/auth/change-password`,
+      url: `${this.url}auth/change-password`,
       headers: this.headers(),
       data,
     });
@@ -250,7 +250,7 @@ export default {
   loadUser() {
     return axios({
       method: "get",
-      url: `${this.url}/auth/load-user`,
+      url: `${this.url}auth/load-user`,
       headers: this.headers(),
     });
   },
@@ -258,7 +258,7 @@ export default {
   getPaymentPlans() {
     return axios({
       method: "get",
-      url: `${this.url}/payments/plans`,
+      url: `${this.url}payments/plans`,
       headers: this.headers(),
     });
   },
@@ -266,7 +266,7 @@ export default {
   createPaymentTransaction(data) {
     return axios({
       method: "post",
-      url: `${this.url}/payments/add-transaction`,
+      url: `${this.url}payments/add-transaction`,
       headers: this.headers(),
       data,
     });
@@ -275,7 +275,7 @@ export default {
   addCommentToAnnouncement(announcementId, text) {
     return axios({
       method: "post",
-      url: `${this.url}/classes/${announcementId}/comment`,
+      url: `${this.url}classes/${announcementId}/comment`,
       headers: this.headers(),
       data: { text },
     });
@@ -284,7 +284,7 @@ export default {
   addCommentToAssignedContent(assignedContentId, text, student) {
     return axios({
       method: "post",
-      url: `${this.url}/classes/${assignedContentId}/comment-on-content`,
+      url: `${this.url}classes/${assignedContentId}/comment-on-content`,
       headers: this.headers(),
       data: { text, student },
     });
@@ -293,7 +293,7 @@ export default {
   sendClassRequest(classCode) {
     return axios({
       method: "post",
-      url: `${this.url}/classes/send-class-request`,
+      url: `${this.url}classes/send-class-request`,
       headers: this.headers(),
       data: { classCode },
     });
@@ -302,7 +302,7 @@ export default {
   assignContentToStudent(description, lessonId, classId, dueDate, userId) {
     return axios({
       method: "post",
-      url: `${this.url}/classes/${classId}/assign-content`,
+      url: `${this.url}classes/${classId}/assign-content`,
       headers: this.headers(),
       data: { description, lessonId, classId, dueDate, userId },
     });
@@ -311,7 +311,7 @@ export default {
   populateDashboard(data) {
     return axios({
       method: "post",
-      url: `${this.url}/dashboard`,
+      url: `${this.url}dashboard`,
       headers: this.headers(),
       data,
     });
@@ -378,7 +378,7 @@ export default {
   submitLessonQuizResult(lessonId, data) {
     return axios({
       method: "post",
-      url: `${this.url}/lessons/${lessonId}/save-test-results`,
+      url: `${this.url}lessons/${lessonId}/save-test-results`,
       headers: this.headers(),
       data,
     });
@@ -387,7 +387,7 @@ export default {
   getPerformance(courseId) {
     return axios({
       method: "get",
-      url: `${this.url}/courses/${courseId}/progress-and-performance`,
+      url: `${this.url}courses/${courseId}/progress-and-performance`,
       headers: this.headers(),
     });
   },
@@ -395,7 +395,7 @@ export default {
   getPerformanceInClass(courseId, classId) {
     return axios({
       method: "get",
-      url: `${this.url}/courses/${courseId}/progress-and-performance`,
+      url: `${this.url}courses/${courseId}/progress-and-performance`,
       headers: this.headers(),
       data: { classId },
     });

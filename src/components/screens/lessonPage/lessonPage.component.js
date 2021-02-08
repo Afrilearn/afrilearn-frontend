@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
-import ReactPlayer from "react-player";
+import ReactPlayer from 'react-player/lazy';
 
 import { getCourse } from "./../../../redux/actions/courseActions";
 import parse from "html-react-parser";
@@ -47,6 +47,7 @@ const LessonPage = (props) => {
     lesson &&
     lesson.videoUrls &&
     lesson.videoUrls.findIndex((vid) => vid._id === props.match.params.videoId);
+
   const nextVideo =
     lesson && lesson.videoUrls && videoIndex !== lesson.videoUrls.length
       ? lesson.videoUrls[videoIndex + 1]
@@ -163,28 +164,37 @@ const LessonPage = (props) => {
         </div>
         {video && video.videoUrl && (
           <ReactPlayer
-            config={{ file: { attributes: { controlsList: "nodownload" } } }}
-            // Disable right click
-            onContextMenu={(e) => e.preventDefault()}
+            className="react-player"
+            config={{
+              file: {
+                attributes: {
+                  onContextMenu: (e) => e.preventDefault()                  
+                },
+              },
+            }}           
             onEnded={(e) => {
               toggleModal();
             }}
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height="500px"
+            height='500px'            
           />
         )}
       </div>
       <div id="lessonPageSectionTwo">
         <div className="left">
           <div className="top">
-            <div className="button" onClick={openPopOne}>
+            <div className="button">
               <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
               Lesson {videoIndex + 1}
             </div>
-            <div className="icon">
+            <div className="icon" onClick={openPopOne}>
               <FontAwesomeIcon icon={faBook} />
+              <div className="icon_pop">
+                <p>Class Note</p>
+                <span></span>
+              </div>
             </div>
             <div className="icon">
               <FontAwesomeIcon icon={faMicrophone} />
@@ -196,7 +206,7 @@ const LessonPage = (props) => {
             <div className="icon" onClick={openPopTwo}>
               <FontAwesomeIcon icon={faThumbsUp} />
               <div className="icon_pop">
-                <p>I like this content</p>
+                <p>I like this video</p>
                 <span></span>
               </div>
             </div>
@@ -207,7 +217,7 @@ const LessonPage = (props) => {
                 onMouseLeave={toggle}
               >
                 <Popover
-                  placement="bottom"
+                  placement="top"
                   isOpen={popoverOpen}
                   target="Popover1"
                   toggle={toggle}
@@ -218,8 +228,8 @@ const LessonPage = (props) => {
                         <p>Assign Content</p>
                       </Link>
                     )}
-                    <p>Community</p>
-                    <p>Bookmark</p>
+                    {/* <p>Community</p>
+                    <p>Bookmark</p> */}
                     <p>Share</p>
                   </PopoverBody>
                 </Popover>
@@ -229,7 +239,7 @@ const LessonPage = (props) => {
           </div>
           <a href="/">Hide Transcript</a>
           <h4>{lesson && parse(lesson.title)}</h4>
-          <p className="lessonContent">{lesson && parse(lesson.content)}</p>
+          {/* <p className="lessonContent">{lesson && parse(lesson.content)}</p> */}
         </div>
         <div className="right">
           <div className="top">

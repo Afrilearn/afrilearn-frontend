@@ -8,6 +8,7 @@ const initialState = {
   subject: {},
   lessonSubjectName: "",
   lessonSubjectId: "",
+  totalNumberOfLessons:0
 };
 
 const subjectReducer = (state = initialState, action) => {

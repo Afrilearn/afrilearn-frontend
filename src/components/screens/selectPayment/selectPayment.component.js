@@ -31,9 +31,6 @@ const Payment = (props) => {
     role,
     error,
   } = props;
-
-  console.log(role);
-  console.log(courses);
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic

@@ -136,14 +136,25 @@ const Performance = props => {
                      </div>
                      <div className="row bottomBorder">
                         <div className="col-md-7">
+                           {overallProgress === 0 && overallPerformance===0? 
                            <PieChart
-                              data={[
-                                 { title: 'One', value: overallProgress, color: '#50E55A'},
-                                 // { title: 'Two', value: 15, color: '#FDAD51' },
-                                 { title: 'Three', value: overallPerformance, color: '#FF5B5B' }                              
-                              ]}
-                              lineWidth={40}
+                           data={[
+                              { title: 'One', value: 50, color: '#50E55A'},
+                              // { title: 'Two', value: 15, color: '#FDAD51' },
+                              { title: 'Three', value: 50, color: '#FF5B5B' }                              
+                           ]}
+                           lineWidth={40}
+                           />  
+                           :
+                           <PieChart
+                           data={[
+                              { title: 'One', value: overallProgress, color: '#50E55A'},
+                              // { title: 'Two', value: 15, color: '#FDAD51' },
+                              { title: 'Three', value: overallPerformance, color: '#FF5B5B' }                              
+                           ]}
+                           lineWidth={40}
                            />
+                           }                          
                         </div>
                         <div className="col-md-5">
                            <div className="row push2">

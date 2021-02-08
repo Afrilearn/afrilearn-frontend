@@ -31,7 +31,7 @@ export const inputChange = (name, value) => async (dispatch) => {
 
 export const getCourses = () => async (dispatch) => {
   try {
-    document.body.classList.add("loading-indicator");
+    // document.body.classList.add("loading-indicator");
     const result = await API.getCourses();
     dispatch({
       type: GET_ALL_COURSES_SUCCESS,
