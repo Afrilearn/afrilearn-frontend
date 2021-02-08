@@ -93,7 +93,7 @@ const ClassroomTeacher = (props) => {
     } else {
       // do componentDidUpdate logic
       if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
-        const message =
+        const message = 
           typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
         Swal.fire({
           html: message,

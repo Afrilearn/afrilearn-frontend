@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Bullet1 from "../../../assets/img/redBullet.png";
+import Bullet1 from "../../../assets/img/redBullet.png"; 
 import Bullet2 from "../../../assets/img/greenBullet.png";
 
 const Box = (props) => {
