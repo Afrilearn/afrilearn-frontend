@@ -38,7 +38,6 @@ const ClassroomStudent = (props) => {
     overallProgress,
   } = props;
 
-  
   const [newComment, setNewComment] = useState(null);
 
   const [activeTab, setActiveTab] = useState("1");
@@ -50,7 +49,7 @@ const ClassroomStudent = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      console.log(props.match.params.classId)
+      console.log(props.match.params.classId);
       props.getPerformanceInClass(
         activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
         props.match.params.classId
@@ -146,7 +145,7 @@ const ClassroomStudent = (props) => {
   };
 
   const classMembersList = () => {
-    if (Object.keys(classMembers)) {
+    if (Object.keys(classMembers) && classMembers.lenght > 0) {
       return classMembers.map((classMember) => {
         return (
           <div className="pupil">
@@ -156,12 +155,16 @@ const ClassroomStudent = (props) => {
         );
       });
     } else {
-      return <h6>No Members list yet</h6>;
+      return <div className="container">No Members list yet</div>;
     }
   };
 
   const classWorksList = () => {
-    if (subjects) {
+    if (
+      subjects &&
+      clazz.teacherAssignedContents &&
+      clazz.teacherAssignedContents.length > 0
+    ) {
       return subjects.map((item, index) => {
         return (
           item.assignedContent.length > 0 && (
@@ -214,12 +217,12 @@ const ClassroomStudent = (props) => {
         );
       });
     } else {
-      return <h6>No Members list yet</h6>;
+      return <div className="container">No Classwork yet</div>;
     }
   };
 
   const classAnonouncements = () => {
-    if (clazz.classAnnouncements) {
+    if (clazz.classAnnouncements && clazz.classAnnouncements.length > 0) {
       return clazz.classAnnouncements.map((classAnnouncement) => {
         const sendComment = (e) => {
           e.preventDefault();
@@ -398,80 +401,98 @@ const ClassroomStudent = (props) => {
                   </div>
                   <div className="upcoming-events">
                     <h4>Upcoming</h4>
-                    {clazz.teacherAssignedContents && clazz.teacherAssignedContents.length?                    
-                    <>
-                      <div className="item">
-                        <img src={event} alt="event"></img>
-                        <div>
-                          <p>
-                            Posted:&nbsp;
-                            {clazz.teacherAssignedContents &&
-                              moment(
-                                clazz.teacherAssignedContents[0].createdAt
-                              ).format("LL")}
-                          </p>
-                          <p>
-                            Due Date:&nbsp;
-                            {clazz.teacherAssignedContents &&
-                              moment(
-                                clazz.teacherAssignedContents[0].dueDate
-                              ).format("LL")}
-                          </p>
-                        </div>
-                      </div>
-                      <a
-                        href="/"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          toggle("3");
-                        }}
-                      >
-                        View All
-                      </a>
-                    </>
-                    :'No Event'}
-                  </div>
-                </aside>
-                <main className="container-fluid">
-                  <article>
-                    <div className="pic-text-heading">
-                      <img src={man} alt="announce" />
-                      <div>
-                        <p>Announcements from teacher</p>
-                      </div>
-                    </div>
-                  </article>
-                  <section>
-                    {classAnonouncements()}
-                    <Link
-                      to={`/classes/${clazz._id}/${
-                        clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
-                        clazz.teacherAssignedContents[0].subjectId
-                      }/${
-                        clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
-                        clazz.teacherAssignedContents[0]._id
-                      }`}
-                      className="notification-block"
-                    >
-                      <div className="pic-text-heading">
-                        <img src={event} alt="event" />
-                        <div>
-                          <p>
-                            {clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
-                              clazz.teacherAssignedContents[0].description}
-                          </p>
-                          <p>
-                            <small className="small-grey">
-                              {clazz.teacherAssignedContents && clazz.teacherAssignedContents.length &&
+                    {clazz.teacherAssignedContents &&
+                    clazz.teacherAssignedContents.length ? (
+                      <>
+                        <div className="item">
+                          <img src={event} alt="event"></img>
+                          <div>
+                            <p>
+                              Posted:&nbsp;
+                              {clazz.teacherAssignedContents &&
                                 moment(
                                   clazz.teacherAssignedContents[0].createdAt
                                 ).format("LL")}
-                            </small>
-                          </p>
+                            </p>
+                            <p>
+                              Due Date:&nbsp;
+                              {clazz.teacherAssignedContents &&
+                                moment(
+                                  clazz.teacherAssignedContents[0].dueDate
+                                ).format("LL")}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <img src={dots} alt="see-more" />
-                    </Link>
+                        <a
+                          href="/"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggle("3");
+                          }}
+                        >
+                          View All
+                        </a>
+                      </>
+                    ) : (
+                      "No Event"
+                    )}
+                  </div>
+                </aside>
+                <main className="container-fluid">
+                  {clazz.classAnnouncements &&
+                    clazz.classAnnouncements.length > 0 && (
+                      <article>
+                        <div className="pic-text-heading">
+                          <img src={man} alt="announce" />
+                          <div>
+                            <p>Announcements from teacher</p>
+                          </div>
+                        </div>
+                      </article>
+                    )}
+                  <section>
+                    {classAnonouncements()}
+                    {clazz.teacherAssignedContents &&
+                      clazz.teacherAssignedContents.lenght > 0 && (
+                        <Link
+                          to={`/classes/${clazz._id}/${
+                            clazz.teacherAssignedContents &&
+                            clazz.teacherAssignedContents.lenght
+                              ? clazz.teacherAssignedContents[0].subjectId._id
+                              : ""
+                          }/${
+                            clazz.teacherAssignedContents &&
+                            clazz.teacherAssignedContents.lenght
+                              ? clazz.teacherAssignedContents[0]._id
+                              : ""
+                          }`}
+                          className="notification-block"
+                        >
+                          <div className="pic-text-heading">
+                            <img src={event} alt="event" />
+                            <div>
+                              <p>
+                                {clazz.teacherAssignedContents &&
+                                clazz.teacherAssignedContents.lenght
+                                  ? clazz.teacherAssignedContents[0].description
+                                  : ""}
+                              </p>
+                              <p>
+                                <small className="small-grey">
+                                  {clazz.teacherAssignedContents &&
+                                  clazz.teacherAssignedContents.lenght
+                                    ? moment(
+                                        clazz.teacherAssignedContents[0]
+                                          .createdAt
+                                      ).format("LL")
+                                    : ""}
+                                </small>
+                              </p>
+                            </div>
+                          </div>
+                          <img src={dots} alt="see-more" />
+                        </Link>
+                      )}
                   </section>
                 </main>
               </div>

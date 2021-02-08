@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
-import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from "react-player/lazy";
 
 import { getCourse } from "./../../../redux/actions/courseActions";
 import parse from "html-react-parser";
@@ -168,17 +168,17 @@ const LessonPage = (props) => {
             config={{
               file: {
                 attributes: {
-                  onContextMenu: (e) => e.preventDefault()                  
+                  onContextMenu: (e) => e.preventDefault(),
                 },
               },
-            }}           
+            }}
             onEnded={(e) => {
               toggleModal();
             }}
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height='500px'            
+            height="500px"
           />
         )}
       </div>
@@ -237,9 +237,21 @@ const LessonPage = (props) => {
               </span>
             </div>
           </div>
-          <a href="/">Hide Transcript</a>
+          <a
+            data-bs-toggle="collapse"
+            href="#transcriptText"
+            role="button"
+            aria-expanded="false"
+            aria-controls="transcriptText"
+          >
+            Hide Transcript
+          </a>
           <h4>{lesson && parse(lesson.title)}</h4>
-          {/* <p className="lessonContent">{lesson && parse(lesson.content)}</p> */}
+          <p className="lessonContent show" id="transcriptText">
+            {video && video.transcript
+              ? video.transcript
+              : "No Transcript available"}
+          </p>
         </div>
         <div className="right">
           <div className="top">
@@ -271,7 +283,7 @@ const LessonPage = (props) => {
         </div>
       </div>
       <div id="lessonPagePopUpOne">
-        <span className="closePopUp" onClick={closePopOne}>
+        <span className="closePopUp cursor-pointer" onClick={closePopOne}>
           <FontAwesomeIcon icon={faTimes} />
         </span>
         <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "40px" }} />

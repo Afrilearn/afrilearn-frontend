@@ -215,7 +215,7 @@ const ProfilePage = (props) => {
         );
       });
     } else {
-      return <h6>No class list yet</h6>;
+      return <div className="container">No class list yet</div>;
     }
   };
 
@@ -228,7 +228,7 @@ const ProfilePage = (props) => {
         return <span>{item.classId.name}</span>;
       });
     } else {
-      return <h6>No class list yet</h6>;
+      return <div className="container">No class list yet</div>;
     }
   };
 
@@ -248,7 +248,7 @@ const ProfilePage = (props) => {
         );
       });
     } else {
-      return <h6>No class list yet</h6>;
+      return <div className="container">No class list yet</div>;
     }
   };
 
@@ -259,7 +259,7 @@ const ProfilePage = (props) => {
         return <span>{item.name}</span>;
       });
     } else {
-      return <h6>No class list yet</h6>;
+      return <div className="container">No class list yet</div>;
     }
   };
 
@@ -451,10 +451,10 @@ const ProfilePage = (props) => {
               <div class="row justify-content-between">
                 <div class="col-6">
                   <FormGroup row>
-                    <Label for="age" sm={2}>
+                    <Label for="age" sm={3}>
                       Date Of Birth:
                     </Label>
-                    <Col sm={2}></Col>
+                    <Col sm={1}></Col>
                     <Col sm={8}>
                       <Input
                         bsSize="lg"
