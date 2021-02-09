@@ -29,7 +29,7 @@ const ClassNote = (props) => {
     props.subject.relatedLessons.find(
       (lesson) => lesson._id === props.match.params.lessonId
     );
-
+ 
   return (
     <span>
       <div id="classNoteFirstSection" className="container-fluid relative">
