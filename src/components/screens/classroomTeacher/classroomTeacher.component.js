@@ -52,7 +52,8 @@ const ClassroomTeacher = (props) => {
   const onDismiss = () => setVisible(false);
 
   const subjects = [];
-  clazz.relatedSubjects &&
+  clazz &&
+    clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
       const assignedContent =
         clazz.teacherAssignedContents &&
@@ -87,13 +88,12 @@ const ClassroomTeacher = (props) => {
       //   enrolledCourseId: activeEnrolledCourseId,
       // };
       // props.populateDashboard(activeEnrolledCourseId ? data : null);
-      toggleTab("1");     
-        props.getClass(activeEnrolledCourseId);
-      
+      toggleTab("1");
+      props.getClass(activeEnrolledCourseId);
     } else {
       // do componentDidUpdate logic
       if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
-        const message = 
+        const message =
           typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
         Swal.fire({
           html: message,
@@ -138,7 +138,7 @@ const ClassroomTeacher = (props) => {
   };
 
   const subjectList = () => {
-    if (Object.keys(clazz) && clazz.relatedSubjects) {
+    if (clazz && Object.keys(clazz) && clazz.relatedSubjects) {
       return clazz.relatedSubjects.map((item) => {
         return (
           <Box
@@ -159,7 +159,11 @@ const ClassroomTeacher = (props) => {
   };
 
   const classAnonouncements = () => {
-    if (clazz.classAnnouncements && clazz.classAnnouncements.length > 0) {
+    if (
+      clazz &&
+      clazz.classAnnouncements &&
+      clazz.classAnnouncements.length > 0
+    ) {
       return clazz.classAnnouncements.map((classAnnouncement) => {
         const sendComment = (e, id) => {
           e.preventDefault();
@@ -233,7 +237,11 @@ const ClassroomTeacher = (props) => {
   };
 
   const classWorksList = () => {
-    if (subjects) {
+    if (
+      subjects &&
+      clazz.teacherAssignedContents &&
+      clazz.teacherAssignedContents.length > 0
+    ) {
       return subjects.map((item, index) => {
         return (
           item.assignedContent.length > 0 && (
@@ -286,12 +294,12 @@ const ClassroomTeacher = (props) => {
         );
       });
     } else {
-      return <h6>No Members list yet</h6>;
+      return <div className="container-fluid">No Members list yet</div>;
     }
   };
 
   const classMembersList = () => {
-    if (Object.keys(classMembers)) {
+    if (classMembers && Object.keys(classMembers) && classMembers.lenght > 0) {
       return classMembers.map((classMember) => {
         return (
           <div className="pupil">
@@ -314,7 +322,7 @@ const ClassroomTeacher = (props) => {
         );
       });
     } else {
-      return <h6>No Members list yet</h6>;
+      return <div className="container-fluid">No Members list yet</div>;
     }
   };
 
@@ -394,7 +402,7 @@ const ClassroomTeacher = (props) => {
               id="copyLink"
               class="form-control"
               aria-describedby="copyLinkText"
-              placeholder={clazz.classCode}
+              placeholder={clazz && clazz.classCode}
             />
 
             <small
@@ -423,9 +431,11 @@ const ClassroomTeacher = (props) => {
         <div className="welcome">
           <h1 className="font2">Welcome {props.fullName}</h1>
           <p>
-            <b>{clazz.courseId && clazz.courseId.name}</b>
+            <b>{clazz && clazz.courseId && clazz.courseId.name}</b>
           </p>
-          <small>Class code {clazz.classCode && clazz.classCode}</small>
+          <small>
+            Class code {clazz && clazz.classCode && clazz.classCode}
+          </small>
         </div>
         <div className="text">
           <span className="copy-class-code">
@@ -496,7 +506,8 @@ const ClassroomTeacher = (props) => {
 
               <div className="announcements ">
                 <main>
-                  {clazz.classAnnouncements &&
+                  {clazz &&
+                    clazz.classAnnouncements &&
                     clazz.classAnnouncements.length > 0 && (
                       <article>
                         <div className="pic-text-heading">
@@ -509,7 +520,8 @@ const ClassroomTeacher = (props) => {
                     )}
                   <section>
                     {classAnonouncements()}
-                    {clazz.teacherAssignedContents &&
+                    {clazz &&
+                      clazz.teacherAssignedContents &&
                       clazz.teacherAssignedContents.lenght > 0 && (
                         <Link
                           to={`/classes/${clazz._id}/${
@@ -568,15 +580,15 @@ const ClassroomTeacher = (props) => {
                 </div>
                 <div className="pupil">
                   <img src={man} height="50px" alt="pupil" />
-                  <p>{clazz.userId && clazz.userId.fullName}</p>
+                  <p>{clazz && clazz.userId && clazz.userId.fullName}</p>
                 </div>
               </section>
               <section>
                 <div className="heading">
                   <h5>Classmates</h5>
                   <p>
-                    {classMembers.length} pupil
-                    {classMembers.length > 0 ? "s" : ""}
+                    {classMembers && classMembers.length} pupil
+                    {classMembers && classMembers.length > 0 ? "s" : ""}
                   </p>
                 </div>
                 {classMembersList()}

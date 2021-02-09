@@ -16,7 +16,6 @@
   transform: translateX(-50%);
   font-family: font2;
   font-size: 97px;
-  
 }
 #contentPageFirstSection .subHead {
   position: absolute;
@@ -148,7 +147,14 @@
 #contentPageSecondSection .term {
   margin-top: 30px;
   margin-bottom: 70px;
-  display: none;
+  /* display: none; */
+}
+#contentPageSecondSection .term_head {
+  padding: 15px ;
+  font-family: font2;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #26aa76;
 }
 #contentPageSecondSection .term:first-of-type {
   display: block;
@@ -216,9 +222,9 @@
   cursor: pointer;
   font-size: 13px;
 }
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
-.hide{
+.hide {
   display: none;
 }

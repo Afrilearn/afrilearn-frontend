@@ -353,7 +353,7 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <Route path="/classnote" component={classNote} />
+        <Route path="/classnote/:courseId/:subjectId/:lessonId" component={classNote} />
         <ProtectedRoute path="/select-pay" component={selectPayment} />
         <ProtectedRoute
           path="/dashboard"

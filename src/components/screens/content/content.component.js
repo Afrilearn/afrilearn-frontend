@@ -134,7 +134,9 @@ const Content = (props) => {
               <p>
                 <span className="left_key">Lessons:</span>
                 &nbsp; &nbsp;{" "}
-                {subject &&  subject.relatedLessons?  subject.relatedLessons.length : 0}
+                {subject && subject.relatedLessons
+                  ? subject.relatedLessons.length
+                  : 0}
                 &nbsp;Video Lessons
               </p>
               <p>
@@ -161,7 +163,7 @@ const Content = (props) => {
               terms.map((term, index) => (
                 <div key={term.id} className="term">
                   <h4 className="term_head">{term.name}</h4>
-                  <div className="term_list">
+                  <div className="term_list accordion" id="lessonsAccordion">
                     {term.lessons &&
                       term.lessons.map((clazz, index) => (
                         <LessonItem
@@ -170,6 +172,7 @@ const Content = (props) => {
                           seeMore={seeMore}
                           unlocked={index === 0}
                           relatedLessons={subject.relatedLessons}
+                          index={index}
                         />
                       ))}
                   </div>
@@ -178,9 +181,6 @@ const Content = (props) => {
             ) : (
               <p>No lessons found</p>
             )}
-            <span className="term_item_see_less" onClick={seeLess}>
-              <FontAwesomeIcon icon={faAngleUp} />
-            </span>
           </div>
         </div>
       </div>
