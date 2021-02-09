@@ -1,13 +1,24 @@
 /* .container-fluid {
   padding: 10px;
 } */
+.term_item .accordion-button:not(.collapsed) {
+  color: white;
+  background-color: transparent;
+}
+.term_item .accordion-button {
+  padding: 1rem 0;
+  color: white;
+}
+.term_item .accordion-button:focus {
+  z-index: 3;
+  border-color: black;
+  outline: 0;
+  box-shadow: none;
+}
 .term_item {
   width: 100%;
-  padding: 30px 0;
-  /* display: flex; */
+  padding: 0px 30px;
   align-items: center;
-  border-bottom: 1px solid grey;
-  /* flex-wrap: wrap; */
   position: relative;
 }
 .quizButton {
@@ -75,5 +86,11 @@
 @media screen and (max-width: 900px) {
   .term_item_right {
     margin-bottom: 20px;
+  }
+  .term_item {
+    padding: 0px 10px;
+  }
+  .term_item .accordion-item{
+    padding: 0px 
   }
 }

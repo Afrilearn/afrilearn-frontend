@@ -56,6 +56,8 @@ const ProfilePage = (props) => {
   const [newAge, setnewAge] = useState(null);
   const [newState, setnewState] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
+  const [newCountry, setnewCountry] = useState(null);
+  const [newGender, setNewGender] = useState(null);
 
   const statesInNigeria = [
     { id: 1, name: "Abia" },
@@ -102,7 +104,9 @@ const ProfilePage = (props) => {
     { id: 36, name: "Yobe" },
     { id: 37, name: "Zamfara" },
   ];
+
   const mounted = useRef();
+
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -158,7 +162,7 @@ const ProfilePage = (props) => {
     hiddenTab.style.display = "block";
   };
   const showDetailsPage = () => {
-    if (!newName && !newAge && !newPhone && !newState) {
+    if (!newName && !newAge && !newPhone && !newState && !newGender) {
       Swal.fire({
         html: `No changes made`,
         showClass: {
@@ -199,6 +203,8 @@ const ProfilePage = (props) => {
 
   const classListForStudents = () => {
     if (
+      dashboardData &&
+      dashboardData.classMembership &&
       Object.keys(dashboardData).length &&
       dashboardData.classMembership.length
     ) {
@@ -221,6 +227,8 @@ const ProfilePage = (props) => {
 
   const classListForStudentsOne = () => {
     if (
+      dashboardData &&
+      dashboardData.classMembership &&
       Object.keys(dashboardData).length &&
       dashboardData.classMembership.length
     ) {
@@ -295,7 +303,13 @@ const ProfilePage = (props) => {
         <div className="top-details">
           <div className="items">
             <div className="item">
-              <h4>{user.fullName ? user.fullName : "Not Available"}</h4>
+              <h4>
+                {newName
+                  ? newName
+                  : user.fullName
+                  ? user.fullName
+                  : "Not Available"}
+              </h4>
               <p>{user.email ? user.email : "Not Available"}</p>
             </div>
             <div className="item item-plus-icon">
@@ -304,8 +318,8 @@ const ProfilePage = (props) => {
                 style={{ marginRight: "15px", fontSize: "20px" }}
               />
               <p>
-                {user.state ? user.state + " State," : ""}{" "}
-                {user.country ? user.country : ""}
+                {newState ? newState : user.state ? user.state + " State," : ""}{" "}
+                {newCountry ? newCountry : user.country ? user.country : ""}
               </p>
             </div>
             <div className="item item-plus-icon" onClick={showEditPage}>
@@ -322,17 +336,34 @@ const ProfilePage = (props) => {
           <div className="personal-details-list">
             <p>
               Phone Number: &nbsp;{" "}
-              {user.phoneNumber ? user.phoneNumber : "Not Available"}
+              {newPhone
+                ? newPhone
+                : user.phoneNumber
+                ? user.phoneNumber
+                : "Not Available"}
             </p>
-            <p>State: &nbsp; {user.state ? user.state : "Not Available"}</p>
-            <p>Gender: &nbsp; {user.gender ? user.gender : "Not Available"}</p>
+            <p>
+              State: &nbsp;{" "}
+              {newState ? newState : user.state ? user.state : "Not Available"}
+            </p>
+            <p>
+              Gender: &nbsp;{" "}
+              {newGender
+                ? newGender
+                : user.gender
+                ? user.gender
+                : "Not Available"}
+            </p>
             <p>
               Age: &nbsp;{" "}
-              {moment(user.dateOfBirth, "YYYYMMDD")
+              {moment(newAge ? newAge : user.dateOfBirth, "YYYYMMDD")
                 .fromNow()
                 .replace("years ago", "")}
             </p>
-            <p>City: &nbsp; {user.state ? user.state : "Not Available"}</p>
+            <p>
+              City: &nbsp;{" "}
+              {newState ? newState : user.state ? user.state : "Not Available"}
+            </p>
           </div>
         </div>
         <div className="classes">
@@ -521,6 +552,59 @@ const ProfilePage = (props) => {
                         {statesInNigeria.map((state) => (
                           <option key={state.id}>{state.name}</option>
                         ))}
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                </div>
+                <div class="col-6">
+                  {/* <FormGroup row>
+                    <Label for="city" sm={2}>
+                      City:
+                    </Label>
+                    <Col sm={1}></Col>
+                    <Col sm={9}>
+                      <Input
+                        bsSize="lg"
+                        className="custom-input"
+                        type="select"
+                        name="city"
+                        id="city"
+                      >
+                        <option></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </Input>
+                    </Col>
+                  </FormGroup> */}
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-6">
+                  <FormGroup row>
+                    <Label for="state" sm={2}>
+                      Gender:
+                    </Label>
+                    <Col sm={2}></Col>
+                    <Col sm={8}>
+                      <Input
+                        bsSize="lg"
+                        className="custom-input"
+                        type="select"
+                        name="gender"
+                        id="gender"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setNewGender(e.target.value);
+                        }}
+                      >
+                        <option>
+                          {user && user.gender ? user.gender : "Select Gender"}
+                        </option>
+                        <option>Male</option>
+                        <option>Female</option>
                       </Input>
                     </Col>
                   </FormGroup>
