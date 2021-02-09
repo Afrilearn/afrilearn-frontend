@@ -1,0 +1,112 @@
+#classNoteFirstSection {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.99)), url('../../../../assets/img/pencil.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  margin-top: -90px;
+  color: white;
+  height: calc(105vh);
+  padding-top: 165px;
+}
+
+#classNoteFirstSection h1 {
+  font-family: font2;
+  text-align: center;
+  font-size: 83px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 0px 59px;
+}
+
+#classNoteFirstSection .box3 {
+  background: white;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  padding: 9px 2px;
+  font-size: 19px;
+}
+
+#classNoteFirstSection .box4 {
+  background: #3b3a3a;
+}
+
+#classNoteFirstSection h5 {
+  font-family: font2;
+  margin-top: 30px;
+  margin-left: 5px;
+}
+
+#classNoteSecondSection {
+  padding: 50px 107px 150px 107px;
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+#classNoteSecondSection .backArrow{
+  border: solid 0.5px gray;
+  padding: 7px 12px;
+}
+#classNoteSecondSection .title {
+  margin-top: 40px;
+  color: #26AA76;
+  font-family: font2;
+  font-size: 23px;
+}
+#classNoteSecondSection .content {
+  text-align: justify;
+  margin-top: 16px;
+}
+#classNoteSecondSection .content  img {
+  display: block;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  /* #classNoteFirstSection {
+    height: 118vh;
+    margin-top: -180px;
+    padding-top: 211px;
+} */
+#classNoteFirstSection {
+  height: calc(100vh);
+  margin-top: -24px;
+  padding-top: 21px;
+}
+
+  #classNoteFirstSection h1 {
+    font-size: 45px;
+    margin-top: 75px;
+    margin-bottom: 33px;
+  }
+
+  #classNoteFirstSection .push2 {
+    padding: 1px 20px;
+  }
+
+  #classNoteFirstSection .box3 {
+    height: 40px;
+    width: 40px;
+    padding: 7px 2px;
+    font-size: 18px;
+    margin-bottom: 7px;
+  }
+
+  #classNoteSecondSection {
+    padding: 50px 20px 140px 20px;
+    margin-bottom: -30px;
+  }
+
+  #classNoteSecondSection .dropDownContent {
+    height: 0px !important;
+    top: -197px;
+  }
+
+}

@@ -54,6 +54,7 @@ import PropTypes from "prop-types";
 import subject from "../screens/subject/subject.component";
 import joinClassComponent from "../screens/joinClass/joinClass.component";
 import SearchPage from "../screens/searchPage/searchPage.component";
+import classNote from "../screens/classnote/classnote.component";
 import {
   getSearchResults,
   searchInputChange,
@@ -352,6 +353,7 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
+        <Route path="/classnote" component={classNote} />
         <ProtectedRoute path="/select-pay" component={selectPayment} />
         <ProtectedRoute
           path="/dashboard"
