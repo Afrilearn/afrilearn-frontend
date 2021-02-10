@@ -290,8 +290,13 @@ const LessonPage = (props) => {
         <h3>
           This action takes you to the complete <br /> class note page
         </h3>
-        <button>Yes! Proceed to Class Note</button>
-        <a href="/">Share your progress</a>
+        <Link
+          className="button"
+          to={`/classnote/${props.match.params.courseId}/${props.match.params.subjectId}/${props.match.params.lessonId}`}
+        >
+          Yes! Proceed to Class Note
+        </Link>
+        {/* <a href="/">Share your progress</a> */}
       </div>
       <div id="lessonPagePopUpTwo">
         <span className="closePopUp" onClick={closePopTwo}>
