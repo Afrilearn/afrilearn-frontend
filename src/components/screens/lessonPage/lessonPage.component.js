@@ -14,7 +14,7 @@ import {
 import "./css/style.css";
 import firstterm from "../../../assets/img/firstterm.png";
 import dots from "../../../assets/img/dots.png";
-import { Popover, PopoverBody } from "reactstrap";
+import { Collapse, Popover, PopoverBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -27,6 +27,9 @@ import parse from "html-react-parser";
 const LessonPage = (props) => {
   const { course, role } = props;
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleTranscript = () => setIsOpen(!isOpen);
   const subject =
     course.relatedSubjects &&
     course.relatedSubjects.find(
@@ -253,21 +256,17 @@ const LessonPage = (props) => {
               </span>
             </div>
           </div>
-          <a
-            data-bs-toggle="collapse"
-            href="#transcriptText"
-            role="button"
-            aria-expanded="false"
-            aria-controls="transcriptText"
-          >
-            Hide Transcript
+          <a href="#transcriptText" onClick={toggleTranscript}>
+            {isOpen ? "Hide" : "Show"} Transcript
           </a>
           <h4>{lesson && parse(lesson.title)}</h4>
-          <p className="lessonContent show" id="transcriptText">
-            {video && video.transcript
-              ? video.transcript
-              : "No Transcript available"}
-          </p>
+          <Collapse isOpen={isOpen}>
+            <p className="lessonContent ">
+              {video && video.transcript
+                ? video.transcript
+                : "No Transcript available"}
+            </p>
+          </Collapse>
         </div>
         <div className="right">
           <div className="top">

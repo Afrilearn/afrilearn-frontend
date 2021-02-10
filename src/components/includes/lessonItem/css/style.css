@@ -24,6 +24,13 @@
   align-items: center;
   position: relative;
 }
+.player-wrapper {
+  border-radius: 10px;
+  background-color: grey;
+  padding: 5px;
+  margin: 10px 0;
+  padding-bottom: 0;
+}
 .quizButton {
   margin-bottom: -4.5px;
   display: block;
@@ -72,6 +79,9 @@
   font-size: 20px;
   margin-bottom: 30px;
 }
+.term_item_left_bottom {
+  align-items: center;
+}
 .term_item_left_bottom_item {
   display: inline-block;
   border: 1px solid #a8a8a8;
@@ -97,7 +107,7 @@
   .term_item {
     padding: 0px 10px;
   }
-  .term_item .accordion-item{
-    padding: 0px 
+  .term_item .accordion-item {
+    padding: 0px;
   }
 }

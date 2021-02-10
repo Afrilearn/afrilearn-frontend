@@ -13,6 +13,7 @@ import {
   addSubjectProgress,
 } from "./../../../redux/actions/subjectActions";
 import PropTypes from "prop-types";
+import ReactPlayer from "react-player/lazy";
 
 const LessonItem = (props) => {
   const {
@@ -128,7 +129,7 @@ const LessonItem = (props) => {
       <div className="term_item_left col-md-12 accordion-item">
         <h5 className="term_item_left_top accordion-header">
           <button
-            class="accordion-button"
+            class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target={`#collapseOne${index}${lesson._id}`}           
@@ -148,6 +149,24 @@ const LessonItem = (props) => {
           data-bs-parent="#lessonsAccordion"
           id={`collapseOne${index}${lesson._id}`}
         >
+          {lesson.videoUrls.length && lesson.videoUrls.length > 0 && (
+            <div class="col-md-3">
+              <div class="player-wrapper">
+                <ReactPlayer
+                  url={
+                    lesson.videoUrls.length &&
+                    lesson.videoUrls.length > 0 &&
+                    lesson.videoUrls[0].videoUrl
+                  }
+                  loop
+                  muted
+                  width="100%"
+                  height="100%"
+                />
+              </div>
+            </div>
+          )}
+
           {lessonVideos()}
         </div>
       </div>
