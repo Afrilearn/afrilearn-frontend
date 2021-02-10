@@ -36,6 +36,11 @@
   font-size: 20px;
   font-family: font3;
 }
+#contentPageSecondSection .term_item_left_top {
+  font-size: 14px;
+  padding: 1px 5px;
+  margin-bottom: 0px !important;
+}
 @media screen and (max-width: 900px) {
   #contentPageFirstSection {
     height: 500px;
@@ -150,7 +155,7 @@
   /* display: none; */
 }
 #contentPageSecondSection .term_head {
-  padding: 15px ;
+  padding: 15px 31px;
   font-family: font2;
   border-radius: 5px;
   background-color: #fff;
@@ -159,8 +164,13 @@
 #contentPageSecondSection .term:first-of-type {
   display: block;
 }
-#contentPageSecondSection .term_item {
+#contentPageSecondSection .term_item  {
+  width: 100%;
+  padding: 0px;
+  align-items: center;
   position: relative;
+  margin: 0px;
+  border-bottom: 0.5px solid darkslategray;
 }
 #contentPageSecondSection .term_item:last-child .term_item_see_more {
   display: flex;
