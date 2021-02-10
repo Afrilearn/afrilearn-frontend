@@ -413,6 +413,29 @@ img.dropDownIcon1 {
 .mobilePadRightOff {
   padding-right: 0px !important;
 }
+.shareModalClass.modal-dialog{
+  max-width: 345px;
+}
+.shareModalClass .modal-content {
+  background: black;
+}
+.shareModalClass .modal-header{
+  color: white;
+}
+.shareModalClass ul.share-content {
+  list-style: none;
+  padding: 0px 20px 35px 20px;
+  color: white;
+  font-family: font1;
+}
+.shareModalClass li a {
+  display: block;
+  padding: 8px 0px; 
+}
+.shareModalClass .modal-header .close
+{
+  color: white;
+}
 
 @media screen and (max-width: 768px) {
   .mobileOnly {
