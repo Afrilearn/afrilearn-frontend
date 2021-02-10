@@ -155,11 +155,11 @@
   /* display: none; */
 }
 #contentPageSecondSection .term_head {
-  padding: 15px 31px;
+  padding: 9px 31px;
   font-family: font2;
   border-radius: 5px;
   background-color: #fff;
-  color: #26aa76;
+  color: #433F3F;
 }
 #contentPageSecondSection .term:first-of-type {
   display: block;

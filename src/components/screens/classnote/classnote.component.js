@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import parse from "html-react-parser";
 import Speech from 'react-speech';
 
-const ClassNote = (props) => {
 import {
   Modal,
   ModalHeader,

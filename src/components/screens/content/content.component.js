@@ -1,11 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-
 import { getCourse } from "./../../../redux/actions/courseActions";
 import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
-import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
 import pencil from "../../../assets/img/pencil.png";
@@ -46,31 +43,7 @@ const Content = (props) => {
       const seeMoreButton = seeMoreButtons[index];
       seeMoreButton.style.display = "none";
     }
-  };
-
-  const seeLess = (event) => {
-    event.preventDefault();
-    const termsTarget = document.querySelectorAll(".term");
-    const seeMoreButtons = document.querySelectorAll(".term_item_see_more");
-    const seeLessButtons = document.querySelector(".term_item_see_less");
-    const border = document.querySelector(".terms");
-    border.style.borderBottom = "none";
-    seeLessButtons.style.display = "none";
-    for (let index = 1; index < termsTarget.length; index++) {
-      const term = termsTarget[index];
-      term.style.display = "none";
-    }
-    if (terms[0].lessons) {
-      for (
-        let index = terms[0].lessons.length - 1;
-        index < seeMoreButtons.length;
-        index++
-      ) {
-        const seeMoreButton = seeMoreButtons[index];
-        seeMoreButton.style.display = "flex";
-      }
-    }
-  };
+  }; 
 
   const terms = [];
 
