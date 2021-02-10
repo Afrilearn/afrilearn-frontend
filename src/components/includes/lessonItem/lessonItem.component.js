@@ -133,9 +133,9 @@ const LessonItem = (props) => {
             aria-expanded="true"
             aria-controls={`collapseOne${index}`}
           >
-            {lesson.title}{" "}
+            {lesson.title+'  '}
             {!activeCoursePaidStatus && !unlocked ? (
-              <FontAwesomeIcon icon={faLock} />
+                <FontAwesomeIcon icon={faLock} />
             ) : (
               ""
             )}

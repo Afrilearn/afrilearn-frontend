@@ -215,6 +215,12 @@ img.logo {
   padding-right: 0px !important;
 }
 
+.rs-play, .rs-play:active { 
+  background: none !important;
+  margin-left: 10px;
+  border:none !important;
+}
+
 .mobileOnly {
   display: none !important;
 }

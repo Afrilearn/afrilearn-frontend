@@ -20,7 +20,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
 import ReactPlayer from "react-player/lazy";
-
+import Speech from 'react-speech';
 import { getCourse } from "./../../../redux/actions/courseActions";
 import parse from "html-react-parser";
 
@@ -77,6 +77,25 @@ const LessonPage = (props) => {
       });
     }
   };
+
+  var decodeEntities = (function() {
+    // this prevents any overhead from creating the object each time
+        var element = document.createElement('div');
+
+        function decodeHTMLEntities (str) {
+            if(str && typeof str === 'string') {
+            // strip script/html tags
+            str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+            element.innerHTML = str;
+            str = element.textContent;
+            element.textContent = '';
+            }
+
+            return str;
+        } 
+    return decodeHTMLEntities;
+  })();
 
   const termIds = [
     { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
@@ -165,20 +184,17 @@ const LessonPage = (props) => {
         {video && video.videoUrl && (
           <ReactPlayer
             className="react-player"
-            config={{
-              file: {
-                attributes: {
-                  onContextMenu: (e) => e.preventDefault(),
-                },
-              },
-            }}
+             // Disable download button
+            config={{ file: { attributes: { controlsList: 'nodownload' } } }}
+            // Disable right click
+            onContextMenu={e => e.preventDefault()}
             onEnded={(e) => {
               toggleModal();
             }}
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height="500px"
+            height="500px"           
           />
         )}
       </div>
@@ -197,7 +213,7 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <FontAwesomeIcon icon={faMicrophone} />
+              <Speech id="audio" text={decodeEntities(lesson && lesson.content)} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} color="white"  />}/>
               <div className="icon_pop">
                 <p>Audio Lesson</p>
                 <span></span>

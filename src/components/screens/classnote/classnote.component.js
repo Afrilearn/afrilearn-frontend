@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
+import Speech from 'react-speech';
 
 const ClassNote = (props) => {
   const mounted = useRef();
@@ -23,7 +24,24 @@ const ClassNote = (props) => {
       // do componentDidUpdate logic
     }
   });
+  var decodeEntities = (function() {
+    // this prevents any overhead from creating the object each time
+        var element = document.createElement('div');
 
+        function decodeHTMLEntities (str) {
+            if(str && typeof str === 'string') {
+            // strip script/html tags
+            str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+            element.innerHTML = str;
+            str = element.textContent;
+            element.textContent = '';
+            }
+
+            return str;
+        } 
+    return decodeHTMLEntities;
+  })();
   const targetLesson =
     props.subject.relatedLessons &&
     props.subject.relatedLessons.find(
@@ -58,10 +76,8 @@ const ClassNote = (props) => {
             <Link>
               <FontAwesomeIcon icon={faThumbsUp} color="white" size="lg" />
             </Link>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link>
-              <FontAwesomeIcon icon={faMicrophone} color="white" size="lg" />
-            </Link>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           
+              <Speech id="audio" text={decodeEntities(targetLesson && targetLesson.content)} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} color="white" size="lg"  />} />
           </div>
           <div className="col-md-7"></div>
         </div>

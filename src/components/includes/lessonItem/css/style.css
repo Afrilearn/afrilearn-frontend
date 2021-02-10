@@ -29,6 +29,10 @@
 .lesson-list:last-of-type .term_item_see_more {
   display: flex;
 }
+.term_item svg {
+  margin-left: 10px;
+  margin-top: -2px;
+}
 
 .term_item_see_more {
   width: 40px;
