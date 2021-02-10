@@ -36,6 +36,7 @@ const ClassroomTeacher = (props) => {
     classMembers,
     error,
   } = props;
+
   const [activeTab, setActiveTab] = useState("1");
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -469,7 +470,7 @@ const ClassroomTeacher = (props) => {
                   toggleTab("1");
                 }}
               >
-                Announcements
+                Home
               </div>
             </div>
             <div className="col">
@@ -518,6 +519,7 @@ const ClassroomTeacher = (props) => {
                         </div>
                       </article>
                     )}
+                  <h4 className="font2">Announcements</h4>
                   <section>
                     {classAnonouncements()}
                     {clazz &&

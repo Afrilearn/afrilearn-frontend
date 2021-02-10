@@ -23,6 +23,7 @@ const LessonItem = (props) => {
     relatedLessons,
     unlocked,
     index,
+    id,
   } = props;
 
   const updateQuizType = () => {
@@ -129,9 +130,9 @@ const LessonItem = (props) => {
             class="accordion-button"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target={`#collapseOne${index}`}
+            data-bs-target={`#collapseOne${index}${lesson._id}`}
             aria-expanded="true"
-            aria-controls={`collapseOne${index}`}
+            aria-controls={`collapseOne${index}${lesson._id}`}
           >
             {lesson.title+'  '}
             {!activeCoursePaidStatus && !unlocked ? (
@@ -145,7 +146,7 @@ const LessonItem = (props) => {
           className="term_item_left_bottom row accordion-collapse collapse"
           aria-labelledby="headingOne"
           data-bs-parent="#lessonsAccordion"
-          id={`collapseOne${index}`}
+          id={`collapseOne${index}${lesson._id}`}
         >
           {lessonVideos()}
         </div>

@@ -160,7 +160,7 @@ const Content = (props) => {
             terms[0].length !== 0 &&
             terms[1].length !== 0 &&
             terms[2].length !== 0 ? (
-              terms.map((term, index) => (
+              terms.map((term, id) => (
                 <div key={term.id} className="term">
                   <h4 className="term_head">{term.name}</h4>
                   <div className="term_list accordion" id="lessonsAccordion">
@@ -173,6 +173,7 @@ const Content = (props) => {
                           unlocked={index === 0}
                           relatedLessons={subject.relatedLessons}
                           index={index}
+                          term={term.name}
                         />
                       ))}
                   </div>

@@ -259,15 +259,18 @@
   font-size: 22px;
   margin: 40px 20px;
 }
-#lessonPagePopUpOne button,
+#lessonPagePopUpOne .button,
 #lessonPagePopUpTwo button {
   border: none;
-  background-color: #26aa76;
-  color: white;
-  height: 60px;
-  width: 300px;
+  background-color: #26aa76 !important;
+  color: white !important;
+  /* height: 60px !important; */
+  /* width: 300px !important; */
   border-radius: 100px;
   margin-bottom: 30px;
+  text-decoration: none;
+  /* display: inline-block; */
+  padding: 10px;
 }
 #lessonPagePopUpOne a,
 #lessonPagePopUpTwo a {
@@ -304,7 +307,7 @@
   #lessonPagePopUpTwo p {
     font-size: 12px;
   }
-  #lessonPagePopUpOne button,
+  #lessonPagePopUpOne .button,
   #lessonPagePopUpTwo button {
     height: 40px;
     width: 200px;

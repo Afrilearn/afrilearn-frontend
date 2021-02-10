@@ -12,7 +12,7 @@ const AssignContent = (props) => {
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
-      // do componentDidMount logic 
+      // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
       if (!classMembers.length) {
@@ -33,7 +33,7 @@ const AssignContent = (props) => {
           },
           timer: 3500,
           // position: "top-end",
-        }); 
+        });
         props.clearErrors();
       }
     }
@@ -41,11 +41,12 @@ const AssignContent = (props) => {
   const { clazz, classMembers, error } = props;
 
   const lessons = [];
-  clazz.relatedSubjects.forEach((subject) => {
-    subject.relatedLessons.forEach((lesson) => {
-      lessons.push({ _id: lesson._id, title: lesson.title });
+  clazz &&
+    clazz.relatedSubjects.forEach((subject) => {
+      subject.relatedLessons.forEach((lesson) => {
+        lessons.push({ _id: lesson._id, title: lesson.title });
+      });
     });
-  });
 
   const members = [];
   classMembers.forEach((member) => {
