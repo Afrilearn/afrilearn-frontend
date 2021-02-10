@@ -1,8 +1,7 @@
-import { faAngleDown, faPlay, faLock } from "@fortawesome/free-solid-svg-icons";
+import {faPlay, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import firstterm from "../../../assets/img/firstterm.png";
 import "./css/style.css";
 import { connect } from "react-redux";
 import {
@@ -18,12 +17,10 @@ import PropTypes from "prop-types";
 const LessonItem = (props) => {
   const {
     lesson,
-    seeMore,
     activeCoursePaidStatus,
     relatedLessons,
     unlocked,
-    index,
-    id,
+    index
   } = props;
 
   const updateQuizType = () => {
@@ -110,11 +107,15 @@ const LessonItem = (props) => {
             }}
           >
             <Link
-              to={`/classnote/${lesson.courseId}/${lesson.subjectId}/${lesson._id}`}
+              to={
+                activeCoursePaidStatus || unlocked
+                  ? `/classnote/${lesson.courseId}/${lesson.subjectId}/${lesson._id}`
+                  : "/select-pay"
+              }            
               onClick={updateQuizType}
               className="quizButton"
             >
-              Lesson Note
+              Class Note
             </Link>
           </div>
         </div>
@@ -130,8 +131,7 @@ const LessonItem = (props) => {
             class="accordion-button"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target={`#collapseOne${index}${lesson._id}`}
-            aria-expanded="true"
+            data-bs-target={`#collapseOne${index}${lesson._id}`}           
             aria-controls={`collapseOne${index}${lesson._id}`}
           >
             {lesson.title+'  '}
