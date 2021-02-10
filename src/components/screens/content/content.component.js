@@ -43,7 +43,7 @@ const Content = (props) => {
       const seeMoreButton = seeMoreButtons[index];
       seeMoreButton.style.display = "none";
     }
-  }; 
+  };
 
   const terms = [];
 
