@@ -10,7 +10,9 @@ import {
 const initialState = {
   courses: [],
   course: {},
-  lessonCount: 0,
+  classNoteCount: 0,
+  videoLessonCount: 0,
+  quizQuestionsCount:0,
   subjectCount: 0,
   dashboardData: [],
   excelling: 0,
@@ -48,7 +50,9 @@ const courseReducer = (state = initialState, action) => {
       return {
         ...state,
         course: action.payload.course,
-        lessonCount: action.payload.lessonCount,
+        classNoteCount: action.payload.classNoteCount,        
+        videoLessonCount: action.payload.videoLessonCount,
+        quizQuestionsCount :action.payload.quizQuestionsCount,
         subjectCount: action.payload.subjectCount,
       };
 
