@@ -15,6 +15,7 @@ import {
   createComment,
   sendClassInvitation,
   acceptRejectClassmember,
+  makeAnnouncement,
 } from "./../../../redux/actions/classActions";
 import { populateDashboard } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
@@ -30,12 +31,13 @@ import { TabContent, TabPane } from "reactstrap";
 
 const ClassroomTeacher = (props) => {
   const {
-    dashboardData,
     activeEnrolledCourseId,
     clazz,
     classMembers,
     error,
   } = props;
+
+  const [announcementText, setAnnouncementText] = useState(null);
 
   const [activeTab, setActiveTab] = useState("1");
   const toggleTab = (tab) => {
@@ -70,12 +72,18 @@ const ClassroomTeacher = (props) => {
     });
 
   const [modal, setModal] = useState(false);
-
   const toggleModal = () => setModal(!modal);
+
+  const [announcementModal, setAnnouncementModal] = useState(false);
+  const toggleAnnouncementModal = () =>
+    setAnnouncementModal(!announcementModal);
+
   const [popoverOpen, setPopoverOpen] = useState(false);
   // const [status, setStatus] = useState(null)
 
   const toggle = () => setPopoverOpen(!popoverOpen);
+
+  const [newAnouncement, setNewAnouncement] = useState(null);
   const mounted = useRef();
   const invitationLink = `http://demo.myafrilearn.com/join-class?email=${email}&classId=5fcdf5f5581c833b189bb693`;
 
@@ -109,6 +117,22 @@ const ClassroomTeacher = (props) => {
         });
         props.clearErrors();
       } else if (error.id === "ACCEPT_REJECT_CLASSMEMBER_SUCCESS") {
+        const message =
+          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+        Swal.fire({
+          html: message,
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+          timer: 3500,
+          // position: "top-end",
+        });
+        props.clearErrors();
+      } // do componentDidUpdate logic
+      else if (error.id === "ADD_ANNOUNCEMENT_SUCCESS") {
         const message =
           typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
         Swal.fire({
@@ -236,6 +260,30 @@ const ClassroomTeacher = (props) => {
       return <h6>No Announcement list yet</h6>;
     }
   };
+  const newClassAnonouncementBox = () => {
+    if (newAnouncement) {
+      return (
+        <div className="chat-block">
+          <div className="sender">
+            <div className="sender-head">
+              <div className="pic-text-heading">
+                <img src={man} alt="sender" />
+                <div>
+                  <p>Me </p>
+                  <small className="small-grey">Just now</small>
+                </div>
+              </div>
+              <img src={dots} alt="see-more" />
+            </div>
+            <p className="sender-message">{newAnouncement}</p>
+          </div>
+          <div className="comments">
+            <small>0 class comments</small>
+          </div>
+        </div>
+      );
+    }
+  };
 
   const classWorksList = () => {
     if (
@@ -249,7 +297,7 @@ const ClassroomTeacher = (props) => {
             <div className="class-item accordion-item" key={item._id}>
               <h5 class="accordion-header" id={`heading${index + 1}`}>
                 <button
-                  class="accordion-button"
+                  class="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse${index + 1}`}
@@ -295,12 +343,12 @@ const ClassroomTeacher = (props) => {
         );
       });
     } else {
-      return <div className="container-fluid">No Members list yet</div>;
+      return <div className="container-fluid">No classworks yet</div>;
     }
   };
 
   const classMembersList = () => {
-    if (classMembers && Object.keys(classMembers) && classMembers.lenght > 0) {
+    if (classMembers && Object.keys(classMembers) && classMembers.length > 0) {
       return classMembers.map((classMember) => {
         return (
           <div className="pupil">
@@ -323,26 +371,23 @@ const ClassroomTeacher = (props) => {
         );
       });
     } else {
-      return <div className="container-fluid">No Members list yet</div>;
+      return <div className="container padding-30">No Members list yet</div>;
     }
   };
-
   const pastQuestionsList = () => {
     if (
-      Object.keys(dashboardData).length &&
-      dashboardData.enrolledCourse &&
-      Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions)
-        .length
+      clazz &&
+      clazz.relatedPastQuestions &&
+      clazz.relatedPastQuestions.length > 0
     ) {
-      let pastQuestions =
-        dashboardData.enrolledCourse.courseId.relatedPastQuestions;
+      let pastQuestions = clazz.relatedPastQuestions;
       return pastQuestions.map((item, index) => {
         return (
           <PastQuestionsBox
-            title={item.pastQuestionTypes[0].name}
+            title={item.pastQuestionTypeId.name}
             other={index % 2 === 0 ? true : false}
-            categoryId={item.pastQuestionTypes[0].categoryId}
-            categoryName={item.pastQuestionTypes[0].name}
+            categoryId={item.pastQuestionTypeId.categoryId}
+            categoryName={item.pastQuestionTypeId.name}
           />
         );
       });
@@ -422,6 +467,49 @@ const ClassroomTeacher = (props) => {
           >
             Classcode copied to Clipboard!
           </Alert>
+        </ModalBody>
+      </Modal>
+      <Modal
+        isOpen={announcementModal}
+        toggle={toggleAnnouncementModal}
+        className="addStudentItemPopUp"
+      >
+        <ModalBody>
+          <div class="popup-body">
+            <FontAwesomeIcon
+              icon={faTimes}
+              style={{ position: "absolute", top: "5px", right: "10px" }}
+              onClick={toggleAnnouncementModal}
+              className="cursor-pointer"
+            />
+            <h4>Make announcement to the class</h4>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                props.makeAnnouncement(clazz._id, announcementText);
+                setNewAnouncement(announcementText);
+              }}
+            >
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">
+                  Enter message
+                </label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setAnnouncementText(e.target.value);
+                  }}
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn button-green">
+                Submit
+              </button>
+            </form>
+          </div>
         </ModalBody>
       </Modal>
 
@@ -507,6 +595,21 @@ const ClassroomTeacher = (props) => {
 
               <div className="announcements ">
                 <main>
+                  <div class="row justify-content-between">
+                    <div class="col-4">
+                      <h4 className="font2">Announcements</h4>
+                    </div>
+                    <div class="col-4 text-end">
+                      <button
+                        class="btn button-green text-white"
+                        type="button"
+                        onClick={toggleAnnouncementModal}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
+                  </div>
+
                   {clazz &&
                     clazz.classAnnouncements &&
                     clazz.classAnnouncements.length > 0 && (
@@ -519,23 +622,23 @@ const ClassroomTeacher = (props) => {
                         </div>
                       </article>
                     )}
-                  <h4 className="font2">Announcements</h4>
+
                   <section>
+                    {newClassAnonouncementBox()}
                     {classAnonouncements()}
                     {clazz &&
                       clazz.teacherAssignedContents &&
-                      clazz.teacherAssignedContents.lenght > 0 && (
+                      clazz.teacherAssignedContents.length > 0 && (
                         <Link
-                          to={`/classes/${clazz._id}/${
+                          to={`/classes/${clazz && clazz._id}/${
+                            clazz &&
                             clazz.teacherAssignedContents &&
-                            clazz.teacherAssignedContents.lenght
-                              ? clazz.teacherAssignedContents[0].subjectId._id
-                              : ""
+                            clazz.teacherAssignedContents.length &&
+                            clazz.teacherAssignedContents[0].subjectId._id
                           }/${
                             clazz.teacherAssignedContents &&
-                            clazz.teacherAssignedContents.lenght
-                              ? clazz.teacherAssignedContents[0]._id
-                              : ""
+                            clazz.teacherAssignedContents.length &&
+                            clazz.teacherAssignedContents[0]._id
                           }`}
                           className="notification-block"
                         >
@@ -544,14 +647,14 @@ const ClassroomTeacher = (props) => {
                             <div>
                               <p>
                                 {clazz.teacherAssignedContents &&
-                                clazz.teacherAssignedContents.lenght
+                                clazz.teacherAssignedContents.length
                                   ? clazz.teacherAssignedContents[0].description
                                   : ""}
                               </p>
                               <p>
                                 <small className="small-grey">
                                   {clazz.teacherAssignedContents &&
-                                  clazz.teacherAssignedContents.lenght
+                                  clazz.teacherAssignedContents.length
                                     ? moment(
                                         clazz.teacherAssignedContents[0]
                                           .createdAt
@@ -570,6 +673,15 @@ const ClassroomTeacher = (props) => {
             </div>
           </TabPane>
           <TabPane tabId="2">
+            <div class="w-85">
+              <Link
+                to="/assign-content"
+                class="btn button-green text-white"
+                type="button"
+              >
+                Add classwork &nbsp; &nbsp; <FontAwesomeIcon icon={faPlus} />
+              </Link>
+            </div>
             <div className="classwork accordion" id="accordionExample">
               <main>{classWorksList()}</main>
             </div>
@@ -610,6 +722,7 @@ ClassroomTeacher.propTypes = {
   sendClassInvitation: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   acceptRejectClassmember: PropTypes.func.isRequired,
+  makeAnnouncement: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -632,4 +745,5 @@ export default connect(mapStateToProps, {
   sendClassInvitation,
   clearErrors,
   acceptRejectClassmember,
+  makeAnnouncement,
 })(ClassroomTeacher);

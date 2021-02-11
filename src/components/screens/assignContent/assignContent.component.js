@@ -51,7 +51,7 @@ const AssignContent = (props) => {
   const members = [];
   classMembers.forEach((member) => {
     member.status === "approved" &&
-      members.push({ _id: member._id, name: member.userId.fullName });
+      members.push({ _id: member.userId._id, name: member.userId.fullName });
   });
 
   const [selectedStudent, setSelectedStudent] = useState(null);

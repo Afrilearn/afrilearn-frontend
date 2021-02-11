@@ -49,7 +49,6 @@ const ClassroomStudent = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      console.log(props.match.params.classId);
       props.getPerformanceInClass(
         activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
         props.match.params.classId
@@ -143,28 +142,28 @@ const ClassroomStudent = (props) => {
       return <h6>No Subject list yet</h6>;
     }
   };
-
   const classMembersList = () => {
-    if (Object.keys(classMembers) && classMembers.lenght > 0) {
-      return classMembers.map((classMember) => {
-        return (
-          <div className="pupil">
-            <img src={man} height="50px" alt="pupil" />
-            <p>{classMember.userId.fullName}</p>
-          </div>
-        );
-      });
+    if (classMembers && classMembers.length > 0) {
+      return classMembers.map((classMember) => (
+        <div className="pupil">
+          <img src={man} height="50px" alt="pupil" />
+          <p>{classMember.userId.fullName}</p>
+        </div>
+      ));
     } else {
-      return <div className="container">No Members list yet</div>;
+      return <div className="container padding-30">No Members list yet</div>;
     }
   };
 
+  const myContents =
+    clazz.teacherAssignedContents &&
+    clazz.teacherAssignedContents.length > 0 &&
+    clazz.teacherAssignedContents.filter(
+      (item) => item.userId === props.userId
+    );
+
   const classWorksList = () => {
-    if (
-      subjects &&
-      clazz.teacherAssignedContents &&
-      clazz.teacherAssignedContents.length > 0
-    ) {
+    if (subjects && myContents && myContents.length > 0) {
       return subjects.map((item, index) => {
         return (
           item.assignedContent.length > 0 && (
@@ -217,7 +216,7 @@ const ClassroomStudent = (props) => {
         );
       });
     } else {
-      return <div className="container">No Classwork yet</div>;
+      return <div className="container padding-30">No Classwork yet</div>;
     }
   };
 
@@ -321,7 +320,10 @@ const ClassroomStudent = (props) => {
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
       const assignedContent = clazz.teacherAssignedContents.filter(
-        (content) => content.subjectId && content.subjectId._id === subject._id
+        (content) =>
+          content.subjectId &&
+          content.subjectId._id === subject._id &&
+          content.userId === props.userId
       );
       subjects.push({
         _id: subject._id,
@@ -452,17 +454,18 @@ const ClassroomStudent = (props) => {
                     )}
                   <section>
                     {classAnonouncements()}
-                    {clazz.teacherAssignedContents &&
-                      clazz.teacherAssignedContents.lenght > 0 && (
+                    {clazz &&
+                      clazz.teacherAssignedContents &&
+                      clazz.teacherAssignedContents.length > 0 && (
                         <Link
                           to={`/classes/${clazz._id}/${
                             clazz.teacherAssignedContents &&
-                            clazz.teacherAssignedContents.lenght
+                            clazz.teacherAssignedContents.length
                               ? clazz.teacherAssignedContents[0].subjectId._id
                               : ""
                           }/${
                             clazz.teacherAssignedContents &&
-                            clazz.teacherAssignedContents.lenght
+                            clazz.teacherAssignedContents.length
                               ? clazz.teacherAssignedContents[0]._id
                               : ""
                           }`}
@@ -473,14 +476,14 @@ const ClassroomStudent = (props) => {
                             <div>
                               <p>
                                 {clazz.teacherAssignedContents &&
-                                clazz.teacherAssignedContents.lenght
+                                clazz.teacherAssignedContents.length
                                   ? clazz.teacherAssignedContents[0].description
                                   : ""}
                               </p>
                               <p>
                                 <small className="small-grey">
                                   {clazz.teacherAssignedContents &&
-                                  clazz.teacherAssignedContents.lenght
+                                  clazz.teacherAssignedContents.length
                                     ? moment(
                                         clazz.teacherAssignedContents[0]
                                           .createdAt

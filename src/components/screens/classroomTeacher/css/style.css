@@ -211,8 +211,10 @@
   flex-direction: column;
   justify-content: center;
   padding: 10px 20px;
+  margin-top: 10px;
 }
 #classroomTeacherSectionTwo .announcements main section {
+  margin-top: 20px;
   min-height: 200px;
   background-color: #333232;
   border-radius: 5px;
@@ -523,6 +525,13 @@
 #classroomTeacherSectionTwo .classes.container-fluid {
   padding: 0 !important;
 }
+#classroomTeacherSectionTwo .w-85 {
+  display: flex;
+  padding: 0 60px 0 50px;
+  width: 85%;
+  margin: auto;
+  margin-top: 20px;
+}
 #classroomTeacherSectionTwo .classwork {
   display: flex;
   padding: 0 60px 0 50px;
@@ -600,34 +609,34 @@
     right: 0;
   }
 }
-   .classwork main .class-item .item .more {
-    position: absolute;
-    top: 30%;
-    transform: translateY(-50%);
-    right: 0;
-  }
+.classwork main .class-item .item .more {
+  position: absolute;
+  top: 30%;
+  transform: translateY(-50%);
+  right: 0;
+}
 
-  #classroomTeacherSectionTwo .h4 {
-    font-family: font2;
-    margin-bottom: 20px;
-  }
-  
- #classroomTeacherSectionTwo  .pastQuestionsBox {
-    display: block;
-    background: #FC8A07;
-    padding: 23px;
-    border-radius: 5px;
-    margin-bottom: 30px;
-  }
-  
-  #classroomTeacherSectionTwo .pastQuestionsBox1 {
-    background: #26AA76;
-  }
-  #classroomTeacherSectionTwo .pastQuestionsBox img {
-    max-width: 70px;
-  }
-  
-  #classroomTeacherSectionTwo .pastQuestionsBox p {
-    font-size: 12px;
-    font-weight: normal !important;
- }
+#classroomTeacherSectionTwo .h4 {
+  font-family: font2;
+  margin-bottom: 20px;
+}
+
+#classroomTeacherSectionTwo .pastQuestionsBox {
+  display: block;
+  background: #fc8a07;
+  padding: 23px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+#classroomTeacherSectionTwo .pastQuestionsBox1 {
+  background: #26aa76;
+}
+#classroomTeacherSectionTwo .pastQuestionsBox img {
+  max-width: 70px;
+}
+
+#classroomTeacherSectionTwo .pastQuestionsBox p {
+  font-size: 12px;
+  font-weight: normal !important;
+}

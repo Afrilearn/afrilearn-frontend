@@ -22,6 +22,8 @@ import {
   ACCEPT_REJECT_CLASSMEMBER_FAILURE,
   ADD_CLASS_SUCCESS,
   ADD_CLASS_FAILURE,
+  ADD_ANNOUNCEMENT_FAILURE,
+  ADD_ANNOUNCEMENT_SUCCESS,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -239,6 +241,38 @@ export const createComment = (announcementId, text) => async (
     );
     dispatch({
       type: CREATE_COMMENT_TO_ANNOUNCEMENT_FAILURE,
+    });
+  }
+};
+
+export const makeAnnouncement = (classId, text) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    await API.makeAnnouncement(classId, text);
+    dispatch({
+      type: ADD_ANNOUNCEMENT_SUCCESS,
+    });
+    dispatch(
+      returnErrors(
+        "Announcement sent to class",
+        "200",
+        "ADD_ANNOUNCEMENT_SUCCESS"
+      )
+    );
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "ADD_ANNOUNCEMENT_FAILURE"
+      )
+    );
+    dispatch({
+      type: ADD_ANNOUNCEMENT_FAILURE,
     });
   }
 };

@@ -5,6 +5,7 @@ import {
   SEND_CLASS_INVITE_SUCCESS,
   ACCEPT_REJECT_CLASSMEMBER_SUCCESS,
   ADD_CLASS_SUCCESS,
+  ADD_ANNOUNCEMENT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -39,6 +40,10 @@ const classReducer = (state = initialState, action) => {
         ...state,
       };
     case ADD_CLASS_SUCCESS:
+      return {
+        ...state,
+      };
+    case ADD_ANNOUNCEMENT_SUCCESS:
       return {
         ...state,
       };

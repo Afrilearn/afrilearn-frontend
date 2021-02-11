@@ -1,6 +1,5 @@
 import axios from "axios";
-const URL =
-  "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/";
+const URL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
@@ -269,6 +268,15 @@ export default {
       url: `${this.url}payments/add-transaction`,
       headers: this.headers(),
       data,
+    });
+  },
+ 
+  makeAnnouncement(classId, text) {
+    return axios({
+      method: "post",
+      url: `${this.url}classes/${classId}/announce`,
+      headers: this.headers(),
+      data: { text },
     });
   },
 
