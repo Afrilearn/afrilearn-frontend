@@ -27,6 +27,13 @@ const Content = (props) => {
     }
   });
 
+  const isViewed = (lessonId) => {
+    return (
+      subject.progresses &&
+      subject.progresses.find((progress) => progress.lessonId === lessonId)
+    );
+  };
+
   const seeMore = (event) => {
     event.preventDefault();
     const terms = document.querySelectorAll(".term");
@@ -147,6 +154,8 @@ const Content = (props) => {
                           relatedLessons={subject.relatedLessons}
                           index={index}
                           term={term.name}
+                          length={term.lessons.length}
+                          isViewed={isViewed(clazz._id)}
                         />
                       ))}
                   </div>

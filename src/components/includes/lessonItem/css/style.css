@@ -7,7 +7,26 @@
 }
 .term_item .accordion-button {
   padding: 1rem 0;
+
   color: white;
+}
+.term_item .mark-done {
+  margin-right: 20px;
+}
+.term_item .float-end {
+  margin-left: auto;
+}
+.term_item .color-green {
+  color: #26aa76;
+}
+.term_item .bg-green {
+  background-color: #26aa76;
+}
+.term_item .mr-10 {
+  margin-right: 10px;
+}
+.term_item .accordion-button::after {
+  margin-left: 20px;
 }
 .term_item .accordion-button:focus {
   z-index: 3;
@@ -109,5 +128,11 @@
   }
   .term_item .accordion-item {
     padding: 0px;
+  }
+  .term_item .mark-done {
+    margin-right: 15px;
+  }
+  .block-900 {
+    display: block;
   }
 }

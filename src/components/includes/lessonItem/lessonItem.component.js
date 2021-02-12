@@ -1,4 +1,4 @@
-import {faPlay, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -21,7 +21,8 @@ const LessonItem = (props) => {
     activeCoursePaidStatus,
     relatedLessons,
     unlocked,
-    index
+    index,
+    isViewed,
   } = props;
 
   const updateQuizType = () => {
@@ -112,7 +113,7 @@ const LessonItem = (props) => {
                 activeCoursePaidStatus || unlocked
                   ? `/classnote/${lesson.courseId}/${lesson.subjectId}/${lesson._id}`
                   : "/select-pay"
-              }            
+              }
               onClick={updateQuizType}
               className="quizButton"
             >
@@ -132,15 +133,27 @@ const LessonItem = (props) => {
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target={`#collapseOne${index}${lesson._id}`}           
+            data-bs-target={`#collapseOne${index}${lesson._id}`}
             aria-controls={`collapseOne${index}${lesson._id}`}
           >
-            {lesson.title+'  '}
-            {!activeCoursePaidStatus && !unlocked ? (
-                <FontAwesomeIcon icon={faLock} />
-            ) : (
-              ""
-            )}
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              color={isViewed ? "#26aa76" : "white"}
+              className="mark-done"
+            />
+            {lesson.title}
+            <div className="float-end">
+              {!activeCoursePaidStatus && !unlocked ? (
+                ""
+              ) : (
+                <span class="badge h5 bg-green mr-10">FREE</span>
+              )}
+              <span
+                class={`${isViewed ? "color-green" : "text-white"} block-900`}
+              >
+                {index + 1} of {props.length}
+              </span>
+            </div>
           </button>
         </h5>
         <div
