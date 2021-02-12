@@ -361,6 +361,7 @@
   }
   #classroomTeacherSectionTwo .announcements main {
     flex: 1;
+    padding: 0;
   }
   #classroomTeacherSectionTwo .announcements main section {
     padding: 0;
@@ -461,6 +462,9 @@
   padding: 3px;
 }
 @media screen and (max-width: 900px) {
+  #classroomTeacherSectionTwo {
+    padding: 0;
+  }
   #classroomTeacherSectionTwo .people {
     width: 100%;
   }
