@@ -1,4 +1,4 @@
-@font-face { 
+@font-face {
   font-family: "font1";
   src: url("./assets/fonts/Nunito-SemiBold.ttf") format("opentype");
   font-weight: normal;
@@ -215,10 +215,11 @@ img.logo {
   padding-right: 0px !important;
 }
 
-.rs-play, .rs-play:active { 
+.rs-play,
+.rs-play:active {
   background: none !important;
   margin-left: 10px;
-  border:none !important;
+  border: none !important;
 }
 
 .mobileOnly {
@@ -413,13 +414,13 @@ img.dropDownIcon1 {
 .mobilePadRightOff {
   padding-right: 0px !important;
 }
-.shareModalClass.modal-dialog{
+.shareModalClass.modal-dialog {
   max-width: 345px;
 }
 .shareModalClass .modal-content {
   background: black;
 }
-.shareModalClass .modal-header{
+.shareModalClass .modal-header {
   color: white;
 }
 .shareModalClass ul.share-content {
@@ -430,10 +431,9 @@ img.dropDownIcon1 {
 }
 .shareModalClass li a {
   display: block;
-  padding: 8px 0px; 
+  padding: 8px 0px;
 }
-.shareModalClass .modal-header .close
-{
+.shareModalClass .modal-header .close {
   color: white;
 }
 
@@ -538,5 +538,9 @@ img.dropDownIcon1 {
   z-index: 3;
   border-color: #86b7fe;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.padding-30 {
+  padding: 30px;
 }
