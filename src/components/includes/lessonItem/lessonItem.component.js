@@ -162,8 +162,8 @@ const LessonItem = (props) => {
           data-bs-parent="#lessonsAccordion"
           id={`collapseOne${index}${lesson._id}`}
         >
-          {lesson.videoUrls.length && lesson.videoUrls.length > 0 && (
-            <div class="col-md-3">
+          {lesson.videoUrls.length && lesson.videoUrls.length > 0? (
+            <div class="col-md-3 thumb4">
               <div class="player-wrapper">
                 <ReactPlayer
                   url={
@@ -175,10 +175,16 @@ const LessonItem = (props) => {
                   muted
                   width="100%"
                   height="100%"
+                  volume={0}   
+                  config={{
+                    youtube: {
+                      playerVars: { showinfo: 1 }
+                    }                   
+                  }}             
                 />
               </div>
             </div>
-          )}
+          ): null}
 
           {lessonVideos()}
         </div>

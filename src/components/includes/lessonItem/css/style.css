@@ -27,6 +27,8 @@
 }
 .term_item .accordion-button::after {
   margin-left: 20px;
+.thumb4 {
+  padding: 2px 37px 10px 21px;
 }
 .term_item .accordion-button:focus {
   z-index: 3;

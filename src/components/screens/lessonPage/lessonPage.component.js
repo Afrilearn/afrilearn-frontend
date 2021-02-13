@@ -6,9 +6,9 @@ import {
   faPlay,
   faBook,
   faMicrophone,
-  faThumbsUp,
   faTimes,
   faInfoCircle,
+  faShareAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -23,11 +23,27 @@ import ReactPlayer from "react-player/lazy";
 import Speech from 'react-speech';
 import { getCourse } from "./../../../redux/actions/courseActions";
 import parse from "html-react-parser";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton, 
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TelegramIcon, 
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
 const LessonPage = (props) => {
   const { course, role } = props;
 
   const [isOpen, setIsOpen] = useState(false);
+  const [modal1, setModal1] = useState(false);
+  const toggle1 = () => setModal1(!modal1);
 
   const toggleTranscript = () => setIsOpen(!isOpen);
   const subject =
@@ -146,6 +162,7 @@ const LessonPage = (props) => {
   const [modal, setModal] = useState(false);
   const { className } = props;
   const toggleModal = () => setModal(!modal);
+  let shareLink = `http://www.myafrilearn.com/`;
 
   return (
     <React.Fragment>
@@ -222,13 +239,14 @@ const LessonPage = (props) => {
                 <span></span>
               </div>
             </div>
-            <div className="icon" onClick={openPopTwo}>
-              <FontAwesomeIcon icon={faThumbsUp} />
+            <div className="icon">
+              <Link onClick={toggle1}><FontAwesomeIcon icon={faShareAlt} /></Link>
               <div className="icon_pop">
-                <p>I like this video</p>
+                <p>Share</p>
                 <span></span>
               </div>
             </div>
+            {role && role === "5fc8cc978e28fa50986ecac9"?
             <div className="icon">
               <span
                 id="Popover1"
@@ -255,6 +273,7 @@ const LessonPage = (props) => {
                 <img src={dots} alt="see more" />
               </span>
             </div>
+             :null}         
           </div>
           <a href="#transcriptText" onClick={toggleTranscript}>
             {isOpen ? "Hide" : "Show"} Transcript
@@ -322,6 +341,62 @@ const LessonPage = (props) => {
         <button>Proceed to Lesson 3</button>
         <a href="/">Share your progress</a>
       </div>
+      <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
+        <ModalHeader toggle={toggle1}>&nbsp;</ModalHeader>
+        <ModalBody>
+          <ul className="share-content">
+            <li>
+              <Link>
+                <WhatsappShareButton url={shareLink}>
+                  <WhatsappIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Whatsapp
+                </WhatsappShareButton>
+              </Link>
+            </li>
+            <li>
+              <Link>
+                <FacebookShareButton url={shareLink}>                 
+                  <FacebookIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Facebook
+                </FacebookShareButton>
+              </Link>
+            </li>
+            <li>
+              <Link>
+                <TelegramShareButton url={shareLink}>
+                  <TelegramIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Telegram
+                </TelegramShareButton>
+              </Link>
+            </li>
+            <li>
+              <Link>
+                <TwitterShareButton url={shareLink}>
+                  <TwitterIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Twitter
+                </TwitterShareButton>
+              </Link>
+            </li>           
+            <li>
+              <Link>
+                <EmailShareButton url={shareLink}>
+                  <EmailIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Email
+                </EmailShareButton>
+              </Link>
+            </li>
+            <li>
+              <Link>
+                <LinkedinShareButton url={shareLink}>
+                  <LinkedinIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Linkedin
+                </LinkedinShareButton>
+              </Link>
+            </li>
+          </ul>
+        </ModalBody>
+      </Modal>
+
     </React.Fragment>
   );
 };

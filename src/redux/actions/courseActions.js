@@ -60,17 +60,36 @@ export const getCourse = (data) => async (dispatch) => {
     document.body.classList.add("loading-indicator");
     const result = await API.getCourse(data);
 
-    let lessonCount = 0;
+    let classNoteCount = 0;
+    let videoLessonCount = 0;
+    let quizQuestionsCount = 0;
+    
     const subjects = result.data.data.course.relatedSubjects;
     let i;
     for (i = 0; i < subjects.length; i++) {
-      lessonCount += subjects[i].relatedLessons.length;
+      classNoteCount += subjects[i].relatedLessons.length;
+    }
+    
+    let k;
+    for (k = 0; k < subjects.length; k++) {
+      let relatedLessons = subjects[k].relatedLessons;
+      let l = 0;
+      for (l = 0; l < relatedLessons.length; l++){
+        videoLessonCount += relatedLessons[l].videoUrls.length;
+        if(relatedLessons[l].questions && relatedLessons[l].questions.length){
+          quizQuestionsCount += relatedLessons[l].questions.length;
+        }
+      }
     }
 
+   
+   
     dispatch({
       type: GET_SINGLE_COURSE_SUCCESS,
       payload: {
-        lessonCount,
+        classNoteCount,
+        videoLessonCount,
+        quizQuestionsCount,
         course: result.data.data.course,
         subjectCount: result.data.data.course.relatedSubjects.length,
       },
@@ -191,9 +210,8 @@ export const getPerformance = (data) => async (dispatch) => {
           value: item.progress,
         };
       });
-      overallProgress = overallProgress / result.data.data.subjectsList.length;
-      overallPerformance =
-        overallPerformance / result.data.data.subjectsList.length;
+      overallProgress = overallProgress / 100;
+      overallPerformance = overallPerformance / 100;
     }
 
     if (result.data.data.subjectsList.length) {
@@ -253,9 +271,8 @@ export const getPerformanceInClass = (courseId, classId) => async (
           value: item.progress,
         };
       });
-      overallProgress = overallProgress / result.data.data.subjectsList.length;
-      overallPerformance =
-        overallPerformance / result.data.data.subjectsList.length;
+      overallProgress = overallProgress / 100;
+      overallPerformance = overallPerformance / 100;
     }
 
     if (result.data.data.subjectsList.length) {

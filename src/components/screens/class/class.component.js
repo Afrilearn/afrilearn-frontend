@@ -5,6 +5,8 @@ import {
   faBookReader,
   faMicrophone,
   faUser,
+  faFileAlt,
+  faQuestion
 } from "@fortawesome/free-solid-svg-icons";
 import "./css/style.css";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
@@ -13,7 +15,7 @@ import { getCourse } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 
 const ClassDisplay = (props) => {
-  const { course, lessonCount, subjectCount } = props;
+  const { course, classNoteCount, subjectCount, videoLessonCount, quizQuestionsCount } = props;
 
   const mounted = useRef();
   useEffect(() => {
@@ -63,27 +65,39 @@ const ClassDisplay = (props) => {
           </div>
         </div>
         <div className="row push2">
-          <div className="col-md-3">
+          <div className="col-md-4">
             <span className="box3">
               <FontAwesomeIcon icon={faPlay} color="black" />
             </span>
-            &nbsp;&nbsp; {numberWithCommas(lessonCount)} Video Lessons
+            &nbsp;&nbsp; {numberWithCommas(videoLessonCount)} Video Lessons
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <span className="box3">
               <FontAwesomeIcon icon={faMicrophone} color="black" />
             </span>
-            &nbsp;&nbsp; {numberWithCommas(lessonCount)} Audio Lessons
+            &nbsp;&nbsp; {numberWithCommas(videoLessonCount)} Audio Lessons
+          </div>
+          <div className="col-md-4">
+            <span className="box3">
+              <FontAwesomeIcon icon={faFileAlt} color="black" />
+            </span>
+            &nbsp;&nbsp; {numberWithCommas(classNoteCount)} Class Notes
           </div>
         </div>
         <div className="row push2">
-          <div className="col-md-3">
+          <div className="col-md-4">
             <span className="box3 box4">
               <FontAwesomeIcon icon={faBookReader} color="white" />
             </span>
             &nbsp;&nbsp; {numberWithCommas(subjectCount)} Subjects
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
+            <span className="box3 box4">
+              <FontAwesomeIcon icon={faQuestion} color="white" />
+            </span>
+            &nbsp;&nbsp; {numberWithCommas(quizQuestionsCount)} Exam Practice Questions
+          </div>
+          <div className="col-md-4">
             <span className="box3 box4">
               <FontAwesomeIcon icon={faUser} color="white" />
             </span>
@@ -109,8 +123,10 @@ ClassDisplay.propTypes = {
 
 const mapStateToProps = (state) => ({
   course: state.course.course,
-  lessonCount: state.course.lessonCount,
+  classNoteCount: state.course.classNoteCount,
   subjectCount: state.course.subjectCount,
+  videoLessonCount: state.course.videoLessonCount,
+  quizQuestionsCount: state.course.quizQuestionsCount
 });
 
 export default connect(mapStateToProps, { getCourse })(ClassDisplay);
