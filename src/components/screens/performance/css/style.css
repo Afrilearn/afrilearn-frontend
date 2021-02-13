@@ -11,6 +11,7 @@
 #performanceSecondSection {
   background-color: black;
   padding: 10px 67px 50px 67px;
+  transform: translateY(0) !important;
 }
 
 #performanceSecondSection img.ring {

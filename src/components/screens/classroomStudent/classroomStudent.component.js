@@ -49,10 +49,10 @@ const ClassroomStudent = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.getPerformanceInClass(
-        activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
-        props.match.params.classId
-      );
+      // props.getPerformanceInClass(
+      //   activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
+      //   props.match.params.classId
+      // );
       if (!classMembers.length) {
         props.getClass(props.match.params.classId);
       }
@@ -316,6 +316,13 @@ const ClassroomStudent = (props) => {
     }
   };
 
+  const handlePerformance = () => {
+    props.getPerformanceInClass(
+      activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
+      props.match.params.classId
+    );
+  }
+
   const subjects = [];
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
@@ -382,6 +389,7 @@ const ClassroomStudent = (props) => {
               <NavLink
                 onClick={() => {
                   toggle("5");
+                  handlePerformance()
                 }}
               >
                 Class Performance
@@ -540,7 +548,7 @@ const ClassroomStudent = (props) => {
             </TabPane>
             <TabPane tabId="5">
               <span id="performance">
-                <div id="performanceSecondSection" className="container-fluid">
+                <div id="performanceSecondSection" className="classPer container-fluid">
                   <div className="row">
                     <div className="col-md-5">
                       <span className="box">
@@ -574,23 +582,22 @@ const ClassroomStudent = (props) => {
                         </div>
                         <div className="row">
                           <div className="col-md-12">
-                            {barChart && barChart.length ? (
-                              <Chart
-                                data={[
-                                  {
-                                    type: "bar",
-                                    title: "Subject Progress",
-                                    color: "#26AA76",
-                                    points: barChart,
-                                  },
-                                ]}
-                                keys={barChartTitles}
-                              />
-                            ) : (
-                              "Loading Chart..."
-                            )}
+                          {barChartTitles && barChartTitles.length? 
+                          <Chart
+                            data={[
+                                {
+                                type:'bar',
+                                title:'Subject Progress',
+                                color:'#26AA76',
+                                points:barChart
+                                }     
+                            ]}
+                            keys={barChartTitles && barChartTitles.length? barChartTitles:null}
+                          />
+                          :'Loading Chart...'}
+                            
                           </div>
-                        </div>
+                      </div>
                       </span>
                     </div>
                     <div className="col-md-7">
@@ -604,23 +611,26 @@ const ClassroomStudent = (props) => {
                           <div className="col-md-12">Overrall</div>
                         </div>
                         <div className="row bottomBorder">
-                          <div className="col-md-7">
-                            <PieChart
+                        <div className="col-md-7">
+                           {overallProgress === 0 && overallPerformance===0? 
+                              <PieChart
                               data={[
-                                {
-                                  title: "One",
-                                  value: overallProgress,
-                                  color: "#50E55A",
-                                },
-                                // { title: 'Two', value: 15, color: '#FDAD51' },
-                                {
-                                  title: "Three",
-                                  value: overallPerformance,
-                                  color: "#FF5B5B",
-                                },
+                                  { title: 'One', value: 50, color: '#50E55A'},
+                                  // { title: 'Two', value: 15, color: '#FDAD51' },
+                                  { title: 'Three', value: 50, color: '#FF5B5B' }                              
                               ]}
                               lineWidth={40}
-                            />
+                              />  
+                              :
+                              <PieChart
+                              data={[
+                                  { title: 'One', value: overallProgress, color: '#50E55A'},
+                                  // { title: 'Two', value: 15, color: '#FDAD51' },
+                                  { title: 'Three', value: overallPerformance, color: '#FF5B5B' }                              
+                              ]}
+                              lineWidth={40}
+                              />
+                           }                          
                           </div>
                           <div className="col-md-5">
                             <div className="row push2">

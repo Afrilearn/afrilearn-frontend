@@ -159,10 +159,10 @@ const Performance = props => {
                         <div className="col-md-5">
                            <div className="row push2">
                               <div className="col-md-12 push1">
-                                 <span className="legend commitment"></span>&nbsp;&nbsp; Progress: {overallProgress.toFixed(2)}%
+                                 <span className="legend commitment"></span>&nbsp;&nbsp; Progress: {overallProgress.toFixed(1)}%
                               </div>
                               <div className="col-md-12 push1">
-                                 <span className="legend speed"></span>&nbsp;&nbsp; Performance: {overallPerformance.toFixed(2)}%
+                                 <span className="legend speed"></span>&nbsp;&nbsp; Performance: {overallPerformance.toFixed(1)}%
                               </div>
                               {/* <div className="col-md-12 push1">
                                  <span className="legend comprehension"></span>&nbsp;&nbsp; Comprehension: 50%

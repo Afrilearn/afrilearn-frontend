@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./css/style.css";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faMicrophone } from "@fortawesome/free-solid-svg-icons";
+import { faMicrophone, faShareAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
 import PropTypes from "prop-types";
@@ -14,26 +14,20 @@ import {
   ModalHeader,
   ModalBody 
 } from 'reactstrap';
+
 import {
   EmailShareButton,
   FacebookShareButton,
-  HatenaShareButton,
-  InstapaperShareButton,
-  LineShareButton,
-  LinkedinShareButton,
-  LivejournalShareButton,
-  MailruShareButton,
-  OKShareButton,
-  PinterestShareButton,
-  PocketShareButton,
-  RedditShareButton,
+  LinkedinShareButton, 
   TelegramShareButton,
-  TumblrShareButton,
   TwitterShareButton,
-  ViberShareButton,
-  VKShareButton,
   WhatsappShareButton,
-  WorkplaceShareButton
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TelegramIcon, 
+  TwitterIcon,
+  WhatsappIcon,
 } from "react-share";
 
 const ClassNote = (props) => {
@@ -77,7 +71,7 @@ const ClassNote = (props) => {
       (lesson) => lesson._id === props.match.params.lessonId
     );
  
-  let shareLink = `https://app.ampz.tv/`;
+  let shareLink = `http://www.myafrilearn.com/`;
   return (
     <span>
        <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
@@ -86,54 +80,50 @@ const ClassNote = (props) => {
           <ul className="share-content">
             <li>
               <Link>
-                <FacebookShareButton url={shareLink}>
-                 
-                  &nbsp;&nbsp;&nbsp;Share to Facebook
+                <WhatsappShareButton url={shareLink}>
+                  <WhatsappIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Whatsapp
+                </WhatsappShareButton>
+              </Link>
+            </li>
+            <li>
+              <Link>
+                <FacebookShareButton url={shareLink}>                 
+                  <FacebookIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Facebook
                 </FacebookShareButton>
               </Link>
             </li>
             <li>
               <Link>
                 <TelegramShareButton url={shareLink}>
-                  {/* <img
-                    src={require('../../assets/img/instagram.png')}
-                    alt="instagram"
-                  /> */}
-                  &nbsp;&nbsp;&nbsp;Share to Telegram
+                  <TelegramIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Telegram
                 </TelegramShareButton>
               </Link>
             </li>
             <li>
               <Link>
                 <TwitterShareButton url={shareLink}>
-                  {/* <img
-                    src={require('../../assets/img/twitter 1.png')}
-                    alt="twitter"
-                  /> */}
-                  &nbsp;&nbsp;&nbsp;Share to Twitter
+                  <TwitterIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Twitter
                 </TwitterShareButton>
               </Link>
-            </li>
-            <li>
-              <Link>
-                <WhatsappShareButton url={shareLink}>
-                  {/* <img
-                    src={require('../../assets/img/whatsapp 1.png')}
-                    alt="whatsapp"
-                  /> */}
-                  &nbsp;&nbsp;&nbsp;Share to Whatsapp
-                </WhatsappShareButton>
-              </Link>
-            </li>
+            </li>           
             <li>
               <Link>
                 <EmailShareButton url={shareLink}>
-                  {/* <img
-                    src={require('../../assets/img/email.png')}
-                    alt="email"
-                  /> */}
+                  <EmailIcon size={30} round={true}/>
                   &nbsp;&nbsp;&nbsp;Share via Email
                 </EmailShareButton>
+              </Link>
+            </li>
+            <li>
+              <Link>
+                <LinkedinShareButton url={shareLink}>
+                  <LinkedinIcon size={30} round={true}/>
+                  &nbsp;&nbsp;&nbsp;Share via Linkedin
+                </LinkedinShareButton>
               </Link>
             </li>
           </ul>
@@ -163,8 +153,8 @@ const ClassNote = (props) => {
               </span>
             </Link>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link>
-              <FontAwesomeIcon icon={faThumbsUp} color="white" size="lg" />
+            <Link onClick={toggle1}>
+              <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
             </Link>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           
               <Speech id="audio" text={decodeEntities(targetLesson && targetLesson.content)} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} color="white" size="lg"  />} />

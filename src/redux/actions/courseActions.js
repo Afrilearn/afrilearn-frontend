@@ -210,9 +210,8 @@ export const getPerformance = (data) => async (dispatch) => {
           value: item.progress,
         };
       });
-      overallProgress = overallProgress / result.data.data.subjectsList.length;
-      overallPerformance =
-        overallPerformance / result.data.data.subjectsList.length;
+      overallProgress = overallProgress / 100;
+      overallPerformance = overallPerformance / 100;
     }
 
     if (result.data.data.subjectsList.length) {
@@ -272,9 +271,8 @@ export const getPerformanceInClass = (courseId, classId) => async (
           value: item.progress,
         };
       });
-      overallProgress = overallProgress / result.data.data.subjectsList.length;
-      overallPerformance =
-        overallPerformance / result.data.data.subjectsList.length;
+      overallProgress = overallProgress / 100;
+      overallPerformance = overallPerformance / 100;
     }
 
     if (result.data.data.subjectsList.length) {
