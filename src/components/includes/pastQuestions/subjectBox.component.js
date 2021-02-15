@@ -26,7 +26,7 @@ const SubjectBox = props => {
 
     	return (
         <div className="col-md-2 dropdown relative">            
-                <p className="white">{props.title}</p>
+                <p className="white">{props.title.substr(0, 19)} {props.title.length>19?'...':null}</p>
                 <span>
                     <img src={props.imageUrl} alt={props.title} className="MySubject"/> 
                 </span>

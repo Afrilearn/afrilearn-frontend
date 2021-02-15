@@ -75,7 +75,7 @@
 #aboutFourthSection svg {
     background: #2bb58e;
     padding: 13px;
-    border-radius: 50%; 
+    border-radius: 50%;
     color: white;
     height: 50px;
     width: 50px;
@@ -153,8 +153,7 @@
         margin-top: 13px;
     }
     #aboutFirstSection {
-        margin-top: -290px;
-        padding-top: 104px;
+        margin-top: -182px;
     }
     #aboutSecondSection .partOne {
         padding: 53px 30px;

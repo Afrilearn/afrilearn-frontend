@@ -42,8 +42,7 @@ class SimpleSlider extends React.Component {
            <img className="groupPhoto" src={require('../../assets/img/CUT_6109.JPG')} alt="company pix"/> 
            <img className="groupPhoto" src={require('../../assets/img/tutor2.png')} alt="company pix"/> 
            <img className="groupPhoto" src={require('../../assets/img/IMG_3374.jpg')} alt="company pix"/>
-           <img className="groupPhoto" src={require('../../assets/img/IMG_3390.jpg')} alt="company pix"/>          
-           <img className="groupPhoto" src={require('../../assets/img/IMG_3396.JPG')} alt="company pix"/> 
+           <img className="groupPhoto" src={require('../../assets/img/IMG_3390.jpg')} alt="company pix"/> 
            <img className="groupPhoto" src={require('../../assets/img/tutor1.png')} alt="company pix"/> 
            <img className="groupPhoto" src={require('../../assets/img/WhatsApp Image 2020-10-28 at 3.31.33 PM(1).jpeg')} alt="company pix"/>                                                   
       </Slider>

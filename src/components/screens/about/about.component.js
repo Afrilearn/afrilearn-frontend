@@ -25,7 +25,7 @@ const About = props => {
                 <div className="overlay"></div>
                 <div className="row">                   
                     <div className="col-md-7">               
-                        <h1 className="bold">Africa’s largest and most loved e-learning brand.</h1>
+                        <h1 className="bold">Africa’s largest and best-loved e-learning brand.</h1>
                         <hr/><br/>
                         <h3>Delivering affordable, world-class education for Africans, anywhere.</h3>                    
                     </div>  
