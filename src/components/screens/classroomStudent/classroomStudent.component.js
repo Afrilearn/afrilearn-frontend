@@ -26,7 +26,7 @@ const ClassroomStudent = (props) => {
     classMembers,
     clazz,
     chartSection,
-    activeCourseId,
+    activeCourseId, 
     fullName,
     email,
     activeCourseName,

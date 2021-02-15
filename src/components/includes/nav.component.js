@@ -68,7 +68,7 @@ const MyNav = (props) => {
   const { isAuthenticated } = props;
 
   const handleLogout = () => {
-    props.logout()
+    props.logout();
   };
 
   const updateactiveEnrolledCourseId = (
@@ -244,7 +244,7 @@ const MyNav = (props) => {
 
                   {user.role === "5fd08fba50964811309722d5" ? (
                     <DropdownItem tag={Link} to="/select-pay">
-                      Add A New Course
+                      Add A New Class
                     </DropdownItem>
                   ) : user.role === "5fc8cc978e28fa50986ecac9" ? (
                     <DropdownItem tag={Link} to="/select-pay">
@@ -353,7 +353,10 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <Route path="/classnote/:courseId/:subjectId/:lessonId" component={classNote} />
+        <Route
+          path="/classnote/:courseId/:subjectId/:lessonId"
+          component={classNote}
+        />
         <ProtectedRoute path="/select-pay" component={selectPayment} />
         <ProtectedRoute
           path="/dashboard"
@@ -392,5 +395,5 @@ export default connect(mapStateToProps, {
   getSearchResults,
   searchInputChange,
   populateDashboard,
-  logout
+  logout,
 })(MyNav);
