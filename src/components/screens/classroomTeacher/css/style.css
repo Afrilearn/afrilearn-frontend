@@ -172,6 +172,11 @@
   background-color: #26aa76;
   border-color: #26aa76;
 }
+.button-green {
+  background-color: #26aa76;
+  border-color: #26aa76;
+  color: white;
+}
 #classroomTeacherSectionTwo .announcements aside .upcoming-events {
   background-color: #333232;
   border-radius: 5px;

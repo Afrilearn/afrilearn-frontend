@@ -30,12 +30,7 @@ import Swal from "sweetalert2";
 import { TabContent, TabPane } from "reactstrap";
 
 const ClassroomTeacher = (props) => {
-  const {
-    activeEnrolledCourseId,
-    clazz,
-    classMembers,
-    error,
-  } = props;
+  const { activeEnrolledCourseId, clazz, classMembers, error } = props;
 
   const [announcementText, setAnnouncementText] = useState(null);
 
@@ -83,7 +78,7 @@ const ClassroomTeacher = (props) => {
 
   const toggle = () => setPopoverOpen(!popoverOpen);
 
-  const [newAnouncement, setNewAnouncement] = useState(null);
+  const [newAnouncements, setNewAnouncements] = useState([]);
   const mounted = useRef();
   const invitationLink = `http://demo.myafrilearn.com/join-class?email=${email}&classId=5fcdf5f5581c833b189bb693`;
 
@@ -187,7 +182,7 @@ const ClassroomTeacher = (props) => {
     if (
       clazz &&
       clazz.classAnnouncements &&
-      clazz.classAnnouncements.length > 0
+      clazz.classAnnouncements.length + newAnouncements.length > 0
     ) {
       return clazz.classAnnouncements.map((classAnnouncement) => {
         const sendComment = (e, id) => {
@@ -261,8 +256,8 @@ const ClassroomTeacher = (props) => {
     }
   };
   const newClassAnonouncementBox = () => {
-    if (newAnouncement) {
-      return (
+    if (newAnouncements && newAnouncements.length > 0) {
+      return newAnouncements.map((newAnouncement) => (
         <div className="chat-block">
           <div className="sender">
             <div className="sender-head">
@@ -281,7 +276,7 @@ const ClassroomTeacher = (props) => {
             <small>0 class comments</small>
           </div>
         </div>
-      );
+      ));
     }
   };
 
@@ -487,7 +482,8 @@ const ClassroomTeacher = (props) => {
               onSubmit={(e) => {
                 e.preventDefault();
                 props.makeAnnouncement(clazz._id, announcementText);
-                setNewAnouncement(announcementText);
+                setNewAnouncements([...newAnouncements, announcementText]);
+                toggleAnnouncementModal();
               }}
             >
               <div class="mb-3">
@@ -612,7 +608,8 @@ const ClassroomTeacher = (props) => {
 
                   {clazz &&
                     clazz.classAnnouncements &&
-                    clazz.classAnnouncements.length > 0 && (
+                    clazz.classAnnouncements.length + newAnouncements.length >
+                      0 && (
                       <article>
                         <div className="pic-text-heading">
                           <img src={man} alt="announce" />
