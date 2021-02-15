@@ -189,7 +189,7 @@ const Exam = props => {
                                                         if(isAuthenticated){
                                                             Swal.fire(
                                                                 'Submitted!',
-                                                                'Your test details are been recorded.',
+                                                                'Your test details are recorded successfully!',
                                                                 'success'
                                                             )       
                                                         }                                                 
@@ -251,7 +251,7 @@ const Exam = props => {
                                                     if(isAuthenticated){
                                                         Swal.fire(
                                                             'Submitted!',
-                                                            'Your test details are been recorded.',
+                                                            'Your test details are recorded successfully!',
                                                             'success'
                                                         )       
                                                     }                                                 

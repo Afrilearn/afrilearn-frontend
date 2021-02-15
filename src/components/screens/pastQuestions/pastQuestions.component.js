@@ -39,7 +39,7 @@ const PastQuestions = props => {
                 />               
         })
     }else{
-       return <h5>0ops!, No item found</h5>
+       return <h5>0ops!, No subject found, check back later</h5>
     }
 
 }
