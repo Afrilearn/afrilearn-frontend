@@ -170,12 +170,20 @@
   border: none;
 }
 #profilePageSectionTwo .input-50 {
-  width: 50%;
+  width: 94%;
+}
+.shiftClass {
+  margin-left: 20px;
+  margin-bottom: 38px;
+}
+.refer {
+  padding-bottom: 67px;
 }
 #profilePageSectionTwo .input-two {
   background-color: transparent;
   padding: 0 30px;
   border: 0.1px solid #26aa76;
+  margin-left: 20px;
 }
 @media screen and (max-width: 1200px) {
   #profilePageSectionTwo .input-50 {
@@ -210,12 +218,11 @@
   font-size: 40px;
 }
 #hiddenProfilePageSectionTwo .save-changes {
-  position: absolute;
-  top: 20px;
-  right: 20%;
   background-color: #1b7763;
   border-radius: 100px;
-  padding: 10px 40px;
+  padding: 10px 32px;
+  margin-left: 21px;
+  margin-top: 50px;
 }
 @media screen and (max-width: 900px) {
   #hiddenProfilePageSectionTwo {
@@ -375,6 +382,7 @@
 #hiddenProfilePageSectionTwo .security h3 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   padding: 10px 20px;
+  font-family: font2;
 }
 #hiddenProfilePageSectionTwo .security-form {
   height: 50px;
