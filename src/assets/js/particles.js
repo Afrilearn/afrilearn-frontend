@@ -46,15 +46,15 @@ const options = {
           "mode": [],
           "type": "circle"
         },
-        "onHover": {
-          "enable": true,
-          "mode": "trail",
-          "parallax": {
-            "enable": false,
-            "force": 2,
-            "smooth": 10
-          }
-        },
+        // "onHover": {
+        //   "enable": true,
+        //   "mode": "trail",
+        //   "parallax": {
+        //     "enable": false,
+        //     "force": 2,
+        //     "smooth": 10
+        //   }
+        // },
         "resize": true
       },
       "modes": {

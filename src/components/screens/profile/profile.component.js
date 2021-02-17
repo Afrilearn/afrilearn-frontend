@@ -162,6 +162,7 @@ const ProfilePage = (props) => {
     hiddenTab.style.display = "block";
   };
   const showDetailsPage = () => {
+    window.scrollTo(0, 0);
     if (!newName && !newAge && !newPhone && !newState && !newGender) {
       Swal.fire({
         html: `No changes made`,
@@ -221,7 +222,7 @@ const ProfilePage = (props) => {
         );
       });
     } else {
-      return <div className="container">No class list yet</div>;
+      return <p className="shiftClass">No class list yet</p>;
     }
   };
 
@@ -236,7 +237,7 @@ const ProfilePage = (props) => {
         return <span>{item.classId.name}</span>;
       });
     } else {
-      return <div className="container">No class list yet</div>;
+      return <p className="shiftClass">No class list yet</p>;
     }
   };
 
@@ -256,7 +257,7 @@ const ProfilePage = (props) => {
         );
       });
     } else {
-      return <div className="container">No class list yet</div>;
+      return <p className="shiftClass">No class list yet</p>;
     }
   };
 
@@ -267,7 +268,7 @@ const ProfilePage = (props) => {
         return <span>{item.name}</span>;
       });
     } else {
-      return <div className="container">No class list yet</div>;
+      return <p className="shiftClass">No class list yet</p>;
     }
   };
 
@@ -385,35 +386,28 @@ const ProfilePage = (props) => {
             </tbody>
           </table>
         </div>
-        <div className="referral-code">
-          <h3>Referral Code</h3>
-          <p>
-            Copy and share your referral code with friends and stand a chance to
-            have access to free study materials
-          </p>
-          <InputGroup size="lg" className="input-50">
-            <Input
-              placeholder="ww.awfhrnfudf123485nftuekd/me.dfir9i9e00rigfgrr"
-              className="input-two"
-            />
-            <InputGroupAddon addonType="append" color="success">
-              <Button className="button-2">Copy Code</Button>
-            </InputGroupAddon>
-          </InputGroup>
-        </div>
+        <div className="row refer">
+            <div className="col-md-7">
+              <InputGroup size="lg" className="input-50">
+                <Input
+                  placeholder="ww.awfhrnfudf123485nftuekd/me.dfir9i9e00rigfgrr"
+                  className="input-two"
+                />
+                <InputGroupAddon addonType="append" color="success">
+                  <Button className="button-2">Copy Referral Code</Button>
+                </InputGroupAddon>
+              </InputGroup>
+            </div>
+            <div className="col-md-5">
+              Share your referral code with friends to Earn Money or Free Subscription 
+            </div>
+        </div>        
       </div>
       <div id="hiddenProfilePageSectionTwo">
         <div className="round-image">
           <img src={woman} alt="check out"></img>
           <FontAwesomeIcon icon={faPencilAlt} className="round-image-icon" />
-        </div>
-        <ButtonToggle
-          className="save-changes"
-          size="sm"
-          onClick={showDetailsPage}
-        >
-          Save Changes
-        </ButtonToggle>
+        </div>      
         <div className="personal-details">
           <h3>Personal Details</h3>
           <div className="personal-details-form">
@@ -671,7 +665,15 @@ const ProfilePage = (props) => {
               </span>
             </form>
           </div>
+          <ButtonToggle
+          className="save-changes"
+          size="sm"
+          onClick={showDetailsPage}
+        >
+          Save Changes
+        </ButtonToggle>
         </div>
+       
       </div>
     </React.Fragment>
   );

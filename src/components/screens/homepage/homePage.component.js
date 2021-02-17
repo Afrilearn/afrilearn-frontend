@@ -111,13 +111,13 @@ const Homepage = (props) => {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-5">
             <h1>Gamified experience with rewards.</h1>
             <h3>
               Fun exam practice to ace WAEC, JAMB, NECO and more like a pro!
             </h3>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-7">
             <img
               className="bigThing floatRight"
               src={require("../../../assets/img/gamified.gif")}
@@ -130,54 +130,75 @@ const Homepage = (props) => {
         id="tsparticles"
         options={PaticleOption}
         /> 
-          <div className="col-md-8">
-            <h1>
-              Students love using
-              <br className="desktopOnly" /> Afrilearn
-            </h1>
-            <h2 className="green">105,784</h2>
-            <h4 className="green">Happy Students</h4>
+          <div className="col-md-6">
+            <h1> Why  thousands students love Afrilearn </h1>           
           </div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <div className="row push">
-              <div className="col-4">
-                <img
-                  className="iconSet"
-                  src={require("../../../assets/img/video.png")}
-                  alt="video lessons"
-                />
-              </div>
-              <div className="col-8">
-                <h2>178,345,948</h2>
-                <h5>Video Lessons</h5>
-              </div>
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-md-4">
+                    <img
+                      className="fullWidth"
+                      src={require("../../../assets/img/19 - Presentation.png")}
+                      alt="Next big thing"
+                    />
+                  </div>
+                  <div className="col-md-8 paddingLeftOff">
+                    <h3>178,345,948</h3>
+                    <p>Video Lessons</p>
+                  </div>
+                </div>                
+              </div> 
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-md-4">
+                    <img
+                      className="fullWidth"
+                      src={require("../../../assets/img/16 - Analytics.png")}
+                      alt="Next big thing"
+                    />
+                  </div>
+                  <div className="col-md-8 paddingLeftOff">
+                    <h3>120,984,030</h3>
+                    <p>Practice Quizzes</p>
+                  </div>
+                </div>                
+              </div> 
             </div>
             <div className="row push">
-              <div className="col-4">
-                <img
-                  className="iconSet"
-                  src={require("../../../assets/img/questions.png")}
-                  alt="questions"
-                />
-              </div>
-              <div className="col-8">
-                <h2>120,984,030</h2>
-                <h5>Practice Questions</h5>
-              </div>
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-md-4">
+                    <img
+                      className="fullWidth"
+                      src={require("../../../assets/img/5 - Presentation.png")}
+                      alt="Next big thing"
+                    />
+                  </div>
+                  <div className="col-md-8 paddingLeftOff">
+                    <h3>104,384,231</h3>
+                    <p>Class Notes</p>
+                  </div>
+                </div>                
+              </div> 
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-md-4">
+                    <img
+                      className="fullWidth"
+                      src={require("../../../assets/img/4 - Connection.png")}
+                      alt="Next big thing"
+                    />
+                  </div>
+                  <div className="col-md-8 paddingLeftOff">
+                    <h3>178,345,948</h3>
+                    <p>Engagements</p>
+                  </div>
+                </div>                
+              </div> 
             </div>
-            <div className="row push">
-              <div className="col-4">
-                <img
-                  className="iconSet"
-                  src={require("../../../assets/img/topics.png")}
-                  alt="topics"
-                />
-              </div>
-              <div className="col-8">
-                <h2>104,384,231</h2>
-                <h5>Topic Quizzes</h5>
-              </div>
-            </div>
+        
           </div>
         </div>
         <div className="row">
@@ -225,7 +246,7 @@ const Homepage = (props) => {
           <div className="col-md-6">
             <img
               className="bigThing floatRight"
-              src={require("../../../assets/img/exambly-mockup-for-website.png")}
+              src={require("../../../assets/img/Homepage-mockup-web.png")}
               alt="Learn on any device."
             />
           </div>

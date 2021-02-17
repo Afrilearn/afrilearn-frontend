@@ -204,7 +204,7 @@ export const updateProfile = (user) => async (dispatch) => {
     });
     dispatch(
       returnErrors(
-        "Profile Updated successfully",
+        "Profile Updated Successfully!",
         "200",
         "UPDATE_PROFILE_SUCCES"
       )
