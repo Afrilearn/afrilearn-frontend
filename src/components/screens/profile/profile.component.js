@@ -293,6 +293,19 @@ const ProfilePage = (props) => {
     }
   };
 
+  const copyToClipboard = (e) => {
+    e.preventDefault();
+    var textField = document.createElement("textarea");
+    textField.innerText = `${user._id}`;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand("copy");
+    textField.classList.add("hide");
+    setVisible(true);
+  };
+  const [visible, setVisible] = useState(false);
+  const onDismiss = () => setVisible(false);
+
   return (
     <React.Fragment>
       <div id="profilePageSectionOne"></div>
@@ -386,22 +399,37 @@ const ProfilePage = (props) => {
             </tbody>
           </table>
         </div>
-        <div className="row refer">
-            <div className="col-md-7">
-              <InputGroup size="lg" className="input-50">
-                <Input
-                  placeholder="ww.awfhrnfudf123485nftuekd/me.dfir9i9e00rigfgrr"
-                  className="input-two"
-                />
-                <InputGroupAddon addonType="append" color="success">
-                  <Button className="button-2">Copy Referral Code</Button>
-                </InputGroupAddon>
-              </InputGroup>
+        <div className="referral-code">
+          <p>
+            Copy and share your referral code with friends and stand a chance to
+            have access to free study materials
+          </p>
+
+          {visible && (
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              <strong> Referal code copied to Clipboard!!</strong>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+                onClick={() => setVisible(false)}
+              ></button>
             </div>
-            <div className="col-md-5">
-              Share your referral code with friends to Earn Money or Free Subscription 
-            </div>
-        </div>        
+          )}
+
+          <InputGroup size="lg" className="input-50">
+            <Input placeholder={user && user._id} className="input-two" />
+            <InputGroupAddon addonType="append" color="success">
+              <Button className="button-2" onClick={(e) => copyToClipboard(e)}>
+                Copy Referal Code
+              </Button>
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
       </div>
       <div id="hiddenProfilePageSectionTwo">
         <div className="round-image">
