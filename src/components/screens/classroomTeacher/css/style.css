@@ -541,12 +541,18 @@
   margin: auto;
   margin-top: 20px;
 }
+#classroomTeacherSectionTwo .w-85-r {
+  display: flex;
+  width: 85%;
+  margin-top: 20px;
+}
 #classroomTeacherSectionTwo .classwork {
   display: flex;
   padding: 0 60px 0 50px;
   width: 85%;
   margin: auto;
   margin-top: 20px;
+  margin-bottom: 150px;
 }
 
 #classroomTeacherSectionTwo .classwork main {
@@ -603,13 +609,15 @@
     padding: 15px 10px;
   }
   #classroomTeacherSectionTwo .classwork main .class-item .items {
-    padding: 0px 10px;
+    padding: 0px ;
   }
   #classroomTeacherSectionTwo .classwork main .class-item .item {
     flex-direction: column;
     align-items: flex-start;
     position: relative;
     padding: 12px;
+    flex-wrap: wrap;
+    padding: 0;
   }
   #classroomTeacherSectionTwo .classwork main .class-item .item .more {
     position: absolute;
@@ -619,7 +627,7 @@
   }
 }
 .classwork main .class-item .item .more {
-  position: absolute;
+  /* position: absolute; */
   top: 30%;
   transform: translateY(-50%);
   right: 0;
@@ -648,4 +656,7 @@
 #classroomTeacherSectionTwo .pastQuestionsBox p {
   font-size: 12px;
   font-weight: normal !important;
+}
+.mb-100 {
+  margin-bottom: 100px;
 }

@@ -180,6 +180,7 @@ const mapStateToProps = (state) => ({
   course: state.course.course,
   subject: state.subject.subject,
   role: state.auth.user.role,
+  userId: state.auth.user._id,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
 });
 export default connect(mapStateToProps, {

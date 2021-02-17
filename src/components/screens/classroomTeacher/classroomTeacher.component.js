@@ -23,7 +23,7 @@ import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import PastQuestionsBox from "../../includes/pastQuestions/box.component";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faLink, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Popover, PopoverBody, Modal, ModalBody, Alert } from "reactstrap";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -79,6 +79,7 @@ const ClassroomTeacher = (props) => {
   const toggle = () => setPopoverOpen(!popoverOpen);
 
   const [newAnouncements, setNewAnouncements] = useState([]);
+  const [newComments, setNewComments] = useState([]);
   const mounted = useRef();
   const invitationLink = `http://demo.myafrilearn.com/join-class?email=${email}&classId=5fcdf5f5581c833b189bb693`;
 
@@ -192,6 +193,8 @@ const ClassroomTeacher = (props) => {
           if (targetComment !== "") {
             props.createComment(classAnnouncement._id, targetComment);
             document.getElementById("commentForm" + id).reset();
+            const newData = [...newComments, targetComment];
+            setNewComments(newData);
           }
         };
         return (
@@ -203,9 +206,7 @@ const ClassroomTeacher = (props) => {
                   <div>
                     <p>{classAnnouncement.teacher.fullName} </p>
                     <small className="small-grey">
-                      {moment(classAnnouncement.createdAt)
-                        .startOf("hour")
-                        .fromNow()}
+                      {moment(classAnnouncement.createdAt).fromNow()}
                     </small>
                   </div>
                 </div>
@@ -215,9 +216,24 @@ const ClassroomTeacher = (props) => {
             </div>
             <div className="comments">
               <small>
-                {classAnnouncement.comments.length} class comment
-                {classAnnouncement.comments.length > 0 ? "s" : ""}
+                {classAnnouncement.comments.length + newComments.length} class
+                comment
+                {classAnnouncement.comments.length + newComments.length > 0
+                  ? "s"
+                  : ""}
               </small>
+              {newComments.map((comment) => (
+                <div className="pic-text-heading">
+                  <img src={man} alt="comment" />
+                  <div>
+                    <p>
+                      {props.fullName && props.fullName} &nbsp;
+                      <span className="small-grey">less than a minute ago</span>
+                    </p>
+                    <p>{comment}</p>
+                  </div>
+                </div>
+              ))}
               {classAnnouncement.comments.map((comment) => (
                 <div className="pic-text-heading" key={comment._id}>
                   <img src={man} alt="comment" />
@@ -225,7 +241,7 @@ const ClassroomTeacher = (props) => {
                     <p>
                       {comment.student.fullName} &nbsp;
                       <span className="small-grey">
-                        {moment(comment.createdAt).startOf("hour").fromNow()}
+                        {moment(comment.createdAt).fromNow()}
                       </span>
                     </p>
                     <p>{comment.text}</p>
@@ -244,7 +260,9 @@ const ClassroomTeacher = (props) => {
                 <img
                   src={sendicon}
                   alt="send"
-                  onClick={(e) => sendComment(e, classAnnouncement._id)}
+                  onClick={(e) => {
+                    sendComment(e, classAnnouncement._id);
+                  }}
                 />
               </form>
             </div>
@@ -309,10 +327,7 @@ const ClassroomTeacher = (props) => {
                 data-bs-parent="#accordionExample"
               >
                 {item.assignedContent.map((content) => (
-                  <Link
-                    to={`/classes/${clazz._id}/${item._id}/${content._id}`}
-                    className="item accordion-body"
-                  >
+                  <div className="item accordion-body">
                     <div className="pic-text-heading first-section">
                       <img src={event} alt="event" />
                       <div>
@@ -321,8 +336,24 @@ const ClassroomTeacher = (props) => {
                             ? content.description.slice(0, 100) + "..."
                             : content.description}
                         </p>
+                        <Link
+                          to={`/content/${
+                            content.lessonId && content.lessonId.courseId
+                          }/${content.lessonId && content.lessonId.subjectId}`}
+                        >
+                          <span class="badge bg-primary text-white">
+                            {content.lessonId && content.lessonId.title}
+                            &nbsp;&nbsp;
+                            <FontAwesomeIcon icon={faLink} size={15} />
+                          </span>
+                        </Link>
+                        <p>
+                          <span class="badge bg-success text-white">
+                            {content.userId && "for " + content.userId.fullName}
+                          </span>
+                        </p>
                         <small className="small-grey">
-                          {moment(content.createdAt).startOf("hour").fromNow()}
+                          {moment(content.createdAt).fromNow()}
                         </small>
                       </div>
                     </div>
@@ -330,7 +361,7 @@ const ClassroomTeacher = (props) => {
                       Due {moment(content.dueDate).format("LL")}
                     </p>
                     <img className="more" src={dots} alt="see-more" />
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -348,7 +379,12 @@ const ClassroomTeacher = (props) => {
         return (
           <div className="pupil">
             <img src={man} height="50px" alt="pupil" />
-            <p>{classMember.userId.fullName}</p>
+            <div>
+              <p>{classMember.userId.fullName}</p>
+              <Link to="/performance" class="badge bg-primary">
+                See performance
+              </Link>
+            </div>
             <select
               onChange={(e) => {
                 props.acceptRejectClassmember(
@@ -359,8 +395,12 @@ const ClassroomTeacher = (props) => {
               }}
             >
               <option>{classMember.status}</option>
-              <option value="approved">Approved</option>
-              <option value="rejected">Rejected</option>
+              {classMember.status !== "approved" && (
+                <option value="approved">Approve</option>
+              )}
+              {classMember.status !== "rejected" && (
+                <option value="rejected">Reject</option>
+              )}
             </select>
           </div>
         );
@@ -596,6 +636,7 @@ const ClassroomTeacher = (props) => {
                       <h4 className="font2">Announcements</h4>
                     </div>
                     <div class="col-4 text-end">
+                      Add Announcement &nbsp;&nbsp;
                       <button
                         class="btn button-green text-white"
                         type="button"
@@ -670,13 +711,16 @@ const ClassroomTeacher = (props) => {
             </div>
           </TabPane>
           <TabPane tabId="2">
-            <div class="w-85">
-              <Link
-                to="/assign-content"
-                class="btn button-green text-white"
-                type="button"
-              >
-                Add classwork &nbsp; &nbsp; <FontAwesomeIcon icon={faPlus} />
+            <div className="w-85 row justify-content-between">
+              <Link class="col text-start" to="/assign-content">
+                Add classwork &nbsp; &nbsp;
+                <button
+                  class="btn button-green text-white"
+                  type="button"
+                  onClick={toggleAnnouncementModal}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
               </Link>
             </div>
             <div className="classwork accordion" id="accordionExample">
