@@ -39,7 +39,8 @@ const Signup = props => {
             if(!roles.length) {
                 props.getRoles();  
             }       
-        } else {                
+        } else {   
+                     
             if(error.id === 'REGISTER_FAILURE'){           
                 const message = typeof(error.msg) === 'object' ? error.msg.join('<br/>'): error.msg   
                 Swal.fire({

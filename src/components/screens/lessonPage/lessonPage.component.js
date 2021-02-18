@@ -234,14 +234,7 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <Speech
-                id="audio"
-                text={decodeEntities(lesson && lesson.content)}
-                textAsButton={true}
-                displayText={
-                  <FontAwesomeIcon icon={faMicrophone} color="white" />
-                }
-              />
+              <Speech id="audio" text={decodeEntities(video && video.transcript)} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} color="white"  />}/>
               <div className="icon_pop">
                 <p>Audio Lesson</p>
                 <span></span>

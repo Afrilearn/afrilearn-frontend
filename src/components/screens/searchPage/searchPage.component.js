@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { inputChange } from "./../../../redux/actions/authActions";
+import parse from "html-react-parser";
 
 import "./css/style.css";
 import { Link } from "react-router-dom";
@@ -28,8 +29,8 @@ const SearchPage = (props) => {
           <div class="card-body">
             <h1>Search Results for “ {searchText}”</h1>
             <small>
-              {searchResults.length} topic {searchResults.length > 1 ? "s" : ""}
-              found
+              {searchResults.length} topic{searchResults.length > 1 ? "s" : ""}
+              &nbsp;found
             </small>
           </div>
           {searchResults.map((result) => (
@@ -52,7 +53,7 @@ const SearchPage = (props) => {
                       <small>
                         {result.termId.name}: {result.courseId.name}
                       </small>
-                      <p>{result.content.slice(0, 100)}...</p>
+                      <p>{parse(result.content.slice(0, 100))}...</p>
                     </div>
                   </div>
                 </div>
