@@ -19,7 +19,7 @@ const Footer = props => {
                             <li><Link>Media</Link></li>
                             <li><a href="/contact#career">Careers</a></li>
                             <li><a href="/about#team">Our Team</a></li>
-                            <li><Link>Community</Link></li>
+                            <li><Link to="/contact">Contact</Link></li>
                             <li><Link to="/partnership">Partnership</Link></li>
                         </ul>
                     </div>
