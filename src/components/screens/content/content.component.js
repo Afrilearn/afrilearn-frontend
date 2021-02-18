@@ -10,7 +10,7 @@ import LessonItem from "../../includes/lessonItem/lessonItem.component";
 import { Link } from "react-router-dom";
 
 const Content = (props) => {
-  const { subject, role, activeCoursePaidStatus } = props;
+  const { subject, role, activeCoursePaidStatus, userId } = props;
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -30,7 +30,10 @@ const Content = (props) => {
   const isViewed = (lessonId) => {
     return (
       subject.progresses &&
-      subject.progresses.find((progress) => progress.lessonId === lessonId)
+      subject.progresses.find(
+        (progress) =>
+          progress.lessonId === lessonId && progress.userId === userId
+      )
     );
   };
 
@@ -145,17 +148,17 @@ const Content = (props) => {
                   <h4 className="term_head">{term.name}</h4>
                   <div className="term_list accordion" id="lessonsAccordion">
                     {term.lessons &&
-                      term.lessons.map((clazz, index) => (
+                      term.lessons.map((lesson, index) => (
                         <LessonItem
-                          key={clazz._id}
-                          lesson={clazz}
+                          key={lesson._id}
+                          lesson={lesson}
                           seeMore={seeMore}
                           unlocked={index === 0}
                           relatedLessons={subject.relatedLessons}
                           index={index}
                           term={term.name}
                           length={term.lessons.length}
-                          isViewed={isViewed(clazz._id)}
+                          isViewed={isViewed(lesson._id)}
                         />
                       ))}
                   </div>

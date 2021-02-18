@@ -22,6 +22,8 @@ import moment from "moment";
 import ReactPlayer from "react-player/lazy";
 import Speech from "react-speech";
 import { getCourse } from "./../../../redux/actions/courseActions";
+import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
+
 import parse from "html-react-parser";
 import {
   EmailShareButton,
@@ -39,18 +41,18 @@ import {
 } from "react-share";
 
 const LessonPage = (props) => {
-  const { course, role } = props;
+  const { course, role, subject } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [modal1, setModal1] = useState(false);
   const toggle1 = () => setModal1(!modal1);
 
   const toggleTranscript = () => setIsOpen(!isOpen);
-  const subject =
-    course.relatedSubjects &&
-    course.relatedSubjects.find(
-      (su) => su.courseId === props.match.params.courseId
-    );
+  // const subject =
+  //   course.relatedSubjects &&
+  //   course.relatedSubjects.find(
+  //     (su) => su.courseId === props.match.params.courseId
+  //   );
 
   const lesson =
     subject &&
@@ -76,7 +78,6 @@ const LessonPage = (props) => {
     lesson &&
     lesson.videoUrls.filter((vid) => vid._id !== props.match.params.videoId);
 
-  console.log(relatedVideos);
   const relatedVideosList = () => {
     if (relatedVideos && relatedVideos.length) {
       return relatedVideos.map((vid, index) => {
@@ -132,6 +133,10 @@ const LessonPage = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.getCourse(props.match.params.courseId);
+      props.getSubjectAndRelatedLessons(
+        props.match.params.courseId,
+        props.match.params.subjectId
+      );
     } else {
       // do componentDidUpdate logic
     }
@@ -304,7 +309,7 @@ const LessonPage = (props) => {
             </p>
             <p>
               <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
-              {subject && subject.mainSubjectId.name}
+              {subject && subject.mainSubjectId && subject.mainSubjectId.name}
             </p>
             <p>
               <span>Term:&nbsp;&nbsp; &nbsp; </span> {term && term.name}
@@ -412,10 +417,15 @@ const LessonPage = (props) => {
 
 LessonPage.propTypes = {
   getCourse: PropTypes.func.isRequired,
+  getSubjectAndRelatedLessons: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  subject: state.subject.subject,
   course: state.course.course,
   role: state.auth.user.role,
 });
-export default connect(mapStateToProps, { getCourse })(LessonPage);
+export default connect(mapStateToProps, {
+  getCourse,
+  getSubjectAndRelatedLessons,
+})(LessonPage);
