@@ -65,7 +65,7 @@
 
 #classSecondSection .dropDownContent {
   height: 0px !important;
-  top: -177px;
+  top: -177px;  
 }
 
 
@@ -108,6 +108,7 @@
   #classSecondSection .dropDownContent {
     height: 0px !important;
     top: -197px;
+    left:0px;
   }
 
 }

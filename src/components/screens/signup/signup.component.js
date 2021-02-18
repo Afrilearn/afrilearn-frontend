@@ -19,7 +19,6 @@ const Signup = props => {
         fullName, 
         email, 
         password,    
-        referralCode,  
         roles,
         classes,
         redirect,
@@ -190,10 +189,10 @@ const Signup = props => {
                            <input type={passwordMode? 'password':'text'} placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
                            <Link onClick={handlePasswordMode}><FontAwesomeIcon icon={faEye} /></Link>
                         </div>
-                        <div className="col-md-12 relative">
+                        {/* <div className="col-md-12 relative">
                            <input type="text" placeholder="Referral Code" className="general" name="referralCode" value={referralCode} onChange={handleChange}/>
                            <p className="optional"><i>Optional</i></p>
-                        </div>
+                        </div> */}
                         <div className="col-md-12">
                            <input type="submit" value="Register" className="general" onClick={handleSubmit}/>
                         </div>

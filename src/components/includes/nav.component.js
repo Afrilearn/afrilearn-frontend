@@ -220,11 +220,11 @@ const MyNav = (props) => {
                 </form>
               </NavLink>
             </NavItem>
-            <NavItem>
+            {/* <NavItem>
               <NavLink tag={Link} to="/classes">
                 Classes
               </NavLink>
-            </NavItem>
+            </NavItem> */}
             <NavItem>
               <NavLink tag={Link} to="/about">
                 About Us
