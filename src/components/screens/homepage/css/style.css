@@ -99,10 +99,10 @@
     background: white !important;
     width: 100%;
     display: block;
-    padding: 14px 6px 14px 28px;
+    padding: 16px 6px 14px 28px;
     color: #787878 !important;
     border-radius: 5px 0px 0px 5px;
-    margin-top: 12px;
+    margin-top: 13px;
 }
 
 #homepage .timer {
@@ -150,22 +150,23 @@
     object-fit: fill;
 }
 
-#homepage input[type="email"],
-#homepage input[type="submit"] {
+#homepage input[type="email"] {
     width: 100%;
-    padding: 14px 13px;
+    padding: 15px 13px;
     border: none;
     margin-bottom: 12px;
     margin-top: 12px !important;
-    ;
     border-radius: 5px 0px 0px 5px;
 }
-
 #homepage input[type="submit"] {
     background: #2bb58e;
     color: white;
     border-radius: 0px 5px 5px 0px;
     font-size: 17px;
+    width: 100%;
+    padding: 14.4px 13px;
+    border: none;
+    margin-top: 12px;
 }
 
 #homepage .courseSelectSection {
@@ -270,10 +271,11 @@
 }
 
 #homepage .mobile .partOne img {
-    border: none;
     width: 193px;
     object-fit: contain;
-    height: 64px;
+    height: 57px;
+    border: solid 0.5px gray;
+    border-radius: 7px;
 }
 
 #homepage .mobile .push2 {
@@ -349,6 +351,10 @@
     #homepage .bannerSection h3 {
         height: 85px;
         font-size: 18px;
+    }
+    #homepage .bannerSection h4 {
+        text-align: center;
+        font-size: 1rem;
     }
 
     #homepage .bannerSection h5 {

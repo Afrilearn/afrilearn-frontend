@@ -5,7 +5,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: LocalURl,
+  url: URL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -15,8 +15,8 @@ export default {
       header["Content-type"] = "multipart/form-data";
     } else {
       header["Content-type"] = "application/json";
-      // header["Accept"] = "*/*";
-      // header["Access-Control-Allow-Origin"] = "*";
+      header["Accept"] = "*/*";
+      header["Access-Control-Allow-Origin"] = "*";
     }
     if (token && token !== undefined) {
       header["token"] = token;

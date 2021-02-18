@@ -203,7 +203,7 @@ const Dashboard = (props) => {
             <h1>
               {dashboardData.enrolledCourse
                 ? dashboardData.enrolledCourse.courseId.name
-                : "Hi"}
+                : "Loading..."}
             </h1>
           </div>
         </div>

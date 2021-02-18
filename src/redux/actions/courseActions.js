@@ -33,9 +33,9 @@ export const inputChange = (name, value) => async (dispatch) => {
 export const getCourses = () => async (dispatch) => {
   try {
     // document.body.classList.add("loading-indicator");
-    console.log('am here')
+  
     const result = await API.getCourses();
-    console.log(result)
+  
     dispatch({
       type: GET_ALL_COURSES_SUCCESS,
       payload: result.data.data,

@@ -337,13 +337,13 @@ input.general {
   color: #938585;
 }
 
-input[type="submit"] {
+/* input[type="submit"] {
   background: #249d6d;
   color: white;
   text-align: center;
   font-weight: bolder;
   margin-top: 38px !important;
-}
+} */
 
 option {
   font-family: font1 !important;

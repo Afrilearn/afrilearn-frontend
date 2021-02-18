@@ -276,7 +276,7 @@ const Homepage = (props) => {
                   alt="playstore"
                 />
               </div>
-              <div className="col-6">
+              <div className="col-6 right">
                 <img
                   className=""
                   src={require("../../../assets/img/applestore.png")}
