@@ -1,6 +1,6 @@
 import axios from "axios";
 const URL =
-  "http://afrilearnbackend-env.eba-7ppeuqks.us-east-1.elasticbeanstalk.com/api/v1/";
+  "http://afrilearnbackend-env.eba-kmm3jyax.eu-west-3.elasticbeanstalk.com/api/v1/";
 const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
@@ -15,8 +15,8 @@ export default {
       header["Content-type"] = "multipart/form-data";
     } else {
       header["Content-type"] = "application/json";
-      header["Accept"] = "*/*";
-      header["Access-Control-Allow-Origin"] = "*";
+      // header["Accept"] = "*/*";
+      // header["Access-Control-Allow-Origin"] = "*";
     }
     if (token && token !== undefined) {
       header["token"] = token;

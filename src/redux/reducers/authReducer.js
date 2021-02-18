@@ -60,10 +60,10 @@ const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
       };
-    case GET_ROLES_SUCCESS:
+    case GET_ROLES_SUCCESS:   
       return {
         ...state,
-        roles: action.payload.roles,
+        roles: action.payload.roles.sort(),
         classes: action.payload.courses,
       };
 

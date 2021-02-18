@@ -63,7 +63,7 @@ body {
 }
 
 .loading-indicator:after {
-  content: url("./assets/img/logo.png");
+  content: url("./assets/img/loading.gif");
   position: fixed;
   width: 100%;
   top: 50%;
@@ -71,9 +71,9 @@ body {
   z-index: 8889;
   color: white;
   text-align: center;
-  font-weight: bold;
+  /* font-weight: bold;
   font-size: 1rem;
-  font-family: font2;
+  font-family: font2; */
 }
 
 .loading-indicator:before {
@@ -210,7 +210,12 @@ img.logo {
 .paddingLeftOff {
   padding-left: 0px !important;
 }
-
+.r-range-slider.horizontal .r-range-slider-label {
+  top: -2px !important;
+  text-align: right;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
 .paddingRightOff {
   padding-right: 0px !important;
 }

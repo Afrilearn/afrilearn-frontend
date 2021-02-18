@@ -54,7 +54,7 @@ const Homepage = (props) => {
           <div className="col-md-3"> </div>
           <div className="col-md-6 box">
             <h1>Get Ahead with Afrilearn!</h1> 
-            <h4>We provide every Nigerian Primary and Secondary School Student (Primary 1-6 & JSS1-SS3) freedom to learn curriculum-relevant subjects and topics anytime, anywhere.</h4>         
+            <h4>We provide every Primary and Secondary School Student freedom to learn curriculum-relevant subjects and topics anytime, anywhere.</h4>         
             <div className="row courseSelectSection">
               <div className="col-md-12">
                 <div className="row">
@@ -165,7 +165,7 @@ const Homepage = (props) => {
           <div className="col-md-6">
             <h1> 90,000+ Star Students, Schools & Teachers love Afrilearn! </h1>   
             <h3>
-              Nigeria's largest curriculum-specific education resource, with new additions daily!
+              New content added every week!
             </h3>        
           </div>
           <div className="col-md-6">
@@ -306,7 +306,7 @@ const Homepage = (props) => {
                 <div id="collapseOne1" className="collapse show" role="tabpanel" aria-labelledby="headingOne1"
                   data-parent="#accordionEx">
                   <div className="card-body">
-                    Afrilearn is a world-class streaming service that provides West African Primary and Secondary School Students (Primary 1-6 & JSS1-SS3) freedom to learn curriculum-relevant subjects and topics anytime, anywhere. With Afrilearn, there's always something exciting to learn as new contents are added daily!
+                    Afrilearn is an education streaming service that provides West African Primary and Secondary School Students (Primary 1-6 & JSS1-SS3) freedom to learn curriculum-relevant subjects and topics anytime, anywhere. With Afrilearn, there's always something exciting to learn as new contents are added daily!
                   </div>
                 </div>
               </div>
@@ -383,7 +383,7 @@ const Homepage = (props) => {
           <div className="col-md-3"></div>
           <div className="col-md-6">
             <h6 className="center">
-              Ready to learn? Enter your email to signup
+              Ready to learn? Enter your email to signup!
             </h6>
             <div className="row">
               <div className="col-8 paddingRightOff">

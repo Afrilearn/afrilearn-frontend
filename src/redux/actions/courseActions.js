@@ -33,7 +33,9 @@ export const inputChange = (name, value) => async (dispatch) => {
 export const getCourses = () => async (dispatch) => {
   try {
     // document.body.classList.add("loading-indicator");
+    console.log('am here')
     const result = await API.getCourses();
+    console.log(result)
     dispatch({
       type: GET_ALL_COURSES_SUCCESS,
       payload: result.data.data,
@@ -116,7 +118,7 @@ export const getCourse = (data) => async (dispatch) => {
 
 export const populateDashboard = (data) => async (dispatch) => {
   try {
-    document.body.classList.add("loading-indicator");
+    // document.body.classList.add("loading-indicator");
     const result = await API.populateDashboard(data);
     let excelling,
       average,
@@ -155,8 +157,7 @@ export const populateDashboard = (data) => async (dispatch) => {
       });
       noRating.forEach((element) => {
         noRatingText += element.subject + "&nbsp;&nbsp;&nbsp;";
-      });
-      console.log(excellingText);
+      });     
     }
     dispatch({
       type: POPULATE_DASHBOARD_SUCCESS,
