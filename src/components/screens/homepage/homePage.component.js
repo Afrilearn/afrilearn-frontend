@@ -114,7 +114,7 @@ const Homepage = (props) => {
                 </div>
             </div>
             <div className="col-md-4">
-              <img src={require('../../../assets/img/animation_500_kgtd8u9z.gif')}  className="imageCenter" alt="banner"/>
+              <img src={require('../../../assets/img/inner img.png')}  className="imageCenter" alt="banner"/>
             </div>
             <div className="col-md-4">
                 <div className="row">
