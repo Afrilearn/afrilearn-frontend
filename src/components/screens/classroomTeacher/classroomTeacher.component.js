@@ -583,7 +583,7 @@ const ClassroomTeacher = (props) => {
             onClick={toggleModal}
           >
             <FontAwesomeIcon icon={faPlus} />
-          </span>
+          </span> 
         </div>
         <div className="main-tabs container ">
           <div class="row row-cols-auto align-items-end justify-content-center">

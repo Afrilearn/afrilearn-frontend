@@ -433,6 +433,7 @@
   margin: auto;
   padding-bottom: 30px;
   margin-top: 20px;
+  margin-bottom: 200px;
 }
 #classroomTeacherSectionTwo .people .heading {
   display: flex;
@@ -472,6 +473,7 @@
   }
   #classroomTeacherSectionTwo .people {
     width: 100%;
+    margin-bottom: 100px;
   }
   #classroomTeacherSectionTwo .people .pupil {
     margin: 10px;
@@ -552,7 +554,7 @@
   width: 85%;
   margin: auto;
   margin-top: 20px;
-  margin-bottom: 150px;
+  margin-bottom: 200px;
 }
 
 #classroomTeacherSectionTwo .classwork main {
@@ -569,6 +571,7 @@
     width: 100%;
     flex-wrap: wrap;
     padding: 10px;
+    margin-bottom: 100px;
   }
 
   #classroomTeacherSectionTwo .classwork main {
@@ -609,7 +612,7 @@
     padding: 15px 10px;
   }
   #classroomTeacherSectionTwo .classwork main .class-item .items {
-    padding: 0px ;
+    padding: 0px;
   }
   #classroomTeacherSectionTwo .classwork main .class-item .item {
     flex-direction: column;

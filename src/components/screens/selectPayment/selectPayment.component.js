@@ -203,8 +203,20 @@ const Payment = (props) => {
   return (
     <div id="selectPaymentPageSectionOne">
       <div className="sub-lenght">
-        <h3> Select Subscription Length</h3>
+        <h3>Step 1: Subscription For </h3>
         <Container>
+          <select
+            class="form-select form-select-lg mb-3"
+            aria-label=".form-select-lg example"
+            onChange={(e) => {
+              e.preventDefault();
+              setCourseId(e.target.value);
+            }}
+          >
+            <option selected>Select course</option>
+            {courseList()}
+          </select>
+          <h3>Step 2: Select Subscription Length</h3>
           <div className="row">
             {categories.map((paymentPlan) => (
               <div className="col-6 col-md-3" key={paymentPlan._id}>
@@ -229,7 +241,7 @@ const Payment = (props) => {
         <Container>
           <Row>
             <Col>
-              <select
+              {/* <select
                 class="form-select form-select-lg mb-3"
                 aria-label=".form-select-lg example"
                 onChange={(e) => {
@@ -239,7 +251,7 @@ const Payment = (props) => {
               >
                 <option selected>Select course</option>
                 {courseList()}
-              </select>
+              </select> */}
             </Col>
             {role && role === "5fc8cc978e28fa50986ecac9" && (
               <Col>

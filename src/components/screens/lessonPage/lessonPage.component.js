@@ -8,7 +8,7 @@ import {
   faMicrophone,
   faTimes,
   faInfoCircle,
-  faShareAlt
+  faShareAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -20,20 +20,20 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
 import ReactPlayer from "react-player/lazy";
-import Speech from 'react-speech';
+import Speech from "react-speech";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import parse from "html-react-parser";
 import {
   EmailShareButton,
   FacebookShareButton,
-  LinkedinShareButton, 
+  LinkedinShareButton,
   TelegramShareButton,
   TwitterShareButton,
   WhatsappShareButton,
   EmailIcon,
   FacebookIcon,
   LinkedinIcon,
-  TelegramIcon, 
+  TelegramIcon,
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
@@ -76,6 +76,7 @@ const LessonPage = (props) => {
     lesson &&
     lesson.videoUrls.filter((vid) => vid._id !== props.match.params.videoId);
 
+  console.log(relatedVideos);
   const relatedVideosList = () => {
     if (relatedVideos && relatedVideos.length) {
       return relatedVideos.map((vid, index) => {
@@ -97,22 +98,22 @@ const LessonPage = (props) => {
     }
   };
 
-  var decodeEntities = (function() {
+  var decodeEntities = (function () {
     // this prevents any overhead from creating the object each time
-        var element = document.createElement('div');
+    var element = document.createElement("div");
 
-        function decodeHTMLEntities (str) {
-            if(str && typeof str === 'string') {
-            // strip script/html tags
-            str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-            element.innerHTML = str;
-            str = element.textContent;
-            element.textContent = '';
-            }
+    function decodeHTMLEntities(str) {
+      if (str && typeof str === "string") {
+        // strip script/html tags
+        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gim, "");
+        str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
+        element.innerHTML = str;
+        str = element.textContent;
+        element.textContent = "";
+      }
 
-            return str;
-        } 
+      return str;
+    }
     return decodeHTMLEntities;
   })();
 
@@ -204,17 +205,17 @@ const LessonPage = (props) => {
         {video && video.videoUrl && (
           <ReactPlayer
             className="react-player"
-             // Disable download button
-            config={{ file: { attributes: { controlsList: 'nodownload' } } }}
+            // Disable download button
+            config={{ file: { attributes: { controlsList: "nodownload" } } }}
             // Disable right click
-            onContextMenu={e => e.preventDefault()}
+            onContextMenu={(e) => e.preventDefault()}
             onEnded={(e) => {
               toggleModal();
             }}
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height="500px"           
+            height="500px"
           />
         )}
       </div>
@@ -233,47 +234,56 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <Speech id="audio" text={decodeEntities(lesson && lesson.content)} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} color="white"  />}/>
+              <Speech
+                id="audio"
+                text={decodeEntities(lesson && lesson.content)}
+                textAsButton={true}
+                displayText={
+                  <FontAwesomeIcon icon={faMicrophone} color="white" />
+                }
+              />
               <div className="icon_pop">
                 <p>Audio Lesson</p>
                 <span></span>
               </div>
             </div>
             <div className="icon">
-              <Link onClick={toggle1}><FontAwesomeIcon icon={faShareAlt} /></Link>
+              <Link onClick={toggle1}>
+                <FontAwesomeIcon icon={faShareAlt} />
+              </Link>
               <div className="icon_pop">
                 <p>Share</p>
                 <span></span>
               </div>
             </div>
-            {role && role === "5fc8cc978e28fa50986ecac9"?
-            <div className="icon">
-              <span
-                id="Popover1"
-                onMouseOver={() => setPopoverOpen("true")}
-                onMouseLeave={toggle}
-              >
-                <Popover
-                  placement="top"
-                  isOpen={popoverOpen}
-                  target="Popover1"
-                  toggle={toggle}
+            {role && role === "5fc8cc978e28fa50986ecac9" ? (
+              <div className="icon">
+                <span
+                  id="Popover1"
+                  onMouseOver={() => setPopoverOpen("true")}
+                  onMouseLeave={toggle}
                 >
-                  <PopoverBody>
-                    {role && role === "5fc8cc978e28fa50986ecac9" && (
-                      <Link to="/assign-content">
-                        <p>Assign Content</p>
-                      </Link>
-                    )}
-                    {/* <p>Community</p>
+                  <Popover
+                    placement="top"
+                    isOpen={popoverOpen}
+                    target="Popover1"
+                    toggle={toggle}
+                  >
+                    <PopoverBody>
+                      {role && role === "5fc8cc978e28fa50986ecac9" && (
+                        <Link to="/assign-content">
+                          <p>Assign Content</p>
+                        </Link>
+                      )}
+                      {/* <p>Community</p>
                     <p>Bookmark</p> */}
-                    <p>Share</p>
-                  </PopoverBody>
-                </Popover>
-                <img src={dots} alt="see more" />
-              </span>
-            </div>
-             :null}         
+                      <p>Share</p>
+                    </PopoverBody>
+                  </Popover>
+                  <img src={dots} alt="see more" />
+                </span>
+              </div>
+            ) : null}
           </div>
           <a href="#transcriptText" onClick={toggleTranscript}>
             {isOpen ? "Hide" : "Show"} Transcript
@@ -348,15 +358,15 @@ const LessonPage = (props) => {
             <li>
               <Link>
                 <WhatsappShareButton url={shareLink}>
-                  <WhatsappIcon size={30} round={true}/>
+                  <WhatsappIcon size={30} round={true} />
                   &nbsp;&nbsp;&nbsp;Share via Whatsapp
                 </WhatsappShareButton>
               </Link>
             </li>
             <li>
               <Link>
-                <FacebookShareButton url={shareLink}>                 
-                  <FacebookIcon size={30} round={true}/>
+                <FacebookShareButton url={shareLink}>
+                  <FacebookIcon size={30} round={true} />
                   &nbsp;&nbsp;&nbsp;Share via Facebook
                 </FacebookShareButton>
               </Link>
@@ -364,7 +374,7 @@ const LessonPage = (props) => {
             <li>
               <Link>
                 <TelegramShareButton url={shareLink}>
-                  <TelegramIcon size={30} round={true}/>
+                  <TelegramIcon size={30} round={true} />
                   &nbsp;&nbsp;&nbsp;Share via Telegram
                 </TelegramShareButton>
               </Link>
@@ -372,15 +382,15 @@ const LessonPage = (props) => {
             <li>
               <Link>
                 <TwitterShareButton url={shareLink}>
-                  <TwitterIcon size={30} round={true}/>
+                  <TwitterIcon size={30} round={true} />
                   &nbsp;&nbsp;&nbsp;Share via Twitter
                 </TwitterShareButton>
               </Link>
-            </li>           
+            </li>
             <li>
               <Link>
                 <EmailShareButton url={shareLink}>
-                  <EmailIcon size={30} round={true}/>
+                  <EmailIcon size={30} round={true} />
                   &nbsp;&nbsp;&nbsp;Share via Email
                 </EmailShareButton>
               </Link>
@@ -388,7 +398,7 @@ const LessonPage = (props) => {
             <li>
               <Link>
                 <LinkedinShareButton url={shareLink}>
-                  <LinkedinIcon size={30} round={true}/>
+                  <LinkedinIcon size={30} round={true} />
                   &nbsp;&nbsp;&nbsp;Share via Linkedin
                 </LinkedinShareButton>
               </Link>
@@ -396,7 +406,6 @@ const LessonPage = (props) => {
           </ul>
         </ModalBody>
       </Modal>
-
     </React.Fragment>
   );
 };
