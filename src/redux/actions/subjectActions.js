@@ -50,7 +50,7 @@ export const addSubjectProgress = (
   subjectId,
   courseId,
   recommended,
-  reason,
+  reason, 
   type
 ) => async (dispatch) => {
   try {

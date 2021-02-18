@@ -40,10 +40,7 @@ const Payment = (props) => {
       props.getCourses();
     } else {
       // do componentDidUpdate logic
-      if (
-        error.id === "ADD_CLASS_SUCCESS" ||
-        error.id === "ADD_CLASS_FAILURE"
-      ) {
+      if (error.id === "CREATE_PAYMENT_TRANSACTION_SUCCESS") {
         const message =
           typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
         Swal.fire({
@@ -240,19 +237,6 @@ const Payment = (props) => {
       <div className="proceed-button">
         <Container>
           <Row>
-            <Col>
-              {/* <select
-                class="form-select form-select-lg mb-3"
-                aria-label=".form-select-lg example"
-                onChange={(e) => {
-                  e.preventDefault();
-                  setCourseId(e.target.value);
-                }}
-              >
-                <option selected>Select course</option>
-                {courseList()}
-              </select> */}
-            </Col>
             {role && role === "5fc8cc978e28fa50986ecac9" && (
               <Col>
                 <input

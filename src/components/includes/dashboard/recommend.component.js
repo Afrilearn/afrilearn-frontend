@@ -6,7 +6,7 @@ import Lessons from "../../../assets/img/play.png";
 const Box = (props) => {
   return (
     <div className="row push10 bottomBorder">
-      <div className="col-md-2"> 
+      <div className="col-md-2">
         <span className="recommend">
           <img
             src={props.pastQuestions ? PastQuestions : Lessons}
@@ -17,7 +17,7 @@ const Box = (props) => {
       </div>
       <div className="col-md-6">
         <p>
-          Because you {props.pastQuestions ? "practiced" : "watched"} "
+          Because you {props.pastQuestions ? "practiced" : "learned"} "
           {props.title}"
         </p>
         <p className="recommendT">Recommended:</p>

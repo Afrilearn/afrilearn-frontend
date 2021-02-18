@@ -1,15 +1,13 @@
-import API from '../../assets/js/api';
-import {
-  returnErrors
-} from "./errorActions";
- 
+import API from "../../assets/js/api";
+import { returnErrors } from "./errorActions";
+
 import {
   PAYMENT_INPUT_CHANGE,
   GET_PAYMENT_PLANS_SUCCESS,
   GET_PAYMENT_PLANS_FAILURE,
   CREATE_PAYMENT_TRANSACTION_SUCCESS,
-  CREATE_PAYMENT_TRANSACTION_FAILURE
-} from './types';
+  CREATE_PAYMENT_TRANSACTION_FAILURE,
+} from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
   try {
@@ -26,8 +24,8 @@ export const inputChange = (name, value) => async (dispatch) => {
 };
 export const paymentPlans = () => async (dispatch, getState) => {
   try {
-    document.body.classList.add('loading-indicator');
-    const result = await API.getPaymentPlans(); 
+    document.body.classList.add("loading-indicator");
+    const result = await API.getPaymentPlans();
     let plan = result.data.paymentPlans;
     // if(getState().auth.user.role){
     //    plan = result.data.paymentPlans.filter(el=>el.category === getState().auth.user.role)
@@ -35,18 +33,18 @@ export const paymentPlans = () => async (dispatch, getState) => {
 
     dispatch({
       type: GET_PAYMENT_PLANS_SUCCESS,
-      payload: plan
+      payload: plan,
     });
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove('loading-indicator');
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
-        'GET_PAYMENT_PLANS_FAILURE'
+        "GET_PAYMENT_PLANS_FAILURE"
       )
     );
     dispatch({
@@ -55,19 +53,26 @@ export const paymentPlans = () => async (dispatch, getState) => {
   }
 };
 export const createTransaction = (data) => async (dispatch, getState) => {
-  try {   
-    await API.createPaymentTransaction(data); 
+  try {
+    await API.createPaymentTransaction(data);
     dispatch({
-      type: CREATE_PAYMENT_TRANSACTION_SUCCESS     
-    });    
-  } catch (err) {  
+      type: CREATE_PAYMENT_TRANSACTION_SUCCESS,
+    });
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        "Successfully paid",
+        "200",
+        "CREATE_PAYMENT_TRANSACTION_SUCCESS"
+      )
+    );
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
-        'GET_PAYMENT_PLANS_FAILURE'
+        "GET_PAYMENT_PLANS_FAILURE"
       )
     );
     dispatch({
