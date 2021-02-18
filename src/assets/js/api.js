@@ -5,7 +5,7 @@ const LocalURl = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: LocalURl,
+  url: URL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -32,6 +32,14 @@ export default {
     return header;
   },
 
+  updateProfilePic(profilePhotoUrl) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/update-profile-pic`,
+      headers: this.headers(),
+      data: profilePhotoUrl,
+    });
+  },
   acceptRejectClassmember(classId, userId, status) {
     return axios({
       method: "patch",

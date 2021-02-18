@@ -15,6 +15,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Dropdown,
 } from "reactstrap";
 import PropTypes from "prop-types";
 import moment from "moment";
@@ -30,6 +31,7 @@ import {
   inputChange,
   updateProfile,
   changePasswordFromProfile,
+  updateProfilePicture,
 } from "./../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import { populateDashboard } from "./../../../redux/actions/courseActions";
@@ -37,6 +39,7 @@ import { getClasses } from "./../../../redux/actions/classActions";
 
 import Ellipse from "../../../assets/img/Ellipse.png";
 import woman from "../../../assets/img/woman.png";
+import Adeola from "../../../assets/img/Adeola.jpg";
 
 import "./css/style.css";
 
@@ -163,7 +166,14 @@ const ProfilePage = (props) => {
   };
   const showDetailsPage = () => {
     window.scrollTo(0, 0);
-    if (!newName && !newAge && !newPhone && !newState && !newGender) {
+    if (
+      !newName &&
+      !newAge &&
+      !newPhone &&
+      !newState &&
+      !newGender &&
+      !newProfilePic
+    ) {
       Swal.fire({
         html: `No changes made`,
         showClass: {
@@ -189,6 +199,11 @@ const ProfilePage = (props) => {
       if (newState) {
         userData.state = newState;
       }
+      if (newProfilePic) {
+        const data = new FormData();
+        data.append("profilePhotoUrl", photoToUpload);
+        props.updateProfilePicture(data);
+      }
       props.updateProfile(userData);
     }
 
@@ -201,6 +216,8 @@ const ProfilePage = (props) => {
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
+  const [editPicDropDownOpen, setEditPicDropDownOpen] = useState(false);
+  const toggleEditDropDown = () => setEditPicDropDownOpen(!editPicDropDownOpen);
 
   const classListForStudents = () => {
     if (
@@ -305,14 +322,31 @@ const ProfilePage = (props) => {
   };
   const [visible, setVisible] = useState(false);
   const onDismiss = () => setVisible(false);
-
+  const [newProfilePic, setNewProfilePic] = useState(null);
+  const [photoToUpload, setPhotoToUpload] = useState(null);
+  console.log(newProfilePic);
   return (
     <React.Fragment>
       <div id="profilePageSectionOne"></div>
       <div id="profilePageSectionTwo">
         <div class="circle">
-          <img className="image" src={woman} alt="check"></img>
-          <img className="ellipse" src={Ellipse} alt="check"></img>
+          {newProfilePic && (
+            <img className="ellipse" src={newProfilePic} alt="Profile"></img>
+          )}
+          {!newProfilePic && (
+            <img
+              className="image"
+              src={!user.profilePhotoUrl && woman}
+              alt="check"
+            ></img>
+          )}
+          {!newProfilePic && (
+            <img
+              className="ellipse"
+              src={user.profilePhotoUrl ? user.profilePhotoUrl : Ellipse}
+              alt="check"
+            ></img>
+          )}
         </div>
         <div className="top-details">
           <div className="items">
@@ -432,10 +466,65 @@ const ProfilePage = (props) => {
         </div>
       </div>
       <div id="hiddenProfilePageSectionTwo">
-        <div className="round-image">
-          <img src={woman} alt="check out"></img>
-          <FontAwesomeIcon icon={faPencilAlt} className="round-image-icon" />
-        </div>      
+        <div
+          className="round-image dropdown-toggle"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {newProfilePic && (
+            <img src={newProfilePic} width="100%" alt="check out"></img>
+          )}
+          {!newProfilePic && <img src={woman} alt="check out"></img>}
+          {!newProfilePic && (
+            <FontAwesomeIcon icon={faPencilAlt} className="round-image-icon" />
+          )}
+        </div>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li>
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="inputGroupFile01">
+                Select image
+              </label>
+              <input
+                type="file"
+                class="form-control"
+                id="inputGroupFile01"
+                onChange={(e) => {
+                  setNewProfilePic(URL.createObjectURL(e.target.files[0]));
+                  setPhotoToUpload(e.target.files[0]);
+                }}
+              />
+            </div>
+          </li>
+          {newProfilePic && (
+            <li>
+              <button
+                type="button"
+                class="btn btn-danger"
+                onClick={() => {
+                  setNewProfilePic(null);
+                }}
+              >
+                Discard
+              </button>
+            </li>
+          )}
+        </ul>
+
+        <div class="row justify-content-between">
+          <div class="col">
+            <ButtonToggle
+              className="save-changes"
+              size="sm"
+              onClick={showDetailsPage}
+            >
+              Save Changes
+            </ButtonToggle>
+          </div>
+        </div>
         <div className="personal-details">
           <h3>Personal Details</h3>
           <div className="personal-details-form">
@@ -693,15 +782,18 @@ const ProfilePage = (props) => {
               </span>
             </form>
           </div>
-          <ButtonToggle
-          className="save-changes"
-          size="sm"
-          onClick={showDetailsPage}
-        >
-          Save Changes
-        </ButtonToggle>
         </div>
-       
+        <div class="row justify-content-between">
+          <div class="col">
+            <ButtonToggle
+              className="save-changes"
+              size="sm"
+              onClick={showDetailsPage}
+            >
+              Save Changes
+            </ButtonToggle>
+          </div>
+        </div>
       </div>
     </React.Fragment>
   );
@@ -714,6 +806,7 @@ ProfilePage.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   changePasswordFromProfile: PropTypes.func.isRequired,
+  updateProfilePicture: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   classOwnership: state.auth.user.classOwnership,
@@ -729,5 +822,6 @@ export default connect(mapStateToProps, {
   getClasses,
   updateProfile,
   clearErrors,
+  updateProfilePicture,
   changePasswordFromProfile,
 })(ProfilePage);

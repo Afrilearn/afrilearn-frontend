@@ -27,7 +27,9 @@ import {
   UPDATE_PROFILE_FAILURE,
   PASSWORD_CHANGE_FROM_PROFILE_SUCCESS,
   PASSWORD_CHANGE_FROM_PROFILE_FAILURE,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  UPDATE_PROFILE_PIC_SUCCESS,
+  UPDATE_PROFILE__PIC_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -410,15 +412,50 @@ export const loadQuestions = (subjectId) => async (dispatch) => {
     dispatch({
       type: LOAD_QUESTIONS_FAILURE,
     });
-  } 
+  }
 };
 
 export const logout = () => async (dispatch) => {
   try {
     dispatch({
-      type: LOGOUT_SUCCESS       
+      type: LOGOUT_SUCCESS,
     });
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const updateProfilePicture = (profilePhotoUrl) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    await API.updateProfilePic(profilePhotoUrl);
+
+    dispatch({
+      type: UPDATE_PROFILE_PIC_SUCCESS,
+    });
+
+    dispatch(
+      returnErrors(
+        "Image update succesfully",
+        "200",
+        "UPDATE_PROFILE_PIC_SUCCESS"
+      )
+    );
+
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "UPDATE_PROFILE__PIC_FAILURE"
+      )
+    );
+    dispatch({
+      type: UPDATE_PROFILE__PIC_FAILURE,
+    });
   }
 };

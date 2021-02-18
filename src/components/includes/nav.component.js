@@ -168,7 +168,7 @@ const MyNav = (props) => {
               <>
                 <NavItem>
                   <NavLink tag={Link} to="/dashboard">
-                    Dashboard
+                  My Dashboard
                   </NavLink>
                 </NavItem>
                 <NavItem>
