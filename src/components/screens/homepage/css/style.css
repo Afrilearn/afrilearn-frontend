@@ -67,12 +67,18 @@
 .landingPageAdd .push{
     margin-top: 20px;
 }
-.landingPageAdd img {
+.landingPageAdd img.imageCenter {
     width: 55%;
     margin: auto;
         margin-top: auto;
     display: block;
     margin-top: 15px;
+}
+.landingPageAdd img.myIcon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    object-position: top;
 }
 .hOne {
     text-align: center;

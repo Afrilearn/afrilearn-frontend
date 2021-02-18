@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import { inputChange, getRoles } from './../../../redux/actions/authActions';
 import PropTypes from 'prop-types';
 import PaticleOption from '../../../assets/js/particles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad, faFighterJet, faGraduationCap, faStar} from '@fortawesome/free-solid-svg-icons';
 
 const Homepage = (props) => {
   const {
@@ -98,7 +96,7 @@ const Homepage = (props) => {
             <div className="col-md-4">
                 <div className="row">
                     <div className="col-2">
-                        <FontAwesomeIcon icon={faFighterJet} />
+                      <img src={require('../../../assets/img/Group 68.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
                         <h5>Genius Content.</h5> 
@@ -107,7 +105,7 @@ const Homepage = (props) => {
                 </div>
                 <div className="row push">
                     <div className="col-2">
-                        <FontAwesomeIcon icon={faGamepad} />
+                      <img src={require('../../../assets/img/Group 72.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
                         <h5>Personalised Education.</h5> 
@@ -116,12 +114,12 @@ const Homepage = (props) => {
                 </div>
             </div>
             <div className="col-md-4">
-                <img src={require('../../../assets/img/animation_500_kgtd8u9z.gif')}  className="banner1" alt="banner"/>
+              <img src={require('../../../assets/img/animation_500_kgtd8u9z.gif')}  className="imageCenter" alt="banner"/>
             </div>
             <div className="col-md-4">
                 <div className="row">
                     <div className="col-2">
-                        <FontAwesomeIcon icon={faGraduationCap} />
+                      <img src={require('../../../assets/img/Group 69.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
                         <h5>Examination Success.</h5> 
@@ -130,7 +128,7 @@ const Homepage = (props) => {
                 </div>
                 <div className="row push">
                     <div className="col-2">
-                        <FontAwesomeIcon icon={faStar} />
+                      <img src={require('../../../assets/img/Group 70.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
                         <h5>Engaging Classroom.</h5> 
