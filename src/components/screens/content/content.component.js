@@ -115,18 +115,18 @@ const Content = (props) => {
                 &nbsp; &nbsp; {subject.courseId && subject.courseId.alias}
               </p>
               <p>
-                <span className="left_key">Lessons:</span>
+                <span className="left_key">Topics:</span>
                 &nbsp; &nbsp;{" "}
                 {subject && subject.relatedLessons
                   ? subject.relatedLessons.length
                   : 0}
-                &nbsp;Video Lessons
+                &nbsp; Lessons Topics
               </p>
               <p>
                 <span className="left_key">Students:</span>
                 &nbsp; &nbsp; 13,000 Registered Students
               </p>
-              {role && role === "5fc8cc978e28fa50986ecac9" && (
+              {role && role === "602f3ce39b146b3201c2dc1d" && (
                 <Link to="/assign-content">
                   <p className="teacher-assign-content-green">
                     Assign study content to students

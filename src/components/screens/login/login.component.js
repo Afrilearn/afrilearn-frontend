@@ -121,10 +121,10 @@ const Login = props => {
                         </div>
                         <div className="col-md-12 relative">
                            <input type="password" placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
-                           <p className="optional"><Link to="/reset_password"><i>Forgot Password?</i></Link></p>
+                           {/* <p className="optional"><Link to="/reset_password"><i>Forgot Password?</i></Link></p> */}
                         </div>                       
                         <div className="col-md-12">
-                           <input type="submit" value="Login" className="general" onClick={handleSubmit}/>
+                           <input type="submit" value="Login" className="general authSubmit" onClick={handleSubmit}/>
                         </div>
                         <div className="col-md-12 socialText">
                            <div className="row push">
@@ -132,7 +132,7 @@ const Login = props => {
                                     <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Remember me" />                          
                                 </div>
                                 <div className="col-6">
-                                    <Link className="floatRight"><u>Need help?</u></Link>
+                                    <Link className="floatRight" to="/reset_password"><u>Forgot Password?</u></Link>
                                 </div>
                            </div>
                         </div>

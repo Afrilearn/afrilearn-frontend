@@ -99,10 +99,14 @@
     background: white !important;
     width: 100%;
     display: block;
-    padding: 16px 6px 14px 28px;
+    padding: 16px 6px 13px 28px;
     color: #787878 !important;
     border-radius: 5px 0px 0px 5px;
     margin-top: 13px;
+}
+
+#homepage .push88 {
+    margin-top: 80px;
 }
 
 #homepage .timer {
@@ -139,7 +143,7 @@
 }
 
 #homepage img.bigThing {
-    width: 401px;
+    width: 386px;
     display: block;
     margin-top: -30px;
     height: 268px;
@@ -374,8 +378,8 @@
         font-family: font2;
         font-size: 17px;
     }
-    .landingPageAdd img {       
-        margin-bottom: 32px;
+    .landingPageAdd img {
+        margin-bottom: 32px !important;
     }
 
     #homepage input[type="email"],
@@ -471,8 +475,8 @@
         padding: 50px 27px;
     }
 
-    #homepage a.myPlaceholder {
-        padding: 14.2px;
+    a.myPlaceholder {
+        padding: 13.6px 17px !important;
     }
 
     #homepage img.downArrow {
@@ -482,5 +486,11 @@
     }
     .hOne {
         margin-bottom: 50px !important;    
+    }
+    .landingPageAdd  .paddingLeftOff {
+        padding-left: 30px !important;
+    }
+    .students  .paddingLeftOff {
+        padding-left: 15px !important;
     }
 }

@@ -103,7 +103,7 @@ const ClassWork = (props) => {
               <p>Due {classWork && moment(classWork.dueDate).format("LL")}</p>
             </div>
           </div>
-          {role && role !== "5fc8cc978e28fa50986ecac9" && (
+          {role && role !== "602f3ce39b146b3201c2dc1d" && (
             <div className="class-comment">
               <h6>Add replies</h6>
               <form
@@ -126,7 +126,7 @@ const ClassWork = (props) => {
         </main>
 
         <aside>
-          {role && role === "5fc8cc978e28fa50986ecac9" ? (
+          {role && role === "602f3ce39b146b3201c2dc1d" ? (
             <div className="class-comment">
               <h6>Send comment to students</h6>
               <div class="accordion accordion-flush" id="accordionExample">

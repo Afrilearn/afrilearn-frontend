@@ -76,7 +76,7 @@ const ResetPassword = props => {
                            <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
                         </div>                                        
                         <div className="col-md-12">
-                           <input type="submit" value="Reset" className="general" onClick={handleSubmit}/>
+                           <input type="submit" value="Reset" className="general authSubmit" onClick={handleSubmit}/>
                         </div> 
                         <div className="col-md-12 push center">
                           <b className="white">&nbsp; <Link to="/login">Log in</Link></b>

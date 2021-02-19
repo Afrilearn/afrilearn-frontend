@@ -85,11 +85,11 @@ const Signup = props => {
             message='Please enter email';  
         } else if (!password) {
             message='Please enter password';  
-        }else if(!className && role ==='5fc8cc978e28fa50986ecac9'){
+        }else if(!className && role ==='602f3ce39b146b3201c2dc1d'){
             message='Please enter class name';  
         } 
 
-        if(!role || !courseId || !fullName || !email || !password || (!className && role ==='5fc8cc978e28fa50986ecac9') ){               
+        if(!role || !courseId || !fullName || !email || !password || (!className && role ==='602f3ce39b146b3201c2dc1d') ){               
             Swal.fire({
                 title: message,
                 showClass: {
@@ -174,7 +174,7 @@ const Signup = props => {
                             </select>
                         </div>
                         {
-                            role ==='5fc8cc978e28fa50986ecac9'?
+                            role ==='602f3ce39b146b3201c2dc1d'?
                             <div className="col-md-12">
                                 <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
                             </div>:''
@@ -194,7 +194,7 @@ const Signup = props => {
                            <p className="optional"><i>Optional</i></p>
                         </div> */}
                         <div className="col-md-12">
-                           <input type="submit" value="Register" className="general" onClick={handleSubmit}/>
+                           <input type="submit" value="Register" className="general authSubmit" onClick={handleSubmit}/>
                         </div>
                         <div className="col-md-12">
                            <div className="row push">
