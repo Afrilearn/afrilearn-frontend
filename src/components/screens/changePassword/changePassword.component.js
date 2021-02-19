@@ -108,7 +108,7 @@ const ChangePassword = props => {
                            <input type="password" placeholder="Confirm Password" className="general" name="confirmPassword" value={confirmPassword} onChange={handleChange}/>
                         </div>                                        
                         <div className="col-md-12">
-                           <input type="submit" value="Change" className="general" onClick={handleSubmit}/>
+                           <input type="submit" value="Change" className="general authSubmit" onClick={handleSubmit}/>
                         </div> 
                         <div className="col-md-12 push center">
                           <b className="white">&nbsp; <Link to="/login">Log in</Link></b>

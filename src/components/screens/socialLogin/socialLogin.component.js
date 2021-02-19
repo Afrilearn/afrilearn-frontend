@@ -62,11 +62,11 @@ const SocialSignup = props => {
             message='Please select a role';             
         } else if (!activeEnrolledCourseId) {
             message='Please select a class';   
-        } else if(!className && role ==='5fc8cc978e28fa50986ecac9'){
+        } else if(!className && role ==='602f3ce39b146b3201c2dc1d'){
             message='Please enter class name';  
         }  
 
-        if(!role || !activeEnrolledCourseId || (!className && role ==='5fc8cc978e28fa50986ecac9')){               
+        if(!role || !activeEnrolledCourseId || (!className && role ==='602f3ce39b146b3201c2dc1d')){               
             Swal.fire({
                 title: message,
                 showClass: {
@@ -130,7 +130,7 @@ const SocialSignup = props => {
                             </select>
                         </div>  
                         {
-                            role ==='5fc8cc978e28fa50986ecac9'?
+                            role ==='602f3ce39b146b3201c2dc1d'?
                             <div className="col-md-12">
                                 <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
                             </div>:''
