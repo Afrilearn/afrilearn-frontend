@@ -14,6 +14,8 @@ import {
 } from "./../../../redux/actions/subjectActions";
 import PropTypes from "prop-types";
 import ReactPlayer from "react-player/lazy";
+import Tooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap_white.css";
 
 const LessonItem = (props) => {
   const {
@@ -23,8 +25,9 @@ const LessonItem = (props) => {
     unlocked,
     index,
     isViewed,
+    inClass,
+    clazz,
   } = props;
-
   const updateQuizType = () => {
     props.inputChange("examType", "quiz");
     props.inputChange("quizTitle", lesson.title);
@@ -53,7 +56,104 @@ const LessonItem = (props) => {
                 props.addRecentActivity(lesson._id, "lesson");
                 if (activeCoursePaidStatus || unlocked) {
                   props.addSubjectProgress(
-                    lesson.classId,
+                    inClass ? clazz._id : null,
+                    lesson._id,
+                    lesson.subjectId,
+                    lesson.courseId,
+                    recommendation(lesson._id),
+                    lesson._id,
+                    "lesson"
+                  );
+                }
+              }}
+            >
+              <Tooltip
+                overlay={
+                  !activeCoursePaidStatus && !unlocked ? (
+                    <Link to="/select-pay">
+                      Please subscribe to unlock content
+                    </Link>
+                  ) : (
+                    <span>Lesson video</span>
+                  )
+                }
+                placement="top"
+                trigger={["hover"]}
+              >
+                <Link
+                  to={
+                    activeCoursePaidStatus || unlocked
+                      ? `/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`
+                      : "/select-pay"
+                  }
+                >
+                  <div className="term_item_left_bottom_item ">
+                    <FontAwesomeIcon icon={faPlay} />
+                    <button>Lesson {index + 1}</button>
+                  </div>
+                </Link>
+              </Tooltip>
+            </div>
+            {lesson.questions.length &&
+            lesson.videoUrls.length - 1 === index ? (
+              <div class="col-md-3">
+                <div
+                  className="term_item_left_bottom_item "
+                  onClick={() => {
+                    props.addRecentActivity(lesson._id, "quiz");
+                  }}
+                >
+                  {" "}
+                  <Tooltip
+                    overlay={
+                      !activeCoursePaidStatus && !unlocked ? (
+                        <Link to="/select-pay">
+                          Please subscribe to unlock content
+                        </Link>
+                      ) : (
+                        <span>Quiz</span>
+                      )
+                    }
+                    placement="top"
+                    trigger={["hover"]}
+                  >
+                    <Link
+                      to="/lesson/quiz/instructions"
+                      onClick={updateQuizType}
+                      className="quizButton"
+                    >
+                      Quiz
+                    </Link>
+                  </Tooltip>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </>
+        );
+      });
+    } else {
+      return (
+        <div class="col-md-3">
+          <Tooltip
+            overlay={
+              !activeCoursePaidStatus && !unlocked ? (
+                <Link to="/select-pay">Please subscribe to unlock content</Link>
+              ) : (
+                <span>Lesson note</span>
+              )
+            }
+            placement="top"
+            trigger={["hover"]}
+          >
+            <div
+              className="term_item_left_bottom_item "
+              onClick={() => {
+                props.addRecentActivity(lesson._id, "lesson");
+                if (activeCoursePaidStatus || unlocked) {
+                  props.addSubjectProgress(
+                    inClass ? clazz._id : null,
                     lesson._id,
                     lesson.subjectId,
                     lesson.courseId,
@@ -67,61 +167,16 @@ const LessonItem = (props) => {
               <Link
                 to={
                   activeCoursePaidStatus || unlocked
-                    ? `/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`
+                    ? `/classnote/${lesson.courseId}/${lesson.subjectId}/${lesson._id}`
                     : "/select-pay"
                 }
+                onClick={updateQuizType}
+                className="quizButton"
               >
-                <div className="term_item_left_bottom_item ">
-                  <FontAwesomeIcon icon={faPlay} />
-                  <button>Lesson {index + 1}</button>
-                </div>
+                Class Note
               </Link>
             </div>
-            {lesson.questions.length &&
-            lesson.videoUrls.length - 1 === index ? (
-              <div class="col-md-3">
-                <div
-                  className="term_item_left_bottom_item "
-                  onClick={() => {
-                    props.addRecentActivity(lesson._id, "quiz");
-                  }}
-                >
-                  <Link
-                    to="/lesson/quiz/instructions"
-                    onClick={updateQuizType}
-                    className="quizButton"
-                  >
-                    Quiz
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-          </>
-        );
-      });
-    } else {
-      return (
-        <div class="col-md-3">
-          <div
-            className="term_item_left_bottom_item "
-            onClick={() => {
-              props.addRecentActivity(lesson._id, "lesson");
-            }}
-          >
-            <Link
-              to={
-                activeCoursePaidStatus || unlocked
-                  ? `/classnote/${lesson.courseId}/${lesson.subjectId}/${lesson._id}`
-                  : "/select-pay"
-              }
-              onClick={updateQuizType}
-              className="quizButton"
-            >
-              Class Note
-            </Link>
-          </div>
+          </Tooltip>{" "}
         </div>
       );
     }
@@ -145,7 +200,7 @@ const LessonItem = (props) => {
             />
             {lesson.title}
             <div className="float-end">
-              {!activeCoursePaidStatus && !unlocked ? (
+              {!unlocked ? (
                 ""
               ) : (
                 <span class="badge h5 bg-green mr-10">FREE</span>
@@ -204,6 +259,8 @@ LessonItem.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
+  clazz: state.class.class,
+  inClass: state.auth.inClass,
 });
 
 export default connect(mapStateToProps, {

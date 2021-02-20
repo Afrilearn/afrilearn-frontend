@@ -10,6 +10,7 @@
   flex-direction: column;
   cursor: pointer;
   animation: transform 1s;
+  position: relative;
 }
 .subscriptionBox .item:hover {
   opacity: 0.8;
@@ -25,15 +26,19 @@
   font-family: font2;
   font-style: normal;
   font-weight: normal;
-  /* font-size: 37.4056px; */
+  font-size: 20px;
   line-height: 59px;
   display: inline-block;
+}
+.subscriptionBox .item .subcircle {
+  height: 10px;
+  margin-left: 4px;
 }
 .subscriptionBox .item small {
   font-family: font3;
   font-style: normal;
   font-weight: normal;
-  font-size: 26.7183px;
+  font-size: 20px;
   line-height: 36px;
 }
 .subscriptionBox .monthly {
@@ -49,6 +54,9 @@
   background-color: #fdc9a6;
 }
 @media screen and (max-width: 1200px) {
+  .subscriptionBox .item h4 {
+    font-size: 18px;
+  }
   .subscriptionBox .item span {
     font-size: 24px;
     line-height: 59px;
@@ -57,4 +65,9 @@
     font-size: 18px;
     line-height: 36px;
   }
+}
+.checkOnClick {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }

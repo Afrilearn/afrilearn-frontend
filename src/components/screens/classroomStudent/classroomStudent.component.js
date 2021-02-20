@@ -26,7 +26,7 @@ const ClassroomStudent = (props) => {
     classMembers,
     clazz,
     chartSection,
-    activeCourseId, 
+    activeCourseId,
     fullName,
     email,
     activeCourseName,
@@ -41,6 +41,7 @@ const ClassroomStudent = (props) => {
   const [newComment, setNewComment] = useState(null);
 
   const [activeTab, setActiveTab] = useState("1");
+
   // eslint-disable-next-line no-unused-vars
   const [activeVerticalTab, setActiveVerticalTab] = useState("1");
   const mounted = useRef();
@@ -53,6 +54,8 @@ const ClassroomStudent = (props) => {
       //   activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
       //   props.match.params.classId
       // );
+      const data = { classId: props.match.params.classId };
+      props.getPerformanceInClass(activeCourseId, data);
       if (!classMembers.length) {
         props.getClass(props.match.params.classId);
       }
@@ -147,7 +150,9 @@ const ClassroomStudent = (props) => {
       return classMembers.map((classMember) => (
         <div className="pupil">
           <img src={man} height="50px" alt="pupil" />
-          <p>{classMember.userId.fullName}</p>
+          <p>
+            {classMember && classMember.userId && classMember.userId.fullName}
+          </p>
         </div>
       ));
     } else {
@@ -316,13 +321,6 @@ const ClassroomStudent = (props) => {
     }
   };
 
-  const handlePerformance = () => {
-    props.getPerformanceInClass(
-      activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
-      props.match.params.classId
-    );
-  }
-
   const subjects = [];
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
@@ -389,7 +387,7 @@ const ClassroomStudent = (props) => {
               <NavLink
                 onClick={() => {
                   toggle("5");
-                  handlePerformance()
+                  // handlePerformance();
                 }}
               >
                 Class Performance
@@ -548,7 +546,10 @@ const ClassroomStudent = (props) => {
             </TabPane>
             <TabPane tabId="5">
               <span id="performance">
-                <div id="performanceSecondSection" className="classPer container-fluid">
+                <div
+                  id="performanceSecondSection"
+                  className="classPer container-fluid"
+                >
                   <div className="row">
                     <div className="col-md-5">
                       <span className="box">
@@ -582,22 +583,27 @@ const ClassroomStudent = (props) => {
                         </div>
                         <div className="row">
                           <div className="col-md-12">
-                          {barChartTitles && barChartTitles.length? 
-                          <Chart
-                            data={[
-                                {
-                                type:'bar',
-                                title:'Subject Progress',
-                                color:'#26AA76',
-                                points:barChart
-                                }     
-                            ]}
-                            keys={barChartTitles && barChartTitles.length? barChartTitles:null}
-                          />
-                          :'Loading Chart...'}
-                            
+                            {barChartTitles && barChartTitles.length ? (
+                              <Chart
+                                data={[
+                                  {
+                                    type: "bar",
+                                    title: "Subject Progress",
+                                    color: "#26AA76",
+                                    points: barChart,
+                                  },
+                                ]}
+                                keys={
+                                  barChartTitles && barChartTitles.length
+                                    ? barChartTitles
+                                    : null
+                                }
+                              />
+                            ) : (
+                              "Loading Chart..."
+                            )}
                           </div>
-                      </div>
+                        </div>
                       </span>
                     </div>
                     <div className="col-md-7">
@@ -611,26 +617,39 @@ const ClassroomStudent = (props) => {
                           <div className="col-md-12">Overrall</div>
                         </div>
                         <div className="row bottomBorder">
-                        <div className="col-md-7">
-                           {overallProgress === 0 && overallPerformance===0? 
+                          <div className="col-md-7">
+                            {overallProgress === 0 &&
+                            overallPerformance === 0 ? (
                               <PieChart
-                              data={[
-                                  { title: 'One', value: 50, color: '#50E55A'},
+                                data={[
+                                  { title: "One", value: 50, color: "#50E55A" },
                                   // { title: 'Two', value: 15, color: '#FDAD51' },
-                                  { title: 'Three', value: 50, color: '#FF5B5B' }                              
-                              ]}
-                              lineWidth={40}
-                              />  
-                              :
-                              <PieChart
-                              data={[
-                                  { title: 'One', value: overallProgress, color: '#50E55A'},
-                                  // { title: 'Two', value: 15, color: '#FDAD51' },
-                                  { title: 'Three', value: overallPerformance, color: '#FF5B5B' }                              
-                              ]}
-                              lineWidth={40}
+                                  {
+                                    title: "Three",
+                                    value: 50,
+                                    color: "#FF5B5B",
+                                  },
+                                ]}
+                                lineWidth={40}
                               />
-                           }                          
+                            ) : (
+                              <PieChart
+                                data={[
+                                  {
+                                    title: "One",
+                                    value: overallProgress,
+                                    color: "#50E55A",
+                                  },
+                                  // { title: 'Two', value: 15, color: '#FDAD51' },
+                                  {
+                                    title: "Three",
+                                    value: overallPerformance,
+                                    color: "#FF5B5B",
+                                  },
+                                ]}
+                                lineWidth={40}
+                              />
+                            )}
                           </div>
                           <div className="col-md-5">
                             <div className="row push2">

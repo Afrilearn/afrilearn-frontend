@@ -98,13 +98,17 @@ const MyNav = (props) => {
       return user.enrolledCourses.map((item) => {
         return (
           <DropdownItem
-            onClick={updateactiveEnrolledCourseId.bind(
-              null,
-              item._id,
-              item.courseId._id,
-              item.courseId.name,
-              item.paymentIsActive
-            )}
+            onClick={() => {
+              updateactiveEnrolledCourseId.bind(
+                null,
+                item._id,
+                item.courseId._id,
+                item.courseId.name,
+                item.paymentIsActive
+              );
+              props.inputChange("inClass", false);
+              props.inputChange("activeEnrolledCourseId", item._id);
+            }}
             tag={Link}
             to="/dashboard"
           >
@@ -127,13 +131,16 @@ const MyNav = (props) => {
       return user.classOwnership.map((item) => {
         return (
           <DropdownItem
-            onClick={updateactiveEnrolledCourseId.bind(
-              null,
-              item._id,
-              item.enrolledCourse && item.enrolledCourse._id,
-              item.name,
-              item.enrolledCourse && item.enrolledCourse.paymentIsActive
-            )}
+            onClick={() => {
+              updateactiveEnrolledCourseId.bind(
+                null,
+                item._id,
+                item.enrolledCourse && item.enrolledCourse._id,
+                item.name,
+                item.enrolledCourse && item.enrolledCourse.paymentIsActive
+              );
+              props.inputChange("inClass", true);
+            }}
             tag={Link}
             to="/classes/teacher"
           >
@@ -168,7 +175,7 @@ const MyNav = (props) => {
               <>
                 <NavItem>
                   <NavLink tag={Link} to="/dashboard">
-                  My Dashboard
+                    My Dashboard
                   </NavLink>
                 </NavItem>
                 <NavItem>

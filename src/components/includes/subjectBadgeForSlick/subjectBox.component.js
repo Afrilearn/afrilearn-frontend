@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "rc-tooltip/assets/bootstrap_white.css";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
+import { 
   faAngleUp,
   faMicrophone,
   faPlay,
@@ -200,11 +200,9 @@ const Box = (props) => {
               </div>
 
               <div className="row description1">
-                <div className="col-12 description">                  
-                    {props.subjectName}                 
-                </div>
+                <div className="col-12 description">{props.subjectName}</div>
               </div>
-              <div className="row description2">
+              <div className="row">
                 <div className="col-12" id="UncontrolledTooltipExample">
                   {props.compiledNotes
                     ? numberWithCommas(props.compiledNotes)

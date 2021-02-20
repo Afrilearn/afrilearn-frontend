@@ -43,7 +43,7 @@ import {
 const LessonPage = (props) => {
   const { course, role, subject } = props;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [modal1, setModal1] = useState(false);
   const toggle1 = () => setModal1(!modal1);
 
@@ -137,6 +137,7 @@ const LessonPage = (props) => {
         props.match.params.courseId,
         props.match.params.subjectId
       );
+      // setModal(false);
     } else {
       // do componentDidUpdate logic
     }
@@ -177,7 +178,6 @@ const LessonPage = (props) => {
 
         <div>
           <Modal isOpen={modal} toggle={toggleModal} className={className}>
-            <ModalHeader toggle={toggleModal}></ModalHeader>
             <ModalBody style={{ textAlign: "center" }}>
               {nextVideo ? (
                 <div>
@@ -185,6 +185,7 @@ const LessonPage = (props) => {
                   <Link
                     to={`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${nextVideo._id}`}
                     className="btn btn-primary"
+                    onClick={toggleModal}
                   >
                     Go to next lesson
                   </Link>
@@ -193,15 +194,25 @@ const LessonPage = (props) => {
                 <div>
                   <p>Lessons completed for this section</p>
                   <h2>Congratulations</h2>
-                  <Button
-                    tag={Link}
-                    to={`/content/${lesson && lesson.courseId}/${
-                      lesson && lesson.subjectId
-                    }/${lesson && lesson._id}`}
-                    className="btn btn-success"
-                  >
-                    Go to topics page
-                  </Button>
+                  {lesson && lesson.questions && lesson.questions.length > 0 ? (
+                    <Button
+                      tag={Link}
+                      to="/lesson/quiz/instructions"
+                      className="btn btn-success"
+                    >
+                      Proceed to take Quiz
+                    </Button>
+                  ) : (
+                    <Button
+                      tag={Link}
+                      to={`/content/${lesson && lesson.courseId}/${
+                        lesson && lesson.subjectId
+                      }/${lesson && lesson._id}`}
+                      className="btn btn-success"
+                    >
+                      Go to topics page
+                    </Button>
+                  )}
                 </div>
               )}
             </ModalBody>
@@ -239,7 +250,14 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <Speech id="audio" text={decodeEntities(video && video.transcript)} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} color="white"  />}/>
+              <Speech
+                id="audio"
+                text={decodeEntities(video && video.transcript)}
+                textAsButton={true}
+                displayText={
+                  <FontAwesomeIcon icon={faMicrophone} color="white" />
+                }
+              />
               <div className="icon_pop">
                 <p>Audio Lesson</p>
                 <span></span>

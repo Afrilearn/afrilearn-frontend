@@ -1,4 +1,3 @@
-
 import API from "./../../assets/js/api";
 import { returnErrors } from "./errorActions";
 
@@ -33,9 +32,9 @@ export const inputChange = (name, value) => async (dispatch) => {
 export const getCourses = () => async (dispatch) => {
   try {
     // document.body.classList.add("loading-indicator");
-  
+
     const result = await API.getCourses();
-  
+
     dispatch({
       type: GET_ALL_COURSES_SUCCESS,
       payload: result.data.data,
@@ -66,27 +65,25 @@ export const getCourse = (data) => async (dispatch) => {
     let classNoteCount = 0;
     let videoLessonCount = 0;
     let quizQuestionsCount = 0;
-    
+
     const subjects = result.data.data.course.relatedSubjects;
     let i;
     for (i = 0; i < subjects.length; i++) {
       classNoteCount += subjects[i].relatedLessons.length;
     }
-    
+
     let k;
     for (k = 0; k < subjects.length; k++) {
       let relatedLessons = subjects[k].relatedLessons;
       let l = 0;
-      for (l = 0; l < relatedLessons.length; l++){
+      for (l = 0; l < relatedLessons.length; l++) {
         videoLessonCount += relatedLessons[l].videoUrls.length;
-        if(relatedLessons[l].questions && relatedLessons[l].questions.length){
+        if (relatedLessons[l].questions && relatedLessons[l].questions.length) {
           quizQuestionsCount += relatedLessons[l].questions.length;
         }
       }
     }
 
-   
-   
     dispatch({
       type: GET_SINGLE_COURSE_SUCCESS,
       payload: {
@@ -157,7 +154,7 @@ export const populateDashboard = (data) => async (dispatch) => {
       });
       noRating.forEach((element) => {
         noRatingText += element.subject + "&nbsp;&nbsp;&nbsp;";
-      });     
+      });
     }
     dispatch({
       type: POPULATE_DASHBOARD_SUCCESS,
@@ -178,10 +175,10 @@ export const populateDashboard = (data) => async (dispatch) => {
     document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
-        err.response.data.errors
-          ? err.response.data.errors
-          : err.response.data.error,
-        err.response.data.status,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
+        err.response && err.response.data.status,
         "POPULATE_DASHBOARD_FAILURE"
       )
     );
@@ -250,12 +247,12 @@ export const getPerformance = (data) => async (dispatch) => {
   }
 };
 
-export const getPerformanceInClass = (courseId, classId) => async (
+export const getPerformanceInClass = (courseId, data) => async (
   dispatch
 ) => {
   try {
     document.body.classList.add("loading-indicator");
-    const result = await API.getPerformanceInClass(courseId, classId);
+    const result = await API.getPerformanceInClass(courseId, data);
     let barChart = [];
     let barChartTitles = [];
     let overallProgress = 0;
