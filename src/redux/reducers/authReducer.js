@@ -25,6 +25,8 @@ const initialState = {
   chartSection: "subject",
   searchLocation: "/search",
   isAuthenticated: false,
+  inClass: false,
+  targetUser: null,
   role: "",
   activeEnrolledCourseId: "",
   activeCourseId: "",
@@ -60,7 +62,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
       };
-    case GET_ROLES_SUCCESS:   
+    case GET_ROLES_SUCCESS:
       return {
         ...state,
         roles: action.payload.roles.sort(),

@@ -89,6 +89,9 @@ const ClassroomTeacher = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.inputChange("dashboardRoute", true);
+      props.inputChange("inClass", true);
+      props.inputChange("targetUser", null);
+
       // const data = {
       //   enrolledCourseId: activeEnrolledCourseId,
       // };
@@ -146,7 +149,9 @@ const ClassroomTeacher = (props) => {
       }
     }
   });
-
+  if (clazz) {
+    props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
+  }
   const copyToClipboard = (e) => {
     e.preventDefault();
     var textField = document.createElement("textarea");
@@ -209,7 +214,7 @@ const ClassroomTeacher = (props) => {
                       {moment(classAnnouncement.createdAt).fromNow()}
                     </small>
                   </div>
-                </div>
+                </div> 
                 <img src={dots} alt="see-more" />
               </div>
               <p className="sender-message">{classAnnouncement.text}</p>
@@ -381,7 +386,13 @@ const ClassroomTeacher = (props) => {
             <img src={man} height="50px" alt="pupil" />
             <div>
               <p>{classMember.userId.fullName}</p>
-              <Link to="/performance" class="badge bg-primary">
+              <Link
+                to="/performance"
+                class="badge bg-primary"
+                onClick={() => {
+                  props.inputChange("targetUser", classMember.userId._id);
+                }}
+              >
                 See performance
               </Link>
             </div>
@@ -583,7 +594,7 @@ const ClassroomTeacher = (props) => {
             onClick={toggleModal}
           >
             <FontAwesomeIcon icon={faPlus} />
-          </span> 
+          </span>
         </div>
         <div className="main-tabs container ">
           <div class="row row-cols-auto align-items-end justify-content-center">

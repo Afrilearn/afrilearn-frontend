@@ -404,18 +404,18 @@ export default {
 
   getPerformance(courseId) {
     return axios({
-      method: "get",
+      method: "post",
       url: `${this.url}courses/${courseId}/progress-and-performance`,
       headers: this.headers(),
     });
   },
 
-  getPerformanceInClass(courseId, classId) {
+  getPerformanceInClass(courseId, data) {
     return axios({
-      method: "get",
+      method: "post",
       url: `${this.url}courses/${courseId}/progress-and-performance`,
       headers: this.headers(),
-      data: { classId },
+      data,
     });
   },
 };

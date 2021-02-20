@@ -23,8 +23,9 @@ const LessonItem = (props) => {
     unlocked,
     index,
     isViewed,
+    inClass,
+    clazz,
   } = props;
-
   const updateQuizType = () => {
     props.inputChange("examType", "quiz");
     props.inputChange("quizTitle", lesson.title);
@@ -53,7 +54,7 @@ const LessonItem = (props) => {
                 props.addRecentActivity(lesson._id, "lesson");
                 if (activeCoursePaidStatus || unlocked) {
                   props.addSubjectProgress(
-                    lesson.classId,
+                    inClass ? clazz._id : null,
                     lesson._id,
                     lesson.subjectId,
                     lesson.courseId,
@@ -108,6 +109,17 @@ const LessonItem = (props) => {
             className="term_item_left_bottom_item "
             onClick={() => {
               props.addRecentActivity(lesson._id, "lesson");
+              if (activeCoursePaidStatus || unlocked) {
+                props.addSubjectProgress(
+                  inClass ? clazz._id : null,
+                  lesson._id,
+                  lesson.subjectId,
+                  lesson.courseId,
+                  recommendation(lesson._id),
+                  lesson._id,
+                  "lesson"
+                );
+              }
             }}
           >
             <Link
@@ -204,6 +216,8 @@ LessonItem.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
+  clazz: state.class.class,
+  inClass: state.auth.inClass,
 });
 
 export default connect(mapStateToProps, {

@@ -199,65 +199,85 @@ const Payment = (props) => {
 
   return (
     <div id="selectPaymentPageSectionOne">
-      <div className="sub-lenght">
-        <h3>Step 1: Subscription For </h3>
-        <Container>
-          <select
-            class="form-select form-select-lg mb-3"
-            aria-label=".form-select-lg example"
-            onChange={(e) => {
-              e.preventDefault();
-              setCourseId(e.target.value);
-            }}
-          >
-            <option selected>Select course</option>
-            {courseList()}
-          </select>
-          <h3>Step 2: Select Subscription Length</h3>
-          <div className="row">
-            {categories.map((paymentPlan) => (
-              <div className="col-6 col-md-3" key={paymentPlan._id}>
-                <SubscriptionBox
-                  onClick={() => {
-                    props.inputChange("paymentAmount", paymentPlan.amount);
-                    props.inputChange("paymentPlanId", paymentPlan._id);
-                    setBB(paymentPlan.amount);
-                  }}
-                  title={paymentPlan.name}
-                  price={paymentPlan.amount}
-                  classname={paymentPlan.name.toLocaleLowerCase().trim()}
-                  newClass
-                />
-              </div>
-            ))}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5">
+            <div className="box">
+              <h2>Enjoy Unlimited Access!</h2>
+              <p className="one">Video & Audio Lessons</p>
+              <p className="two">Rich & Ready Class Notes</p>
+              <p className="three">Practice Quizzes & Solutions</p>
+              <p className="four">Gain Mastery with Storytelling</p>
+              <p className="one">Learn on Any Device, Anytime, Anywhere</p>
+              <p className="two">Achieve Academic Excellence</p>
+            </div>
           </div>
-        </Container>
-      </div>
-
-      <div className="proceed-button">
-        <Container>
-          <Row>
-            {role && role === "5fc8cc978e28fa50986ecac9" && (
-              <Col>
-                <input
-                  className="form-control"
-                  placeholder="Add class name"
+          <div class="col-md-7">
+            <div className="sub-lenght">
+              <h3>Step 1: Select Class </h3>
+              <Container>
+                <select
+                  class="form-select form-select-lg mb-3"
+                  aria-label=".form-select-lg example"
                   onChange={(e) => {
-                    setNameOfClass(e.target.value);
+                    e.preventDefault();
+                    setCourseId(e.target.value);
                   }}
-                />
-              </Col>
-            )}
-            <Col>
-              <button
-                disabled={paymentAmount === 0 ? true : false}
-                onClick={checkAndMakePayment}
-              >
-                Proceed &rarr;
-              </button>
-            </Col>
-          </Row>
-        </Container>
+                >
+                  <option selected>Select Class</option>
+                  {courseList()}
+                </select>
+                <h3>Step 2: Select Subscription Length</h3>
+                <div className="row">
+                  {categories.map((paymentPlan) => (
+                    <div className="col-6 col-md-3" key={paymentPlan._id}>
+                      <SubscriptionBox
+                        onClick={() => {
+                          props.inputChange(
+                            "paymentAmount",
+                            paymentPlan.amount
+                          );
+                          props.inputChange("paymentPlanId", paymentPlan._id);
+                          setBB(paymentPlan.amount);
+                        }}
+                        title={paymentPlan.name}
+                        price={paymentPlan.amount}
+                        classname={paymentPlan.name.toLocaleLowerCase().trim()}
+                        newClass
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Container>
+            </div>
+
+            <div className="proceed-button">
+              <Container>
+                <Row>
+                  {role && role === "5fc8cc978e28fa50986ecac9" && (
+                    <Col>
+                      <input
+                        className="form-control"
+                        placeholder="Add class name"
+                        onChange={(e) => {
+                          setNameOfClass(e.target.value);
+                        }}
+                      />
+                    </Col>
+                  )}
+                  <Col>
+                    <button
+                      disabled={paymentAmount === 0 ? true : false}
+                      onClick={checkAndMakePayment}
+                    >
+                      Proceed &rarr;
+                    </button>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
