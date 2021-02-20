@@ -204,7 +204,7 @@ const Payment = (props) => {
         <div class="row">
           <div class="col-md-5">
             <div className="box">
-              <h2>Unlock Unlimited Access!</h2>
+             <h3>Unlock Unlimited Access!</h3>
               <p className="one">Video & Audio Lessons</p>
               <p className="two">Rich & Ready Class Notes</p>
               <p className="three">Practice Quizzes & Solutions</p>
@@ -215,8 +215,8 @@ const Payment = (props) => {
           </div>
           <div class="col-md-7">
             <div className="sub-lenght">
-              <h3>Step 1: Select Class </h3>
               <Container>
+              <h3>Step 1: Select Class </h3>
                 <select
                   class="form-select form-select-lg mb-3"
                   aria-label=".form-select-lg example"

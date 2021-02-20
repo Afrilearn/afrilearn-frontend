@@ -1,10 +1,12 @@
 #selectPaymentPageSectionOne {
   background-color: black;
   color: white;
-  min-height: calc(100vh + 180px);
+  height: 100vh;
+  border: solid 1px;
+  /* height: 100vh; */
 
-  padding-top: 300px;
-  margin-top: -260px;
+  padding-top: 110px;
+  margin-top: -75px;
 }
 #selectPaymentPageSectionOne .sub-lenght {
   /* border-bottom: 1px solid rgba(227, 227, 227, 0.14); */
@@ -118,6 +120,7 @@
     margin-top: -250px;
     padding: 10px;
     padding-top: 300px;
+    height: auto;
   }
   #selectPaymentPageSectionOne .pay-methods .item {
     height: 95%;
@@ -150,14 +153,15 @@
     rgba(51, 50, 50, 0) 145.33%
   );
   border-radius: 20px;
-  padding: 40px;
+  padding: 3px 40px;
 }
-#selectPaymentPageSectionOne .box h2 {
+#selectPaymentPageSectionOne .box h3 {
   font-family: font2;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  /* font-size: 26px; */
 }
 #selectPaymentPageSectionOne .box p {
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   margin-top: 20px;
   position: relative;
   font-family: font3;
@@ -188,7 +192,7 @@
 #selectPaymentPageSectionOne .box p::after {
   content: "";
   width: 2px;
-  height: 70px;
+  height: 60px;
   background-color: rgba(255, 255, 255, 0.253);
   display: inline-block;
   margin-right: 30px;

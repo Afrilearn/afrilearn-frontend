@@ -349,10 +349,7 @@ const MyNav = (props) => {
           path="/content/:courseId/:subjectId/:lessonId/:videoId"
           component={lessonPage}
         />
-        <Route
-          path="/content/:courseId/:subjectId"
-          component={content}
-        />
+        <Route path="/content/:courseId/:subjectId" component={content} />
         <ProtectedRoute path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
         <Route path="/join-class" component={joinClassComponent} />
@@ -364,7 +361,7 @@ const MyNav = (props) => {
           path="/classnote/:courseId/:subjectId/:lessonId"
           component={classNote}
         />
-        <ProtectedRoute path="/select-pay" component={selectPayment} />
+        <Route path="/select-pay" component={selectPayment} />
         <ProtectedRoute
           path="/dashboard"
           component={
