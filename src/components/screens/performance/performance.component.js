@@ -28,8 +28,7 @@ const Performance = (props) => {
     overallProgress,
     inClass,
     clazz,
-    targetUser,
-    state
+    targetUser    
   } = props;
 
   const mounted = useRef();
