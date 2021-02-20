@@ -28,8 +28,8 @@ const Footer = props => {
                             <li><a href="/contact#career">Media</a></li>
                             <li><a href="/contact#career">Careers</a></li>
                             <li><a href="/about#team">Our Team</a></li>
-                            <li><Link to="/contact">Contact</Link></li>
                             <li><Link to="/partnership">Partnership</Link></li>
+                            <li><Link to="/contact">Contact</Link></li>                      
                         </ul>
                     </div>
                     <div className="col-md-3 partThree">
@@ -45,8 +45,8 @@ const Footer = props => {
                         <p>Registered Students</p>
                         <p className="p2"> {students? numberWithCommas(students):''}</p>
 
-                        <p>Registered Teachers</p>
-                        <p className="p2"> {students? numberWithCommas(teachers):''}</p>
+                        {/* <p>Registered Teachers</p>
+                        <p className="p2"> {students? numberWithCommas(teachers):''}</p> */}
 
                         {/* <p>Avg. Pass Rate</p>
                         <p className="p2">87%</p>                        */}

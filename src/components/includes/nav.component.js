@@ -349,7 +349,7 @@ const MyNav = (props) => {
           path="/content/:courseId/:subjectId/:lessonId/:videoId"
           component={lessonPage}
         />
-        <ProtectedRoute
+        <Route
           path="/content/:courseId/:subjectId"
           component={content}
         />

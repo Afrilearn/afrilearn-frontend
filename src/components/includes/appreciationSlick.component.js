@@ -41,60 +41,95 @@ class SimpleSlider extends React.Component {
     return (
       <Slider {...settings}> 
           <Box 
-            content="Wow this website is amazing I love it , thanks to the group of people that created it .I was such a wonderful class / website"
+            content="Wow amazing site, I love it! It was such a wonderful class!"
             name="Alli Zinatalai"
-            dClass="SS3"
+            dClass="SSS 3"
           />
           <Box 
-            content="I’ve finally found a website that is full of information and details. Class note is so perfect."
-            name="Ugwu favour"
-            dClass="JSS2"
+            content="I’ve finally found a website full of information and details. Afrilearn is so perfect."
+            name="Ugwu Favour"
+            dClass="JSS 2"
           />
-          <Box 
-            content="God bless you for this excellent innovation, it is handy and will go a long way to help carry out adequate revision. Very grateful for this. Thank you very much"
-            name="Fidelis Umunadi"
-            dClass="JSS3"
-          />   
           <Box 
             content="Brilliant, thoughtful and highly emphatic work you teachers are doing here. Nigeria’s education system will get better with this. God bless you real good!"
             name="Folu Odugbesan"
-            dClass=""
-          />      
+            dClass="SSS 2"
+          />              
           <Box 
-            content="I just used ClassNotes to teach some English classes yesterday, for the first time, after one of my students told me about it. The arrangement is seamless and the content quality is super. And all for free?! I just can’t wait for your guys to populate other classes. Very brilliant work you guys are doing. Please accept my deep, sincere appreciation!"
+            content="I just used Afrilearn to teach some English classes yesterday, after one of my students told me about it. The arrangement is seamless and the content quality is super."
             name="James Oluwole"
-            dClass=""
+            dClass="Teacher"
           />   
           <Box 
-            content="Brilliant, thoughtful and highly emphatic work you teachers are doing here. Nigeria’s education system will get better with this. God bless you real good!"
-            name="Folu Odugbesan"
-            dClass=""
-          />      
-          <Box 
-            content="Amazing designs and content. I love learning here already. Such billiant platform! Thank you so much, ClassNotes Team!!!"
+            content="I love learning here already. Such brilliant platform! Thank you so much, Afrilearn Team!"
             name="Mayowa Adeola"
-            dClass=""
-          />   
-          <Box 
-            content="Wow this is a very good educational site."
-            name="Oluwaseun Akano"
-            dClass=""
+            dClass="JSS 1"
           />      
           <Box 
-            content="I really appreciate u teachers and everyone. God bless all of you. Thank u."
-            name="Akinyemi ifeoluwa"
-            dClass=""
+            content="Nice lesson notes I must confess. I love the simplicity of the lessons and pictures used for illustration."
+            name="Hycent Ugbede"
+            dClass="JSS 1"
+          />      
+          <Box 
+            content="I love this class so much. The quizzes are lovely and have helped me gain better understanding of History"
+            name="Oluwabunmi Oyebade"
+            dClass="SSS 1"
           />  
           <Box 
-            content="This is wow very interesting I will love to follow up with you"
-            name="Bankkysam"
-            dClass="JSS1"
+            content="Since I discovered this platform, I’ve found it easy to access all my favorite subjects"
+            name="Polite"
+            dClass="SSS 2"
           />      
           <Box 
-            content="Am stakeholders in educational sector .Have through these E -note it is commendable."
-            name="Adedeji Olubunmi"
-            dClass="JSS2"
+            content="I really enjoyed this class. I loved every bit of it and can’t wait for the next class."
+            name="Kiara Joseph"
+            dClass="SSS 3"
+          />  
+          <Box 
+            content="You really made a thorough research and presented the learning materials in a meaningful manner. Great job!"
+            name="Adewumi Johnson"
+            dClass="JSS 3"
           />   
+          <Box 
+            content="The site is very good, helps me with my notes and assignments."
+            name="Michelle Braide"
+            dClass="SSS 1"
+          />    
+          <Box 
+            content="I’ve finally found a website that is full of information and details. Afrilearn is so perfect."
+            name="Ugwu Favour"
+            dClass="JSS 3"
+          />  
+          <Box 
+            content="I love your scheme and your teachings. Thanks!"
+            name="AMADI Chinwendu"
+            dClass="SSS 1"
+          />   
+          <Box 
+            content="This helped a lot with my children’s assignment THANKS A MILLION!!!!"
+            name="Ariana Reins"
+            dClass="Parent"
+          />    
+           <Box 
+            content="Lovely! This was exactly how it was taught in schools today, keep up the good work."
+            name="Grace"
+            dClass="JSS 3"
+          />  
+          <Box 
+            content="This is the best teaching site ever. Kudos to the management!"
+            name="Emmanuel"
+            dClass="JSS 3"
+          />   
+          <Box 
+            content="I really like this web ever since I started using it, I now find things much easier for me"
+            name="Bella Ivy"
+            dClass="SSS 2"
+          /> 
+          <Box 
+            content="Wow. This site is great, thanks so much! You really saved me a lot of stress. I’ve been looking for a way to beat this topic down for my students. I’m so grateful. Keep it up"
+            name="Aminat Abdulraheem"
+            dClass="JSS 2"
+          />    
 
       </Slider>
     );

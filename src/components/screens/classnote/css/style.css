@@ -81,11 +81,17 @@
   padding-top: 21px;
 }
 
-  #classNoteFirstSection h1 {
-    font-size: 45px;
-    margin-top: 75px;
-    margin-bottom: 33px;
-  }
+#classNoteFirstSection h1 {
+  font-size: 32px;
+  margin-top: 145px;
+  margin-bottom: 0px;
+}
+#classNoteSecondSection .backArrow {
+   padding: 7px 10px;
+}
+#classNoteSecondSection svg {
+  margin-left: -15px;
+}
 
   #classNoteFirstSection .push2 {
     padding: 1px 20px;

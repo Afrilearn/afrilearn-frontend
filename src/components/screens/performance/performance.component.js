@@ -20,7 +20,7 @@ const Performance = (props) => {
     fullName,
     email,
     activeCourseName,
-    address,
+    state,
     barChart,
     barChartTitles,
     performance,
@@ -28,7 +28,7 @@ const Performance = (props) => {
     overallProgress,
     inClass,
     clazz,
-    targetUser,
+    targetUser    
   } = props;
 
   const mounted = useRef();
@@ -41,7 +41,6 @@ const Performance = (props) => {
       if (targetUser) {
         data.userId = targetUser;
       }
-
       if (inClass) {
         props.getPerformanceInClass(activeCourseId, data);
       } else {
@@ -102,6 +101,10 @@ const Performance = (props) => {
       return <h6>Performance loading...</h6>;
     }
   };
+  String.prototype.toProperCase = function () {
+   return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 
   return (
     <span id="performance">
@@ -129,7 +132,7 @@ const Performance = (props) => {
             <span className="box">
               <div className="row">
                 <div className="col-md-12">
-                  <h3>{fullName}</h3>
+                  <h3>{fullName.toProperCase()}</h3>
                   <p>{email}</p>
                   <span className="myBadge">{activeCourseName}</span>
                   <span className="location">
@@ -137,7 +140,7 @@ const Performance = (props) => {
                       src={require("../../../assets/img/location.png")}
                       alt="location"
                     />
-                    &nbsp;&nbsp; {address}{" "}
+                    &nbsp;&nbsp; {state}{" "}
                   </span>
                   <small className="underline invite">
                     <Link>Invite Your Friend</Link>
@@ -294,7 +297,7 @@ const mapStateToProps = (state) => ({
   inClass: state.auth.inClass,
   clazz: state.class.class,
   activeCourseName: state.auth.activeCourseName,
-  address: state.auth.address,
+  state: state.auth.state,
   barChart: state.course.barChart,
   barChartTitles: state.course.barChartTitles,
   performance: state.course.performance,

@@ -15,7 +15,7 @@ import { getCourse } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 
 const ClassDisplay = (props) => {
-  const { course, classNoteCount, subjectCount, videoLessonCount, quizQuestionsCount } = props;
+  const { course, classNoteCount, subjectCount, videoLessonCount, quizQuestionsCount, numOfUsers} = props;
 
   const mounted = useRef();
   useEffect(() => {
@@ -42,6 +42,8 @@ const ClassDisplay = (props) => {
       return subjects.map((item) => {
         return (
           <Box
+            courseId ={course._id}
+            subjectId = {item._id}
             image={item.mainSubjectId.imageUrl}
             singleClass={true}
             compiledNotes={item.relatedLessons.length}
@@ -50,6 +52,7 @@ const ClassDisplay = (props) => {
             subjectName={item.mainSubjectId.name}
             introText={item.mainSubjectId.introText}
             courseName={course.alias}
+            numOfUsers={numOfUsers}
           />
         );
       });
@@ -101,7 +104,7 @@ const ClassDisplay = (props) => {
             <span className="box3 box4">
               <FontAwesomeIcon icon={faUser} color="white" />
             </span>
-            &nbsp;&nbsp; 13,000 Registered Students
+            &nbsp;&nbsp; {numberWithCommas(numOfUsers)} Registered Students
           </div>
         </div>
         <div className="row push2 push3">
@@ -126,7 +129,8 @@ const mapStateToProps = (state) => ({
   classNoteCount: state.course.classNoteCount,
   subjectCount: state.course.subjectCount,
   videoLessonCount: state.course.videoLessonCount,
-  quizQuestionsCount: state.course.quizQuestionsCount
+  quizQuestionsCount: state.course.quizQuestionsCount,
+  numOfUsers: state.course.numOfUsers,
 });
 
 export default connect(mapStateToProps, { getCourse })(ClassDisplay);

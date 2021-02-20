@@ -30,7 +30,7 @@ const ClassroomStudent = (props) => {
     fullName,
     email,
     activeCourseName,
-    address,
+    state,
     barChart,
     barChartTitles,
     performance,
@@ -224,7 +224,9 @@ const ClassroomStudent = (props) => {
       return <div className="container padding-30">No Classwork yet</div>;
     }
   };
-
+  String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+ };
   const classAnonouncements = () => {
     if (clazz.classAnnouncements && clazz.classAnnouncements.length > 0) {
       return clazz.classAnnouncements.map((classAnnouncement) => {
@@ -320,7 +322,12 @@ const ClassroomStudent = (props) => {
       return <h6>No Announcement list yet</h6>;
     }
   };
-
+  const handlePerformance = () => {
+    props.getPerformanceInClass(
+      activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
+      props.match.params.classId
+    );
+  }
   const subjects = [];
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
@@ -387,7 +394,7 @@ const ClassroomStudent = (props) => {
               <NavLink
                 onClick={() => {
                   toggle("5");
-                  // handlePerformance();
+                  handlePerformance();
                 }}
               >
                 Class Performance
@@ -555,7 +562,7 @@ const ClassroomStudent = (props) => {
                       <span className="box">
                         <div className="row">
                           <div className="col-md-12">
-                            <h3>{fullName}</h3>
+                            <h3>{fullName.toProperCase()}</h3>
                             <p>{email}</p>
                             <span className="myBadge">{activeCourseName}</span>
                             <span className="location">
@@ -563,7 +570,7 @@ const ClassroomStudent = (props) => {
                                 src={require("../../../assets/img/location.png")}
                                 alt="location"
                               />
-                              &nbsp;&nbsp; {address}{" "}
+                              &nbsp;&nbsp; {state}{" "}
                             </span>
                             <small className="underline invite">
                               {/* <Link>Invite Your Friend</Link> */}
@@ -751,7 +758,7 @@ const mapStateToProps = (state) => ({
   fullName: state.auth.fullName,
   email: state.auth.email,
   activeCourseName: state.auth.activeCourseName,
-  address: state.auth.address,
+  state: state.auth.state,
   barChart: state.course.barChart,
   barChartTitles: state.course.barChartTitles,
   performance: state.course.performance,

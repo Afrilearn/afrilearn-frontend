@@ -80,6 +80,14 @@ const Box = (props) => {
     }
   };
 
+  const calcVideoLesson = () =>{
+    let videoLessonCount = 0;   
+    for (let l = 0; l < lessons.length; l++){
+      videoLessonCount += lessons[l].videoUrls.length;      
+    }
+    return videoLessonCount;
+  }
+
   return (
     <>
       <div
@@ -104,13 +112,13 @@ const Box = (props) => {
                   />
                 </Link>
               ) : (
-                <Link onClick={toggle}>
-                  <img
-                    src={props.image}
-                    alt="English"
-                    className="fullWidth subjectImage1"
-                  />
-                </Link>
+                <Link to={`/content/${props.courseId}/${props.subjectId}`}>
+                <img
+                  src={props.image}
+                  alt="English"
+                  className="fullWidth subjectImage1"
+                />
+              </Link>
               )}
             </div>
             <div className="col-12 box">
@@ -119,7 +127,10 @@ const Box = (props) => {
                   <Tooltip
                     placement="top"
                     trigger={["hover"]}
-                    overlay={<span>Play</span>}
+                    overlay={<span>{props.lessons
+                      ? numberWithCommas(calcVideoLesson())
+                      : 0}{" "}
+                      Video Lessons</span>}
                   >
                     <Link to="/content/56464">
                       <img
@@ -152,10 +163,10 @@ const Box = (props) => {
                     trigger={["hover"]}
                     overlay={
                       <span>
-                        {props.compiledNotes
-                          ? numberWithCommas(props.compiledNotes)
+                        {props.numOfUsers
+                          ? numberWithCommas(props.numOfUsers)
                           : 0}{" "}
-                        Video Lessons
+                        Registered Users
                       </span>
                     }
                   >
@@ -187,13 +198,15 @@ const Box = (props) => {
                         />
                       </Link>
                     ) : (
-                      <Link onClick={toggle}>
-                        <img
-                          src={require("../../../assets/img/more.png")}
-                          alt="more options"
-                          className="subjectImage2"
-                        />
-                      </Link>
+                      <Link
+                      to={`/content/${props.courseId}/${props.subjectId}`}
+                    >
+                      <img
+                        src={require("../../../assets/img/more.png")}
+                        alt="more options"
+                        className="subjectImage2"
+                      />
+                    </Link>
                     )}
                   </Tooltip>
                 </div>
@@ -207,7 +220,7 @@ const Box = (props) => {
                   {props.compiledNotes
                     ? numberWithCommas(props.compiledNotes)
                     : "0"}{" "}
-                  Lessons Topics
+                  Lessons
                 </div>
               </div>
               <div className="row description1">

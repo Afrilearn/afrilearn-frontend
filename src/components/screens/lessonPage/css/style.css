@@ -1,28 +1,33 @@
 #lessonPageSectionOne {
   margin-bottom: -7px;
 }
+
 #lessonPageSectionOne video {
   width: 100%;
   height: 600px;
 }
+
 .negative_margin {
   height: 150px;
   margin-top: -150px;
   width: 100%;
   background-color: black;
 }
+
 .react-player {
   width: 100%;
   border-radius: 8px 8px 0px 0px;
-  height:800px;
+  height: 800px;
   max-height: 800px;
   object-fit: cover;
   object-position: top;
 }
+
 @media screen and (max-width: 1200px) {
   #lessonPageSectionOne video {
     height: 100%;
   }
+
   .negative_margin {
     height: 150px;
     margin-top: -80px;
@@ -30,6 +35,7 @@
     background-color: black;
   }
 }
+
 #lessonPageSectionTwo {
   display: flex;
   flex-wrap: wrap;
@@ -40,11 +46,13 @@
   justify-content: center;
   font-family: font1 !important;
 }
+
 .lessonContent img {
   display: block;
   margin-bottom: 20px;
   margin-top: 10px;
 }
+
 #lessonPageSectionTwo .left {
   flex: 0 0 55%;
   margin-bottom: 10px;
@@ -52,12 +60,14 @@
   border-radius: 10px;
   padding: 10px;
 }
+
 #lessonPageSectionTwo .right {
   flex: 0 0 35%;
   border-radius: 10px;
   padding: 10px;
   text-align: unset !important;
 }
+
 #lessonPageSectionTwo .left .top {
   width: 100%;
   height: 50px;
@@ -78,6 +88,7 @@
   align-items: center;
   padding: 3px;
 }
+
 #lessonPageSectionTwo .left .top .icon {
   flex: 0 0 40px;
   height: 40px;
@@ -88,9 +99,11 @@
   font-size: 20px;
   position: relative;
 }
+
 #lessonPageSectionTwo .left .top .icon:hover .icon_pop {
   display: block;
 }
+
 #lessonPageSectionTwo .left .top .icon .icon_pop {
   width: 100px;
   position: absolute;
@@ -98,6 +111,7 @@
   transform: translate(10%, -100%);
   display: none;
 }
+
 #lessonPageSectionTwo .left .top .icon .icon_pop p {
   background-color: #fff;
   margin-bottom: 0;
@@ -112,14 +126,17 @@
   justify-content: center;
   padding: 0 5px;
 }
+
 #lessonPageSectionTwo .left .top .icon .icon_pop p:first-of-type {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
 #lessonPageSectionTwo .left .top .icon .icon_pop p:last-of-type {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
 #lessonPageSectionTwo .left .top .icon .icon_pop span {
   height: 5px;
   width: 100%;
@@ -127,43 +144,49 @@
   clip-path: polygon(0 0, 100% 0, 100% 0%, 41% 0%, 38% 100%, 34% 0%, 0 0%);
   background-color: #fff;
 }
+
 #lessonPageSectionTwo .left a {
   text-decoration: underline;
 }
+
 #lessonPageSectionTwo .left h4 {
   color: #26aa76;
   font-size: 18px;
   margin: 30px 0 20px 0;
   font-family: font2;
 }
+
 #lessonPageSectionTwo .left p {
   margin: 10px 0;
   padding-right: 10px;
   text-align: justify !important;
 }
+
 #lessonPageSectionTwo .left h5 {
   margin: 20px 0;
 }
+
 #lessonPageSectionTwo .right .top {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 50px;
 }
+
 #lessonPageSectionTwo .right .top span {
   color: grey;
 }
+
 #lessonPageSectionTwo .right .mid {
   width: 100%;
   border-radius: 10px;
   margin: 30px 0;
-  background: linear-gradient(
-    181.01deg,
-    rgba(51, 50, 50, 0.36) 0.87%,
-    rgba(51, 50, 50, 0.36) 68.85%,
-    rgba(51, 50, 50, 0) 142.59%,
-    rgba(51, 50, 50, 0) 145.33%
-  );
+  background: linear-gradient(181.01deg,
+      rgba(51, 50, 50, 0.36) 0.87%,
+      rgba(51, 50, 50, 0.36) 68.85%,
+      rgba(51, 50, 50, 0) 142.59%,
+      rgba(51, 50, 50, 0) 145.33%);
 }
+
 #lessonPageSectionTwo .right .mid .item {
   display: flex;
   padding: 20px;
@@ -171,6 +194,7 @@
   flex-wrap: wrap;
   box-sizing: border-box;
 }
+
 #lessonPageSectionTwo .right .mid .item .img {
   flex: 0 0 35%;
   height: 100px;
@@ -180,63 +204,77 @@
   border-radius: 10px;
   background-color: #201e1e;
 }
+
 #lessonPageSectionTwo .right .mid .item .img img {
   width: 100%;
   height: 80%;
 }
+
 #lessonPageSectionTwo .right .mid h4 {
   border-bottom: 1px solid #e5e5e569;
   padding: 20px;
   font-size: 16px;
   font-family: font2;
 }
+
 #lessonPageSectionTwo .right .mid p {
   font-size: 14px;
 }
+
 #lessonPageSectionTwo .right .mid .item .right {
   flex: 0 0 60%;
 }
+
 #lessonPageSectionTwo .right .mid .right .button {
   border: solid 1px currentColor;
   display: inline-block;
   padding: 5px 10px;
   font-size: 14px;
 }
+
 #lessonPageSectionTwo .right .bottom {
   width: 100%;
   height: 300px;
   border-radius: 10px;
   margin: 10px 0;
 }
+
 @media screen and (max-width: 900px) {
   #lessonPageSectionTwo {
     padding: 10px;
   }
+
   #lessonPageSectionTwo .left {
     flex: 0 0 100%;
     margin: 0px;
   }
+
   #lessonPageSectionTwo .right {
     flex: 0 0 100%;
   }
+
   #lessonPageSectionTwo .left .top .button {
     height: 30px;
   }
+
   #lessonPageSectionTwo .left .top .icon {
     flex: 0 0 30px;
     height: 30px;
     margin: 0 5px;
   }
+
   #lessonPageSectionTwo .right .mid .item .img {
     flex: 0 0 200px;
     height: 150px;
     margin-bottom: 5px;
     margin-right: 0px;
   }
+
   #lessonPageSectionTwo .right .mid .item .right {
     flex: 0 0 100%;
   }
 }
+
 #lessonPagePopUpOne,
 #lessonPagePopUpTwo {
   height: 400px;
@@ -254,11 +292,13 @@
   flex-direction: column;
   text-align: center;
 }
+
 #lessonPagePopUpOne h3,
 #lessonPagePopUpTwo h3 {
   font-size: 22px;
   margin: 40px 20px;
 }
+
 #lessonPagePopUpOne .button,
 #lessonPagePopUpTwo button {
   border: none;
@@ -272,10 +312,12 @@
   /* display: inline-block; */
   padding: 10px;
 }
+
 #lessonPagePopUpOne a,
 #lessonPagePopUpTwo a {
   text-decoration: underline;
 }
+
 #lessonPagePopUpOne .closePopUp,
 #lessonPagePopUpTwo .closePopUp {
   position: absolute;
@@ -284,12 +326,15 @@
   color: #908989;
   font-size: 20px;
 }
+
 @media screen and (max-width: 900px) {
+
   #lessonPagePopUpOne,
   #lessonPagePopUpTwo {
     height: 300px;
     width: 80%;
   }
+
   #lessonPagePopUpOne .closePopUp,
   #lessonPagePopUpTwo .closePopUp {
     position: absolute;
@@ -303,18 +348,42 @@
     font-size: 16px;
     margin: 20px;
   }
+
   #lessonPagePopUpOne p,
   #lessonPagePopUpTwo p {
     font-size: 12px;
   }
+
   #lessonPagePopUpOne .button,
   #lessonPagePopUpTwo button {
     height: 40px;
     width: 200px;
     font-size: 13px;
   }
+
   #lessonPagePopUpOne a,
   #lessonPagePopUpTwo a {
     text-decoration: underline;
   }
+}
+
+@media screen and (max-width: 768px) {
+  #lessonPageSectionTwo .left h4 {
+    font-size: 17px;
+    margin: 8px 0 0px 0;
+  }
+
+  #lessonPageSectionTwo p {
+    margin-bottom: 5px;
+  }
+
+  #lessonPageSectionTwo .right .mid h4 {
+    padding: 13px 19px;
+    font-size: 15px;
+  }
+  #lessonPageSectionTwo .right .mid .item .img {
+    flex: 0 0 200px;
+    height: 127px;
+    margin: auto;
+}
 }
