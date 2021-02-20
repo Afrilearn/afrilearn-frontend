@@ -9,6 +9,7 @@
   position: relative;
   color: white;
 }
+
 #contentPageFirstSection h1 {
   position: absolute;
   bottom: 45%;
@@ -17,6 +18,7 @@
   font-family: font2;
   font-size: 97px;
 }
+
 #contentPageFirstSection .subHead {
   position: absolute;
   bottom: 20%;
@@ -27,6 +29,7 @@
   font-family: font2;
   margin-bottom: 10px;
 }
+
 #contentPageFirstSection .subHeadTwo {
   position: absolute;
   bottom: 15%;
@@ -36,65 +39,79 @@
   font-size: 20px;
   font-family: font3;
 }
+
 #contentPageSecondSection .term_item_left_top {
   font-size: 14px;
   padding: 1px 5px;
   margin-bottom: 0px !important;
 }
+
 @media screen and (max-width: 900px) {
   #contentPageFirstSection {
     height: 500px;
   }
+
   #contentPageFirstSection h1 {
     bottom: 40%;
     left: 5%;
     transform: translateX(-0%);
     font-size: 50px;
+    line-height: 50px;
   }
+
   #contentPageFirstSection .subHead {
     height: 30px;
     bottom: 15%;
     font-size: 20px;
     left: 20px;
   }
+
   #contentPageFirstSection .subHeadTwo {
     bottom: 9%;
     font-size: 16px;
     left: 20px;
   }
 }
+
 #contentPageSecondSection {
   padding: 40px 120px;
   background-color: black;
   color: white;
 }
+
 #contentPageSecondSection .container-fluid {
   margin: 0px;
   padding: 1px;
 }
+
 #contentPageSecondSection .right1 {
   min-height: 100px;
   box-sizing: border-box;
   text-align: left;
 }
+
 #contentPageSecondSection .right.col-md-7 {
   padding: 0;
 }
+
 #contentPageSecondSection .right_para {
   font-size: 17px;
   font-weight: 300;
 }
+
 #contentPageSecondSection .red_text {
   font-size: 16px;
   font-weight: 300;
   color: #ff5b5b;
   font-family: font3;
 }
+
 #contentPageSecondSection .left {
   padding: 10px;
   box-sizing: border-box;
   font-size: 17px;
 }
+
 #contentPageSecondSection .right_head {
   display: flex;
   padding: 10px 0;
@@ -102,6 +119,7 @@
   width: 80%;
   margin-bottom: 10px;
 }
+
 #contentPageSecondSection .right_head h4 {
   color: #26aa76;
   margin: 0;
@@ -109,51 +127,64 @@
   font-size: 28px;
   font-family: font2;
 }
+
 #contentPageSecondSection .right_head span {
   border: solid 1px;
   padding: 0px 10px;
   margin: 0 20px;
 }
+
 #contentPageSecondSection .right_head p {
   font-size: 20px;
 }
+
 #contentPageSecondSection .left_key {
   color: grey;
 }
+
 @media screen and (max-width: 900px) {
   #contentPageSecondSection .row {
     margin: 0px;
   }
+
   #contentPageSecondSection .details {
     padding: 20px;
   }
+
   #contentPageSecondSection .right {
     flex: 0 0 100%;
   }
+
   #contentPageSecondSection .left {
     flex: 0 0 100%;
     font-size: 15px;
   }
+
   #contentPageSecondSection .right_head {
     width: 100%;
   }
+
   #contentPageSecondSection .right_head h4 {
     font-size: 20px;
   }
+
   #contentPageSecondSection .right_para {
     text-align: center;
     font-size: 15px;
   }
 }
+
 #contentPageSecondSection .terms {
   position: relative;
   border-bottom: none;
 }
+
 #contentPageSecondSection .term {
   margin-top: 30px;
   margin-bottom: 70px;
   /* display: none; */
 }
+
 #contentPageSecondSection .term_head {
   padding: 9px 31px;
   font-family: font2;
@@ -161,10 +192,12 @@
   background-color: #fff;
   color: #433F3F;
 }
+
 #contentPageSecondSection .term:first-of-type {
   display: block;
 }
-#contentPageSecondSection .term_item  {
+
+#contentPageSecondSection .term_item {
   width: 100%;
   padding: 0px;
   align-items: center;
@@ -172,9 +205,11 @@
   margin: 0px;
   border-bottom: 0.5px solid darkslategray;
 }
+
 #contentPageSecondSection .term_item:last-child .term_item_see_more {
   display: flex;
 }
+
 #contentPageSecondSection .term_item_see_more {
   width: 40px;
   height: 40px;
@@ -192,6 +227,7 @@
   text-align: center;
   display: none;
 }
+
 #contentPageSecondSection .term_item_see_less {
   width: 40px;
   height: 40px;
@@ -210,10 +246,12 @@
   text-align: center;
   display: none;
 }
+
 @media screen and (max-width: 900px) {
   #contentPageSecondSection .terms {
     padding-bottom: 50px;
   }
+
   #contentPageSecondSection .term {
     padding: 10px;
   }
@@ -224,6 +262,7 @@
     padding: 5px;
   }
 }
+
 .teacher-assign-content-green {
   padding: 5px;
   background-color: #26aa76;
@@ -232,9 +271,26 @@
   cursor: pointer;
   font-size: 13px;
 }
+
 .cursor-pointer {
   cursor: pointer;
 }
+
 .hide {
   display: none;
+}
+
+@media screen and (max-width: 900px) {
+  #contentPageSecondSection .details {
+    padding: 0px !important;
+  }
+
+  #contentPageSecondSection .right_para {
+    text-align: left;
+  }
+
+  .term_item .accordion-button {
+    text-align: left;
+    font-size: 14px;
+  }
 }

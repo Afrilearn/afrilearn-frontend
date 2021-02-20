@@ -30,6 +30,7 @@ const initialState = {
   overallPerformance: 0,
   overallProgress: 0,
   dashboardRoute: false,
+  numOfUsers:0
 };
 
 const courseReducer = (state = initialState, action) => {
@@ -54,6 +55,7 @@ const courseReducer = (state = initialState, action) => {
         videoLessonCount: action.payload.videoLessonCount,
         quizQuestionsCount :action.payload.quizQuestionsCount,
         subjectCount: action.payload.subjectCount,
+        numOfUsers: action.payload.numOfUsers
       };
 
     case POPULATE_DASHBOARD_SUCCESS:

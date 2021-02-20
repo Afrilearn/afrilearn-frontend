@@ -66,6 +66,7 @@ export const getCourse = (data) => async (dispatch) => {
     let videoLessonCount = 0;
     let quizQuestionsCount = 0;
 
+        
     const subjects = result.data.data.course.relatedSubjects;
     let i;
     for (i = 0; i < subjects.length; i++) {
@@ -84,6 +85,7 @@ export const getCourse = (data) => async (dispatch) => {
       }
     }
 
+   
     dispatch({
       type: GET_SINGLE_COURSE_SUCCESS,
       payload: {
@@ -92,6 +94,7 @@ export const getCourse = (data) => async (dispatch) => {
         quizQuestionsCount,
         course: result.data.data.course,
         subjectCount: result.data.data.course.relatedSubjects.length,
+        numOfUsers:result.data.data.numOfUsers
       },
     });
 

@@ -408,7 +408,7 @@ const Homepage = (props) => {
                 <div id="collapseSix6" className="collapse" role="tabpanel" aria-labelledby="headingSix6"
                   data-parent="#accordionEx">
                   <div className="card-body">
-                    We’ve got you! Simply <a href="/"><b>CLICK HERE</b></a> to visit our COMPLETE FAQ PAGE, which regularly gets updated based on new data insights from our awesome users.
+                    We’ve got you! Simply <a href="/"><b>CLICK HERE</b></a> to visit our <a href="/"><b>COMPLETE FAQ PAGE</b></a>, which regularly gets updated based on new data insights from our awesome users.
                   </div>
                 </div>
               </div>

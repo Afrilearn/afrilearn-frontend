@@ -50,7 +50,8 @@ const initialState = {
   students:0,
   teachers:0,
   numberOfClassNote:0,
-  numberOfQuizQuestions:0
+  numberOfQuizQuestions:0,
+  state:'',
 };
 
 const authReducer = (state = initialState, action) => {
@@ -154,6 +155,7 @@ const authReducer = (state = initialState, action) => {
         email: action.payload.user.email,
         fullName: action.payload.user.fullName,
         role: action.payload.user.role ? action.payload.user.role : "",
+        state: action.payload.user.state ? action.payload.user.state : ""
       };
 
       return {

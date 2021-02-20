@@ -210,12 +210,14 @@ img.logo {
 .paddingLeftOff {
   padding-left: 0px !important;
 }
+
 .r-range-slider.horizontal .r-range-slider-label {
   top: -2px !important;
   text-align: right;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
 }
+
 .paddingRightOff {
   padding-right: 0px !important;
 }
@@ -400,44 +402,55 @@ img.dropDownIcon1 {
   color: white !important;
   font-size: 14px;
 }
+
 .attempted {
   background: #2bb58e !important;
   color: white !important;
 }
+
 .skipped {
   background: #fabf61 !important;
   color: white !important;
 }
+
 .pending {
   background: white !important;
   color: #2bb58e !important;
   box-shadow: 0pt 0.5pt 4pt rgba(0, 0, 0, 0.1);
 }
+
 .incorrect {
   background: #e36b6b !important;
 }
+
 .mobilePadRightOff {
   padding-right: 0px !important;
 }
+
 .shareModalClass.modal-dialog {
   max-width: 345px;
 }
+
 .shareModalClass .modal-content {
   background: black;
 }
+
 .shareModalClass .modal-header {
   color: white;
 }
+
 .shareModalClass ul.share-content {
   list-style: none;
   padding: 0px 20px 35px 20px;
   color: white;
   font-family: font1;
 }
+
 .shareModalClass li a {
   display: block;
   padding: 8px 0px;
 }
+
 .shareModalClass .modal-header .close {
   color: white;
 }
@@ -531,14 +544,23 @@ img.dropDownIcon1 {
   .swal2-title {
     font-size: 1.475em !important;
   }
+
+  .react-player {
+    width: 100%;
+    height: auto !important;
+
+  }
 }
+
 .cursor-pointer {
   cursor: pointer;
 }
+
 .accordion-button:not(.collapsed) {
   color: #0c63e4;
   background-color: transparent;
 }
+
 .accordion-button:focus {
   z-index: 3;
   border-color: #86b7fe;

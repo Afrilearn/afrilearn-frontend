@@ -120,7 +120,6 @@
 }
 #classes .description2 {
   font-size: 14px; 
-  font-style: italic;
 }
 
 #classes .box2 {
@@ -166,8 +165,10 @@
   }
 
   #classes .dropDownContent {
+    height: 0px !important;
+    top: -197px;
+    left: 15px;
     width: 101%;  
-
   }
 
 }

@@ -8,9 +8,11 @@ import "./css/style.css";
 import pencil from "../../../assets/img/pencil.png";
 import LessonItem from "../../includes/lessonItem/lessonItem.component";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
+
 
 const Content = (props) => {
-  const { subject, role, activeCoursePaidStatus, userId } = props;
+  const { subject, role, userId, numOfUsers } = props;
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -69,9 +71,9 @@ const Content = (props) => {
       subject.relatedLessons.filter((les) => les.termId === item.id);
     terms.push({ id: item.id, name: item.name, lessons });
   });
-  /*
-  
-  */
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <div>
@@ -98,15 +100,8 @@ const Content = (props) => {
                 <p>Terms</p>
               </div>
               <p className="right_para">
-                {subject.mainSubjectId && subject.mainSubjectId.introText}
-              </p>
-              {!activeCoursePaidStatus ? (
-                <Link to="/select-pay">
-                  <p className="red_text">Subscribe to Unlock Content</p>
-                </Link>
-              ) : (
-                ""
-              )}
+                {subject.mainSubjectId && parse(subject.mainSubjectId.introText)}
+              </p>             
             </div>
             <div className="col-md-1"></div>
             <div className="left col-md-4">
@@ -118,13 +113,13 @@ const Content = (props) => {
                 <span className="left_key">Topics:</span>
                 &nbsp; &nbsp;{" "}
                 {subject && subject.relatedLessons
-                  ? subject.relatedLessons.length
+                  ? numberWithCommas(subject.relatedLessons.length)
                   : 0}
-                &nbsp; Lessons Topics
+                &nbsp; Lessons
               </p>
               <p>
                 <span className="left_key">Students:</span>
-                &nbsp; &nbsp; 13,000 Registered Students
+                &nbsp; &nbsp; {numberWithCommas(numOfUsers)} Registered Students
               </p>
               {role && role === "602f3ce39b146b3201c2dc1d" && (
                 <Link to="/assign-content">
@@ -185,6 +180,7 @@ const mapStateToProps = (state) => ({
   role: state.auth.user.role,
   userId: state.auth.user._id,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
+  numOfUsers: state.subject.numOfUsers
 });
 export default connect(mapStateToProps, {
   getCourse,
