@@ -47,6 +47,10 @@ const initialState = {
   activeCoursePaidStatus: false,
   dashboardRoute: false,
   className: "",
+  students:0,
+  teachers:0,
+  numberOfClassNote:0,
+  numberOfQuizQuestions:0
 };
 
 const authReducer = (state = initialState, action) => {
@@ -65,8 +69,12 @@ const authReducer = (state = initialState, action) => {
     case GET_ROLES_SUCCESS:
       return {
         ...state,
-        roles: action.payload.roles.sort(),
+        roles: action.payload.roles,
         classes: action.payload.courses,
+        students: action.payload.students,
+        teachers: action.payload.teachers,
+        numberOfClassNote: action.payload.numberOfClassNote,
+        numberOfQuizQuestions: action.payload.numberOfQuizQuestions
       };
 
     case REGISTER_SUCCESS:
@@ -86,7 +94,7 @@ const authReducer = (state = initialState, action) => {
           location: "/social-login",
         };
       } else {
-        if (action.payload.user.role === "5fc8cc978e28fa50986ecac9") {
+        if (action.payload.user.role === "602f3ce39b146b3201c2dc1d") {
           myObj = {
             isAuthenticated: true,
             location: "/classes/teacher",

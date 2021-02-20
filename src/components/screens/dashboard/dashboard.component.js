@@ -18,6 +18,8 @@ import { sendClassRequest } from "./../../../redux/actions/classActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import "animate.css";
+import Tooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap_white.css";
 
 const Dashboard = (props) => {
   const {
@@ -120,7 +122,7 @@ const Dashboard = (props) => {
         );
       });
     } else {
-      return <h6>No class list yet</h6>;
+      return <h6>Enter your Class Code to attend a class and interact with top Educators.</h6>;
     }
   };
 
@@ -195,7 +197,9 @@ const Dashboard = (props) => {
       );
     }
   };
-
+  String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  };
   return (
     <span id="classes" className="dashboard">
       <div id="dashboardFirstSection" className="container-fluid relative">
@@ -210,26 +214,29 @@ const Dashboard = (props) => {
         </div>
         <div className="row push2 mobileCenter">
           <div className="col-md-12">
-            <h2 className="boldFont">Welcome {fullName}</h2>
+            <h2 className="boldFont">Welcome {fullName.toProperCase()}</h2>
             <p>Explore the fun in learning!</p>
           </div>
         </div>
         <div className="row push2"></div>
         <div className="row push2 push3">
           <div className="col-md-12">
-            My Subjects &nbsp;|&nbsp; Past Questions &nbsp;|&nbsp; Performance
-            Summary &nbsp;|&nbsp; Classroom &nbsp;|&nbsp; Recommendations
-            &nbsp;|&nbsp; Recent Activities
+            <a href="#subjects">My Subjects</a> &nbsp;|&nbsp; <a href="#pastQuestions">Past Questions</a> &nbsp;|&nbsp; <a href="#performance">Performance
+            Summary</a> &nbsp;|&nbsp; <a href="#classroom">Classroom</a> &nbsp;|&nbsp; <a href="#recommendations">Recommendations</a>
+            &nbsp;|&nbsp; <a href="#recentActivities">Recent Activities</a>
           </div>
         </div>
       </div>
       <div id="dashboardSecondSection" className="container-fluid relative">
         {Object.keys(dashboardData).length && dashboardData.enrolledCourse ? (
           <>
+            <a name="subjects"></a>
             <h4>My Subjects</h4>
             <div className="row">{subjectList()}</div>
+            <a name="pastQuestions"></a>
             <h4 className="push5">Past Questions</h4>
             <div className="row jj">{pastQuestionsList()}</div>
+            <a name="performance"></a>
             <h4 className="push5">Performance Summary</h4>
             <div className="row">
               <div className="col-md-4 myChart">
@@ -275,15 +282,24 @@ const Dashboard = (props) => {
         ) : (
           ""
         )}
+        <a name="classroom"></a>
         <h4 className="push5">Classroom</h4>
         <div className="row push8">
           <div className="col-md-12 right underline">
-            <Link onClick={handleJoinClass}>Join A Classroom</Link>
+            <Tooltip
+                placement="top"
+                trigger={["hover"]}
+                overlay={<span>Enter your Class Code to attend a class and interact with top Educators.</span>}
+              >
+                <Link onClick={handleJoinClass}>Join A Classroom</Link>
+              </Tooltip>
           </div>
         </div>
         {classList()}
+        <a name="recommendations"></a>
         <h4 className="push5">Recommendations</h4>
         {recommendationList()}
+        <a name="recentActivities"></a>
         <h4 className="push5">Recent Activities</h4>
         {recentActivitiesList()}
       </div>

@@ -7,12 +7,18 @@ import { connect } from 'react-redux';
 import { inputChange, getRoles } from './../../../redux/actions/authActions';
 import PropTypes from 'prop-types';
 import PaticleOption from '../../../assets/js/particles';
+import Tooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap_white.css";
 
 const Homepage = (props) => {
   const {
     classLabel,
     classes,
-    email
+    email,
+    numberOfClassNote,
+    numberOfQuizQuestions,
+    students,
+    teachers,
   } =props;
 
   const mounted = useRef();
@@ -45,7 +51,11 @@ const Homepage = (props) => {
     const name = target.name;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     props.inputChange(name, value);
-}
+  }
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
  
   return (
     <span id="homepage">
@@ -91,7 +101,7 @@ const Homepage = (props) => {
         </div>
       </div>
       <div className="container-fluid afterBanner relative">
-        <div className="row row2 landingPageAdd relative">   
+      <div className="row row2 landingPageAdd relative">   
         <h1 className="hOne">Why Afrilearn works…</h1>         
             <div className="col-md-4">
                 <div className="row">
@@ -105,11 +115,11 @@ const Homepage = (props) => {
                 </div>
                 <div className="row push">
                     <div className="col-2">
-                      <img src={require('../../../assets/img/Group 72.png')}  className="myIcon" alt="Genius Content"/>
+                      <img src={require('../../../assets/img/Group 69.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
-                        <h5>Personalised Education.</h5> 
-                        <p>Understand how you learn best, where to focus, and study at your unique pace.</p>
+                        <h5>Examination Success.</h5> 
+                        <p>Prepare effectively for best results in WASSCE, JSSCE, NECO, GCE, UTME, SAT, and more.</p>
                     </div>
                 </div>
             </div>
@@ -119,13 +129,13 @@ const Homepage = (props) => {
             <div className="col-md-4">
                 <div className="row">
                     <div className="col-2">
-                      <img src={require('../../../assets/img/Group 69.png')}  className="myIcon" alt="Genius Content"/>
+                      <img src={require('../../../assets/img/Group 72.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
-                        <h5>Examination Success.</h5> 
-                        <p>Prepare effectively for best results in WASSCE, JSSCE, NECO, GCE, UTME, SAT, and more.</p>
+                        <h5>Personalised Education.</h5> 
+                        <p>Understand how you learn best, where to focus, and study at your unique pace.</p>
                     </div>
-                </div>
+                </div>               
                 <div className="row push">
                     <div className="col-2">
                       <img src={require('../../../assets/img/Group 70.png')}  className="myIcon" alt="Genius Content"/>
@@ -136,8 +146,7 @@ const Homepage = (props) => {
                     </div>
                 </div>
             </div>
-        </div>               
-        <div className="row relative">
+        </div>        <div className="row relative">
         <Particles
         id="tsparticles"
         options={PaticleOption}       
@@ -163,7 +172,7 @@ const Homepage = (props) => {
         </div>
         <div className="row students relative">      
           <div className="col-md-6">
-            <h1> 90,000+ Star Students, Schools & Teachers love Afrilearn! </h1>   
+            <h1>  {students? numberWithCommas(students+teachers):''} Star Students, Schools & Teachers love Afrilearn! </h1>   
             <h3>
               New content added every week!
             </h3>        
@@ -195,8 +204,8 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>350,000+</h3>
-                    <p>Practice Quizzes & Solutions</p>
+                    <h3>{numberOfQuizQuestions? numberWithCommas(18147+numberOfQuizQuestions):''} </h3>
+                    <p>Practice Questions</p>
                   </div>
                 </div>                
               </div> 
@@ -212,7 +221,7 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>4500+</h3>
+                    <h3>{numberOfClassNote? numberWithCommas(numberOfClassNote):''} </h3>
                     <p>Rich & Ready Class Notes</p>
                   </div>
                 </div>                
@@ -270,18 +279,30 @@ const Homepage = (props) => {
             <h3>Anywhere, everywhere. Cancel anytime.</h3>
             <div className="row push2">
               <div className="col-6">
-                <img
+                <Tooltip
+                  placement="top"
+                  trigger={["hover"]}
+                  overlay={<span>Coming soon!</span>}
+                >
+                  <img
                   className=""
                   src={require("../../../assets/img/playstore.png")}
                   alt="playstore"
-                />
+                  />
+                </Tooltip>               
               </div>
               <div className="col-6 right">
-                <img
+                <Tooltip
+                    placement="top"
+                    trigger={["hover"]}
+                    overlay={<span>Coming soon!</span>}
+                  >
+                  <img
                   className=""
                   src={require("../../../assets/img/applestore.png")}
                   alt="applestore"
                 />
+                </Tooltip> 
               </div>
             </div>       
           </div>
@@ -303,7 +324,7 @@ const Homepage = (props) => {
                     </h5>
                   </a>
                 </div>
-                <div id="collapseOne1" className="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+                <div id="collapseOne1" className="collapse" role="tabpanel" aria-labelledby="headingOne1"
                   data-parent="#accordionEx">
                   <div className="card-body">
                     Afrilearn is an education streaming service that provides West African Primary and Secondary School Students (Primary 1-6 & JSS1-SS3) freedom to learn curriculum-relevant subjects and topics anytime, anywhere. With Afrilearn, there's always something exciting to learn as new contents are added daily!
@@ -371,18 +392,28 @@ const Homepage = (props) => {
                 <div id="collapseFive5" className="collapse" role="tabpanel" aria-labelledby="headingFive5"
                   data-parent="#accordionEx">
                   <div className="card-body">
-                    Our focus is to transform users into ambassadors through the best learning experience possible. You can easily cancel your subscription in two clicks. If you have more questions, please click contact us. We’re super happy to help!
+                    Our focus is to transform users into ambassadors through the best learning experience possible. You can easily cancel your subscription in two clicks. If you have more questions, please click <Link to="/contact"><b>contact us</b></Link>. We’re super happy to help!
+                  </div>
+                </div>
+              </div>
+              <div className="card">
+                <div className="card-header" role="tab" id="headingSix6">
+                  <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseSix6"
+                    aria-expanded="false" aria-controls="collapseSix6">
+                    <h5 className="mb-0">
+                      Got more questions? 
+                    </h5>
+                  </a>
+                </div>
+                <div id="collapseSix6" className="collapse" role="tabpanel" aria-labelledby="headingSix6"
+                  data-parent="#accordionEx">
+                  <div className="card-body">
+                    We’ve got you! Simply <a href="/"><b>CLICK HERE</b></a> to visit our COMPLETE FAQ PAGE, which regularly gets updated based on new data insights from our awesome users.
                   </div>
                 </div>
               </div>
             </div>
-          </div>  
-          <div className="col-md-2">  </div>         
-        </div>
-        <div className="row relative">       
-          <div className="col-md-3"></div>
-          <div className="col-md-6">
-            <h6 className="center">
+            <h6 className="center push88">
               Ready to learn? Enter your email to signup!
             </h6>
             <div className="row">
@@ -393,9 +424,9 @@ const Homepage = (props) => {
                 <Link to="/register"><input type="submit" value="Start Learning" /></Link>
               </div>
             </div>
-          </div>
-          <div className="col-md-3"></div>
-        </div>
+          </div>  
+          <div className="col-md-2">  </div>         
+        </div>       
       </div>
     </span>
   );
@@ -410,5 +441,9 @@ const mapStateToProps = (state) => ({
   classes: state.auth.classes,
   classLabel: state.auth.classLabel,
   email: state.auth.email, 
+  numberOfClassNote: state.auth.numberOfClassNote,
+  numberOfQuizQuestions: state.auth.numberOfQuizQuestions,
+  students: state.auth.students,
+  teachers: state.auth.teachers,
 });
 export default connect(mapStateToProps, {inputChange, getRoles})(Homepage);

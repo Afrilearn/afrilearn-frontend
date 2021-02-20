@@ -1,9 +1,18 @@
 import React  from "react";
 import { Link } from "react-router-dom";
 import "./css/style.css";
+import { connect } from 'react-redux';
 
 
 const Footer = props => { 
+    const { 
+        students,
+        teachers,
+    } =props;
+    
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 	return (		
         <span id="footer">
             <div className='container-fluid'>
@@ -15,8 +24,8 @@ const Footer = props => {
                     <div className="col-md-2 partTwo">
                         <h6>About</h6>
                         <ul>
-                            <li><Link>Blog</Link></li>
-                            <li><Link>Media</Link></li>
+                            {/* <li><Link>Blog</Link></li> */}
+                            <li><a href="/contact#career">Media</a></li>
                             <li><a href="/contact#career">Careers</a></li>
                             <li><a href="/about#team">Our Team</a></li>
                             <li><Link to="/contact">Contact</Link></li>
@@ -34,13 +43,13 @@ const Footer = props => {
                     <div className="col-md-3">
                         <h6>Key Stats</h6>
                         <p>Registered Students</p>
-                        <p className="p2">9,306</p>
+                        <p className="p2"> {students? numberWithCommas(students):''}</p>
 
                         <p>Registered Teachers</p>
-                        <p className="p2">1,546</p>
+                        <p className="p2"> {students? numberWithCommas(teachers):''}</p>
 
-                        <p>Avg. Pass Rate</p>
-                        <p className="p2">87%</p>                       
+                        {/* <p>Avg. Pass Rate</p>
+                        <p className="p2">87%</p>                        */}
                     </div>
                 </div>
                 <div className="row r2">
@@ -69,4 +78,8 @@ const Footer = props => {
 };
 
 
-export default Footer;
+const mapStateToProps = (state) => ({  
+    students: state.auth.students,
+    teachers: state.auth.teachers,
+  });
+  export default connect(mapStateToProps, null)(Footer);

@@ -125,7 +125,7 @@ const MyNav = (props) => {
     } else if (
       user &&
       user.classOwnership.length > 0 &&
-      role === "5fc8cc978e28fa50986ecac9"
+      role === "602f3ce39b146b3201c2dc1d"
     ) {
       return user.classOwnership.map((item) => {
         return (
@@ -183,7 +183,7 @@ const MyNav = (props) => {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  {user.role !== "5fc8cc978e28fa50986ecac9" && (
+                  {user.role !== "602f3ce39b146b3201c2dc1d" && (
                     <NavLink tag={Link} to="/performance">
                       Performance Analysis
                     </NavLink>
@@ -252,7 +252,7 @@ const MyNav = (props) => {
                     <DropdownItem tag={Link} to="/select-pay">
                       Add A New Class
                     </DropdownItem>
-                  ) : user.role === "5fc8cc978e28fa50986ecac9" ? (
+                  ) : user.role === "602f3ce39b146b3201c2dc1d" ? (
                     <DropdownItem tag={Link} to="/select-pay">
                       Add A New Class
                     </DropdownItem>
@@ -367,7 +367,7 @@ const MyNav = (props) => {
         <ProtectedRoute
           path="/dashboard"
           component={
-            user.role !== "5fc8cc978e28fa50986ecac9"
+            user.role !== "602f3ce39b146b3201c2dc1d"
               ? dashboard
               : classroomTeacherComponent
           }

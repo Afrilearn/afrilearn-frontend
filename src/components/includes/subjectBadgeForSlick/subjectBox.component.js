@@ -152,10 +152,10 @@ const Box = (props) => {
                     trigger={["hover"]}
                     overlay={
                       <span>
-                        {props.registeredUsers
-                          ? numberWithCommas(props.registeredUsers)
+                        {props.compiledNotes
+                          ? numberWithCommas(props.compiledNotes)
                           : 0}{" "}
-                        Registered Users
+                        Video Lessons
                       </span>
                     }
                   >
@@ -182,7 +182,7 @@ const Box = (props) => {
                       >
                         <img
                           src={require("../../../assets/img/more.png")}
-                          alt="English"
+                          alt="more options"
                           className="subjectImage2"
                         />
                       </Link>
@@ -190,7 +190,7 @@ const Box = (props) => {
                       <Link onClick={toggle}>
                         <img
                           src={require("../../../assets/img/more.png")}
-                          alt="English"
+                          alt="more options"
                           className="subjectImage2"
                         />
                       </Link>
@@ -207,7 +207,7 @@ const Box = (props) => {
                   {props.compiledNotes
                     ? numberWithCommas(props.compiledNotes)
                     : "0"}{" "}
-                  Video Lessons
+                  Lessons Topics
                 </div>
               </div>
               <div className="row description1">

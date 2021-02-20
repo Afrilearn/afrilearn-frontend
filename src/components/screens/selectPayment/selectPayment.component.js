@@ -132,7 +132,7 @@ const Payment = (props) => {
     };
     console.log(reference);
     props.createTransaction(data);
-    if (role && role === "5fc8cc978e28fa50986ecac9") {
+    if (role && role === "602f3ce39b146b3201c2dc1d") {
       props.addClass(courseId, nameOfClass);
     }
   };
@@ -179,7 +179,7 @@ const Payment = (props) => {
         // position: 'top-end',,
       });
       props.clearErrors();
-    } else if (role && role === "5fc8cc978e28fa50986ecac9" && !nameOfClass) {
+    } else if (role && role === "602f3ce39b146b3201c2dc1d" && !nameOfClass) {
       Swal.fire({
         html: "Name of class cannnot be empty",
         showClass: {

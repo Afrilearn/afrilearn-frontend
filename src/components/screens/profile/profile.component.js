@@ -427,7 +427,7 @@ const ProfilePage = (props) => {
               </tr>
             </thead>
             <tbody>
-              {user && user.role === "5fc8cc978e28fa50986ecac9"
+              {user && user.role === "602f3ce39b146b3201c2dc1d"
                 ? classListForTeachers()
                 : classListForStudents()}
             </tbody>
@@ -726,7 +726,7 @@ const ProfilePage = (props) => {
           <div className="class-details-list">
             <span>Subscribed Class:</span>
             <div className="input-like-box">
-              {user && user.role === "5fc8cc978e28fa50986ecac9"
+              {user && user.role === "602f3ce39b146b3201c2dc1d"
                 ? classListForTeachersOne()
                 : classListForStudentsOne()}
             </div>
