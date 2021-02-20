@@ -107,6 +107,7 @@ const MyNav = (props) => {
                 item.paymentIsActive
               );
               props.inputChange("inClass", false);
+              props.inputChange("activeEnrolledCourseId", item._id);
             }}
             tag={Link}
             to="/dashboard"

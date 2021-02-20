@@ -43,7 +43,7 @@ import {
 const LessonPage = (props) => {
   const { course, role, subject } = props;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [modal1, setModal1] = useState(false);
   const toggle1 = () => setModal1(!modal1);
 

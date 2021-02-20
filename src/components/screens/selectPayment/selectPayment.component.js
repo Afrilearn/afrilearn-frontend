@@ -31,6 +31,7 @@ const Payment = (props) => {
     role,
     error,
   } = props;
+  const [selected, setSelected] = useState(null);
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -203,7 +204,7 @@ const Payment = (props) => {
         <div class="row">
           <div class="col-md-5">
             <div className="box">
-              <h2>Enjoy Unlimited Access!</h2>
+              <h2>Unlock Unlimited Access!</h2>
               <p className="one">Video & Audio Lessons</p>
               <p className="two">Rich & Ready Class Notes</p>
               <p className="three">Practice Quizzes & Solutions</p>
@@ -239,7 +240,11 @@ const Payment = (props) => {
                           );
                           props.inputChange("paymentPlanId", paymentPlan._id);
                           setBB(paymentPlan.amount);
+                          setSelected(paymentPlan._id);
+                          // setSelected()
                         }}
+                        selected={selected}
+                        id={paymentPlan._id}
                         title={paymentPlan.name}
                         price={paymentPlan.amount}
                         classname={paymentPlan.name.toLocaleLowerCase().trim()}

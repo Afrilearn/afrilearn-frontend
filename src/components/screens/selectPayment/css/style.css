@@ -135,6 +135,9 @@
     line-height: 35px;
     font-size: 20px;
   }
+  #selectPaymentPageSectionOne .sub-lenght {
+    text-align: center;
+  }
 }
 #selectPaymentPageSectionOne .box {
   width: 100%;

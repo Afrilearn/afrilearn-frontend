@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "rc-tooltip/assets/bootstrap_white.css";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
+import { 
   faAngleUp,
   faMicrophone,
   faPlay,

@@ -38,20 +38,20 @@ const Dashboard = (props) => {
   const mounted = useRef();
 
   useEffect(() => {
-    if (!mounted.current) {
-      // do componentDidMount logic
-      mounted.current = true;
-      window.scrollTo(0, 0);
-      props.authInputChange("dashboardRoute", true);
-      props.authInputChange("inClass", false);
-      const data = {
-        enrolledCourseId: activeEnrolledCourseId,
-      };
-      props.populateDashboard(activeEnrolledCourseId ? data : null);
-    } else {
-      // do componentDidUpdate logic
-    }
-  });
+    // if (!mounted.current) {
+    // do componentDidMount logic
+    mounted.current = true;
+    window.scrollTo(0, 0);
+    props.authInputChange("dashboardRoute", true);
+    props.authInputChange("inClass", false);
+    const data = {
+      enrolledCourseId: activeEnrolledCourseId,
+    };
+    props.populateDashboard(activeEnrolledCourseId ? data : null);
+    // } else {
+    // do componentDidUpdate logic
+    // }
+  }, [activeEnrolledCourseId]);
 
   const subjectList = () => {
     if (
@@ -122,7 +122,12 @@ const Dashboard = (props) => {
         );
       });
     } else {
-      return <h6>Enter your Class Code to attend a class and interact with top Educators.</h6>;
+      return (
+        <h6>
+          Enter your Class Code to attend a class and interact with top
+          Educators.
+        </h6>
+      );
     }
   };
 
@@ -198,7 +203,9 @@ const Dashboard = (props) => {
     }
   };
   String.prototype.toProperCase = function () {
-    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    return this.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   };
   return (
     <span id="classes" className="dashboard">
@@ -221,8 +228,11 @@ const Dashboard = (props) => {
         <div className="row push2"></div>
         <div className="row push2 push3">
           <div className="col-md-12">
-            <a href="#subjects">My Subjects</a> &nbsp;|&nbsp; <a href="#pastQuestions">Past Questions</a> &nbsp;|&nbsp; <a href="#performance">Performance
-            Summary</a> &nbsp;|&nbsp; <a href="#classroom">Classroom</a> &nbsp;|&nbsp; <a href="#recommendations">Recommendations</a>
+            <a href="#subjects">My Subjects</a> &nbsp;|&nbsp;{" "}
+            <a href="#pastQuestions">Past Questions</a> &nbsp;|&nbsp;{" "}
+            <a href="#performance">Performance Summary</a> &nbsp;|&nbsp;{" "}
+            <a href="#classroom">Classroom</a> &nbsp;|&nbsp;{" "}
+            <a href="#recommendations">Recommendations</a>
             &nbsp;|&nbsp; <a href="#recentActivities">Recent Activities</a>
           </div>
         </div>
@@ -287,12 +297,17 @@ const Dashboard = (props) => {
         <div className="row push8">
           <div className="col-md-12 right underline">
             <Tooltip
-                placement="top"
-                trigger={["hover"]}
-                overlay={<span>Enter your Class Code to attend a class and interact with top Educators.</span>}
-              >
-                <Link onClick={handleJoinClass}>Join A Classroom</Link>
-              </Tooltip>
+              placement="top"
+              trigger={["hover"]}
+              overlay={
+                <span>
+                  Enter your Class Code to attend a class and interact with top
+                  Educators.
+                </span>
+              }
+            >
+              <Link onClick={handleJoinClass}>Join A Classroom</Link>
+            </Tooltip>
           </div>
         </div>
         {classList()}
