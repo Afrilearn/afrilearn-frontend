@@ -322,7 +322,12 @@ const ClassroomStudent = (props) => {
       return <h6>No Announcement list yet</h6>;
     }
   };
-
+  const handlePerformance = () => {
+    props.getPerformanceInClass(
+      activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
+      props.match.params.classId
+    );
+  }
   const subjects = [];
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
@@ -389,7 +394,7 @@ const ClassroomStudent = (props) => {
               <NavLink
                 onClick={() => {
                   toggle("5");
-                  // handlePerformance();
+                  handlePerformance();
                 }}
               >
                 Class Performance
