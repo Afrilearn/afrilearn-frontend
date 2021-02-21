@@ -54,8 +54,7 @@ const ClassroomStudent = (props) => {
       //   activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
       //   props.match.params.classId
       // );
-      const data = { classId: props.match.params.classId };
-      props.getPerformanceInClass(activeCourseId, data);
+
       if (!classMembers.length) {
         props.getClass(props.match.params.classId);
       }
@@ -225,8 +224,10 @@ const ClassroomStudent = (props) => {
     }
   };
   String.prototype.toProperCase = function () {
-    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
- };
+    return this.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  };
   const classAnonouncements = () => {
     if (clazz.classAnnouncements && clazz.classAnnouncements.length > 0) {
       return clazz.classAnnouncements.map((classAnnouncement) => {
@@ -323,11 +324,9 @@ const ClassroomStudent = (props) => {
     }
   };
   const handlePerformance = () => {
-    props.getPerformanceInClass(
-      activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
-      props.match.params.classId
-    );
-  }
+    const data = { classId: props.match.params.classId };
+    props.getPerformanceInClass(activeCourseId, data);
+  };
   const subjects = [];
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
