@@ -205,7 +205,7 @@
 }
 @media screen and (max-width: 900px) {
   #selectPaymentPageSectionOne .box {
-    height: 300px;
+    height: auto;
 
     border-radius: 5px;
     padding: 20px;
