@@ -61,7 +61,7 @@ export const getCourse = (data) => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
     const result = await API.getCourse(data);
-
+ console.log(result)
     let classNoteCount = 0;
     let videoLessonCount = 0;
     let quizQuestionsCount = 0;
