@@ -113,7 +113,7 @@ const Payment = (props) => {
   // };
 
   //paystack settings
-  const config = {
+  const config = { 
     reference: new Date().getTime(),
     email,
     amount: 1 * 100,
