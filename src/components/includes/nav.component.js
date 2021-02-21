@@ -62,7 +62,14 @@ import {
 import { populateDashboard } from "./../../redux/actions/courseActions";
 
 const MyNav = (props) => {
-  const { user, searchRedirect, searchLocation, dashboardRoute, role } = props;
+  const {
+    user,
+    searchRedirect,
+    searchLocation,
+    dashboardRoute,
+    role,
+    inClass,
+  } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { isAuthenticated } = props;
@@ -184,7 +191,7 @@ const MyNav = (props) => {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  {user.role !== "602f3ce39b146b3201c2dc1d" && (
+                  {user.role !== "602f3ce39b146b3201c2dc1d" && !inClass && (
                     <NavLink tag={Link} to="/performance">
                       Performance Analysis
                     </NavLink>
@@ -361,7 +368,7 @@ const MyNav = (props) => {
           path="/classnote/:courseId/:subjectId/:lessonId"
           component={classNote}
         />
-        <Route path="/select-pay" component={selectPayment} />
+        <ProtectedRoute path="/select-pay" component={selectPayment} />
         <ProtectedRoute
           path="/dashboard"
           component={
@@ -385,15 +392,18 @@ MyNav.propTypes = {
   getSearchResults: PropTypes.func.isRequired,
   searchInputChange: PropTypes.func.isRequired,
 };
+
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   searchLocation: state.auth.searchLocation,
   searchRedirect: state.auth.searchRedirect,
   user: state.auth.user,
+  inClass: state.auth.inClass,
   searchResults: state.search.searchResults,
   dashboardRoute: state.auth.dashboardRoute,
   role: state.auth.role,
 });
+
 export default connect(mapStateToProps, {
   inputChange,
   getSearchResults,

@@ -116,12 +116,12 @@ const Payment = (props) => {
   const config = {
     reference: new Date().getTime(),
     email,
-    amount: paymentAmount * 100,
-    publicKey: "pk_test_ba917c15436529318ec4ae9f8d8605c7d57f20e9",
+    amount: 1 * 100,
+    publicKey: "pk_live_4e4e4cab12e53739389f962da5d2d9e38468fba3",
   };
 
   // you can call this function anything
-  const onSuccess = (reference) => {
+  const onSuccess = (reference) => { 
     // Implementation for whatever you want to do with reference and after success call.
     const data = {
       tx_ref: reference.reference,
@@ -204,7 +204,7 @@ const Payment = (props) => {
         <div class="row">
           <div class="col-md-5">
             <div className="box">
-             <h3>Unlock Unlimited Access!</h3>
+              <h3>Unlock Unlimited Access!</h3>
               <p className="one">Video & Audio Lessons</p>
               <p className="two">Rich & Ready Class Notes</p>
               <p className="three">Practice Quizzes & Solutions</p>
@@ -216,7 +216,7 @@ const Payment = (props) => {
           <div class="col-md-7">
             <div className="sub-lenght">
               <Container>
-              <h3>Step 1: Select Class </h3>
+                <h3>Step 1: Select Class </h3>
                 <select
                   class="form-select form-select-lg mb-3"
                   aria-label=".form-select-lg example"

@@ -72,7 +72,7 @@ const Content = (props) => {
     terms.push({ id: item.id, name: item.name, lessons });
   });
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
