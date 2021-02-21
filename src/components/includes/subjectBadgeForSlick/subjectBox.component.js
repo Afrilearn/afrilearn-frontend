@@ -98,7 +98,7 @@ const Box = (props) => {
         <span className="drop">
           <img
             src={props.image}
-            alt="English"
+            alt={props.subjectName}
             className="fullWidth subjectImage"
           />
           <div className="dropDownContent row">
@@ -107,7 +107,7 @@ const Box = (props) => {
                 <Link to={`/content/${props.courseId}/${props.subjectId}`}>
                   <img
                     src={props.image}
-                    alt="English"
+                    alt={props.subjectName}
                     className="fullWidth subjectImage1"
                   />
                 </Link>
@@ -115,7 +115,7 @@ const Box = (props) => {
                 <Link to={`/content/${props.courseId}/${props.subjectId}`}>
                 <img
                   src={props.image}
-                  alt="English"
+                  alt={props.subjectName}
                   className="fullWidth subjectImage1"
                 />
               </Link>
@@ -127,7 +127,7 @@ const Box = (props) => {
                   <Tooltip
                     placement="top"
                     trigger={["hover"]}
-                    overlay={<span>{props.lessons
+                    overlay={<span>{props.lessons && props.lessons >0
                       ? numberWithCommas(calcVideoLesson())
                       : 0}{" "}
                       Video Lessons</span>}
@@ -145,7 +145,7 @@ const Box = (props) => {
                     trigger={["hover"]}
                     overlay={
                       <span>
-                        {props.compiledNotes
+                        {props.compiledNotes && props.compiledNotes >0
                           ? numberWithCommas(props.compiledNotes)
                           : 0}{" "}
                         Compiled Notes
@@ -163,7 +163,7 @@ const Box = (props) => {
                     trigger={["hover"]}
                     overlay={
                       <span>
-                        {props.numOfUsers
+                        {props.numOfUsers && props.numOfUsers >0
                           ? numberWithCommas(props.numOfUsers)
                           : 0}{" "}
                         Registered Users
@@ -217,7 +217,7 @@ const Box = (props) => {
               </div>
               <div className="row">
                 <div className="col-12" id="UncontrolledTooltipExample">
-                  {props.compiledNotes
+                  {props.compiledNotes && props.compiledNotes >0
                     ? numberWithCommas(props.compiledNotes)
                     : "0"}{" "}
                   Lessons
@@ -303,7 +303,7 @@ const Box = (props) => {
                   <div className="row">
                     <div className="col-3 title1">Lessons:</div>
                     <div className="col-9 details">
-                      {props.compiledNotes
+                      {props.compiledNotes && props.compiledNotes >0
                         ? numberWithCommas(props.compiledNotes)
                         : "0"}{" "}
                       Video Lessons
@@ -312,7 +312,7 @@ const Box = (props) => {
                   <div className="row">
                     <div className="col-3 title1">Students:</div>
                     <div className="col-9 details">
-                      {props.registeredUsers
+                      {props.registeredUsers && props.registeredUsers >0
                         ? numberWithCommas(props.registeredUsers)
                         : "0"}{" "}
                       Registered Students
