@@ -29,6 +29,10 @@ body {
   position: absolute;
 }
 
+.text-white {
+  font-size: 18px;
+}
+
 .relative {
   position: relative;
 }
@@ -468,6 +472,12 @@ img.dropDownIcon1 {
     padding: 0px !important;
   }
 
+  .text-white {
+    font-size: 14px;
+    text-align: left;
+  }
+ 
+
   .navbar-light .navbar-toggler {
     color: white !important;
     border-color: #2bb58e;
@@ -503,6 +513,8 @@ img.dropDownIcon1 {
   .ytp-title-channel-logo {
     margin-top: 10px !important;
   }
+
+
 
   /* .fly {
     top: 67%;

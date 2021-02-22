@@ -1,507 +1,552 @@
 #homepage .bannerSection {
-  height: calc(120vh);
-  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.5)),
-    url("../../../../assets/img/sample.jpg");
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-attachment: fixed;
-  background-size: cover;
-  margin-top: -115px;
-  color: white;
-  padding-top: 150px;
+    height: calc(120vh);
+    background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.5)),
+        url("../../../../assets/img/sample.jpg");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
+    background-size: cover;
+    margin-top: -115px;
+    color: white;
+    padding-top: 150px;
 }
-.accordion-button::after {
-  /* background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e); */
-  background-image: url("../../../../assets/img/whiteArrowDown.png");
-}
-.accordion-button:not(.collapsed)::after {
-  background-image: url("../../../../assets/img/whiteArrowDown.png");
 
-  transform: rotate(180deg);
+.accordion-button::after {
+    /* background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e); */
+    background-image: url("../../../../assets/img/whiteArrowDown.png");
 }
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("../../../../assets/img/whiteArrowDown.png");
+
+    transform: rotate(180deg);
+}
+
 .accordion-button:focus {
-  z-index: 3;
-  border-color: transparent;
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem transparent;
+    z-index: 3;
+    border-color: transparent;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem transparent;
 }
-#homepage .bannerSection > .row {
-  position: relative;
-  z-index: 2;
+
+#homepage .bannerSection>.row {
+    position: relative;
+    z-index: 2;
 }
 
 #homepage .bannerSection h1 {
-  font-family: font2;
-  font-size: 3.124rem;
-  text-align: center;
-  margin-bottom: 5px;
+    font-family: font2;
+    font-size: 3.124rem;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 #homepage .bannerSection h4 {
-  text-align: center;
-  font-size: 1.3rem;
+    text-align: center;
+    font-size: 1.3rem;
 }
 
 #homepage .bannerSection h3 {
-  height: 80px;
+    height: 80px;
 }
 
 #homepage .bannerSection .box {
-  padding: 110px 0px;
+    padding: 110px 0px;
 }
 
 #homepage .bannerSection img.scroll {
-  width: 38px;
-  margin-top: -10px;
-  height: 44px;
+    width: 38px;
+    margin-top: -10px;
+    height: 44px;
 }
 
 #homepage .afterBanner {
-  background: black;
-  color: white !important;
-  position: relative;
+    background: black;
+    color: white !important;
+    position: relative;
 }
+
 .landingPageAdd p {
-  font-size: 17px;
+    font-size: 17px;
 }
+
 .landingPageAdd .headingThree {
-  margin-top: 10px;
-  margin-bottom: 80px;
+    margin-top: 10px;
+    margin-bottom: 80px;
 }
+
 .landingPageAdd .row2 {
-  padding: 10px;
+    padding: 10px;
 }
+
 .landingPageAdd svg {
-  font-size: 29px;
-  color: #2bb58e;
+    font-size: 29px;
+    color: #2bb58e;
 }
+
 .landingPageAdd h5 {
-  font-family: font2;
-  font-size: 23px;
+    font-family: font2;
+    font-size: 23px;
 }
+
 .landingPageAdd .push {
-  margin-top: 20px;
+    margin-top: 20px;
 }
+
 .landingPageAdd img.imageCenter {
-  width: 83%;
-  margin: auto;
-  margin-top: auto;
-  display: block;
-  margin-top: 15px;
+    width: 84%;
+    margin: auto;
+    margin-top: auto;
+    margin-top: auto;
+    display: block;
+    margin-top: 42px;
+    height: 195px;
+    object-fit: contain;
 }
+
 .landingPageAdd img.myIcon {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  object-position: top;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    object-position: top;
 }
+
 .hOne {
-  text-align: center;
-  margin-bottom: 70px !important;
-  margin-top: -20px;
+    text-align: center;
+    margin-bottom: 70px !important;
+    margin-top: -20px;
 }
+
 #homepage ul {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 #homepage ul li {
-  list-style: none;
+    list-style: none;
 }
 
 #homepage a.myPlaceholder {
-  background: white !important;
-  width: 100%;
-  display: block;
-  padding: 16px 6px 13px 28px;
-  color: #787878 !important;
-  border-radius: 5px 0px 0px 5px;
-  margin-top: 13px;
+    background: white !important;
+    width: 100%;
+    display: block;
+    padding: 16px 6px 13px 28px;
+    color: #787878 !important;
+    border-radius: 5px 0px 0px 5px;
+    margin-top: 13px;
 }
 
 #homepage .push88 {
-  margin-top: 80px;
+    margin-top: 80px;
 }
 
 #homepage .timer {
-  display: inline-block;
+    display: inline-block;
 }
 
 #homepage .react-countdown .digit {
-  font-size: 78px;
+    font-size: 78px;
 }
 
 #homepage .react-countdown .text {
-  text-transform: uppercase;
-  margin-bottom: 0;
-  font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    font-size: 16px;
 }
 
 #homepage .react-countdown li::after {
-  font-size: 55px;
+    font-size: 55px;
 }
 
 #homepage .react-countdown {
-  margin-left: -8px !important;
+    margin-left: -8px !important;
 }
 
-#homepage .afterBanner > .row {
-  border-top: solid 9px #222;
-  padding: 140px 112px;
+#homepage .afterBanner>.row {
+    border-top: solid 9px #222;
+    padding: 100px 112px;
 }
 
 #homepage h1 {
-  font-family: font2;
-  margin-bottom: 17px;
+    font-family: font2;
+    margin-bottom: 17px;
 }
 
 #homepage img.bigThing {
-  width: 386px;
-  display: block;
-  margin-top: -30px;
-  height: 268px;
-  object-fit: contain;
+    width: 386px;
+    display: block;
+    margin-top: -30px;
+    height: 268px;
+    object-fit: contain;
 }
 
 #homepage img.classnote {
-  object-fit: fill;
+    object-fit: fill;
 }
 
 #homepage input[type="email"] {
-  width: 100%;
-  padding: 15px 13px;
-  border: none;
-  margin-bottom: 12px;
-  margin-top: 12px !important;
-  border-radius: 5px 0px 0px 5px;
+    width: 100%;
+    padding: 15.3px 13px;
+    border: none;
+    margin-bottom: 12px;
+    margin-top: 12px !important;
+    border-radius: 5px 0px 0px 5px;
 }
+
 #homepage input[type="submit"] {
-  background: #2bb58e;
-  color: white;
-  border-radius: 0px 5px 5px 0px;
-  font-size: 17px;
-  width: 100%;
-  padding: 14.4px 13px;
-  border: none;
-  margin-top: 12px;
+    background: #2bb58e;
+    color: white;
+    border-radius: 0px 5px 5px 0px;
+    font-size: 17px;
+    width: 100%;
+    padding: 14.4px 13px;
+    border: none;
+    margin-top: 12px;
 }
 
 #homepage .courseSelectSection {
-  margin-top: 50px;
+    margin-top: 50px;
 }
 
 #homepage img.downArrow {
-  position: absolute;
-  right: 26px;
-  top: 21px;
+    position: absolute;
+    right: 26px;
+    top: 21px;
 }
+
 #homepage .card {
-  background-color: #303030;
-  margin-bottom: 3px;
+    background-color: #303030;
+    margin-bottom: 3px;
 }
 
 [data-toggle="collapse"] h5:after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
 [data-toggle="collapse"].collapsed h5:after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
 #homepage ul.courseSelectSectionDropDown {
-  background: white;
-  color: #787878 !important;
-  border-radius: 0px 0px 5px 5px;
-  margin-top: -5px;
-  display: none;
-  /* -webkit-animation: moveDown .5s ease-in-out;
+    background: white;
+    color: #787878 !important;
+    border-radius: 0px 0px 5px 5px;
+    margin-top: -5px;
+    display: none;
+    /* -webkit-animation: moveDown .5s ease-in-out;
     animation: moveDown .5s ease-in-out; */
 }
 
 #homepage .myDrop:hover .courseSelectSectionDropDown {
-  display: block;
+    display: block;
 }
 
 #homepage ul.courseSelectSectionDropDown li {
-  padding: 6px 27px;
+    padding: 6px 27px;
 }
 
 #homepage ul.courseSelectSectionDropDown li a {
-  display: block;
+    display: block;
 }
 
 #homepage ul.courseSelectSectionDropDown li:hover {
-  background: #2bb58e;
-  color: white;
+    background: #2bb58e;
+    color: white;
 }
 
 #homepage a.startLearning {
-  background: #2bb58e !important;
-  border-radius: 10px;
-  color: white !important;
-  padding: 10px 28px;
-  text-align: center;
+    background: #2bb58e !important;
+    border-radius: 10px;
+    color: white !important;
+    padding: 10px 28px;
+    text-align: center;
 }
 
 #homepage h3 {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 #homepage .green {
-  color: greenyellow;
+    color: greenyellow;
 }
 
 #homepage h2.green {
-  font-size: 48px;
+    font-size: 48px;
 }
 
 #homepage img.iconSet {
-  width: 63px;
-  height: 67px;
-  border: none;
-  object-fit: contain;
+    width: 63px;
+    height: 67px;
+    border: none;
+    object-fit: contain;
 }
 
 #homepage .students h5 {
-  color: #a8a8a8;
+    color: #a8a8a8;
 }
 
 #homepage .students .push {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 #homepage .students h3 {
-  margin-bottom: 0px;
-  padding-right: 57px;
+    margin-bottom: 0px;
+    padding-right: 57px;
 }
 
 #homepage .students p {
-  font-size: 13px;
-  line-height: 28px;
-  color: #a8a8a8;
-  margin-top: -6px;
-  margin-left: 4px;
+    font-size: 13px;
+    line-height: 28px;
+    color: #a8a8a8;
+    margin-top: -6px;
+    margin-left: 4px;
 }
 
 #homepage .slick-slider {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 #homepage .mobile .partOne img {
-  width: 193px;
-  object-fit: contain;
-  height: 57px;
-  border: solid 0.5px gray;
-  border-radius: 7px;
+    width: 193px;
+    object-fit: contain;
+    height: 57px;
+    border: solid 0.5px gray;
+    border-radius: 7px;
 }
 
 #homepage .mobile .push2 {
-  margin-top: 60px;
+    margin-top: 60px;
 }
 
 #homepage .appreciation p {
-  font-family: font1;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 26px;
-  line-height: 40px;
-  text-align: center;
-  color: #d6d1d1;
-  padding: 0px 146px;
+    font-family: font1;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 40px;
+    text-align: center;
+    color: #d6d1d1;
+    padding: 0px 146px;
 }
 
 #homepage img.photo {
-  width: 166px;
-  height: 166px;
-  border: none;
-  margin: auto;
-  display: block;
-  object-fit: contain;
-  object-position: top;
+    width: 73px;
+    border: none;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+    object-position: top;
 }
 
 #homepage .appreciationName {
-  text-align: center;
-  display: block;
-  margin-top: -60px;
-  margin-left: -99px;
-  color: greenyellow;
+    text-align: center;
+    display: block;
+    margin-top: -54px;
+    margin-left: -195px;
+    color: #2bb58e;
 }
 
 #tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: top;
-  left: 0px;
-  overflow: hidden;
-  top: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top;
+    left: 0px;
+    overflow: hidden;
+    top: 0px;
+}
+
+#homepage .accordion-button::after {
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 @media screen and (max-width: 768px) {
-  iframe {
-    width: 100%;
-    height: 100%;
-  }
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
 
-  #homepage .shiftVideo {
-    margin-top: 37px;
-  }
+    #homepage .shiftVideo {
+        margin-top: 37px;
+    }
 
-  #homepage .bannerSection .box {
-    padding: 135px 20px 50px 20px;
-  }
+    #homepage .bannerSection .box {
+        padding: 135px 20px 50px 20px;
+    }
 
-  /* #homepage .bannerSection {
+    /* #homepage .bannerSection {
         margin-top: -288px;
         padding-top: 263px;
         height: 135vh;
     } */
 
-  #homepage .bannerSection h1 {
-    font-size: 27px;
-  }
+    #homepage .bannerSection h1 {
+        font-size: 27px;
+    }
 
-  #homepage .bannerSection h3 {
-    height: 85px;
-    font-size: 18px;
-  }
-  #homepage .bannerSection h4 {
-    text-align: center;
-    font-size: 1rem;
-  }
+    #homepage .bannerSection h3 {
+        height: 85px;
+        font-size: 18px;
+    }
 
-  #homepage .bannerSection h5 {
-    font-size: 16px;
-  }
-  .landingPageAdd {
-    padding: 10px 20px;
-  }
-  .landingPageAdd .row2 {
-    padding: 3px 4px;
-  }
-  .landingPageAdd svg {
-    font-size: 20px;
-    margin-top: 2px;
-  }
-  .landingPageAdd h5 {
-    font-family: font2;
-    font-size: 17px;
-  }
-  .landingPageAdd img {
-    margin-bottom: 32px !important;
-  }
+    #homepage .bannerSection h4 {
+        text-align: center;
+        font-size: 1rem;
+    }
 
-  #homepage input[type="email"],
-  #homepage input[type="submit"] {
-    padding: 19.4px 6px;
-    font-size: 9px;
-    margin-top: 12px !important;
-  }
-  #homepage .students img {
-    width: 28%;
-    margin: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    display: block;
-    margin-top: 30px;
-    margin-bottom: 15px;
-  }
-  #homepage .afterBanner > .row {
-    padding: 50px 20px;
-  }
+    #homepage .bannerSection h5 {
+        font-size: 16px;
+    }
 
-  #homepage h1 {
-    font-size: 27px;
-    margin-top: 6px !important;
-  }
+    .landingPageAdd {
+        padding: 10px 20px;
+    }
 
-  #homepage .students h3 {
-    padding-right: 0px;
-  }
-  #homepage .students .col-md-8 {
-    text-align: center;
-  }
-  #homepage .students .push {
-    margin-bottom: 5px;
-  }
+    .landingPageAdd .row2 {
+        padding: 3px 4px;
+    }
 
-  #accordionEx h5 {
-    font-size: 16px;
-  }
-  #accordionEx .card-body {
-    font-size: 14px;
-  }
+    .landingPageAdd svg {
+        font-size: 20px;
+        margin-top: 2px;
+    }
 
-  #homepage h3 {
-    font-size: 17px;
-  }
+    .landingPageAdd h5 {
+        font-family: font2;
+        font-size: 17px;
+    }
 
-  #homepage .react-countdown .digit {
-    font-size: 35px;
-  }
+    .landingPageAdd img {
+        margin-bottom: 32px !important;
+    }
 
-  #homepage .react-countdown li::after {
-    font-size: 21px;
-    right: -13px;
-  }
+    #homepage input[type="email"],
+    #homepage input[type="submit"] {
+        padding: 19.4px 6px;
+        font-size: 9px;
+        margin-top: 12px !important;
+    }
 
-  #homepage img.bigThing {
-    width: 100%;
-    margin-top: 18px;
-    height: 160px;
-  }
+    #homepage .students img {
+        width: 28%;
+        margin: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+        display: block;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
 
-  #homepage img.other {
-    margin-top: 0px;
-    margin-bottom: 18px;
-  }
+    #homepage .afterBanner>.row {
+        padding: 50px 20px;
+    }
 
-  #homepage .students h4 {
-    margin-bottom: 50px;
-  }
+    #homepage h1 {
+        font-size: 27px;
+        margin-top: 6px !important;
+    }
 
-  #homepage .mobile .partOne img {
-    width: 107px;
-    height: 49px;
-  }
+    #homepage .students h3 {
+        padding-right: 0px;
+    }
 
-  #homepage .mobile .push2 {
-    margin-top: -13px;
-  }
+    #homepage .students .col-md-8 {
+        text-align: center;
+    }
 
-  #homepage .appreciation p {
-    font-size: 17px;
-    line-height: 26px;
-    padding: 2px 9px;
-  }
+    #homepage .students .push {
+        margin-bottom: 5px;
+    }
 
-  #homepage img.photo {
-    width: 115px;
-    height: 132px;
-  }
+    #accordionEx h5 {
+        font-size: 16px;
+    }
 
-  #homepage .afterBanner > .row {
-    padding: 50px 27px;
-  }
+    #accordionEx .card-body {
+        font-size: 14px;
+    }
 
-  a.myPlaceholder {
-    padding: 13.6px 17px !important;
-  }
+    #homepage h3 {
+        font-size: 17px;
+    }
 
-  #homepage img.downArrow {
-    top: 23px;
-    width: 15px;
-    right: 10px;
-  }
-  .hOne {
-    margin-bottom: 50px !important;
-  }
-  .landingPageAdd .paddingLeftOff {
-    padding-left: 30px !important;
-  }
-  .students .paddingLeftOff {
-    padding-left: 15px !important;
-  }
+    #homepage .react-countdown .digit {
+        font-size: 35px;
+    }
+
+    #homepage .react-countdown li::after {
+        font-size: 21px;
+        right: -13px;
+    }
+
+    #homepage img.bigThing {
+        width: 100%;
+        margin-top: 18px;
+        height: 160px;
+    }
+
+    #homepage img.other {
+        margin-top: 0px;
+        margin-bottom: 18px;
+    }
+
+    #homepage .students h4 {
+        margin-bottom: 50px;
+    }
+
+    #homepage .mobile .partOne img {
+        width: 107px;
+        height: 49px;
+    }
+
+    #homepage .mobile .push2 {
+        margin-top: -13px;
+    }
+
+    #homepage .appreciation p {
+        font-size: 17px;
+        line-height: 26px;
+        padding: 2px 9px;
+    }
+
+    #homepage img.photo {
+        width: 67px;
+        height: 67px;
+    }
+
+    #homepage .appreciationName {
+        margin-top: 4px;
+        margin-left: 5px;
+    }
+
+    #homepage .afterBanner>.row {
+        padding: 50px 27px;
+    }
+
+    a.myPlaceholder {
+        padding: 13.6px 17px !important;
+    }
+
+    #homepage img.downArrow {
+        top: 23px;
+        width: 15px;
+        right: 10px;
+    }
+    #homepage .accordion-body {
+        font-size: 13px !important;
+    }
+
+    .hOne {
+        margin-bottom: 50px !important;
+    }
+
+    .landingPageAdd .paddingLeftOff {
+        padding-left: 30px !important;
+    }
+
+    .students .paddingLeftOff {
+        padding-left: 15px !important;
+    }
 }
