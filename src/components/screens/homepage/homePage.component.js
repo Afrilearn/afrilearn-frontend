@@ -355,7 +355,7 @@ const Homepage = (props) => {
         <div className="row">
           <h1 className="hOne">Frequently Asked Questions</h1>
           <div className="col-md-2"> </div>
-          <div className="col-md-8">
+          <div className="col-md-8"> 
             {/* New  */}
             <div class="accordion" id="accordionExample">
               <div class="card">
