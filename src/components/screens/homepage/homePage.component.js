@@ -30,9 +30,8 @@ const Homepage = (props) => {
       window.scrollTo(0, 0);
       props.inputChange('redirect', false)
       props.inputChange('dashboardRoute', false)      
-      if(!classes.length){
-        props.getRoles();  
-      }
+      props.getRoles();  
+      
     } else {
       // do componentDidUpdate logic
     }
@@ -109,7 +108,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 68.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
-                        <h5>Genius Content.</h5> 
+                        <h5>Genius Content</h5> 
                         <p>Enjoy unlimited video lessons, class notes, practice quizzes created by top tutors for high-flying students.</p>
                     </div>
                 </div>
@@ -118,13 +117,13 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 69.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
-                        <h5>Examination Success.</h5> 
-                        <p>Prepare effectively for best results in WASSCE, JSSCE, NECO, GCE, UTME, SAT, and more.</p>
+                        <h5>Examination Success</h5> 
+                        <p>Prepare effectively for best results in WASSCE, IGCSE, JSSCE, NECO, GCE, UTME, SAT and more.</p>
                     </div>
                 </div>
             </div>
             <div className="col-md-4">
-              <img src={require('../../../assets/img/37296-success.gif')}  className="imageCenter" alt="banner"/>
+              <img src={require('../../../assets/img/animation_500_klge8ksp.gif')}  className="imageCenter" alt="banner"/>
             </div>
             <div className="col-md-4">
                 <div className="row">
@@ -132,7 +131,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 72.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
-                        <h5>Personalised Education.</h5> 
+                        <h5>Personalised Education</h5> 
                         <p>Understand how you learn best, where to focus, and study at your unique pace.</p>
                     </div>
                 </div>               
@@ -141,7 +140,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 70.png')}  className="myIcon" alt="Genius Content"/>
                     </div>
                     <div className="col-10 paddingLeftOff">
-                        <h5>Engaging Classroom.</h5> 
+                        <h5>Engaging Classroom</h5> 
                         <p>School or Teacher? Access ready video lessons and class notes to accelerate your students’ learning.</p>
                     </div>
                 </div>
@@ -498,7 +497,8 @@ const Homepage = (props) => {
               Ready to learn? Enter your email to signup!
             </h6>
             <div className="row">
-              <div className="col-8 paddingRightOff">
+              <div className="col-md-2"></div>
+              <div className="col-5 paddingRightOff">
                 <input
                   type="email"
                   placeholder="Email Address"
@@ -507,11 +507,12 @@ const Homepage = (props) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="col-4 paddingLeftOff">
+              <div className="col-3 paddingLeftOff">
                 <Link to="/register">
                   <input type="submit" value="Start Learning" />
                 </Link>
               </div>
+              <div className="col-md-2"></div>
             </div>
           </div>
           <div className="col-md-2"> </div>
