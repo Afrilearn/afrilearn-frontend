@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import "./css/style.css";
 import AppreciationBox from "../../includes/appreciationSlick.component";
 import Particles from "react-tsparticles";
-import { connect } from 'react-redux';
-import { inputChange, getRoles } from './../../../redux/actions/authActions';
-import PropTypes from 'prop-types';
-import PaticleOption from '../../../assets/js/particles';
+import { connect } from "react-redux";
+import { inputChange, getRoles } from "./../../../redux/actions/authActions";
+import PropTypes from "prop-types";
+import PaticleOption from "../../../assets/js/particles";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 
@@ -19,7 +19,7 @@ const Homepage = (props) => {
     numberOfQuizQuestions,
     students,
     teachers,
-  } =props;
+  } = props;
 
   const mounted = useRef();
 
@@ -28,10 +28,10 @@ const Homepage = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.inputChange('redirect', false)
-      props.inputChange('dashboardRoute', false)      
-      if(!classes.length){
-        props.getRoles();  
+      props.inputChange("redirect", false);
+      props.inputChange("dashboardRoute", false);
+      if (!classes.length) {
+        props.getRoles();
       }
     } else {
       // do componentDidUpdate logic
@@ -39,32 +39,39 @@ const Homepage = (props) => {
   });
 
   const classSet = () => {
-    if (classes.length) {         
+    if (classes.length) {
       return classes.map((item) => {
-        return <li><Link to={`/classes/${item._id}`}>{item.name}</Link></li>
+        return (
+          <li>
+            <Link to={`/classes/${item._id}`}>{item.name}</Link>
+          </li>
+        );
       });
     }
   };
 
-  const handleChange = (e)=> {
+  const handleChange = (e) => {
     const target = e.target;
     const name = target.name;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     props.inputChange(name, value);
-  }
+  };
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
- 
+
   return (
     <span id="homepage">
       <div className="container-fluid bannerSection">
         <div className="row">
           <div className="col-md-3"> </div>
           <div className="col-md-6 box">
-            <h1>Get Ahead with Afrilearn!</h1> 
-            <h4>We provide every Primary and Secondary School Student freedom to learn curriculum-relevant subjects and topics anytime, anywhere.</h4>         
+            <h1>Get Ahead with Afrilearn!</h1>
+            <h4>
+              We provide every Primary and Secondary School Student freedom to
+              learn curriculum-relevant subjects and topics anytime, anywhere.
+            </h4>
             <div className="row courseSelectSection">
               <div className="col-md-12">
                 <div className="row">
@@ -80,17 +87,14 @@ const Homepage = (props) => {
                           />
                         </Link>
                         <ul className="courseSelectSectionDropDown">
-                           {classSet()}
+                          {classSet()}
                         </ul>
                       </li>
                     </ul>
                   </div>
                   <div className="col-4 paddingLeftOff">
                     <Link to="/register">
-                      <input
-                        type="submit"
-                        value="JOIN FOR FREE"
-                      />
+                      <input type="submit" value="JOIN FOR FREE" />
                     </Link>
                   </div>
                 </div>
@@ -101,56 +105,86 @@ const Homepage = (props) => {
         </div>
       </div>
       <div className="container-fluid afterBanner relative">
-      <div className="row row2 landingPageAdd relative">   
-        <h1 className="hOne">Why Afrilearn works…</h1>         
-            <div className="col-md-4">
-                <div className="row">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 68.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Genius Content.</h5> 
-                        <p>Enjoy unlimited video lessons, class notes, practice quizzes created by top tutors for high-flying students.</p>
-                    </div>
-                </div>
-                <div className="row push">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 69.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Examination Success.</h5> 
-                        <p>Prepare effectively for best results in WASSCE, JSSCE, NECO, GCE, UTME, SAT, and more.</p>
-                    </div>
-                </div>
+        <div className="row row2 landingPageAdd relative">
+          <h1 className="hOne">Why Afrilearn works…</h1>
+          <div className="col-md-4">
+            <div className="row">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 68.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Genius Content.</h5>
+                <p>
+                  Enjoy unlimited video lessons, class notes, practice quizzes
+                  created by top tutors for high-flying students.
+                </p>
+              </div>
             </div>
-            <div className="col-md-4">
-              <img src={require('../../../assets/img/inner img.png')}  className="imageCenter" alt="banner"/>
+            <div className="row push">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 69.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Examination Success.</h5>
+                <p>
+                  Prepare effectively for best results in WASSCE, JSSCE, NECO,
+                  GCE, UTME, SAT, and more.
+                </p>
+              </div>
             </div>
-            <div className="col-md-4">
-                <div className="row">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 72.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Personalised Education.</h5> 
-                        <p>Understand how you learn best, where to focus, and study at your unique pace.</p>
-                    </div>
-                </div>               
-                <div className="row push">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 70.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Engaging Classroom.</h5> 
-                        <p>School or Teacher? Access ready video lessons and class notes to accelerate your students’ learning.</p>
-                    </div>
-                </div>
+          </div>
+          <div className="col-md-4">
+            <img
+              src={require("../../../assets/img/inner img.png")}
+              className="imageCenter"
+              alt="banner"
+            />
+          </div>
+          <div className="col-md-4">
+            <div className="row">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 72.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Personalised Education.</h5>
+                <p>
+                  Understand how you learn best, where to focus, and study at
+                  your unique pace.
+                </p>
+              </div>
             </div>
-        </div>        <div className="row relative">
-        <Particles
-        id="tsparticles"
-        options={PaticleOption}       
-        />    
+            <div className="row push">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 70.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Engaging Classroom.</h5>
+                <p>
+                  School or Teacher? Access ready video lessons and class notes
+                  to accelerate your students’ learning.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>{" "}
+        <div className="row relative">
+          <Particles id="tsparticles" options={PaticleOption} />
           <div className="col-md-6">
             <iframe
               width="456"
@@ -165,17 +199,22 @@ const Homepage = (props) => {
           <div className="col-md-6 shiftVideo">
             <h1>Enjoy unlimited video lessons!</h1>
             <h3>
-              Download your favorite videos to watch offline and always have something to learn.
+              Download your favorite videos to watch offline and always have
+              something to learn.
             </h3>
-            <Link className="startLearning" to="/register">Start Learning</Link>
+            <Link className="startLearning" to="/register">
+              Start Learning
+            </Link>
           </div>
         </div>
-        <div className="row students relative">      
+        <div className="row students relative">
           <div className="col-md-6">
-            <h1>  {students? numberWithCommas(students+teachers):''} Star Students, Schools & Teachers love Afrilearn! </h1>   
-            <h3>
-              New content added every week!
-            </h3>        
+            <h1>
+              {" "}
+              {students ? numberWithCommas(students + teachers) : ""} Star
+              Students, Schools & Teachers love Afrilearn!{" "}
+            </h1>
+            <h3>New content added every week!</h3>
           </div>
           <div className="col-md-6">
             <div className="row push">
@@ -192,8 +231,8 @@ const Homepage = (props) => {
                     <h3>1500+</h3>
                     <p>Video & Audio Lessons</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
               <div className="col-md-6">
                 <div className="row">
                   <div className="col-md-4">
@@ -204,11 +243,15 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>{numberOfQuizQuestions? numberWithCommas(18147+numberOfQuizQuestions):''} </h3>
+                    <h3>
+                      {numberOfQuizQuestions
+                        ? numberWithCommas(18147 + numberOfQuizQuestions)
+                        : ""}{" "}
+                    </h3>
                     <p>Practice Questions</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
             </div>
             <div className="row push">
               <div className="col-md-6">
@@ -221,11 +264,15 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>{numberOfClassNote? numberWithCommas(numberOfClassNote):''} </h3>
+                    <h3>
+                      {numberOfClassNote
+                        ? numberWithCommas(numberOfClassNote)
+                        : ""}{" "}
+                    </h3>
                     <p>Rich & Ready Class Notes</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
               <div className="col-md-6">
                 <div className="row">
                   <div className="col-md-4">
@@ -239,17 +286,17 @@ const Homepage = (props) => {
                     <h3>345,948+</h3>
                     <p>Engagements</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
             </div>
-        
           </div>
         </div>
-        <div className="row relative">      
+        <div className="row relative">
           <div className="col-md-5">
             <h1>Gamified experience with rewards.</h1>
             <h3>
-              Fun exam practice to ace WASSCE, JSSCE, GCE, NECO and more like a pro!
+              Fun exam practice to ace WASSCE, JSSCE, GCE, NECO and more like a
+              pro!
             </h3>
           </div>
           <div className="col-md-7">
@@ -260,18 +307,13 @@ const Homepage = (props) => {
             />
           </div>
         </div>
-       
         <div className="row mobile relative">
-          <Particles
-            id="tsparticles"
-            options={PaticleOption}
-          
-          /> 
+          <Particles id="tsparticles" options={PaticleOption} />
           <div className="col-md-6">
             <img
-                className="bigThing floatLeft"
-                src={require("../../../assets/img/Homepage-mockup-web.png")}
-                alt="Learn on any device."
+              className="bigThing floatLeft"
+              src={require("../../../assets/img/Homepage-mockup-web.png")}
+              alt="Learn on any device."
             />
           </div>
           <div className="col-md-6 partOne">
@@ -285,148 +327,237 @@ const Homepage = (props) => {
                   overlay={<span>Coming soon!</span>}
                 >
                   <img
-                  className=""
-                  src={require("../../../assets/img/playstore.png")}
-                  alt="playstore"
+                    className=""
+                    src={require("../../../assets/img/playstore.png")}
+                    alt="playstore"
                   />
-                </Tooltip>               
+                </Tooltip>
               </div>
               <div className="col-6 right">
                 <Tooltip
-                    placement="top"
-                    trigger={["hover"]}
-                    overlay={<span>Coming soon!</span>}
-                  >
+                  placement="top"
+                  trigger={["hover"]}
+                  overlay={<span>Coming soon!</span>}
+                >
                   <img
-                  className=""
-                  src={require("../../../assets/img/applestore.png")}
-                  alt="applestore"
-                />
-                </Tooltip> 
+                    className=""
+                    src={require("../../../assets/img/applestore.png")}
+                    alt="applestore"
+                  />
+                </Tooltip>
               </div>
-            </div>       
+            </div>
           </div>
         </div>
         <div className="row appreciation">
           <AppreciationBox />
         </div>
-        <div className="row"> 
-          <h1 className="hOne">Frequently Asked Questions</h1>         
-          <div className="col-md-2">  </div>  
-          <div className="col-md-8">
-            <div className="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
-              <div className="card">
-                <div className="card-header" role="tab" id="headingOne1">
-                  <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-                    aria-controls="collapseOne1">
-                    <h5 className="mb-0">
-                      What is Afrilearn?
-                    </h5>
-                  </a>
-                </div>
-                <div id="collapseOne1" className="collapse" role="tabpanel" aria-labelledby="headingOne1"
-                  data-parent="#accordionEx">
-                  <div className="card-body">
-                    Afrilearn is an education streaming service that provides West African Primary and Secondary School Students (Primary 1-6 & JSS1-SS3) freedom to learn curriculum-relevant subjects and topics anytime, anywhere. With Afrilearn, there's always something exciting to learn as new contents are added daily!
+        <div className="row">
+          <h1 className="hOne">Frequently Asked Questions</h1>
+          <div className="col-md-2"> </div>
+          <div className="col-md-8"> 
+            {/* New  */}
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <h2 class="accordion-header text-white" id="headingOne">
+                  <button
+                    class="accordion-button text-white"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    What is Afrilearn?
+                  </button>
+                </h2>
+                <div
+                  id="collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    Afrilearn is an education streaming service that provides
+                    West African Primary and Secondary School Students (Primary
+                    1-6 & JSS1-SS3) freedom to learn curriculum-relevant
+                    subjects and topics anytime, anywhere. With Afrilearn,
+                    there's always something exciting to learn as new contents
+                    are added daily!
                   </div>
                 </div>
               </div>
-              <div className="card">
-                <div className="card-header" role="tab" id="headingTwo2">
-                  <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
-                    aria-expanded="false" aria-controls="collapseTwo2">
-                    <h5 className="mb-0">
-                      What is included in Afrilearn subscription?
-                    </h5>
-                  </a>
-                </div> 
-                <div id="collapseTwo2" className="collapse" role="tabpanel" aria-labelledby="headingTwo2"
-                  data-parent="#accordionEx">
-                  <div className="card-body">
-                    Subscription includes unlimited access to all video lessons, audio lessons, class notes, practice quizzes, lives classes and more, covering all subjects and topics, in your chosen class. Brace yourself for a profoundly life-changing experience.
+              <div class="card">
+                <h2 class="accordion-header text-white" id="headingTwo">
+                  <button
+                    class="accordion-button text-white collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    What is included in Afrilearn subscription?
+                  </button>
+                </h2>
+                <div
+                  id="collapseTwo"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    Subscription includes unlimited access to all video lessons,
+                    audio lessons, class notes, practice quizzes, lives classes
+                    and more, covering all subjects and topics, in your chosen
+                    class. Brace yourself for a profoundly life-changing
+                    experience.
                   </div>
                 </div>
               </div>
-
-              <div className="card">
-                <div className="card-header" role="tab" id="headingThree3">
-                  <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
-                    aria-expanded="false" aria-controls="collapseThree3">
-                    <h5 className="mb-0">
-                      How much does Afrilearn cost?
-                    </h5>
-                  </a>
-                </div>
-                <div id="collapseThree3" className="collapse" role="tabpanel" aria-labelledby="headingThree3"
-                  data-parent="#accordionEx">
-                  <div className="card-body">
-                    Afrilearn has a variety of plans to suit your learning goals. Subscription Plans include Monthly - ₦999 ($2.99), Quarterly - ₦2499 ($6.99), Bi-Annual - ₦4999 ($13.99), Annual - ₦9999 ($26.99).
+              <div class="card">
+                <h2 class="accordion-header text-white" id="headingThree">
+                  <button
+                    class="accordion-button text-white collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    How much does Afrilearn cost?
+                  </button>
+                </h2>
+                <div
+                  id="collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    Afrilearn has a variety of plans to suit your learning
+                    goals. Subscription Plans include Monthly - ₦999 ($2.99),
+                    Quarterly - ₦2499 ($6.99), Bi-Annual - ₦4999 ($13.99),
+                    Annual - ₦9999 ($26.99).
                   </div>
                 </div>
               </div>
-              <div className="card">
-                <div className="card-header" role="tab" id="headingFour4">
-                  <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseFour4"
-                    aria-expanded="false" aria-controls="collapseFour4">
-                    <h5 className="mb-0">
-                      Where can I watch?
-                    </h5>
-                  </a>
-                </div>
-                <div id="collapseFour4" className="collapse" role="tabpanel" aria-labelledby="headingFour4"
-                  data-parent="#accordionEx">
-                  <div className="card-body">
-                    You can learn on Afrilearn via your smartphone, tablet, Smart TV, laptop, or streaming device. Learn as much as you want, whenever you want without a single commercial – all for one low monthly price.
+              <div class="card">
+                <h2 class="accordion-header text-white" id="headingFour">
+                  <button
+                    class="accordion-button text-white collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour"
+                    aria-expanded="false"
+                    aria-controls="collapseFour"
+                  >
+                    Where can I watch?
+                  </button>
+                </h2>
+                <div
+                  id="collapseFour"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingFour"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    You can learn on Afrilearn via your smartphone, tablet,
+                    Smart TV, laptop, or streaming device. Learn as much as you
+                    want, whenever you want without a single commercial – all
+                    for one low monthly price.
                   </div>
                 </div>
               </div>
-              <div className="card">
-                <div className="card-header" role="tab" id="headingFive5">
-                  <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseFive5"
-                    aria-expanded="false" aria-controls="collapseFive5">
-                    <h5 className="mb-0">
-                      How do I cancel?
-                    </h5>
-                  </a>
-                </div>
-                <div id="collapseFive5" className="collapse" role="tabpanel" aria-labelledby="headingFive5"
-                  data-parent="#accordionEx">
-                  <div className="card-body">
-                    Our focus is to transform users into ambassadors through the best learning experience possible. You can easily cancel your subscription in two clicks. If you have more questions, please click <Link to="/contact"><b>contact us</b></Link>. We’re super happy to help!
+              <div class="card">
+                <h2 class="accordion-header text-white" id="headingFive">
+                  <button
+                    class="accordion-button text-white collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFive"
+                    aria-expanded="false"
+                    aria-controls="collapseFive"
+                  >
+                    How do I cancel?
+                  </button>
+                </h2>
+                <div
+                  id="collapseFive"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingFive"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    Our focus is to transform users into ambassadors through the
+                    best learning experience possible. You can easily cancel
+                    your subscription in two clicks. If you have more questions,
+                    please click{" "}
+                    <Link to="/contact">
+                      <b>contact us</b>
+                    </Link>
+                    . We’re super happy to help!
                   </div>
                 </div>
               </div>
-              <div className="card">
-                <div className="card-header" role="tab" id="headingSix6">
-                  <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseSix6"
-                    aria-expanded="false" aria-controls="collapseSix6">
-                    <h5 className="mb-0">
-                      Got more questions? 
-                    </h5>
-                  </a>
-                </div>
-                <div id="collapseSix6" className="collapse" role="tabpanel" aria-labelledby="headingSix6"
-                  data-parent="#accordionEx">
-                  <div className="card-body">
-                    We’ve got you! Simply <a href="/"><b>CLICK HERE</b></a> to visit our <a href="/"><b>COMPLETE FAQ PAGE</b></a>, which regularly gets updated based on new data insights from our awesome users.
+              <div class="card">
+                <h2 class="accordion-header text-white" id="headingSix">
+                  <button
+                    class="accordion-button text-white collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseSix"
+                    aria-expanded="false"
+                    aria-controls="collapseSix"
+                  >
+                    Got more questions?
+                  </button>
+                </h2>
+                <div
+                  id="collapseSix"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingSix"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    We’ve got you! Simply{" "}
+                    <a href="/">
+                      <b>CLICK HERE</b>
+                    </a>{" "}
+                    to visit our{" "}
+                    <a href="/">
+                      <b>COMPLETE FAQ PAGE</b>
+                    </a>
+                    , which regularly gets updated based on new data insights
+                    from our awesome users.
                   </div>
                 </div>
               </div>
             </div>
+            {/* New  */}
+
             <h6 className="center push88">
               Ready to learn? Enter your email to signup!
             </h6>
             <div className="row">
               <div className="col-8 paddingRightOff">
-                <input type="email" placeholder="Email Address" name="email" value={email} onChange={handleChange}/>
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                />
               </div>
               <div className="col-4 paddingLeftOff">
-                <Link to="/register"><input type="submit" value="Start Learning" /></Link>
+                <Link to="/register">
+                  <input type="submit" value="Start Learning" />
+                </Link>
               </div>
             </div>
-          </div>  
-          <div className="col-md-2">  </div>         
-        </div>       
+          </div>
+          <div className="col-md-2"> </div>
+        </div>
       </div>
     </span>
   );
@@ -434,16 +565,16 @@ const Homepage = (props) => {
 
 Homepage.propTypes = {
   inputChange: PropTypes.func.isRequired,
-  getRoles: PropTypes.func.isRequired
+  getRoles: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   classes: state.auth.classes,
   classLabel: state.auth.classLabel,
-  email: state.auth.email, 
+  email: state.auth.email,
   numberOfClassNote: state.auth.numberOfClassNote,
   numberOfQuizQuestions: state.auth.numberOfQuizQuestions,
   students: state.auth.students,
   teachers: state.auth.teachers,
 });
-export default connect(mapStateToProps, {inputChange, getRoles})(Homepage);
+export default connect(mapStateToProps, { inputChange, getRoles })(Homepage);
