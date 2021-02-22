@@ -19,7 +19,7 @@ const Footer = props => {
                 <div className="row r1">
                     <div className="col-md-4">
                         <h6>Why Afrilearn?</h6>
-                        <p className="p1">Afrilearn actively leverages a network of high-quality teachers, animators, and developers to provide affordable, world-class education for Africans, anywhere.</p>
+                        <p className="p1">Afrilearn actively leverages a network of genius teachers, animators, and developers to provide affordable, world-class education for Africans, anywhere.</p>
                     </div>
                     <div className="col-md-2 partTwo">
                         <h6>About</h6>
@@ -35,7 +35,7 @@ const Footer = props => {
                     <div className="col-md-3 partThree">
                         <h6>Contact</h6>
                         <ul>
-                            <li><img className="logo1" src={require('../../../assets/img/Email.svg')} alt='Logo'/> &nbsp;&nbsp;hello@myafrilearn.com</li>
+                            <li className="email"><img className="logo1" src={require('../../../assets/img/Email.svg')} alt='Logo'/> &nbsp;&nbsp;hello@myafrilearn.com</li>
                             <li className="num"><img className="logo2" src={require('../../../assets/img/Phone_Call.png')} alt='Logo'/>+ 234 802 785 5262<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + 234 805 154 4949</li>   
                             <li><img className="logo1" src={require('../../../assets/img/Location PIN.svg')} alt='Logo'/> &nbsp;&nbsp;6 Gbemisola Street,<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Allen Avenue, Ikeja,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lagos, Nigeria.</li>                      
                         </ul>

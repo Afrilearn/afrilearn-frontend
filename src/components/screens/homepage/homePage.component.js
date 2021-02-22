@@ -124,21 +124,8 @@ const Homepage = (props) => {
                 </p>
               </div>
             </div>
-            <div className="row push">
-              <div className="col-2">
-                <img
-                  src={require("../../../assets/img/Group 69.png")}
-                  className="myIcon"
-                  alt="Genius Content"
-                />
-              </div>
-              <div className="col-10 paddingLeftOff">
-                <h5>Examination Success.</h5>
-                <p>
-                  Prepare effectively for best results in WASSCE, JSSCE, NECO,
-                  GCE, UTME, SAT, and more.
-                </p>
-              </div>
+            <div className="col-md-4">
+              <img src={require('../../../assets/img/37296-success.gif')}  className="imageCenter" alt="banner"/>
             </div>
           </div>
           <div className="col-md-4">
@@ -209,12 +196,10 @@ const Homepage = (props) => {
         </div>
         <div className="row students relative">
           <div className="col-md-6">
-            <h1>
-              {" "}
-              {students ? numberWithCommas(students + teachers) : ""} Star
-              Students, Schools & Teachers love Afrilearn!{" "}
-            </h1>
-            <h3>New content added every week!</h3>
+            <h1>  {students && students>0? numberWithCommas(students+teachers):0} Star Students, Schools & Teachers love Afrilearn! </h1>   
+            <h3>
+              New content added every week!
+            </h3>        
           </div>
           <div className="col-md-6">
             <div className="row push">
@@ -243,11 +228,7 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>
-                      {numberOfQuizQuestions
-                        ? numberWithCommas(18147 + numberOfQuizQuestions)
-                        : ""}{" "}
-                    </h3>
+                    <h3>{numberOfQuizQuestions && numberOfQuizQuestions >0? numberWithCommas(18147+numberOfQuizQuestions):0} </h3>
                     <p>Practice Questions</p>
                   </div>
                 </div>
@@ -264,11 +245,7 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>
-                      {numberOfClassNote
-                        ? numberWithCommas(numberOfClassNote)
-                        : ""}{" "}
-                    </h3>
+                    <h3>{numberOfClassNote && numberOfClassNote>0? numberWithCommas(numberOfClassNote):0} </h3>
                     <p>Rich & Ready Class Notes</p>
                   </div>
                 </div>

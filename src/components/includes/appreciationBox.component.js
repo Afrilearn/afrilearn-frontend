@@ -5,7 +5,7 @@ const Box = props => {
         <div className="col-md-12">                        
             <p>{props.content}</p>
             <span>
-                <img className="photo" src={require('../../assets/img/photo.png')} alt="apppreciation box"/> 
+                <img className="photo" src={require('../../assets/img/dummy.png')} alt="apppreciation box"/> 
                 <span className="appreciationName">{props.name}<br/>{props.dClass}</span>
             </span>
         </div>  

@@ -227,8 +227,6 @@ const authReducer = (state = initialState, action) => {
         confirmPassword: "",
         referralCode: "",
         passwordMode: true,
-        roles: [],
-        classes: [],
         classLabel: "Select a Class",
         userId: "",
         user: {},

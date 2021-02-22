@@ -83,11 +83,14 @@
   margin-top: 20px;
 }
 .landingPageAdd img.imageCenter {
-  width: 83%;
-  margin: auto;
-  margin-top: auto;
-  display: block;
-  margin-top: 15px;
+    width: 84%;
+    margin: auto;
+        margin-top: auto;
+    margin-top: auto;
+    display: block;
+    margin-top: 42px;
+    height: 195px;
+    object-fit: contain;
 }
 .landingPageAdd img.myIcon {
   width: 40px;
@@ -311,21 +314,20 @@
 }
 
 #homepage img.photo {
-  width: 166px;
-  height: 166px;
-  border: none;
-  margin: auto;
-  display: block;
-  object-fit: contain;
-  object-position: top;
+    width: 73px;
+    border: none;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+    object-position: top;
 }
 
 #homepage .appreciationName {
-  text-align: center;
-  display: block;
-  margin-top: -60px;
-  margin-left: -99px;
-  color: greenyellow;
+    text-align: center;
+    display: block;
+    margin-top: -54px;
+    margin-left: -156px;
+    color: #2bb58e ;
 }
 
 #tsparticles {

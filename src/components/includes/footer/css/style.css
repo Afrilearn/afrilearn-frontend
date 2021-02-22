@@ -17,6 +17,9 @@
     margin-bottom: 9px;
     font-family: font1;
 }
+#footer .email {
+    margin-bottom: 24px !important;
+}
 #footer .partThree ul li {
     margin-bottom: 35px;
     font-family: font1;
