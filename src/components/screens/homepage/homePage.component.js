@@ -355,17 +355,17 @@ const Homepage = (props) => {
         <div className="row">
           <h1 className="hOne">Frequently Asked Questions</h1>
           <div className="col-md-2"> </div>
-          <div className="col-md-8"> 
+          <div className="col-md-8">
             {/* New  */}
             <div class="accordion" id="accordionExample">
               <div class="card">
                 <h2 class="accordion-header text-white" id="headingOne">
                   <button
-                    class="accordion-button text-white"
+                    class="accordion-button text-white collapsed"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapseOne"
-                    aria-expanded="true"
+                    aria-expanded="false"
                     aria-controls="collapseOne"
                   >
                     What is Afrilearn?
@@ -373,7 +373,7 @@ const Homepage = (props) => {
                 </h2>
                 <div
                   id="collapseOne"
-                  class="accordion-collapse collapse show"
+                  class="accordion-collapse collapse"
                   aria-labelledby="headingOne"
                   data-bs-parent="#accordionExample"
                 >
