@@ -112,14 +112,14 @@ const Content = (props) => {
               <p>
                 <span className="left_key">Topics:</span>
                 &nbsp; &nbsp;{" "}
-                {subject && subject.relatedLessons
+                {subject && subject.relatedLessons && subject.relatedLessons.length>0
                   ? numberWithCommas(subject.relatedLessons.length)
                   : 0}
                 &nbsp; Lessons
               </p>
               <p>
                 <span className="left_key">Students:</span>
-                &nbsp; &nbsp; {numberWithCommas(numOfUsers)} Registered Students
+                &nbsp; &nbsp; { numOfUsers && numOfUsers>0 ? numberWithCommas(numOfUsers):0} Registered Students
               </p>
               {role && role === "602f3ce39b146b3201c2dc1d" && (
                 <Link to="/assign-content">
