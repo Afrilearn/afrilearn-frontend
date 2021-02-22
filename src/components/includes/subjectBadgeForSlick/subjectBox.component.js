@@ -127,7 +127,7 @@ const Box = (props) => {
                   <Tooltip
                     placement="top"
                     trigger={["hover"]}
-                    overlay={<span>{props.lessons && props.lessons >0
+                    overlay={<span>{props.lessons && props.lessons.length >0
                       ? numberWithCommas(calcVideoLesson())
                       : 0}{" "}
                       Video Lessons</span>}

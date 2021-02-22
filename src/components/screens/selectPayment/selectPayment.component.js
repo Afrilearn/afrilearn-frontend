@@ -10,7 +10,6 @@ import {
   inputChange,
   createTransaction,
 } from "./../../../redux/actions/paymentActions";
-import { getCourses } from "./../../../redux/actions/courseActions";
 import { addClass } from "./../../../redux/actions/classActions";
 import { getRoles } from "./../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
@@ -38,7 +37,9 @@ const Payment = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.paymentPlans();
-      props.getCourses();
+       if(!courses){
+          props.getRoles()
+       }     
     } else {
       // do componentDidUpdate logic
       if (error.id === "CREATE_PAYMENT_TRANSACTION_SUCCESS") {
@@ -291,7 +292,6 @@ const Payment = (props) => {
 Payment.propTypes = {
   paymentPlans: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
-  getCourses: PropTypes.func.isRequired,
   getRoles: PropTypes.func.isRequired,
   addClass: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
@@ -304,7 +304,7 @@ const mapStateToProps = (state) => ({
   userId: state.auth.userId,
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   email: state.auth.email,
-  courses: state.course.courses,
+  courses: state.auth.classes,
   role: state.auth.role,
   error: state.error,
 });
@@ -313,7 +313,6 @@ export default connect(mapStateToProps, {
   paymentPlans,
   inputChange,
   createTransaction,
-  getCourses,
   getRoles,
   addClass,
   clearErrors,

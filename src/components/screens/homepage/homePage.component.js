@@ -29,8 +29,11 @@ const Homepage = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.inputChange('redirect', false)
-      props.inputChange('dashboardRoute', false)      
-      props.getRoles();  
+      props.inputChange('dashboardRoute', false)  
+      
+      if(!numberOfClassNote){
+        props.getRoles();  
+      }    
       
     } else {
       // do componentDidUpdate logic
@@ -171,7 +174,7 @@ const Homepage = (props) => {
         </div>
         <div className="row students relative">      
           <div className="col-md-6">
-            <h1>  {students && students>0? numberWithCommas(students+teachers):0} Star Students, Schools & Teachers love Afrilearn! </h1>   
+            <h1>  {students && students>0? numberWithCommas(students+teachers):0}+ Star Students, Schools & Teachers love Afrilearn! </h1>   
             <h3>
               New content added every week!
             </h3>        
@@ -203,7 +206,7 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>{numberOfQuizQuestions && numberOfQuizQuestions >0? numberWithCommas(18147+numberOfQuizQuestions):0} </h3>
+                    <h3>{numberOfQuizQuestions && numberOfQuizQuestions >0? numberWithCommas(18147+numberOfQuizQuestions):0}+ </h3>
                     <p>Practice Questions</p>
                   </div>
                 </div>                
@@ -220,7 +223,7 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>{numberOfClassNote && numberOfClassNote>0? numberWithCommas(numberOfClassNote):0} </h3>
+                    <h3>{numberOfClassNote && numberOfClassNote>0? numberWithCommas(numberOfClassNote):0}+ </h3>
                     <p>Rich & Ready Class Notes</p>
                   </div>
                 </div>                
@@ -269,7 +272,7 @@ const Homepage = (props) => {
           <div className="col-md-6">
             <img
                 className="bigThing floatLeft"
-                src={require("../../../assets/img/Homepage-mockup-web.png")}
+                src={require("../../../assets/img/learn on any device mockup.png")}
                 alt="Learn on any device."
             />
           </div>
@@ -340,7 +343,7 @@ const Homepage = (props) => {
                     1-6 & JSS1-SS3) freedom to learn curriculum-relevant
                     subjects and topics anytime, anywhere. With Afrilearn,
                     there's always something exciting to learn as new contents
-                    are added daily!
+                    are added weekly!
                   </div>
                 </div>
               </div>
