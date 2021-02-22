@@ -113,15 +113,15 @@ const Payment = (props) => {
   // };
 
   //paystack settings
-  const config = { 
+  const config = {
     reference: new Date().getTime(),
     email,
-    amount: 1 * 100,
-    publicKey: "pk_live_4e4e4cab12e53739389f962da5d2d9e38468fba3",
+    amount: paymentAmount * 100,
+    publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
   };
 
   // you can call this function anything
-  const onSuccess = (reference) => { 
+  const onSuccess = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
     const data = {
       tx_ref: reference.reference,
@@ -169,7 +169,7 @@ const Payment = (props) => {
       props.clearErrors();
     } else if (!courseId) {
       Swal.fire({
-        html: "Select a course",
+        html: "Select a class",
         showClass: {
           popup: "animate__animated animate__fadeInDown",
         },
