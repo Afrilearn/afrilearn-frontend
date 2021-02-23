@@ -9,7 +9,13 @@ import pencil from "../../../assets/img/pencil.png";
 import LessonItem from "../../includes/lessonItem/lessonItem.component";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faCaretLeft,
+  faCaretRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Content = (props) => {
   const { subject, role, userId, numOfUsers } = props;
@@ -72,7 +78,7 @@ const Content = (props) => {
     terms.push({ id: item.id, name: item.name, lessons });
   });
   const numberWithCommas = (x) => {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
@@ -100,8 +106,9 @@ const Content = (props) => {
                 <p>Terms</p>
               </div>
               <p className="right_para">
-                {subject.mainSubjectId && parse(subject.mainSubjectId.introText)}
-              </p>             
+                {subject.mainSubjectId &&
+                  parse(subject.mainSubjectId.introText)}
+              </p>
             </div>
             <div className="col-md-1"></div>
             <div className="left col-md-4">
@@ -112,14 +119,20 @@ const Content = (props) => {
               <p>
                 <span className="left_key">Topics:</span>
                 &nbsp; &nbsp;{" "}
-                {subject && subject.relatedLessons && subject.relatedLessons.length>0
+                {subject &&
+                subject.relatedLessons &&
+                subject.relatedLessons.length > 0
                   ? numberWithCommas(subject.relatedLessons.length)
                   : 0}
                 &nbsp; Lessons
               </p>
               <p>
                 <span className="left_key">Students:</span>
-                &nbsp; &nbsp; { numOfUsers && numOfUsers>0 ? numberWithCommas(numOfUsers):0} Registered Students
+                &nbsp; &nbsp;{" "}
+                {numOfUsers && numOfUsers > 0
+                  ? numberWithCommas(numOfUsers)
+                  : 0}{" "}
+                Registered Students
               </p>
               {role && role === "602f3ce39b146b3201c2dc1d" && (
                 <Link to="/assign-content">
@@ -164,7 +177,7 @@ const Content = (props) => {
             )}
           </div>
         </div>
-      </div>
+       </div>
     </div>
   );
 };
@@ -180,7 +193,7 @@ const mapStateToProps = (state) => ({
   role: state.auth.user.role,
   userId: state.auth.user._id,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
-  numOfUsers: state.subject.numOfUsers
+  numOfUsers: state.subject.numOfUsers,
 });
 export default connect(mapStateToProps, {
   getCourse,

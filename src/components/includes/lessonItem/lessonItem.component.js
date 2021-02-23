@@ -173,7 +173,7 @@ const LessonItem = (props) => {
                 onClick={updateQuizType}
                 className="quizButton"
               >
-                Class Note
+                Study Class Note
               </Link>
             </div>
           </Tooltip>{" "}
@@ -185,34 +185,47 @@ const LessonItem = (props) => {
   return (
     <div key={lesson._id} className="term_item row">
       <div className="term_item_left col-md-12 accordion-item">
-        <h5 className="term_item_left_top accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target={`#collapseOne${index}${lesson._id}`}
-            aria-controls={`collapseOne${index}${lesson._id}`}
-          >
-            <FontAwesomeIcon
-              icon={faCheckCircle}
-              color={isViewed ? "#26aa76" : "white"}
-              className="mark-done"
-            />
-            {lesson.title}
-            <div className="float-end">
-              {!unlocked ? (
-                ""
-              ) : (
-                <span class="badge h5 bg-green mr-10">FREE</span>
-              )}
-              <span
-                class={`${isViewed ? "color-green" : "text-white"} block-900`}
-              >
-                {index + 1} of {props.length}
-              </span>
-            </div>
-          </button>
-        </h5>
+        <Tooltip
+          overlay={
+            !activeCoursePaidStatus && !unlocked ? (
+              <Link to="/select-pay">Please subscribe to unlock content</Link>
+            ) : (
+              <span>View Content</span>
+            )
+          }
+          placement="top"
+          trigger={["hover"]}
+        >
+          <h5 className="term_item_left_top accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target={`#collapseOne${index}${lesson._id}`}
+              aria-controls={`collapseOne${index}${lesson._id}`}
+            >
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                color={isViewed ? "#26aa76" : "white"}
+                className="mark-done"
+              />
+              {lesson.title}
+
+              <div className="float-end">
+                {!unlocked ? (
+                  ""
+                ) : (
+                  <span class="badge h5 bg-green mr-10">FREE</span>
+                )}
+                <span
+                  class={`${isViewed ? "color-green" : "text-white"} block-900`}
+                >
+                  {index + 1} of {props.length}
+                </span>
+              </div>
+            </button>
+          </h5>
+        </Tooltip>
         <div
           className="term_item_left_bottom row accordion-collapse collapse"
           aria-labelledby="headingOne"
