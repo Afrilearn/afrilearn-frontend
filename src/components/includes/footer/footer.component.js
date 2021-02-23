@@ -90,91 +90,32 @@ const Footer = (props) => {
 
             {/* <p>Avg. Pass Rate</p>
                         <p className="p2">87%</p>                        */}
-          </div>
-        </div>
-        <div className="row r2">
-          <div className="col-md-3">
-            <Link to="/">
-              <img
-                className="logo"
-                src={require("../../../assets/img/logo1.png")}
-                alt="Logo"
-              />
-            </Link>
-          </div>
-          <div className="col-md-5 listP">
-            <ul>
-              <li>
-                <Link to="/privacy_policy">Privacy Policy</Link>
-              </li>
-              <li>
-                <Link to="/privacy_policy">Copyright</Link>
-              </li>
-              <li>
-                <Link to="/privacy_policy">Terms of Service</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="col-md-4 listP1 floatRight right">
-            <ul>
-              <li>
-                <a
-                  href="https://web.facebook.com/myAfrilearn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    className="logo5"
-                    src={require("../../../assets/img/Facebook1.svg")}
-                    alt="Logo"
-                  />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://twitter.com/Afrilearn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    className="logo5"
-                    src={require("../../../assets/img/Twitter.svg")}
-                    alt="Logo"
-                  />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/afrilearn/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    className="logo5"
-                    src={require("../../../assets/img/Instagram.svg")}
-                    alt="Logo"
-                  />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.youtube.com/channel/UC_BnnokJom1DWipMl0oSxWA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    className="logo5"
-                    src={require("../../../assets/img/Youtube.svg")}
-                    alt="Logo"
-                  />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </span>
-  );
+                    </div>
+                </div>
+                <div className="row r2">
+                    <div className="col-md-4">
+                      <Link to="/"> <img className="logo" src={require('../../../assets/img/logo1.png')} alt='Logo'/></Link>
+                    </div>
+                    <div className="col-md-5 listP">
+                        <ul>
+                            <li><Link to="/privacy_policy">Privacy Policy</Link></li>
+                            <li><Link to="/privacy_policy">Copyright</Link></li>   
+                            <li><Link to="/privacy_policy">Terms of Service</Link></li>                      
+                        </ul>
+                    </div>
+                    <div className="col-md-3 listP1 floatRight right">
+                        <ul>
+                            <li><a href="https://www.instagram.com/afrilearn/" target="_blank"  rel="noopener noreferrer"><img className="logo5" src={require('../../../assets/img/Instagram.svg')} alt='Instagram'/></a></li>       
+                            <li><a href="https://web.facebook.com/myAfrilearn" target="_blank"  rel="noopener noreferrer"><img className="logo5" src={require('../../../assets/img/Facebook1.svg')} alt='Facebook'/></a></li>
+                            <li><a href="https://twitter.com/Afrilearn" target="_blank"  rel="noopener noreferrer"><img className="logo5" src={require('../../../assets/img/Twitter.svg')} alt='Twitter'/></a></li>                            
+                            <li><a href="https://www.youtube.com/channel/UC_BnnokJom1DWipMl0oSxWA" target="_blank"  rel="noopener noreferrer"><img className="logo5" src={require('../../../assets/img/Youtube.svg')} alt='Youtube'/></a></li>   
+                            <li><a href="https://www.linkedin.com/company/afrilearn/" target="_blank"  rel="noopener noreferrer"><img className="logo5" src={require('../../../assets/img/linkedin-icon(1).png')} alt='linkedin'/></a></li>                                           
+                        </ul>
+                    </div>
+                </div>
+            </div>  
+        </span>       
+	);
 };
 
 const mapStateToProps = (state) => ({
