@@ -43,7 +43,7 @@ const Footer = props => {
                     <div className="col-md-3">
                         <h6>Key Stats</h6>
                         <p>Registered Students</p>
-                        <p className="p2"> {students? numberWithCommas(students):''}</p>
+                        <p className="p2"> {students? numberWithCommas(students):''}+</p>
 
                         {/* <p>Registered Teachers</p>
                         <p className="p2"> {students? numberWithCommas(teachers):''}</p> */}
@@ -56,14 +56,14 @@ const Footer = props => {
                     <div className="col-md-4">
                         <img className="logo" src={require('../../../assets/img/logo1.png')} alt='Logo'/>
                     </div>
-                    <div className="col-md-4 listP">
+                    <div className="col-md-5 listP">
                         <ul>
                             <li><Link to="/privacy_policy">Privacy Policy</Link></li>
                             <li><Link to="/privacy_policy">Copyright</Link></li>   
                             <li><Link to="/privacy_policy">Terms of Service</Link></li>                      
                         </ul>
                     </div>
-                    <div className="col-md-4 listP1 floatRight right">
+                    <div className="col-md-3 listP1 floatRight right">
                         <ul>
                             <li><a href="https://www.instagram.com/afrilearn/" target="_blank"  rel="noopener noreferrer"><img className="logo5" src={require('../../../assets/img/Instagram.svg')} alt='Instagram'/></a></li>       
                             <li><a href="https://web.facebook.com/myAfrilearn" target="_blank"  rel="noopener noreferrer"><img className="logo5" src={require('../../../assets/img/Facebook1.svg')} alt='Facebook'/></a></li>
