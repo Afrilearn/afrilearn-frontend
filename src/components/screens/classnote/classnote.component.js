@@ -45,6 +45,7 @@ const ClassNote = (props) => {
         props.match.params.subjectId
       );
     } else {
+      window.scrollTo(0, 0);
       // do componentDidUpdate logic
     }
   });
@@ -209,15 +210,16 @@ const ClassNote = (props) => {
             />
             <div>
               {prevLesson ? (
-                <p>
+                <p className="p1">
                   Previous <span className="hide-900">Lesson</span>
                 </p>
               ) : (
                 <p>Back to</p>
               )}
-              <h4 className="custom-green">
-                {prevLesson ? prevLesson.title.slice(0, 15) : "Subject Page"}
-              </h4>
+              <h6 className="custom-green">
+                {prevLesson ? prevLesson.title.slice(0, 20) : "Subject Page"}
+                {prevLesson && prevLesson.title.length>20 ? '...' : null}
+              </h6>
             </div>
           </Link>
           <div className="text">
@@ -238,9 +240,10 @@ const ClassNote = (props) => {
           >
             <div>
               <p>{nextLesson ? "Next Lesson" : "Back to"}</p>
-              <h4 className="custom-green">
-                {nextLesson ? nextLesson.title.slice(0, 15) : "Subject Page"}
-              </h4>
+              <h6 className="custom-green">
+                {nextLesson ? nextLesson.title.slice(0, 20) : "Subject Page"}
+                {nextLesson && nextLesson.title.length>20 ? '...' : null}
+              </h6>
             </div>
             <FontAwesomeIcon
               icon={faAngleRight}
