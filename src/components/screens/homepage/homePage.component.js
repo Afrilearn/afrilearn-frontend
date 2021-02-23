@@ -500,7 +500,7 @@ const Homepage = (props) => {
               Ready to learn? Enter your email to signup!
             </h6>
             <div className="row">
-              <div className="col-md-2"></div>
+              <div className="col-2"></div>
               <div className="col-5 paddingRightOff">
                 <input
                   type="email"
@@ -512,10 +512,50 @@ const Homepage = (props) => {
               </div>
               <div className="col-3 paddingLeftOff">
                 <Link to="/register">
-                  <input type="submit" value="Start Learning" />
+                  <input type="submit" value="Start Learning" className="lastbee"/>
                 </Link>
               </div>
-              <div className="col-md-2"></div>
+              <div className="col-2"></div>
+            </div>
+            <h1 className="hOne hTwo">Key Supporters</h1>
+            <div className="row supporter">
+               <div className="col-md-1"></div>
+               <div className="col-md-2">
+                  <img
+                    className=""
+                    src={require("../../../assets/img/USC.png")}
+                    alt="down arrow"
+                  /> 
+               </div>
+               <div className="col-md-2">
+                  <img
+                    className=""
+                    src={require("../../../assets/img/kingdom-nl-cropped.png")}
+                    alt="down arrow"
+                  /> 
+               </div>
+               <div className="col-md-2">
+                  <img
+                    className=""
+                    src={require("../../../assets/img/Fate Foundation.png")}
+                    alt="down arrow"
+                  /> 
+               </div>
+               <div className="col-md-2">
+                  <img
+                    className=""
+                    src={require("../../../assets/img/OC.png")}
+                    alt="down arrow"
+                  /> 
+               </div>
+               <div className="col-md-2">
+                  <img
+                    className=""
+                    src={require("../../../assets/img/Friends Of Professor Osinbajo Nigeria's Vice President.png")}
+                    alt="down arrow"
+                  /> 
+               </div>
+               <div className="col-md-1"></div>
             </div>
           </div>
           <div className="col-md-2"> </div>

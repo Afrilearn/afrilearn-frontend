@@ -406,7 +406,8 @@ const ProfilePage = (props) => {
               Age: &nbsp;{" "}
               {moment(newAge ? newAge : user.dateOfBirth, "YYYYMMDD")
                 .fromNow()
-                .replace("years ago", "")}
+                .replace("years ago", "")
+                .replace("days ago", "")}
             </p>
             <p>
               City: &nbsp;{" "}

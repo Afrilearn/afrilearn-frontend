@@ -76,6 +76,7 @@ const MyNav = (props) => {
 
   const handleLogout = () => {
     props.logout();
+    setIsOpen(false)
   };
 
   const updateactiveEnrolledCourseId = (
@@ -112,9 +113,10 @@ const MyNav = (props) => {
                 item.courseId._id,
                 item.courseId.name,
                 item.paymentIsActive
-              );
+              );             
               props.inputChange("inClass", false);
               props.inputChange("activeEnrolledCourseId", item._id);
+              setIsOpen(false)
             }}
             tag={Link}
             to="/dashboard"
@@ -147,9 +149,11 @@ const MyNav = (props) => {
                 item.enrolledCourse && item.enrolledCourse.paymentIsActive
               );
               props.inputChange("inClass", true);
+              setIsOpen(false)
             }}
             tag={Link}
             to="/classes/teacher"
+            
           >
             <span>
               <img
@@ -181,18 +185,18 @@ const MyNav = (props) => {
             {isAuthenticated ? (
               <>
                 <NavItem>
-                  <NavLink tag={Link} to="/dashboard">
+                  <NavLink tag={Link} to="/dashboard" onClick={() =>setIsOpen(false)}>
                     My Dashboard
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/select-pay">
+                  <NavLink tag={Link} to="/select-pay" onClick={() =>setIsOpen(false)}>
                     Subscribe
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   {user.role !== "602f3ce39b146b3201c2dc1d" && !inClass && (
-                    <NavLink tag={Link} to="/performance">
+                    <NavLink tag={Link} to="/performance" onClick={() =>setIsOpen(false)}>
                       Performance Analysis
                     </NavLink>
                   )}
@@ -240,7 +244,7 @@ const MyNav = (props) => {
               </NavLink>
             </NavItem> */}
             <NavItem>
-              <NavLink tag={Link} to="/about">
+              <NavLink tag={Link} to="/about" onClick={() =>setIsOpen(false)}>
                 About Us
               </NavLink>
             </NavItem>
@@ -255,20 +259,10 @@ const MyNav = (props) => {
                 </DropdownToggle>
                 <DropdownMenu right>
                   {classList()}
-
-                  {user.role === "5fd08fba50964811309722d5" ? (
-                    <DropdownItem tag={Link} to="/select-pay">
+                  <DropdownItem tag={Link} to="/select-pay" onClick={() =>setIsOpen(false)}>
                       Add A New Class
-                    </DropdownItem>
-                  ) : user.role === "602f3ce39b146b3201c2dc1d" ? (
-                    <DropdownItem tag={Link} to="/select-pay">
-                      Add A New Class
-                    </DropdownItem>
-                  ) : (
-                    ""
-                  )}
-
-                  <DropdownItem tag={Link} to="/profile">
+                  </DropdownItem>                 
+                  <DropdownItem tag={Link} to="/profile" onClick={() =>setIsOpen(false)}>
                     Manage Profile
                   </DropdownItem>
                   <DropdownItem divider />
@@ -289,12 +283,12 @@ const MyNav = (props) => {
             ) : (
               <>
                 <NavItem>
-                  <NavLink tag={Link} to="/login" className="contact contact1">
+                  <NavLink tag={Link} to="/login" className="contact contact1" onClick={() =>setIsOpen(false)}>
                     Login
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/register" className="contact">
+                  <NavLink tag={Link} to="/register" className="contact" onClick={() =>setIsOpen(false)}>
                     Register
                   </NavLink>
                 </NavItem>
