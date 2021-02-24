@@ -339,7 +339,7 @@ const MyNav = (props) => {
           path="/classroom/:classId"
           component={classroomStudent}
         />
-        <ProtectedRoute
+        <ProtectedRoute 
           path="/classes/teacher"
           component={classroomTeacherComponent}
         />

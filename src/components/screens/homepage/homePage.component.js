@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import "./css/style.css";
 import AppreciationBox from "../../includes/appreciationSlick.component";
 import Particles from "react-tsparticles";
-import { connect } from 'react-redux';
-import { inputChange, getRoles } from './../../../redux/actions/authActions';
-import PropTypes from 'prop-types';
-import PaticleOption from '../../../assets/js/particles';
+import { connect } from "react-redux";
+import { inputChange, getRoles } from "./../../../redux/actions/authActions";
+import PropTypes from "prop-types";
+import PaticleOption from "../../../assets/js/particles";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
+import slugify from "react-slugify";
 
 const Homepage = (props) => {
   const {
@@ -19,7 +20,7 @@ const Homepage = (props) => {
     numberOfQuizQuestions,
     students,
     teachers,
-  } =props;
+  } = props;
 
   const mounted = useRef();
 
@@ -28,45 +29,53 @@ const Homepage = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.inputChange('redirect', false)
-      props.inputChange('dashboardRoute', false)  
-      
-      if(!numberOfClassNote){
-        props.getRoles();  
-      }    
-      
+      props.inputChange("redirect", false);
+      props.inputChange("dashboardRoute", false);
+
+      if (!numberOfClassNote) {
+        props.getRoles();
+      }
     } else {
       // do componentDidUpdate logic
     }
   });
 
   const classSet = () => {
-    if (classes.length) {         
+    if (classes.length) {
       return classes.map((item) => {
-        return <li><Link to={`/classes/${item._id}`}>{item.name}</Link></li>
+        return (
+          <li>
+            <Link to={`/classes/${slugify(item.name)}?classId=${item._id}`}>
+              {item.name}
+            </Link>
+          </li>
+        );
       });
     }
   };
 
-  const handleChange = (e)=> {
+  const handleChange = (e) => {
     const target = e.target;
     const name = target.name;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     props.inputChange(name, value);
-  }
+  };
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
- 
+
   return (
     <span id="homepage">
       <div className="container-fluid bannerSection">
         <div className="row">
           <div className="col-md-3"> </div>
           <div className="col-md-6 box">
-            <h1>Get Ahead with Afrilearn!</h1> 
-            <h4>We provide every Primary and Secondary School Student freedom to learn curriculum-relevant subjects and topics anytime, anywhere.</h4>         
+            <h1>Get Ahead with Afrilearn!</h1>
+            <h4>
+              We provide every Primary and Secondary School Student freedom to
+              learn curriculum-relevant subjects and topics anytime, anywhere.
+            </h4>
             <div className="row courseSelectSection">
               <div className="col-md-12">
                 <div className="row">
@@ -82,17 +91,14 @@ const Homepage = (props) => {
                           />
                         </Link>
                         <ul className="courseSelectSectionDropDown">
-                           {classSet()}
+                          {classSet()}
                         </ul>
                       </li>
                     </ul>
                   </div>
                   <div className="col-4 paddingLeftOff">
                     <Link to="/register">
-                      <input
-                        type="submit"
-                        value="JOIN FOR FREE"
-                      />
+                      <input type="submit" value="JOIN FOR FREE" />
                     </Link>
                   </div>
                 </div>
@@ -103,56 +109,86 @@ const Homepage = (props) => {
         </div>
       </div>
       <div className="container-fluid afterBanner relative">
-      <div className="row row2 landingPageAdd relative">   
-        <h1 className="hOne">Why Afrilearn works…</h1>         
-            <div className="col-md-4">
-                <div className="row">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 68.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Genius Content</h5> 
-                        <p>Enjoy unlimited video lessons, class notes, practice quizzes created by top tutors for high-flying students.</p>
-                    </div>
-                </div>
-                <div className="row push">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 69.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Examination Success</h5> 
-                        <p>Prepare effectively for best results in WASSCE, IGCSE, JSSCE, NECO, GCE, UTME, SAT and more.</p>
-                    </div>
-                </div>
+        <div className="row row2 landingPageAdd relative">
+          <h1 className="hOne">Why Afrilearn works…</h1>
+          <div className="col-md-4">
+            <div className="row">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 68.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Genius Content</h5>
+                <p>
+                  Enjoy unlimited video lessons, class notes, practice quizzes
+                  created by top tutors for high-flying students.
+                </p>
+              </div>
             </div>
-            <div className="col-md-4">
-              <img src={require('../../../assets/img/animation_500_klge8ksp.gif')}  className="imageCenter" alt="banner"/>
+            <div className="row push">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 69.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Examination Success</h5>
+                <p>
+                  Prepare effectively for best results in WASSCE, IGCSE, JSSCE,
+                  NECO, GCE, UTME, SAT and more.
+                </p>
+              </div>
             </div>
-            <div className="col-md-4">
-                <div className="row">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 72.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Personalised Education</h5> 
-                        <p>Understand how you learn best, where to focus, and study at your unique pace.</p>
-                    </div>
-                </div>               
-                <div className="row push">
-                    <div className="col-2">
-                      <img src={require('../../../assets/img/Group 70.png')}  className="myIcon" alt="Genius Content"/>
-                    </div>
-                    <div className="col-10 paddingLeftOff">
-                        <h5>Engaging Classroom</h5> 
-                        <p>School or Teacher? Access ready video lessons and class notes to accelerate your students’ learning.</p>
-                    </div>
-                </div>
+          </div>
+          <div className="col-md-4">
+            <img
+              src={require("../../../assets/img/animation_500_klge8ksp.gif")}
+              className="imageCenter"
+              alt="banner"
+            />
+          </div>
+          <div className="col-md-4">
+            <div className="row">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 72.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Personalised Education</h5>
+                <p>
+                  Understand how you learn best, where to focus, and study at
+                  your unique pace.
+                </p>
+              </div>
             </div>
-        </div>        <div className="row relative">
-        <Particles
-        id="tsparticles"
-        options={PaticleOption}       
-        />    
+            <div className="row push">
+              <div className="col-2">
+                <img
+                  src={require("../../../assets/img/Group 70.png")}
+                  className="myIcon"
+                  alt="Genius Content"
+                />
+              </div>
+              <div className="col-10 paddingLeftOff">
+                <h5>Engaging Classroom</h5>
+                <p>
+                  School or Teacher? Access ready video lessons and class notes
+                  to accelerate your students’ learning.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>{" "}
+        <div className="row relative">
+          <Particles id="tsparticles" options={PaticleOption} />
           <div className="col-md-6">
             <iframe
               width="456"
@@ -167,17 +203,24 @@ const Homepage = (props) => {
           <div className="col-md-6 shiftVideo">
             <h1>Enjoy unlimited video lessons!</h1>
             <h3>
-              Download your favorite videos to watch offline and always have something to learn.
+              Download your favorite videos to watch offline and always have
+              something to learn.
             </h3>
-            <Link className="startLearning" to="/register">Start Learning</Link>
+            <Link className="startLearning" to="/register">
+              Start Learning
+            </Link>
           </div>
         </div>
-        <div className="row students relative">      
+        <div className="row students relative">
           <div className="col-md-6">
-            <h1>  {students && students>0? numberWithCommas(students+teachers):0}+ Star Students, Schools & Teachers love Afrilearn! </h1>   
-            <h3>
-              New content added every week!
-            </h3>        
+            <h1>
+              {" "}
+              {students && students > 0
+                ? numberWithCommas(students + teachers)
+                : 0}
+              + Star Students, Schools & Teachers love Afrilearn!{" "}
+            </h1>
+            <h3>New content added every week!</h3>
           </div>
           <div className="col-md-6">
             <div className="row push">
@@ -194,8 +237,8 @@ const Homepage = (props) => {
                     <h3>1500+</h3>
                     <p>Video & Audio Lessons</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
               <div className="col-md-6">
                 <div className="row">
                   <div className="col-md-4">
@@ -206,11 +249,16 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>{numberOfQuizQuestions && numberOfQuizQuestions >0? numberWithCommas(18147+numberOfQuizQuestions):0}+ </h3>
+                    <h3>
+                      {numberOfQuizQuestions && numberOfQuizQuestions > 0
+                        ? numberWithCommas(18147 + numberOfQuizQuestions)
+                        : 0}
+                      +{" "}
+                    </h3>
                     <p>Practice Questions</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
             </div>
             <div className="row push">
               <div className="col-md-6">
@@ -223,11 +271,16 @@ const Homepage = (props) => {
                     />
                   </div>
                   <div className="col-md-8 paddingLeftOff">
-                    <h3>{numberOfClassNote && numberOfClassNote>0? numberWithCommas(numberOfClassNote):0}+ </h3>
+                    <h3>
+                      {numberOfClassNote && numberOfClassNote > 0
+                        ? numberWithCommas(numberOfClassNote)
+                        : 0}
+                      +{" "}
+                    </h3>
                     <p>Rich & Ready Class Notes</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
               <div className="col-md-6">
                 <div className="row">
                   <div className="col-md-4">
@@ -241,17 +294,17 @@ const Homepage = (props) => {
                     <h3>345,948+</h3>
                     <p>Engagements</p>
                   </div>
-                </div>                
-              </div> 
+                </div>
+              </div>
             </div>
-        
           </div>
         </div>
-        <div className="row relative">      
+        <div className="row relative">
           <div className="col-md-5">
             <h1>Gamified experience with rewards.</h1>
             <h3>
-              Fun exam practice to ace WASSCE, JSSCE, GCE, NECO and more like a pro!
+              Fun exam practice to ace WASSCE, JSSCE, GCE, NECO and more like a
+              pro!
             </h3>
           </div>
           <div className="col-md-7">
@@ -262,18 +315,13 @@ const Homepage = (props) => {
             />
           </div>
         </div>
-       
         <div className="row mobile relative">
-          <Particles
-            id="tsparticles"
-            options={PaticleOption}
-          
-          /> 
+          <Particles id="tsparticles" options={PaticleOption} />
           <div className="col-md-6">
             <img
-                className="bigThing floatLeft"
-                src={require("../../../assets/img/learn on any device mockup.png")}
-                alt="Learn on any device."
+              className="bigThing floatLeft"
+              src={require("../../../assets/img/learn on any device mockup.png")}
+              alt="Learn on any device."
             />
           </div>
           <div className="col-md-6 partOne">
@@ -287,26 +335,26 @@ const Homepage = (props) => {
                   overlay={<span>Coming soon!</span>}
                 >
                   <img
-                  className=""
-                  src={require("../../../assets/img/playstore.png")}
-                  alt="playstore"
+                    className=""
+                    src={require("../../../assets/img/playstore.png")}
+                    alt="playstore"
                   />
-                </Tooltip>               
+                </Tooltip>
               </div>
               <div className="col-6 right">
                 <Tooltip
-                    placement="top"
-                    trigger={["hover"]}
-                    overlay={<span>Coming soon!</span>}
-                  >
+                  placement="top"
+                  trigger={["hover"]}
+                  overlay={<span>Coming soon!</span>}
+                >
                   <img
-                  className=""
-                  src={require("../../../assets/img/applestore.png")}
-                  alt="applestore"
-                />
-                </Tooltip> 
+                    className=""
+                    src={require("../../../assets/img/applestore.png")}
+                    alt="applestore"
+                  />
+                </Tooltip>
               </div>
-            </div>       
+            </div>
           </div>
         </div>
         <div className="row appreciation">
@@ -512,50 +560,54 @@ const Homepage = (props) => {
               </div>
               <div className="col-3 paddingLeftOff">
                 <Link to="/register">
-                  <input type="submit" value="Start Learning" className="lastbee"/>
+                  <input
+                    type="submit"
+                    value="Start Learning"
+                    className="lastbee"
+                  />
                 </Link>
               </div>
               <div className="col-2"></div>
             </div>
             <h1 className="hOne hTwo">Key Supporters</h1>
             <div className="row supporter">
-               <div className="col-md-1"></div>
-               <div className="col-md-2">
-                  <img
-                    className=""
-                    src={require("../../../assets/img/USC.png")}
-                    alt="down arrow"
-                  /> 
-               </div>
-               <div className="col-md-2">
-                  <img
-                    className=""
-                    src={require("../../../assets/img/kingdom-nl-cropped.png")}
-                    alt="down arrow"
-                  /> 
-               </div>
-               <div className="col-md-2">
-                  <img
-                    className=""
-                    src={require("../../../assets/img/Fate Foundation.png")}
-                    alt="down arrow"
-                  /> 
-               </div>
-               <div className="col-md-2">
-                  <img
-                    className=""
-                    src={require("../../../assets/img/OC.png")}
-                    alt="down arrow"
-                  /> 
-               </div>
-               <div className="col-md-2">
-                  <img
-                    className=""
-                    src={require("../../../assets/img/Friends Of Professor Osinbajo Nigeria's Vice President.png")}
-                    alt="down arrow"
-                  /> 
-               </div>
-               <div className="col-md-1"></div>
+              <div className="col-md-1"></div>
+              <div className="col-md-2">
+                <img
+                  className=""
+                  src={require("../../../assets/img/USC.png")}
+                  alt="down arrow"
+                />
+              </div>
+              <div className="col-md-2">
+                <img
+                  className=""
+                  src={require("../../../assets/img/kingdom-nl-cropped.png")}
+                  alt="down arrow"
+                />
+              </div>
+              <div className="col-md-2">
+                <img
+                  className=""
+                  src={require("../../../assets/img/Fate Foundation.png")}
+                  alt="down arrow"
+                />
+              </div>
+              <div className="col-md-2">
+                <img
+                  className=""
+                  src={require("../../../assets/img/OC.png")}
+                  alt="down arrow"
+                />
+              </div>
+              <div className="col-md-2">
+                <img
+                  className=""
+                  src={require("../../../assets/img/Friends Of Professor Osinbajo Nigeria's Vice President.png")}
+                  alt="down arrow"
+                />
+              </div>
+              <div className="col-md-1"></div>
             </div>
           </div>
           <div className="col-md-2"> </div>

@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import ReactPlayer from "react-player/lazy";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
+import slugify from "react-slugify";
 
 const LessonItem = (props) => {
   const {
@@ -83,7 +84,13 @@ const LessonItem = (props) => {
                 <Link
                   to={
                     activeCoursePaidStatus || unlocked
-                      ? `/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${item._id}`
+                      ? `/content/${slugify(props.courseName)}/${slugify(
+                          props.subjectName
+                        )}/${slugify(lesson.title)}/${item._id}?courseId=${
+                          lesson.courseId
+                        }&subjectId=${lesson.subjectId}&lessonId=${
+                          lesson._id
+                        }&videoId=${item._id}`
                       : "/select-pay"
                   }
                 >
@@ -167,7 +174,11 @@ const LessonItem = (props) => {
               <Link
                 to={
                   activeCoursePaidStatus || unlocked
-                    ? `/classnote/${lesson.courseId}/${lesson.subjectId}/${lesson._id}`
+                    ? `/classnote/${slugify(props.courseName)}/${slugify(
+                        props.subjectName
+                      )}/${slugify(lesson.title)}?courseId=${
+                        lesson.courseId
+                      }&subjectId=${lesson.subjectId}&lessonId=${lesson._id}`
                     : "/select-pay"
                 }
                 onClick={updateQuizType}

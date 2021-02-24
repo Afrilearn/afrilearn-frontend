@@ -6,16 +6,26 @@ import {
   faMicrophone,
   faUser,
   faFileAlt,
-  faQuestion
+  faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import "./css/style.css";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import { connect } from "react-redux";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
+import queryString from "query-string";
 
 const ClassDisplay = (props) => {
-  const { course, classNoteCount, subjectCount, videoLessonCount, quizQuestionsCount, numOfUsers} = props;
+  const {
+    course,
+    classNoteCount,
+    subjectCount,
+    videoLessonCount,
+    quizQuestionsCount,
+    numOfUsers,
+  } = props;
+
+  const parsed = queryString.parse(props.location.search);
 
   const mounted = useRef();
   useEffect(() => {
@@ -26,7 +36,7 @@ const ClassDisplay = (props) => {
       const {
         match: { params },
       } = props;
-      props.getCourse(params.classId);
+      props.getCourse(parsed.classId);
     } else {
       // do componentDidUpdate logic
     }
@@ -42,8 +52,8 @@ const ClassDisplay = (props) => {
       return subjects.map((item) => {
         return (
           <Box
-            courseId ={course._id}
-            subjectId = {item._id}
+            courseId={course._id}
+            subjectId={item._id}
             image={item.mainSubjectId.imageUrl}
             singleClass={true}
             compiledNotes={item.relatedLessons.length}
@@ -72,19 +82,31 @@ const ClassDisplay = (props) => {
             <span className="box3">
               <FontAwesomeIcon icon={faPlay} color="black" />
             </span>
-            &nbsp;&nbsp; {videoLessonCount && videoLessonCount > 0? numberWithCommas(videoLessonCount):0} Video Lessons
+            &nbsp;&nbsp;{" "}
+            {videoLessonCount && videoLessonCount > 0
+              ? numberWithCommas(videoLessonCount)
+              : 0}{" "}
+            Video Lessons
           </div>
           <div className="col-md-4">
             <span className="box3">
               <FontAwesomeIcon icon={faMicrophone} color="black" />
             </span>
-            &nbsp;&nbsp; {videoLessonCount && videoLessonCount > 0? numberWithCommas(videoLessonCount):0} Audio Lessons
+            &nbsp;&nbsp;{" "}
+            {videoLessonCount && videoLessonCount > 0
+              ? numberWithCommas(videoLessonCount)
+              : 0}{" "}
+            Audio Lessons
           </div>
           <div className="col-md-4">
             <span className="box3">
               <FontAwesomeIcon icon={faFileAlt} color="black" />
             </span>
-            &nbsp;&nbsp; {classNoteCount && classNoteCount > 0? numberWithCommas(classNoteCount):0} Class Notes
+            &nbsp;&nbsp;{" "}
+            {classNoteCount && classNoteCount > 0
+              ? numberWithCommas(classNoteCount)
+              : 0}{" "}
+            Class Notes
           </div>
         </div>
         <div className="row push2">
@@ -92,19 +114,29 @@ const ClassDisplay = (props) => {
             <span className="box3 box4">
               <FontAwesomeIcon icon={faBookReader} color="white" />
             </span>
-            &nbsp;&nbsp; {subjectCount && subjectCount > 0? numberWithCommas(subjectCount):0} Subjects
+            &nbsp;&nbsp;{" "}
+            {subjectCount && subjectCount > 0
+              ? numberWithCommas(subjectCount)
+              : 0}{" "}
+            Subjects
           </div>
           <div className="col-md-4">
             <span className="box3 box4">
               <FontAwesomeIcon icon={faQuestion} color="white" />
             </span>
-            &nbsp;&nbsp; {quizQuestionsCount && quizQuestionsCount > 0? numberWithCommas(quizQuestionsCount): 0} Exam Practice Questions
+            &nbsp;&nbsp;{" "}
+            {quizQuestionsCount && quizQuestionsCount > 0
+              ? numberWithCommas(quizQuestionsCount)
+              : 0}{" "}
+            Exam Practice Questions
           </div>
           <div className="col-md-4">
             <span className="box3 box4">
               <FontAwesomeIcon icon={faUser} color="white" />
             </span>
-            &nbsp;&nbsp; {numOfUsers && numOfUsers > 0 ? numberWithCommas(numOfUsers):0} Registered Students
+            &nbsp;&nbsp;{" "}
+            {numOfUsers && numOfUsers > 0 ? numberWithCommas(numOfUsers) : 0}{" "}
+            Registered Students
           </div>
         </div>
         <div className="row push2 push3">

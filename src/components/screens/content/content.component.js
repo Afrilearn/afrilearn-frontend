@@ -16,20 +16,20 @@ import {
   faCaretLeft,
   faCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
+import queryString from "query-string";
 
 const Content = (props) => {
   const { subject, role, userId, numOfUsers } = props;
   const mounted = useRef();
+  const parsed = queryString.parse(props.location.search);
+
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
 
-      props.getSubjectAndRelatedLessons(
-        props.match.params.courseId,
-        props.match.params.subjectId
-      );
+      props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
     } else {
       // do componentDidUpdate logic
     }
@@ -80,7 +80,6 @@ const Content = (props) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-
   return (
     <div>
       <div
@@ -165,6 +164,8 @@ const Content = (props) => {
                           relatedLessons={subject.relatedLessons}
                           index={index}
                           term={term.name}
+                          courseName={subject.courseId.name}
+                          subjectName={subject.mainSubjectId.name}
                           length={term.lessons.length}
                           isViewed={isViewed(lesson._id)}
                         />
@@ -177,7 +178,7 @@ const Content = (props) => {
             )}
           </div>
         </div>
-       </div>
+      </div>
     </div>
   );
 };
