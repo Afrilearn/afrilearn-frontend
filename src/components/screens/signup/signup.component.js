@@ -73,7 +73,8 @@ const Signup = props => {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         let message;
         if (!role) {
             message='Please select a role';             
@@ -157,45 +158,47 @@ const Signup = props => {
             {redirect ? <Redirect to={location} /> : null} 
             <div id="signupFirstSection" className="container-fluid relative">                         
                 <div className="row fly">
-                     <div className="overlay overlayAuth"></div>                   
-                        <div className="col-md-12">
-                            <h3>Register</h3>
-                        </div>
-                        <div className="col-md-12">
-                            <select className="general" name="role" value={role} onChange={handleChange}>
-                                <option>Select a role</option>
-                                {roleSet()}                      
-                            </select>
-                        </div>
-                        <div className="col-md-12">
-                            <select className="general" name="courseId" value={courseId} onChange={handleChange}>
-                                <option>Select class</option>
-                                {classSet()}                         
-                            </select>
-                        </div>
-                        {
-                            role ==='602f3ce39b146b3201c2dc1d'?
+                     <div className="overlay overlayAuth"></div>     
+                        <form onSubmit={handleSubmit}>            
                             <div className="col-md-12">
-                                <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
-                            </div>:''
-                        }                       
-                        <div className="col-md-12">
-                           <input type="text" placeholder="Full Name" className="general" name="fullName" value={fullName} onChange={handleChange}/>
-                        </div>
-                        <div className="col-md-12">
-                           <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
-                        </div>
-                        <div className="col-md-12 relative">
-                           <input type={passwordMode? 'password':'text'} placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
-                           <Link onClick={handlePasswordMode}><FontAwesomeIcon icon={faEye} /></Link>
-                        </div>
-                        {/* <div className="col-md-12 relative">
-                           <input type="text" placeholder="Referral Code" className="general" name="referralCode" value={referralCode} onChange={handleChange}/>
-                           <p className="optional"><i>Optional</i></p>
-                        </div> */}
-                        <div className="col-md-12">
-                           <input type="submit" value="Register" className="general authSubmit" onClick={handleSubmit}/>
-                        </div>
+                                <h3>Register</h3>
+                            </div>
+                            <div className="col-md-12">
+                                <select className="general" name="role" value={role} onChange={handleChange}>
+                                    <option>Select a role</option>
+                                    {roleSet()}                      
+                                </select>
+                            </div>
+                            <div className="col-md-12">
+                                <select className="general" name="courseId" value={courseId} onChange={handleChange}>
+                                    <option>Select class</option>
+                                    {classSet()}                         
+                                </select>
+                            </div>
+                            {
+                                role ==='602f3ce39b146b3201c2dc1d'?
+                                <div className="col-md-12">
+                                    <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
+                                </div>:''
+                            }                       
+                            <div className="col-md-12">
+                            <input type="text" placeholder="Full Name" className="general" name="fullName" value={fullName} onChange={handleChange}/>
+                            </div>
+                            <div className="col-md-12">
+                            <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
+                            </div>
+                            <div className="col-md-12 relative">
+                            <input type={passwordMode? 'password':'text'} placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
+                            <Link onClick={handlePasswordMode}><FontAwesomeIcon icon={faEye} /></Link>
+                            </div>
+                            {/* <div className="col-md-12 relative">
+                            <input type="text" placeholder="Referral Code" className="general" name="referralCode" value={referralCode} onChange={handleChange}/>
+                            <p className="optional"><i>Optional</i></p>
+                            </div> */}
+                            <div className="col-md-12">
+                            <input type="submit" value="Register" className="general authSubmit"/>
+                            </div>
+                        </form>  
                         <div className="col-md-12">
                            <div className="row push">
                                 <div className="col-md-6 social google">

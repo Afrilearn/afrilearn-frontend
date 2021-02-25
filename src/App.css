@@ -124,6 +124,7 @@ body {
 *:active,
 *:visited {
   outline: none !important;
+  user-select: none;  
 }
 
 a {
@@ -378,6 +379,10 @@ option {
 .active {
   color: white !important;
   font-weight: bolder;
+}
+
+#login form, #signup form, #resetPassword form, #changePassword form {
+  padding: 0px;
 }
 
 img.dropDownIcon {

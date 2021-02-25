@@ -49,7 +49,8 @@ const ChangePassword = props => {
         props.inputChange(name, value);
     }
     
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         let message;
         if (!password) {
             message='Please enter password';  
@@ -96,20 +97,22 @@ const ChangePassword = props => {
 		<span>   
             <div id="changePassword" className="container-fluid relative">                         
                 <div className="row fly">
-                     <div className="overlay overlayAuth"></div>                   
-                        <div className="col-md-12">
-                            <h3>Change Password</h3>
-                            <p>Enter your new password</p>
-                        </div>                       
-                        <div className="col-md-12">
-                           <input type="password" placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
-                        </div>  
-                        <div className="col-md-12">
-                           <input type="password" placeholder="Confirm Password" className="general" name="confirmPassword" value={confirmPassword} onChange={handleChange}/>
-                        </div>                                        
-                        <div className="col-md-12">
-                           <input type="submit" value="Change" className="general authSubmit" onClick={handleSubmit}/>
-                        </div> 
+                     <div className="overlay overlayAuth"></div> 
+                        <form onSubmit={handleSubmit}>                                        
+                            <div className="col-md-12">
+                                <h3>Change Password</h3>
+                                <p>Enter your new password</p>
+                            </div>                       
+                            <div className="col-md-12">
+                            <input type="password" placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
+                            </div>  
+                            <div className="col-md-12">
+                            <input type="password" placeholder="Confirm Password" className="general" name="confirmPassword" value={confirmPassword} onChange={handleChange}/>
+                            </div>                                        
+                            <div className="col-md-12">
+                            <input type="submit" value="Change" className="general authSubmit"/>
+                            </div> 
+                        </form>  
                         <div className="col-md-12 push center">
                           <b className="white">&nbsp; <Link to="/login">Log in</Link></b>
                         </div>                   

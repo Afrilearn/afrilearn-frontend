@@ -56,7 +56,8 @@ const Login = props => {
         props.inputChange(name, value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         let message;
         if (!email) {
             message='Please enter email';  
@@ -112,20 +113,22 @@ const Login = props => {
             {redirect ? <Redirect to={location} /> : null}  
             <div id="loginFirstSection" className="container-fluid relative">                         
                 <div className="row fly">
-                     <div className="overlay overlayAuth"></div>                   
-                        <div className="col-md-12">
-                            <h3>Log in</h3>
-                        </div>                       
-                        <div className="col-md-12">
-                           <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
-                        </div>
-                        <div className="col-md-12 relative">
-                           <input type="password" placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
-                           {/* <p className="optional"><Link to="/reset_password"><i>Forgot Password?</i></Link></p> */}
-                        </div>                       
-                        <div className="col-md-12">
-                           <input type="submit" value="Login" className="general authSubmit" onClick={handleSubmit}/>
-                        </div>
+                     <div className="overlay overlayAuth"></div> 
+                        <form onSubmit={handleSubmit} method="post">                 
+                            <div className="col-md-12">
+                                <h3>Log in</h3>
+                            </div>                       
+                            <div className="col-md-12">
+                            <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
+                            </div>
+                            <div className="col-md-12 relative">
+                            <input type="password" placeholder="Password" className="general" name="password" value={password} onChange={handleChange}/>
+                            {/* <p className="optional"><Link to="/reset_password"><i>Forgot Password?</i></Link></p> */}
+                            </div>                       
+                            <div className="col-md-12">
+                            <input type="submit" value="Login" className="general authSubmit"/>
+                            </div>
+                        </form>
                         <div className="col-md-12 socialText">
                            <div className="row push">
                                 <div className="col-6">

@@ -416,7 +416,7 @@ const Homepage = (props) => {
                 >
                   <div class="accordion-body">
                     Subscription includes unlimited access to all video lessons,
-                    audio lessons, class notes, practice quizzes, lives classes
+                    audio lessons, class notes, practice quizzes, live classes
                     and more, covering all subjects and topics, in your chosen
                     class. Brace yourself for a profoundly life-changing
                     experience.

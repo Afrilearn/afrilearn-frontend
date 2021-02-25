@@ -45,7 +45,8 @@ const ResetPassword = props => {
         props.inputChange(name, value);
     }
     
-    const handleSubmit = () => {      
+    const handleSubmit = (e) => {    
+        e.preventDefault();  
         if (!email) {
             Swal.fire({
                 title: 'Please enter email',
@@ -67,17 +68,19 @@ const ResetPassword = props => {
 		<span>   
             <div id="resetPassword" className="container-fluid relative">                         
                 <div className="row fly">
-                     <div className="overlay overlayAuth"></div>                   
-                        <div className="col-md-12">
-                            <h3>Forgot Password</h3>
-                            <p>Enter email address to get change password link</p>
-                        </div>                       
-                        <div className="col-md-12">
-                           <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
-                        </div>                                        
-                        <div className="col-md-12">
-                           <input type="submit" value="Reset" className="general authSubmit" onClick={handleSubmit}/>
-                        </div> 
+                     <div className="overlay overlayAuth"></div> 
+                        <form onSubmit={handleSubmit}>                
+                            <div className="col-md-12">
+                                <h3>Forgot Password</h3>
+                                <p>Enter email address to get change password link</p>
+                            </div>                       
+                            <div className="col-md-12">
+                            <input type="email" placeholder="Email" className="general" name="email" value={email} onChange={handleChange}/>
+                            </div>                                        
+                            <div className="col-md-12">
+                            <input type="submit" value="Reset" className="general authSubmit"/>
+                            </div> 
+                        </form>  
                         <div className="col-md-12 push center">
                           <b className="white">&nbsp; <Link to="/login">Log in</Link></b>
                         </div>                   
