@@ -346,7 +346,7 @@ const MyNav = (props) => {
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
         <ProtectedRoute path="/assign-content" component={assignContent} />
-        <Route
+        <ProtectedRoute
           path="/content/:courseId/:subjectId/:lessonId/:videoId"
           component={lessonPage}
         />
@@ -358,7 +358,7 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <Route
+        <ProtectedRoute
           path="/classnote/:courseId/:subjectId/:lessonId"
           component={classNote}
         />

@@ -94,7 +94,8 @@ const Signup = (props) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     let message;
     if (!password) {
       message = "Please select a password";
@@ -128,58 +129,59 @@ const Signup = (props) => {
       <div id="signupFirstSection" className="container-fluid relative">
         <div className="row fly">
           <div className="overlay overlayAuth"></div>
-          <div className="col-md-12">
-            <h3>Join A Class</h3>
-          </div>
-          <div className="col-md-12">
-            <select className="general" name="role" value={role}>
-              <option selected> JSS 1</option>
-              onChange={handleChange}
-            </select>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="col-md-12">
+              <h3>Join A Class</h3>
+            </div>
+            <div className="col-md-12">
+              <select className="general" name="role" value={role}>
+                <option selected> JSS 1</option>
+                onChange={handleChange}
+              </select>
+            </div>
 
-          <div className="col-md-12">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="general"
-              name="fullName"
-              value={fullName}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="col-md-12">
-            <input
-              type="email"
-              placeholder="Email"
-              className="general"
-              name="email"
-              value={email}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="col-md-12 relative">
-            <input
-              type={passwordMode ? "password" : "text"}
-              placeholder="Password"
-              className="general"
-              name="password"
-              value={password}
-              onChange={handleChange}
-            />
-            <Link onClick={handlePasswordMode}>
-              <FontAwesomeIcon icon={faEye} />
-            </Link>
-          </div>
+            <div className="col-md-12">
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="general"
+                name="fullName"
+                value={fullName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="col-md-12">
+              <input
+                type="email"
+                placeholder="Email"
+                className="general"
+                name="email"
+                value={email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="col-md-12 relative">
+              <input
+                type={passwordMode ? "password" : "text"}
+                placeholder="Password"
+                className="general"
+                name="password"
+                value={password}
+                onChange={handleChange}
+              />
+              <Link onClick={handlePasswordMode}>
+                <FontAwesomeIcon icon={faEye} />
+              </Link>
+            </div>
 
-          <div className="col-md-12">
-            <input
-              type="submit"
-              value="Join"
-              className="general"
-              onClick={handleSubmit}
-            />
-          </div>
+            <div className="col-md-12">
+              <input
+                type="submit"
+                value="Join"
+                className="general authSubmit"              
+              />
+            </div>
+          </form>
         </div>
       </div>
     </span>

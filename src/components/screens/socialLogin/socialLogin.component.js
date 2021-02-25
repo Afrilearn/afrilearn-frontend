@@ -56,7 +56,8 @@ const SocialSignup = props => {
         props.inputChange(name, value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         let message;
         if (!role) {
             message='Please select a role';             
@@ -112,32 +113,34 @@ const SocialSignup = props => {
             {redirect ? <Redirect to={location} /> : null} 
             <div id="socialSignupFirstSection" className="container-fluid relative">                         
                 <div className="row fly">
-                     <div className="overlay overlayAuth"></div>                   
-                        <div className="col-md-12">
-                            <h3>Social Signup</h3>
-                        </div>
-                        <div className="col-md-12">
-                            <select className="general" name="role" value={role} onChange={handleChange}>
-                                <option>Select a role</option>
-                                {roleSet()}                      
-                            </select>
-                        </div>
-
-                        <div className="col-md-12">
-                            <select className="general" name="activeEnrolledCourseId" value={activeEnrolledCourseId} onChange={handleChange}>
-                                <option>Select class</option>
-                                {classSet()}                         
-                            </select>
-                        </div>  
-                        {
-                            role ==='602f3ce39b146b3201c2dc1d'?
+                     <div className="overlay overlayAuth"></div> 
+                        <form onSubmit={handleSubmit}>               
                             <div className="col-md-12">
-                                <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
-                            </div>:''
-                        }                         
-                        <div className="col-md-12">
-                           <input type="submit" value="Update" className="general" onClick={handleSubmit}/>
-                        </div>
+                                <h3>Social Signup</h3>
+                            </div>
+                            <div className="col-md-12">
+                                <select className="general" name="role" value={role} onChange={handleChange}>
+                                    <option>Select a role</option>
+                                    {roleSet()}                      
+                                </select>
+                            </div>
+
+                            <div className="col-md-12">
+                                <select className="general" name="activeEnrolledCourseId" value={activeEnrolledCourseId} onChange={handleChange}>
+                                    <option>Select class</option>
+                                    {classSet()}                         
+                                </select>
+                            </div>  
+                            {
+                                role ==='602f3ce39b146b3201c2dc1d'?
+                                <div className="col-md-12">
+                                    <input type="text" placeholder="Class Name" className="general" name="className" value={className} onChange={handleChange}/>
+                                </div>:''
+                            }                         
+                            <div className="col-md-12">
+                            <input type="submit" value="Update" className="general authSubmit"/>
+                            </div>
+                        </form>   
                 </div>
             </div>
         </span>
