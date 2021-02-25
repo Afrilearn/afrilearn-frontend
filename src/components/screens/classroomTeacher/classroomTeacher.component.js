@@ -81,7 +81,7 @@ const ClassroomTeacher = (props) => {
   const [newAnouncements, setNewAnouncements] = useState([]);
   const [newComments, setNewComments] = useState([]);
   const mounted = useRef();
-  const invitationLink = `http://demo.myafrilearn.com/join-class?email=${email}&classId=5fcdf5f5581c833b189bb693`;
+  const invitationLink = `https://myafrilearn.com/join-class?email=${email}&classId=${activeEnrolledCourseId}`;
 
   useEffect(() => {
     if (!mounted.current) {
@@ -214,7 +214,7 @@ const ClassroomTeacher = (props) => {
                       {moment(classAnnouncement.createdAt).fromNow()}
                     </small>
                   </div>
-                </div> 
+                </div>
                 <img src={dots} alt="see-more" />
               </div>
               <p className="sender-message">{classAnnouncement.text}</p>
@@ -597,6 +597,18 @@ const ClassroomTeacher = (props) => {
           </span>
         </div>
         <div className="main-tabs container ">
+          {clazz.enrolledCourse && !clazz.enrolledCourse.paymentIsActive && (
+            <Link
+              to={`/select-pay?classId=${clazz._id}&enrolledCourseId=${
+                clazz.enrolledCourse && clazz.enrolledCourse._id
+              }`}
+            >
+              <button type="button" class="btn btn-danger">
+                Pay to unlock all content{" "}
+                <span class="badge bg-secondary">Pay</span>
+              </button>
+            </Link>
+          )}
           <div class="row row-cols-auto align-items-end justify-content-center">
             <div className="col">
               <div
@@ -630,6 +642,7 @@ const ClassroomTeacher = (props) => {
             </div>
           </div>
         </div>
+
         <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
             <div className="content-section">
