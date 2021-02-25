@@ -37,9 +37,9 @@ const Payment = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.paymentPlans();
-       if(!courses){
-          props.getRoles()
-       }     
+      if (!courses) {
+        props.getRoles();
+      }
     } else {
       // do componentDidUpdate logic
       if (error.id === "CREATE_PAYMENT_TRANSACTION_SUCCESS") {
@@ -86,9 +86,9 @@ const Payment = (props) => {
     const target = document.getElementById(price);
     for (let index = 0; index < all.length; index++) {
       const element = all[index];
-      element.classList.remove("active");
+      element.classList.add("active");
     }
-    target.classList.add("active");
+    target.classList.remove("active");
   };
 
   const [courseId, setCourseId] = useState(null);

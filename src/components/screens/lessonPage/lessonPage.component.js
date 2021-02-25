@@ -39,8 +39,11 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import queryString from "query-string";
 
 const LessonPage = (props) => {
+  const parsed = queryString.parse(props.location.search);
+
   const { course, role, subject } = props;
 
   const [isOpen, setIsOpen] = useState(true);
@@ -48,26 +51,20 @@ const LessonPage = (props) => {
   const toggle1 = () => setModal1(!modal1);
 
   const toggleTranscript = () => setIsOpen(!isOpen);
-  // const subject =
-  //   course.relatedSubjects &&
-  //   course.relatedSubjects.find(
-  //     (su) => su.courseId === props.match.params.courseId
-  //   );
-
   const lesson =
     subject &&
     subject.relatedLessons &&
-    subject.relatedLessons.find((su) => su._id === props.match.params.lessonId);
+    subject.relatedLessons.find((su) => su._id === parsed.lessonId);
 
   const video =
     lesson &&
     lesson.videoUrls &&
-    lesson.videoUrls.find((vid) => vid._id === props.match.params.videoId);
+    lesson.videoUrls.find((vid) => vid._id === parsed.videoId);
 
   const videoIndex =
     lesson &&
     lesson.videoUrls &&
-    lesson.videoUrls.findIndex((vid) => vid._id === props.match.params.videoId);
+    lesson.videoUrls.findIndex((vid) => vid._id === parsed.videoId);
 
   const nextVideo =
     lesson && lesson.videoUrls && videoIndex !== lesson.videoUrls.length
@@ -75,8 +72,7 @@ const LessonPage = (props) => {
       : null;
 
   const relatedVideos =
-    lesson &&
-    lesson.videoUrls.filter((vid) => vid._id !== props.match.params.videoId);
+    lesson && lesson.videoUrls.filter((vid) => vid._id !== parsed.videoId);
 
   const relatedVideosList = () => {
     if (relatedVideos && relatedVideos.length) {
@@ -132,11 +128,8 @@ const LessonPage = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.getCourse(props.match.params.courseId);
-      props.getSubjectAndRelatedLessons(
-        props.match.params.courseId,
-        props.match.params.subjectId
-      );
+      props.getCourse(parsed.courseId);
+      props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
       // setModal(false);
     } else {
       // do componentDidUpdate logic
@@ -352,7 +345,7 @@ const LessonPage = (props) => {
         </h3>
         <Link
           className="button"
-          to={`/classnote/${props.match.params.courseId}/${props.match.params.subjectId}/${props.match.params.lessonId}`}
+          to={`/classnote/${parsed.courseId}/${parsed.subjectId}/${parsed.lessonId}`}
         >
           Yes! Proceed to Class Note
         </Link>

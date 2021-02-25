@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "rc-tooltip/assets/bootstrap_white.css";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
+import {
   faAngleUp,
   faMicrophone,
   faPlay,
@@ -16,6 +16,7 @@ import LessonBox from "./lessonBox.component";
 import { connect } from "react-redux";
 import { inputChange } from "./../../../redux/actions/authActions";
 import PropTypes from "prop-types";
+import slugify from "react-slugify";
 
 const Box = (props) => {
   const [modal, setModal] = useState(false);
@@ -80,13 +81,13 @@ const Box = (props) => {
     }
   };
 
-  const calcVideoLesson = () =>{
-    let videoLessonCount = 0;   
-    for (let l = 0; l < lessons.length; l++){
-      videoLessonCount += lessons[l].videoUrls.length;      
+  const calcVideoLesson = () => {
+    let videoLessonCount = 0;
+    for (let l = 0; l < lessons.length; l++) {
+      videoLessonCount += lessons[l].videoUrls.length;
     }
     return videoLessonCount;
-  }
+  };
 
   return (
     <>
@@ -104,7 +105,11 @@ const Box = (props) => {
           <div className="dropDownContent row">
             <div className="col-12 padOff">
               {props.dashboard ? (
-                <Link to={`/content/${props.courseId}/${props.subjectId}`}>
+                <Link
+                  to={`/content/${slugify(props.courseName)}/${slugify(
+                    props.subjectName
+                  )}?courseId=${props.courseId}&subjectId=${props.subjectId}`}
+                >
                   <img
                     src={props.image}
                     alt={props.subjectName}
@@ -112,13 +117,17 @@ const Box = (props) => {
                   />
                 </Link>
               ) : (
-                <Link to={`/content/${props.courseId}/${props.subjectId}`}>
-                <img
-                  src={props.image}
-                  alt={props.subjectName}
-                  className="fullWidth subjectImage1"
-                />
-              </Link>
+                <Link
+                  to={`/content/${slugify(props.courseName)}/${slugify(
+                    props.subjectName
+                  )}?courseId=${props.courseId}&subjectId=${props.subjectId}`}
+                >
+                  <img
+                    src={props.image}
+                    alt={props.subjectName}
+                    className="fullWidth subjectImage1"
+                  />
+                </Link>
               )}
             </div>
             <div className="col-12 box">
@@ -127,10 +136,14 @@ const Box = (props) => {
                   <Tooltip
                     placement="top"
                     trigger={["hover"]}
-                    overlay={<span>{props.lessons && props.lessons.length >0
-                      ? numberWithCommas(calcVideoLesson())
-                      : 0}{" "}
-                      Video Lessons</span>}
+                    overlay={
+                      <span>
+                        {props.lessons && props.lessons.length > 0
+                          ? numberWithCommas(calcVideoLesson())
+                          : 0}{" "}
+                        Video Lessons
+                      </span>
+                    }
                   >
                     <Link to="/content/56464">
                       <img
@@ -145,7 +158,7 @@ const Box = (props) => {
                     trigger={["hover"]}
                     overlay={
                       <span>
-                        {props.compiledNotes && props.compiledNotes >0
+                        {props.compiledNotes && props.compiledNotes > 0
                           ? numberWithCommas(props.compiledNotes)
                           : 0}{" "}
                         Compiled Notes
@@ -163,7 +176,7 @@ const Box = (props) => {
                     trigger={["hover"]}
                     overlay={
                       <span>
-                        {props.numOfUsers && props.numOfUsers >0
+                        {props.numOfUsers && props.numOfUsers > 0
                           ? numberWithCommas(props.numOfUsers)
                           : 0}{" "}
                         Registered Users
@@ -189,7 +202,11 @@ const Box = (props) => {
                   >
                     {props.dashboard ? (
                       <Link
-                        to={`/content/${props.courseId}/${props.subjectId}`}
+                        to={`/content/${slugify(props.courseName)}/${slugify(
+                          props.subjectName
+                        )}?courseId=${props.courseId}&subjectId=${
+                          props.subjectId
+                        }`}
                       >
                         <img
                           src={require("../../../assets/img/more.png")}
@@ -199,14 +216,18 @@ const Box = (props) => {
                       </Link>
                     ) : (
                       <Link
-                      to={`/content/${props.courseId}/${props.subjectId}`}
-                    >
-                      <img
-                        src={require("../../../assets/img/more.png")}
-                        alt="more options"
-                        className="subjectImage2"
-                      />
-                    </Link>
+                        to={`/content/${slugify(props.courseName)}/${slugify(
+                          props.subjectName
+                        )}?courseId=${props.courseId}&subjectId=${
+                          props.subjectId
+                        }`}
+                      >
+                        <img
+                          src={require("../../../assets/img/more.png")}
+                          alt="more options"
+                          className="subjectImage2"
+                        />
+                      </Link>
                     )}
                   </Tooltip>
                 </div>
@@ -217,7 +238,7 @@ const Box = (props) => {
               </div>
               <div className="row">
                 <div className="col-12" id="UncontrolledTooltipExample">
-                  {props.compiledNotes && props.compiledNotes >0
+                  {props.compiledNotes && props.compiledNotes > 0
                     ? numberWithCommas(props.compiledNotes)
                     : "0"}{" "}
                   Lessons
@@ -303,7 +324,7 @@ const Box = (props) => {
                   <div className="row">
                     <div className="col-3 title1">Lessons:</div>
                     <div className="col-9 details">
-                      {props.compiledNotes && props.compiledNotes >0
+                      {props.compiledNotes && props.compiledNotes > 0
                         ? numberWithCommas(props.compiledNotes)
                         : "0"}{" "}
                       Video Lessons
@@ -312,7 +333,7 @@ const Box = (props) => {
                   <div className="row">
                     <div className="col-3 title1">Students:</div>
                     <div className="col-9 details">
-                      {props.registeredUsers && props.registeredUsers >0
+                      {props.registeredUsers && props.registeredUsers > 0
                         ? numberWithCommas(props.registeredUsers)
                         : "0"}{" "}
                       Registered Students

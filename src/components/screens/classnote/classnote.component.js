@@ -13,6 +13,7 @@ import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectAct
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
 import Speech from "react-speech";
+import queryString from "query-string";
 
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
@@ -30,20 +31,20 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import slugify from "react-slugify";
 
 const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
   const toggle1 = () => setModal1(!modal1);
+  const parsed = queryString.parse(props.location.search);
+
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.getSubjectAndRelatedLessons(
-        props.match.params.courseId,
-        props.match.params.subjectId
-      );
+      props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
     } else {
       window.scrollTo(0, 0);
       // do componentDidUpdate logic
@@ -70,12 +71,12 @@ const ClassNote = (props) => {
   const targetLesson =
     props.subject.relatedLessons &&
     props.subject.relatedLessons.find(
-      (lesson) => lesson._id === props.match.params.lessonId
+      (lesson) => lesson._id === parsed.lessonId
     );
   const targetLessonIndex =
     props.subject.relatedLessons &&
     props.subject.relatedLessons.findIndex(
-      (lesson) => lesson._id === props.match.params.lessonId
+      (lesson) => lesson._id === parsed.lessonId
     );
   const nextLesson =
     props.subject.relatedLessons &&
@@ -154,9 +155,7 @@ const ClassNote = (props) => {
       <div id="classNoteSecondSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-5">
-            <Link
-              to={`/content/${props.match.params.courseId}/${props.match.params.subjectId}`}
-            >
+            <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
               <span className="backArrow">
                 {" "}
                 <img
@@ -196,10 +195,18 @@ const ClassNote = (props) => {
           <Link
             to={
               prevLesson
-                ? `/classnote/${props.match.params.courseId}/${
-                    props.match.params.subjectId
-                  }/${prevLesson && prevLesson._id}`
-                : `/content/${props.match.params.courseId}/${props.match.params.subjectId}`
+                ? `/classnote/${
+                    props.subject.courseId &&
+                    slugify(props.subject.courseId.name)
+                  }/${
+                    props.subject.mainSubjectId &&
+                    slugify(props.subject.mainSubjectId.name)
+                  }/${prevLesson && slugify(prevLesson.title)}?courseId=${
+                    parsed.courseId
+                  }&subjectId=${parsed.subjectId}&lessonId=${
+                    prevLesson && prevLesson._id
+                  }`
+                : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             className="button button1"
           >
@@ -218,7 +225,7 @@ const ClassNote = (props) => {
               )}
               <h6 className="custom-green">
                 {prevLesson ? prevLesson.title.slice(0, 20) : "Subject Page"}
-                {prevLesson && prevLesson.title.length>20 ? '...' : null}
+                {prevLesson && prevLesson.title.length > 20 ? "..." : null}
               </h6>
             </div>
           </Link>
@@ -231,10 +238,18 @@ const ClassNote = (props) => {
           <Link
             to={
               nextLesson
-                ? `/classnote/${props.match.params.courseId}/${
-                    props.match.params.subjectId
-                  }/${nextLesson && nextLesson._id}`
-                : `/content/${props.match.params.courseId}/${props.match.params.subjectId}`
+                ? `/classnote/${
+                    props.subject.courseId &&
+                    slugify(props.subject.courseId.name)
+                  }/${
+                    props.subject.mainSubjectId &&
+                    slugify(props.subject.mainSubjectId.name)
+                  }/${nextLesson && slugify(nextLesson.title)}?courseId=${
+                    parsed.courseId
+                  }&subjectId=${parsed.subjectId}&lessonId=${
+                    nextLesson && nextLesson._id
+                  }`
+                : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             className="button button2"
           >
@@ -242,7 +257,7 @@ const ClassNote = (props) => {
               <p>{nextLesson ? "Next Lesson" : "Back to"}</p>
               <h6 className="custom-green">
                 {nextLesson ? nextLesson.title.slice(0, 20) : "Subject Page"}
-                {nextLesson && nextLesson.title.length>20 ? '...' : null}
+                {nextLesson && nextLesson.title.length > 20 ? "..." : null}
               </h6>
             </div>
             <FontAwesomeIcon

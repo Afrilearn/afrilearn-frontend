@@ -34,6 +34,7 @@ const Dashboard = (props) => {
     averageText,
     belowAverageText,
     noRatingText,
+    course,
   } = props;
   const mounted = useRef();
 
@@ -70,6 +71,8 @@ const Dashboard = (props) => {
             registeredUsers={50000}
             subjectName={item.mainSubjectId.name}
             courseId={dashboardData.enrolledCourse.courseId._id}
+            introText={item.mainSubjectId.introText}
+            courseName={dashboardData.enrolledCourse.courseId.name}
             subjectId={item._id}
           />
         );
@@ -337,6 +340,7 @@ const mapStateToProps = (state) => ({
   belowAverage: state.course.belowAverage,
   noRating: state.course.noRating,
   excellingText: state.course.excellingText,
+  course: state.course.course,
   averageText: state.course.averageText,
   belowAverageText: state.course.belowAverageText,
   noRatingText: state.course.noRatingText,
