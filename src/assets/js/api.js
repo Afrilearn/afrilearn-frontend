@@ -1,7 +1,7 @@
 import axios from "axios";
 const URL =
   "http://afrilearnbackend-env.eba-kmm3jyax.eu-west-3.elasticbeanstalk.com/api/v1/";
-const HerokuURL = "https://afrilearn-backend-01.herokuapp.com/api/v1/";  
+const HerokuURL = "https://afrilearn-backend-01.herokuapp.com/api/v1/";
 const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 

@@ -15,8 +15,10 @@ import { getRoles } from "./../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
+import queryString from "query-string";
 
 const Payment = (props) => {
+  const parsed = queryString.parse(props.location.search);
   const mounted = useRef();
 
   const {
@@ -61,25 +63,6 @@ const Payment = (props) => {
     }
   });
 
-  /*flutterwave settings*/
-  // const config = {
-  //   public_key: "FLWPUBK-eebfdb05b05f2db521a8b0c9043bf248-X",
-  //   tx_ref: Date.now() + userId,
-  //   amount: 5,
-  //   currency: "NGN",
-  //   payment_options: "card,mobilemoney,ussd",
-  //   customer: {
-  //     email,
-  //   },
-  //   customizations: {
-  //     title: "Subscribe to Course",
-  //     description: "Payment for course Access",
-  //     logo: "https://afrilearn.s3.amazonaws.com/logo.png",
-  //   },
-  //   redirect_url: "/dashboard",
-  // };
-  // const handleFlutterPayment = useFlutterwave(config);
-
   const setBB = (price) => {
     //change background onClick
     const all = document.querySelectorAll(".item");
@@ -93,25 +76,6 @@ const Payment = (props) => {
 
   const [courseId, setCourseId] = useState(null);
   const [nameOfClass, setNameOfClass] = useState(null);
-
-  // const initializePayment = () => {
-  //   //initialize flutterwave payment
-  //   handleFlutterPayment({
-  //     callback: (response) => {
-  //       const data = {
-  //         tx_ref: response.tx_ref,
-  //         userId,
-  //         enrolledCourseId: activeEnrolledCourseId,
-  //         courseId,
-  //         paymentPlanId,
-  //         amount: 5,
-  //       };
-  //       props.createTransaction(data);
-  //       closePaymentModal(); // this will close the modal programmatically
-  //     },
-  //     onClose: () => {},
-  //   });
-  // };
 
   //paystack settings
   const config = {
@@ -128,7 +92,7 @@ const Payment = (props) => {
       tx_ref: reference.reference,
       userId,
       enrolledCourseId: activeEnrolledCourseId,
-      courseId,
+      courseId: courseId || parsed.courseId,
       paymentPlanId,
       amount: paymentAmount,
     };
@@ -168,7 +132,7 @@ const Payment = (props) => {
         // position: 'top-end',,
       });
       props.clearErrors();
-    } else if (!courseId) {
+    } else if (!courseId && !parsed.courseId) {
       Swal.fire({
         html: "Select a class",
         showClass: {
@@ -181,7 +145,12 @@ const Payment = (props) => {
         // position: 'top-end',,
       });
       props.clearErrors();
-    } else if (role && role === "602f3ce39b146b3201c2dc1d" && !nameOfClass) {
+    } else if (
+      role &&
+      role === "602f3ce39b146b3201c2dc1d" &&
+      !parsed.courseId &&
+      !nameOfClass
+    ) {
       Swal.fire({
         html: "Name of class cannnot be empty",
         showClass: {
@@ -217,19 +186,23 @@ const Payment = (props) => {
           <div class="col-md-7">
             <div className="sub-lenght">
               <Container>
-                <h3>Step 1: Select Class </h3>
-                <select
-                  class="form-select form-select-lg mb-3"
-                  aria-label=".form-select-lg example"
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setCourseId(e.target.value);
-                  }}
-                >
-                  <option selected>Select Class</option>
-                  {courseList()}
-                </select>
-                <h3>Step 2: Select Subscription Length</h3>
+                {!parsed.courseId && <h3>Step 1: Select Class </h3>}
+                {!parsed.courseId && (
+                  <select
+                    class="form-select form-select-lg mb-3"
+                    aria-label=".form-select-lg example"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setCourseId(e.target.value);
+                    }}
+                  >
+                    <option selected>Select Class</option>
+                    {courseList()}
+                  </select>
+                )}
+                <h3>
+                  {!parsed.courseId && "Step 2: "}Select Subscription Length
+                </h3>
                 <div className="row">
                   {categories.map((paymentPlan) => (
                     <div className="col-6 col-md-3" key={paymentPlan._id}>
@@ -260,17 +233,19 @@ const Payment = (props) => {
             <div className="proceed-button">
               <Container>
                 <Row>
-                  {role && role === "5fc8cc978e28fa50986ecac9" && (
-                    <Col>
-                      <input
-                        className="form-control"
-                        placeholder="Add class name"
-                        onChange={(e) => {
-                          setNameOfClass(e.target.value);
-                        }}
-                      />
-                    </Col>
-                  )}
+                  {role &&
+                    role === "602f3ce39b146b3201c2dc1d" &&
+                    !parsed.courseId && (
+                      <Col>
+                        <input
+                          className="form-control"
+                          placeholder="Add class name"
+                          onChange={(e) => {
+                            setNameOfClass(e.target.value);
+                          }}
+                        />
+                      </Col>
+                    )}
                   <Col>
                     <button
                       disabled={paymentAmount === 0 ? true : false}

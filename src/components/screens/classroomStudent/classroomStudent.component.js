@@ -129,7 +129,7 @@ const ClassroomStudent = (props) => {
     if (Object.keys(clazz) && clazz.relatedSubjects) {
       return clazz.relatedSubjects.map((item) => {
         return (
-          <Box
+          <Box 
             image={item.mainSubjectId.imageUrl}
             singleClass={true}
             dashboard={true}
@@ -137,6 +137,9 @@ const ClassroomStudent = (props) => {
             registeredUsers={50000}
             courseId={clazz.courseId._id}
             subjectId={item._id}
+            courseName={clazz.courseId.name}
+            subjectId={item._id}
+            subjectName={item.mainSubjectId.name}
           />
         );
       });

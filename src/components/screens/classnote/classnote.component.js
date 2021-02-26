@@ -37,7 +37,7 @@ const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
   const toggle1 = () => setModal1(!modal1);
   const parsed = queryString.parse(props.location.search);
-
+  const { activeCoursePaidStatus, clazz, inClass } = props;
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -68,24 +68,23 @@ const ClassNote = (props) => {
     }
     return decodeHTMLEntities;
   })();
+
+  const lessons =
+    props.subject.relatedLessons &&
+    props.subject.relatedLessons.filter((les) => les.termId === parsed.termId);
+
   const targetLesson =
-    props.subject.relatedLessons &&
-    props.subject.relatedLessons.find(
-      (lesson) => lesson._id === parsed.lessonId
-    );
+    lessons && lessons.find((lesson) => lesson._id === parsed.lessonId);
   const targetLessonIndex =
-    props.subject.relatedLessons &&
-    props.subject.relatedLessons.findIndex(
-      (lesson) => lesson._id === parsed.lessonId
-    );
-  const nextLesson =
-    props.subject.relatedLessons &&
-    props.subject.relatedLessons[targetLessonIndex + 1];
+    lessons && lessons.findIndex((lesson) => lesson._id === parsed.lessonId);
+  const nextLesson = lessons && lessons[targetLessonIndex + 1];
 
-  const prevLesson =
-    props.subject.relatedLessons &&
-    props.subject.relatedLessons[targetLessonIndex - 1];
+  const prevLesson = lessons && lessons[targetLessonIndex - 1];
 
+  let prevNotAllowed =
+    prevLesson && !activeCoursePaidStatus && targetLessonIndex - 1 !== 0;
+  let nextNotAllowed =
+    nextLesson && !activeCoursePaidStatus && targetLessonIndex + 1 !== 0;
   let shareLink = `http://www.myafrilearn.com/`;
   return (
     <span>
@@ -208,7 +207,13 @@ const ClassNote = (props) => {
                   }`
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
+            onClick={(e) => {
+              prevNotAllowed && e.preventDefault();
+            }}
             className="button button1"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title={prevLesson ? prevLesson.title : "Subject Page"}
           >
             <FontAwesomeIcon
               icon={faAngleLeft}
@@ -231,9 +236,7 @@ const ClassNote = (props) => {
           </Link>
           <div className="text">
             Lesson {targetLessonIndex + 1} of{" "}
-            {props.subject &&
-              props.subject.relatedLessons &&
-              props.subject.relatedLessons.length}
+            {props.subject && lessons && lessons.length}
           </div>
           <Link
             to={
@@ -251,7 +254,13 @@ const ClassNote = (props) => {
                   }`
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
+            onClick={(e) => {
+              nextNotAllowed && e.preventDefault();
+            }}
             className="button button2"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title={nextLesson ? nextLesson.title : "Subject Page"}
           >
             <div>
               <p>{nextLesson ? "Next Lesson" : "Back to"}</p>
@@ -276,8 +285,12 @@ ClassNote.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  clazz: state.class.class,
+  inClass: state.auth.inClass,
+  user: state.auth.user.role,
   course: state.course.course,
   subject: state.subject.subject,
+  activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
 });
 
 export default connect(mapStateToProps, { getSubjectAndRelatedLessons })(

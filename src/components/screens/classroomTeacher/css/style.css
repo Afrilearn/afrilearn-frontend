@@ -663,3 +663,8 @@
 .mb-100 {
   margin-bottom: 100px;
 }
+.pay-to-unlock {
+  color: orangered !important;
+  font-weight: lighter;
+  font-family: font3;
+}
