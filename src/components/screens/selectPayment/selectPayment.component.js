@@ -81,7 +81,7 @@ const Payment = (props) => {
   const config = {
     reference: new Date().getTime(),
     email,
-    amount: paymentAmount * 100,
+    amount: 2 * 100,
     publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
   };
 
@@ -95,6 +95,7 @@ const Payment = (props) => {
       courseId: courseId || parsed.courseId,
       paymentPlanId,
       amount: paymentAmount,
+      status: "paid",
     };
     console.log(reference);
     props.createTransaction(data);
