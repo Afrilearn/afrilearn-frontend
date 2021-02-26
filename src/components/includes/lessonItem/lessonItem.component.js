@@ -28,6 +28,7 @@ const LessonItem = (props) => {
     isViewed,
     inClass,
     clazz,
+    role,
   } = props;
   const updateQuizType = () => {
     props.inputChange("examType", "quiz");
@@ -37,6 +38,9 @@ const LessonItem = (props) => {
     props.loadQuizQuestions(lesson.questions);
   };
 
+  const isStudent = role === "5fd08fba50964811309722d5";
+
+  console.log(isStudent);
   const recommendation = (id) => {
     const mainList =
       relatedLessons && relatedLessons.filter((vid) => vid._id !== id);
@@ -71,8 +75,24 @@ const LessonItem = (props) => {
               <Tooltip
                 overlay={
                   !activeCoursePaidStatus && !unlocked ? (
-                    <Link to="/select-pay">
-                      Please subscribe to unlock content
+                    <Link
+                      to={
+                        inClass &&
+                        clazz.enrolledCourse &&
+                        !clazz.enrolledCourse.paymentIsActive
+                          ? `/select-pay?courseId=${
+                              clazz.enrolledCourse &&
+                              !clazz.enrolledCourse.courseId
+                            }`
+                          : "/select-pay"
+                      }
+                      onClick={(e) => {
+                        inClass && isStudent && e.preventDefault();
+                      }}
+                    >
+                      {inClass && isStudent
+                        ? "Content locked"
+                        : "Please subscribe to unlock content"}
                     </Link>
                   ) : (
                     <span>Lesson video</span>
@@ -91,6 +111,12 @@ const LessonItem = (props) => {
                         }&subjectId=${lesson.subjectId}&lessonId=${
                           lesson._id
                         }&videoId=${item._id}`
+                      : inClass &&
+                        clazz.enrolledCourse &&
+                        !clazz.enrolledCourse.paymentIsActive
+                      ? `/select-pay?courseId=${
+                          clazz.enrolledCourse && clazz.enrolledCourse.courseId
+                        }`
                       : "/select-pay"
                   }
                 >
@@ -114,8 +140,24 @@ const LessonItem = (props) => {
                   <Tooltip
                     overlay={
                       !activeCoursePaidStatus && !unlocked ? (
-                        <Link to="/select-pay">
-                          Please subscribe to unlock content
+                        <Link
+                          to={
+                            inClass &&
+                            clazz.enrolledCourse &&
+                            !clazz.enrolledCourse.paymentIsActive
+                              ? `/select-pay?courseId=${
+                                  clazz.enrolledCourse &&
+                                  !clazz.enrolledCourse.courseId
+                                }`
+                              : "/select-pay"
+                          }
+                          onClick={(e) => {
+                            inClass && isStudent && e.preventDefault();
+                          }}
+                        >
+                          {inClass && isStudent
+                            ? "Content locked"
+                            : "Please subscribe to unlock content"}
                         </Link>
                       ) : (
                         <span>Quiz</span>
@@ -146,7 +188,30 @@ const LessonItem = (props) => {
           <Tooltip
             overlay={
               !activeCoursePaidStatus && !unlocked ? (
-                <Link to="/select-pay">Please subscribe to unlock content</Link>
+                <Link
+                  to={
+                    inClass &&
+                    clazz.enrolledCourse &&
+                    !clazz.enrolledCourse.paymentIsActive
+                      ? `/select-pay?courseId=${
+                          clazz.enrolledCourse && clazz.enrolledCourse.courseId
+                        }`
+                      : inClass &&
+                        clazz.enrolledCourse &&
+                        !clazz.enrolledCourse.paymentIsActive
+                      ? `/select-pay?courseId=${
+                          clazz.enrolledCourse && clazz.enrolledCourse.courseId
+                        }`
+                      : "/select-pay"
+                  }
+                  onClick={(e) => {
+                    inClass && isStudent && e.preventDefault();
+                  }}
+                >
+                  {inClass && isStudent
+                    ? "Content locked"
+                    : "Please subscribe to unlock content"}
+                </Link>
               ) : (
                 <span>Lesson note</span>
               )
@@ -178,7 +243,15 @@ const LessonItem = (props) => {
                         props.subjectName
                       )}/${slugify(lesson.title)}?courseId=${
                         lesson.courseId
-                      }&subjectId=${lesson.subjectId}&lessonId=${lesson._id}`
+                      }&subjectId=${lesson.subjectId}&lessonId=${
+                        lesson._id
+                      }&termId=${lesson.termId}`
+                    : inClass &&
+                      clazz.enrolledCourse &&
+                      !clazz.enrolledCourse.paymentIsActive
+                    ? `/select-pay?courseId=${
+                        clazz.enrolledCourse && clazz.enrolledCourse.courseId
+                      }`
                     : "/select-pay"
                 }
                 onClick={updateQuizType}
@@ -199,7 +272,24 @@ const LessonItem = (props) => {
         <Tooltip
           overlay={
             !activeCoursePaidStatus && !unlocked ? (
-              <Link to="/select-pay">Please subscribe to unlock content</Link>
+              <Link
+                to={
+                  inClass &&
+                  clazz.enrolledCourse &&
+                  !clazz.enrolledCourse.paymentIsActive
+                    ? `/select-pay?courseId=${
+                        clazz.enrolledCourse && clazz.enrolledCourse.courseId
+                      }`
+                    : "/select-pay"
+                }
+                onClick={(e) => {
+                  inClass && isStudent && e.preventDefault();
+                }}
+              >
+                {inClass && isStudent
+                  ? "Content locked"
+                  : "Please subscribe to unlock content"}
+              </Link>
             ) : (
               <span>View Content</span>
             )
@@ -285,6 +375,7 @@ const mapStateToProps = (state) => ({
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
   clazz: state.class.class,
   inClass: state.auth.inClass,
+  role: state.auth.role,
 });
 
 export default connect(mapStateToProps, {

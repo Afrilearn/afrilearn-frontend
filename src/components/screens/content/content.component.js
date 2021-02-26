@@ -24,7 +24,7 @@ const Content = (props) => {
   const parsed = queryString.parse(props.location.search);
 
   useEffect(() => {
-    if (!mounted.current) {
+    if (!mounted.current) { 
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
@@ -77,9 +77,11 @@ const Content = (props) => {
       subject.relatedLessons.filter((les) => les.termId === item.id);
     terms.push({ id: item.id, name: item.name, lessons });
   });
+ 
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
+  
   return (
     <div>
       <div

@@ -81,7 +81,7 @@ const ClassroomTeacher = (props) => {
   const [newAnouncements, setNewAnouncements] = useState([]);
   const [newComments, setNewComments] = useState([]);
   const mounted = useRef();
-  const invitationLink = `http://demo.myafrilearn.com/join-class?email=${email}&classId=5fcdf5f5581c833b189bb693`;
+  const invitationLink = `https://myafrilearn.com/join-class?email=${email}&classId=${activeEnrolledCourseId}`;
 
   useEffect(() => {
     if (!mounted.current) {
@@ -162,7 +162,6 @@ const ClassroomTeacher = (props) => {
     textField.classList.add("hide");
     setVisible(true);
   };
-
   const subjectList = () => {
     if (clazz && Object.keys(clazz) && clazz.relatedSubjects) {
       return clazz.relatedSubjects.map((item) => {
@@ -176,6 +175,9 @@ const ClassroomTeacher = (props) => {
             courseId={clazz.courseId._id}
             subjectId={item._id}
             key={item._id}
+            courseName={clazz.courseId.name}
+            subjectId={item._id}
+            subjectName={item.mainSubjectId.name}
           />
         );
       });
@@ -214,7 +216,7 @@ const ClassroomTeacher = (props) => {
                       {moment(classAnnouncement.createdAt).fromNow()}
                     </small>
                   </div>
-                </div> 
+                </div>
                 <img src={dots} alt="see-more" />
               </div>
               <p className="sender-message">{classAnnouncement.text}</p>
@@ -385,12 +387,15 @@ const ClassroomTeacher = (props) => {
           <div className="pupil">
             <img src={man} height="50px" alt="pupil" />
             <div>
-              <p>{classMember.userId.fullName}</p>
+              <p>{classMember.userId && classMember.userId.fullName}</p>
               <Link
                 to="/performance"
                 class="badge bg-primary"
                 onClick={() => {
-                  props.inputChange("targetUser", classMember.userId._id);
+                  props.inputChange(
+                    "targetUser",
+                    classMember.userId && classMember.userId._id
+                  );
                 }}
               >
                 See performance
@@ -420,6 +425,7 @@ const ClassroomTeacher = (props) => {
       return <div className="container padding-30">No Members list yet</div>;
     }
   };
+
   const pastQuestionsList = () => {
     if (
       clazz &&
@@ -597,6 +603,16 @@ const ClassroomTeacher = (props) => {
           </span>
         </div>
         <div className="main-tabs container ">
+          {clazz.enrolledCourse && !clazz.enrolledCourse.paymentIsActive && (
+            <Link
+              to={`/select-pay?classId=${clazz._id}&courseId=${
+                clazz.enrolledCourse && clazz.enrolledCourse.courseId
+              }`}
+              className="pay-to-unlock"
+            >
+              Pay to unlock all content
+            </Link>
+          )}
           <div class="row row-cols-auto align-items-end justify-content-center">
             <div className="col">
               <div
@@ -630,6 +646,7 @@ const ClassroomTeacher = (props) => {
             </div>
           </div>
         </div>
+
         <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
             <div className="content-section">
