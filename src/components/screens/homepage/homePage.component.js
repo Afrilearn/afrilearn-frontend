@@ -529,13 +529,13 @@ const Homepage = (props) => {
                 >
                   <div class="accordion-body">
                     We’ve got you! Simply{" "}
-                    <a href="/">
+                    <Link to="/faq">
                       <b>CLICK HERE</b>
-                    </a>{" "}
+                    </Link>{" "}
                     to visit our{" "}
-                    <a href="/">
+                    <Link to="/faq">
                       <b>COMPLETE FAQ PAGE</b>
-                    </a>
+                    </Link>
                     , which regularly gets updated based on new data insights
                     from our awesome users.
                   </div>

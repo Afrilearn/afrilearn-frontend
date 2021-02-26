@@ -56,7 +56,7 @@
   position: absolute;
   top: 0;
   right: 15%;
-  width: 57%;
+  width: 57%; 
   height: 40px;
   transform: translateY(-100%);
   /* overflow-y: auto; */
