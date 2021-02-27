@@ -1,0 +1,128 @@
+#faqPageSectionOne {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.63), rgba(0, 0, 0, 0.63)),
+    url("../../../../assets/img/faqBg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  height: 450px;
+  margin-top: -100px;
+  text-align: center;
+}
+#faqPageSectionOne h1 {
+  padding-top: 230px;
+  color: #ffffff;
+}
+#faqPageSectionOne h1 span {
+  color: #26aa76;
+}
+@media screen and (max-width: 900px) {
+  #faqPageSectionOne h1 {
+    padding-top: 250px;
+  }
+}
+#faqPageSectionOne h4 {
+  color: #26aa76;
+}
+#faqPageSectionTwo {
+  background-color: black;
+  min-height: 400px;
+  color: white;
+}
+#faqPageSectionTwo .top-text {
+  text-align: center;
+  padding-top: 50px;
+}
+#faqPageSectionTwo .top-text p {
+  color: #26aa76;
+}
+#faqPageSectionTwo .top-text h1 {
+  color: white;
+  font-family: font2;
+  margin-top: 0px;
+}
+#faqPageSectionTwo .faq-list {
+  width: 60%;
+  margin: auto;
+  /* padding: 100px 0; */
+  padding-bottom: 100px;
+}
+#faqPageSectionTwo .nav-tabs {
+  border-bottom: none;
+  justify-content: center;
+  margin: 20px;
+  padding-bottom: 50px;
+}
+#faqPageSectionTwo .nav-tabs .nav-link {
+  border: none;
+  font-size: 13px;
+  font-family: font1;
+  background-color: transparent;
+  color: #26aa76;
+  text-transform: uppercase;
+}
+#faqPageSectionTwo .tab-nav-item {
+  cursor: pointer;
+  margin-right: 20px;
+  margin-left: 5px;
+}
+#faqPageSectionTwo .tab-nav-item.active {
+  border-bottom: 4px solid #26aa76 !important;
+}
+@media screen and (max-width: 1200px) {
+  #faqPageSectionTwo .tab {
+    position: relative;
+    width: auto;
+    top: 120px;
+    right: unset;
+    height: auto;
+  }
+}
+@media screen and (max-width: 900px) {
+  #faqPageSectionTwo .faq-list {
+    /* overflow-y: auto; */
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    padding-bottom: 50px;
+    text-align: justify;
+  }
+  #faqPageSectionTwo .nav-tabs {
+    margin: 15px 5px;
+  }
+  #faqPageSectionTwo .nav-tabs .nav-link {
+    font-size: 12px;
+  }
+  #faqPageSectionTwo .tab-nav-item {
+    cursor: pointer;
+    margin-right: 1px;
+    margin-left: 1px;
+  }
+}
+#faqPageSectionTwo .accordion-button {
+  color: #212529;
+  background-color: #212529;
+}
+#faqPageSectionTwo .accordion-button:active {
+  color: #26aa76 !important;
+}
+#faqPageSectionTwo .accordion-button::after {
+  /* background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e); */
+  background-image: url("../../../../assets/img/whiteArrowDown.png");
+}
+
+#faqPageSectionTwo .accordion-button:not(.collapsed)::after {
+  background-image: url("../../../../assets/img/whiteArrowDown.png");
+
+  transform: rotate(180deg);
+}
+
+#faqPageSectionTwo .accordion-button:focus {
+  z-index: 3;
+  border-color: transparent;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem transparent;
+}
+
+#faqPageSectionTwo .card {
+  background-color: #212529;
+}
