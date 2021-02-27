@@ -80,6 +80,16 @@ const ClassDisplay = (props) => {
         <div className="row push2">
           <div className="col-md-4">
             <span className="box3">
+              <FontAwesomeIcon icon={faFileAlt} color="black" />
+            </span>
+            &nbsp;&nbsp;{" "}
+            {classNoteCount && classNoteCount > 0
+              ? numberWithCommas(classNoteCount)
+              : 0}{" "}
+            Class Notes
+          </div>
+          <div className="col-md-4">
+            <span className="box3">
               <FontAwesomeIcon icon={faPlay} color="black" />
             </span>
             &nbsp;&nbsp;{" "}
@@ -97,17 +107,7 @@ const ClassDisplay = (props) => {
               ? numberWithCommas(videoLessonCount)
               : 0}{" "}
             Audio Lessons
-          </div>
-          <div className="col-md-4">
-            <span className="box3">
-              <FontAwesomeIcon icon={faFileAlt} color="black" />
-            </span>
-            &nbsp;&nbsp;{" "}
-            {classNoteCount && classNoteCount > 0
-              ? numberWithCommas(classNoteCount)
-              : 0}{" "}
-            Class Notes
-          </div>
+          </div>          
         </div>
         <div className="row push2">
           <div className="col-md-4">

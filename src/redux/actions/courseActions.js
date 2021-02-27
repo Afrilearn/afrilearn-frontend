@@ -118,7 +118,13 @@ export const getCourse = (data) => async (dispatch) => {
 
 export const populateDashboard = (data) => async (dispatch) => {
   try {
-    // document.body.classList.add("loading-indicator");
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name:'isLoading',
+        value:true,
+      },
+    });  
     const result = await API.populateDashboard(data);
     let excelling,
       average,
@@ -173,9 +179,21 @@ export const populateDashboard = (data) => async (dispatch) => {
         noRatingText,
       },
     });
-    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name:'isLoading',
+        value:false,
+      },
+    });  
   } catch (err) {
-    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name:'isLoading',
+        value:false,
+      },
+    });  
     dispatch(
       returnErrors(
         err.response && err.response.data.errors

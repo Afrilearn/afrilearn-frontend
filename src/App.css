@@ -300,9 +300,41 @@ input.searchBox {
   display: none;
   -webkit-animation: moveDown 0.5s ease-in-out;
   animation: moveDown 0.5s ease-in-out;
+  border-radius: 6px;
+}
+.searchArea ul {
+  background: #000000 70%;
+  position: absolute;
+  top: 41px;
+  width: 100%;
+  padding: 23px;
+  display: none;
+  left: 0px;
+  border-radius: 10px;
+  margin-top: 4px;
 }
 
-.searchArea:hover input.searchBox {
+.searchArea img.searchIcon1 {
+  width: 14px;
+  height: 14px;
+  margin-right: 12px;
+  object-fit: contain;
+  margin-top: -1px;
+}
+.searchArea img.searchLoader {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.searchArea ul li {
+  list-style: none;
+  font-size: 14px !important;
+  padding: 4px 0px;
+  font-family: font3;
+}
+
+.searchArea:hover input.searchBox, .searchArea:hover ul{
   display: block;
 }
 

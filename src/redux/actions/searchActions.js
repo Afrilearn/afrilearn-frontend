@@ -3,7 +3,7 @@ import { returnErrors } from "./errorActions";
 
 import {
   GET_ALL_SEARCH_RESULTS_SUCCESS,
-  GET_ALL_SEARCH_RESULTS_FAILURE,
+  GET_ALL_SEARCH_RESULTS_FAILURE, 
   SEARCH_INPUT_CHANGE
 } from "./types";
 
@@ -23,16 +23,27 @@ export const searchInputChange = (name, value) => async (dispatch) => {
 };
 
 export const getSearchResults = (searchQuery) => async (dispatch) => {
-  try {
-    document.body.classList.add("loading-indicator");
+  try {    
+    dispatch({
+      type: SEARCH_INPUT_CHANGE,
+      payload: {
+        name: 'isSearching',
+        value: true,
+      },
+    });
     const result = await API.getSearchResults(searchQuery);
     dispatch({
       type: GET_ALL_SEARCH_RESULTS_SUCCESS,
       payload: result.data.data,
     });
-    document.body.classList.remove("loading-indicator");
-  } catch (err) {
-    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: SEARCH_INPUT_CHANGE,
+      payload: {
+        name: 'isSearching',
+        value: false,
+      },
+    });
+  } catch (err) {   
     dispatch(
       returnErrors(
         err.response.data.errors
@@ -47,3 +58,5 @@ export const getSearchResults = (searchQuery) => async (dispatch) => {
     });
   }
 };
+
+

@@ -35,6 +35,7 @@ const Dashboard = (props) => {
     belowAverageText,
     noRatingText,
     course,
+    isLoading
   } = props;
   const mounted = useRef();
 
@@ -215,10 +216,11 @@ const Dashboard = (props) => {
       <div id="dashboardFirstSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">
-            <h1>
-              {dashboardData.enrolledCourse
+
+            <h1>            
+              { isLoading? <img className="social" src={require('../../../assets/img/loading.gif')} alt="google"/>: dashboardData.enrolledCourse
                 ? dashboardData.enrolledCourse.courseId.name
-                : "Welcome"}
+                : 'Welcome'}
             </h1>
           </div>
         </div>
@@ -242,7 +244,7 @@ const Dashboard = (props) => {
       </div>
       <div id="dashboardSecondSection" className="container-fluid relative">
         {Object.keys(dashboardData).length && dashboardData.enrolledCourse ? (
-          <>
+          <>        
             <a name="subjects"></a>
             <h4>My Subjects</h4>
             <div className="row">{subjectList()}</div>
@@ -296,30 +298,36 @@ const Dashboard = (props) => {
           ""
         )}
         <a name="classroom"></a>
-        <h4 className="push5">Classroom</h4>
-        <div className="row push8">
-          <div className="col-md-12 right underline">
-            <Tooltip
-              placement="top"
-              trigger={["hover"]}
-              overlay={
-                <span>
-                  Enter your Class Code to attend a class and interact with top
-                  Educators.
-                </span>
-              }
-            >
-              <Link onClick={handleJoinClass}>Join A Classroom</Link>
-            </Tooltip>
+          <h4 className="push5">Classroom</h4>
+          <div className="row push8">
+            <div className="col-md-12 right underline">
+              <Tooltip
+                placement="top"
+                trigger={["hover"]}
+                overlay={
+                  <span>
+                    Enter your Class Code to attend a class and interact with top
+                    Educators.
+                  </span>
+                }
+              >
+                <Link onClick={handleJoinClass}>Join A Classroom</Link>
+              </Tooltip>
+            </div>
           </div>
-        </div>
-        {classList()}
-        <a name="recommendations"></a>
-        <h4 className="push5">Recommendations</h4>
-        {recommendationList()}
-        <a name="recentActivities"></a>
-        <h4 className="push5">Recent Activities</h4>
-        {recentActivitiesList()}
+          {isLoading? <img className="centerImage" src={require('../../../assets/img/loading.gif')} alt="google"/>:
+            classList()
+          }
+          <a name="recommendations"></a>
+          <h4 className="push5">Recommendations</h4>      
+          {isLoading? <img className="centerImage" src={require('../../../assets/img/loading.gif')} alt="google"/>:
+            recommendationList()
+          }
+          <a name="recentActivities"></a>
+          <h4 className="push5">Recent Activities</h4>
+          {isLoading? <img className="centerImage" src={require('../../../assets/img/loading.gif')} alt="google"/>:
+            recentActivitiesList()
+          } 
       </div>
     </span>
   );
@@ -344,6 +352,7 @@ const mapStateToProps = (state) => ({
   averageText: state.course.averageText,
   belowAverageText: state.course.belowAverageText,
   noRatingText: state.course.noRatingText,
+  isLoading: state.course.isLoading,
 });
 
 export default connect(mapStateToProps, {
