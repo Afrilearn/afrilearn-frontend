@@ -5,7 +5,8 @@ import {
 
 const initialState = {
   searchResults: [],
-  searchText: "",
+  keyword: "",
+  isSearching:false
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -19,7 +20,7 @@ const searchReducer = (state = initialState, action) => {
     case GET_ALL_SEARCH_RESULTS_SUCCESS:
       return {
         ...state,
-        searchResults: action.payload.lessons,
+        searchResults: action.payload.result,
       };
 
     default:

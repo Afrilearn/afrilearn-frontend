@@ -8,11 +8,20 @@ const Box = (props) => {
     <div className="row push10 bottomBorder">
       <div className="col-md-2">
         <span className="recommend">
-          <img
-            src={props.pastQuestions ? PastQuestions : Lessons}
-            alt="icon"
-            className="recommendImg"
-          />
+          <Link
+            className="underline"
+            to={
+              props.pastQuestions
+                ? "/instructions"
+                : `/content/${props.recommended._id.courseId}/${props.recommended._id.subjectId}`
+            }
+          >
+            <img
+              src={props.pastQuestions ? PastQuestions : Lessons}
+              alt="icon"
+              className="recommendImg"
+            />
+          </Link>
         </span>
       </div>
       <div className="col-md-6">

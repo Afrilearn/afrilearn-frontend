@@ -8,6 +8,8 @@ import {
   ADD_RECENT_ACTIVITIES_SUCCESS,
   ADD_SUBJECT_PROGRESS_FAILURE,
   ADD_SUBJECT_PROGRESS_SUCCESS,
+  GET_SINGLE_LESSON_SUCCESS,
+  GET_SINGLE_LESSON_FAILURE,
 } from "./types";
 
 export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
@@ -107,6 +109,39 @@ export const addRecentActivity = (lessonId, type) => async (dispatch) => {
     );
     dispatch({
       type: ADD_RECENT_ACTIVITIES_FAILURE,
+    });
+  }
+};
+
+export const getSingleLesson = (lessonId) => async (
+  dispatch
+) => {
+  try {
+    document.body.classList.add("loading-indicator");
+
+    const result = await API.getSingleLesson(lessonId);
+   
+    dispatch({
+      type: GET_SINGLE_LESSON_SUCCESS,
+      payload: {
+        lesson: result.data.data.lesson      
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_SINGLE_LESSON_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_SINGLE_LESSON_FAILURE,
     });
   }
 };

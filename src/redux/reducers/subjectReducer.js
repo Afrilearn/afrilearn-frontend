@@ -2,6 +2,7 @@ import {
   GET_SUBJECT_AND_RELATED_LESSONS_SUCCESS,
   ADD_SUBJECT_PROGRESS_SUCCESS,
   ADD_RECENT_ACTIVITIES_SUCCESS,
+  GET_SINGLE_LESSON_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -10,7 +11,9 @@ const initialState = {
   lessonSubjectId: "",
   totalNumberOfLessons: 0,
   subjectProgresses: [],
-  numOfUsers:0
+  numOfUsers:0,
+  lesson:{}
+
 };
 
 const subjectReducer = (state = initialState, action) => {
@@ -31,7 +34,11 @@ const subjectReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
+    case GET_SINGLE_LESSON_SUCCESS:
+      return {
+        ...state,
+        lesson: action.payload.lesson     
+      };
     default:
       return state;
   }

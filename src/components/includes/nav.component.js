@@ -18,7 +18,6 @@ import {
   Switch,
   Route,
   Link,
-  Redirect,
 } from "react-router-dom";
 import homepage from "../screens/homepage/homePage.component";
 import about from "../screens/about/about.component";
@@ -53,11 +52,11 @@ import ProtectedRoute from "./protectedRoute.component";
 import PropTypes from "prop-types";
 import subject from "../screens/subject/subject.component";
 import joinClassComponent from "../screens/joinClass/joinClass.component";
-import SearchPage from "../screens/searchPage/searchPage.component";
+import SearchPage from "../screens/searchResult/searchResult.component";
 import classNote from "../screens/classnote/classnote.component";
 import {
-  getSearchResults,
   searchInputChange,
+  getSearchResults
 } from "./../../redux/actions/searchActions";
 import { populateDashboard } from "./../../redux/actions/courseActions";
 import faqPageComponent from "../screens/faqPage/faqPage.component";
@@ -65,15 +64,16 @@ import faqPageComponent from "../screens/faqPage/faqPage.component";
 const MyNav = (props) => {
   const {
     user,
-    searchRedirect,
-    searchLocation,
     dashboardRoute,
     role,
     inClass,
+    keyword,
+    isAuthenticated,
+    isSearching,
+    searchResults
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const { isAuthenticated } = props;
 
   const handleLogout = () => {
     props.logout();
@@ -168,9 +168,91 @@ const MyNav = (props) => {
       });
     }
   };
+
+  const searchResult = () => {
+    if (searchResults.length>0) {
+      return searchResults.map((item) => {
+        return (           
+          <Link to={`search\\${item._id}`} ><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>                    
+        );
+        // if(!isAuthenticated){
+        //   return (           
+        //     <Tooltip
+        //         placement="top"
+        //         trigger={["hover"]}
+        //         overlay={
+        //           <span>
+        //             Login/Register to view content
+        //           </span>
+        //         }
+        //       >    
+        //         <Link to="/register" onClick={()=>props.searchInputChange('keyword', '')}><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>
+        //       </Tooltip>           
+        //   );
+        // }else{
+        //   if (role === "5fd08fba50964811309722d5"){
+        //     if(user &&  user.enrolledCourses.length){
+        //         if(user.enrolledCourses.filter(course => course.courseId._id === item.courseId._id && course.paymentIsActive ===true).length){
+        //           return (
+        //             <Link><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>                           
+        //           );
+        //         }else{
+        //           return (           
+        //             <Tooltip
+        //                 placement="top"
+        //                 trigger={["hover"]}
+        //                 overlay={
+        //                   <span>
+        //                     Subscribe to {item.courseId.name} to unlock content
+        //                   </span>
+        //                 }
+        //               >    
+        //                 <Link to="/select-pay"><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>
+        //               </Tooltip>           
+        //           );
+        //         }
+        //     }else{
+        //       return (           
+        //         <Tooltip
+        //             placement="top"
+        //             trigger={["hover"]}
+        //             overlay={
+        //               <span>
+        //                 Subscribe to {item.courseId.name} to unlock content
+        //               </span>
+        //             }
+        //           >    
+        //             <Link to="/select-pay"><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>
+        //           </Tooltip>           
+        //       );
+        //     } 
+        //   }
+         
+        // }
+          
+        });
+    }else{
+      return <li>No result found</li>
+    }
+  }
+
+  const handleSearch =(e) => {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    props.searchInputChange(name, value);	
+    if(keyword.length > 1){     
+      props.getSearchResults(keyword);			 
+    }else{
+            // props.inputChange('isLoading', false);	
+            // const clearSearch = [];
+            // props.inputChange('searchResults', clearSearch);
+            // props.inputChange('showResult', false);
+    }
+  }
+
   return (
     <Router>
-      {searchRedirect ? <Redirect to={searchLocation} /> : null}
       <Navbar color="light" light expand="md">
         <NavbarBrand tag={Link} to="/">
           <img
@@ -218,29 +300,17 @@ const MyNav = (props) => {
               ""
             )}
             <NavItem>
-              <NavLink tag={Link} className="relative searchArea">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const searchQuery = document.getElementById("searchBox")
-                      .value;
-                    props.searchInputChange("searchText", searchQuery);
-                    props.getSearchResults(searchQuery);
-                  }}
+              <NavLink className="relative searchArea">
+                <form        
                 >
                   <input
                     type="text"
-                    placeholder="Search"
-                    className="searchBox"
-                    id="searchBox"
-                    onFocus={(e) => {
-                      e.preventDefault();
-                      props.inputChange("searchRedirect", true);
-                    }}
-                    onBlur={(e) => {
-                      e.preventDefault();
-                      props.inputChange("searchRedirect", false);
-                    }}
+                    placeholder="Search Topics"
+                    className="searchBox"                   
+                    value={keyword} 
+                    name="keyword"
+                    onChange={handleSearch}  
+                    onBlur={()=>props.searchInputChange('keyword', '')}              
                   />
                   <img
                     className="searchIcon"
@@ -248,6 +318,14 @@ const MyNav = (props) => {
                     alt="Afrilearn Search button"
                   />
                 </form>
+                { isSearching? <img className="searchLoader" src={require('../../assets/img/loading.gif')} alt="google"/>:
+                  keyword.length>2?                  
+                  <ul>
+                    {searchResult()}
+                  </ul>
+                  : null
+                }
+              
               </NavLink>
             </NavItem>
             {/* <NavItem>
@@ -384,7 +462,7 @@ const MyNav = (props) => {
         <ProtectedRoute path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
         <Route path="/join-class" component={joinClassComponent} />
-        <Route path="/search" component={SearchPage} />
+        <ProtectedRoute path="/search/:lessonId" component={SearchPage} />
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
@@ -414,25 +492,24 @@ const MyNav = (props) => {
 
 MyNav.propTypes = {
   inputChange: PropTypes.func.isRequired,
-  getSearchResults: PropTypes.func.isRequired,
   searchInputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  searchLocation: state.auth.searchLocation,
-  searchRedirect: state.auth.searchRedirect,
   user: state.auth.user,
   inClass: state.auth.inClass,
-  searchResults: state.search.searchResults,
   dashboardRoute: state.auth.dashboardRoute,
   role: state.auth.role,
+  keyword: state.search.keyword,
+  isSearching: state.search.isSearching,
+  searchResults: state.search.searchResults,
 });
 
 export default connect(mapStateToProps, {
   inputChange,
-  getSearchResults,
   searchInputChange,
   populateDashboard,
   logout,
+  getSearchResults
 })(MyNav);
