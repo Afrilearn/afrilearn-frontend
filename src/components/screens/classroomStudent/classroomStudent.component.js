@@ -364,7 +364,7 @@ const ClassroomStudent = (props) => {
                   toggle("2");
                 }}
               >
-                Materials
+                Resources
               </NavLink>
             </NavItem>
             <NavItem className="tab-nav-item tab-nav-item-3">

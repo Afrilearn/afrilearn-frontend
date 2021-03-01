@@ -35,7 +35,7 @@ const Box = (props) => {
               props.inputChange("inClass", true);
             }}
           >
-            View
+            Enter
           </Link>
         </div>
       ) : (
