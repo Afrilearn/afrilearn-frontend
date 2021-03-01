@@ -145,7 +145,7 @@ const ClassroomTeacher = (props) => {
         props.clearErrors();
       }
     }
-  });
+  }, [activeEnrolledCourseId]);
   if (clazz) {
     props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
   }
