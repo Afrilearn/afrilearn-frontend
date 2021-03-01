@@ -35,7 +35,7 @@ const Dashboard = (props) => {
     belowAverageText,
     noRatingText,
     course,
-    isLoading
+    isLoading,
   } = props;
   const mounted = useRef();
 
@@ -45,6 +45,7 @@ const Dashboard = (props) => {
     mounted.current = true;
     window.scrollTo(0, 0);
     props.authInputChange("inClass", false);
+    props.authInputChange("activeCoursePaidStatus", false);
     const data = {
       enrolledCourseId: activeEnrolledCourseId,
     };
@@ -170,8 +171,10 @@ const Dashboard = (props) => {
           return (
             <RecentActivitesBox
               category={item.type}
-              title={item.lessonId.title}
-              subject={item.lessonId.subjectId.mainSubjectId.name}
+              title={item.lessonId && item.lessonId.title}
+              subject={
+                item.lessonId && item.lessonId.subjectId.mainSubjectId.name
+              }
               excel={index % 2 === 0 ? true : false}
               time={item.createdAt}
             />
@@ -215,11 +218,18 @@ const Dashboard = (props) => {
       <div id="dashboardFirstSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">
-
-            <h1>            
-              { isLoading? <img className="social" src={require('../../../assets/img/loading.gif')} alt="google"/>: dashboardData.enrolledCourse
-                ? dashboardData.enrolledCourse.courseId.name
-                : 'Welcome'}
+            <h1>
+              {isLoading ? (
+                <img
+                  className="social"
+                  src={require("../../../assets/img/loading.gif")}
+                  alt="google"
+                />
+              ) : dashboardData.enrolledCourse ? (
+                dashboardData.enrolledCourse.courseId.name
+              ) : (
+                "Welcome"
+              )}
             </h1>
           </div>
         </div>
@@ -243,7 +253,7 @@ const Dashboard = (props) => {
       </div>
       <div id="dashboardSecondSection" className="container-fluid relative">
         {Object.keys(dashboardData).length && dashboardData.enrolledCourse ? (
-          <>        
+          <>
             <a name="subjects"></a>
             <h4>My Subjects</h4>
             <div className="row">{subjectList()}</div>
@@ -297,36 +307,54 @@ const Dashboard = (props) => {
           ""
         )}
         <a name="classroom"></a>
-          <h4 className="push5">Classroom</h4>
-          <div className="row push8">
-            <div className="col-md-12 right underline">
-              <Tooltip
-                placement="top"
-                trigger={["hover"]}
-                overlay={
-                  <span>
-                    Enter your Class Code to attend a class and interact with top
-                    Educators.
-                  </span>
-                }
-              >
-                <Link onClick={handleJoinClass}>Join A Classroom</Link>
-              </Tooltip>
-            </div>
+        <h4 className="push5">Classroom</h4>
+        <div className="row push8">
+          <div className="col-md-12 right underline">
+            <Tooltip
+              placement="top"
+              trigger={["hover"]}
+              overlay={
+                <span>
+                  Enter your Class Code to attend a class and interact with top
+                  Educators.
+                </span>
+              }
+            >
+              <Link onClick={handleJoinClass}>Join A Classroom</Link>
+            </Tooltip>
           </div>
-          {isLoading? <img className="centerImage" src={require('../../../assets/img/loading.gif')} alt="google"/>:
-            classList()
-          }
-          <a name="recommendations"></a>
-          <h4 className="push5">Recommendations</h4>      
-          {isLoading? <img className="centerImage" src={require('../../../assets/img/loading.gif')} alt="google"/>:
-            recommendationList()
-          }
-          <a name="recentActivities"></a>
-          <h4 className="push5">Recent Activities</h4>
-          {isLoading? <img className="centerImage" src={require('../../../assets/img/loading.gif')} alt="google"/>:
-            recentActivitiesList()
-          } 
+        </div>
+        {isLoading ? (
+          <img
+            className="centerImage"
+            src={require("../../../assets/img/loading.gif")}
+            alt="google"
+          />
+        ) : (
+          classList()
+        )}
+        <a name="recommendations"></a>
+        <h4 className="push5">Recommendations</h4>
+        {isLoading ? (
+          <img
+            className="centerImage"
+            src={require("../../../assets/img/loading.gif")}
+            alt="google"
+          />
+        ) : (
+          recommendationList()
+        )}
+        <a name="recentActivities"></a>
+        <h4 className="push5">Recent Activities</h4>
+        {isLoading ? (
+          <img
+            className="centerImage"
+            src={require("../../../assets/img/loading.gif")}
+            alt="google"
+          />
+        ) : (
+          recentActivitiesList()
+        )}
       </div>
     </span>
   );

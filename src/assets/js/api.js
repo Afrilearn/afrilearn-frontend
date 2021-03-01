@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: HerokuURL,
+  url: LocalURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -220,11 +220,10 @@ export default {
     });
   },
 
-  getSearchResults(searchQuery, data=null) {
+  getSearchResults(searchQuery) {
     return axios({
-      method: "post",
-      url: `${this.url}lessons/search/${searchQuery}`,
-      data
+      method: "get",
+      url: `${this.url}lessons?searchQuery=${searchQuery}`,
     });
   },
 
@@ -418,14 +417,6 @@ export default {
       url: `${this.url}courses/${courseId}/progress-and-performance`,
       headers: this.headers(),
       data,
-    });
-  },
-
-  getSingleLesson(lessonId) {
-    return axios({
-      method: "get",
-      url: `${this.url}lessons/${lessonId}`,
-      headers: this.headers()      
     });
   },
 };

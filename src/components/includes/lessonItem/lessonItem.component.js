@@ -40,13 +40,185 @@ const LessonItem = (props) => {
 
   const isStudent = role === "5fd08fba50964811309722d5";
 
-  console.log(isStudent);
   const recommendation = (id) => {
     const mainList =
       relatedLessons && relatedLessons.filter((vid) => vid._id !== id);
     const random = Math.floor(Math.random() * mainList.length);
 
     return mainList[random];
+  };
+
+  const onClickLesson = (lesson) => {
+    if (activeCoursePaidStatus || unlocked) {
+      props.addRecentActivity(lesson._id, "lesson");
+      props.addSubjectProgress(
+        inClass ? clazz._id : null,
+        lesson._id,
+        lesson.subjectId,
+        lesson.courseId,
+        recommendation(lesson._id),
+        lesson._id,
+        "lesson"
+      );
+    }
+  };
+  const onClickClassNote = (lesson) => {
+    if (activeCoursePaidStatus || unlocked) {
+      props.addRecentActivity(lesson._id, "lesson");
+      props.addSubjectProgress(
+        inClass ? clazz._id : null,
+        lesson._id,
+        lesson.subjectId,
+        lesson.courseId,
+        recommendation(lesson._id),
+        lesson._id,
+        "lesson"
+      );
+    }
+  };
+  const onClickQuiz = (lesson) => {
+    if (activeCoursePaidStatus || unlocked) {
+      props.addRecentActivity(lesson._id, "quiz");
+    }
+  };
+
+  const quizToolTipsComponent = () => {
+    return !activeCoursePaidStatus && !unlocked ? (
+      <Link
+        to={
+          inClass &&
+          clazz.enrolledCourse &&
+          !clazz.enrolledCourse.paymentIsActive
+            ? `/select-pay?courseId=${
+                clazz.enrolledCourse && !clazz.enrolledCourse.courseId
+              }`
+            : "/select-pay"
+        }
+        onClick={(e) => {
+          inClass && isStudent && e.preventDefault();
+        }}
+      >
+        {inClass && isStudent
+          ? "Content locked"
+          : "Please subscribe to unlock content"}
+      </Link>
+    ) : (
+      <span>Quiz</span>
+    );
+  };
+  const lesonToolTipsComponent = () => {
+    return !activeCoursePaidStatus && !unlocked ? (
+      <Link
+        to={
+          inClass &&
+          clazz.enrolledCourse &&
+          !clazz.enrolledCourse.paymentIsActive
+            ? `/select-pay?courseId=${
+                clazz.enrolledCourse && !clazz.enrolledCourse.courseId
+              }`
+            : "/select-pay"
+        }
+        onClick={(e) => {
+          inClass && isStudent && e.preventDefault();
+        }}
+      >
+        Please subscribe to unlock content
+      </Link>
+    ) : (
+      <span>Lesson video</span>
+    );
+  };
+  const classnoteToolTipsComponent = () => {
+    return !activeCoursePaidStatus && !unlocked ? (
+      <Link
+        to={
+          inClass &&
+          clazz.enrolledCourse &&
+          !clazz.enrolledCourse.paymentIsActive
+            ? `/select-pay?courseId=${
+                clazz.enrolledCourse && clazz.enrolledCourse.courseId
+              }`
+            : inClass &&
+              clazz.enrolledCourse &&
+              !clazz.enrolledCourse.paymentIsActive
+            ? `/select-pay?courseId=${
+                clazz.enrolledCourse && clazz.enrolledCourse.courseId
+              }`
+            : "/select-pay"
+        }
+        onClick={(e) => {
+          inClass && isStudent && e.preventDefault();
+        }}
+      >
+        {inClass && isStudent
+          ? "Content locked"
+          : "Please subscribe to unlock content"}
+      </Link>
+    ) : (
+      <span>Lesson note</span>
+    );
+  };
+  const contentToolTipsComponent = () => {
+    return !activeCoursePaidStatus && !unlocked ? (
+      <Link
+        to={
+          inClass &&
+          clazz.enrolledCourse &&
+          !clazz.enrolledCourse.paymentIsActive
+            ? `/select-pay?courseId=${
+                clazz.enrolledCourse && clazz.enrolledCourse.courseId
+              }`
+            : "/select-pay"
+        }
+        onClick={(e) => {
+          inClass && isStudent && e.preventDefault();
+        }}
+      >
+        {inClass && isStudent
+          ? "Content locked"
+          : "Please subscribe to unlock content"}
+      </Link>
+    ) : (
+      <span>View Content</span>
+    );
+  };
+
+  const linkToLesson = (lesson, item) => {
+    return activeCoursePaidStatus || unlocked
+      ? `/content/${slugify(props.courseName)}/${slugify(
+          props.subjectName
+        )}/${slugify(lesson.title)}/${item._id}?courseId=${
+          lesson.courseId
+        }&subjectId=${lesson.subjectId}&lessonId=${lesson._id}&videoId=${
+          item._id
+        }`
+      : inClass && clazz.enrolledCourse && !clazz.enrolledCourse.paymentIsActive
+      ? `/select-pay?courseId=${
+          clazz.enrolledCourse && clazz.enrolledCourse.courseId
+        }`
+      : "/select-pay";
+  };
+  const linkToClassNote = (lesson) => {
+    return activeCoursePaidStatus || unlocked
+      ? `/classnote/${slugify(props.courseName)}/${slugify(
+          props.subjectName
+        )}/${slugify(lesson.title)}?courseId=${lesson.courseId}&subjectId=${
+          lesson.subjectId
+        }&lessonId=${lesson._id}&termId=${lesson.termId}`
+      : inClass && clazz.enrolledCourse && !clazz.enrolledCourse.paymentIsActive
+      ? `/select-pay?courseId=${
+          clazz.enrolledCourse && clazz.enrolledCourse.courseId
+        }`
+      : "/select-pay";
+  };
+  const linkToQuiz = () => {
+    return activeCoursePaidStatus || unlocked
+      ? "/lesson/quiz/instructions"
+      : inClass && clazz.enrolledCourse && !clazz.enrolledCourse.paymentIsActive
+      ? `/select-pay?courseId=${
+          clazz.enrolledCourse && clazz.enrolledCourse.courseId
+        }`
+      : "/select-pay";
   };
 
   const lessonVideos = () => {
@@ -57,68 +229,18 @@ const LessonItem = (props) => {
             <div
               class="col-md-3"
               key={index}
-              onClick={() => {
-                props.addRecentActivity(lesson._id, "lesson");
-                if (activeCoursePaidStatus || unlocked) {
-                  props.addSubjectProgress(
-                    inClass ? clazz._id : null,
-                    lesson._id,
-                    lesson.subjectId,
-                    lesson.courseId,
-                    recommendation(lesson._id),
-                    lesson._id,
-                    "lesson"
-                  );
-                }
-              }}
+              onClick={() => onClickLesson(lesson)}
             >
               <Tooltip
-                overlay={
-                  !activeCoursePaidStatus && !unlocked ? (
-                    <Link
-                      to={
-                        inClass &&
-                        clazz.enrolledCourse &&
-                        !clazz.enrolledCourse.paymentIsActive
-                          ? `/select-pay?courseId=${
-                              clazz.enrolledCourse &&
-                              !clazz.enrolledCourse.courseId
-                            }`
-                          : "/select-pay"
-                      }
-                      onClick={(e) => {
-                        inClass && isStudent && e.preventDefault();
-                      }}
-                    >
-                      {inClass && isStudent
-                        ? "Content locked"
-                        : "Please subscribe to unlock content"}
-                    </Link>
-                  ) : (
-                    <span>Lesson video</span>
-                  )
-                }
+                overlay={lesonToolTipsComponent}
                 placement="top"
                 trigger={["hover"]}
               >
                 <Link
-                  to={
-                    activeCoursePaidStatus || unlocked
-                      ? `/content/${slugify(props.courseName)}/${slugify(
-                          props.subjectName
-                        )}/${slugify(lesson.title)}/${item._id}?courseId=${
-                          lesson.courseId
-                        }&subjectId=${lesson.subjectId}&lessonId=${
-                          lesson._id
-                        }&videoId=${item._id}`
-                      : inClass &&
-                        clazz.enrolledCourse &&
-                        !clazz.enrolledCourse.paymentIsActive
-                      ? `/select-pay?courseId=${
-                          clazz.enrolledCourse && clazz.enrolledCourse.courseId
-                        }`
-                      : "/select-pay"
-                  }
+                  to={() => linkToLesson(lesson, item)}
+                  onClick={(e) => {
+                    inClass && isStudent && e.preventDefault();
+                  }}
                 >
                   <div className="term_item_left_bottom_item ">
                     <FontAwesomeIcon icon={faPlay} />
@@ -132,42 +254,15 @@ const LessonItem = (props) => {
               <div class="col-md-3">
                 <div
                   className="term_item_left_bottom_item "
-                  onClick={() => {
-                    props.addRecentActivity(lesson._id, "quiz");
-                  }}
+                  onClick={() => onClickQuiz(lesson)}
                 >
-                  {" "}
                   <Tooltip
-                    overlay={
-                      !activeCoursePaidStatus && !unlocked ? (
-                        <Link
-                          to={
-                            inClass &&
-                            clazz.enrolledCourse &&
-                            !clazz.enrolledCourse.paymentIsActive
-                              ? `/select-pay?courseId=${
-                                  clazz.enrolledCourse &&
-                                  !clazz.enrolledCourse.courseId
-                                }`
-                              : "/select-pay"
-                          }
-                          onClick={(e) => {
-                            inClass && isStudent && e.preventDefault();
-                          }}
-                        >
-                          {inClass && isStudent
-                            ? "Content locked"
-                            : "Please subscribe to unlock content"}
-                        </Link>
-                      ) : (
-                        <span>Quiz</span>
-                      )
-                    }
+                    overlay={quizToolTipsComponent}
                     placement="top"
                     trigger={["hover"]}
                   >
                     <Link
-                      to="/lesson/quiz/instructions"
+                      to={() => linkToQuiz()}
                       onClick={updateQuizType}
                       className="quizButton"
                     >
@@ -186,75 +281,21 @@ const LessonItem = (props) => {
       return (
         <div class="col-md-3">
           <Tooltip
-            overlay={
-              !activeCoursePaidStatus && !unlocked ? (
-                <Link
-                  to={
-                    inClass &&
-                    clazz.enrolledCourse &&
-                    !clazz.enrolledCourse.paymentIsActive
-                      ? `/select-pay?courseId=${
-                          clazz.enrolledCourse && clazz.enrolledCourse.courseId
-                        }`
-                      : inClass &&
-                        clazz.enrolledCourse &&
-                        !clazz.enrolledCourse.paymentIsActive
-                      ? `/select-pay?courseId=${
-                          clazz.enrolledCourse && clazz.enrolledCourse.courseId
-                        }`
-                      : "/select-pay"
-                  }
-                  onClick={(e) => {
-                    inClass && isStudent && e.preventDefault();
-                  }}
-                >
-                  {inClass && isStudent
-                    ? "Content locked"
-                    : "Please subscribe to unlock content"}
-                </Link>
-              ) : (
-                <span>Lesson note</span>
-              )
-            }
+            overlay={classnoteToolTipsComponent}
             placement="top"
             trigger={["hover"]}
           >
             <div
               className="term_item_left_bottom_item "
-              onClick={() => {
-                props.addRecentActivity(lesson._id, "lesson");
-                if (activeCoursePaidStatus || unlocked) {
-                  props.addSubjectProgress(
-                    inClass ? clazz._id : null,
-                    lesson._id,
-                    lesson.subjectId,
-                    lesson.courseId,
-                    recommendation(lesson._id),
-                    lesson._id,
-                    "lesson"
-                  );
-                }
-              }}
+              onClick={() => onClickClassNote(lesson)}
             >
               <Link
-                to={
-                  activeCoursePaidStatus || unlocked
-                    ? `/classnote/${slugify(props.courseName)}/${slugify(
-                        props.subjectName
-                      )}/${slugify(lesson.title)}?courseId=${
-                        lesson.courseId
-                      }&subjectId=${lesson.subjectId}&lessonId=${
-                        lesson._id
-                      }&termId=${lesson.termId}`
-                    : inClass &&
-                      clazz.enrolledCourse &&
-                      !clazz.enrolledCourse.paymentIsActive
-                    ? `/select-pay?courseId=${
-                        clazz.enrolledCourse && clazz.enrolledCourse.courseId
-                      }`
-                    : "/select-pay"
-                }
-                onClick={updateQuizType}
+                to={() => linkToClassNote(lesson)}
+                onClick={(e) => {
+                  inClass && isStudent && !activeCoursePaidStatus
+                    ? e.preventDefault()
+                    : updateQuizType();
+                }}
                 className="quizButton"
               >
                 Study Class Note
@@ -270,30 +311,7 @@ const LessonItem = (props) => {
     <div key={lesson._id} className="term_item row">
       <div className="term_item_left col-md-12 accordion-item">
         <Tooltip
-          overlay={
-            !activeCoursePaidStatus && !unlocked ? (
-              <Link
-                to={
-                  inClass &&
-                  clazz.enrolledCourse &&
-                  !clazz.enrolledCourse.paymentIsActive
-                    ? `/select-pay?courseId=${
-                        clazz.enrolledCourse && clazz.enrolledCourse.courseId
-                      }`
-                    : "/select-pay"
-                }
-                onClick={(e) => {
-                  inClass && isStudent && e.preventDefault();
-                }}
-              >
-                {inClass && isStudent
-                  ? "Content locked"
-                  : "Please subscribe to unlock content"}
-              </Link>
-            ) : (
-              <span>View Content</span>
-            )
-          }
+          overlay={contentToolTipsComponent}
           placement="top"
           trigger={["hover"]}
         >

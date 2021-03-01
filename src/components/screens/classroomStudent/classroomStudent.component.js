@@ -43,21 +43,14 @@ const ClassroomStudent = (props) => {
   const [activeTab, setActiveTab] = useState("1");
 
   // eslint-disable-next-line no-unused-vars
-  const [activeVerticalTab, setActiveVerticalTab] = useState("1");
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      // props.getPerformanceInClass(
-      //   activeCourseId ? activeCourseId : "5fff5bab3fd2d54b08047c82",
-      //   props.match.params.classId
-      // );
 
-      if (!classMembers.length) {
-        props.getClass(props.match.params.classId);
-      }
+      props.getClass(props.match.params.classId);
     } else {
       // do componentDidUpdate logic
     }
@@ -129,7 +122,7 @@ const ClassroomStudent = (props) => {
     if (Object.keys(clazz) && clazz.relatedSubjects) {
       return clazz.relatedSubjects.map((item) => {
         return (
-          <Box 
+          <Box
             image={item.mainSubjectId.imageUrl}
             singleClass={true}
             dashboard={true}

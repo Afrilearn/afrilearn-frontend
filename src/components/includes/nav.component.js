@@ -134,32 +134,134 @@ const MyNav = (props) => {
     ) {
       return user.classOwnership.map((item) => {
         return (
-          <DropdownItem
-            onClick={() => {
-              updateactiveEnrolledCourseId.bind(
-                null,
-                item._id,
-                item.enrolledCourse && item.enrolledCourse._id,
-                item.name,
-                item.enrolledCourse && item.enrolledCourse.paymentIsActive
-              );
-              props.inputChange("inClass", true);
-              setIsOpen(false);
-            }}
-            tag={Link}
-            to="/classes/teacher"
-          >
-            <span>
-              <img
-                src={require("./../../assets/img/profile.png")}
-                alt="profile"
-                className="dropDownIcon"
-              />{" "}
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}
-            </span>
-          </DropdownItem>
+          <div>
+            <DropdownItem
+              onClick={() => {
+                updateactiveEnrolledCourseId.bind(
+                  null,
+                  item._id,
+                  item.enrolledCourse && item.enrolledCourse._id,
+                  item.name,
+                  item.enrolledCourse && item.enrolledCourse.paymentIsActive
+                );
+                props.inputChange("activeEnrolledCourseId", item._id);
+                props.inputChange("activeCourseId", item.courseId);
+                props.inputChange("activeCourseName", item.name);
+                props.inputChange(
+                  "paymentIsActive",
+                  item &&
+                    item.enrolledCourse &&
+                    item.enrolledCourse.paymentIsActive
+                );
+                props.inputChange("inClass", true);
+                setIsOpen(false);
+              }}
+              tag={Link}
+              to="/classes/teacher"
+            >
+              <span>
+                <img
+                  src={require("./../../assets/img/profile.png")}
+                  alt="profile"
+                  className="dropDownIcon"
+                />{" "}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}
+              </span>
+            </DropdownItem>
+            {user &&
+              user.adminRoles.length > 0 &&
+              role === "602f3ce39b146b3201c2dc1d" &&
+              user.adminRoles.map((item) => (
+                <DropdownItem
+                  onClick={() => {
+                    updateactiveEnrolledCourseId.bind(
+                      null,
+                      item.classId && item.classId._id,
+                      item.classId &&
+                        item.classId.enrolledCourse &&
+                        item.classId.enrolledCourse._id,
+                      item.classId && item.classId.name,
+                      item.classId &&
+                        item.classId.enrolledCourse &&
+                        item.classId.enrolledCourse.paymentIsActive
+                    );
+                    props.inputChange(
+                      "activeEnrolledCourseId",
+                      item.classId && item.classId._id
+                    );
+                    props.inputChange(
+                      "activeCourseId",
+                      item.classId && item.classId.courseId
+                    );
+                    props.inputChange(
+                      "activeCourseName",
+                      item.classId && item.classId.name
+                    );
+                    props.inputChange(
+                      "paymentIsActive",
+                      item.classId &&
+                        item.classId.enrolledCourse &&
+                        item.classId.enrolledCourse.paymentIsActive
+                    );
+                    props.inputChange("inClass", true);
+                    setIsOpen(false);
+                  }}
+                  tag={Link}
+                  to="/classes/teacher"
+                >
+                  <span>
+                    <img
+                      src={require("./../../assets/img/profile.png")}
+                      alt="profile"
+                      className="dropDownIcon"
+                    />{" "}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {item.classId && item.classId.name}
+                  </span>
+                </DropdownItem>
+              ))}
+          </div>
         );
       });
+    } else {
+      {
+        user &&
+          user.adminRoles.length > 0 &&
+          role === "602f3ce39b146b3201c2dc1d" &&
+          user.adminRoles.map((item) => (
+            <DropdownItem
+              onClick={() => {
+                updateactiveEnrolledCourseId.bind(
+                  item.classId &&
+                    item.classId.enrolledCourse &&
+                    item.classId.enrolledCourse._id,
+                  item.classId &&
+                    item.classId.enrolledCourse &&
+                    item.classId.enrolledCourse.courseId,
+
+                  item.classId && item.classId.name,
+                  item.classId &&
+                    item.classId.enrolledCourse &&
+                    item.classId.enrolledCourse.paymentIsActive
+                );
+                props.inputChange("inClass", true);
+                setIsOpen(false);
+              }}
+              tag={Link}
+              to="/classes/teacher"
+            >
+              <span>
+                <img
+                  src={require("./../../assets/img/profile.png")}
+                  alt="profile"
+                  className="dropDownIcon"
+                />{" "}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {item.classId && item.classId.name}
+              </span>
+            </DropdownItem>
+          ));
+      }
     }
   };
   
