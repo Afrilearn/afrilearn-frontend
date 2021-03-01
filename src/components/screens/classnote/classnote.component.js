@@ -73,13 +73,13 @@ const ClassNote = (props) => {
     props.subject.relatedLessons &&
     props.subject.relatedLessons.filter((les) => les.termId === parsed.termId);
 
-  const targetLesson =
-    lessons && lessons.find((lesson) => lesson._id === parsed.lessonId);
-  const targetLessonIndex =
-    lessons && lessons.findIndex((lesson) => lesson._id === parsed.lessonId);
-  const nextLesson = lessons && lessons[targetLessonIndex + 1];
+  const targetLesson = lessons.find((lesson) => lesson._id === parsed.lessonId);
+  const targetLessonIndex = lessons.findIndex(
+    (lesson) => lesson._id === parsed.lessonId
+  );
+  const nextLesson = lessons[targetLessonIndex + 1];
 
-  const prevLesson = lessons && lessons[targetLessonIndex - 1];
+  const prevLesson = lessons[targetLessonIndex - 1];
 
   let prevNotAllowed =
     prevLesson && !activeCoursePaidStatus && targetLessonIndex - 1 !== 0;
@@ -204,7 +204,7 @@ const ClassNote = (props) => {
                     parsed.courseId
                   }&subjectId=${parsed.subjectId}&lessonId=${
                     prevLesson && prevLesson._id
-                  }`
+                  }&termId=${prevLesson && prevLesson.termId}`
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             onClick={(e) => {
@@ -251,7 +251,7 @@ const ClassNote = (props) => {
                     parsed.courseId
                   }&subjectId=${parsed.subjectId}&lessonId=${
                     nextLesson && nextLesson._id
-                  }`
+                  }&termId=${nextLesson && nextLesson.termId}`
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             onClick={(e) => {

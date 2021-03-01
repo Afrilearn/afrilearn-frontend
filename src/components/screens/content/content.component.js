@@ -3,33 +3,44 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
+import { inputChange } from "./../../../redux/actions/authActions";
 
 import "./css/style.css";
 import pencil from "../../../assets/img/pencil.png";
 import LessonItem from "../../includes/lessonItem/lessonItem.component";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleLeft,
-  faAngleRight,
-  faCaretLeft,
-  faCaretRight,
-} from "@fortawesome/free-solid-svg-icons";
+
 import queryString from "query-string";
 
 const Content = (props) => {
-  const { subject, role, userId, numOfUsers } = props;
+  const { subject, role, userId, numOfUsers, inClass, clazz, user } = props;
   const mounted = useRef();
   const parsed = queryString.parse(props.location.search);
 
   useEffect(() => {
-    if (!mounted.current) { 
+    if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
 
       props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
+      if (inClass) {
+        const paymentIsActive = clazz.enrolledCourse.paymentIsActive;
+        props.inputChange("activeCoursePaidStatus", paymentIsActive);
+      } else {
+        const myActiveEnrolledCourse =
+          user.enrolledCourses &&
+          user.enrolledCourses.find(
+            (course) => course.courseId._id === parsed.courseId
+          );
+        if (myActiveEnrolledCourse) {
+          props.inputChange(
+            "activeCoursePaidStatus",
+            myActiveEnrolledCourse.paymentIsActive
+          );
+        }
+      }
     } else {
       // do componentDidUpdate logic
     }
@@ -77,11 +88,11 @@ const Content = (props) => {
       subject.relatedLessons.filter((les) => les.termId === item.id);
     terms.push({ id: item.id, name: item.name, lessons });
   });
- 
+
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  
+
   return (
     <div>
       <div
@@ -188,17 +199,22 @@ const Content = (props) => {
 Content.propTypes = {
   getCourse: PropTypes.func.isRequired,
   getSubjectAndRelatedLessons: PropTypes.func.isRequired,
+  inputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   course: state.course.course,
+  clazz: state.class.class,
   subject: state.subject.subject,
+  inClass: state.auth.inClass,
+  user: state.auth.user,
   role: state.auth.user.role,
   userId: state.auth.user._id,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
   numOfUsers: state.subject.numOfUsers,
 });
 export default connect(mapStateToProps, {
+  inputChange,
   getCourse,
   getSubjectAndRelatedLessons,
 })(Content);

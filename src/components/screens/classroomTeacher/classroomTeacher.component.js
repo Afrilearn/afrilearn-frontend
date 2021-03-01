@@ -73,6 +73,8 @@ const ClassroomTeacher = (props) => {
   const toggleAnnouncementModal = () =>
     setAnnouncementModal(!announcementModal);
 
+  const [addTeacherModal, setAddTeacherModal] = useState(false);
+  const toggleAddTeacherModal = () => setAddTeacherModal(!addTeacherModal);
   const [popoverOpen, setPopoverOpen] = useState(false);
   // const [status, setStatus] = useState(null)
 
@@ -90,7 +92,7 @@ const ClassroomTeacher = (props) => {
       window.scrollTo(0, 0);
       props.inputChange("dashboardRoute", true);
       props.inputChange("inClass", true);
-      props.inputChange("targetUser", null);     
+      props.inputChange("targetUser", null);
       toggleTab("1");
       props.getClass(activeEnrolledCourseId);
     } else {
@@ -303,6 +305,7 @@ const ClassroomTeacher = (props) => {
   const classWorksList = () => {
     if (
       subjects &&
+      clazz &&
       clazz.teacherAssignedContents &&
       clazz.teacherAssignedContents.length > 0
     ) {
@@ -560,6 +563,50 @@ const ClassroomTeacher = (props) => {
           </div>
         </ModalBody>
       </Modal>
+      <Modal
+        isOpen={addTeacherModal}
+        toggle={toggleAddTeacherModal}
+        className="addStudentItemPopUp"
+      >
+        <ModalBody>
+          <div class="popup-body">
+            <FontAwesomeIcon
+              icon={faTimes}
+              style={{ position: "absolute", top: "5px", right: "10px" }}
+              onClick={toggleAddTeacherModal}
+              className="cursor-pointer"
+            />
+            <h4>Add another to the class</h4>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                props.makeAnnouncement(clazz._id, announcementText);
+                setNewAnouncements([...newAnouncements, announcementText]);
+                toggleAddTeacherModal();
+              }}
+            >
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">
+                  Enter message
+                </label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setAnnouncementText(e.target.value);
+                  }}
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn button-green">
+                Submit
+              </button>
+            </form>
+          </div>
+        </ModalBody>
+      </Modal>
 
       <div id="classroomTeacherSectionOne"></div>
 
@@ -598,16 +645,18 @@ const ClassroomTeacher = (props) => {
           </span>
         </div>
         <div className="main-tabs container ">
-          {clazz.enrolledCourse && !clazz.enrolledCourse.paymentIsActive && (
-            <Link
-              to={`/select-pay?classId=${clazz._id}&courseId=${
-                clazz.enrolledCourse && clazz.enrolledCourse.courseId
-              }`}
-              className="pay-to-unlock"
-            >
-              Pay to unlock all content
-            </Link>
-          )}
+          {clazz &&
+            clazz.enrolledCourse &&
+            !clazz.enrolledCourse.paymentIsActive && (
+              <Link
+                to={`/select-pay?classId=${clazz._id}&courseId=${
+                  clazz.enrolledCourse && clazz.enrolledCourse.courseId
+                }`}
+                className="pay-to-unlock"
+              >
+                Pay to unlock all content
+              </Link>
+            )}
           <div class="row row-cols-auto align-items-end justify-content-center">
             <div className="col">
               <div
@@ -751,6 +800,18 @@ const ClassroomTeacher = (props) => {
             </div>
           </TabPane>
           <TabPane tabId="3">
+            {/* <div className="w-85 row justify-content-between">
+              <Link class="col text-start" to="/assign-content">
+                Add another teacher &nbsp; &nbsp;
+                <button
+                  class="btn button-green text-white"
+                  type="button"
+                  onClick={toggleAnnouncementModal}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </Link>
+            </div> */}
             <div className="people">
               <section>
                 <div className="heading">
