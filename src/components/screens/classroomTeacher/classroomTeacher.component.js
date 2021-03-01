@@ -86,64 +86,68 @@ const ClassroomTeacher = (props) => {
   const invitationLink = `https://myafrilearn.com/join-class?email=${email}&classId=${activeEnrolledCourseId}`;
 
   useEffect(() => {
-    if (!mounted.current) {
-      // do componentDidMount logic
-      mounted.current = true;
-      window.scrollTo(0, 0);
-      props.inputChange("dashboardRoute", true);
-      props.inputChange("inClass", true);
-      props.inputChange("targetUser", null);
-      toggleTab("1");
-      props.getClass(activeEnrolledCourseId);
-    } else {
-      // do componentDidUpdate logic
-      if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
-        const message =
-          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-        Swal.fire({
-          html: message,
-          showClass: {
-            popup: "animate__animated animate__fadeInDown",
-          },
-          hideClass: {
-            popup: "animate__animated animate__fadeOutUp",
-          },
-          timer: 3500,
-          // position: "top-end",
-        });
-        props.clearErrors();
-      } else if (error.id === "ACCEPT_REJECT_CLASSMEMBER_SUCCESS") {
-        const message =
-          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-        Swal.fire({
-          html: message,
-          showClass: {
-            popup: "animate__animated animate__fadeInDown",
-          },
-          hideClass: {
-            popup: "animate__animated animate__fadeOutUp",
-          },
-          timer: 3500,
-          // position: "top-end",
-        });
-        props.clearErrors();
-      } // do componentDidUpdate logic
-      else if (error.id === "ADD_ANNOUNCEMENT_SUCCESS") {
-        const message =
-          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-        Swal.fire({
-          html: message,
-          showClass: {
-            popup: "animate__animated animate__fadeInDown",
-          },
-          hideClass: {
-            popup: "animate__animated animate__fadeOutUp",
-          },
-          timer: 3500,
-          // position: "top-end",
-        });
-        props.clearErrors();
-      }
+    // if (!mounted.current) {
+    // do componentDidMount logic
+    mounted.current = true;
+    window.scrollTo(0, 0);
+    props.inputChange("dashboardRoute", true);
+    props.inputChange("inClass", true);
+    props.inputChange("targetUser", null);
+
+    // const data = {
+    //   enrolledCourseId: activeEnrolledCourseId,
+    // };
+    // props.populateDashboard(activeEnrolledCourseId ? data : null);
+    toggleTab("1");
+    props.getClass(activeEnrolledCourseId);
+
+    // do componentDidUpdate logic
+    if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
+      const message =
+        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+      Swal.fire({
+        html: message,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: "top-end",
+      });
+      props.clearErrors();
+    } else if (error.id === "ACCEPT_REJECT_CLASSMEMBER_SUCCESS") {
+      const message =
+        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+      Swal.fire({
+        html: message,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: "top-end",
+      });
+      props.clearErrors();
+    } // do componentDidUpdate logic
+    else if (error.id === "ADD_ANNOUNCEMENT_SUCCESS") {
+      const message =
+        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+      Swal.fire({
+        html: message,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: "top-end",
+      });
+      props.clearErrors();
     }
   }, [activeEnrolledCourseId]);
   if (clazz) {
@@ -615,7 +619,7 @@ const ClassroomTeacher = (props) => {
         <div className="welcome">
           <h1 className="font2">Welcome {props.fullName}</h1>
           <p>
-            <b>{clazz && clazz.courseId && clazz.courseId.name}</b>
+            <b>{clazz && clazz.name}</b>
           </p>
           <small>
             Class code {clazz && clazz.classCode && clazz.classCode}
