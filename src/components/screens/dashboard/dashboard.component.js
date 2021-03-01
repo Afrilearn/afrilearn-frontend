@@ -44,7 +44,6 @@ const Dashboard = (props) => {
     // do componentDidMount logic
     mounted.current = true;
     window.scrollTo(0, 0);
-    props.authInputChange("dashboardRoute", true);
     props.authInputChange("inClass", false);
     const data = {
       enrolledCourseId: activeEnrolledCourseId,

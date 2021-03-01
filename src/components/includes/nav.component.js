@@ -54,6 +54,7 @@ import subject from "../screens/subject/subject.component";
 import joinClassComponent from "../screens/joinClass/joinClass.component";
 import SearchPage from "../screens/searchResult/searchResult.component";
 import classNote from "../screens/classnote/classnote.component";
+import SearchDetails from "../screens/search/search.component";
 import {
   searchInputChange,
   getSearchResults
@@ -64,7 +65,6 @@ import faqPageComponent from "../screens/faqPage/faqPage.component";
 const MyNav = (props) => {
   const {
     user,
-    dashboardRoute,
     role,
     inClass,
     keyword,
@@ -89,13 +89,7 @@ const MyNav = (props) => {
     props.inputChange("activeEnrolledCourseId", id);
     props.inputChange("activeCourseId", courseId);
     props.inputChange("activeCourseName", courseName);
-    props.inputChange("paymentIsActive", paymentStatus);
-    if (dashboardRoute) {
-      const data = {
-        enrolledCourseId: id,
-      };
-      props.populateDashboard(data);
-    }
+    props.inputChange("paymentIsActive", paymentStatus);    
   };
 
   const classList = () => {
@@ -168,68 +162,20 @@ const MyNav = (props) => {
       });
     }
   };
+  
+  const handleSearchClick = (title) =>{
+    setIsOpen(false)
+    props.searchInputChange('keyword', '')
+    props.searchInputChange('title', title);
+    props.getSearchResults(title, true);    
+  }
 
   const searchResult = () => {
     if (searchResults.length>0) {
       return searchResults.map((item) => {
         return (           
-          <Link to={`search\\${item._id}`} ><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>                    
-        );
-        // if(!isAuthenticated){
-        //   return (           
-        //     <Tooltip
-        //         placement="top"
-        //         trigger={["hover"]}
-        //         overlay={
-        //           <span>
-        //             Login/Register to view content
-        //           </span>
-        //         }
-        //       >    
-        //         <Link to="/register" onClick={()=>props.searchInputChange('keyword', '')}><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>
-        //       </Tooltip>           
-        //   );
-        // }else{
-        //   if (role === "5fd08fba50964811309722d5"){
-        //     if(user &&  user.enrolledCourses.length){
-        //         if(user.enrolledCourses.filter(course => course.courseId._id === item.courseId._id && course.paymentIsActive ===true).length){
-        //           return (
-        //             <Link><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>                           
-        //           );
-        //         }else{
-        //           return (           
-        //             <Tooltip
-        //                 placement="top"
-        //                 trigger={["hover"]}
-        //                 overlay={
-        //                   <span>
-        //                     Subscribe to {item.courseId.name} to unlock content
-        //                   </span>
-        //                 }
-        //               >    
-        //                 <Link to="/select-pay"><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>
-        //               </Tooltip>           
-        //           );
-        //         }
-        //     }else{
-        //       return (           
-        //         <Tooltip
-        //             placement="top"
-        //             trigger={["hover"]}
-        //             overlay={
-        //               <span>
-        //                 Subscribe to {item.courseId.name} to unlock content
-        //               </span>
-        //             }
-        //           >    
-        //             <Link to="/select-pay"><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>
-        //           </Tooltip>           
-        //       );
-        //     } 
-        //   }
-         
-        // }
-          
+          <Link to='/search-details' onClick={handleSearchClick.bind(null,item.title)}><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>                    
+        );          
         });
     }else{
       return <li>No result found</li>
@@ -243,11 +189,6 @@ const MyNav = (props) => {
     props.searchInputChange(name, value);	
     if(keyword.length > 1){     
       props.getSearchResults(keyword);			 
-    }else{
-            // props.inputChange('isLoading', false);	
-            // const clearSearch = [];
-            // props.inputChange('searchResults', clearSearch);
-            // props.inputChange('showResult', false);
     }
   }
 
@@ -310,7 +251,7 @@ const MyNav = (props) => {
                     value={keyword} 
                     name="keyword"
                     onChange={handleSearch}  
-                    onBlur={()=>props.searchInputChange('keyword', '')}              
+                    // onBlur={()=>props.searchInputChange('keyword', '')}              
                   />
                   <img
                     className="searchIcon"
@@ -462,7 +403,7 @@ const MyNav = (props) => {
         <ProtectedRoute path="/profile" component={profilePage} />
         <Route path="/register" component={register} />
         <Route path="/join-class" component={joinClassComponent} />
-        <ProtectedRoute path="/search/:lessonId" component={SearchPage} />
+        <Route path="/search/:lessonId" component={SearchPage} />
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
@@ -483,7 +424,8 @@ const MyNav = (props) => {
         <ProtectedRoute path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />
         <Route path="/subject" component={subject} />
-        <Route path="/faq" component={faqPageComponent} />
+        <Route path="/faq" component={faqPageComponent} />   
+        <Route path="/search-details" component={SearchDetails} />           
       </Switch>
       <Footer />
     </Router>
@@ -499,7 +441,6 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
   inClass: state.auth.inClass,
-  dashboardRoute: state.auth.dashboardRoute,
   role: state.auth.role,
   keyword: state.search.keyword,
   isSearching: state.search.isSearching,

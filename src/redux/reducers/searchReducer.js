@@ -1,12 +1,15 @@
 import {
   GET_ALL_SEARCH_RESULTS_SUCCESS,
   SEARCH_INPUT_CHANGE,
+  GET_SEARCH_RESULTS_DETAILS_SUCCESS
 } from "../actions/types";
 
 const initialState = {
   searchResults: [],
+  searchResultDetails: [],
   keyword: "",
-  isSearching:false
+  isSearching:false,
+  title:''
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -22,6 +25,13 @@ const searchReducer = (state = initialState, action) => {
         ...state,
         searchResults: action.payload.result,
       };
+
+    case GET_SEARCH_RESULTS_DETAILS_SUCCESS:
+      return {
+        ...state,
+        searchResultDetails: action.payload.result,
+      };
+  
 
     default:
       return state;

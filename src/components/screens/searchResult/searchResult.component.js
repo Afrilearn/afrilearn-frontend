@@ -44,7 +44,10 @@ const SearchResult = (props) => {
       } = props;    
       props.getSingleLesson(params.lessonId);
     } else {  
-      
+      // const {
+      //   match: { params },        
+      // } = props;  
+      // props.getSingleLesson(params.lessonId);
     }
   });
   var decodeEntities = (function () {
