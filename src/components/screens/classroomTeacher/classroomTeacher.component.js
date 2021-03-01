@@ -90,12 +90,7 @@ const ClassroomTeacher = (props) => {
       window.scrollTo(0, 0);
       props.inputChange("dashboardRoute", true);
       props.inputChange("inClass", true);
-      props.inputChange("targetUser", null);
-
-      // const data = {
-      //   enrolledCourseId: activeEnrolledCourseId,
-      // };
-      // props.populateDashboard(activeEnrolledCourseId ? data : null);
+      props.inputChange("targetUser", null);     
       toggleTab("1");
       props.getClass(activeEnrolledCourseId);
     } else {

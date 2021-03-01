@@ -220,10 +220,11 @@ export default {
     });
   },
 
-  getSearchResults(searchQuery) {
+  getSearchResults(searchQuery, data=null) {
     return axios({
       method: "post",
       url: `${this.url}lessons/search/${searchQuery}`,
+      data
     });
   },
 
