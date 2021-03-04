@@ -317,16 +317,7 @@ const MyNav = (props) => {
                   >
                     My Dashboard
                   </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    tag={Link}
-                    to="/select-pay"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Subscribe
-                  </NavLink>
-                </NavItem>
+                </NavItem>               
                 <NavItem>
                   {user.role !== "602f3ce39b146b3201c2dc1d" && !inClass && (
                     <NavLink
@@ -337,6 +328,15 @@ const MyNav = (props) => {
                       Performance Analysis
                     </NavLink>
                   )}
+                </NavItem>
+                 <NavItem>
+                  <NavLink
+                    tag={Link}
+                    to="/select-pay"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Subscribe
+                  </NavLink>
                 </NavItem>
               </>
             ) : (
@@ -352,8 +352,7 @@ const MyNav = (props) => {
                     className="searchBox"                   
                     value={keyword} 
                     name="keyword"
-                    onChange={handleSearch}  
-                    // onBlur={()=>props.searchInputChange('keyword', '')}              
+                    onChange={handleSearch}
                   />
                   <img
                     className="searchIcon"

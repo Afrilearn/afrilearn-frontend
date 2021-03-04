@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./css/style.css";
 import AppreciationBox from "../../includes/appreciationSlick.component";
+import SupportersSlide from "../../includes/supportersSlide.component";
 import Particles from "react-tsparticles";
 import { connect } from "react-redux";
 import { inputChange, getRoles } from "./../../../redux/actions/authActions";
@@ -568,49 +569,17 @@ const Homepage = (props) => {
                 </Link>
               </div>
               <div className="col-2"></div>
-            </div>
-            <h1 className="hOne hTwo">Key Supporters</h1>
-            <div className="row supporter">
-              <div className="col-md-1"></div>
-              <div className="col-md-2">
-                <img
-                  className=""
-                  src={require("../../../assets/img/USC.png")}
-                  alt="down arrow"
-                />
-              </div>
-              <div className="col-md-2">
-                <img
-                  className=""
-                  src={require("../../../assets/img/kingdom-nl-cropped.png")}
-                  alt="down arrow"
-                />
-              </div>
-              <div className="col-md-2">
-                <img
-                  className=""
-                  src={require("../../../assets/img/Fate Foundation.png")}
-                  alt="down arrow"
-                />
-              </div>
-              <div className="col-md-2">
-                <img
-                  className=""
-                  src={require("../../../assets/img/OC.png")}
-                  alt="down arrow"
-                />
-              </div>
-              <div className="col-md-2">
-                <img
-                  className=""
-                  src={require("../../../assets/img/Friends Of Professor Osinbajo Nigeria's Vice President.png")}
-                  alt="down arrow"
-                />
-              </div>
-              <div className="col-md-1"></div>
-            </div>
-          </div>
+            </div>     
+           </div>
           <div className="col-md-2"> </div>
+        </div>
+        <div className="row supporter">
+          <h1 className="hOne">Key Supporters</h1>
+          <div className="col-md-1"></div>
+          <div className="col-md-10">
+            <SupportersSlide/>
+          </div>
+          <div className="col-md-1"></div>
         </div>
       </div>
     </span>
