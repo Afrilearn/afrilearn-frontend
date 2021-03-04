@@ -81,7 +81,7 @@ const Payment = (props) => {
   const config = {
     reference: new Date().getTime(),
     email,
-    amount: 2 * 100,
+    amount: paymentAmount * 100,
     publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
   };
 

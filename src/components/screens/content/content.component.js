@@ -47,11 +47,14 @@ const Content = (props) => {
   });
 
   const isViewed = (lessonId) => {
+    const classId = inClass ? clazz._id : null;
     return (
       subject.progresses &&
       subject.progresses.find(
         (progress) =>
-          progress.lessonId === lessonId && progress.userId === userId
+          progress.lessonId === lessonId &&
+          progress.userId === userId &&
+          progress.classId === classId
       )
     );
   };
