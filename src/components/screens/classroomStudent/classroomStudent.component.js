@@ -249,7 +249,10 @@ const ClassroomStudent = (props) => {
                 <div className="pic-text-heading">
                   <img src={man} alt="sender" />
                   <div>
-                    <p>{classAnnouncement.teacher.fullName} </p>
+                    <p>
+                      {classAnnouncement.teacher &&
+                        classAnnouncement.teacher.fullName}{" "}
+                    </p>
                     <small className="small-grey">
                       {moment(classAnnouncement.createdAt)
                         .startOf("hour")
@@ -271,7 +274,7 @@ const ClassroomStudent = (props) => {
                   <img src={man} alt="comment" />
                   <div>
                     <p>
-                      {comment.student.fullName} &nbsp;
+                      {comment.student && comment.student.fullName} &nbsp;
                       <span className="small-grey">
                         {moment(comment.createdAt).fromNow()}
                       </span>

@@ -28,7 +28,7 @@ const Performance = (props) => {
     overallProgress,
     inClass,
     clazz,
-    targetUser    
+    targetUser,
   } = props;
 
   const mounted = useRef();
@@ -39,7 +39,7 @@ const Performance = (props) => {
       window.scrollTo(0, 0);
       const data = { classId: clazz._id };
       if (targetUser) {
-        data.userId = targetUser;
+        data.userId = targetUser._id;
       }
       if (inClass) {
         props.getPerformanceInClass(activeCourseId, data);
@@ -102,9 +102,10 @@ const Performance = (props) => {
     }
   };
   String.prototype.toProperCase = function () {
-   return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-};
-
+    return this.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  };
 
   return (
     <span id="performance">
@@ -132,7 +133,11 @@ const Performance = (props) => {
             <span className="box">
               <div className="row">
                 <div className="col-md-12">
-                  <h3>{fullName.toProperCase()}</h3>
+                  <h3>
+                    {targetUser
+                      ? targetUser.fullName.toUpperCase()
+                      : fullName.toProperCase()}
+                  </h3>
                   <p>{email}</p>
                   <span className="myBadge">{activeCourseName}</span>
                   <span className="location">

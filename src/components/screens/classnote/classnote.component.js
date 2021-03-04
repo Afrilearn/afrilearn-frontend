@@ -9,7 +9,12 @@ import {
   faShareAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
+import {
+  getSubjectAndRelatedLessons,
+  addRecentActivity,
+  addSubjectProgress,
+} from "./../../../redux/actions/subjectActions";
+
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
 import Speech from "react-speech";
@@ -86,6 +91,26 @@ const ClassNote = (props) => {
   let nextNotAllowed =
     nextLesson && !activeCoursePaidStatus && targetLessonIndex + 1 !== 0;
   let shareLink = `http://www.myafrilearn.com/`;
+
+  const recommendation = (id) => {
+    const mainList = lessons && lessons.filter((vid) => vid._id !== id);
+    const random = Math.floor(Math.random() * mainList.length);
+
+    return mainList[random];
+  };
+  const onClickClassNote = (lesson) => {
+    props.addRecentActivity(lesson._id, "lesson");
+    props.addSubjectProgress(
+      inClass ? clazz._id : null,
+      lesson._id,
+      lesson.subjectId,
+      lesson.courseId,
+      recommendation(lesson._id),
+      lesson._id,
+      "lesson"
+    );
+  };
+
   return (
     <span>
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
@@ -208,7 +233,9 @@ const ClassNote = (props) => {
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             onClick={(e) => {
-              prevNotAllowed && e.preventDefault();
+              prevNotAllowed
+                ? e.preventDefault()
+                : onClickClassNote(prevLesson);
             }}
             className="button button1"
             data-bs-toggle="tooltip"
@@ -255,7 +282,9 @@ const ClassNote = (props) => {
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             onClick={(e) => {
-              nextNotAllowed && e.preventDefault();
+              nextNotAllowed
+                ? e.preventDefault()
+                : onClickClassNote(nextLesson);
             }}
             className="button button2"
             data-bs-toggle="tooltip"
@@ -282,6 +311,8 @@ const ClassNote = (props) => {
 };
 ClassNote.propTypes = {
   getSubjectAndRelatedLessons: PropTypes.func.isRequired,
+  addRecentActivity: PropTypes.func.isRequired,
+  addSubjectProgress: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -293,6 +324,8 @@ const mapStateToProps = (state) => ({
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
 });
 
-export default connect(mapStateToProps, { getSubjectAndRelatedLessons })(
-  ClassNote
-);
+export default connect(mapStateToProps, {
+  getSubjectAndRelatedLessons,
+  addRecentActivity,
+  addSubjectProgress,
+})(ClassNote);

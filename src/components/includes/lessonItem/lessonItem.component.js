@@ -239,7 +239,7 @@ const LessonItem = (props) => {
                 <Link
                   to={() => linkToLesson(lesson, item)}
                   onClick={(e) => {
-                    inClass && isStudent && e.preventDefault();
+                    inClass && isStudent && !unlocked && e.preventDefault();
                   }}
                 >
                   <div className="term_item_left_bottom_item ">

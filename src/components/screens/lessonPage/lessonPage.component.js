@@ -40,6 +40,8 @@ import {
   WhatsappIcon,
 } from "react-share";
 import queryString from "query-string";
+import slugify from "react-slugify";
+
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -345,7 +347,13 @@ const LessonPage = (props) => {
         </h3>
         <Link
           className="button"
-          to={`/classnote/${parsed.courseId}/${parsed.subjectId}/${parsed.lessonId}`}
+          to={`/classnote/${slugify(
+            subject && subject.courseId && subject.courseId.name
+          )}/${slugify(
+            subject && subject.mainSubjectId && subject.mainSubjectId.name
+          )}/${slugify(lesson.title)}?courseId=${lesson.courseId}&subjectId=${
+            lesson.subjectId
+          }&lessonId=${lesson._id}&termId=${lesson.termId}`}
         >
           Yes! Proceed to Class Note
         </Link>

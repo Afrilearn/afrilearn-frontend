@@ -396,7 +396,7 @@ const ClassroomTeacher = (props) => {
                 onClick={() => {
                   props.inputChange(
                     "targetUser",
-                    classMember.userId && classMember.userId._id
+                    classMember.userId
                   );
                 }}
               >
