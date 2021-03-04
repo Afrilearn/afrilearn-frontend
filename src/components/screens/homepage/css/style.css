@@ -204,17 +204,16 @@
     margin-top: 12px;
 }
 
-#homepage .hTwo {
-    margin-top: 60px !important;
-    margin-bottom: 38px !important;
+#homepage .supporter img {
+    width: 160px !important;
+    height: 129px;
+    object-fit: contain; 
 }
 
-#homepage .supporter img {
-    margin: auto;
-    display: block;
-    width: 100%;
-    height: 76px;
-    object-fit: contain;
+#homepage .supporter .col-md-10 {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 40px;
 }
 
 #homepage .courseSelectSection {
@@ -566,7 +565,7 @@
         padding-left: 15px !important;
     }
     #homepage .supporter img {
-        height: 50px;
-        margin-bottom: 26px;
+        margin: auto;
+        display: block !important;
     }
 }
