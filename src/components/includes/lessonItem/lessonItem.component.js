@@ -249,61 +249,9 @@ const LessonItem = (props) => {
                 </Link>
               </Tooltip>
             </div>
-            {lesson.questions.length &&
-            lesson.videoUrls.length - 1 === index ? (
-              <div class="col-md-3">
-                <div
-                  className="term_item_left_bottom_item "
-                  onClick={() => onClickQuiz(lesson)}
-                >
-                  <Tooltip
-                    overlay={quizToolTipsComponent}
-                    placement="top"
-                    trigger={["hover"]}
-                  >
-                    <Link
-                      to={() => linkToQuiz()}
-                      onClick={updateQuizType}
-                      className="quizButton"
-                    >
-                      Quiz
-                    </Link>
-                  </Tooltip>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
           </>
         );
       });
-    } else {
-      return (
-        <div class="col-md-3">
-          <Tooltip
-            overlay={classnoteToolTipsComponent}
-            placement="top"
-            trigger={["hover"]}
-          >
-            <div
-              className="term_item_left_bottom_item "
-              onClick={() => onClickClassNote(lesson)}
-            >
-              <Link
-                to={() => linkToClassNote(lesson)}
-                onClick={(e) => {
-                  inClass && isStudent && !activeCoursePaidStatus
-                    ? e.preventDefault()
-                    : updateQuizType();
-                }}
-                className="quizButton"
-              >
-                Study Class Note
-              </Link>
-            </div>
-          </Tooltip>{" "}
-        </div>
-      );
     }
   };
 
@@ -376,6 +324,53 @@ const LessonItem = (props) => {
           ) : null}
 
           {lessonVideos()}
+          <div class="col-md-3">
+            <Tooltip
+              overlay={classnoteToolTipsComponent}
+              placement="top"
+              trigger={["hover"]}
+            >
+              <div
+                className="term_item_left_bottom_item "
+                onClick={() => onClickClassNote(lesson)}
+              >
+                <Link
+                  to={() => linkToClassNote(lesson)}
+                  onClick={(e) => {
+                    inClass && isStudent && !activeCoursePaidStatus
+                      ? e.preventDefault()
+                      : updateQuizType();
+                  }}
+                  className="quizButton"
+                >
+                  Study Class Note
+                </Link>
+              </div>
+            </Tooltip>{" "}
+          </div>
+
+          {lesson.questions.length && lesson.videoUrls.length - 1 === index && (
+            <div class="col-md-3">
+              <div
+                className="term_item_left_bottom_item "
+                onClick={() => onClickQuiz(lesson)}
+              >
+                <Tooltip
+                  overlay={quizToolTipsComponent}
+                  placement="top"
+                  trigger={["hover"]}
+                >
+                  <Link
+                    to={() => linkToQuiz()}
+                    onClick={updateQuizType}
+                    className="quizButton"
+                  >
+                    Quiz
+                  </Link>
+                </Tooltip>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
