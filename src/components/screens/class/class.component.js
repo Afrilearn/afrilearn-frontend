@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 import queryString from "query-string";
+import Footer from "../../includes/footer/footer.component";
+import { getRoles } from "./../../../redux/actions/authActions";
 
 const ClassDisplay = (props) => {
   const {
@@ -23,6 +25,7 @@ const ClassDisplay = (props) => {
     videoLessonCount,
     quizQuestionsCount,
     numOfUsers,
+    classes
   } = props;
 
   const parsed = queryString.parse(props.location.search);
@@ -37,6 +40,9 @@ const ClassDisplay = (props) => {
         match: { params },
       } = props;
       props.getCourse(parsed.classId);
+      if(!classes.length){
+        props.getRoles();
+      } 
     } else {
       // do componentDidUpdate logic
     }
@@ -148,12 +154,14 @@ const ClassDisplay = (props) => {
       <div id="classSecondSection" className="container-fluid relative">
         <div className="row">{subjectList()}</div>
       </div>
+    <Footer/>  
     </span>
   );
 };
 
 ClassDisplay.propTypes = {
   getCourse: PropTypes.func.isRequired,
+  getRoles: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -163,6 +171,8 @@ const mapStateToProps = (state) => ({
   videoLessonCount: state.course.videoLessonCount,
   quizQuestionsCount: state.course.quizQuestionsCount,
   numOfUsers: state.course.numOfUsers,
+  classes: state.auth.classes  
 });
 
-export default connect(mapStateToProps, { getCourse })(ClassDisplay);
+export default connect(mapStateToProps, { getCourse, getRoles })(ClassDisplay);
+

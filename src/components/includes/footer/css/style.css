@@ -53,8 +53,7 @@
     padding-top: 6px;
 }
 #footer .p1 {
-    padding-right: 37px;
-    text-align: justify;
+    padding-right: 37px;    
 }
 #footer img.logo1 {
     width: 26px;
@@ -69,6 +68,9 @@
 }
 #footer .num {
     line-height: 0px;
+}
+#footer li.hh {
+    margin-bottom: 3px !important;
 }
 
 @media screen and (max-width: 768px) {

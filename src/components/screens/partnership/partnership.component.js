@@ -1,13 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import './css/style.css';
+import Footer from "../../includes/footer/footer.component";
+import { getRoles } from "./../../../redux/actions/authActions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const Partnership = props => {  
     const mounted = useRef(); 
+    const {   
+        classes     
+    } = props; 
     useEffect(()=>{
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
-            window.scrollTo(0, 0);            
+            window.scrollTo(0, 0);   
+            if(!classes.length){
+                props.getRoles();
+            }          
         } else {
             // do componentDidUpdate logic          
           } 	       
@@ -73,8 +83,16 @@ const Partnership = props => {
                     </div>  
                 </div>                    
             </div>
+        <Footer/>
      </span>
 	);
 };
 
-export default Partnership;
+Partnership.propTypes = {   
+    getRoles: PropTypes.func.isRequired,
+};
+  
+const mapStateToProps = (state) => ({
+    classes: state.auth.classes   
+});
+export default connect(mapStateToProps, { getRoles })(Partnership);

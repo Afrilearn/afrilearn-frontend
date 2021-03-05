@@ -3,14 +3,24 @@ import './css/style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt, faLocationArrow, faMailBulk} from '@fortawesome/free-solid-svg-icons';
 import PressBox from './../../includes/pressBoxSlick.component';
+import Footer from "../../includes/footer/footer.component";
+import { getRoles } from "./../../../redux/actions/authActions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const Contact = props => {  
-    const mounted = useRef(); 
+    const mounted = useRef();
+    const {   
+        classes     
+    } = props; 
     useEffect(()=>{
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
-            window.scrollTo(0, 0);            
+            window.scrollTo(0, 0); 
+            if(!classes.length){
+                props.getRoles();
+            }            
         } else {
             // do componentDidUpdate logic          
           } 	       
@@ -129,8 +139,16 @@ const Contact = props => {
                     </div>
                 </div>
             </div>
+            <Footer/>
       </span>
 	);
 };
 
-export default Contact;
+Contact.propTypes = {   
+    getRoles: PropTypes.func.isRequired,
+};
+  
+const mapStateToProps = (state) => ({
+    classes: state.auth.classes   
+});
+export default connect(mapStateToProps, { getRoles })(Contact);
