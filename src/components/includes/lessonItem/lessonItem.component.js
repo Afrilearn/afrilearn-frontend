@@ -349,7 +349,7 @@ const LessonItem = (props) => {
             </Tooltip>{" "}
           </div>
 
-          {lesson.questions.length && lesson.videoUrls.length - 1 === index && (
+          {lesson.questions.length && lesson.videoUrls.length - 1 === index? (
             <div class="col-md-3">
               <div
                 className="term_item_left_bottom_item "
@@ -370,7 +370,7 @@ const LessonItem = (props) => {
                 </Tooltip>
               </div>
             </div>
-          )}
+          ):null}
         </div>
       </div>
     </div>
