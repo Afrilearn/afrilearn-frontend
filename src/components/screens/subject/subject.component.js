@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import './css/style.css';
+import './css/style.css'; 
 // import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
