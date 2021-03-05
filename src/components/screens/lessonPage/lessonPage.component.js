@@ -42,7 +42,6 @@ import {
 import queryString from "query-string";
 import slugify from "react-slugify";
 
-
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
 
@@ -227,6 +226,8 @@ const LessonPage = (props) => {
             controls="true"
             width="100%"
             height="500px"
+            muted={true}
+            playing={true}
           />
         )}
       </div>
