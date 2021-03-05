@@ -345,12 +345,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
     const result = await API.loadUser();
-
-    dispatch({
-      type: GET_ROLES_SUCCESS,
-      payload: result.data.data,
-    });
-
+    
     dispatch({
       type: AUTH_SUCCESS,
       payload: result.data.data,

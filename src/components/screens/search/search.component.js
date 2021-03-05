@@ -182,17 +182,17 @@ const SearchPage = (props) => {
       // return <p>No result found</p>
     }
   }
-  return (
-    <div id="searchPage" className="bg-black">
-      <div className="negative-margin"></div>     
-        <div class="card container mt-10 bg-black">
-          <div class="card-body title">
-            <h1>Search Results for “{title}”</h1>
-            <small>{searchResultDetails? searchResultDetails.length:null}  &nbsp;found</small>
-          </div>   
-          {searchResult()}   
-        </div>  
-    </div>
+  return (    
+      <div id="searchPage" className="bg-black">
+        <div className="negative-margin"></div>     
+          <div class="card container mt-10 bg-black">
+            <div class="card-body title">
+              <h1>Search Results for “{title}”</h1>
+              <small>{searchResultDetails? searchResultDetails.length:null}  &nbsp;found</small>
+            </div>   
+            {searchResult()}   
+          </div>  
+      </div>  
   );
 };
 

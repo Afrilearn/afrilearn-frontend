@@ -1,8 +1,7 @@
 #searchPage {
-  min-height: 100vh;
+  min-height: 150vh;
   background-color: black;
   color: white;
-  padding-bottom: 120px;
 }
 
 #searchPage h1 {

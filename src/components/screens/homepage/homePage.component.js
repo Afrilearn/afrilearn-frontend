@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/style.css";
 import AppreciationBox from "../../includes/appreciationSlick.component";
 import SupportersSlide from "../../includes/supportersSlide.component";
+import Footer from "../../includes/footer/footer.component";
 import Particles from "react-tsparticles";
 import { connect } from "react-redux";
 import { inputChange, getRoles } from "./../../../redux/actions/authActions";
@@ -33,9 +34,10 @@ const Homepage = (props) => {
       props.inputChange("redirect", false);
       props.inputChange("dashboardRoute", false);
 
-      if (!numberOfClassNote) {
+      if(!classes.length){
         props.getRoles();
-      }
+      } 
+
     } else {
       // do componentDidUpdate logic
     }
@@ -531,11 +533,11 @@ const Homepage = (props) => {
                   <div class="accordion-body">
                     We’ve got you! Simply{" "}
                     <Link to="/faq">
-                      <b>CLICK HERE</b>
+                      <b><u>CLICK HERE</u></b>
                     </Link>{" "}
                     to visit our{" "}
                     <Link to="/faq">
-                      <b>COMPLETE FAQ PAGE</b>
+                      <b><u>COMPLETE FAQ PAGE</u></b>
                     </Link>
                     , which regularly gets updated based on new data insights
                     from our awesome users.
@@ -546,7 +548,7 @@ const Homepage = (props) => {
             {/* New  */}
 
             <h6 className="center push88">
-              Ready to learn? Enter your email to signup!
+              Ready to learn? Simply enter your email!
             </h6>
             <div className="row">
               <div className="col-2"></div>
@@ -582,6 +584,7 @@ const Homepage = (props) => {
           <div className="col-md-1"></div>
         </div>
       </div>
+      <Footer/>
     </span>
   );
 };

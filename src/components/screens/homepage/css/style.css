@@ -205,14 +205,18 @@
 }
 
 #homepage .supporter img {
-    width: 160px !important;
-    height: 129px;
-    object-fit: contain; 
+    width: 152px !important;
+    height: 119px;
+    object-fit: contain;
+}
+
+#homepage .supporter .slick-arrow {
+    display: none !important;
 }
 
 #homepage .supporter .col-md-10 {
     background: white;
-    padding: 20px 30px;
+    padding: 10px 20px;
     border-radius: 40px;
 }
 
@@ -273,7 +277,9 @@
     padding: 10px 28px;
     text-align: center;
 }
-
+#homepage .slick-dots{
+    display: none !important;
+}
 #homepage h3 {
     margin-bottom: 30px;
 }
@@ -353,8 +359,8 @@
 #homepage .appreciationName {
     text-align: center;
     display: block;
-    margin-top: -54px;
-    margin-left: -195px;
+    /* margin-top: -54px;
+    margin-left: -195px; */
     color: #2bb58e;
 }
 
@@ -372,6 +378,9 @@
 #homepage .accordion-button::after {
     width: 1.2rem;
     height: 1.2rem;
+}
+#homepage .accordion-button:not(.collapsed) {
+    border-bottom: solid 1px black !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -531,10 +540,10 @@
         height: 67px;
     }
 
-    #homepage .appreciationName {
+    /* #homepage .appreciationName {
         margin-top: 4px;
         margin-left: 5px;
-    }
+    } */
 
     #homepage .afterBanner>.row {
         padding: 50px 27px;

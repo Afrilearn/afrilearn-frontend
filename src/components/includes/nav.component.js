@@ -22,7 +22,6 @@ import {
 import homepage from "../screens/homepage/homePage.component";
 import about from "../screens/about/about.component";
 import partnership from "../screens/partnership/partnership.component";
-import Footer from "../includes/footer/footer.component";
 import contact from "../screens/contact/contact.component";
 import classes from "../screens/classes/classes.component";
 import classPage from "../screens/class/class.component";
@@ -527,8 +526,7 @@ const MyNav = (props) => {
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
         <Route path="/search-details" component={SearchDetails} />           
-      </Switch>
-      <Footer />
+      </Switch>     
     </Router>
   );
 };

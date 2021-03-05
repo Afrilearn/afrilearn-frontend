@@ -102,7 +102,7 @@ class SimpleSlider extends React.Component {
           />  
           <Box 
             content="I love your scheme and your teachings. Thanks!"
-            name="AMADI Chinwendu"
+            name="Amandi Chinwendu"
             dClass="SSS 1"
           />   
           <Box 

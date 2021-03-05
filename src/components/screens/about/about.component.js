@@ -5,15 +5,25 @@ import ValueBox from './../../includes/valueBox.component';
 import TeamBox from './../../includes/team.component';
 import PictureBox from './../../includes/aboutBoxSlick.component';
 import BannerPictureBox from './../../includes/aboutBannerSlick.component';
+import Footer from "../../includes/footer/footer.component";
+import { getRoles } from "./../../../redux/actions/authActions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import './css/style.css';
 
 const About = props => {  
     const mounted = useRef(); 
+    const {   
+        classes     
+    } = props;
     useEffect(()=>{
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
-            window.scrollTo(0, 0);            
+            window.scrollTo(0, 0);   
+            if(!classes.length){
+                props.getRoles();
+            }          
         } else {
             // do componentDidUpdate logic          
           } 	       
@@ -337,9 +347,16 @@ const About = props => {
                     </div>
                 </div>
             </div>   */}
-      
+        <Footer/>
         </span>
 	);
 };
 
-export default About;
+About.propTypes = {   
+    getRoles: PropTypes.func.isRequired,
+};
+  
+const mapStateToProps = (state) => ({
+    classes: state.auth.classes   
+});
+export default connect(mapStateToProps, { getRoles })(About);

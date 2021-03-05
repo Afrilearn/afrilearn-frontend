@@ -144,14 +144,12 @@ const Box = (props) => {
                         Video Lessons
                       </span>
                     }
-                  >
-                    <Link to="/content/56464">
-                      <img
-                        src={require("../../../assets/img/play.png")}
-                        alt="play"
-                        className="subjectImage2"
-                      />
-                    </Link>
+                  >                   
+                    <img
+                      src={require("../../../assets/img/play.png")}
+                      alt="play"
+                      className="subjectImage2"
+                    />                   
                   </Tooltip>
                   <Tooltip
                     placement="top"
