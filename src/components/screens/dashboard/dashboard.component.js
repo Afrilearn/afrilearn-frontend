@@ -374,7 +374,7 @@ const mapStateToProps = (state) => ({
   average: state.course.average,
   belowAverage: state.course.belowAverage,
   noRating: state.course.noRating,
-  excellingText: state.course.excellingText,
+  excellingText: state.course.excellingText, 
   course: state.course.course,
   averageText: state.course.averageText,
   belowAverageText: state.course.belowAverageText,

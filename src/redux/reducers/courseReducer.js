@@ -31,7 +31,7 @@ const initialState = {
   overallProgress: 0,
   dashboardRoute: false,
   numOfUsers:0,
-  isLoading:false
+  isLoading:false 
 };
 
 const courseReducer = (state = initialState, action) => {

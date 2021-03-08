@@ -20,7 +20,7 @@ import parse from "html-react-parser";
 import Speech from "react-speech";
 import queryString from "query-string";
 
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Tooltip } from "reactstrap";
 
 import {
   EmailShareButton,
@@ -40,7 +40,13 @@ import slugify from "react-slugify";
 
 const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
-  const toggle1 = () => setModal1(!modal1);
+  const toggle1 = (e) => {
+    e.preventDefault();
+    setModal1(!modal1);
+  };
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  const toggleToolPit = () => setTooltipOpen(!tooltipOpen);
   const parsed = queryString.parse(props.location.search);
   const { activeCoursePaidStatus, clazz, inClass } = props;
   const mounted = useRef();
@@ -110,6 +116,8 @@ const ClassNote = (props) => {
       "lesson"
     );
   };
+
+  const payLink = inClass ? `/select-pay?${clazz._id}` : `/select-pay`;
 
   return (
     <span>
@@ -240,7 +248,14 @@ const ClassNote = (props) => {
             className="button button1"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
-            title={prevLesson ? prevLesson.title : "Subject Page"}
+            data-bs-html="true"
+            title={
+              prevLesson
+                ? prevNotAllowed
+                  ? "Subscribe to unlock"
+                  : prevLesson.title
+                : "Subject Page"
+            }
           >
             <FontAwesomeIcon
               icon={faAngleLeft}
@@ -289,7 +304,14 @@ const ClassNote = (props) => {
             className="button button2"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
-            title={nextLesson ? nextLesson.title : "Subject Page"}
+            data-bs-html="true"
+            title={
+              nextLesson
+                ? nextNotAllowed
+                  ? "Subscribe to unlock"
+                  : nextLesson.title
+                : "Subject Page"
+            }
           >
             <div>
               <p>{nextLesson ? "Next Lesson" : "Back to"}</p>
