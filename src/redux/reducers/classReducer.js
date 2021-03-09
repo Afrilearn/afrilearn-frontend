@@ -6,16 +6,24 @@ import {
   ACCEPT_REJECT_CLASSMEMBER_SUCCESS,
   ADD_CLASS_SUCCESS,
   ADD_ANNOUNCEMENT_SUCCESS,
+  CLASS_INPUT_CHANGE,
 } from "../actions/types";
 
 const initialState = {
   classes: [],
   class: {},
   classMembers: [],
+  isLoading: false,
 };
 
 const classReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLASS_INPUT_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+
     case GET_SINGLE_CLASS_SUCCESS:
       return {
         ...state,

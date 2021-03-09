@@ -24,6 +24,7 @@ import {
   ADD_CLASS_FAILURE,
   ADD_ANNOUNCEMENT_FAILURE,
   ADD_ANNOUNCEMENT_SUCCESS,
+  CLASS_INPUT_CHANGE,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -166,6 +167,13 @@ export const getClasses = () => async (dispatch) => {
 
 export const getClass = (classId) => async (dispatch) => {
   try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: true,
+      },
+    });
     document.body.classList.add("loading-indicator");
     const result = await API.getClass(classId);
 
@@ -178,6 +186,13 @@ export const getClass = (classId) => async (dispatch) => {
     });
 
     document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
   } catch (err) {
     document.body.classList.remove("loading-indicator");
     dispatch(
@@ -191,6 +206,13 @@ export const getClass = (classId) => async (dispatch) => {
     );
     dispatch({
       type: GET_SINGLE_CLASS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
     });
   }
 };

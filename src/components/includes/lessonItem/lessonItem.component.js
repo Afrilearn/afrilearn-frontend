@@ -330,45 +330,45 @@ const LessonItem = (props) => {
               placement="top"
               trigger={["hover"]}
             >
-              <div
-                className="term_item_left_bottom_item "
-                onClick={() => onClickClassNote(lesson)}
+              <Link
+                to={() => linkToClassNote(lesson)}
+                onClick={(e) => {
+                  inClass && isStudent && !activeCoursePaidStatus
+                    ? e.preventDefault()
+                    : updateQuizType();
+                }}
+                className="quizButton"
               >
-                <Link
-                  to={() => linkToClassNote(lesson)}
-                  onClick={(e) => {
-                    inClass && isStudent && !activeCoursePaidStatus
-                      ? e.preventDefault()
-                      : updateQuizType();
-                  }}
-                  className="quizButton"
+                <div
+                  className="term_item_left_bottom_item "
+                  onClick={() => onClickClassNote(lesson)}
                 >
                   Study Class Note
-                </Link>
-              </div>
+                </div>
+              </Link>
             </Tooltip>{" "}
           </div>
 
           {lesson.questions.length && lesson.videoUrls.length - 1 === index? (
             <div class="col-md-3">
-              <div
-                className="term_item_left_bottom_item "
-                onClick={() => onClickQuiz(lesson)}
+              <Tooltip
+                overlay={quizToolTipsComponent}
+                placement="top"
+                trigger={["hover"]}
               >
-                <Tooltip
-                  overlay={quizToolTipsComponent}
-                  placement="top"
-                  trigger={["hover"]}
+                <Link
+                  to={() => linkToQuiz()}
+                  onClick={updateQuizType}
+                  className="quizButton"
                 >
-                  <Link
-                    to={() => linkToQuiz()}
-                    onClick={updateQuizType}
-                    className="quizButton"
+                  <div
+                    className="term_item_left_bottom_item "
+                    onClick={() => onClickQuiz(lesson)}
                   >
                     Quiz
-                  </Link>
-                </Tooltip>
-              </div>
+                  </div>
+                </Link>
+              </Tooltip>
             </div>
           ):null}
         </div>

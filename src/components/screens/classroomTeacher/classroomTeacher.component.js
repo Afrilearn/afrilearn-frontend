@@ -30,7 +30,13 @@ import Swal from "sweetalert2";
 import { TabContent, TabPane } from "reactstrap";
 
 const ClassroomTeacher = (props) => {
-  const { activeEnrolledCourseId, clazz, classMembers, error } = props;
+  const {
+    activeEnrolledCourseId,
+    clazz,
+    classMembers,
+    error,
+    isLoading,
+  } = props;
 
   const [announcementText, setAnnouncementText] = useState(null);
 
@@ -394,10 +400,7 @@ const ClassroomTeacher = (props) => {
                 to="/performance"
                 class="badge bg-primary"
                 onClick={() => {
-                  props.inputChange(
-                    "targetUser",
-                    classMember.userId
-                  );
+                  props.inputChange("targetUser", classMember.userId);
                 }}
               >
                 See performance
@@ -700,9 +703,33 @@ const ClassroomTeacher = (props) => {
             <div className="content-section">
               <div id="classes" className="container-fluid relative subjects">
                 <h4 className="font2">My Subjects</h4>
-                <div className="row">{subjectList()}</div>
+                <div className="row">
+                  {isLoading ? (
+                    <div>
+                      <img
+                        className="centerImage"
+                        src={require("../../../assets/img/loading.gif")}
+                        alt="google"
+                      />
+                    </div>
+                  ) : (
+                    subjectList()
+                  )}
+                </div>
                 <h4 className="push5 h4">Past Questions</h4>
-                <div className="row jj">{pastQuestionsList()}</div>
+                <div className="row jj">
+                  {isLoading ? (
+                    <div>
+                      <img
+                        className="centerImage"
+                        src={require("../../../assets/img/loading.gif")}
+                        alt="google"
+                      />
+                    </div>
+                  ) : (
+                    pastQuestionsList()
+                  )}
+                </div>
               </div>
 
               <div className="announcements ">
@@ -864,6 +891,7 @@ const mapStateToProps = (state) => ({
   userId: state.auth.userId,
   user: state.auth.user.role,
   error: state.error,
+  isLoading: state.class.isLoading,
 });
 
 export default connect(mapStateToProps, {

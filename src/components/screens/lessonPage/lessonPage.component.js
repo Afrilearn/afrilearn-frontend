@@ -49,7 +49,10 @@ const LessonPage = (props) => {
 
   const [isOpen, setIsOpen] = useState(true);
   const [modal1, setModal1] = useState(false);
-  const toggle1 = () => setModal1(!modal1);
+  const toggle1 = (e) => {
+    e.preventDefault();
+    setModal1(!modal1);
+  };
 
   const toggleTranscript = () => setIsOpen(!isOpen);
   const lesson =

@@ -120,7 +120,7 @@ export const populateDashboard = (data) => async (dispatch) => {
   try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
-      payload: {
+      payload: { 
         name:'isLoading',
         value:true,
       },
