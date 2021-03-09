@@ -262,7 +262,7 @@ const LessonPage = (props) => {
                 <span></span>
               </div>
             </div>
-            <div className="icon">
+            {/* <div className="icon">
               <Link onClick={toggle1}>
                 <FontAwesomeIcon icon={faShareAlt} />
               </Link>
@@ -270,7 +270,7 @@ const LessonPage = (props) => {
                 <p>Share</p>
                 <span></span>
               </div>
-            </div>
+            </div> */}
             {role && role === "602f3ce39b146b3201c2dc1d" ? (
               <div className="icon">
                 <span

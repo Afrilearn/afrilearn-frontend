@@ -198,10 +198,10 @@ const ClassNote = (props) => {
               </span>
             </Link>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link onClick={toggle1}>
+            {/* <Link onClick={toggle1}>
               <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
             </Link>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
             <Speech
               id="audio"
               text={decodeEntities(targetLesson && targetLesson.content)}

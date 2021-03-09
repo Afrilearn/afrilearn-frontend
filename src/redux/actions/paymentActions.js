@@ -60,7 +60,7 @@ export const createTransaction = (data) => async (dispatch, getState) => {
     });
     dispatch(
       returnErrors(
-        "Successfully paid",
+        "Payment is successful",
         "200",
         "CREATE_PAYMENT_TRANSACTION_SUCCESS"
       )
