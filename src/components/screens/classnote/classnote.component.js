@@ -96,7 +96,7 @@ const ClassNote = (props) => {
     prevLesson && !activeCoursePaidStatus && targetLessonIndex - 1 !== 0;
   let nextNotAllowed =
     nextLesson && !activeCoursePaidStatus && targetLessonIndex + 1 !== 0;
-  let shareLink = `http://www.myafrilearn.com/`;
+  let shareLink = `https://www.myafrilearn.com/`;
 
   const recommendation = (id) => {
     const mainList = lessons && lessons.filter((vid) => vid._id !== id);
@@ -198,10 +198,10 @@ const ClassNote = (props) => {
               </span>
             </Link>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            {/* <Link onClick={toggle1}>
+            <Link onClick={toggle1}>
               <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
             </Link>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Speech
               id="audio"
               text={decodeEntities(targetLesson && targetLesson.content)}

@@ -126,6 +126,9 @@ body {
   outline: none !important;
   user-select: none;  
 }
+input{
+  user-select: auto !important;
+}
 
 a {
   color: inherit !important;

@@ -166,7 +166,7 @@ const LessonPage = (props) => {
   const [modal, setModal] = useState(false);
   const { className } = props;
   const toggleModal = () => setModal(!modal);
-  let shareLink = `http://www.myafrilearn.com/`;
+  let shareLink = `https://www.myafrilearn.com/`;
 
   return (
     <React.Fragment>
@@ -228,7 +228,7 @@ const LessonPage = (props) => {
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height="500px"
+            height="auto"
             muted={true}
             playing={true}
           />
@@ -262,7 +262,7 @@ const LessonPage = (props) => {
                 <span></span>
               </div>
             </div>
-            {/* <div className="icon">
+            <div className="icon">
               <Link onClick={toggle1}>
                 <FontAwesomeIcon icon={faShareAlt} />
               </Link>
@@ -270,7 +270,7 @@ const LessonPage = (props) => {
                 <p>Share</p>
                 <span></span>
               </div>
-            </div> */}
+            </div>
             {role && role === "602f3ce39b146b3201c2dc1d" ? (
               <div className="icon">
                 <span
