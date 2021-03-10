@@ -17,7 +17,9 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
     // store.dispatch(getCourses());
+  
   });
+  
   return (
     <Provider store={store}>
       <Navigation />

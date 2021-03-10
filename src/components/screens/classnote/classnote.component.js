@@ -96,7 +96,7 @@ const ClassNote = (props) => {
     prevLesson && !activeCoursePaidStatus && targetLessonIndex - 1 !== 0;
   let nextNotAllowed =
     nextLesson && !activeCoursePaidStatus && targetLessonIndex + 1 !== 0;
-  let shareLink = `http://www.myafrilearn.com/`;
+  let shareLink = `https://www.myafrilearn.com/`;
 
   const recommendation = (id) => {
     const mainList = lessons && lessons.filter((vid) => vid._id !== id);

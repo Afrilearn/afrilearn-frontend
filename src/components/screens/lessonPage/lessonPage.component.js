@@ -166,7 +166,7 @@ const LessonPage = (props) => {
   const [modal, setModal] = useState(false);
   const { className } = props;
   const toggleModal = () => setModal(!modal);
-  let shareLink = `http://www.myafrilearn.com/`;
+  let shareLink = `https://www.myafrilearn.com/`;
 
   return (
     <React.Fragment>
@@ -228,7 +228,7 @@ const LessonPage = (props) => {
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height="500px"
+            height="auto"
             muted={true}
             playing={true}
           />

@@ -36,13 +36,20 @@ const Homepage = (props) => {
 
       if(!classes.length){
         props.getRoles();
-      } 
-
+      }    
+     
     } else {
       // do componentDidUpdate logic
+      
     }
   });
-
+  const handleSecuirtyAgainstSiteInspection = (e) =>{      
+    if(e.key === 'Alt' || e.key === 'Shift'){    
+      console.log(e.key)  
+      e.preventDefault()
+      return false
+    }
+  }
   const classSet = () => {
     if (classes.length) {
       return classes.map((item) => {
@@ -67,9 +74,10 @@ const Homepage = (props) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
+   
+ 
   return (
-    <span id="homepage">
+    <span id="homepage" oncontextmenu="return false"  onkeydown="return false;" onmousedown="return false;">
       <div className="container-fluid bannerSection">
         <div className="row">
           <div className="col-md-3"> </div>

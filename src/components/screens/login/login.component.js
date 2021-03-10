@@ -109,7 +109,7 @@ const Login = props => {
     };
      
 	return (        
-		<span id="login">  
+		<span id="login" onkeydown="return true;" onmousedown="return true;">  
             {redirect ? <Redirect to={location} /> : null}  
             <div id="loginFirstSection" className="container-fluid relative">                         
                 <div className="row fly">
