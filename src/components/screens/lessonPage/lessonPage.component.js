@@ -216,7 +216,7 @@ const LessonPage = (props) => {
           </Modal>
         </div>
         {video && video.videoUrl && (
-          <ReactPlayer
+          <ReactPlayer 
             className="react-player"
             // Disable download button
             config={{ file: { attributes: { controlsList: "nodownload" } } }}
