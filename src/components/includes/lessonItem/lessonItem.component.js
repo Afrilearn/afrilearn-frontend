@@ -239,7 +239,11 @@ const LessonItem = (props) => {
                 <Link
                   to={() => linkToLesson(lesson, item)}
                   onClick={(e) => {
-                    inClass && isStudent && !unlocked && e.preventDefault();
+                    inClass &&
+                      isStudent &&
+                      !unlocked &&
+                      !activeCoursePaidStatus &&
+                      e.preventDefault();
                   }}
                 >
                   <div className="term_item_left_bottom_item ">
@@ -349,7 +353,7 @@ const LessonItem = (props) => {
             </Tooltip>{" "}
           </div>
 
-          {lesson.questions.length && lesson.videoUrls.length - 1 === index? (
+          {lesson.questions.length && lesson.videoUrls.length - 1 === index ? (
             <div class="col-md-3">
               <Tooltip
                 overlay={quizToolTipsComponent}
@@ -370,7 +374,7 @@ const LessonItem = (props) => {
                 </Link>
               </Tooltip>
             </div>
-          ):null}
+          ) : null}
         </div>
       </div>
     </div>
