@@ -132,9 +132,14 @@ const LessonPage = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.getCourse(parsed.courseId);
-      props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
-      // setModal(false);
+      if (
+        subject &&
+        subject.relatedLessons &&
+        subject.relatedLessons.length === 0
+      ) {
+        props.getCourse(parsed.courseId);
+        props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
+      }
     } else {
       // do componentDidUpdate logic
     }
@@ -166,7 +171,7 @@ const LessonPage = (props) => {
   const [modal, setModal] = useState(false);
   const { className } = props;
   const toggleModal = () => setModal(!modal);
-  let shareLink = `https://www.myafrilearn.com/`;
+  let shareLink = `http://www.myafrilearn.com/`;
 
   return (
     <React.Fragment>
@@ -216,7 +221,7 @@ const LessonPage = (props) => {
           </Modal>
         </div>
         {video && video.videoUrl && (
-          <ReactPlayer 
+          <ReactPlayer
             className="react-player"
             // Disable download button
             config={{ file: { attributes: { controlsList: "nodownload" } } }}
@@ -228,7 +233,7 @@ const LessonPage = (props) => {
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height="auto"
+            height="500px"
             muted={true}
             playing={true}
           />

@@ -248,7 +248,7 @@ const LessonItem = (props) => {
                 >
                   <div className="term_item_left_bottom_item ">
                     <FontAwesomeIcon icon={faPlay} />
-                    <button>Lesson {index + 1}</button>
+                    <button>Watch Lesson {index + 1}</button>
                   </div>
                 </Link>
               </Tooltip>
@@ -305,25 +305,38 @@ const LessonItem = (props) => {
         >
           {lesson.videoUrls.length && lesson.videoUrls.length > 0 ? (
             <div class="col-md-3 thumb4">
-              <div class="player-wrapper">
-                <ReactPlayer
-                  url={
-                    lesson.videoUrls.length &&
-                    lesson.videoUrls.length > 0 &&
-                    lesson.videoUrls[0].videoUrl
-                  }
-                  loop
-                  muted
-                  width="100%"
-                  height="100%"
-                  volume={0}
-                  config={{
-                    youtube: {
-                      playerVars: { showinfo: 1 },
-                    },
-                  }}
-                />
-              </div>
+              <Link
+                to={() => linkToLesson(lesson, lesson.videoUrls[0])}
+                onClick={(e) => {
+                  inClass &&
+                    isStudent &&
+                    !unlocked &&
+                    !activeCoursePaidStatus &&
+                    e.preventDefault();
+                }}
+              >
+                <div class="player-wrapper">
+                  <ReactPlayer
+                    url={
+                      lesson.videoUrls.length &&
+                      lesson.videoUrls.length > 0 &&
+                      lesson.videoUrls[0].videoUrl
+                    }
+                    loop
+                    muted
+                    width="100%"
+                    height="100%"
+                    volume={0}
+                    config={{
+                      youtube: {
+                        playerVars: { showinfo: 1 },
+                      },
+                    }}
+                    muted={true}
+                    playing={true}
+                  />
+                </div>
+              </Link>
             </div>
           ) : null}
 

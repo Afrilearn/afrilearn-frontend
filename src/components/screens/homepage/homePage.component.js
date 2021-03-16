@@ -43,13 +43,7 @@ const Homepage = (props) => {
       
     }
   });
-  const handleSecuirtyAgainstSiteInspection = (e) =>{      
-    if(e.key === 'Alt' || e.key === 'Shift'){    
-      console.log(e.key)  
-      e.preventDefault()
-      return false
-    }
-  }
+  
   const classSet = () => {
     if (classes.length) {
       return classes.map((item) => {
