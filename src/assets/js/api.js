@@ -420,4 +420,10 @@ export default {
       data,
     });
   },
+  async getSingleLesson(lessonId) {
+    return axios({
+      method: 'get',
+      url: `${this.url}lessons/${lessonId}`      
+    });
+  },
 };
