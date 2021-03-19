@@ -15,6 +15,7 @@ import {
 } from "./../../../redux/actions/courseActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import { sendClassRequest } from "./../../../redux/actions/classActions";
+import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import "animate.css";
@@ -36,6 +37,7 @@ const Dashboard = (props) => {
     noRatingText,
     course,
     isLoading,
+    error,
   } = props;
   const mounted = useRef();
 
@@ -52,8 +54,9 @@ const Dashboard = (props) => {
     props.populateDashboard(activeEnrolledCourseId ? data : null);
     // } else {
     // do componentDidUpdate logic
+
     // }
-  }, [activeEnrolledCourseId]);
+  }, []);
 
   const subjectList = () => {
     if (
@@ -185,9 +188,28 @@ const Dashboard = (props) => {
       return <h6>No captured recent activities</h6>;
     }
   };
+  if (
+    error.id === "SEND_CLASS_REQUEST_SUCCESS" ||
+    error.id === "SEND_CLASS_REQUEST_FAILURE"
+  ) {
+    const message =
+      typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      // position: "top-end",
+    });
+    props.clearErrors();
+  }
 
   const handleJoinClass = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const { value: ipAddress } = await Swal.fire({
       title: "Enter the class code below",
       input: "text",
@@ -203,9 +225,9 @@ const Dashboard = (props) => {
 
     if (ipAddress) {
       props.sendClassRequest(ipAddress);
-      Swal.fire(
-        "Your request to join the class will be sent to the class teacher for approval"
-      );
+      // Swal.fire(
+      //   "Your request to join the class will be sent to the class teacher for approval"
+      // );
     }
   };
   String.prototype.toProperCase = function () {
@@ -364,6 +386,7 @@ Dashboard.propTypes = {
   populateDashboard: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
   sendClassRequest: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -374,12 +397,13 @@ const mapStateToProps = (state) => ({
   average: state.course.average,
   belowAverage: state.course.belowAverage,
   noRating: state.course.noRating,
-  excellingText: state.course.excellingText, 
+  excellingText: state.course.excellingText,
   course: state.course.course,
   averageText: state.course.averageText,
   belowAverageText: state.course.belowAverageText,
   noRatingText: state.course.noRatingText,
   isLoading: state.course.isLoading,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, {
@@ -387,4 +411,5 @@ export default connect(mapStateToProps, {
   inputChange,
   sendClassRequest,
   authInputChange,
+  clearErrors,
 })(Dashboard);

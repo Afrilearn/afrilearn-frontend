@@ -333,7 +333,6 @@ const LessonItem = (props) => {
                       },
                     }}
                     muted={true}
-                    playing={true}
                   />
                 </div>
               </Link>
@@ -354,13 +353,13 @@ const LessonItem = (props) => {
                     ? e.preventDefault()
                     : updateQuizType();
                 }}
-                className="quizButton"
+                // className="quizButton"
               >
                 <div
                   className="term_item_left_bottom_item "
                   onClick={() => onClickClassNote(lesson)}
                 >
-                  Study Class Note
+                  <button>Study Class Note</button>
                 </div>
               </Link>
             </Tooltip>{" "}
@@ -382,7 +381,7 @@ const LessonItem = (props) => {
                     className="term_item_left_bottom_item "
                     onClick={() => onClickQuiz(lesson)}
                   >
-                    Quiz
+                    <button>Quiz</button>
                   </div>
                 </Link>
               </Tooltip>

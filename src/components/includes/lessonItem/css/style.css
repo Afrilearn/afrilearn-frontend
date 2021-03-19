@@ -43,7 +43,7 @@
 .term_item {
   width: 100%;
   padding: 0px 30px;
-  align-items: center;
+  align-items: center; 
   position: relative;
 }
 .player-wrapper {
@@ -98,7 +98,7 @@
   width: 100%;
 }
 .term_item_left_top {
-  font-size: 20px;
+  font-size: 20px; 
   margin-bottom: 30px;
 }
 .term_item_left_bottom {

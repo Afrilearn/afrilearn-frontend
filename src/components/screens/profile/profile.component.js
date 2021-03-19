@@ -52,6 +52,7 @@ const ProfilePage = (props) => {
     getClasses,
     classes,
     error,
+    referralCode,
   } = props;
 
   const [newName, setNewName] = useState(null);
@@ -310,10 +311,10 @@ const ProfilePage = (props) => {
     }
   };
 
-  const copyToClipboard = (e) => {
+  const copyToClipboard = (e, item) => {
     e.preventDefault();
     var textField = document.createElement("textarea");
-    textField.innerText = `${user._id}`;
+    textField.innerText = `${item}`;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -438,19 +439,43 @@ const ProfilePage = (props) => {
           <div className="col-md-7">
             <InputGroup size="lg" className="input-50">
               <Input
-                placeholder="ww.awfhrnfudf123485nftuekd/me.dfir9i9e00rigfgrr"
+                placeholder={referralCode ? referralCode : "No referral code"}
                 className="input-two"
               />
               <InputGroupAddon addonType="append" color="success">
-                <Button className="button-2">Copy Referral Code</Button>
+                <Button
+                  className="button-2"
+                  onClick={(e) => copyToClipboard(e, referralCode)}
+                >
+                  Copy Referral Code
+                </Button>
               </InputGroupAddon>
             </InputGroup>
           </div>
           <div className="col-md-5">
-            Share your referral code with friends to Earn Money or Free Subscription 
+            Share your referral code with friends to Earn Money or Free
+            Subscription
           </div>
-          </div>        
-       </div>
+          {visible && (
+            <div class="col-6">
+              <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                <strong>
+                  {referralCode ? "Referral Code copied" : "No referral code"}
+                </strong>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       <div id="hiddenProfilePageSectionTwo">
         <div
           className="round-image dropdown-toggle"
@@ -498,7 +523,7 @@ const ProfilePage = (props) => {
               </button>
             </li>
           )}
-        </ul>       
+        </ul>
         <div className="personal-details">
           <h3>Personal Details</h3>
           <div className="personal-details-form">
@@ -784,6 +809,7 @@ ProfilePage.propTypes = {
 };
 const mapStateToProps = (state) => ({
   classOwnership: state.auth.user.classOwnership,
+  referralCode: state.auth.referralCode,
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   user: state.auth.user,
   dashboardData: state.course.dashboardData,
