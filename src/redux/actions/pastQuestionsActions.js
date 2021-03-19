@@ -32,19 +32,19 @@ export const inputChange = (name, value) => async (dispatch) => {
   }
 };
 
-export const pastQuestionInputChange = (name, value) => async (dispatch) => {
-    try {
-      dispatch({
-        type: PAST_QUESTIONS_INPUT_CHANGE,
-        payload: {
-          name: name,
-          value: value,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+// export const pastQuestionInputChange = (name, value) => async (dispatch) => {
+//     try {
+//       dispatch({
+//         type: PAST_QUESTIONS_INPUT_CHANGE,
+//         payload: {
+//           name: name,
+//           value: value,
+//         },
+//       });
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
 
 export const loadSubjects = (examId) => async dispatch => {    
     try {   

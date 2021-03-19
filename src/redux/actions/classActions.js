@@ -331,6 +331,13 @@ export const sendClassRequest = (classCode) => async (dispatch, getState) => {
     dispatch({
       type: SEND_CLASS_REQUEST_SUCCESS,
     });
+    dispatch(
+      returnErrors(
+        "Your request to join the class will be sent to the class teacher for approval",
+        "200",
+        "SEND_CLASS_REQUEST_SUCCESS"
+      )
+    );
   } catch (err) {
     dispatch(
       returnErrors(

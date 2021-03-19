@@ -38,10 +38,10 @@ const Payment = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      props.paymentPlans();      
-      if (courses.length<1) {
-        props.getRoles();
-      }
+      props.paymentPlans();
+      // if (!courses) {
+      props.getRoles();
+      // }
     } else {
       // do componentDidUpdate logic
       if (error.id === "CREATE_PAYMENT_TRANSACTION_SUCCESS") {
@@ -81,8 +81,8 @@ const Payment = (props) => {
   const config = {
     reference: new Date().getTime(),
     email,
-    amount: paymentAmount * 100,   
-    // amount: 2 * 100,   
+    amount: paymentAmount * 100,
+    // amount: 2 * 100,
     publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
     channels: ["card"],
   };
@@ -98,13 +98,17 @@ const Payment = (props) => {
       paymentPlanId,
       amount: paymentAmount,
       status: "paid",
-    };  
-  
+    };
+
     props.createTransaction(data);
     if (role && role === "602f3ce39b146b3201c2dc1d") {
       props.addClass(courseId, nameOfClass);
     }
-    window.location ="/";
+    if (role && role === "602f3ce39b146b3201c2dc1d") {
+      window.location = "/classes/teacher";
+    } else {
+      window.location = "/dashboard";
+    }
   };
 
   // you can call this function anything

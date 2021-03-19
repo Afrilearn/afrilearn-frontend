@@ -72,7 +72,7 @@ export const createTransaction = (data) => async (dispatch, getState) => {
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        "GET_PAYMENT_PLANS_FAILURE"
+        "CREATE_PAYMENT_TRANSACTION_FAILURE"
       )
     );
     dispatch({
