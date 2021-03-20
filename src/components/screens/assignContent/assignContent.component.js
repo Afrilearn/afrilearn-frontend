@@ -97,7 +97,7 @@ const AssignContent = (props) => {
     <div id="assignContentPage">
       <div id="assignContentPageSectionOne">
         <h1 className="font2 text-bottom">Assign Study Content</h1>
-        <h4 className="font2">Basic Technology</h4>
+        {/* <h4 className="font2">Basic Technology</h4> */}
       </div>
       <div id="assignContentPageSectionTwo">
         <div class="container-fluid">

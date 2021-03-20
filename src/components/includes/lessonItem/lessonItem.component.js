@@ -248,7 +248,7 @@ const LessonItem = (props) => {
                 >
                   <div className="term_item_left_bottom_item ">
                     <FontAwesomeIcon icon={faPlay} />
-                    <button>Watch Lesson {index + 1}</button>
+                    <button>Watch Video Lesson {index + 1}</button>
                   </div>
                 </Link>
               </Tooltip>
@@ -365,7 +365,7 @@ const LessonItem = (props) => {
             </Tooltip>{" "}
           </div>
 
-          {lesson.questions.length && lesson.videoUrls.length - 1 === index ? (
+          {lesson.questions.length && lesson.questions.length > 0 ? (
             <div class="col-md-3">
               <Tooltip
                 overlay={quizToolTipsComponent}
@@ -374,7 +374,11 @@ const LessonItem = (props) => {
               >
                 <Link
                   to={() => linkToQuiz()}
-                  onClick={updateQuizType}
+                  onClick={(e) => {
+                    inClass && isStudent && !activeCoursePaidStatus
+                      ? e.preventDefault()
+                      : updateQuizType();
+                  }}
                   className="quizButton"
                 >
                   <div

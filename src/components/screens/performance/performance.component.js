@@ -31,7 +31,7 @@ const Performance = (props) => {
     targetUser,
   } = props;
 
-  const mounted = useRef();
+  const mounted = useRef(); 
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic

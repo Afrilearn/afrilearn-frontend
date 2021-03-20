@@ -319,7 +319,7 @@ const ProfilePage = (props) => {
     textField.select();
     document.execCommand("copy");
     textField.classList.add("hide");
-    setVisible(true);
+    setVisible(true); 
   };
   const [visible, setVisible] = useState(false);
   const onDismiss = () => setVisible(false);
