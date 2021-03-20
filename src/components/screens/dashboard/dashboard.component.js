@@ -54,9 +54,8 @@ const Dashboard = (props) => {
     props.populateDashboard(activeEnrolledCourseId ? data : null);
     // } else {
     // do componentDidUpdate logic
-
     // }
-  }, []);
+  }, [activeEnrolledCourseId]);
 
   const subjectList = () => {
     if (
