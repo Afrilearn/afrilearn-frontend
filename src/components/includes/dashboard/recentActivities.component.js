@@ -1,7 +1,7 @@
 import React from "react";
 import PastQuestions from "../../../assets/img/past-questions.png";
 import Lessons from "../../../assets/img/play.png";
-import moment from "moment";
+import ReactTimeAgo from 'react-time-ago';
 
 const Box = (props) => {
   function capitalizeFirstLetter(string) {
@@ -26,7 +26,13 @@ const Box = (props) => {
         </span>
       </div>
       <div className="col-md-4 center">
-        <p> {moment(props.time).startOf("hour").fromNow()}</p>
+        <p>          
+          <ReactTimeAgo
+            date={props.time}
+            locale="en-US"
+            timeStyle="round"
+          />
+        </p>
       </div>
     </div>
   );

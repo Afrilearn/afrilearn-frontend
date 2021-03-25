@@ -282,7 +282,7 @@ const Signup = (props) => {
                 />
               </div>
               <div className="col-md-6 push7 social facebook">
-                <FacebookLogin
+                {/* <FacebookLogin
                   appId="264373944539555"
                   autoLoad={false}
                   fields="name,email,picture"
@@ -301,7 +301,7 @@ const Signup = (props) => {
                       </span>
                     </button>
                   )}
-                />
+                /> */}
               </div>
             </div>
           </div>

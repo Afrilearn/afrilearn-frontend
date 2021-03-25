@@ -153,16 +153,16 @@ export const populateDashboard = (data) => async (dispatch) => {
       noRating = subjects.filter((item) => item.performance === null);
 
       excelling.forEach((element) => {
-        excellingText += element.subject + "&nbsp;&nbsp;&nbsp;";
+        excellingText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
       });
       average.forEach((element) => {
-        averageText += element.subject + "&nbsp;&nbsp;&nbsp;";
+        averageText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
       });
       belowAverage.forEach((element) => {
-        belowAverageText += element.subject + "&nbsp;&nbsp;&nbsp;";
+        belowAverageText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
       });
       noRating.forEach((element) => {
-        noRatingText += element.subject + "&nbsp;&nbsp;&nbsp;";
+        noRatingText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
       });
     }
     dispatch({

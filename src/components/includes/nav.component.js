@@ -271,11 +271,16 @@ const MyNav = (props) => {
     props.getSearchResults(title, true);    
   }
 
+  const sentenceCase = (str) =>{
+    let s = str.toLowerCase(); 
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   const searchResult = () => {
     if (searchResults.length>0) {
       return searchResults.map((item) => {
         return (           
-          <Link to='/search-details' onClick={handleSearchClick.bind(null,item.title)}><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{item.title.substr(0, 30)}{item.title.length>30? '...':null}</li></Link>                    
+          <Link to='/search-details' onClick={handleSearchClick.bind(null,item.title)}><li><img className="searchIcon1" src={require("../../assets/img/search.png")} alt="Afrilearn Search"/>{sentenceCase(item.title.substr(0, 30))}{item.title.length>30? '...':null}</li></Link>                    
         );          
         });
     }else{
