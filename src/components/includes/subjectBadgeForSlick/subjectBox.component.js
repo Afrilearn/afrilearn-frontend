@@ -95,7 +95,7 @@ const Box = (props) => {
         className={
           props.singleClass ? "col-md-2 relative" : "col-md-12 relative"
         }
-      >
+      >{props.subjectName.substr(0,17)}{props.subjectName.length>17?'...':null}
         <span className="drop">
           <img
             src={props.image}
