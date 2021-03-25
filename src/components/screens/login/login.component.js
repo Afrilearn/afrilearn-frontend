@@ -154,7 +154,7 @@ const Login = props => {
                                     />  
                                 </div>
                                 <div className="col-md-6 push7 social facebook">
-                                    <FacebookLogin
+                                    {/* <FacebookLogin
                                         appId='264373944539555'
                                         autoLoad={false}
                                         fields="name,email,picture"
@@ -164,7 +164,7 @@ const Login = props => {
                                         render={renderProps => (
                                             <button onClick={renderProps.onClick}><span className="socialText"><img className="social" src={require('../../../assets/img/facebook.png')} alt="facebook"/> Log in with Facebook</span></button>
                                         )}
-                                    />
+                                    /> */}
                                 </div>
                            </div>
                         </div>

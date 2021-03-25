@@ -115,7 +115,7 @@ const SearchPage = (props) => {
             } 
           }else{
             if(user &&  user.classOwnership.length){
-              if(user.classOwnership.filter(course => course.enrolledCourse._id === item.courseId._id && course.enrolledCourse.paymentIsActive ===true).length){
+              if(user.classOwnership.filter(course => course.enrolledCourse._id === item.courseId && course.enrolledCourse.paymentIsActive ===true).length){
                 return ( 
                   <Link to={`/search/${item._id}`}>
                     <Box 

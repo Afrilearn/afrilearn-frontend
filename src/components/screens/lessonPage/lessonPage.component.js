@@ -233,7 +233,7 @@ const LessonPage = (props) => {
             url={video && video.videoUrl}
             controls="true"
             width="100%"
-            height="500px"
+            height="auto"
             muted={true}
             playing={true}
           />
@@ -320,7 +320,7 @@ const LessonPage = (props) => {
         <div className="right">
           <div className="top">
             <p>
-              <span>Class:&nbsp;&nbsp; &nbsp; </span> {course.name}
+              <span>Class:&nbsp;&nbsp; &nbsp; </span>   {subject && subject.courseId && subject.courseId.alias}
             </p>
             <p>
               <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
