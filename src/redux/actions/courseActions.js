@@ -32,9 +32,9 @@ export const inputChange = (name, value) => async (dispatch) => {
 export const getCourses = () => async (dispatch) => {
   try {
     // document.body.classList.add("loading-indicator");
-
+     console.log('am here')
     const result = await API.getCourses();
-
+    console.log(result)
     dispatch({
       type: GET_ALL_COURSES_SUCCESS,
       payload: result.data.data,
@@ -61,7 +61,7 @@ export const getCourse = (data) => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
     const result = await API.getCourse(data);
-
+   
     let classNoteCount = 0;
     let videoLessonCount = 0;
     let quizQuestionsCount = 0;
@@ -153,16 +153,16 @@ export const populateDashboard = (data) => async (dispatch) => {
       noRating = subjects.filter((item) => item.performance === null);
 
       excelling.forEach((element) => {
-        excellingText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
+        excellingText += element.subject + "&nbsp;| ";
       });
       average.forEach((element) => {
-        averageText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
+        averageText += element.subject + "&nbsp;| ";
       });
       belowAverage.forEach((element) => {
-        belowAverageText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
+        belowAverageText += element.subject + "&nbsp;| ";
       });
       noRating.forEach((element) => {
-        noRatingText += element.subject + "&nbsp;&nbsp;&nbsp;| ";
+        noRatingText += element.subject + "&nbsp;| ";
       });
     }
     dispatch({
