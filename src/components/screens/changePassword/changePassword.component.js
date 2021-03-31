@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import 'animate.css';
 import queryString from "query-string";
-
+ 
 
 const ChangePassword = props => { 
     const {

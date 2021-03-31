@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import "animate.css";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import queryString from "query-string";
 
 const Signup = (props) => {
   const {
@@ -27,12 +28,13 @@ const Signup = (props) => {
     roles,
     classes,
     redirect,
-    location,
+    authlocation,
     passwordMode,
     className,
     error,
   } = props;
 
+  const parsed = queryString.parse(props.location.search);
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -166,7 +168,7 @@ const Signup = (props) => {
   };
   return (
     <span id="signup">
-      {redirect ? <Redirect to={location} /> : null}
+      {redirect ? <Redirect to={authlocation} /> : null}
       <div id="signupFirstSection" className="container-fluid relative">
         <div className="row fly">
           <div className="overlay overlayAuth"></div>
@@ -243,10 +245,20 @@ const Signup = (props) => {
                 <FontAwesomeIcon icon={faEye} />
               </Link>
             </div>
-            {/* <div className="col-md-12 relative">
-                            <input type="text" placeholder="Referral Code" className="general" name="referralCode" value={referralCode} onChange={handleChange}/>
-                            <p className="optional"><i>Optional</i></p>
-                            </div> */}
+            <div className="col-md-12 relative">
+              <input
+                type="text"
+                placeholder={parsed.referralCode || "Referral Code"}
+                className="general"
+                name="referralCode"
+                value={parsed.referralCode}
+                onChange={handleChange}
+                defaultValue={parsed.referralCode}
+              />
+              <p className="optional">
+                <i>Optional</i>
+              </p>
+            </div>
             <div className="col-md-12">
               <input
                 type="submit"
@@ -327,7 +339,7 @@ Signup.propTypes = {
 
 const mapStateToProps = (state) => ({
   redirect: state.auth.redirect,
-  location: state.auth.location,
+  authlocation: state.auth.location,
   role: state.auth.role,
   courseId: state.auth.courseId,
   fullName: state.auth.fullName,

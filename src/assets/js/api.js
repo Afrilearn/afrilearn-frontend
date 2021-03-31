@@ -220,11 +220,11 @@ export default {
     });
   },
 
-  getSearchResults(searchQuery, data=null) {
+  getSearchResults(searchQuery, data = null) {
     return axios({
       method: "post",
       url: `${this.url}lessons/search/${searchQuery}`,
-      data
+      data,
     });
   },
 
@@ -422,8 +422,8 @@ export default {
   },
   async getSingleLesson(lessonId) {
     return axios({
-      method: 'get',
-      url: `${this.url}lessons/${lessonId}`      
+      method: "get",
+      url: `${this.url}lessons/${lessonId}`,
     });
   },
 };

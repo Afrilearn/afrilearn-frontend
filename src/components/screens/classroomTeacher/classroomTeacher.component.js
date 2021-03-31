@@ -629,8 +629,8 @@ const ClassroomTeacher = (props) => {
           </small>
         </div>
         <div className="text">
-          <span className="copy-class-code">
-            <u>Copy Class Code</u>
+          <span className="">
+            <u>Add Student</u>
           </span>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Popover
