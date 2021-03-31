@@ -40,6 +40,7 @@ import { getClasses } from "./../../../redux/actions/classActions";
 import Ellipse from "../../../assets/img/Ellipse.png";
 import woman from "../../../assets/img/woman.png";
 import Adeola from "../../../assets/img/Adeola.jpg";
+import Avatar from "react-avatar";
 
 import "./css/style.css";
 
@@ -319,12 +320,14 @@ const ProfilePage = (props) => {
     textField.select();
     document.execCommand("copy");
     textField.classList.add("hide");
-    setVisible(true); 
+    setVisible(true);
   };
   const [visible, setVisible] = useState(false);
   const onDismiss = () => setVisible(false);
   const [newProfilePic, setNewProfilePic] = useState(null);
   const [photoToUpload, setPhotoToUpload] = useState(null);
+
+  const referralLink = `https://myafrilearn.com/register?referralCode=${user._id}`;
   console.log(newProfilePic);
   return (
     <React.Fragment>
@@ -348,6 +351,15 @@ const ProfilePage = (props) => {
               alt="check"
             ></img>
           )}
+          {/* {user.profilePhotoUrl ? (
+            <Avatar
+              size="100"
+              facebook-id="invalidfacebookusername"
+              src={user.profilePhotoUrl}
+            />
+          ) : (
+            <Avatar name="Wim Mostmans" size="150" round={true} />
+          )}{" "} */}
         </div>
         <div className="top-details">
           <div className="items">
@@ -438,16 +450,13 @@ const ProfilePage = (props) => {
         <div className="row refer">
           <div className="col-md-7">
             <InputGroup size="lg" className="input-50">
-              <Input
-                placeholder={referralCode ? referralCode : "No referral code"}
-                className="input-two"
-              />
+              <Input placeholder={referralLink} className="input-two" />
               <InputGroupAddon addonType="append" color="success">
                 <Button
                   className="button-2"
-                  onClick={(e) => copyToClipboard(e, referralCode)}
+                  onClick={(e) => copyToClipboard(e, referralLink)}
                 >
-                  Copy Referral Code
+                  Copy Referral Link
                 </Button>
               </InputGroupAddon>
             </InputGroup>
@@ -462,9 +471,7 @@ const ProfilePage = (props) => {
                 class="alert alert-success alert-dismissible fade show"
                 role="alert"
               >
-                <strong>
-                  {referralCode ? "Referral Code copied" : "No referral code"}
-                </strong>
+                <strong>Link Copied</strong>
                 <button
                   type="button"
                   class="btn-close"
