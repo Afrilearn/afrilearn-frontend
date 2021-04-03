@@ -54,6 +54,7 @@ import joinClassComponent from "../screens/joinClass/joinClass.component";
 import SearchPage from "../screens/searchResult/searchResult.component";
 import classNote from "../screens/classnote/classnote.component";
 import SearchDetails from "../screens/search/search.component";
+import PrivacyPolicy from "../screens/privacyPolicy/privacyPolicy";
 import {
   searchInputChange,
   getSearchResults
@@ -455,6 +456,7 @@ const MyNav = (props) => {
         <Route exact path="/" component={homepage} />
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
+        <Route path="/privacy" component={PrivacyPolicy} />
         <Route path="/contact" component={contact} />
         <ProtectedRoute
           path="/past-questions/instructions"
