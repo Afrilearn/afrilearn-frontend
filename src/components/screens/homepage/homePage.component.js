@@ -334,17 +334,13 @@ const Homepage = (props) => {
             <h3>Anywhere, everywhere. Cancel anytime.</h3>
             <div className="row push2">
               <div className="col-6">
-                <Tooltip
-                  placement="top"
-                  trigger={["hover"]}
-                  overlay={<span>Coming soon!</span>}
-                >
+               <a href="https://play.google.com/store/apps/details?id=com.afrilearn" target="_blank">
                   <img
                     className=""
                     src={require("../../../assets/img/playstore.png")}
                     alt="playstore"
                   />
-                </Tooltip>
+               </a>
               </div>
               <div className="col-6 right">
                 <Tooltip
