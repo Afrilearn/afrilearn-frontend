@@ -59,6 +59,9 @@ const LessonPage = (props) => {
     subject &&
     subject.relatedLessons &&
     subject.relatedLessons.find((su) => su._id === parsed.lessonId);
+  const courseName = subject && subject.courseId && subject.courseId.name;
+  const subjectName =
+    subject && subject.mainSubjectId && subject.mainSubjectId.name;
 
   const video =
     lesson &&
@@ -74,6 +77,14 @@ const LessonPage = (props) => {
     lesson && lesson.videoUrls && videoIndex !== lesson.videoUrls.length
       ? lesson.videoUrls[videoIndex + 1]
       : null;
+
+  const linkToNextLesson = `/content/${slugify(courseName)}/${slugify(
+    subjectName
+  )}/${slugify(lesson.title)}/${nextVideo && nextVideo._id}?courseId=${
+    lesson.courseId
+  }&subjectId=${lesson.subjectId}&lessonId=${lesson._id}&videoId=${
+    nextVideo && nextVideo._id
+  }`;
 
   const relatedVideos =
     lesson && lesson.videoUrls.filter((vid) => vid._id !== parsed.videoId);
@@ -171,7 +182,7 @@ const LessonPage = (props) => {
   const [modal, setModal] = useState(false);
   const { className } = props;
   const toggleModal = () => setModal(!modal);
-  let shareLink = `http://www.myafrilearn.com/`;
+  let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now or visit https://myafrilearn.com/`;
 
   return (
     <React.Fragment>
@@ -185,7 +196,7 @@ const LessonPage = (props) => {
                 <div>
                   <p>Lesson completed</p>
                   <Link
-                    to={`/content/${lesson.courseId}/${lesson.subjectId}/${lesson._id}/${nextVideo._id}`}
+                    to={linkToNextLesson}
                     className="btn btn-primary"
                     onClick={toggleModal}
                   >
@@ -210,6 +221,11 @@ const LessonPage = (props) => {
                       to={`/content/${lesson && lesson.courseId}/${
                         lesson && lesson.subjectId
                       }/${lesson && lesson._id}`}
+                      to={`/content/${slugify(courseName)}/${slugify(
+                        subjectName
+                      )}?courseId=${lesson.courseId}&subjectId=${
+                        lesson.subjectId
+                      }`}
                       className="btn btn-success"
                     >
                       Go to topics page
@@ -320,7 +336,8 @@ const LessonPage = (props) => {
         <div className="right">
           <div className="top">
             <p>
-              <span>Class:&nbsp;&nbsp; &nbsp; </span>   {subject && subject.courseId && subject.courseId.alias}
+              <span>Class:&nbsp;&nbsp; &nbsp; </span>{" "}
+              {subject && subject.courseId && subject.courseId.alias}
             </p>
             <p>
               <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
