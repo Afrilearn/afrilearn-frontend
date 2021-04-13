@@ -1,5 +1,6 @@
 #dashboardFirstSection {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.99)), url('../../../../assets/img/pencil.png');
+  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.99)),
+    url("../../../../assets/img/pencil.png");
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -9,7 +10,7 @@
   height: calc(105vh);
   padding-top: 165px;
 }
- 
+
 #dashboardFirstSection h1 {
   font-family: font2;
   text-align: center;
@@ -22,7 +23,7 @@
 #dashboardFirstSection .push2 {
   padding: 16px 90px;
 }
-h6.jj{
+h6.jj {
   margin-left: 15px;
 }
 
@@ -43,14 +44,14 @@ h6.jj{
 
 .dashboard .pastQuestionsBox {
   display: block;
-  background: #FC8A07;
+  background: #fc8a07;
   padding: 23px;
   border-radius: 5px;
   margin-bottom: 30px;
 }
 
 .dashboard .pastQuestionsBox1 {
-  background: #26AA76;
+  background: #26aa76;
 }
 
 .dashboard .myChart svg {
@@ -67,15 +68,15 @@ h6.jj{
 }
 
 .dashboard .excel {
-  background: #1B7763;
+  background: #1b7763;
 }
 
 .dashboard .average {
-  background: #FDAD51;
+  background: #fdad51;
 }
 
 .dashboard .belowAverage {
-  background: #FF5B5B;
+  background: #ff5b5b;
 }
 
 .dashboard .noRating {
@@ -109,12 +110,12 @@ h6.jj{
 
 .dashboard a.view {
   padding: 5px 35px;
-  background: #26AA76 !important;
+  background: #26aa76 !important;
   border-radius: 5px;
 }
 .dashboard .view {
   padding: 5px 35px;
-  background: #26AA76 !important;
+  background: #26aa76 !important;
   border-radius: 5px;
   border: none;
   color: white;
@@ -170,19 +171,62 @@ h6.jj{
   height: 0px !important;
   top: -177px;
 }
+#dashboardSecondSection .empty-class-state {
+  display: flex;
+  padding: 70px 100px;
+  align-items: center;
+}
+#dashboardSecondSection .empty-class-state img {
+  margin-right: 30px;
+}
+#dashboardSecondSection .empty-class-state p {
+  font-family: font1;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
 
+  color: #c0c0c0;
+  margin: 0;
+}
+#dashboardSecondSection .empty-class-state-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#dashboardSecondSection .empty-class-state-2 img {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+#dashboardSecondSection .empty-class-state-2 p {
+  font-family: font1;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
 
+  color: #c0c0c0;
+  margin: 0;
+}
+#dashboardSecondSection .pink-dot {
+  width: 14px;
+  height: 14px;
+  background: #ff5b5b;
+  border-radius: 50%;
+  margin-right: 20px;
+}
 
 @media screen and (max-width: 768px) {
   /* #dashboardFirstSection {
     height: 110vh;
     padding-top: 144px;
 } */
-#dashboardFirstSection {
-  height: calc(100vh);
-  padding-top: 107px;
-  margin-top: -26px;
-}
+  #dashboardFirstSection {
+    height: calc(100vh);
+    padding-top: 107px;
+    margin-top: -26px;
+  }
   #dashboardFirstSection h1 {
     font-size: 45px;
     margin-top: 75px;
@@ -196,7 +240,7 @@ h6.jj{
   #dashboardSecondSection {
     padding: 50px 20px 1px 20px;
     margin-bottom: -30px;
-}
+  }
 
   #dashboardSecondSection .dropDownContent {
     height: 0px !important;
@@ -233,6 +277,17 @@ h6.jj{
   .dashboard .recommend {
     margin-bottom: 20px;
   }
-
-
+  #dashboardSecondSection .empty-class-state {
+    padding: 20px 10px;
+  }
+  #dashboardSecondSection .empty-class-state img {
+    margin-right: 10px;
+    height: 30px;
+  }
+  #dashboardSecondSection .empty-class-state p {
+    font-size: 13px;
+  }
+  #dashboardSecondSection .pink-dot {
+    margin-right: 10px;
+  }
 }

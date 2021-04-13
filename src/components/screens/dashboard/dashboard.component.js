@@ -22,6 +22,9 @@ import "animate.css";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 
+import norecent from "../../../assets/img/norecent.png";
+import norecommend from "../../../assets/img/norecommend.png";
+
 const Dashboard = (props) => {
   const {
     activeEnrolledCourseId,
@@ -129,10 +132,10 @@ const Dashboard = (props) => {
       });
     } else {
       return (
-        <h6>
-          Enter your Class Code to attend a class and interact with top
-          Educators.
-        </h6>
+        <div className="empty-class-state">
+          <span className="pink-dot"></span>
+          <p>You have not joined any classroom</p>
+        </div>
       );
     }
   };
@@ -157,7 +160,11 @@ const Dashboard = (props) => {
         }
       });
     } else {
-      return <h6>No recommendations yet</h6>;
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecommend} /> <p>Start learning to get recommendations</p>
+        </div>
+      );
     }
   };
 
@@ -184,9 +191,14 @@ const Dashboard = (props) => {
         }
       });
     } else {
-      return <h6>No captured recent activities</h6>;
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>No Recent Activities</p>
+        </div>
+      );
     }
   };
+
   if (
     error.id === "SEND_CLASS_REQUEST_SUCCESS" ||
     error.id === "SEND_CLASS_REQUEST_FAILURE"
