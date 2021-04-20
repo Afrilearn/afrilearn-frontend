@@ -46,7 +46,22 @@ const Homepage = (props) => {
   
   const classSet = () => {
     if (classes.length) {
-      return classes.map((item) => {
+
+      let list = [];
+
+      for(let i = 0; i<classes.length; i++){
+          if(classes[i].categoryId === '605b218f8636bc00158b4ad7'){
+              list.push(classes[i])
+          }
+      }
+
+      for(let j = 0; j<classes.length; j++){
+        if(classes[j].categoryId === '605b21868636bc00158b4ad6'){
+            list.push(classes[j])
+        }
+      }
+          
+      return list.map((item) => {
         return (
           <li>
             <Link to={`/classes/${slugify(item.name)}?classId=${item._id}`}>
@@ -78,7 +93,7 @@ const Homepage = (props) => {
           <div className="col-md-6 box">
             <h1>Get Ahead with Afrilearn!</h1>
             <h4>
-              We provide every Primary and Secondary School Student freedom to
+              We provide every Secondary School Student freedom to
               learn curriculum-relevant subjects and topics anytime, anywhere.
             </h4>
             <div className="row courseSelectSection">
@@ -256,7 +271,7 @@ const Homepage = (props) => {
                   <div className="col-md-8 paddingLeftOff">
                     <h3>
                       {numberOfQuizQuestions && numberOfQuizQuestions > 0
-                        ? numberWithCommas(18147 + numberOfQuizQuestions)
+                        ? numberWithCommas(22122 + numberOfQuizQuestions)
                         : 0}
                       +{" "}
                     </h3>
@@ -388,8 +403,7 @@ const Homepage = (props) => {
                 >
                   <div class="accordion-body">
                     Afrilearn is an education streaming service that provides
-                    West African Primary and Secondary School Students (Primary
-                    1-6 & JSS1-SS3) freedom to learn curriculum-relevant
+                    West African Secondary School Students (JSS1-SS3) freedom to learn curriculum-relevant
                     subjects and topics anytime, anywhere. With Afrilearn,
                     there's always something exciting to learn as new contents
                     are added weekly!
