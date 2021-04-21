@@ -55,6 +55,7 @@ import SearchPage from "../screens/searchResult/searchResult.component";
 import classNote from "../screens/classnote/classnote.component";
 import SearchDetails from "../screens/search/search.component";
 import PrivacyPolicy from "../screens/privacyPolicy/privacyPolicy";
+import ParentChildRegistration from "../screens/parentChildRegistration/parentChildRegistration.component"
 import {
   searchInputChange,
   getSearchResults
@@ -532,7 +533,8 @@ const MyNav = (props) => {
         <Route path="/social-login" component={socialLogin} />
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
-        <Route path="/search-details" component={SearchDetails} />           
+        <Route path="/search-details" component={SearchDetails} />
+        <Route path="/parents/:id/register-child" component={ParentChildRegistration}/>         
       </Switch>     
     </Router>
   );
