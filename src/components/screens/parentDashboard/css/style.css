@@ -1,6 +1,6 @@
 #parent-dashboard {
   background-color: #000;
-  padding-bottom: 60px;
+  padding-bottom: 240px;
   color: white;
 }
 #parent-dashboard .top-display {
@@ -84,6 +84,16 @@
 
 #parent-dashboard .class-name:hover {
   box-shadow: -3px 0 #26aa76;
+}
+
+#parent-dashboard select{
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; 
+    appearance: none;
+    background-image: url('../../../../assets/img/Chevron.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) 50%;
+    background-size: 14px;
 }
 
 #parent-dashboard .gradient-bg {

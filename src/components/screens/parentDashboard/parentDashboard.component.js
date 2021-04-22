@@ -17,7 +17,7 @@ const ParentDashboard = props => {
   ]
   const [selectedSubject, setSelectedSubject] = useState(subjects[0])
   const terms = ['first', 'second', 'third']
-  const [selectedTerm, setSelectedTerm] = useState(terms[0])
+  const [selectedTerm, setSelectedTerm] = useState('')
 
   return (
     <div id='parent-dashboard' className='negative-top'>
@@ -70,16 +70,23 @@ const ParentDashboard = props => {
                 <div style={{ color: 'rgba(255,255,255,.6)' }}>
                   Select child(ren)'s name to view their performance
                 </div>
-                <div className='w-100 mb-2'>
-                  <select className='general' name='courseId'>
+                <div className='w-100 mb-1'>
+                  <select className='general pl-3' name='courseId'>
                     <option>Select Child</option>
                     <option>Select class</option>
                     <option>Select class</option>
                   </select>
                 </div>
-                <div className='w-100 mb-4'>
-                  <select className='general' name='courseId'>
+                <div className='w-100 mb-1'>
+                  <select className='general pl-3' name='courseId'>
                     <option>Select class</option>
+                    <option>Select class</option>
+                    <option>Select class</option>
+                  </select>
+                </div>
+                <div className='w-100 mb-4'>
+                  <select className='general pl-3' name='courseId'>
+                    <option>Select duration</option>
                     <option>Select class</option>
                     <option>Select class</option>
                   </select>
@@ -109,9 +116,9 @@ const ParentDashboard = props => {
                 </span>
 
                 <select
-                  className='general mt-0 py-2'
+                  className='general mt-0 py-2 pl-3 pr-2'
                   style={{
-                    maxWidth: '200px',
+                    maxWidth: '160px',
                     backgroundColor: 'rgba(38, 170, 118, 0.28)',
                     color: 'rgba(38, 170, 118, 1)',
                     borderRadius: 7
@@ -130,7 +137,6 @@ const ParentDashboard = props => {
                     <div className='d-md-none w-100 mb-4'>
                       <select
                         className='general'
-                        name='courseId'
                         onInput={e => {
                           setSelectedSubject(e.target.value)
                         }}
