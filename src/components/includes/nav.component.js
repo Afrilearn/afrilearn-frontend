@@ -55,13 +55,14 @@ import SearchPage from "../screens/searchResult/searchResult.component";
 import classNote from "../screens/classnote/classnote.component";
 import SearchDetails from "../screens/search/search.component";
 import PrivacyPolicy from "../screens/privacyPolicy/privacyPolicy";
+import ParentChildRegistration from "../screens/parentChildRegistration/parentChildRegistration.component"
 import {
   searchInputChange,
   getSearchResults
 } from "./../../redux/actions/searchActions";
 import { populateDashboard } from "./../../redux/actions/courseActions";
 import faqPageComponent from "../screens/faqPage/faqPage.component";
-import childrenList from "../screens/childrenList/childrenList.component"
+import ChildrenList from "../screens/childrenList/childrenList.component"
 
 const MyNav = (props) => {
   const {
@@ -389,6 +390,30 @@ const MyNav = (props) => {
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
+                  Parents/Children
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {classList()}
+                  <DropdownItem
+                    tag={Link}
+                    to="/parents/:id/children"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    View Child(ren)
+                  </DropdownItem>
+                  <DropdownItem
+                    tag={Link}
+                    to="/parents/:id/register-child"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Register Child
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : ""}
+            {isAuthenticated ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
                   <img
                     src={require("./../../assets/img/profile.png")}
                     alt="profile"
@@ -534,7 +559,8 @@ const MyNav = (props) => {
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
         <Route path="/search-details" component={SearchDetails} />
-        <Route path="/children" exact component={childrenList}/>         
+        <Route path="/parents/:id/children" exact component={ChildrenList}/>         
+        <Route path="/parents/:id/register-child" component={ParentChildRegistration}/>         
       </Switch>     
     </Router>
   );
