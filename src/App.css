@@ -635,3 +635,11 @@ img.dropDownIcon1 {
 .padding-30 {
   padding: 30px;
 }
+
+.pointer{
+  cursor: pointer;
+}
+
+.no-wrap{
+  white-space: nowrap;
+}
