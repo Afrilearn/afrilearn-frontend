@@ -61,6 +61,7 @@ import {
 } from "./../../redux/actions/searchActions";
 import { populateDashboard } from "./../../redux/actions/courseActions";
 import faqPageComponent from "../screens/faqPage/faqPage.component";
+import childrenList from "../screens/childrenList/childrenList.component"
 
 const MyNav = (props) => {
   const {
@@ -532,7 +533,8 @@ const MyNav = (props) => {
         <Route path="/social-login" component={socialLogin} />
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
-        <Route path="/search-details" component={SearchDetails} />           
+        <Route path="/search-details" component={SearchDetails} />
+        <Route path="/children" exact component={childrenList}/>         
       </Switch>     
     </Router>
   );
