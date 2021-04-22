@@ -62,6 +62,7 @@ import {
 } from "./../../redux/actions/searchActions";
 import { populateDashboard } from "./../../redux/actions/courseActions";
 import faqPageComponent from "../screens/faqPage/faqPage.component";
+import ParentDashboard from "../screens/parentDashboard/parentDashboard.component"
 
 const MyNav = (props) => {
   const {
@@ -534,7 +535,8 @@ const MyNav = (props) => {
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
         <Route path="/search-details" component={SearchDetails} />
-        <Route path="/parents/:id/register-child" component={ParentChildRegistration}/>         
+        <Route path="/parents/register-child" component={ParentChildRegistration}/>         
+        <Route path="/parents/dashboard" component={ParentDashboard}/>         
       </Switch>     
     </Router>
   );
