@@ -22,8 +22,8 @@ const ParentDashboard = props => {
   return (
     <div id='parent-dashboard' className='negative-top'>
       <div class='top-display'></div>
-      <div className='px-4'>
-        <div className='d-flex justify-content-center'>
+      <div className='px-3 px-sm-4 px-md-5'>
+        <div className='d-flex justify-content-center mx-auto'>
           <div
             className='d-flex flex-column flex-md-row align-items-center'
             style={{
@@ -44,24 +44,24 @@ const ParentDashboard = props => {
             />
             <div className='stat-display'>
               <div>
-                <div style={{ minHeight: '2.8em' }}>Number of Children</div>
-                <div style={{ fontSize: '1.1em' }}>00</div>
+                <div style={{ minHeight: '2em' }}>Number of Children</div>
+                <div style={{ fontSize: '1.4em', color: 'rgba(0,0,0,.49)' }}>00</div>
               </div>
               <div>
-                <div style={{ minHeight: '2.8em' }}>
+                <div style={{ minHeight: '2em' }}>
                   Number of Classes Registered
                 </div>
-                <div style={{ fontSize: '1.1em' }}>00</div>
+                <div style={{ fontSize: '1.4em', color: 'rgba(0,0,0,.49)' }}>00</div>
               </div>
             </div>
           </div>
         </div>
         <div className='d-flex justify-content-center mt-5'>
-          <div className='w-100'>
+          <div className='w-100' style={{ maxWidth: 800 }}>
             <div
               style={{
                 width: '100%',
-                padding: '25px 40px'
+                padding: '35px 40px'
               }}
               className='d-flex justify-content-center gradient-bg rad-10'
             >
@@ -100,11 +100,13 @@ const ParentDashboard = props => {
               </div>
             </div>
 
-            <div className='mt-4'>
+            <div style={{marginTop: 50}}>
               <h4 className='font2 white'>Class Content(s)</h4>
               <div className='d-flex align-items-center flex-wrap'>
                 <Filter style={{ width: 16 }} className='mr-2' />
-                <span className='white no-wrap mr-2 mr-sm-5'>Filter by class</span>
+                <span className='white no-wrap mr-2 mr-sm-5'>
+                  Filter by class
+                </span>
 
                 <select
                   className='general mt-0 py-2'
@@ -135,8 +137,8 @@ const ParentDashboard = props => {
                         value={selectedSubject}
                       >
                         <option>Select Subject</option>
-                        {subjects.map(sub => (
-                          <option>{sub}</option>
+                        {subjects.map((sub,index) => (
+                          <option key={index}>{sub}</option>
                         ))}
                       </select>
                     </div>
@@ -156,7 +158,7 @@ const ParentDashboard = props => {
                       ))}
                     </div>
                   </div>
-                  <div className='col-12 col-md-9 gradient-bg px-4 py-3 rad-10'>
+                  <div className='col-12 col-md-9 gradient-bg px-4 pt-4 rad-10' style={{paddingBottom: 90}}>
                     <h4
                       className='font2'
                       style={{ color: 'rgba(38, 170, 118, 0.54)' }}
@@ -178,7 +180,9 @@ const ParentDashboard = props => {
                           }}
                           className='d-flex align-items-center justify-content-between pointer'
                           onClick={() => {
-                            setSelectedTerm(term)
+                            let val = ''
+                            if (term !== selectedTerm) val = term
+                            setSelectedTerm(val)
                           }}
                         >
                           <span className='font2 text-capitalize'>
@@ -190,13 +194,13 @@ const ParentDashboard = props => {
                           />
                         </div>
                         <div className='mt-3 term-lessons'>
-                          <ul>
+                          <div className='pl-3'>
                             {Array(6)
                               .fill('a')
                               .map((_, id) => (
                                 <LessonItem key={id} />
                               ))}
-                          </ul>
+                          </div>
                         </div>
                       </div>
                     ))}

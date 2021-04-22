@@ -24,8 +24,10 @@
 
 #parent-dashboard .class-name {
   padding-left: 8px;
-  margin-top: 16px;
   color: rgba(255, 255, 255, 0.7);
+}
+#parent-dashboard .class-name:not(:first-child){
+  margin-top: 16px;
 }
 #parent-dashboard .term.selected .term-lessons {
   display: block;
@@ -45,7 +47,7 @@
   background-color: white;
   width: 100%;
   border-radius: 4px;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.87);
   flex-direction: column;
 }
 #parent-dashboard .stat-display > div {
@@ -54,14 +56,14 @@
   padding: 15px 15px;
 }
 #parent-dashboard .stat-display > div:first-child{
-    box-shadow: 0 1px lightgrey;
+    box-shadow: 0 2px lightgrey;
 }
 @media (min-width: 576px) {
   #parent-dashboard .stat-display {
     flex-direction: row;
   }
   #parent-dashboard .stat-display > div:first-child{
-    box-shadow: 1px 0 lightgrey;
+    box-shadow: 2px 0 lightgrey;
 }
 }
 @media (min-width: 768px) {
