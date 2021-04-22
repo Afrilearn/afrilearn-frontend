@@ -62,6 +62,7 @@ import {
 } from "./../../redux/actions/searchActions";
 import { populateDashboard } from "./../../redux/actions/courseActions";
 import faqPageComponent from "../screens/faqPage/faqPage.component";
+import ChildrenList from "../screens/childrenList/childrenList.component"
 import ParentDashboard from "../screens/parentDashboard/parentDashboard.component"
 
 const MyNav = (props) => {
@@ -390,6 +391,30 @@ const MyNav = (props) => {
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
+                  Parents/Children
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {classList()}
+                  <DropdownItem
+                    tag={Link}
+                    to="/parents/:id/children"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    View Child(ren)
+                  </DropdownItem>
+                  <DropdownItem
+                    tag={Link}
+                    to="/parents/:id/register-child"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Register Child
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : ""}
+            {isAuthenticated ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
                   <img
                     src={require("./../../assets/img/profile.png")}
                     alt="profile"
@@ -535,6 +560,8 @@ const MyNav = (props) => {
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
         <Route path="/search-details" component={SearchDetails} />
+        <Route path="/parents/:id/children" exact component={ChildrenList}/>         
+        <Route path="/parents/:id/register-child" component={ParentChildRegistration}/>         
         <Route path="/parents/register-child" component={ParentChildRegistration}/>         
         <Route path="/parents/dashboard" component={ParentDashboard}/>         
       </Switch>     

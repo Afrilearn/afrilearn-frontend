@@ -19,6 +19,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'font4';
+  src: url('./assets/fonts/Nunito-Bold.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
   font-family: font1 !important;
@@ -103,6 +110,10 @@ body {
 
 .font3 {
   font-family: font3;
+}
+
+.font4 {
+  font-family: font4;
 }
 
 @keyframes moveDown {
