@@ -7,6 +7,7 @@ import subjectReducer from "./subjectReducer";
 import classReducer from "./classReducer";
 import pastQuestionsReducer from "./pastQuestionsReducer";
 import searchReducer from "./searchReducer";
+import parentReducer from "./parentReducer"
 
 export default combineReducers({
   auth: authReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   subject: subjectReducer,
   search: searchReducer,
   pastQuestion: pastQuestionsReducer,
+  parent: parentReducer
 });

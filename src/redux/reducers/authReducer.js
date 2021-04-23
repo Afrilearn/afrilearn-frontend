@@ -147,6 +147,11 @@ const authReducer = (state = initialState, action) => {
             isAuthenticated: true,
             location: "/dashboard",
           };
+        } else if(action.payload.user.role === '606ed82e70f40e18e029165e'){
+          myObj = {
+            isAuthenticated: true,
+            location: "/parents/dashboard"
+          }
         }
       }
       otherObj = {

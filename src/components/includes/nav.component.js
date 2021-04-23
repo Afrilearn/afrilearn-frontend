@@ -326,6 +326,15 @@ const MyNav = (props) => {
                   </NavLink>
                 </NavItem>               
                 <NavItem>
+                  <NavLink
+                    tag={Link}
+                    to="/parents/dashboard"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Util link
+                  </NavLink>
+                </NavItem>               
+                <NavItem>
                   {user.role !== "602f3ce39b146b3201c2dc1d" && !inClass && (
                     <NavLink
                       tag={Link}

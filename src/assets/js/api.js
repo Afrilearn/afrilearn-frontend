@@ -1,147 +1,147 @@
-import axios from "axios";
+import axios from 'axios'
 const URL =
-  "http://afrilearnbackend-env.eba-kmm3jyax.eu-west-3.elasticbeanstalk.com/api/v1/";
-const HerokuURL = "https://afrilearn-backend-01.herokuapp.com/api/v1/";
-const LocalURL = "http://localhost:5000/api/v1/";
-const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
+  'http://afrilearnbackend-env.eba-kmm3jyax.eu-west-3.elasticbeanstalk.com/api/v1/'
+const HerokuURL = 'https://afrilearn-backend-01.herokuapp.com/api/v1/'
+const LocalURL = 'http://localhost:5000/api/v1/'
+const PastQuestionURL = 'https://api.exambly.com/adminpanel/v2/'
 
 export default {
   url: HerokuURL,
   url2: PastQuestionURL,
-  headers(fileupload = false) {
-    const token = localStorage.getItem("token");
+  headers (fileupload = false) {
+    const token = localStorage.getItem('token')
 
-    let header = {};
+    let header = {}
     if (fileupload) {
-      header["Content-type"] = "multipart/form-data";
+      header['Content-type'] = 'multipart/form-data'
     } else {
-      header["Content-type"] = "application/json";
-      header["Accept"] = "*/*";
-      header["Access-Control-Allow-Origin"] = "*";
+      header['Content-type'] = 'application/json'
+      header['Accept'] = '*/*'
+      header['Access-Control-Allow-Origin'] = '*'
     }
     if (token && token !== undefined) {
-      header["token"] = token;
+      header['token'] = token
     }
-    return header;
+    return header
   },
 
-  headers2() {
-    let header = {};
-    header["Content-type"] = "application/json";
-    header["authorization"] =
-      "F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv";
-    return header;
+  headers2 () {
+    let header = {}
+    header['Content-type'] = 'application/json'
+    header['authorization'] =
+      'F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv'
+    return header
   },
 
-  updateProfilePic(profilePhotoUrl) {
+  updateProfilePic (profilePhotoUrl) {
     return axios({
-      method: "patch",
+      method: 'patch',
       url: `${this.url}auth/update-profile-pic`,
       headers: this.headers(),
-      data: profilePhotoUrl,
-    });
+      data: profilePhotoUrl
+    })
   },
-  acceptRejectClassmember(classId, userId, status) {
+  acceptRejectClassmember (classId, userId, status) {
     return axios({
-      method: "patch",
+      method: 'patch',
       url: `${this.url}classes/accept-reject-class-request`,
       headers: this.headers(),
-      data: { classId, userId, status },
-    });
+      data: { classId, userId, status }
+    })
   },
 
-  checkUserExistJoinClass(email, classId) {
+  checkUserExistJoinClass (email, classId) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}auth/check-join-class`,
-      data: { email, classId },
-    });
+      data: { email, classId }
+    })
   },
-  getRoles() {
+  getRoles () {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url}auth/roles`,
-      headers: this.headers(),
-    });
+      headers: this.headers()
+    })
   },
 
-  sendClassInvite(email, link) {
+  sendClassInvite (email, link) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/send-class-invite`,
       headers: this.headers(),
-      data: { email, link },
-    });
+      data: { email, link }
+    })
   },
 
-  joinApproved(classId, email, fullName, password) {
+  joinApproved (classId, email, fullName, password) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/${classId}/join-class`,
-      data: { email, fullName, password },
-    });
+      data: { email, fullName, password }
+    })
   },
 
-  registerUser(data) {
+  registerUser (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}auth/signup`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  login(data) {
+  login (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}auth/login`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  resetPassword(data) {
+  resetPassword (data) {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url}auth/${data}/reset_password`,
-      headers: this.headers(),
-    });
+      headers: this.headers()
+    })
   },
 
-  updateProfile(data) {
+  updateProfile (data) {
     return axios({
-      method: "patch",
+      method: 'patch',
       url: `${this.url}auth/profile-update`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  addRecentActivity(lessonId, type) {
+  addRecentActivity (lessonId, type) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}recents/add-recent-activity`,
       headers: this.headers(),
       data: {
         lessonId,
-        type,
-      },
-    });
+        type
+      }
+    })
   },
 
-  addClass(courseId, name) {
+  addClass (courseId, name) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/add-class`,
       headers: this.headers(),
       data: {
         courseId,
-        name,
-      },
-    });
+        name
+      }
+    })
   },
 
-  addSubjectProgress(
+  addSubjectProgress (
     classId,
     lessonId,
     subjectId,
@@ -151,7 +151,7 @@ export default {
     type
   ) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}courses/subject-progress`,
       headers: this.headers(),
       data: {
@@ -161,269 +161,277 @@ export default {
         courseId,
         recommended,
         reason,
-        type,
-      },
-    });
+        type
+      }
+    })
   },
 
-  changePassword(data) {
+  changePassword (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}auth/change_password`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  changePasswordDirectly(data) {
+  changePasswordDirectly (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}auth/change-password`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  socialLoginGoogle(data) {
+  socialLoginGoogle (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}auth/social_login/google`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  socialLoginFacebook(data) {
+  socialLoginFacebook (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}auth/social_login/facebook`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  socialLoginUpdate(data) {
+  socialLoginUpdate (data) {
     return axios({
-      method: "patch",
+      method: 'patch',
       url: `${this.url}auth/profile-update`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  courseEnrolment(data) {
+  courseEnrolment (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}courses/enroll`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  getSearchResults(searchQuery, data = null) {
+  getSearchResults (searchQuery, data = null) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}lessons/search/${searchQuery}`,
-      data,
-    });
+      data
+    })
   },
 
-  getCourses() {
+  getCourses () {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url}courses`,
-      headers: this.headers(),
-    });
+      headers: this.headers()
+    })
   },
 
-  getCourse(data) {
+  getCourse (data) {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url}courses/${data}`,
-      headers: this.headers(),
-    });
+      headers: this.headers()
+    })
   },
 
-  getClasses() {
+  getClasses () {
     return axios({
-      method: "get",
-      url: `${this.url}classes`,
-    });
+      method: 'get',
+      url: `${this.url}classes`
+    })
   },
 
-  getClass(classId) {
+  getClass (classId) {
     return axios({
-      method: "get",
-      url: `${this.url}classes/${classId}`,
-    });
+      method: 'get',
+      url: `${this.url}classes/${classId}`
+    })
   },
 
-  loadUser() {
+  loadUser () {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url}auth/load-user`,
-      headers: this.headers(),
-    });
+      headers: this.headers()
+    })
   },
 
-  getPaymentPlans() {
+  getPaymentPlans () {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url}payments/plans`,
-      headers: this.headers(),
-    });
+      headers: this.headers()
+    })
   },
 
-  createPaymentTransaction(data) {
+  createPaymentTransaction (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}payments/add-transaction`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  makeAnnouncement(classId, text) {
+  makeAnnouncement (classId, text) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/${classId}/announce`,
       headers: this.headers(),
-      data: { text },
-    });
+      data: { text }
+    })
   },
 
-  addCommentToAnnouncement(announcementId, text) {
+  addCommentToAnnouncement (announcementId, text) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/${announcementId}/comment`,
       headers: this.headers(),
-      data: { text },
-    });
+      data: { text }
+    })
   },
 
-  addCommentToAssignedContent(assignedContentId, text, student) {
+  addCommentToAssignedContent (assignedContentId, text, student) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/${assignedContentId}/comment-on-content`,
       headers: this.headers(),
-      data: { text, student },
-    });
+      data: { text, student }
+    })
   },
 
-  sendClassRequest(classCode) {
+  sendClassRequest (classCode) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/send-class-request`,
       headers: this.headers(),
-      data: { classCode },
-    });
+      data: { classCode }
+    })
   },
 
-  assignContentToStudent(description, lessonId, classId, dueDate, userId) {
+  assignContentToStudent (description, lessonId, classId, dueDate, userId) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}classes/${classId}/assign-content`,
       headers: this.headers(),
-      data: { description, lessonId, classId, dueDate, userId },
-    });
+      data: { description, lessonId, classId, dueDate, userId }
+    })
   },
 
-  populateDashboard(data) {
+  populateDashboard (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}dashboard`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  getSubjectAndRelatedLessons(courseId, subjectId) {
+  getSubjectAndRelatedLessons (courseId, subjectId) {
     return axios({
-      method: "post",
-      url: `${this.url}lessons/${courseId}/${subjectId}/subject-lessons`,
-    });
+      method: 'post',
+      url: `${this.url}lessons/${courseId}/${subjectId}/subject-lessons`
+    })
   },
 
-  loadSubjects(examId) {
+  loadSubjects (examId) {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url2}getMySubjects/${examId}`,
-      headers: this.headers2(),
-    });
+      headers: this.headers2()
+    })
   },
 
-  loadSchools() {
+  loadSchools () {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url2}getMySchools`,
-      headers: this.headers2(),
-    });
+      headers: this.headers2()
+    })
   },
 
-  loadQuestions(id) {
+  loadQuestions (id) {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url2}getQuestions/${id}`,
-      headers: this.headers2(),
-    });
+      headers: this.headers2()
+    })
   },
 
-  flagQuestion(data) {
+  flagQuestion (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url2}reportQuestion`,
       headers: this.headers2(),
-      data,
-    });
+      data
+    })
   },
 
-  submitPastQuestionResult(data) {
+  submitPastQuestionResult (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}past-questions/save-past-question-result`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  submitPastQuestionProgress(data) {
+  submitPastQuestionProgress (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}past-questions/add-progress`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  submitLessonQuizResult(lessonId, data) {
+  submitLessonQuizResult (lessonId, data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}lessons/${lessonId}/save-test-results`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
 
-  getPerformance(courseId) {
+  getPerformance (courseId) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}courses/${courseId}/progress-and-performance`,
-      headers: this.headers(),
-    });
+      headers: this.headers()
+    })
   },
 
-  getPerformanceInClass(courseId, data) {
+  getPerformanceInClass (courseId, data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}courses/${courseId}/progress-and-performance`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
-  async getSingleLesson(lessonId) {
+  async getSingleLesson (lessonId) {
     return axios({
-      method: "get",
-      url: `${this.url}lessons/${lessonId}`,
-    });
+      method: 'get',
+      url: `${this.url}lessons/${lessonId}`
+    })
   },
-};
+
+  async getParentChildren (parentId) {
+    return axios({
+      method: 'get',
+      url: `${this.url}auth/parent/children`,
+      headers: this.headers()
+    })
+  }
+}
