@@ -10,7 +10,7 @@ export default {
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
-
+    
     let header = {};
     if (fileupload) {
       header["Content-type"] = "multipart/form-data";
@@ -424,6 +424,37 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}lessons/${lessonId}`,
+    });
+  },
+  getChildren() {
+    return axios({
+      method: "get",
+      url: `${this.url}auth/parent/children`,
+      headers: this.headers()
+    });
+  },
+  linkChildAccount(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/auth/add-user-as-child`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  unlinkChildAccount(data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/unlink-child-account`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  deleteChildAccount(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}auth/delete-child-account`,
+      headers: this.headers(),
+      data,
     });
   },
 };

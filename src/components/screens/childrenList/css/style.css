@@ -94,9 +94,15 @@ min-height: 300px;
     color: rgba(21, 25, 32, 0.5);
     border: 1px solid rgba(86, 103, 137, 0.26);
 }
+/* .child-detail #cancel:hover{
+    background-color: rgba(184, 181, 181, 0.5);
+} */
 .child-detail #send-request{
     background: #26AA76;
     color: #ffffff;
+}
+.child-detail #send-request:hover{
+    background: #03a84e;
 }
 #childrenSecondSection  #delete-icon {
     margin-left: -32em;
@@ -107,9 +113,11 @@ min-height: 300px;
 }
 #child-detail-modal{
     max-width: 550px;
+    /* mix-blend-mode: hard-light; */
 }
 #child-link-modal{
     max-width: 420px;
+    mix-blend-mode: hard-light;
 }
 
 @media screen and (max-width: 1300px) {   

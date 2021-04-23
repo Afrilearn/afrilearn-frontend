@@ -21,18 +21,20 @@ class Modal extends Component {
             className={`content pl-5 pr-5`}
           >
             <div style={{ position: "sticky", top: "0px", textAlign: "right" }}>
-              <button
-                type="button"
-                id="close-button"
-                onClick={() => {
-                  this.props.onClose();
-                }}
-              >
-                <Times style={{
-                  minWidth: '1em',
-                  maxWidth: '1em'
-                }} />
-              </button>
+              {!this.props.removeCloseBtn &&
+                <button
+                  type="button"
+                  id="close-button"
+                  onClick={() => {
+                    this.props.onClose();
+                  }}
+                >
+                  <Times style={{
+                    minWidth: '1em',
+                    maxWidth: '1em'
+                  }} />
+                </button>
+              }
             </div>
             <div style={{ marginTop: "-32px" }}>{children}</div>
           </div>
