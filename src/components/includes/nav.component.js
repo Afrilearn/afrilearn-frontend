@@ -325,7 +325,7 @@ const MyNav = (props) => {
                     My Dashboard
                   </NavLink>
                 </NavItem>               
-                <NavItem>
+                {/* <NavItem>
                   <NavLink
                     tag={Link}
                     to="/parents/dashboard"
@@ -333,7 +333,7 @@ const MyNav = (props) => {
                   >
                     Util link
                   </NavLink>
-                </NavItem>               
+                </NavItem>                */}
                 <NavItem>
                   {user.role !== "602f3ce39b146b3201c2dc1d" && !inClass && (
                     <NavLink
