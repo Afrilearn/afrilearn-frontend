@@ -328,7 +328,7 @@ const MyNav = (props) => {
                 <NavItem>
                   <NavLink
                     tag={Link}
-                    to="/parents/dashboard"
+                    to="/parent/dashboard"
                     onClick={() => setIsOpen(false)}
                   >
                     Util link
@@ -544,8 +544,8 @@ const MyNav = (props) => {
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
         <Route path="/search-details" component={SearchDetails} />
-        <Route path="/parents/register-child" component={ParentChildRegistration}/>         
-        <Route path="/parents/dashboard" component={ParentDashboard}/>         
+        <Route path="/parent/register-child" component={ParentChildRegistration}/>         
+        <Route path="/parent/dashboard" component={ParentDashboard}/>         
       </Switch>     
     </Router>
   );

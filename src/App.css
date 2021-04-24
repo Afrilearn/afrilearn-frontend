@@ -632,3 +632,9 @@ img.dropDownIcon1 {
 .no-wrap{
   white-space: nowrap;
 }
+
+select.no-appearance{
+  -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; 
+    appearance: none;
+}
