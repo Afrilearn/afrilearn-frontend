@@ -62,6 +62,7 @@ import {
 } from "./../../redux/actions/searchActions";
 import { populateDashboard } from "./../../redux/actions/courseActions";
 import faqPageComponent from "../screens/faqPage/faqPage.component";
+import ChildrenList from "../screens/childrenList/childrenList.component"
 import ParentDashboard from "../screens/parentDashboard/parentDashboard.component"
 
 const MyNav = (props) => {
@@ -328,7 +329,7 @@ const MyNav = (props) => {
                 {/* <NavItem>
                   <NavLink
                     tag={Link}
-                    to="/parents/dashboard"
+                    to="/parent/dashboard"
                     onClick={() => setIsOpen(false)}
                   >
                     Util link
@@ -396,6 +397,30 @@ const MyNav = (props) => {
                 About Us
               </NavLink>
             </NavItem>
+            {isAuthenticated ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Parents/Children
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {classList()}
+                  <DropdownItem
+                    tag={Link}
+                    to="/parents/:id/children"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    View Child(ren)
+                  </DropdownItem>
+                  <DropdownItem
+                    tag={Link}
+                    to="/parents/:id/register-child"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Register Child
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : ""}
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -544,8 +569,9 @@ const MyNav = (props) => {
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
         <Route path="/search-details" component={SearchDetails} />
-        <Route path="/parents/register-child" component={ParentChildRegistration}/>         
-        <Route path="/parents/dashboard" component={ParentDashboard}/>         
+        <Route path="/parent/register-child" component={ParentChildRegistration}/>         
+        <Route path="/parent/dashboard" component={ParentDashboard}/>         
+        <Route path="/parents/:id/children" exact component={ChildrenList}/>        
       </Switch>     
     </Router>
   );

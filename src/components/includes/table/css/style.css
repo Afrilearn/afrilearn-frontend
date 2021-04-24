@@ -1,0 +1,101 @@
+#table {
+    width: 100%;
+    background: linear-gradient(181.01deg, rgba(51, 50, 50, 0.36) 0.87%, rgba(51, 50, 50, 0.36) 68.85%, rgba(51, 50, 50, 0) 142.59%, rgba(51, 50, 50, 0) 145.33%);
+    padding: 25px 0 150px 0;
+    border-radius: 10px;
+    overflow-wrap: break-word;
+  }
+  #table > table {
+    width: 100%;
+  }
+  
+  #table th {
+    font-size: 1.1em;
+    text-transform: capitalize;
+    padding: 0 4px;
+    color: #26AA76; 
+    font-family: font4;
+  }
+  #table td {
+    color: white;
+    font-size: 0.9em;
+    font-family: font3;
+    border-bottom: 1px solid white;
+  }
+  
+  /* #table tbody tr:nth-child(even) {
+    background-color: rgba(252, 251, 251, 1);
+  } */
+  
+  #table thead th {
+    padding-bottom: 15px;
+    border-bottom: 1px solid white;
+  }
+  
+  #table th > .checkbox,
+  #table td > .checkbox {
+    width: 18px;
+    height: 18px;
+    margin: 0 15px;
+  }
+  
+  #table tr .selector,
+  #table tr .selector{
+    width: 48px;
+  }
+  
+  #table tbody td {
+    padding: 15px 4px;
+  }
+  /* #table thead tr {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.1),  rgba(0, 0, 0, 0.1));
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100% 2px;
+  } */
+  #table.loading thead tr {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.1),  rgba(0, 0, 0, 0.1)), linear-gradient(0deg, var(--primary-color),  var(--primary-color));
+    background-repeat: no-repeat,no-repeat;
+    background-position: left bottom, left bottom;
+    animation: load 2s ease infinite both;
+  }
+  #table tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  #table tbody tr.selected{
+      background-color: black;
+  }
+  
+  #table .page-btn{
+    background-color: white;
+    margin: 7px;
+    width: 2em;
+    height: 2em;
+    border: none;
+    border-radius: .25em;
+  }
+  
+  #table .page-btn.active{
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  @keyframes load {
+    0% {
+      background-size: 100% 2px, 0 2px;
+    }
+    80% {
+      background-size: 100% 2px, 100% 2px;
+    }
+    100% {
+      background-size: 100% 2px, 100% 2px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #table{
+      overflow-x: scroll;
+    }
+  }

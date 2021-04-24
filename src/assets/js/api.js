@@ -440,5 +440,14 @@ export default {
       method: 'get',
       url: `${this.url}courses/${courseId}/subjects`
     })
+  },
+  
+  async registerNewChild (data) {
+    return axios({
+      method: 'post',
+      url: `${this.url}auth/sign-up-for-a-child`,
+      headers: this.headers(),
+      data
+    })
   }
 }
