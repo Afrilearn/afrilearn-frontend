@@ -7,6 +7,8 @@ import {
   GET_ROLES_FAILURE,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  REGISTER_NEW_CHILD_SUCCESS,
+  REGISTER_NEW_CHILD_FAILURE,
   CLEAR_FORM,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -99,25 +101,49 @@ export const getRoles = () => async dispatch => {
     })
   }
 }
-export const registerUser = (user, isParent) => async dispatch => {
+export const registerNewChild = user => async dispatch => {
+  try {
+    document.body.classList.add('loading-indicator')
+    const result = await API.registerNewChild(user)
+    dispatch({
+      type: CLEAR_FORM
+    })
+    dispatch({
+      type: REGISTER_NEW_CHILD_SUCCESS,
+      payload: result.data.data
+    })
+    dispatch(
+      returnErrors(
+        `${user.fullName}'s account has been created successfully`,
+        '200',
+        'REGISTER_NEW_CHILD_SUCCESS'
+      )
+    )
+    document.body.classList.remove('loading-indicator')
+  } catch (err) {
+    document.body.classList.remove('loading-indicator')
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        'REGISTER_NEW_CHILD_FAILURE'
+      )
+    )
+  }
+}
+export const registerUser = user => async dispatch => {
   try {
     document.body.classList.add('loading-indicator')
     const result = await API.registerUser(user)
     dispatch({
       type: CLEAR_FORM
     })
-    dispatch(
-      returnErrors(
-        `${user.fullName}'s account has been created successfully`,
-        '200',
-        'REGISTER_SUCCESS'
-      )
-    )
-    if (!isParent)
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: result.data.data
-      })
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: result.data.data
+    })
 
     document.body.classList.remove('loading-indicator')
   } catch (err) {

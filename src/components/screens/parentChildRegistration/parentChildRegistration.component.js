@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {
   inputChange,
   getRoles,
-  registerUser,
+  registerNewChild,
   loginUser
 } from './../../../redux/actions/authActions'
 import { clearErrors } from './../../../redux/actions/errorActions'
@@ -32,6 +32,7 @@ const ParentChildRegistration = props => {
     passwordMode,
     confirmPasswordMode,
     className,
+    parent,
     error
   } = props
 
@@ -47,7 +48,7 @@ const ParentChildRegistration = props => {
         props.getRoles()
       }
     } else {
-      if (error.id === 'REGISTER_FAILURE') {
+      if (error.id === 'REGISTER_NEW_CHILD_FAILURE') {
         const message =
           typeof error.msg === 'object' ? error.msg.join('<br/>') : error.msg
         Swal.fire({
@@ -63,7 +64,7 @@ const ParentChildRegistration = props => {
         })
         props.clearErrors()
       }
-      if (error.id === 'REGISTER_SUCCESS') {
+      if (error.id === 'REGISTER_NEW_CHILD_SUCCESS') {
         Swal.fire({
           html: `<div>${error.msg}</div>`,
           icon: 'success',
@@ -139,9 +140,10 @@ const ParentChildRegistration = props => {
         email,
         password,
         confirmPassword,
-        className
+        className,
+        parentId: parent._id
       }
-      props.registerUser(user, true)
+      props.registerNewChild(user, true)
     }
   }
 
@@ -312,12 +314,13 @@ const ParentChildRegistration = props => {
 ParentChildRegistration.propTypes = {
   inputChange: PropTypes.func.isRequired,
   getRoles: PropTypes.func.isRequired,
-  registerUser: PropTypes.func.isRequired,
+  registerNewChild: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
+  parent: state.auth.user,
   redirect: state.auth.redirect,
   authlocation: state.auth.location,
   role: state.auth.role,
@@ -337,7 +340,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   inputChange,
   getRoles,
-  registerUser,
+  registerNewChild,
   clearErrors,
   loginUser
 })(ParentChildRegistration)

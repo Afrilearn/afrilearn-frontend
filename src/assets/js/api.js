@@ -433,5 +433,14 @@ export default {
       url: `${this.url}auth/parent/children`,
       headers: this.headers()
     })
+  },
+
+  async registerNewChild (data) {
+    return axios({
+      method: 'post',
+      url: `${this.url}auth/sign-up-for-a-child`,
+      headers: this.headers(),
+      data
+    })
   }
 }
