@@ -14,7 +14,6 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import Swal from 'sweetalert2'
 import 'animate.css'
-import { GoogleLogin } from 'react-google-login'
 import queryString from 'query-string'
 
 const ParentChildRegistration = props => {

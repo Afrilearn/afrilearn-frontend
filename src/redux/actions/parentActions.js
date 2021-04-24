@@ -5,6 +5,8 @@ import {
   GET_PARENT_CHILDREN_FAILURE,
   GET_CURRENT_CHILD_COURSE_SUCCESS,
   GET_CURRENT_CHILD_COURSE_FAILURE,
+  GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS,
+  GET_CURRENT_CHILD_COURSE_SUBJECTS_FAILURE,
 } from './types'
 
 const dispatchError = (dispatch, err, id) => {
@@ -39,21 +41,20 @@ export const getChildren = () => async (dispatch, getState) => {
   }
 }
 
-export const getCurrentCourse = (courseId) => async (dispatch) => {
-  try {
-    document.body.classList.add('loading-indicator')
-    const result = await API.getCourse(courseId)
-    console.log(result.data.data)
-    dispatch({ type: GET_CURRENT_CHILD_COURSE_SUCCESS, payload: result.data.data })
-    dispatchSuccess(
-      dispatch,
-      `Children fetched successfully`,
-      GET_CURRENT_CHILD_COURSE_SUCCESS
-    )
-    document.body.classList.remove('loading-indicator')
-  } catch (err) {
-      console.log(err);
-    document.body.classList.remove('loading-indicator')
-    dispatchError(dispatch, err, GET_CURRENT_CHILD_COURSE_FAILURE)
-  }
+export const getCurrentCourseSubjects = courseId => async (dispatch) => {
+    try {
+        document.body.classList.add('loading-indicator')
+        const result = await API.getCourseSubjects(courseId)
+        dispatch({ type: GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS, payload: result.data.data })
+        dispatchSuccess(
+          dispatch,
+          `Children fetched successfully`,
+          GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS
+        )
+        document.body.classList.remove('loading-indicator')
+      } catch (err) {
+          console.log(err);
+        document.body.classList.remove('loading-indicator')
+        dispatchError(dispatch, err, GET_CURRENT_CHILD_COURSE_SUBJECTS_FAILURE)
+      }
 }

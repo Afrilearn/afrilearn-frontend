@@ -4,10 +4,11 @@ import { ReactComponent as Chevron } from '../../../assets/img/Chevron.svg'
 import LessonItem from '../../includes/parentLessonItem/parentLessonItem.component'
 import {
   getChildren,
-  getCurrentCourse
+  getCurrentCourseSubjects
 } from '../../../redux/actions/parentActions'
+import { getSubjectAndRelatedLessons } from '../../../redux/actions/subjectActions'
 import { clearErrors } from '../../../redux/actions/errorActions'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 
 import './css/style.css'
 
@@ -19,7 +20,7 @@ const terms = [
 const padWithZero = num => (num > 9 ? num : '0' + num)
 
 const ParentDashboard = props => {
-  const { children, currentCourse, error } = props
+  const { children, currentCourse, error, courseSubjects, subject } = props
   const [child, setChild] = useState({ _id: '' })
   const [selectedSubjectId, setSelectedSubjectId] = useState('')
   const [selectedTermId, setSelectedTermId] = useState('')
@@ -27,6 +28,9 @@ const ParentDashboard = props => {
   const [performanceCourseId, setPerformanceCourseId] = useState('')
   const [lessonsCourseId, setLessonsCourseId] = useState('')
 
+  const getCourse = id => {
+    return courses.find(c => c._id === id)
+  }
   const mounted = useRef(false)
 
   useEffect(() => {
@@ -35,6 +39,21 @@ const ParentDashboard = props => {
       props.getChildren()
     }
   })
+
+  const courseIsEnrolled = courseId => {
+    let enrolledCourses = []
+    children.forEach(child => {
+      enrolledCourses = [...enrolledCourses, ...child.enrolledCourses]
+    })
+    for (let i = 0; i < enrolledCourses.length; i++) {
+      if (
+        enrolledCourses[i].courseId._id === courseId &&
+        enrolledCourses[i].paymentIsActive
+      )
+        return true
+    }
+    return false
+  }
 
   useEffect(() => {
     let courses_ = []
@@ -49,8 +68,16 @@ const ParentDashboard = props => {
   }, [children])
 
   useEffect(() => {
-    if (lessonsCourseId) props.getCurrentCourse(lessonsCourseId)
+    if (lessonsCourseId) {
+      props.getCurrentCourseSubjects(lessonsCourseId)
+    }
   }, [lessonsCourseId])
+
+  useEffect(() => {
+    if (selectedSubjectId) {
+      props.getSubjectAndRelatedLessons(lessonsCourseId, selectedSubjectId)
+    }
+  }, [selectedSubjectId])
 
   return (
     <div id='parent-dashboard' className='negative-top'>
@@ -216,31 +243,29 @@ const ParentDashboard = props => {
                           <option disabled value=''>
                             Select Subject
                           </option>
-                          {currentCourse.relatedSubjects &&
-                            currentCourse.relatedSubjects.map(subject => (
-                              <option key={subject._id}>
-                                {subject.mainSubjectId.name}
-                              </option>
-                            ))}
+                          {courseSubjects.map(subject => (
+                            <option key={subject._id}>
+                              {subject.mainSubjectId.name}
+                            </option>
+                          ))}
                         </select>
                       </div>
                       <div className='d-none d-md-block'>
-                        {currentCourse.relatedSubjects &&
-                          currentCourse.relatedSubjects.map((subject, id) => (
-                            <div
-                              className={`pr-1 class-name pointer ${
-                                selectedSubjectId === subject._id
-                                  ? 'selected'
-                                  : ''
-                              }`}
-                              key={id}
-                              onClick={() => {
-                                setSelectedSubjectId(subject._id)
-                              }}
-                            >
-                              {subject.mainSubjectId.name}
-                            </div>
-                          ))}
+                        {courseSubjects.map((subject, id) => (
+                          <div
+                            className={`pr-1 class-name pointer ${
+                              selectedSubjectId === subject._id
+                                ? 'selected'
+                                : ''
+                            }`}
+                            key={id}
+                            onClick={() => {
+                              setSelectedSubjectId(subject._id)
+                            }}
+                          >
+                            {subject.mainSubjectId.name}
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <div
@@ -254,7 +279,7 @@ const ParentDashboard = props => {
                             sub => sub._id === selectedSubjectId
                           ).mainSubjectId.name}
                       </h4>
-                      {selectedSubjectId
+                      {selectedSubjectId && subject._id
                         ? terms.map((term, id) => (
                             <div
                               className={`mt-3 term ${
@@ -286,30 +311,27 @@ const ParentDashboard = props => {
                               </div>
                               <div className='mt-3 term-lessons'>
                                 <div className='pl-3'>
-                                  {currentCourse.relatedSubjects &&
-                                    currentCourse.relatedSubjects.find(
-                                      sub => sub._id === selectedSubjectId
-                                    ) &&
-                                    currentCourse.relatedSubjects
-                                      .find(
-                                        sub => sub._id === selectedSubjectId
-                                      )
-                                      .relatedLessons.filter(
-                                        t => t.termId === term._id
-                                      )
-                                      .map((lesson, index) => (
-                                        <LessonItem
-                                          key={lesson._id}
-                                          lesson={lesson}
-                                          course={currentCourse}
-                                          unlocked={index === 0}
-                                        />
-                                      ))}
+                                  {subject.relatedLessons
+                                    .filter(t => t.termId === term._id)
+                                    .map((lesson, index) => (
+                                      <LessonItem
+                                        key={lesson._id}
+                                        lesson={lesson}
+                                        unlocked={index === 0}
+                                        subjectName={subject.mainSubjectId.name}
+                                        courseName={
+                                          getCourse(lessonsCourseId).name
+                                        }
+                                        activeCoursePaidStatus={courseIsEnrolled(
+                                          lessonsCourseId
+                                        )}
+                                      />
+                                    ))}
                                 </div>
                               </div>
                             </div>
                           ))
-                        : currentCourse.relatedSubjects && (
+                        : courseSubjects && (
                             <div
                               className='center'
                               style={{ color: 'rgba(255,255,255,.7)' }}
@@ -349,11 +371,14 @@ const ParentDashboard = props => {
 const mapStateToProps = state => ({
   children: state.parent.children,
   currentCourse: state.parent.currentCourse,
+  courseSubjects: state.parent.courseSubjects,
+  subject: state.subject.subject,
   error: state.error
 })
 
 export default connect(mapStateToProps, {
   clearErrors,
   getChildren,
-  getCurrentCourse
+  getCurrentCourseSubjects,
+  getSubjectAndRelatedLessons
 })(ParentDashboard)

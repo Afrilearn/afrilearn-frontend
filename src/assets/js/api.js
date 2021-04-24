@@ -433,5 +433,12 @@ export default {
       url: `${this.url}auth/parent/children`,
       headers: this.headers()
     })
+  },
+
+  async getCourseSubjects (courseId) {
+    return axios({
+      method: 'get',
+      url: `${this.url}courses/${courseId}/subjects`
+    })
   }
 }

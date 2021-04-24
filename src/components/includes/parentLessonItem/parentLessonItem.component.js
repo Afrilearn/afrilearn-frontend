@@ -74,10 +74,16 @@ const LessonItem = props => {
             >
               {lesson.videoUrls.map((url, index) => (
                 <Link
-                  to={`url`}
+                  to={linkToLesson(lesson, url)}
                   style={{ display: 'block' }}
                   key={index}
                   className='dropdown-item d-flex'
+                  onClick={e => {
+                    inClass &&
+                      !unlocked &&
+                      !activeCoursePaidStatus &&
+                      e.preventDefault()
+                  }}
                 >
                   <div className='icon'>
                     <Play />
@@ -85,18 +91,39 @@ const LessonItem = props => {
                   Lesson {index + 1}
                 </Link>
               ))}
-              <button className='dropdown-item' type='button'>
+              <Link
+                to={linkToClassNote(lesson)}
+                style={{ display: 'block' }}
+                className='dropdown-item d-flex'
+                onClick={e => {
+                  inClass &&
+                    !unlocked &&
+                    !activeCoursePaidStatus &&
+                    e.preventDefault()
+                }}
+              >
                 <div className='icon'>
                   <Paper />
-                </div>{' '}
+                </div>
                 Classnotes
-              </button>
-              <button className='dropdown-item' type='button'>
+              </Link>
+              {lesson.questions && lesson.questions.length > 0 &&
+              <Link
+                to={linkToQuiz(lesson)}
+                style={{ display: 'block' }}
+                className='dropdown-item d-flex'
+                onClick={e => {
+                  inClass &&
+                    !unlocked &&
+                    !activeCoursePaidStatus &&
+                    e.preventDefault()
+                }}
+              >
                 <div className='icon'>
                   <Activity />
-                </div>{' '}
-                Assessment
-              </button>
+                </div>
+                Quiz
+              </Link>}
             </div>
           </div>
         </div>
@@ -106,7 +133,6 @@ const LessonItem = props => {
 }
 
 const mapStateToProps = state => ({
-  activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
   clazz: state.class.class,
   inClass: state.auth.inClass
 })
