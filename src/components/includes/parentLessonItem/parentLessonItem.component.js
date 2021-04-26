@@ -2,14 +2,18 @@ import React from 'react'
 import { ReactComponent as Paper } from '../../../assets/img/Paper.svg'
 import { ReactComponent as Play } from '../../../assets/img/LessonPlay.svg'
 import { ReactComponent as Activity } from '../../../assets/img/Activity.svg'
+import { ReactComponent as Bullet } from '../../../assets/img/ListBulletCheck.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 const LessonItem = props => {
   return (
-    <li>
+    <div>
       <div className='d-flex align-items-center justify-content-between pr-3 mb-2'>
-        <span>Mathematics for Beginners</span>
+        <div className='d-flex align-items-center'>
+          <Bullet style={{width: 12}} className='mr-3'/>
+          Mathematics for Beginners
+        </div>
         <div className='relative'>
           <div class='btn-group'>
             <FontAwesomeIcon
@@ -46,7 +50,7 @@ const LessonItem = props => {
           </div>
         </div>
       </div>
-    </li>
+    </div>
   )
 }
 
