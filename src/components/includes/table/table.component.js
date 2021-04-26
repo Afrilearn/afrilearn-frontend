@@ -170,7 +170,7 @@ const Table = props => {
         </tbody>
       </table>
       {!props.items.length && !props.loading && (
-        <div className='center pt-5 pb-4'>
+        <div className='center pt-5 pb-4' style={{color: 'white'}}>
           {!props.loading &&
             (props.inactiveState
               ? props.inactiveMessage || 'No data has been queried'
