@@ -10,7 +10,8 @@ export default {
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
-    
+    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNjA4MTc0YWZmYTcxMWUwMDE1MThjNGVjIiwicm9sZSI6IjYwNmVkODJlNzBmNDBlMThlMDI5MTY1ZSIsImZ1bGxOYW1lIjoiRGFtaWxvbGEgQWRlZ2JvaHVuZ2JlIn0sImlhdCI6MTYxOTA5Njc1MSwiZXhwIjoxNjIxNjg4NzUxfQ.jjhWwHw1rSdYPMp2aGXFGvWRQAYu7kknMwYWG4-6SSs';
+
     let header = {};
     if (fileupload) {
       header["Content-type"] = "multipart/form-data";
