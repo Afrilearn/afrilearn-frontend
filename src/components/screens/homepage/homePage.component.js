@@ -22,6 +22,7 @@ const Homepage = (props) => {
     numberOfQuizQuestions,
     students,
     teachers,
+    allUsers
   } = props;
 
   const mounted = useRef();
@@ -236,7 +237,7 @@ const Homepage = (props) => {
             <h1>
               {" "}
               {students && students > 0
-                ? numberWithCommas(students + teachers)
+                ? numberWithCommas(allUsers)
                 : 0}
               + Star Students, Schools & Teachers love Afrilearn!{" "}
             </h1>
@@ -614,5 +615,6 @@ const mapStateToProps = (state) => ({
   numberOfQuizQuestions: state.auth.numberOfQuizQuestions,
   students: state.auth.students,
   teachers: state.auth.teachers,
+  allUsers: state.auth.allUsers,
 });
 export default connect(mapStateToProps, { inputChange, getRoles })(Homepage);

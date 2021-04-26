@@ -7,48 +7,137 @@ import UserForm from "./userForm.component";
 import LinkAccount from "./linkAccount.component";
 import Table from "../../includes/table/table.component"
 import Footer from "../../includes/footer/footer.component";
-import { getRoles } from "./../../../redux/actions/authActions";
+import Alert from "../../includes/alert/alert.component"
+import {
+  getChildren,
+  linkChildAccount,
+  unlinkChildAccount,
+  deleteChildAccount
+} from "./../../../redux/actions/parentActions";
+import { clearErrors } from "../../../redux/actions/errorActions";
+import { clearSuccess } from "../../../redux/actions/successActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import './css/style.css';
+// import { Children } from "react";
 
-const About = props => {
+const Children = props => {
   const [currentActionUser, setCurrentActionUser] = useState({});
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [userForm, setUserForm] = useState({ type: 'Detail', show: false });
+  const [usersAlert, setUsersAlert] = useState({
+    show: false,
+    message: "",
+  });
+
+  const EnrolledCourses = (props) => {
+    const enrolledCourses = props.value;
+    const courses = [];
+    for (let i = 0; i < enrolledCourses.length; i++) {
+      courses.push(enrolledCourses[i].courseId.name);
+    }
+    return courses.join(', ');
+  }
+
   const headers = [
-    { value: "name", text: "Name", align: "left" },
-    { value: "classes", text: "Classes", align: "left" },
+    { value: "fullName", text: "Name", align: "left" },
+    { value: "enrolledCourses", text: "Classes", align: "left", wrapper: EnrolledCourses },
     { value: "email", text: "Email", align: "left" },
   ];
-  const [items, setItems] = useState([
-    {
-      "name": "Johnson Adewunigbe",
-      "classes": ['JSS1, JSS2'],
-      "email": "johnsonA@gmail.com"
-    },
-    {
-      "name": "Olatunbosun Adewunigbe",
-      "classes": ['SS3'],
-      "email": "olatunbosunA@gmail.com"
-    },
-  ]);
+
   const mounted = useRef();
-  const {
-    classes
-  } = props;
+  const { children, error, success, userId } = props;
+
   useEffect(() => {
     if (!mounted.current) {
-      // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      if (!classes.length) {
-        props.getRoles();
-      }
+      props.getChildren();
     } else {
-      // do componentDidUpdate logic          
+      if (error.id) {
+        const message =
+          typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+        let alert_ = { type: "error", show: true, message };
+        if (error.id === "LINK_CHILD_ACCOUNT_FAILURE") {
+          setUsersAlert({ ...alert_ });
+          setUserForm({ ...userForm, show: false });
+          props.clearErrors();
+        } else if (error.id === "UNLINK_CHILD_ACCOUNT_FAILURE") {
+          const message =
+            typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+          setUsersAlert({ ...alert_ });
+          props.clearErrors();
+        } else if (error.id === "DELETE_CHILD_ACCOUNT_FAILURE") {
+          const message =
+            typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+          setUsersAlert({ ...alert_ });
+          props.clearErrors();
+        }
+        props.clearErrors();
+      } else if (success.id) {
+        let alert_ = { type: "success", show: true, message: success.msg };
+        if (success.id === "LINK_CHILD_ACCOUNT_SUCCESS") {
+          setUsersAlert({ ...alert_ });
+          setUserForm({ ...userForm, show: false });
+          props.clearSuccess();
+        } else if (success.id === "UNLINK_CHILD_ACCOUNT_SUCCESS") {
+          setUsersAlert({
+            ...alert_,
+          });
+          props.clearSuccess();
+        } else if (success.id === "DELETE_CHILD_ACCOUNT_SUCCESS") {
+          setUsersAlert({
+            ...alert_,
+          });
+          props.clearSuccess();
+        }
+        props.clearSuccess();
+      }
     }
   })
+
+  const unlinkAccount = () => {
+    let message;
+    if (selectedUsers.length < 1)
+      message = 'No child is selected';
+    else if (selectedUsers.length > 1)
+      message = 'you can only unlink one account at a time'
+    else {
+      props.unlinkChildAccount({
+        userId: selectedUsers[0].id,
+        parentId: userId
+      })
+    }
+    setUsersAlert({ type: "error", show: true, message });
+  }
+
+  const deleteAccount = () => {
+    let message;
+    if (selectedUsers.length < 1)
+      message = 'No child is selected'
+    else if (selectedUsers.length > 1)
+      message = 'you can only delete one account at a time'
+    else {
+      props.deleteChildAccount({
+        userId: selectedUsers[0].id,
+        parentId: userId
+      })
+    }
+    setUsersAlert({ type: "error", show: true, message });
+  }
+
+  const linkAccount = (email) => {
+    if (!email) {
+      setUsersAlert({ type: "error", show: true, message: 'Email is invalid' });
+      setUserForm({...userForm, show:false});
+    }
+    else {
+      props.linkChildAccount({
+        email,
+        parentId: userId
+      })
+    }
+  }
 
   return (
     <span id="children">
@@ -68,17 +157,19 @@ const About = props => {
 
       {userForm.type === 'Link' && (
         <Modal
-        id="child-link-modal"
+          id="child-link-modal"
           show={userForm.show}
           onClose={() => {
             setUserForm({ ...userForm, show: false });
           }}
+          removeCloseBtn
         >
           <LinkAccount
             user={currentActionUser}
             onCancel={() => {
               setUserForm({ ...userForm, show: false });
             }}
+            onLinkAccount={linkAccount}
           />
         </Modal>
       )}
@@ -91,11 +182,27 @@ const About = props => {
         </div>
       </div>
       <div id="childrenSecondSection" className="container-fluid relative pt-1">
+        <div className="d-flex justify-content-center">
+          {usersAlert.show && (
+            <Alert
+              type={usersAlert.type}
+              message={usersAlert.message}
+              style={{ maxWidth: 500, flexGrow: 1 }}
+              className="mt-3"
+              onClose={() => {
+                setUsersAlert({
+                  show: false,
+                  message: "",
+                });
+              }}
+            />
+          )}
+        </div>
         <div
           className="d-flex justify-content-between pt-4 pb-4 flex-wrap"
           id='header-links'
         >
-          <span>
+          <span onClick={unlinkAccount}>
             <Unlink style={{
               fill: '#AAA6A6',
               minWidth: '1.5em',
@@ -106,7 +213,10 @@ const About = props => {
               Unlink Account
             </span>
           </span>
-          <span id='delete-icon'>
+          <span
+            id='delete-icon'
+            onClick={deleteAccount}
+          >
             <Delete style={{
               minWidth: '1.5em',
               maxWidth: '1.5em'
@@ -128,7 +238,7 @@ const About = props => {
           </span>
         </div>
         <Table
-          items={items}
+          items={children}
           headers={headers}
           selectable
           action={<span>View</span>}
@@ -148,11 +258,18 @@ const About = props => {
   );
 };
 
-About.propTypes = {
-  getRoles: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  classes: state.auth.classes
+  children: state.parent.children,
+  userId: state.auth.userId,
+  error: state.error,
+  success: state.success
 });
-export default connect(mapStateToProps, { getRoles })(About);
+export default connect(mapStateToProps,
+  {
+    getChildren,
+    linkChildAccount,
+    unlinkChildAccount,
+    deleteChildAccount,
+    clearErrors,
+    clearSuccess,
+  })(Children);
