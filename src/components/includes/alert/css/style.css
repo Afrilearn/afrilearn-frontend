@@ -1,0 +1,26 @@
+#alert {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    font-size: 85%;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    padding-right: 40px;
+  }
+  
+  #alert.success {
+    background-color: rgba(38,170,118,1);
+  }
+  #alert.error {
+    background-color: rgb(228,65,66,1);
+  }
+  
+  #alert button{
+      border:none;
+      background-color: inherit;
+      position: absolute;
+      top: 5px;
+      right:5px;
+  }
+  
