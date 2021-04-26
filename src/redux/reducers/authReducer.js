@@ -37,6 +37,7 @@ const initialState = {
   confirmPassword: "",
   referralCode: "",
   passwordMode: true,
+  confirmPasswordMode: true,
   roles: [],
   classes: [],
   classLabel: "Select a Class",

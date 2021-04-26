@@ -1,0 +1,159 @@
+#childrenFirstSection{
+	background-image: url('../../../../assets/img/parent-header.png');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-attachment: fixed;
+	object-fit: cover;
+	margin-top: -115px;
+	color: white;
+}
+#childrenFirstSection > .row {
+    padding: 264px 36px 200px 36px;
+    z-index: 2;
+    position: relative;
+}
+#childrenFirstSection h1 {
+    letter-spacing: 1px;
+    font-family: font2;
+}
+#childrenFirstSection h3 {    
+    clear: both;
+    margin-bottom: 22px;
+}
+#childrenSecondSection{
+    background: black;
+    padding: 0px 70px 70px 70px;
+    margin-top: -80px;
+    z-index: 3;
+}
+#childrenSecondSection #link{
+    color: #26AA76
+}
+#childrenSecondSection #unlink{
+    color: #AAA6A6
+}
+#childrenSecondSection #delete{
+    color: #FF5B5B;
+}
+#childrenSecondSection  #list {
+background: linear-gradient(181.01deg, rgba(51, 50, 50, 0.36) 0.87%, rgba(51, 50, 50, 0.36) 68.85%, rgba(51, 50, 50, 0) 142.59%, rgba(51, 50, 50, 0) 145.33%);
+border-radius: 0.5em;
+min-height: 300px;
+}
+
+/* #childrenSecondSection  #list > div {
+    padding: 20px 40px;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+#childrenSecondSection  #list #checkbox {
+    width: 5%;
+}
+#childrenSecondSection  #list #name {
+    width: 30%;
+}
+#childrenSecondSection  #list #email {
+    width: 25%;
+}
+#childrenSecondSection  #list #classes {
+    width: 25%;
+}
+#childrenSecondSection  #list #view {
+    width: 15%;
+} */
+#childrenSecondSection .pointer {
+    text-decoration: underline;
+    cursor: pointer;
+}
+#childrenSecondSection .pointer:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.child-detail #copy-link{
+    color: #FF5B5B;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.child-detail #copy-link:hover{
+    text-decoration: none;
+}
+.child-detail label{
+    width: 9em;
+    color: #AAA6A6;
+}
+.child-detail p{
+    display: flex;
+    flex-wrap: wrap;
+}
+.child-detail button{
+    border: none;
+    border-radius: 6px;
+    padding: 8px 0;
+}
+.child-detail #cancel{
+    color: rgba(21, 25, 32, 0.5);
+    border: 1px solid rgba(86, 103, 137, 0.26);
+}
+/* .child-detail #cancel:hover{
+    background-color: rgba(184, 181, 181, 0.5);
+} */
+.child-detail #send-request{
+    background: #26AA76;
+    color: #ffffff;
+}
+.child-detail #send-request:hover{
+    background: #03a84e;
+}
+#childrenSecondSection  #delete-icon {
+    margin-left: -32em;
+}
+#childrenSecondSection  #header-links {
+    margin-left: 4em;
+    margin-right: 3em;
+}
+#child-detail-modal{
+    max-width: 550px;
+    /* mix-blend-mode: hard-light; */
+}
+#child-link-modal{
+    max-width: 420px;
+    mix-blend-mode: hard-light;
+}
+
+@media screen and (max-width: 1300px) {   
+    #childrenSecondSection  #delete-icon {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #childrenFirstSection h1 {      
+        font-size: 27px;
+        margin-top: 2em;
+    }
+    #childrenFirstSection h3 {
+        font-size: 18px;
+    }
+    #childrenFirstSection {
+        margin-top: -182px;
+    }
+    #childrenSecondSection h1 {      
+        margin-bottom: 20px;       
+    }
+    #childrenSecondSection  #header-links {
+        margin-left: 2em;
+        margin-right: 1em;
+    }
+    #childrenSecondSection{
+        padding: 0px 50px 50px 50px;
+    }
+    #modal .content{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #modal .content{
+        width: 90%;
+    }
+}

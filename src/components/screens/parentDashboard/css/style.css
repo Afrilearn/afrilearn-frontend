@@ -1,0 +1,126 @@
+#parent-dashboard {
+  background-color: #000;
+  padding-bottom: 240px;
+  color: white;
+}
+#parent-dashboard .top-display {
+  background: url('../../../../assets/img/parent-child.png');
+  height: 50vh;
+  position: relative;
+  background-position: center top;
+}
+#parent-dashboard .top-display::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.63);
+}
+.negative-top {
+  margin-top: -90px;
+}
+
+#parent-dashboard .class-name {
+  padding-left: 8px;
+  color: rgba(255, 255, 255, 0.7);
+}
+#parent-dashboard .class-name:not(:first-child){
+  margin-top: 16px;
+}
+#parent-dashboard .term.selected .term-lessons {
+  display: block;
+}
+#parent-dashboard .term .term-lessons {
+  display: none;
+}
+#parent-dashboard .term .chevron {
+  transition: transform 0.2s ease;
+}
+#parent-dashboard .term.selected .chevron {
+  transform: rotate(180deg);
+}
+
+#parent-dashboard .stat-display {
+  display: flex;
+  background-color: white;
+  width: 100%;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.87);
+  flex-direction: column;
+}
+#parent-dashboard .stat-display > div {
+  width: 100%;
+  text-align: center;
+  padding: 15px 15px;
+}
+#parent-dashboard .stat-display > div:first-child{
+    box-shadow: 0 2px lightgrey;
+}
+@media (min-width: 576px) {
+  #parent-dashboard .stat-display {
+    flex-direction: row;
+  }
+  #parent-dashboard .stat-display > div:first-child{
+    box-shadow: 2px 0 lightgrey;
+}
+}
+@media (min-width: 768px) {
+  #parent-dashboard .stat-display {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  #parent-dashboard .stat-display > div {
+    width: auto;
+    flex-grow: 1;
+  }
+}
+
+#parent-dashboard .class-name.selected {
+  color: white !important;
+  box-shadow: -3px 0 #26aa76;
+}
+
+#parent-dashboard .class-name:hover {
+  box-shadow: -3px 0 #26aa76;
+}
+
+#parent-dashboard select{
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; 
+    appearance: none;
+    background-image: url('../../../../assets/img/Chevron.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) 50%;
+    background-size: 14px;
+}
+
+#parent-dashboard .gradient-bg {
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%,
+    rgba(51, 50, 50, 0) 142.59%,
+    rgba(51, 50, 50, 0) 145.33%
+  );
+}
+
+.rad-10 {
+  border-radius: 10px;
+}
+.rad-5 {
+  border-radius: 5px;
+}
+
+#parent-dashboard .menu-container > * {
+  color: rgba(0, 0, 0, 0.78) !important;
+  padding: 14px 16px;
+}
+#parent-dashboard .menu-container > * > .icon {
+  width: 30px;
+  display: inline-block;
+}
+#parent-dashboard .menu-container > *:not(:first-child) {
+  border-top: 1px solid lightgrey;
+}
