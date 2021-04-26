@@ -220,7 +220,7 @@ const About = props => {
                         image={require('../../../assets/img/Isaac.jpg')}
                         name="Isaac Oladipupo"
                         position="Co-founder"
-                        details="Isaac started out as the youngest Journalist at Genevieve Magazine. He was pioneer Head of New Media at global mega-church Daystar, where he led the award-winning creative team to deliver 600% digital growth. He has since served as member of the Future Awards Africa Board of Judges and was nominated a World Economic Forum Young Global Leader in 2020. Isaac holds a Masters’ degree in Public & International Affairs from the University of Lagos."
+                        details="Isaac started out as the youngest Journalist at Genevieve Magazine. He was pioneer Head of New Media at global mega-church Daystar, where he led the award-winning creative team to deliver 600% digital growth. He has since served as member of the Future Awards Africa Board of Judges and was nominated a World Economic Forum Young Global Leader in 2020. Isaac holds a certificate in Online Teaching and Learning from Harvard, and a Master's degree in Public & International Affairs from the University of Lagos."
                         />
                     <TeamBox 
                         other2="true"
@@ -293,6 +293,14 @@ const About = props => {
                             RED, one of Africa’s leading media content and consulting companies, has worked on national elections and social movements in Nigeria, Ghana, Kenya, Sierra Leone and Senegal, and Joy, Inc. has worked with organizations from the Ford Motor Company to the Lagos State Government on building safe, warm spaces across business, government and culture. All of Joy, Inc.’s profits are invested in The Joy Hubs – co-working spaces and walk-in centers for young people dealing with mental health challenges, with a focus on depression and anxiety.
                         "/> 
                     <TeamBox 
+                        image={require('../../../assets/img/Akinsanmi.jpeg')}
+                        name="Titi Akinsanmi"
+                        position="Policy Lead, Google"
+                        details="Titi Akinsanmi is a Digital Policy expert who currently serves as Policy and Government Relations Lead for West and Francophone Africa at Google.
+                        With 20+ years of experience, Titi has directly engaged with global policy development processes, built capacity and strategy, and is enabling the implementation of strategies as it relates to Internet governance and the digital economy.
+                        A published academic, Titi holds a certificate in English common Law from University of London, BA in English from OAU, Ile-Ife; a Masters in Public Policy from the University of Witwatersrand in South Africa; and an LLM from Osgoode Law School (specializing in Privacy and Cybersecurity). She was a Fellow at the Berkman Klein Centre for Internet and Society at Harvard from 2018 – 2020, sits on the boards of digital economy, arts and youth development-related institutions, and serves on the World Economic Forum’s Global Future Council on the Digital economy."
+                        />
+                    <TeamBox 
                         image={require('../../../assets/img/Mary-Akpobome.jpg')}                      
                         name="Mary Akpobome"
                         other3="true"
@@ -325,19 +333,14 @@ const About = props => {
                         She left ExxonMobil to commence her business in 2014 and is currently the Managing Partner of Realty Invest & Trust Partners (RITP) a company that focuses on real estate investments including construction, sales & acquisitions, facility management and agency. She loves houses, traveling to new places and experiencing new things, dancing, and supporting the underserved in various ways. She has been a part of the Bethesda family for almost 10 years.
                                     
                         "/>                       
+                  
                     {/* <TeamBox 
                         image={require('../../../assets/img/Isaac.jpg')}
                         name="Isaac Oladipupo"
                         position="Co-founder"
                         details="Isaac started out as the youngest Journalist at Genevieve Magazine. He was pioneer Head of New Media at global mega-church Daystar, where he led the award-winning creative team to deliver 600% digital growth. He has since served as member of the Future Awards Africa Board of Judges and was nominated a World Economic Forum Young Global Leader in 2020. Isaac holds a Masters’ degree in Public & International Affairs from the University of Lagos."
-                        />
-                    <TeamBox 
-                        image={require('../../../assets/img/Isaac.jpg')}
-                        name="Isaac Oladipupo"
-                        position="Co-founder"
-                        details="Isaac started out as the youngest Journalist at Genevieve Magazine. He was pioneer Head of New Media at global mega-church Daystar, where he led the award-winning creative team to deliver 600% digital growth. He has since served as member of the Future Awards Africa Board of Judges and was nominated a World Economic Forum Young Global Leader in 2020. Isaac holds a Masters’ degree in Public & International Affairs from the University of Lagos."
-                        />
-                     */}
+                        /> */}
+                    
                 </div>            
             </div>
             {/* <div id="aboutThirdSection" className="container-fluid">
