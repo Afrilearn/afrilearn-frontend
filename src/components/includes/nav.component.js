@@ -326,6 +326,15 @@ const MyNav = (props) => {
                     My Dashboard
                   </NavLink>
                 </NavItem>               
+                {/* <NavItem>
+                  <NavLink
+                    tag={Link}
+                    to="/parent/dashboard"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Util link
+                  </NavLink>
+                </NavItem>                */}
                 <NavItem>
                   {user.role !== "602f3ce39b146b3201c2dc1d" && !inClass && (
                     <NavLink
@@ -560,10 +569,9 @@ const MyNav = (props) => {
         <Route path="/subject" component={subject} />
         <Route path="/faq" component={faqPageComponent} />   
         <Route path="/search-details" component={SearchDetails} />
-        <Route path="/parents/:id/children" exact component={ChildrenList}/>         
-        <Route path="/parents/:id/register-child" component={ParentChildRegistration}/>         
-        <Route path="/parents/register-child" component={ParentChildRegistration}/>         
-        <Route path="/parents/dashboard" component={ParentDashboard}/>         
+        <Route path="/parent/register-child" component={ParentChildRegistration}/>         
+        <Route path="/parent/dashboard" component={ParentDashboard}/>         
+        <Route path="/parents/:id/children" exact component={ChildrenList}/>        
       </Switch>     
     </Router>
   );

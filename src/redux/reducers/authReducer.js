@@ -149,6 +149,11 @@ const authReducer = (state = initialState, action) => {
             isAuthenticated: true,
             location: "/dashboard",
           };
+        } else if(action.payload.user.role === '606ed82e70f40e18e029165e'){
+          myObj = {
+            isAuthenticated: true,
+            location: "/parent/dashboard"
+          }
         }
       }
       otherObj = {
@@ -176,6 +181,9 @@ const authReducer = (state = initialState, action) => {
         password: "",
         referralCode: "",
         passwordMode: true,
+        courseId: "",
+        confirmPassword: "",
+        confirmPasswordMode: true
       };
 
     case REGISTER_FAILURE:
