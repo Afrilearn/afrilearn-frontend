@@ -163,7 +163,7 @@ const authReducer = (state = initialState, action) => {
         email: action.payload.user.email,
         fullName: action.payload.user.fullName,
         role: action.payload.user.role ? action.payload.user.role : "",
-        state: action.payload.user.state ? action.payload.user.state : ""
+        state: action.payload.user.state ? action.payload.user.state : "",
       };
 
       return {

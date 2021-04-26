@@ -19,22 +19,25 @@
   font-family: font3;
 }
 #profilePageSectionTwo .circle {
-  width: 149px;
-  height: 149px;
+  width: 200px;
+  height: 200px;
   /* border-radius: 50%; */
   transform: translate(100px, -50%);
   /* overflow: hidden; */
-  /* background-color: rgba(229, 229, 229, 0.43); */
+  background-color: #26aa76;
+  border-radius: 50%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#profilePageSectionTwo .circle span {
+  font-size: 40px;
+  text-transform: uppercase;
 }
 #profilePageSectionTwo .ellipse {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -74%);
-  height: 200px;
-  width: 200px;
   border-radius: 50%;
+  height: 100%;
 }
 #profilePageSectionTwo .br-50 {
   border-radius: 50%;
@@ -94,6 +97,8 @@
   }
   #profilePageSectionTwo .circle {
     transform: translate(calc(50vw - 50%), -50%);
+    width: 149px;
+    height: 149px;
   }
   #profilePageSectionTwo .top-details {
     position: relative;
