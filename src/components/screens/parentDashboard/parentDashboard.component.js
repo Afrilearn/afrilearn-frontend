@@ -9,6 +9,7 @@ import {
 import { getSubjectAndRelatedLessons } from '../../../redux/actions/subjectActions'
 import { clearErrors } from '../../../redux/actions/errorActions'
 import { connect, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import './css/style.css'
 
@@ -21,16 +22,21 @@ const padWithZero = num => (num > 9 ? num : '0' + num)
 
 const ParentDashboard = props => {
   const { children, currentCourse, error, courseSubjects, subject } = props
-  const [child, setChild] = useState({ _id: '' })
+  const [childId, setChildId] = useState('')
   const [selectedSubjectId, setSelectedSubjectId] = useState('')
   const [selectedTermId, setSelectedTermId] = useState('')
   const [courses, setCourses] = useState([])
   const [performanceCourseId, setPerformanceCourseId] = useState('')
   const [lessonsCourseId, setLessonsCourseId] = useState('')
+  const [performanceTimeframe, setPerformanceTimeframe] = useState('')
 
   const getCourse = id => {
     return courses.find(c => c._id === id)
   }
+  const getFromArr = (arr, id) => {
+    return arr.find(c => c._id === id)
+  }
+
   const mounted = useRef(false)
 
   useEffect(() => {
@@ -65,6 +71,7 @@ const ParentDashboard = props => {
       return courses_.findIndex(c => c._id === course._id) === index
     })
     setCourses(courses_)
+    console.log(children)
   }, [children])
 
   useEffect(() => {
@@ -78,6 +85,15 @@ const ParentDashboard = props => {
       props.getSubjectAndRelatedLessons(lessonsCourseId, selectedSubjectId)
     }
   }, [selectedSubjectId])
+
+  useEffect(() => {
+    if (childId) {
+      let child = getFromArr(children, childId)
+      setPerformanceCourseId(
+        child.enrolledCourses[child.enrolledCourses.length - 1].courseId._id
+      )
+    }
+  }, [childId])
 
   return (
     <div id='parent-dashboard' className='negative-top'>
@@ -137,10 +153,9 @@ const ParentDashboard = props => {
                 <div className='w-100 mb-1'>
                   <select
                     className='general pl-3'
-                    name='courseId'
-                    value={child._id}
+                    value={childId}
                     onInput={e => {
-                      setChild(e.target.value)
+                      setChildId(e.target.value)
                     }}
                   >
                     <option disabled value=''>
@@ -164,33 +179,56 @@ const ParentDashboard = props => {
                     <option disabled value=''>
                       Select class
                     </option>
-                    {courses.map(course => (
-                      <option value={course._id} key={course._id}>
-                        {course.name}
-                      </option>
-                    ))}
+                    {childId &&
+                      courses
+                        .filter(c =>
+                          getFromArr(children, childId).enrolledCourses.find(
+                            ec => ec.courseId._id === c._id
+                          )
+                        )
+                        .map(course => (
+                          <option value={course._id} key={course._id}>
+                            {course.name}
+                          </option>
+                        ))}
                   </select>
                 </div>
                 <div className='w-100 mb-4'>
-                  <select className='general pl-3' name='courseId'>
-                    <option disabled>Select duration</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
+                  <select
+                    value={performanceTimeframe}
+                    onInput={e => {
+                      setPerformanceTimeframe(e.target.value)
+                    }}
+                    className='general pl-3'
+                    name='courseId'
+                  >
+                    <option disabled value=''>
+                      Select duration
+                    </option>
+                    <option value='weekly'>Weekly</option>
+                    <option value='monthly'>Monthly</option>
+                    <option value='yearly'>Yearly</option>
                   </select>
                 </div>
                 <div className='center'>
-                  <button
-                    style={{
-                      backgroundColor: 'rgba(38, 170, 118, 0.54)',
-                      padding: '3px 10px',
-                      border: 'none',
-                      borderRadius: '2px',
-                      color: 'white'
+                  <Link
+                    to={`/parent/child-performance/?courseId=${performanceCourseId}&childId=${childId}`}
+                    onClick={e => {
+                      (!childId || !performanceCourseId) && e.preventDefault()
                     }}
                   >
-                    Generate Performance
-                  </button>
+                    <button
+                      style={{
+                        backgroundColor: 'rgba(38, 170, 118, 0.54)',
+                        padding: '3px 10px',
+                        border: 'none',
+                        borderRadius: '2px',
+                        color: 'white'
+                      }}
+                    >
+                      Generate Performance
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
