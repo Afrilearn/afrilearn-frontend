@@ -52,6 +52,7 @@ const initialState = {
   numberOfClassNote:0,
   numberOfQuizQuestions:0,
   state:'',
+  allUsers:0
 };
 
 const authReducer = (state = initialState, action) => {
@@ -75,7 +76,8 @@ const authReducer = (state = initialState, action) => {
         students: action.payload.students,
         teachers: action.payload.teachers,
         numberOfClassNote: action.payload.numberOfClassNote,
-        numberOfQuizQuestions: action.payload.numberOfQuizQuestions
+        numberOfQuizQuestions: action.payload.numberOfQuizQuestions,
+        allUsers: action.payload.allUsers
       };
 
     case REGISTER_SUCCESS:
