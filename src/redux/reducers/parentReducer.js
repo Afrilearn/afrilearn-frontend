@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   children: [],
+  currentChild: {},
   currentCourse: {},
   courseSubjects: [],
   children: [],

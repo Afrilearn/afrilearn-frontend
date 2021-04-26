@@ -64,6 +64,7 @@ import { populateDashboard } from "./../../redux/actions/courseActions";
 import faqPageComponent from "../screens/faqPage/faqPage.component";
 import ChildrenList from "../screens/childrenList/childrenList.component"
 import ParentDashboard from "../screens/parentDashboard/parentDashboard.component"
+import ParentPerformance from "../screens/parentPerformance/parentPerformance.component"
 
 const MyNav = (props) => {
   const {
@@ -571,7 +572,8 @@ const MyNav = (props) => {
         <Route path="/search-details" component={SearchDetails} />
         <Route path="/parent/register-child" component={ParentChildRegistration}/>         
         <Route path="/parent/dashboard" component={ParentDashboard}/>         
-        <Route path="/parents/:id/children" exact component={ChildrenList}/>        
+        <Route path="/parents/:id/children" component={ChildrenList}/>        
+        <ProtectedRoute path="/parent/child-performance" component={ParentPerformance}/>        
       </Switch>     
     </Router>
   );
