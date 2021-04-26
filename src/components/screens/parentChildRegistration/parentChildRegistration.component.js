@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {
   inputChange,
   getRoles,
-  registerUser,
+  registerNewChild,
   loginUser
 } from './../../../redux/actions/authActions'
 import { clearErrors } from './../../../redux/actions/errorActions'
@@ -14,7 +14,6 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import Swal from 'sweetalert2'
 import 'animate.css'
-import { GoogleLogin } from 'react-google-login'
 import queryString from 'query-string'
 
 const ParentChildRegistration = props => {
@@ -32,6 +31,7 @@ const ParentChildRegistration = props => {
     passwordMode,
     confirmPasswordMode,
     className,
+    parent,
     error
   } = props
 
@@ -47,7 +47,7 @@ const ParentChildRegistration = props => {
         props.getRoles()
       }
     } else {
-      if (error.id === 'REGISTER_FAILURE') {
+      if (error.id === 'REGISTER_NEW_CHILD_FAILURE') {
         const message =
           typeof error.msg === 'object' ? error.msg.join('<br/>') : error.msg
         Swal.fire({
@@ -60,6 +60,20 @@ const ParentChildRegistration = props => {
           },
           timer: 3500
           // position: 'top-end',,
+        })
+        props.clearErrors()
+      }
+      if (error.id === 'REGISTER_NEW_CHILD_SUCCESS') {
+        Swal.fire({
+          html: `<div>${error.msg}</div>`,
+          icon: 'success',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          },
+          confirmButtonText: 'Okay'
         })
         props.clearErrors()
       }
@@ -91,9 +105,7 @@ const ParentChildRegistration = props => {
   const handleSubmit = e => {
     e.preventDefault()
     let message = ''
-    if (!role) {
-      message = 'Please select a role'
-    } else if (!courseId) {
+    if (!courseId) {
       message = 'Please select a class'
     } else if (!fullName) {
       message = 'Please enter full name'
@@ -101,13 +113,10 @@ const ParentChildRegistration = props => {
       message = 'Please enter email'
     } else if (!password) {
       message = 'Please enter password'
-    } else if(!confirmPassword){
-        message = 'Please confirm your password'
-    } else if(password !== confirmPassword){
-        message = 'Passwords dont match'
-    }
-    else if (!className && role === '602f3ce39b146b3201c2dc1d') {
-      message = 'Please enter class name'
+    } else if (!confirmPassword) {
+      message = 'Please confirm your password'
+    } else if (password !== confirmPassword) {
+      message = 'Passwords dont match'
     }
 
     if (message) {
@@ -123,27 +132,17 @@ const ParentChildRegistration = props => {
         // position: 'top-end',,
       })
     } else {
-    //   const user = {
-    //     role,
-    //     courseId,
-    //     fullName,
-    //     email,
-    //     password,
-    //     confirmPassword: password,
-    //     className
-    //   }
-      //   props.registerUser(user)
-      Swal.fire({
-        html: `<div>${fullName}'s account has been created successfully</div>`,
-        icon: 'success',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        },
-        confirmButtonText: 'Okay'
-      })
+      const user = {
+        role: '5fd08fba50964811309722d5',
+        courseId,
+        fullName,
+        email,
+        password,
+        confirmPassword,
+        className,
+        parentId: parent._id
+      }
+      props.registerNewChild(user, true)
     }
   }
 
@@ -185,7 +184,7 @@ const ParentChildRegistration = props => {
   }
   return (
     <span id='parent-child-reg'>
-      {redirect ? <Redirect to={authlocation} /> : null}
+      {/* {redirect ? <Redirect to={authlocation} /> : null} */}
       <div id='parent-child-reg-first-section'></div>
       <div id='parent-child-reg-second-section' className='container-fluid'>
         <div className='d-flex justify-content-center'>
@@ -205,13 +204,14 @@ const ParentChildRegistration = props => {
                 </div>
                 <div className='col-md-12'>
                   <select
-                    className='general'
+                    className='general no-appearance'
                     name='role'
-                    value={role}
-                    onChange={handleChange}
+                    value='5fd08fba50964811309722d5'
+                    disabled
                   >
-                    <option>Select a role</option>
-                    {roleSet()}
+                    <option disabled value='5fd08fba50964811309722d5'>
+                      Student
+                    </option>
                   </select>
                 </div>
                 <div className='col-md-12'>
@@ -284,7 +284,10 @@ const ParentChildRegistration = props => {
                     value={confirmPassword}
                     onChange={handleChange}
                   />
-                  <Link className='password-eye' onClick={handleConfirmPasswordMode}>
+                  <Link
+                    className='password-eye'
+                    onClick={handleConfirmPasswordMode}
+                  >
                     <FontAwesomeIcon
                       icon={faEye}
                       color='rgba(255,255,255,0.8)'
@@ -310,12 +313,13 @@ const ParentChildRegistration = props => {
 ParentChildRegistration.propTypes = {
   inputChange: PropTypes.func.isRequired,
   getRoles: PropTypes.func.isRequired,
-  registerUser: PropTypes.func.isRequired,
+  registerNewChild: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
+  parent: state.auth.user,
   redirect: state.auth.redirect,
   authlocation: state.auth.location,
   role: state.auth.role,
@@ -335,7 +339,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   inputChange,
   getRoles,
-  registerUser,
+  registerNewChild,
   clearErrors,
   loginUser
 })(ParentChildRegistration)

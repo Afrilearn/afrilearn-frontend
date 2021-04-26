@@ -53,6 +53,7 @@ const initialState = {
   numberOfClassNote:0,
   numberOfQuizQuestions:0,
   state:'',
+  allUsers:0
 };
 
 const authReducer = (state = initialState, action) => {
@@ -76,7 +77,8 @@ const authReducer = (state = initialState, action) => {
         students: action.payload.students,
         teachers: action.payload.teachers,
         numberOfClassNote: action.payload.numberOfClassNote,
-        numberOfQuizQuestions: action.payload.numberOfQuizQuestions
+        numberOfQuizQuestions: action.payload.numberOfQuizQuestions,
+        allUsers: action.payload.allUsers
       };
 
     case REGISTER_SUCCESS:
@@ -147,6 +149,11 @@ const authReducer = (state = initialState, action) => {
             isAuthenticated: true,
             location: "/dashboard",
           };
+        } else if(action.payload.user.role === '606ed82e70f40e18e029165e'){
+          myObj = {
+            isAuthenticated: true,
+            location: "/parent/dashboard"
+          }
         }
       }
       otherObj = {
@@ -174,6 +181,9 @@ const authReducer = (state = initialState, action) => {
         password: "",
         referralCode: "",
         passwordMode: true,
+        courseId: "",
+        confirmPassword: "",
+        confirmPasswordMode: true
       };
 
     case REGISTER_FAILURE:
