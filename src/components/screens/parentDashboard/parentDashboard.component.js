@@ -32,6 +32,8 @@ const ParentDashboard = props => {
     return courses.find(c => c._id === id)
   }
   const mounted = useRef(false)
+  const initializedCourse = useRef(false)
+  const initializedSubject = useRef(false)
 
   useEffect(() => {
     if (!mounted.current) {
@@ -68,8 +70,23 @@ const ParentDashboard = props => {
   }, [children])
 
   useEffect(() => {
+    if(!initializedCourse.current && courses.length){
+      setLessonsCourseId(courses[0]._id)
+      initializedCourse.current = true
+    }
+  }, [courses])
+
+  useEffect(() => {
+    if(!initializedSubject.current && courseSubjects.length){
+      setSelectedSubjectId(courseSubjects[0]._id)
+      initializedSubject.current = true
+    }
+  })
+
+  useEffect(() => {
     if (lessonsCourseId) {
       props.getCurrentCourseSubjects(lessonsCourseId)
+      initializedSubject.current = false
     }
   }, [lessonsCourseId])
 
@@ -125,9 +142,8 @@ const ParentDashboard = props => {
             <div
               style={{
                 width: '100%',
-                padding: '35px 40px'
               }}
-              className='d-flex justify-content-center gradient-bg rad-10'
+              className='d-flex justify-content-center gradient-bg rad-10 px-3 px-md-4 py-5'
             >
               <div style={{ maxWidth: 450, width: '100%' }}>
                 <h4 className='font2 white mb-3'>My Child(ren)</h4>
@@ -244,7 +260,7 @@ const ParentDashboard = props => {
                             Select Subject
                           </option>
                           {courseSubjects.map(subject => (
-                            <option key={subject._id}>
+                            <option key={subject._id} value={subject._id}>
                               {subject.mainSubjectId.name}
                             </option>
                           ))}
