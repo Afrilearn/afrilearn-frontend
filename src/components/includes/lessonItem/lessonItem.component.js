@@ -40,13 +40,6 @@ const LessonItem = (props) => {
 
   const isStudent = role === "5fd08fba50964811309722d5";
 
-  const recommendation = (id) => {
-    const mainList =
-      relatedLessons && relatedLessons.filter((vid) => vid._id !== id);
-    const random = Math.floor(Math.random() * mainList.length);
-
-    return mainList[random];
-  };
 
   const onClickLesson = (lesson) => {
     if (activeCoursePaidStatus || unlocked) {
@@ -56,7 +49,6 @@ const LessonItem = (props) => {
         lesson._id,
         lesson.subjectId,
         lesson.courseId,
-        recommendation(lesson._id),
         lesson._id,
         "lesson"
       );
@@ -70,7 +62,6 @@ const LessonItem = (props) => {
         lesson._id,
         lesson.subjectId,
         lesson.courseId,
-        recommendation(lesson._id),
         lesson._id,
         "lesson"
       );
