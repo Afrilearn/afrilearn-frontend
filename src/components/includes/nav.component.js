@@ -400,7 +400,7 @@ const MyNav = props => {
                 About Us
               </NavLink>
             </NavItem>
-            {isAuthenticated ? (
+            {/* {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Parents/Children
@@ -425,7 +425,7 @@ const MyNav = props => {
               </UncontrolledDropdown>
             ) : (
               ''
-            )}
+            )} */}
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

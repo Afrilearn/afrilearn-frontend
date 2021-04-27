@@ -326,9 +326,9 @@ const LessonPage = (props) => {
           </a>
           <h4>{lesson && parse(lesson.title)}</h4>
           <Collapse isOpen={isOpen}>
-            <p className="lessonContent ">
+            <p className="lessonContent">
               {video && video.transcript
-                ? video.transcript
+                ? parse(video.transcript)
                 : "No Transcript available"}
             </p>
           </Collapse>
