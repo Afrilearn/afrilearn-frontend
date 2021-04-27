@@ -141,7 +141,7 @@ const ParentDashboard = props => {
             }}
           >
             <img
-              src={require('../../../assets/img/inner img.png')}
+              src={require('../../../assets/img/dummyman.png')}
               alt='Profile pic'
               style={{
                 width: '150px',

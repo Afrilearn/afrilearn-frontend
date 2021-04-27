@@ -64,6 +64,7 @@ export const getChildren = () => async dispatch => {
     try {
         document.body.classList.add('loading-indicator')
         const result = await API.getChildren();
+        console.log(result.data.data)
 
         dispatch({
             type: GET_CHILDREN_SUCCESS,
