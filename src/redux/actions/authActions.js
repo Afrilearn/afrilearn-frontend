@@ -103,10 +103,8 @@ export const getRoles = () => async dispatch => {
 }
 export const registerNewChild = user => async dispatch => {
   try {
-    console.log(user)
     document.body.classList.add('loading-indicator')
     const result = await API.registerNewChild(user)
-    console.log(result.data.data);
     dispatch({
       type: CLEAR_FORM
     })
