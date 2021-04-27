@@ -107,7 +107,7 @@ const LessonItem = props => {
                 </div>
                 Classnotes
               </Link>
-              {lesson.questions && lesson.questions.length > 0 &&
+              {/* {lesson.questions && lesson.questions.length > 0 &&
               <Link
                 to={linkToQuiz(lesson)}
                 style={{ display: 'block' }}
@@ -123,7 +123,7 @@ const LessonItem = props => {
                   <Activity />
                 </div>
                 Quiz
-              </Link>}
+              </Link>} */}
             </div>
           </div>
         </div>

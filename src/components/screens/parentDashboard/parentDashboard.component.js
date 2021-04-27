@@ -10,6 +10,7 @@ import { getSubjectAndRelatedLessons } from '../../../redux/actions/subjectActio
 import { clearErrors } from '../../../redux/actions/errorActions'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import './css/style.css'
 
@@ -126,6 +127,27 @@ const ParentDashboard = props => {
     }
   }, [childId])
 
+  const validateForm = e => {
+    let message = ''
+    if (!childId) message = 'Please select a child'
+    else if (!performanceCourseId) message = 'Please select a course'
+
+    if (message) {
+      e.preventDefault()
+      Swal.fire({
+        title: message,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        timer: 1500
+        // position: 'top-end',,
+      })
+    }
+  }
+
   return (
     <div id='parent-dashboard' className='negative-top'>
       <div className='top-display'></div>
@@ -240,12 +262,7 @@ const ParentDashboard = props => {
                   </select>
                 </div>
                 <div className='center'>
-                  <Link
-                    to={performanceLink()}
-                    onClick={e => {
-                      ;(!childId || !performanceCourseId) && e.preventDefault()
-                    }}
-                  >
+                  <Link to={performanceLink()} onClick={validateForm}>
                     <button
                       style={{
                         backgroundColor: 'rgba(38, 170, 118, 0.54)',
