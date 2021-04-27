@@ -29,7 +29,7 @@ const durations = [
 const padWithZero = num => (num > 9 ? num : '0' + num)
 
 const ParentDashboard = props => {
-  const { children, currentCourse, error, courseSubjects, subject } = props
+  const { children, currentCourse, error, courseSubjects, subject, user } = props
   const [childId, setChildId] = useState('')
   const [selectedSubjectId, setSelectedSubjectId] = useState('')
   const [selectedTermId, setSelectedTermId] = useState('')
@@ -163,12 +163,13 @@ const ParentDashboard = props => {
             }}
           >
             <img
-              src={require('../../../assets/img/dummyman.png')}
+              src={user.profilePhotoUrl || require('../../../assets/img/dummyman.png')}
               alt='Profile pic'
               style={{
                 width: '150px',
                 objectFit: 'cover',
-                height: '150px'
+                height: '150px',
+                borderRadius: '5px',
               }}
             />
             <div className='stat-display'>
@@ -457,6 +458,7 @@ const mapStateToProps = state => ({
   currentCourse: state.parent.currentCourse,
   courseSubjects: state.parent.courseSubjects,
   subject: state.subject.subject,
+  user: state.auth.user,
   error: state.error
 })
 

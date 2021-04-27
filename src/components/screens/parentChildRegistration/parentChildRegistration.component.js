@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import './css/style.css'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   inputChange,
@@ -34,7 +34,7 @@ const ParentChildRegistration = props => {
     parent,
     error
   } = props
-
+  const history = useHistory()
   const parsed = queryString.parse(props.location.search)
   const mounted = useRef()
   useEffect(() => {
@@ -73,7 +73,10 @@ const ParentChildRegistration = props => {
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp'
           },
-          confirmButtonText: 'Okay'
+          confirmButtonText: 'Okay',
+          didClose: () => {
+            history.push('/children')
+          }
         })
         props.clearErrors()
       }
@@ -149,7 +152,7 @@ const ParentChildRegistration = props => {
   const roleSet = () => {
     if (roles.length) {
       return roles.map(item => {
-        return <option value={item._id}>{item.name}</option>
+        return <option value={item._id} key={item._id}>{item.name}</option>
       })
     }
   }
@@ -157,7 +160,7 @@ const ParentChildRegistration = props => {
   const classSet = () => {
     if (classes.length) {
       return classes.map(item => {
-        return <option value={item._id}>{item.name}</option>
+        return <option value={item._id} key={item._id}>{item.name}</option>
       })
     }
   }
@@ -196,7 +199,7 @@ const ParentChildRegistration = props => {
                 <div className='col-md-12'>
                   <select
                     className='general'
-                    name='courseId'
+                    name='formCourseId'
                     value={courseId}
                     onChange={handleChange}
                   >
@@ -223,7 +226,7 @@ const ParentChildRegistration = props => {
                     type='text'
                     placeholder='Full Name'
                     className='general'
-                    name='fullName'
+                    name='formFullName'
                     value={fullName}
                     onChange={handleChange}
                   />
@@ -233,7 +236,7 @@ const ParentChildRegistration = props => {
                     type='email'
                     placeholder='Email'
                     className='general'
-                    name='email'
+                    name='formEmail'
                     value={email}
                     onChange={handleChange}
                   />
@@ -243,7 +246,7 @@ const ParentChildRegistration = props => {
                     type={passwordMode ? 'password' : 'text'}
                     placeholder='Password'
                     className='general'
-                    name='password'
+                    name='formPassword'
                     value={password}
                     onChange={handleChange}
                   />
@@ -259,7 +262,7 @@ const ParentChildRegistration = props => {
                     type={confirmPasswordMode ? 'password' : 'text'}
                     placeholder='Confirm Password'
                     className='general'
-                    name='confirmPassword'
+                    name='formConfirmPassword'
                     value={confirmPassword}
                     onChange={handleChange}
                   />
@@ -302,11 +305,11 @@ const mapStateToProps = state => ({
   redirect: state.auth.redirect,
   authlocation: state.auth.location,
   role: state.auth.role,
-  courseId: state.auth.courseId,
-  fullName: state.auth.fullName,
-  email: state.auth.email,
-  password: state.auth.password,
-  confirmPassword: state.auth.confirmPassword,
+  courseId: state.auth.formCourseId,
+  fullName: state.auth.formFullName,
+  email: state.auth.formEmail,
+  password: state.auth.formPassword,
+  confirmPassword: state.auth.formConfirmPassword,
   referralCode: state.auth.referralCode,
   roles: state.auth.roles,
   classes: state.auth.classes,
