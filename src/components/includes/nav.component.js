@@ -75,8 +75,6 @@ const MyNav = props => {
   const [isOpen, setIsOpen] = useState(false)
   const toggle = () => setIsOpen(!isOpen)
 
-  console.log(user.role)
-
   const handleLogout = () => {
     props.logout()
     setIsOpen(false)
@@ -338,7 +336,7 @@ const MyNav = props => {
                     My Dashboard
                   </NavLink>
                 </NavItem>
-                {user.role !== '606ed82e70f40e18e029165e' && (
+                {user.role !== '606ed82e70f40e18e029165e' ? (
                   <NavItem>
                     {user.role !== '602f3ce39b146b3201c2dc1d' && !inClass && (
                       <NavLink
@@ -350,6 +348,14 @@ const MyNav = props => {
                       </NavLink>
                     )}
                   </NavItem>
+                ) : (
+                  <NavLink
+                    tag={Link}
+                    to='/register-child'
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Add My Child
+                  </NavLink>
                 )}
                 <NavItem>
                   <NavLink
@@ -402,32 +408,6 @@ const MyNav = props => {
                 About Us
               </NavLink>
             </NavItem>
-            {isAuthenticated && user.role==='606ed82e70f40e18e029165e' ?  (
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Children
-                </DropdownToggle>
-                <DropdownMenu right>
-                  {classList()}
-                  <DropdownItem
-                    tag={Link}
-                    to='/children'
-                    onClick={() => setIsOpen(false)}
-                  >
-                    View Child(ren)
-                  </DropdownItem>
-                  <DropdownItem
-                    tag={Link}
-                    to='/register-child'
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Register Child
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            ) : (
-              ''
-            )}
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -438,14 +418,28 @@ const MyNav = props => {
                   />
                 </DropdownToggle>
                 <DropdownMenu right>
-                  {classList()}
-                  <DropdownItem
-                    tag={Link}
-                    to='/select-pay'
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Add A New Class
-                  </DropdownItem>
+                  {user.role !== '606ed82e70f40e18e029165e' ? (
+                    <>
+                      {classList()}
+                      <DropdownItem
+                        tag={Link}
+                        to='/select-pay'
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Add A New Class
+                      </DropdownItem>
+                    </>
+                  ) : (
+                    <>
+                      <DropdownItem
+                        tag={Link}
+                        to='/children'
+                        onClick={() => setIsOpen(false)}
+                      >
+                        View Child(ren)
+                      </DropdownItem>
+                    </>
+                  )}
                   <DropdownItem
                     tag={Link}
                     to='/profile'
@@ -578,10 +572,7 @@ const MyNav = props => {
         <Route path='/subject' component={subject} />
         <Route path='/faq' component={faqPageComponent} />
         <Route path='/search-details' component={SearchDetails} />
-        <Route
-          path='/register-child'
-          component={ParentChildRegistration}
-        />
+        <Route path='/register-child' component={ParentChildRegistration} />
         <Route path='/dashboard' component={ParentDashboard} />
         <Route path='/children' component={ChildrenList} />
         <ProtectedRoute

@@ -446,7 +446,7 @@ export default {
   getChildren () {
     return axios({
       method: 'get',
-      url: `${this.url}auth/children`,
+      url: `${this.url}auth/parent/children`,
       headers: this.headers()
     })
   },
