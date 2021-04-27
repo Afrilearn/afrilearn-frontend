@@ -57,7 +57,6 @@ const Children = props => {
       props.getChildren()
     } else {
       if (error.id) {
-        console.log(error.id)
         const message =
           typeof error.msg === 'object' ? error.msg.join('<br/>') : error.msg
         if (error.id.includes('SUCCESS') && !error.id.includes('GET')) {
@@ -75,7 +74,7 @@ const Children = props => {
             })
             props.clearErrors()
           }
-        } else {
+        } else if (!error.id.includes('GET')) {
           if (message) {
             Swal.fire({
               html: message,
@@ -98,20 +97,9 @@ const Children = props => {
   })
 
   const unlinkAccount = () => {
-    let message
-    if (selectedUsers.length < 1) message = 'No child is selected'
-    else if (selectedUsers.length > 1) {
-      const childrenIds = selectedUsers.map(user => user._id)
-      props.unlinkChildrenAccounts({ childrenIds, parentId: userId })
-    } else {
-      props.unlinkChildAccount({
-        userId: selectedUsers[0].id,
-        parentId: userId
-      })
-    }
-    if (message)
+    if (selectedUsers.length < 1) {
       Swal.fire({
-        html: message,
+        html: 'No child is selected',
         showClass: {
           popup: 'animate__animated animate__fadeInDown'
         },
@@ -120,23 +108,37 @@ const Children = props => {
         },
         timer: 3500
       })
+    }
+
+    else {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: selectedUsers.length > 1 ?
+          'Do you want to unlink these accounts?'
+          : 'Do you want to unlink this account?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        dangerMode: true,
+      })
+        .then((result) => {
+          if (result.value) {
+            const childrenIds = selectedUsers.map(user => user._id)
+            selectedUsers.length > 1 ?
+              props.unlinkChildrenAccounts({ childrenIds, parentId: userId })
+              : props.unlinkChildAccount({ userId: selectedUsers[0].id, parentId: userId })
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.close();
+          }
+        });
+    }
   }
 
   const deleteAccount = () => {
-    let message
-    if (selectedUsers.length < 1) message = 'No child is selected'
-    else if (selectedUsers.length > 1) {
-      const childrenIds = selectedUsers.map(user => user._id)
-      props.deleteChildrenAccounts({ childrenIds, parentId: userId })
-    } else {
-      props.deleteChildAccount({
-        userId: selectedUsers[0].id,
-        parentId: userId
-      })
-    }
-    if (message)
+    if (selectedUsers.length < 1) {
       Swal.fire({
-        html: message,
+        html: 'No child is selected',
         showClass: {
           popup: 'animate__animated animate__fadeInDown'
         },
@@ -145,6 +147,33 @@ const Children = props => {
         },
         timer: 3500
       })
+    }
+
+    else {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: selectedUsers.length > 1 ?
+          'Do you want to delete these accounts?'
+          : 'Do you want to delete this account?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        dangerMode: true,
+      })
+        .then((result) => {
+          if (result.value) {
+            const childrenIds = selectedUsers.map(user => user._id)
+            selectedUsers.length > 1 ?
+              props.deleteChildrenAccounts({ childrenIds, parentId: userId })
+              : props.deleteChildAccount({
+                userId: selectedUsers[0].id, parentId: userId
+              })
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.close();
+          }
+        });
+    }
   }
 
   const linkAccount = email => {
