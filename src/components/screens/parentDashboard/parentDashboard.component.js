@@ -72,9 +72,9 @@ const ParentDashboard = props => {
 
   const performanceLink = () => {
     if (performanceDuration === 100) {
-      return `/parent/child-performance/?courseId=${performanceCourseId}&childId=${childId}`
+      return `/child-performance/?courseId=${performanceCourseId}&childId=${childId}`
     } else {
-      return `/parent/child-timed-performance/?childId=${childId}&duration=${performanceDuration}&courseId=${performanceCourseId}`
+      return `/child-timed-performance/?childId=${childId}&duration=${performanceDuration}&courseId=${performanceCourseId}`
     }
   }
 
