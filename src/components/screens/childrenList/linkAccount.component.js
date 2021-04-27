@@ -12,7 +12,7 @@ const UserForm = props => {
 
     return (
         <div className="child-detail">
-            <h3 style={{ marginBottom: 30, marginTop: 30 }} className='font4'>
+            <h3 style={{ marginBottom: 30, marginTop: 30 }} className='font2'>
                 Link Existing Account
                     </h3>
             <p style={{ color: '#AAA6A6' }}>Enter email of an existing student account to send linking request</p>
