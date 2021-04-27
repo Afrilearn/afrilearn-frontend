@@ -60,7 +60,6 @@ export const addSubjectProgress = (
       lessonId,
       subjectId,
       courseId,
-      recommended,
       reason,
       type
     );
