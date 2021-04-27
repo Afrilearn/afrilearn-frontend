@@ -249,8 +249,7 @@ export const submitUserScore = (remark, score) => async (dispatch, getState) => 
                 "numberOfSkippedQuestions":answers.filter(item => item === -1).length,        
                 "score": score,
                 "remark": remark, 
-            }        
-            console.log('am her')
+            }
             await API.submitLessonQuizResult(quizLessonId,response);      
             dispatch({
                 type: SUBMIT_RESULT_SUCCESS                     

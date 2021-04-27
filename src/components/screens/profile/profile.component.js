@@ -328,7 +328,6 @@ const ProfilePage = (props) => {
   const [photoToUpload, setPhotoToUpload] = useState(null);
 
   const referralLink = `https://myafrilearn.com/register?referralCode=${user._id}`;
-  console.log(newProfilePic);
   return (
     <React.Fragment>
       <div id="profilePageSectionOne"></div>
