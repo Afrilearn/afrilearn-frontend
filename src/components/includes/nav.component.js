@@ -398,23 +398,23 @@ const MyNav = (props) => {
                 About Us
               </NavLink>
             </NavItem>
-            {isAuthenticated ? (
+            {isAuthenticated && user.role === '606ed82e70f40e18e029165e'? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Parents/Children
+                  Children
                 </DropdownToggle>
                 <DropdownMenu right>
                   {classList()}
                   <DropdownItem
                     tag={Link}
-                    to="/parents/:id/children"
+                    to="/parent/children"
                     onClick={() => setIsOpen(false)}
                   >
                     View Child(ren)
                   </DropdownItem>
                   <DropdownItem
                     tag={Link}
-                    to="/parents/:id/register-child"
+                    to="/parent/register-child"
                     onClick={() => setIsOpen(false)}
                   >
                     Register Child
@@ -572,7 +572,7 @@ const MyNav = (props) => {
         <Route path="/search-details" component={SearchDetails} />
         <Route path="/parent/register-child" component={ParentChildRegistration}/>         
         <Route path="/parent/dashboard" component={ParentDashboard}/>         
-        <Route path="/parents/:id/children" component={ChildrenList}/>        
+        <Route path="/parent/children" component={ChildrenList}/>        
         <ProtectedRoute path="/parent/child-performance" component={ParentPerformance}/>        
       </Switch>     
     </Router>

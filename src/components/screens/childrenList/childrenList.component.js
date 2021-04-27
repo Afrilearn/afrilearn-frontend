@@ -7,28 +7,25 @@ import UserForm from "./userForm.component";
 import LinkAccount from "./linkAccount.component";
 import Table from "../../includes/table/table.component"
 import Footer from "../../includes/footer/footer.component";
-import Alert from "../../includes/alert/alert.component"
+import Swal from 'sweetalert2'
+import 'animate.css'
 import {
   getChildren,
   linkChildAccount,
   unlinkChildAccount,
-  deleteChildAccount
+  unlinkChildrenAccounts,
+  deleteChildAccount,
+  deleteChildrenAccounts,
 } from "./../../../redux/actions/parentActions";
 import { clearErrors } from "../../../redux/actions/errorActions";
 import { clearSuccess } from "../../../redux/actions/successActions";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import './css/style.css';
-// import { Children } from "react";
 
 const Children = props => {
   const [currentActionUser, setCurrentActionUser] = useState({});
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [userForm, setUserForm] = useState({ type: 'Detail', show: false });
-  const [usersAlert, setUsersAlert] = useState({
-    show: false,
-    message: "",
-  });
 
   const EnrolledCourses = (props) => {
     const enrolledCourses = props.value;
@@ -47,6 +44,7 @@ const Children = props => {
 
   const mounted = useRef();
   const { children, error, success, userId } = props;
+  console.log(children);
 
   useEffect(() => {
     if (!mounted.current) {
@@ -57,41 +55,38 @@ const Children = props => {
       if (error.id) {
         const message =
           typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-        let alert_ = { type: "error", show: true, message };
-        if (error.id === "LINK_CHILD_ACCOUNT_FAILURE") {
-          setUsersAlert({ ...alert_ });
-          setUserForm({ ...userForm, show: false });
-          props.clearErrors();
-        } else if (error.id === "UNLINK_CHILD_ACCOUNT_FAILURE") {
-          const message =
-            typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-          setUsersAlert({ ...alert_ });
-          props.clearErrors();
-        } else if (error.id === "DELETE_CHILD_ACCOUNT_FAILURE") {
-          const message =
-            typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-          setUsersAlert({ ...alert_ });
-          props.clearErrors();
+        if (error.id.includes('SUCCESS')) {
+          if(message) {
+          Swal.fire({
+            html: message,
+            icon: 'success',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            },
+            timer: 3500
+          })
         }
+        }
+        else {
+          if(message) {
+          Swal.fire({
+            html: message,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            },
+            timer: 3500
+          })
+        }
+        }
+        if (error.id === "LINK_CHILD_ACCOUNT_SUCCESS")
+          setUserForm({ ...userForm, show: false });
         props.clearErrors();
-      } else if (success.id) {
-        let alert_ = { type: "success", show: true, message: success.msg };
-        if (success.id === "LINK_CHILD_ACCOUNT_SUCCESS") {
-          setUsersAlert({ ...alert_ });
-          setUserForm({ ...userForm, show: false });
-          props.clearSuccess();
-        } else if (success.id === "UNLINK_CHILD_ACCOUNT_SUCCESS") {
-          setUsersAlert({
-            ...alert_,
-          });
-          props.clearSuccess();
-        } else if (success.id === "DELETE_CHILD_ACCOUNT_SUCCESS") {
-          setUsersAlert({
-            ...alert_,
-          });
-          props.clearSuccess();
-        }
-        props.clearSuccess();
       }
     }
   })
@@ -100,36 +95,66 @@ const Children = props => {
     let message;
     if (selectedUsers.length < 1)
       message = 'No child is selected';
-    else if (selectedUsers.length > 1)
-      message = 'you can only unlink one account at a time'
+    else if (selectedUsers.length > 1) {
+      const childrenIds = selectedUsers.map((user) => user._id);
+      props.unlinkChildrenAccounts({ childrenIds, parentId: userId })
+    }
     else {
       props.unlinkChildAccount({
         userId: selectedUsers[0].id,
         parentId: userId
       })
     }
-    setUsersAlert({ type: "error", show: true, message });
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      timer: 3500
+    })
   }
 
   const deleteAccount = () => {
     let message;
     if (selectedUsers.length < 1)
       message = 'No child is selected'
-    else if (selectedUsers.length > 1)
-      message = 'you can only delete one account at a time'
+    else if (selectedUsers.length > 1) {
+      const childrenIds = selectedUsers.map((user) => user._id);
+      props.deleteChildrenAccounts({ childrenIds, parentId: userId })
+    }
     else {
       props.deleteChildAccount({
         userId: selectedUsers[0].id,
         parentId: userId
       })
     }
-    setUsersAlert({ type: "error", show: true, message });
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      timer: 3500
+    })
   }
 
   const linkAccount = (email) => {
     if (!email) {
-      setUsersAlert({ type: "error", show: true, message: 'Email is invalid' });
-      setUserForm({...userForm, show:false});
+      Swal.fire({
+        html: 'Email is invalid',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        timer: 3500
+      })
     }
     else {
       props.linkChildAccount({
@@ -182,22 +207,6 @@ const Children = props => {
         </div>
       </div>
       <div id="childrenSecondSection" className="container-fluid relative pt-1">
-        <div className="d-flex justify-content-center">
-          {usersAlert.show && (
-            <Alert
-              type={usersAlert.type}
-              message={usersAlert.message}
-              style={{ maxWidth: 500, flexGrow: 1 }}
-              className="mt-3"
-              onClose={() => {
-                setUsersAlert({
-                  show: false,
-                  message: "",
-                });
-              }}
-            />
-          )}
-        </div>
         <div
           className="d-flex justify-content-between pt-4 pb-4 flex-wrap"
           id='header-links'
@@ -269,7 +278,9 @@ export default connect(mapStateToProps,
     getChildren,
     linkChildAccount,
     unlinkChildAccount,
+    unlinkChildrenAccounts,
     deleteChildAccount,
+    deleteChildrenAccounts,
     clearErrors,
     clearSuccess,
   })(Children);

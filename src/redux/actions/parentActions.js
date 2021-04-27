@@ -62,7 +62,7 @@ export const inputChange = (name, value) => dispatch => {
 export const getChildren = () => async dispatch => {
     try {
         document.body.classList.add('loading-indicator')
-        const result = await API.getChildren()
+        const result = await API.getChildren();
 
         dispatch({
             type: GET_CHILDREN_SUCCESS,
@@ -92,7 +92,7 @@ export const getChildren = () => async dispatch => {
 export const linkChildAccount = data => async dispatch => {
     try {
         document.body.classList.add('loading-indicator')
-        const result = await API.linkChildAccount(data)
+        const result = await API.linkChildAccount(data);
 
         dispatch({
             type: LINK_CHILD_ACCOUNT_SUCCESS,
@@ -117,7 +117,7 @@ export const unlinkChildAccount = data => async dispatch => {
 
         dispatch({
             type: UNLINK_CHILD_ACCOUNT_SUCCESS,
-            payload: data.userId
+            payload: result.data.data.user._id
         })
         dispatchSuccess(
             dispatch,
@@ -131,6 +131,28 @@ export const unlinkChildAccount = data => async dispatch => {
     }
 }
 
+export const unlinkChildrenAccounts = data => async dispatch => {
+    try {
+        document.body.classList.add('loading-indicator')
+        console.log(data);
+        const result = await API.unlinkChildrenAccounts(data)
+
+        dispatch({
+            type: UNLINK_CHILDREN_ACCOUNT_SUCCESS,
+            payload: data.childrenIds
+        })
+        dispatchSuccess(
+            dispatch,
+            'Children accounts unlinked successfully',
+            UNLINK_CHILDREN_ACCOUNT_SUCCESS
+        )
+        document.body.classList.remove('loading-indicator')
+    } catch (err) {
+        document.body.classList.remove('loading-indicator')
+        dispatchError(dispatch, err, UNLINK_CHILDREN_ACCOUNT_FAILURE)
+    }
+}
+
 export const deleteChildAccount = data => async dispatch => {
     try {
         document.body.classList.add('loading-indicator')
@@ -138,7 +160,7 @@ export const deleteChildAccount = data => async dispatch => {
 
         dispatch({
             type: DELETE_CHILD_ACCOUNT_SUCCESS,
-            payload: data.userId
+            payload: result.data.data.user._id
         })
         dispatchSuccess(
             dispatch,
@@ -149,5 +171,27 @@ export const deleteChildAccount = data => async dispatch => {
     } catch (err) {
         document.body.classList.remove('loading-indicator')
         dispatchError(dispatch, err, DELETE_CHILD_ACCOUNT_FAILURE)
+    }
+}
+
+export const deleteChildrenAccounts = data => async dispatch => {
+    try {
+        document.body.classList.add('loading-indicator')
+        console.log(data);
+        const result = await API.deleteChildrenAccounts(data)
+
+        dispatch({
+            type: DELETE_CHILDREN_ACCOUNT_SUCCESS,
+            payload: data.childrenIds
+        })
+        dispatchSuccess(
+            dispatch,
+            'Children accounts deleted successfully',
+            DELETE_CHILDREN_ACCOUNT_SUCCESS
+        )
+        document.body.classList.remove('loading-indicator')
+    } catch (err) {
+        document.body.classList.remove('loading-indicator')
+        dispatchError(dispatch, err, DELETE_CHILDREN_ACCOUNT_FAILURE)
     }
 }
