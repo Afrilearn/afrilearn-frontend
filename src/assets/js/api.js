@@ -490,7 +490,6 @@ export default {
       data,
     });
   },
-};
   getChildActivities (data) {
     return axios({
       method: 'post',
@@ -499,4 +498,4 @@ export default {
       data
     })
   }
-}
+};
