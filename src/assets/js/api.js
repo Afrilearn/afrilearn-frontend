@@ -8,10 +8,10 @@ const PastQuestionURL = 'https://api.exambly.com/adminpanel/v2/'
 export default {
   url: HerokuURL,
   url2: PastQuestionURL,
-  headers (fileupload = false) {
-    const token = localStorage.getItem('token')
-
-    let header = {}
+  headers(fileupload = false) {
+    const token = localStorage.getItem("token");
+    
+    let header = {};
     if (fileupload) {
       header['Content-type'] = 'multipart/form-data'
     } else {
@@ -466,13 +466,29 @@ export default {
       data
     })
   },
-  deleteChildAccount (data) {
+  unlinkChildrenAccounts(data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/unlink-children-accounts`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  deleteChildAccount(data) {
     return axios({
       method: 'delete',
       url: `${this.url}auth/delete-child-account`,
       headers: this.headers(),
       data
     })
+  },
+  deleteChildrenAccounts(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}auth/delete-children-accounts`,
+      headers: this.headers(),
+      data,
+    });
   },
   getChildActivities (data) {
     return axios({
@@ -482,4 +498,4 @@ export default {
       data
     })
   }
-}
+};

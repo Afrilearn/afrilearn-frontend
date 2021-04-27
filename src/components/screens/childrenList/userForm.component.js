@@ -4,7 +4,6 @@ import { paymentPlans } from './../../../redux/actions/paymentActions';
 import './css/style.css';
 
 const UserForm = props => {
-    const [showCopied, setshowCopied] = useState(false);
     const { user, paymentPlans_ } = props;
 
     const mounted = useRef();
@@ -15,12 +14,6 @@ const UserForm = props => {
             props.paymentPlans();
         }
     });
-
-    const copyText = () => {
-        navigator.clipboard.writeText('password')
-        setshowCopied(!showCopied);
-        setTimeout(() => { setshowCopied(showCopied) }, 700);
-    }
 
     const convertDate = (inputFormat) => {
         var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -44,27 +37,6 @@ const UserForm = props => {
                     </h3>
             <p><label>Email:</label>
                 {user.email}
-            </p>
-            <p><label>Password:</label>
-                                passwordd--@@#
-                                <span style={{ position: 'relative', marginLeft: 40 }}>
-                    <span
-                        style={{
-                            display: showCopied ? 'block' : 'none',
-                            position: 'absolute',
-                            top: '-37px',
-                            left: '-8px',
-                            padding: '4px 8px',
-                            backgroundColor: 'white',
-                            borderRadius: 8,
-                            border: '1px solid #FF5B5B'
-                        }}>
-                        Copied!
-                    </span>
-                    <span id="copy-link" onClick={copyText}>
-                        COPY
-                    </span>
-                </span>
             </p>
             {user.enrolledCourses && (
                 user.enrolledCourses.map((course, index) => {

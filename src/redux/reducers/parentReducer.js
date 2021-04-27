@@ -4,7 +4,9 @@ import {
   GET_CHILDREN_SUCCESS,
   LINK_CHILD_ACCOUNT_SUCCESS,
   UNLINK_CHILD_ACCOUNT_SUCCESS,
+  UNLINK_CHILDREN_ACCOUNT_SUCCESS,
   DELETE_CHILD_ACCOUNT_SUCCESS,
+  DELETE_CHILDREN_ACCOUNT_SUCCESS,
   FETCH_CHILD_ACTIVITIES_SUCCESS,
   INPUT_CHANGE
 } from '../actions/types'
@@ -57,17 +59,31 @@ const parentReducer = (state = initialState, action) => {
         children: arr
       }
     case LINK_CHILD_ACCOUNT_SUCCESS:
-      arr = state.children.slice()
-      arr.push(action.payload.user)
+        arr = state.children.slice();
+        arr.push(action.payload.user);
+        return {
+            ...state,
+            children: arr,
+        }
+    case UNLINK_CHILDREN_ACCOUNT_SUCCESS:
       return {
         ...state,
-        children: arr
-      }
+        children: state.children.filter(
+          (child) => !action.payload.includes(child._id)
+        ),
+      };
+    case DELETE_CHILDREN_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        children: state.children.filter(
+          (child) => !action.payload.includes(child._id)
+        ),
+      };
     case FETCH_CHILD_ACTIVITIES_SUCCESS:
       return {
         ...state,
         childRecentActivities: action.payload.recentActivities
-      }
+      };
     default:
       return state
   }
