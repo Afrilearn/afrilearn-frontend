@@ -649,3 +649,8 @@ select.no-appearance{
     -webkit-appearance:none; 
     appearance: none;
 }
+@media (min-width: 768px) {
+  .text-md-start{
+    text-align: start !important;
+  }
+}

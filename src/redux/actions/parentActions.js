@@ -16,6 +16,8 @@ import {
     DELETE_CHILD_ACCOUNT_FAILURE,
     DELETE_CHILDREN_ACCOUNT_SUCCESS,
     DELETE_CHILDREN_ACCOUNT_FAILURE,
+    FETCH_CHILD_ACTIVITIES_SUCCESS,
+    FETCH_CHILD_ACTIVITIES_FAILURE,
     INPUT_CHANGE
 } from "./types";
 
@@ -35,24 +37,23 @@ const dispatchSuccess = (dispatch, message, id, status = '200') => {
 }
 
 export const getCurrentCourseSubjects = courseId => async dispatch => {
-    try {
-        document.body.classList.add('loading-indicator')
-        const result = await API.getCourseSubjects(courseId)
-        dispatch({
-            type: GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS,
-            payload: result.data.data
-        })
-        dispatchSuccess(
-            dispatch,
-            `Children fetched successfully`,
-            GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS
-        )
-        document.body.classList.remove('loading-indicator')
-    } catch (err) {
-        console.log(err)
-        document.body.classList.remove('loading-indicator')
-        dispatchError(dispatch, err, GET_CURRENT_CHILD_COURSE_SUBJECTS_FAILURE)
-    }
+  try {
+    document.body.classList.add('loading-indicator')
+    const result = await API.getCourseSubjects(courseId)
+    dispatch({
+      type: GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS,
+      payload: result.data.data
+    })
+    dispatchSuccess(
+      dispatch,
+      `Children fetched successfully`,
+      GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS
+    )
+    document.body.classList.remove('loading-indicator')
+  } catch (err) {
+    document.body.classList.remove('loading-indicator')
+    dispatchError(dispatch, err, GET_CURRENT_CHILD_COURSE_SUBJECTS_FAILURE)
+  }
 }
 
 export const inputChange = (name, value) => dispatch => {
@@ -193,5 +194,21 @@ export const deleteChildrenAccounts = data => async dispatch => {
     } catch (err) {
         document.body.classList.remove('loading-indicator')
         dispatchError(dispatch, err, DELETE_CHILDREN_ACCOUNT_FAILURE)
+    }
+}
+
+export const fetchChildRecentActivities = data => async dispatch => {
+    try {
+        document.body.classList.add('loading-indicator')
+        const result = await API.getChildActivities(data)
+
+        dispatch({
+            type: FETCH_CHILD_ACTIVITIES_SUCCESS,
+            payload: result.data.data
+        })
+        document.body.classList.remove('loading-indicator')
+    } catch (err) {
+        document.body.classList.remove('loading-indicator')
+        dispatchError(dispatch, err, FETCH_CHILD_ACTIVITIES_FAILURE)
     }
 }

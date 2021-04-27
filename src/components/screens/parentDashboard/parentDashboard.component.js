@@ -8,7 +8,7 @@ import {
 } from '../../../redux/actions/parentActions'
 import { getSubjectAndRelatedLessons } from '../../../redux/actions/subjectActions'
 import { clearErrors } from '../../../redux/actions/errorActions'
-import { connect, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import './css/style.css'
@@ -17,6 +17,13 @@ const terms = [
   { name: 'First Term', _id: '5fc8d1b20fae0a06bc22db5c' },
   { name: 'Second Term', _id: '600047f67cabf80f88f61735' },
   { name: 'Third Term', _id: '600048197cabf80f88f61736' }
+]
+const durations = [
+  { name: 'Today', value: 1 },
+  { name: 'Yesterday', value: 2 },
+  { name: 'Last 7 days', value: 7 },
+  { name: 'Last One month', value: 30 },
+  { name: 'Overall', value: 100 }
 ]
 const padWithZero = num => (num > 9 ? num : '0' + num)
 
@@ -28,7 +35,7 @@ const ParentDashboard = props => {
   const [courses, setCourses] = useState([])
   const [performanceCourseId, setPerformanceCourseId] = useState('')
   const [lessonsCourseId, setLessonsCourseId] = useState('')
-  const [performanceTimeframe, setPerformanceTimeframe] = useState('')
+  const [performanceDuration, setPerformanceDuration] = useState(100)
 
   const getCourse = id => {
     return courses.find(c => c._id === id)
@@ -38,6 +45,8 @@ const ParentDashboard = props => {
   }
 
   const mounted = useRef(false)
+  const initializedCourse = useRef(false)
+  const initializedSubject = useRef(false)
 
   useEffect(() => {
     if (!mounted.current) {
@@ -61,6 +70,14 @@ const ParentDashboard = props => {
     return false
   }
 
+  const performanceLink = () => {
+    if (performanceDuration === 100) {
+      return `/parent/child-performance/?courseId=${performanceCourseId}&childId=${childId}`
+    } else {
+      return `/parent/child-timed-performance/?childId=${childId}&duration=${performanceDuration}&courseId=${performanceCourseId}`
+    }
+  }
+
   useEffect(() => {
     let courses_ = []
     children.map(child => {
@@ -71,12 +88,26 @@ const ParentDashboard = props => {
       return courses_.findIndex(c => c._id === course._id) === index
     })
     setCourses(courses_)
-    console.log(children)
   }, [children])
+
+  useEffect(() => {
+    if (!initializedCourse.current && courses.length) {
+      setLessonsCourseId(courses[0]._id)
+      initializedCourse.current = true
+    }
+  }, [courses])
+
+  useEffect(() => {
+    if (!initializedSubject.current && courseSubjects.length) {
+      setSelectedSubjectId(courseSubjects[0]._id)
+      initializedSubject.current = true
+    }
+  })
 
   useEffect(() => {
     if (lessonsCourseId) {
       props.getCurrentCourseSubjects(lessonsCourseId)
+      initializedSubject.current = false
     }
   }, [lessonsCourseId])
 
@@ -140,10 +171,9 @@ const ParentDashboard = props => {
           <div className='w-100' style={{ maxWidth: 800 }}>
             <div
               style={{
-                width: '100%',
-                padding: '35px 40px'
+                width: '100%'
               }}
-              className='d-flex justify-content-center gradient-bg rad-10'
+              className='d-flex justify-content-center gradient-bg rad-10 px-3 px-md-4 py-5'
             >
               <div style={{ maxWidth: 450, width: '100%' }}>
                 <h4 className='font2 white mb-3'>My Child(ren)</h4>
@@ -195,26 +225,25 @@ const ParentDashboard = props => {
                 </div>
                 <div className='w-100 mb-4'>
                   <select
-                    value={performanceTimeframe}
+                    value={performanceDuration}
                     onInput={e => {
-                      setPerformanceTimeframe(e.target.value)
+                      setPerformanceDuration(e.target.value)
                     }}
                     className='general pl-3'
                     name='courseId'
                   >
-                    <option disabled value=''>
-                      Select duration
-                    </option>
-                    <option value='weekly'>Weekly</option>
-                    <option value='monthly'>Monthly</option>
-                    <option value='yearly'>Yearly</option>
+                    {durations.map(dur => (
+                      <option value={dur.value} key={dur.name}>
+                        {dur.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className='center'>
                   <Link
-                    to={`/parent/child-performance/?courseId=${performanceCourseId}&childId=${childId}`}
+                    to={performanceLink()}
                     onClick={e => {
-                      (!childId || !performanceCourseId) && e.preventDefault()
+                      ;(!childId || !performanceCourseId) && e.preventDefault()
                     }}
                   >
                     <button
@@ -282,7 +311,7 @@ const ParentDashboard = props => {
                             Select Subject
                           </option>
                           {courseSubjects.map(subject => (
-                            <option key={subject._id}>
+                            <option key={subject._id} value={subject._id}>
                               {subject.mainSubjectId.name}
                             </option>
                           ))}

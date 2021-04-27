@@ -161,27 +161,6 @@ const ParentChildRegistration = props => {
       })
     }
   }
-
-  const onFailure = error => {
-    console.log(error)
-  }
-
-  const googleLoginResponse = googleUser => {
-    let token = googleUser.tokenId
-    const data = {
-      token
-    }
-    props.loginUser(data, true)
-  }
-
-  const facebookLoginResponse = response => {
-    let token = response.accessToken
-
-    const data = {
-      token
-    }
-    props.loginUser(data, false, true)
-  }
   return (
     <span id='parent-child-reg'>
       {/* {redirect ? <Redirect to={authlocation} /> : null} */}

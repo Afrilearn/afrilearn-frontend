@@ -115,7 +115,6 @@ const Exam = props => {
         const data = {
           message
         }
-        console.log(data)
         props.flagQuestion(data)
         setModal(false)
     }; 

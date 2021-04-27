@@ -43,6 +43,7 @@ import Adeola from "../../../assets/img/Adeola.jpg";
 import Avatar from "react-avatar";
 
 import "./css/style.css";
+import { type } from "jquery";
 
 const ProfilePage = (props) => {
   const {
@@ -215,6 +216,11 @@ const ProfilePage = (props) => {
     hiddenTab.style.display = "none";
   };
 
+  let myInitials = user.fullName.slice(0, 2);
+  if (newName) {
+    myInitials = newName.slice(0, 2);
+  }
+
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
@@ -328,38 +334,20 @@ const ProfilePage = (props) => {
   const [photoToUpload, setPhotoToUpload] = useState(null);
 
   const referralLink = `https://myafrilearn.com/register?referralCode=${user._id}`;
-  console.log(newProfilePic);
   return (
     <React.Fragment>
       <div id="profilePageSectionOne"></div>
       <div id="profilePageSectionTwo">
         <div class="circle">
-          {newProfilePic && (
-            <img className="ellipse" src={newProfilePic} alt="Profile"></img>
-          )}
-          {!newProfilePic && (
-            <img
-              className="image"
-              src={!user.profilePhotoUrl && woman}
-              alt="check"
-            ></img>
-          )}
-          {!newProfilePic && (
+          {newProfilePic || user.profilePhotoUrl ? (
             <img
               className="ellipse"
-              src={user.profilePhotoUrl ? user.profilePhotoUrl : Ellipse}
-              alt="check"
+              src={newProfilePic || user.profilePhotoUrl}
+              alt="Profile"
             ></img>
-          )}
-          {/* {user.profilePhotoUrl ? (
-            <Avatar
-              size="100"
-              facebook-id="invalidfacebookusername"
-              src={user.profilePhotoUrl}
-            />
           ) : (
-            <Avatar name="Wim Mostmans" size="150" round={true} />
-          )}{" "} */}
+            <span>{myInitials}</span>
+          )}
         </div>
         <div className="top-details">
           <div className="items">
@@ -415,6 +403,7 @@ const ProfilePage = (props) => {
                 ? user.gender
                 : "Not Available"}
             </p>
+
             <p>
               Age: &nbsp;{" "}
               {moment(newAge ? newAge : user.dateOfBirth, "YYYYMMDD")
@@ -425,6 +414,10 @@ const ProfilePage = (props) => {
             <p>
               City: &nbsp;{" "}
               {newState ? newState : user.state ? user.state : "Not Available"}
+            </p>
+            <p>
+              Referrals: &nbsp;{" "}
+              {user.usersReferred && user.usersReferred.length}
             </p>
           </div>
         </div>
