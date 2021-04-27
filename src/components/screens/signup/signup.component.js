@@ -32,6 +32,7 @@ const Signup = (props) => {
     passwordMode,
     className,
     error,
+    referralCode,
   } = props;
 
   const parsed = queryString.parse(props.location.search);
@@ -126,6 +127,9 @@ const Signup = (props) => {
         confirmPassword: password,
         className,
       };
+      if (referralCode) {
+        user.referralCode = referralCode;
+      }
       props.registerUser(user);
     }
   };
@@ -187,17 +191,19 @@ const Signup = (props) => {
                 {roleSet()}
               </select>
             </div>
-            {role !== '606ed82e70f40e18e029165e' && <div className="col-md-12">
-              <select
-                className="general"
-                name="courseId"
-                value={courseId}
-                onChange={handleChange}
-              >
-                <option>Select class</option>
-                {classSet()}
-              </select>
-            </div>}
+            {role !== "606ed82e70f40e18e029165e" && (
+              <div className="col-md-12">
+                <select
+                  className="general"
+                  name="courseId"
+                  value={courseId}
+                  onChange={handleChange}
+                >
+                  <option>Select class</option>
+                  {classSet()}
+                </select>
+              </div>
+            )}
             {role === "602f3ce39b146b3201c2dc1d" ? (
               <div className="col-md-12">
                 <input
