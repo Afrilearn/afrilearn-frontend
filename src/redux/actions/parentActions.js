@@ -12,6 +12,8 @@ import {
   LINK_CHILD_ACCOUNT_FAILURE,
   DELETE_CHILD_ACCOUNT_SUCCESS,
   DELETE_CHILD_ACCOUNT_FAILURE,
+  FETCH_CHILD_ACTIVITIES_SUCCESS,
+  FETCH_CHILD_ACTIVITIES_FAILURE,
   INPUT_CHANGE
 } from './types'
 
@@ -45,7 +47,6 @@ export const getCurrentCourseSubjects = courseId => async dispatch => {
     )
     document.body.classList.remove('loading-indicator')
   } catch (err) {
-    console.log(err)
     document.body.classList.remove('loading-indicator')
     dispatchError(dispatch, err, GET_CURRENT_CHILD_COURSE_SUBJECTS_FAILURE)
   }
@@ -145,5 +146,21 @@ export const deleteChildAccount = data => async dispatch => {
   } catch (err) {
     document.body.classList.remove('loading-indicator')
     dispatchError(dispatch, err, DELETE_CHILD_ACCOUNT_FAILURE)
+  }
+}
+
+export const fetchChildRecentActivities = data => async dispatch => {
+  try {
+    document.body.classList.add('loading-indicator')
+    const result = await API.getChildActivities(data)
+
+    dispatch({
+      type: FETCH_CHILD_ACTIVITIES_SUCCESS,
+      payload: result.data.data
+    })
+    document.body.classList.remove('loading-indicator')
+  } catch (err) {
+    document.body.classList.remove('loading-indicator')
+    dispatchError(dispatch, err, FETCH_CHILD_ACTIVITIES_FAILURE)
   }
 }

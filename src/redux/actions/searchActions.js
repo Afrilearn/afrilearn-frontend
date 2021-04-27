@@ -38,9 +38,7 @@ export const getSearchResults = (searchQuery, details = false) => async (dispatc
           value: true,
         },
       });
-      console.log('am here')
       result = await API.getSearchResults(searchQuery);
-      console.log('somethiung')
     }   
     if(details){
       dispatch({

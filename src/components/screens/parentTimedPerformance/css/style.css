@@ -1,0 +1,137 @@
+#parent-timed-performance {
+  background-color: black;
+}
+
+#parent-timed-performance > .first-section {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.99)),
+    url('../../../../assets/img/profile_page_back.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  margin-top: -110px;
+  color: white;
+  height: calc(60vh);
+}
+
+#parent-timed-performance .second-section {
+  background-color: black;
+  padding: 67px 67px 50px 67px;
+  transform: translateY(0) !important;
+  color: white;
+  margin-top: 40px;
+}
+
+#parent-timed-performance .second-section .empty-class-state {
+  display: flex;
+  padding: 70px 100px;
+  align-items: center;
+}
+#parent-timed-performance .second-section .empty-class-state img {
+  margin-right: 30px;
+}
+#parent-timed-performance .second-section .empty-class-state p {
+  font-family: font1;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+
+  color: #c0c0c0;
+  margin: 0;
+}
+#parent-timed-performance .second-section .empty-class-state-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#parent-timed-performance .second-section .empty-class-state-2 img {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+#parent-timed-performance .second-section .empty-class-state-2 p {
+  font-family: font1;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+
+  color: #c0c0c0;
+  margin: 0;
+}
+
+#parent-timed-performance h4 {
+  font-family: font2;
+  margin-bottom: 20px;
+}
+
+#parent-timed-performance .excel {
+  background: #1b7763;
+}
+
+#parent-timed-performance .average {
+  background: #fdad51;
+}
+
+#parent-timed-performance .belowAverage {
+  background: #ff5b5b;
+}
+
+#parent-timed-performance .noRating {
+  background: #908989;
+}
+
+#parent-timed-performance .subjectList span {
+  display: block;
+  text-align: center;
+  opacity: 0.8;
+  border-radius: 5px;
+  padding: 6px;
+}
+
+#parent-timed-performance .push10 {
+  margin-bottom: 22px;
+}
+
+#parent-timed-performance .box {
+  display: block;
+  text-align: center;
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%,
+    rgba(51, 50, 50, 0) 142.59%,
+    rgba(51, 50, 50, 0) 145.33%
+  );
+  color: white;
+  padding: 40px 35px;
+  margin: 0px 30px;
+  margin-top: 28px;
+  border-radius: 5px;
+}
+
+#parent-timed-performance h3 {
+  font-family: font2;
+  margin-top: 15px;
+  color: white;
+}
+
+#parent-timed-performance img.ring {
+  display: block;
+  margin: auto;
+  margin-top: -130px;
+}
+
+#parent-timed-performance img.ring1 {
+  margin-top: -151px;
+  width: 83px;
+  height: 86px;
+  object-fit: contain;
+  object-position: top;
+}
+
+#parent-timed-performance .myBadge {
+    background: #26AA76;
+    padding: 5px 25px;
+    border-radius: 5px;
+  }

@@ -433,7 +433,7 @@ export default {
       url: `${this.url}courses/${courseId}/subjects`
     })
   },
-  
+
   async registerNewChild (data) {
     return axios({
       method: 'post',
@@ -443,35 +443,43 @@ export default {
     })
   },
 
-  getChildren() {
+  getChildren () {
     return axios({
-      method: "get",
+      method: 'get',
       url: `${this.url}auth/parent/children`,
       headers: this.headers()
-    });
+    })
   },
-  linkChildAccount(data) {
+  linkChildAccount (data) {
     return axios({
-      method: "post",
+      method: 'post',
       url: `${this.url}/auth/add-user-as-child`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
-  unlinkChildAccount(data) {
+  unlinkChildAccount (data) {
     return axios({
-      method: "patch",
+      method: 'patch',
       url: `${this.url}auth/unlink-child-account`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
-  deleteChildAccount(data) {
+  deleteChildAccount (data) {
     return axios({
-      method: "delete",
+      method: 'delete',
       url: `${this.url}auth/delete-child-account`,
       headers: this.headers(),
-      data,
-    });
+      data
+    })
   },
-};
+  getChildActivities (data) {
+    return axios({
+      method: 'post',
+      url: `${this.url}dashboard/recentActivities-by-time`,
+      headers: this.headers(),
+      data
+    })
+  }
+}

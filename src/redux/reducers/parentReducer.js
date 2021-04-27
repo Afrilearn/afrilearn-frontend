@@ -5,6 +5,7 @@ import {
   LINK_CHILD_ACCOUNT_SUCCESS,
   UNLINK_CHILD_ACCOUNT_SUCCESS,
   DELETE_CHILD_ACCOUNT_SUCCESS,
+  FETCH_CHILD_ACTIVITIES_SUCCESS,
   INPUT_CHANGE
 } from '../actions/types'
 
@@ -14,11 +15,12 @@ const initialState = {
   currentCourse: {},
   courseSubjects: [],
   children: [],
-  linkEmail: ""
+  linkEmail: '',
+  childRecentActivities: []
 }
 
 const parentReducer = (state = initialState, action) => {
-    let arr;
+  let arr
   switch (action.type) {
     case GET_CURRENT_CHILD_COURSE_SUCCESS:
       return {
@@ -30,39 +32,44 @@ const parentReducer = (state = initialState, action) => {
         ...state,
         courseSubjects: action.payload.subjects
       }
-      case INPUT_CHANGE:
-        return {
-            ...state,
-            [action.payload.name]: action.payload.value,
-        };
+    case INPUT_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value
+      }
     case GET_CHILDREN_SUCCESS:
-        return {
-            ...state,
-            children: action.payload.children
-        };
+      return {
+        ...state,
+        children: action.payload.children
+      }
     case UNLINK_CHILD_ACCOUNT_SUCCESS:
-        arr = state.children.slice();
-        arr = arr.filter((child) => child._id !== action.payload);
-        return {
-            ...state,
-            children: arr,
-        };
+      arr = state.children.slice()
+      arr = arr.filter(child => child._id !== action.payload)
+      return {
+        ...state,
+        children: arr
+      }
     case DELETE_CHILD_ACCOUNT_SUCCESS:
-        arr = state.children.slice();
-        arr = arr.filter((child) => child._id !== action.payload);
-        return {
-            ...state,
-            children: arr,
-        };
+      arr = state.children.slice()
+      arr = arr.filter(child => child._id !== action.payload)
+      return {
+        ...state,
+        children: arr
+      }
     case LINK_CHILD_ACCOUNT_SUCCESS:
-        arr = state.children.slice();
-        arr.push(action.payload.user);
-        return {
-            ...state,
-            children: arr,
-        }
+      arr = state.children.slice()
+      arr.push(action.payload.user)
+      return {
+        ...state,
+        children: arr
+      }
+    case FETCH_CHILD_ACTIVITIES_SUCCESS:
+      return {
+        ...state,
+        childRecentActivities: action.payload.recentActivities
+      }
     default:
       return state
   }
 }
-export default parentReducer;
+export default parentReducer
