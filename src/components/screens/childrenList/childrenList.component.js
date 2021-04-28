@@ -6,7 +6,6 @@ import Modal from '../../includes/modal/modal.component'
 import UserForm from './userForm.component'
 import LinkAccount from './linkAccount.component'
 import Table from '../../includes/table/table.component'
-import Footer from '../../includes/footer/footer.component'
 import Swal from 'sweetalert2'
 import 'animate.css'
 import {
@@ -298,8 +297,7 @@ const Children = props => {
           actionName='More Details'
           actionAlignment='left'
         />
-      </div>
-      <Footer />
+      </div>     
     </span>
   )
 }
