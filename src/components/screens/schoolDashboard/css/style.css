@@ -46,7 +46,8 @@
   border-radius: 4px;
   color: rgba(0, 0, 0, 0.87);
   flex-direction: column;
-  margin-top: -15px
+  margin-top: -15px;
+  position: relative
 }
 #school-dashboard .stat-display > div {
   width: 100%;
