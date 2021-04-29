@@ -276,7 +276,8 @@ const ParentDashboard = props => {
                 objectFit: 'cover',
                 height: '150px',
                 borderRadius: '50%',
-                position: 'relative'
+                position: 'relative',
+                zIndex: 1
               }}
             />
             <div className='stat-display'>
@@ -292,12 +293,34 @@ const ParentDashboard = props => {
                   {padWithZero(courses.length)}
                 </div>
               </div>
+              <div style={{ position: 'absolute', bottom: '-40px' }} className='d-flex justify-content-around w-100'>
+                <Link
+                  to='/add-teacher-to-class'
+                  className='underlined'
+                  style={{
+                    fontSize: '.9em',
+                    color: 'rgba(38, 170, 118, 1)'
+                  }}
+                >
+                  +Add New Teacher
+                </Link>
+                <Link
+                  to='/add-student'
+                  className='underlined'
+                  style={{
+                    fontSize: '.9em',
+                    color: 'rgba(38, 170, 118, 1)'
+                  }}
+                >
+                  +Add New Student
+                </Link>
+              </div>
             </div>
           </div>
         </div>
         <div className='d-flex justify-content-center mt-5'>
           <div className='w-100' style={{ maxWidth: '100%' }}>
-            <div className='container-fluid relative'>
+            <div className='container-fluid relative mt-3 mt-md-0'>
               <div className='d-flex mb-3 align-items-center'>
                 <h4 className='font2 mr-4 my-0'>Subjects</h4>
                 <select
@@ -335,7 +358,10 @@ const ParentDashboard = props => {
                   <div className='col-sm-6'>
                     <h4>Classes</h4>
                   </div>
-                  <div className='col-sm-3 d-none d-sm-block' style={{ overflow: 'visible' }}>
+                  <div
+                    className='col-sm-3 d-none d-sm-block'
+                    style={{ overflow: 'visible' }}
+                  >
                     <h4 className='nowrap'>Number of Teachers</h4>
                   </div>
                 </div>
@@ -346,7 +372,13 @@ const ParentDashboard = props => {
                   >
                     <div className='col-sm-6'>{course.name}</div>
                     <div className='col-sm-3 text-sm-center'>
-                      <span style={{color: 'rgba(255,255,255,.7)'}} className='d-sm-none'>No of teachers: </span>{padWithZero(course.teachers)}
+                      <span
+                        style={{ color: 'rgba(255,255,255,.7)' }}
+                        className='d-sm-none'
+                      >
+                        No of teachers:{' '}
+                      </span>
+                      {padWithZero(course.teachers)}
                     </div>
                     <div className='col-sm-3'>
                       <Link
