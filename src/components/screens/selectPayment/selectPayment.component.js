@@ -172,7 +172,6 @@ const Payment = (props) => {
   };
 
   const checkAndMakePayment = () => {
-    console.log('I got here');
     if (!paymentAmount) {
       Swal.fire({
         html: "Select amount to pay",
