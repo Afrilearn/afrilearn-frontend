@@ -85,12 +85,12 @@ const dashboardData = {
     }
   },
   relatedCourses: [
-    { name: 'Primary One', teachers: 1 },
-    { name: 'Primary Two', teachers: 2 },
-    { name: 'Primary Three', teachers: 2 },
-    { name: 'Primary Four', teachers: 3 },
-    { name: 'Primary Five', teachers: 2 },
-    { name: 'Primary Six', teachers: 4 }
+    { name: 'Primary One', teachers: 1, _id: '1' },
+    { name: 'Primary Two', teachers: 2, _id: '2' },
+    { name: 'Primary Three', teachers: 2, _id: '3' },
+    { name: 'Primary Four', teachers: 3, _id: '4' },
+    { name: 'Primary Five', teachers: 2, _id: '5' },
+    { name: 'Primary Six', teachers: 4, _id: '6' }
   ]
 }
 
@@ -293,9 +293,12 @@ const ParentDashboard = props => {
                   {padWithZero(courses.length)}
                 </div>
               </div>
-              <div style={{ position: 'absolute', bottom: '-40px' }} className='d-flex justify-content-around w-100'>
+              <div
+                style={{ position: 'absolute', bottom: '-40px' }}
+                className='d-flex justify-content-around w-100'
+              >
                 <Link
-                  to='/add-teacher-to-class'
+                  to={`/add-teacher`}
                   className='underlined'
                   style={{
                     fontSize: '.9em',
@@ -382,7 +385,7 @@ const ParentDashboard = props => {
                     </div>
                     <div className='col-sm-3'>
                       <Link
-                        to='/add-teacher-to-class'
+                        to={`/add-teacher?courseId=${course._id}`}
                         className='underlined'
                         style={{
                           fontSize: '.9em',
