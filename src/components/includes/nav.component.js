@@ -61,6 +61,8 @@ import ChildrenList from '../screens/childrenList/childrenList.component'
 import ParentDashboard from '../screens/parentDashboard/parentDashboard.component'
 import ParentPerformance from '../screens/parentPerformance/parentPerformance.component'
 import ParentTimedPerformance from '../screens/parentTimedPerformance/parentTimedPerformance.component'
+import SchoolProfile from '../screens/schoolProfile/schoolProfile.component'
+import EditSchoolProfile from '../screens/schoolProfile/editSchoolProfile.component'
 
 const MyNav = props => {
   const {
@@ -408,6 +410,11 @@ const MyNav = props => {
                 About Us
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to='/school-profile' onClick={() => setIsOpen(false)}>
+                School Profile
+              </NavLink>
+            </NavItem>
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -583,6 +590,8 @@ const MyNav = props => {
           path='/child-timed-performance'
           component={ParentTimedPerformance}
         />
+        <Route path='/school-profile' component={SchoolProfile} />
+        <Route path='/edit/school-profile' component={EditSchoolProfile} />
       </Switch>
     </Router>
   )
