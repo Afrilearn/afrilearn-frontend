@@ -7,8 +7,8 @@ import {
   getRoles,
   registerNewChild,
   loginUser
-} from './../../../redux/actions/authActions'
-import { clearErrors } from './../../../redux/actions/errorActions'
+} from '../../../redux/actions/authActions'
+import { clearErrors } from '../../../redux/actions/errorActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
@@ -114,12 +114,6 @@ const SchoolAddTeacherToClass = props => {
       message = 'Please enter full name'
     } else if (!email) {
       message = 'Please enter email'
-    } else if (!password) {
-      message = 'Please enter password'
-    } else if (!confirmPassword) {
-      message = 'Please confirm your password'
-    } else if (password !== confirmPassword) {
-      message = 'Passwords dont match'
     }
 
     if (message) {
@@ -135,24 +129,40 @@ const SchoolAddTeacherToClass = props => {
         // position: 'top-end',,
       })
     } else {
-      const user = {
-        role: '5fd08fba50964811309722d5',
-        courseId,
-        fullName,
-        email,
-        password,
-        confirmPassword,
-        className,
-        parentId: parent._id
-      }
-      props.registerNewChild(user, true)
+    //   const user = {
+    //     role: '5fd08fba50964811309722d5',
+    //     courseId,
+    //     fullName,
+    //     email,
+    //     password,
+    //     confirmPassword,
+    //     className,
+    //     parentId: parent._id
+    //   }
+    //   props.registerNewChild(user, true)
+    Swal.fire({
+        html: `<div>Invite to ${fullName} sent successfully</div>`,
+        icon: 'success',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        confirmButtonText: 'Okay',
+      })
+    
     }
   }
 
   const roleSet = () => {
     if (roles.length) {
       return roles.map(item => {
-        return <option value={item._id} key={item._id}>{item.name}</option>
+        return (
+          <option value={item._id} key={item._id}>
+            {item.name}
+          </option>
+        )
       })
     }
   }
@@ -160,48 +170,53 @@ const SchoolAddTeacherToClass = props => {
   const classSet = () => {
     if (classes.length) {
       return classes.map(item => {
-        return <option value={item._id} key={item._id}>{item.name}</option>
+        return (
+          <option value={item._id} key={item._id}>
+            {item.name}
+          </option>
+        )
       })
     }
   }
   return (
-    <span id='parent-child-reg'>
+    <span id='school-add-teacher'>
       {/* {redirect ? <Redirect to={authlocation} /> : null} */}
-      <div id='parent-child-reg-first-section'></div>
-      <div id='parent-child-reg-second-section' className='container-fluid'>
+      <div id='school-add-teacher-first-section'></div>
+      <div id='school-add-teacher-second-section' className='container-fluid'>
         <div className='d-flex justify-content-center'>
           <div className='form-field'>
             <div className='row'>
               <form onSubmit={handleSubmit}>
                 <div className='col-md-12'>
-                  <h3 className='center'>Register</h3>
+                  <h3>Add New Teacher</h3>
                   <div
-                    className='center'
                     style={{ fontSize: '.8em', color: 'rgba(255,255,255,.7)' }}
                   >
-                    Register your child as a student on Afrilearn to start
-                    enjoying unlimited access to curriculum relevant classnotes
-                    and video lessons
+                    Send invite to your teachers for them to access the virtual
+                    classroom
                   </div>
                 </div>
                 <div className='col-md-12'>
                   <select
                     className='general no-appearance'
                     name='role'
-                    value='5fd08fba50964811309722d5'
+                    value='602f3ce39b146b3201c2dc1d'
                     disabled
                   >
-                    <option disabled value='5fd08fba50964811309722d5'>
-                      Student
+                    <option disabled value='602f3ce39b146b3201c2dc1d'>
+                      Teacher
                     </option>
                   </select>
                 </div>
                 <div className='col-md-12'>
                   <select
-                    className='general'
+                    className={`general ${
+                      parsed.courseId ? 'no-appearance' : ''
+                    }`}
                     name='formCourseId'
-                    value={courseId}
+                    value={parsed.courseId || courseId}
                     onChange={handleChange}
+                    disabled={parsed.courseId}
                   >
                     <option>Select class</option>
                     {classSet()}
@@ -241,45 +256,10 @@ const SchoolAddTeacherToClass = props => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className='col-md-12 relative d-flex align-items-center'>
-                  <input
-                    type={passwordMode ? 'password' : 'text'}
-                    placeholder='Password'
-                    className='general'
-                    name='formPassword'
-                    value={password}
-                    onChange={handleChange}
-                  />
-                  <Link className='password-eye' onClick={handlePasswordMode}>
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      color='rgba(255,255,255,0.8)'
-                    />
-                  </Link>
-                </div>
-                <div className='col-md-12 relative d-flex align-items-center'>
-                  <input
-                    type={confirmPasswordMode ? 'password' : 'text'}
-                    placeholder='Confirm Password'
-                    className='general'
-                    name='formConfirmPassword'
-                    value={confirmPassword}
-                    onChange={handleChange}
-                  />
-                  <Link
-                    className='password-eye'
-                    onClick={handleConfirmPasswordMode}
-                  >
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      color='rgba(255,255,255,0.8)'
-                    />
-                  </Link>
-                </div>
-                <div className='col-md-12'>
+                <div className='col-md-12 mt-3'>
                   <input
                     type='submit'
-                    value='Register'
+                    value='Send Invite'
                     className='general authSubmit'
                   />
                 </div>
@@ -292,7 +272,7 @@ const SchoolAddTeacherToClass = props => {
   )
 }
 
-ParentChildRegistration.propTypes = {
+SchoolAddTeacherToClass.propTypes = {
   inputChange: PropTypes.func.isRequired,
   getRoles: PropTypes.func.isRequired,
   registerNewChild: PropTypes.func.isRequired,
