@@ -1,6 +1,12 @@
+/* @font-face {
+  font-family: "font1";
+  src: url("./assets/fonts/Nunito-SemiBold.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+} */
 @font-face {
-  font-family: 'font1';
-  src: url('./assets/fonts/Nunito-SemiBold.ttf') format('opentype');
+  font-family: "font1";
+  src: url("./assets/fonts/BakerSignet.ttf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
