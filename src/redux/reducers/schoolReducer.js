@@ -1,21 +1,26 @@
-import { SCHOOL_INPUT_CHANGE } from '../actions/types'
+import {
+  ACCEPT_REJECT_SCHOOL_ADMIN_REQUEST_SUCCESS,
+  ACCEPT_REJECT_SCHOOL_TEACHER_REQUEST_SUCCESS,
+} from "../actions/types";
 
 const initialState = {
-  formEmail: '',
-  formFullName: '',
-  formCourseId: ''
-}
+  schools: [],
+  school: {},
+};
 
 const schoolReducer = (state = initialState, action) => {
+  let arr;
   switch (action.type) {
-    case SCHOOL_INPUT_CHANGE:
+    case ACCEPT_REJECT_SCHOOL_TEACHER_REQUEST_SUCCESS:
       return {
         ...state,
-        [action.payload.name]: action.payload.value
-      }
+      };
+    case ACCEPT_REJECT_SCHOOL_ADMIN_REQUEST_SUCCESS:
+      return {
+        ...state,
+      };
     default:
-      return state
+      return state;
   }
-}
-
-export default schoolReducer
+};
+export default schoolReducer;
