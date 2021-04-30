@@ -15,7 +15,7 @@ import Navigation from "./components/includes/nav.component";
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(loadUser());
+    // store.dispatch(loadUser());
     // store.dispatch(getCourses());
   
   });
