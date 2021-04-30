@@ -59,10 +59,14 @@ import { populateDashboard } from './../../redux/actions/courseActions'
 import faqPageComponent from '../screens/faqPage/faqPage.component'
 import ChildrenList from '../screens/childrenList/childrenList.component'
 import ParentDashboard from '../screens/parentDashboard/parentDashboard.component'
+import SchoolDashboard from '../screens/schoolDashboard/schoolDashboard.component'
 import ParentPerformance from '../screens/parentPerformance/parentPerformance.component'
 import ParentTimedPerformance from '../screens/parentTimedPerformance/parentTimedPerformance.component'
 import SchoolProfile from '../screens/schoolProfile/schoolProfile.component'
 import EditSchoolProfile from '../screens/schoolProfile/editSchoolProfile.component'
+import SchoolAddTeacher from '../screens/schoolAddTeacher/addTeacher.component'
+import SchoolAddStudent from '../screens/schoolAddStudent/addStudent.component'
+import AcceptRequests from '../screens/acceptRequests/acceptRequests.component'
 
 const MyNav = props => {
   const {
@@ -302,7 +306,7 @@ const MyNav = props => {
     } else {
       return <li>No result found</li>
     }
-  }
+  };
 
   const handleSearch = e => {
     const target = e.target
@@ -312,7 +316,7 @@ const MyNav = props => {
     if (keyword.length > 1) {
       props.getSearchResults(keyword)
     }
-  }
+  };
 
   return (
     <Router>
@@ -492,11 +496,12 @@ const MyNav = props => {
         </Collapse>
       </Navbar>
       <Switch>
-        <Route exact path='/' component={homepage} />
-        <Route path='/about' component={about} />
-        <Route path='/partnership' component={partnership} />
-        <Route path='/privacy' component={PrivacyPolicy} />
-        <Route path='/contact' component={contact} />
+        <Route exact path="/" component={homepage} />
+        <Route path="/about" component={about} />
+        <Route path="/partnership" component={partnership} />
+        <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/accept-request" component={AcceptRequests} />
+        <Route path="/contact" component={contact} />
         <ProtectedRoute
           path='/past-questions/instructions'
           exact
@@ -560,14 +565,17 @@ const MyNav = props => {
           component={classNote}
         />
         <ProtectedRoute path='/select-pay' component={selectPayment} />
+        <Route path='/dashboard' component={SchoolDashboard} />
         <ProtectedRoute
           path='/dashboard'
           component={
             user.role === '5fd08fba50964811309722d5'
               ? dashboard
               : user.role === '606ed82e70f40e18e029165e'
-                ? ParentDashboard
-                : classroomTeacherComponent
+              ? ParentDashboard
+              : user.role === '607ededa2712163504210684'
+              ? SchoolDashboard
+              : classroomTeacherComponent
           }
         />
         <ProtectedRoute path='/my-students' component={myStudents} />
@@ -577,7 +585,6 @@ const MyNav = props => {
         <Route path='/faq' component={faqPageComponent} />
         <Route path='/search-details' component={SearchDetails} />
         <Route path='/register-child' component={ParentChildRegistration} />
-        <Route path='/dashboard' component={ParentDashboard} />
         <Route path='/children' component={ChildrenList} />
         <ProtectedRoute
           path='/child-performance'
@@ -588,6 +595,8 @@ const MyNav = props => {
           component={ParentTimedPerformance}
         />
         <Route path='/edit/profile' component={EditSchoolProfile} />
+        <Route path='/add-teacher' component={SchoolAddTeacher} />
+        <Route path='/add-student' component={SchoolAddStudent} />
       </Switch>
     </Router>
   )
