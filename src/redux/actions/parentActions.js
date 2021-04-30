@@ -101,7 +101,7 @@ export const linkChildAccount = data => async dispatch => {
         })
         dispatchSuccess(
             dispatch,
-            'Child account linked successfully',
+            result.data.data.message,
             LINK_CHILD_ACCOUNT_SUCCESS
         )
         document.body.classList.remove('loading-indicator')
@@ -178,7 +178,6 @@ export const deleteChildAccount = data => async dispatch => {
 export const deleteChildrenAccounts = data => async dispatch => {
     try {
         document.body.classList.add('loading-indicator')
-        console.log(data);
         const result = await API.deleteChildrenAccounts(data)
 
         dispatch({

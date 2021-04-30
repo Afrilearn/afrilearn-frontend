@@ -12,7 +12,7 @@ import {
 } from "./../../../redux/actions/paymentActions";
 import {
   getChildren,
-} from '../../../redux/actions/parentActions'
+} from '../../../redux/actions/parentActions';
 import { addClass } from "./../../../redux/actions/classActions";
 import { getRoles } from "./../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
@@ -76,7 +76,6 @@ const Payment = (props) => {
       props.getChildren()
     }
   })
-
   
   useEffect(() => {
     let childCourses_ = []
@@ -85,8 +84,9 @@ const Payment = (props) => {
     let child = children_[0];
 
     if(child) {
-      let unsubscribedCourses = child.enrolledCourses.filter(course => !course.paymentIsActive);
-      let arr = unsubscribedCourses.map(c => c.courseId)
+      let subscribedCourses = child.enrolledCourses.filter(course => course.paymentIsActive);
+      let subscribedCoursesId = subscribedCourses.map(c => c.courseId._id);
+      let arr = courses.filter(c => !subscribedCoursesId.includes(c._id));
       childCourses_ = childCourses_.concat(arr)
     }
 
@@ -123,7 +123,7 @@ const Payment = (props) => {
     // Implementation for whatever you want to do with reference and after success call.
     const data = {
       tx_ref: reference.reference,
-      userId,
+      userId: role === "606ed82e70f40e18e029165e"? childId : userId,
       enrolledCourseId: activeEnrolledCourseId,
       courseId: courseId || parsed.courseId,
       paymentPlanId,
@@ -185,7 +185,7 @@ const Payment = (props) => {
         // position: 'top-end',,
       });
       props.clearErrors();
-    } else if (!childId && role === '606ed82e70f40e18e029165e') {
+    } else if (!childId && role === "606ed82e70f40e18e029165e") {
       Swal.fire({
         html: "Select a child",
         showClass: {
@@ -211,8 +211,7 @@ const Payment = (props) => {
         // position: 'top-end',,
       });
       props.clearErrors();
-    } 
-    else if (
+    } else if (
       role &&
       role === "602f3ce39b146b3201c2dc1d" &&
       !parsed.courseId &&

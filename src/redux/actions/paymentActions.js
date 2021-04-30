@@ -54,7 +54,8 @@ export const paymentPlans = () => async (dispatch, getState) => {
 };
 export const createTransaction = (data) => async (dispatch, getState) => {
   try {
-    await API.createPaymentTransaction(data);
+    const result = await API.createPaymentTransaction(data);
+    
     dispatch({
       type: CREATE_PAYMENT_TRANSACTION_SUCCESS,
     });
