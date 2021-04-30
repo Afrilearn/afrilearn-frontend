@@ -25,6 +25,7 @@ import {
   faMapMarker,
   faEdit,
   faPencilAlt,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -167,6 +168,13 @@ const ProfilePage = (props) => {
     shownTab.style.display = "none";
     hiddenTab.style.display = "block";
   };
+  const showProfilePage = () => {
+    const shownTab = document.getElementById("profilePageSectionTwo");
+    const hiddenTab = document.getElementById("hiddenProfilePageSectionTwo");
+    shownTab.style.display = "block";
+    hiddenTab.style.display = "none";
+  };
+
   const showDetailsPage = () => {
     window.scrollTo(0, 0);
     if (
@@ -356,8 +364,8 @@ const ProfilePage = (props) => {
                 {newName
                   ? newName
                   : user.fullName
-                  ? user.fullName
-                  : "Not Available"}
+                    ? user.fullName
+                    : "Not Available"}
               </h4>
               <p>{user.email ? user.email : "Not Available"}</p>
             </div>
@@ -367,7 +375,7 @@ const ProfilePage = (props) => {
                 style={{ marginRight: "15px", fontSize: "20px" }}
               />
               <p>
-                {newState ? newState : user.state ? user.state + " State," : ""}{" "}
+                {newState ? newState : user.state ? user.state + " State," : "Not Available"}{" "}
                 {newCountry ? newCountry : user.country ? user.country : ""}
               </p>
             </div>
@@ -375,8 +383,9 @@ const ProfilePage = (props) => {
               <FontAwesomeIcon
                 icon={faEdit}
                 style={{ marginRight: "15px", fontSize: "20px" }}
+                id='editIcon'
               />
-              <p>Edit Profile</p>
+              <p id='edit'>EDIT PROFILE</p>
             </div>
           </div>
         </div>
@@ -388,8 +397,8 @@ const ProfilePage = (props) => {
               {newPhone
                 ? newPhone
                 : user.phoneNumber
-                ? user.phoneNumber
-                : "Not Available"}
+                  ? user.phoneNumber
+                  : "Not Available"}
             </p>
             <p>
               State: &nbsp;{" "}
@@ -400,8 +409,8 @@ const ProfilePage = (props) => {
               {newGender
                 ? newGender
                 : user.gender
-                ? user.gender
-                : "Not Available"}
+                  ? user.gender
+                  : "Not Available"}
             </p>
 
             <p>
@@ -440,8 +449,12 @@ const ProfilePage = (props) => {
             </tbody>
           </table>
         </div>
-        <div className="row refer">
-          <div className="col-md-7">
+        <div className="row refer mt-3">
+          <div className="col-md-12 mb-3" style={{ padding: '0 35px' }}>
+            Share your referral code with friends to Earn Money or Free
+            Subscription
+          </div>
+          <div className="col-md-12" style={{ paddingRight: '30px' }}>
             <InputGroup size="lg" className="input-50">
               <Input placeholder={referralLink} className="input-two" />
               <InputGroupAddon addonType="append" color="success">
@@ -454,10 +467,7 @@ const ProfilePage = (props) => {
               </InputGroupAddon>
             </InputGroup>
           </div>
-          <div className="col-md-5">
-            Share your referral code with friends to Earn Money or Free
-            Subscription
-          </div>
+
           {visible && (
             <div class="col-6">
               <div
@@ -525,48 +535,60 @@ const ProfilePage = (props) => {
           )}
         </ul>
         <div className="personal-details">
+          <div id='backToProfile'>
+            <button
+              style={{
+                background: 'none', border: 0,
+                float: 'right', marginTop: '-3em', marginRight: '2em'
+              }}
+              onClick={showProfilePage}
+              className='d-flex align-items-center pb-3 pt-n8'
+            >
+              <FontAwesomeIcon
+                icon={faArrowLeft}
+                style={{ marginRight: "15px", fontSize: "20px" }}
+                id='arrowLeftIcon'
+              />BACK TO PROFILE</button>
+          </div>
           <h3>Personal Details</h3>
           <div className="personal-details-form">
             <Form>
-              <FormGroup row>
-                <Label for="fullName" sm={2}>
+              <FormGroup className='d-flex justify-content-between flex-wrap'>
+                <label for="fullName" id='label-2'>
                   Full Name:
-                </Label>
-                <Col sm={10}>
-                  <Input
-                    bsSize="lg"
-                    className="custom-input"
-                    type="text"
-                    name="fullName"
-                    id="fullName"
-                    placeholder={user && user.fullName}
-                    onChange={(e) => {
-                      e.preventDefault();
-                      setNewName(e.target.value);
-                    }}
-                  />
-                </Col>
+                </label>
+                <Input
+                  className="custom-input input-8"
+                  type="text"
+                  name="fullName"
+                  id="fullName"
+                  placeholder={user && user.fullName}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setNewName(e.target.value);
+                  }}
+                />
+
               </FormGroup>
-              <FormGroup row>
-                <Label for="email" sm={2}>
+              <FormGroup className='d-flex justify-content-between flex-wrap'>
+                <Label for="email" id='label-2'>
                   Email:
                 </Label>
-                <Col sm={10}>
-                  <Input
-                    bsSize="lg"
-                    className="custom-input "
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder={user && user.email}
-                    readOnly
-                  />
-                </Col>
+
+                <Input
+                  className="custom-input input-8"
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder={user && user.email}
+                  readOnly
+                />
+
               </FormGroup>
-              <div className="phone-number">
-                <div className="local">Phone Number:</div>
-                <div className="input-column custom-input">
-                  <span>
+              <div className="phone-number d-flex justify-content-between flex-wrap">
+                <Label className="local" id='label-2'>Phone Number:</Label>
+                <div id="phone" className="input-column custom-input input-8">
+                  <span >
                     <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
                       <DropdownToggle className="button-2" size="sm" caret>
                         +234
@@ -582,6 +604,7 @@ const ProfilePage = (props) => {
                     placeholder={
                       user && user.phoneNumber ? user.phoneNumber : ""
                     }
+
                     onChange={(e) => {
                       e.preventDefault();
                       setNewPhone(e.target.value);
@@ -589,84 +612,73 @@ const ProfilePage = (props) => {
                   />
                 </div>
               </div>
-              <div class="row justify-content-between">
-                <div class="col-6">
-                  <FormGroup row>
-                    <Label for="age" sm={3}>
-                      Date Of Birth:
+              <FormGroup className="d-flex flex-wrap align-items-center">
+                <Label for="age" id='label-2'>
+                  Date Of Birth:
                     </Label>
-                    <Col sm={1}></Col>
-                    <Col sm={8}>
-                      <Input
-                        bsSize="lg"
-                        className="custom-input"
-                        type="date"
-                        name="age"
-                        id="age"
-                        placeholder={moment(user.dateOfBirth, "YYYYMMDD")
-                          .fromNow()
-                          .replace("years ago", "")}
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setnewAge(e.target.value);
-                        }}
-                      ></Input>
-                    </Col>
-                  </FormGroup>
-                </div>
-                <div class="col-6">
-                  {/* <FormGroup row>
-                    <Label for="gender" sm={2}>
+
+                <Input
+                  className="custom-input input-3"
+                  type="date"
+                  name="age"
+                  id="age"
+                  placeholder={moment(user.dateOfBirth, "YYYYMMDD")
+                    .fromNow()
+                    .replace("years ago", "")}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setnewAge(e.target.value);
+                  }}
+                ></Input>
+
+              </FormGroup>
+              <FormGroup className="d-flex flex-wrap align-items-center">
+                <Label for="state" id='label-2'>
+                  State:
+                    </Label>
+                <Input
+                  className="custom-input input-3"
+                  type="select"
+                  name="state"
+                  id="state"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setnewState(e.target.value);
+                  }}
+                >
+                  <option>{user && user.state}</option>
+                  {statesInNigeria.map((state) => (
+                    <option key={state.id}>{state.name}</option>
+                  ))}
+                </Input>
+                {/* </Col> */}
+              </FormGroup>
+              <div>
+                <div >
+                  <FormGroup className='d-flex flex-wrap align-items-center'>
+                    <Label for="state" id='label-2'>
                       Gender:
                     </Label>
-                    <Col sm={1}></Col>
-                    <Col sm={9}>
-                      <Input
-                        bsSize="lg"
-                        className="custom-input"
-                        type="select"
-                        name="gender"
-                        id="gender"
-                      >
-                        <option></option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </Input>
-                    </Col>
-                  </FormGroup> */}
-                </div>
-              </div>
-              <div class="row justify-content-between">
-                <div class="col-6">
-                  <FormGroup row>
-                    <Label for="state" sm={2}>
-                      State:
-                    </Label>
-                    <Col sm={2}></Col>
-                    <Col sm={8}>
-                      <Input
-                        bsSize="lg"
-                        className="custom-input"
-                        type="select"
-                        name="state"
-                        id="state"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setnewState(e.target.value);
-                        }}
-                      >
-                        <option>{user && user.state}</option>
-                        {statesInNigeria.map((state) => (
-                          <option key={state.id}>{state.name}</option>
-                        ))}
-                      </Input>
-                    </Col>
+                    <Input
+                      className="custom-input input-3"
+                      type="select"
+                      name="gender"
+                      id="gender"
+                      onChange={(e) => {
+                        e.preventDefault();
+                        setNewGender(e.target.value);
+                      }}
+                    >
+                      <option>
+                        {user && user.gender ? user.gender : "Select Gender"}
+                      </option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </Input>
+                    {/* </Col> */}
                   </FormGroup>
                 </div>
-                <div class="col-6">
+                <div >
                   {/* <FormGroup row>
                     <Label for="city" sm={2}>
                       City:
@@ -674,60 +686,7 @@ const ProfilePage = (props) => {
                     <Col sm={1}></Col>
                     <Col sm={9}>
                       <Input
-                        bsSize="lg"
-                        className="custom-input"
-                        type="select"
-                        name="city"
-                        id="city"
-                      >
-                        <option></option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </Input>
-                    </Col>
-                  </FormGroup> */}
-                </div>
-              </div>
-              <div class="row justify-content-between">
-                <div class="col-6">
-                  <FormGroup row>
-                    <Label for="state" sm={2}>
-                      Gender:
-                    </Label>
-                    <Col sm={2}></Col>
-                    <Col sm={8}>
-                      <Input
-                        bsSize="lg"
-                        className="custom-input"
-                        type="select"
-                        name="gender"
-                        id="gender"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setNewGender(e.target.value);
-                        }}
-                      >
-                        <option>
-                          {user && user.gender ? user.gender : "Select Gender"}
-                        </option>
-                        <option>Male</option>
-                        <option>Female</option>
-                      </Input>
-                    </Col>
-                  </FormGroup>
-                </div>
-                <div class="col-6">
-                  {/* <FormGroup row>
-                    <Label for="city" sm={2}>
-                      City:
-                    </Label>
-                    <Col sm={1}></Col>
-                    <Col sm={9}>
-                      <Input
-                        bsSize="lg"
+                        
                         className="custom-input"
                         type="select"
                         name="city"
@@ -749,9 +708,9 @@ const ProfilePage = (props) => {
         </div>
         <div className="class-details">
           <h3>Class Details</h3>
-          <div className="class-details-list">
-            <span>Subscribed Class:</span>
-            <div className="input-like-box">
+          <div className="class-details-list d-flex flex-wrap align-items-center">
+            <span id='label-2'>Subscribed Class:</span>
+            <div className="input-like-box input-8" id="sub">
               {user && user.role === "602f3ce39b146b3201c2dc1d"
                 ? classListForTeachersOne()
                 : classListForStudentsOne()}
@@ -760,14 +719,14 @@ const ProfilePage = (props) => {
         </div>
         <div className="security">
           <h3>Security</h3>
-          <div className="security-form">
-            <span>Password::</span>
+          <div className="security-form d-flex flex-wrap align-items-center">
+            <span id='label-2'>Password:</span>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handlePasswordChange();
               }}
-              className="custom-input"
+              className="custom-input input-8"
             >
               <input
                 placeholder="Enter new password"
@@ -794,7 +753,7 @@ const ProfilePage = (props) => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
