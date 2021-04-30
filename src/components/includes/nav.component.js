@@ -152,8 +152,8 @@ const MyNav = props => {
                 props.inputChange(
                   'paymentIsActive',
                   item &&
-                    item.enrolledCourse &&
-                    item.enrolledCourse.paymentIsActive
+                  item.enrolledCourse &&
+                  item.enrolledCourse.paymentIsActive
                 )
                 props.inputChange('inClass', true)
                 setIsOpen(false)
@@ -180,12 +180,12 @@ const MyNav = props => {
                       null,
                       item.classId && item.classId._id,
                       item.classId &&
-                        item.classId.enrolledCourse &&
-                        item.classId.enrolledCourse._id,
+                      item.classId.enrolledCourse &&
+                      item.classId.enrolledCourse._id,
                       item.classId && item.classId.name,
                       item.classId &&
-                        item.classId.enrolledCourse &&
-                        item.classId.enrolledCourse.paymentIsActive
+                      item.classId.enrolledCourse &&
+                      item.classId.enrolledCourse.paymentIsActive
                     )
                     props.inputChange(
                       'activeEnrolledCourseId',
@@ -202,8 +202,8 @@ const MyNav = props => {
                     props.inputChange(
                       'paymentIsActive',
                       item.classId &&
-                        item.classId.enrolledCourse &&
-                        item.classId.enrolledCourse.paymentIsActive
+                      item.classId.enrolledCourse &&
+                      item.classId.enrolledCourse.paymentIsActive
                     )
                     props.inputChange('inClass', true)
                     setIsOpen(false)
@@ -235,16 +235,16 @@ const MyNav = props => {
               onClick={() => {
                 updateactiveEnrolledCourseId.bind(
                   item.classId &&
-                    item.classId.enrolledCourse &&
-                    item.classId.enrolledCourse._id,
+                  item.classId.enrolledCourse &&
+                  item.classId.enrolledCourse._id,
                   item.classId &&
-                    item.classId.enrolledCourse &&
-                    item.classId.enrolledCourse.courseId,
+                  item.classId.enrolledCourse &&
+                  item.classId.enrolledCourse.courseId,
 
                   item.classId && item.classId.name,
                   item.classId &&
-                    item.classId.enrolledCourse &&
-                    item.classId.enrolledCourse.paymentIsActive
+                  item.classId.enrolledCourse &&
+                  item.classId.enrolledCourse.paymentIsActive
                 )
                 props.inputChange('inClass', true)
                 setIsOpen(false)
@@ -410,11 +410,6 @@ const MyNav = props => {
                 About Us
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to='/school-profile' onClick={() => setIsOpen(false)}>
-                School Profile
-              </NavLink>
-            </NavItem>
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -551,7 +546,9 @@ const MyNav = props => {
           component={lessonPage}
         />
         <Route path='/content/:courseId/:subjectId' component={content} />
-        <ProtectedRoute path='/profile' component={profilePage} />
+        <ProtectedRoute path='/profile'
+          component={role !== "607ededa2712163504210684" ? profilePage : SchoolProfile}
+        />
         <Route path='/register' component={register} />
         <Route path='/join-class' component={joinClassComponent} />
         <Route path='/search/:lessonId' component={SearchPage} />
@@ -569,8 +566,8 @@ const MyNav = props => {
             user.role === '5fd08fba50964811309722d5'
               ? dashboard
               : user.role === '606ed82e70f40e18e029165e'
-              ? ParentDashboard
-              : classroomTeacherComponent
+                ? ParentDashboard
+                : classroomTeacherComponent
           }
         />
         <ProtectedRoute path='/my-students' component={myStudents} />
@@ -590,8 +587,7 @@ const MyNav = props => {
           path='/child-timed-performance'
           component={ParentTimedPerformance}
         />
-        <Route path='/school-profile' component={SchoolProfile} />
-        <Route path='/edit/school-profile' component={EditSchoolProfile} />
+        <Route path='/edit/profile' component={EditSchoolProfile} />
       </Switch>
     </Router>
   )
