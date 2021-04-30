@@ -64,6 +64,7 @@ import ParentPerformance from '../screens/parentPerformance/parentPerformance.co
 import ParentTimedPerformance from '../screens/parentTimedPerformance/parentTimedPerformance.component'
 import SchoolAddTeacher from '../screens/schoolAddTeacher/addTeacher.component'
 import SchoolAddStudent from '../screens/schoolAddStudent/addStudent.component'
+import AcceptRequests from '../screens/acceptRequests/acceptRequests.component'
 
 const MyNav = props => {
   const {
@@ -497,7 +498,7 @@ const MyNav = props => {
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
         <Route path="/privacy" component={PrivacyPolicy} />
-        <Route path="/accept-request" component={acceptRequestsComponent} />
+        <Route path="/accept-request" component={AcceptRequests} />
         <Route path="/contact" component={contact} />
         <ProtectedRoute
           path='/past-questions/instructions'
