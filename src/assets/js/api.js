@@ -488,5 +488,26 @@ export default {
       headers: this.headers(),
       data
     })
-  }
+  },
+  acceptChildRequest(email, parentId) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/accept-parent-request`,
+      data: { email, parentId }, 
+    });
+  },
+  acceptAdminRequest(email, schoolId, classId) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/school/accept-admin-request`,
+      data: { email, schoolId, classId },
+    });
+  },
+  acceptTeacherRequest(email, schoolId, classId) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/school/accept-teacher-request`,
+      data: { email, schoolId, classId },
+    });
+  },
 };

@@ -303,7 +303,7 @@ const MyNav = props => {
     } else {
       return <li>No result found</li>
     }
-  }
+  };
 
   const handleSearch = e => {
     const target = e.target
@@ -313,7 +313,7 @@ const MyNav = props => {
     if (keyword.length > 1) {
       props.getSearchResults(keyword)
     }
-  }
+  };
 
   return (
     <Router>
@@ -493,11 +493,12 @@ const MyNav = props => {
         </Collapse>
       </Navbar>
       <Switch>
-        <Route exact path='/' component={homepage} />
-        <Route path='/about' component={about} />
-        <Route path='/partnership' component={partnership} />
-        <Route path='/privacy' component={PrivacyPolicy} />
-        <Route path='/contact' component={contact} />
+        <Route exact path="/" component={homepage} />
+        <Route path="/about" component={about} />
+        <Route path="/partnership" component={partnership} />
+        <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/accept-request" component={acceptRequestsComponent} />
+        <Route path="/contact" component={contact} />
         <ProtectedRoute
           path='/past-questions/instructions'
           exact
