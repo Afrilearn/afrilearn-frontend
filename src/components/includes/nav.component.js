@@ -59,6 +59,7 @@ import { populateDashboard } from './../../redux/actions/courseActions'
 import faqPageComponent from '../screens/faqPage/faqPage.component'
 import ChildrenList from '../screens/childrenList/childrenList.component'
 import ParentDashboard from '../screens/parentDashboard/parentDashboard.component'
+import SchoolDashboard from '../screens/schoolDashboard/schoolDashboard.component'
 import ParentPerformance from '../screens/parentPerformance/parentPerformance.component'
 import ParentTimedPerformance from '../screens/parentTimedPerformance/parentTimedPerformance.component'
 
@@ -556,6 +557,7 @@ const MyNav = props => {
           component={classNote}
         />
         <ProtectedRoute path='/select-pay' component={selectPayment} />
+        <Route path='/dashboard' component={SchoolDashboard}/>
         <ProtectedRoute
           path='/dashboard'
           component={
@@ -563,6 +565,8 @@ const MyNav = props => {
               ? dashboard
               : user.role === '606ed82e70f40e18e029165e'
               ? ParentDashboard
+              : user.role === '607ededa2712163504210684'?
+              SchoolDashboard
               : classroomTeacherComponent
           }
         />
@@ -573,7 +577,6 @@ const MyNav = props => {
         <Route path='/faq' component={faqPageComponent} />
         <Route path='/search-details' component={SearchDetails} />
         <Route path='/register-child' component={ParentChildRegistration} />
-        <Route path='/dashboard' component={ParentDashboard} />
         <Route path='/children' component={ChildrenList} />
         <ProtectedRoute
           path='/child-performance'

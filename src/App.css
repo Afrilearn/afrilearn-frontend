@@ -12,15 +12,15 @@
 }
 
 @font-face {
-  font-family: "font2";
-  src: url("./assets/fonts/Baloo-Regular-400.ttf") format("opentype");
+  font-family: 'font2';
+  src: url('./assets/fonts/Baloo-Regular-400.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "font3";
-  src: url("./assets/fonts/Nunito-Regular.ttf") format("opentype");
+  font-family: 'font3';
+  src: url('./assets/fonts/Nunito-Regular.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -80,7 +80,7 @@ body {
 }
 
 .loading-indicator:after {
-  content: url("./assets/img/loading.gif");
+  content: url('./assets/img/loading.gif');
   position: fixed;
   width: 100%;
   top: 50%;
@@ -94,7 +94,7 @@ body {
 }
 
 .loading-indicator:before {
-  content: "";
+  content: '';
   background: #000000cc;
   position: fixed;
   width: 100%;
@@ -141,9 +141,9 @@ body {
 *:active,
 *:visited {
   outline: none !important;
-  user-select: none;  
+  user-select: none;
 }
-input{
+input {
   user-select: auto !important;
 }
 
@@ -355,7 +355,8 @@ input.searchBox {
   font-family: font3;
 }
 
-.searchArea:hover input.searchBox, .searchArea:hover ul{
+.searchArea:hover input.searchBox,
+.searchArea:hover ul {
   display: block;
 }
 
@@ -434,7 +435,10 @@ option {
   font-weight: bolder;
 }
 
-#login form, #signup form, #resetPassword form, #changePassword form {
+#login form,
+#signup form,
+#resetPassword form,
+#changePassword form {
   padding: 0px;
 }
 
@@ -534,7 +538,6 @@ img.dropDownIcon1 {
     font-size: 14px;
     text-align: left;
   }
- 
 
   .navbar-light .navbar-toggler {
     color: white !important;
@@ -571,8 +574,6 @@ img.dropDownIcon1 {
   .ytp-title-channel-logo {
     margin-top: 10px !important;
   }
-
-
 
   /* .fly {
     top: 67%;
@@ -618,7 +619,6 @@ img.dropDownIcon1 {
   .react-player {
     width: 100%;
     height: auto !important;
-
   }
 }
 
@@ -642,21 +642,32 @@ img.dropDownIcon1 {
   padding: 30px;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-.no-wrap{
+.no-wrap {
   white-space: nowrap;
 }
 
-select.no-appearance{
-  -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; 
-    appearance: none;
+select.no-appearance {
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none;
+  appearance: none;
+}
+.negative-top {
+  margin-top: -90px;
+}
+@media (min-width: 576px) {
+  .text-sm-start {
+    text-align: start !important;
+  }
+  .text-sm-center {
+    text-align: center !important;
+  }
 }
 @media (min-width: 768px) {
-  .text-md-start{
+  .text-md-start {
     text-align: start !important;
   }
 }
