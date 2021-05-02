@@ -561,7 +561,7 @@ const MyNav = props => {
           component={classNote}
         />
         <ProtectedRoute path='/select-pay' component={selectPayment} />
-        <Route path='/dashboard' component={SchoolDashboard} />
+        {/* <Route path='/dashboard' component={SchoolDashboard} /> */}
         <ProtectedRoute
           path='/dashboard'
           component={
