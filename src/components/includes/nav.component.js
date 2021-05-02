@@ -552,7 +552,7 @@ const MyNav = props => {
         />
         <Route path='/content/:courseId/:subjectId' component={content} />
         <ProtectedRoute path='/profile'
-          component={role !== "607ededa2712163504210684" ? profilePage : SchoolProfile}
+          component={user.role !== "607ededa2712163504210684" ? profilePage : SchoolProfile}
         />
         <Route path='/register' component={register} />
         <Route path='/join-class' component={joinClassComponent} />
@@ -565,7 +565,7 @@ const MyNav = props => {
           component={classNote}
         />
         <ProtectedRoute path='/select-pay' component={selectPayment} />
-        <Route path='/dashboard' component={SchoolDashboard} />
+        {/* <Route path='/dashboard' component={SchoolDashboard} /> */}
         <ProtectedRoute
           path='/dashboard'
           component={

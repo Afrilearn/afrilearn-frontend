@@ -185,7 +185,7 @@ const EditSchoolProfile = (props) => {
             <div id="schoolProfilePageSectionOne"></div>
             <div id="editSchoolProfile">
                 <div
-                    className="round-image dropdown-toggle"
+                    className="round-image dropdown-toggle overlay"
                     role="button"
                     id="dropdownMenuLink"
                     data-bs-toggle="dropdown"

@@ -248,7 +248,7 @@ const SchoolProfile
                     >
                         <h3>Personal Details</h3>
                         <Link to={{
-                            pathname: "/edit/school-profile",
+                            pathname: "/edit/profile",
                             state: { filterBy: 'role', searchValue: 'school' }
                         }} >
                             <div className="item item-plus-icon">
