@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import {
   getSubjectAndRelatedLessons,
   addRecentActivity,
-  addSubjectProgress,
+  addSubjectProgress, 
 } from "./../../../redux/actions/subjectActions";
 
 import PropTypes from "prop-types";
@@ -98,12 +98,6 @@ const ClassNote = (props) => {
     nextLesson && !activeCoursePaidStatus && targetLessonIndex + 1 !== 0;
   let shareLink = `https://www.myafrilearn.com/`;
 
-  const recommendation = (id) => {
-    const mainList = lessons && lessons.filter((vid) => vid._id !== id);
-    const random = Math.floor(Math.random() * mainList.length);
-
-    return mainList[random];
-  };
   const onClickClassNote = (lesson) => {
     props.addRecentActivity(lesson._id, "lesson");
     props.addSubjectProgress(
@@ -111,7 +105,6 @@ const ClassNote = (props) => {
       lesson._id,
       lesson.subjectId,
       lesson.courseId,
-      recommendation(lesson._id),
       lesson._id,
       "lesson"
     );

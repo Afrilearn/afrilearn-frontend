@@ -191,10 +191,10 @@ const Performance = props => {
               </div>
             </div>
             <span className='box box1 box2'>
-              <div className='row'>
+              {/* <div className='row'>
                 <div className='col-md-12'>Overrall</div>
-              </div>
-              <div className='row bottomBorder'>
+              </div> */}
+              {/* <div className='row bottomBorder'>
                 <div className='col-md-7'>
                   {overallProgress === 0 && overallPerformance === 0 ? (
                     <PieChart
@@ -234,12 +234,10 @@ const Performance = props => {
                       <span className='legend speed'></span>&nbsp;&nbsp;
                       Performance: {overallPerformance.toFixed(1)}%
                     </div>
-                    {/* <div className="col-md-12 push1">
-                                 <span className="legend comprehension"></span>&nbsp;&nbsp; Comprehension: 50%
-                              </div> */}
+                   
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className='row'>
                 <div className='col-md-12'>
                   <ul>
