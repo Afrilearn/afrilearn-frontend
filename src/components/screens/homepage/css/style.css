@@ -443,15 +443,19 @@
         margin-bottom: 32px !important;
     }
 
-    #homepage input[type="email"],
+    #homepage input[type="email"] {
+        padding: 14.6px 6px;
+        font-size: 11px;
+        margin-top: 12px !important;
+    }
     #homepage input[type="submit"] {
-        padding: 19.4px 6px;
-        font-size: 9px;
+        padding: 16.2px 6px;
+        font-size: 13px;
         margin-top: 12px !important;
     }
     #homepage input.lastbee {
-        font-size: 7px !important;
-        padding: 20.8px 2px !important;
+        font-size: 9px !important;
+        padding: 16.2px 2px !important;
     }
     #homepage .students img {
         width: 28%;
