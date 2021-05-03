@@ -1,37 +1,56 @@
-@font-face {
+/* @font-face {
   font-family: "font1";
   src: url("./assets/fonts/Nunito-SemiBold.ttf") format("opentype");
   font-weight: normal;
   font-style: normal;
-}
-/* @font-face {
+} */
+@font-face {
   font-family: "font1";
   src: url("./assets/fonts/BakerSignet.ttf") format("opentype");
   font-weight: normal;
   font-style: normal;
-} */
-
+}
 @font-face {
+  font-family: "font2";
+  src: url("./assets/fonts/BakerSignet.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "font3";
+  src: url("./assets/fonts/BakerSignet.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "font4";
+  src: url("./assets/fonts/BakerSignet.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* @font-face {
   font-family: 'font2';
   src: url('./assets/fonts/Baloo-Regular-400.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'font3';
   src: url('./assets/fonts/Nunito-Regular.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'font4';
   src: url('./assets/fonts/Nunito-Bold.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
+} */
+h1, h2, h3{
+  font-weight: bolder;
 }
-
 html,
 body {
   font-family: font1 !important;
