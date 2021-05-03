@@ -62,6 +62,8 @@ import ParentDashboard from '../screens/parentDashboard/parentDashboard.componen
 import SchoolDashboard from '../screens/schoolDashboard/schoolDashboard.component'
 import ParentPerformance from '../screens/parentPerformance/parentPerformance.component'
 import ParentTimedPerformance from '../screens/parentTimedPerformance/parentTimedPerformance.component'
+import SchoolProfile from '../screens/schoolProfile/schoolProfile.component'
+import EditSchoolProfile from '../screens/schoolProfile/editSchoolProfile.component'
 import SchoolAddTeacher from '../screens/schoolAddTeacher/addTeacher.component'
 import SchoolAddStudent from '../screens/schoolAddStudent/addStudent.component'
 import AcceptRequests from '../screens/acceptRequests/acceptRequests.component'
@@ -154,8 +156,8 @@ const MyNav = props => {
                 props.inputChange(
                   'paymentIsActive',
                   item &&
-                    item.enrolledCourse &&
-                    item.enrolledCourse.paymentIsActive
+                  item.enrolledCourse &&
+                  item.enrolledCourse.paymentIsActive
                 )
                 props.inputChange('inClass', true)
                 setIsOpen(false)
@@ -182,12 +184,12 @@ const MyNav = props => {
                       null,
                       item.classId && item.classId._id,
                       item.classId &&
-                        item.classId.enrolledCourse &&
-                        item.classId.enrolledCourse._id,
+                      item.classId.enrolledCourse &&
+                      item.classId.enrolledCourse._id,
                       item.classId && item.classId.name,
                       item.classId &&
-                        item.classId.enrolledCourse &&
-                        item.classId.enrolledCourse.paymentIsActive
+                      item.classId.enrolledCourse &&
+                      item.classId.enrolledCourse.paymentIsActive
                     )
                     props.inputChange(
                       'activeEnrolledCourseId',
@@ -204,8 +206,8 @@ const MyNav = props => {
                     props.inputChange(
                       'paymentIsActive',
                       item.classId &&
-                        item.classId.enrolledCourse &&
-                        item.classId.enrolledCourse.paymentIsActive
+                      item.classId.enrolledCourse &&
+                      item.classId.enrolledCourse.paymentIsActive
                     )
                     props.inputChange('inClass', true)
                     setIsOpen(false)
@@ -237,16 +239,16 @@ const MyNav = props => {
               onClick={() => {
                 updateactiveEnrolledCourseId.bind(
                   item.classId &&
-                    item.classId.enrolledCourse &&
-                    item.classId.enrolledCourse._id,
+                  item.classId.enrolledCourse &&
+                  item.classId.enrolledCourse._id,
                   item.classId &&
-                    item.classId.enrolledCourse &&
-                    item.classId.enrolledCourse.courseId,
+                  item.classId.enrolledCourse &&
+                  item.classId.enrolledCourse.courseId,
 
                   item.classId && item.classId.name,
                   item.classId &&
-                    item.classId.enrolledCourse &&
-                    item.classId.enrolledCourse.paymentIsActive
+                  item.classId.enrolledCourse &&
+                  item.classId.enrolledCourse.paymentIsActive
                 )
                 props.inputChange('inClass', true)
                 setIsOpen(false)
@@ -549,7 +551,9 @@ const MyNav = props => {
           component={lessonPage}
         />
         <Route path='/content/:courseId/:subjectId' component={content} />
-        <ProtectedRoute path='/profile' component={profilePage} />
+        <ProtectedRoute path='/profile'
+          component={user.role !== "607ededa2712163504210684" ? profilePage : SchoolProfile}
+        />
         <Route path='/register' component={register} />
         <Route path='/join-class' component={joinClassComponent} />
         <Route path='/search/:lessonId' component={SearchPage} />
@@ -561,7 +565,7 @@ const MyNav = props => {
           component={classNote}
         />
         <ProtectedRoute path='/select-pay' component={selectPayment} />
-        <Route path='/dashboard' component={SchoolDashboard} />
+        {/* <Route path='/dashboard' component={SchoolDashboard} /> */}
         <ProtectedRoute
           path='/dashboard'
           component={
@@ -590,6 +594,7 @@ const MyNav = props => {
           path='/child-timed-performance'
           component={ParentTimedPerformance}
         />
+        <Route path='/edit/profile' component={EditSchoolProfile} />
         <Route path='/add-teacher' component={SchoolAddTeacher} />
         <Route path='/add-student' component={SchoolAddStudent} />
       </Switch>
