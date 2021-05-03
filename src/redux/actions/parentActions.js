@@ -162,7 +162,7 @@ export const linkChildAccount = (data) => async (dispatch) => {
     });
     dispatchSuccess(
       dispatch,
-      "Child account linked successfully",
+      result.data.data.message,
       LINK_CHILD_ACCOUNT_SUCCESS
     );
     document.body.classList.remove("loading-indicator");

@@ -2,7 +2,7 @@ import {
   GET_CURRENT_CHILD_COURSE_SUCCESS,
   GET_CURRENT_CHILD_COURSE_SUBJECTS_SUCCESS,
   GET_CHILDREN_SUCCESS,
-  LINK_CHILD_ACCOUNT_SUCCESS,
+  // LINK_CHILD_ACCOUNT_SUCCESS,
   UNLINK_CHILD_ACCOUNT_SUCCESS,
   UNLINK_CHILDREN_ACCOUNT_SUCCESS,
   DELETE_CHILD_ACCOUNT_SUCCESS,
@@ -61,15 +61,8 @@ const parentReducer = (state = initialState, action) => {
       arr = arr.filter((child) => child._id !== action.payload);
       return {
         ...state,
-        children: arr,
-      };
-    case LINK_CHILD_ACCOUNT_SUCCESS:
-      arr = state.children.slice();
-      arr.push(action.payload.user);
-      return {
-        ...state,
-        children: arr,
-      };
+        children: arr
+      }
     case UNLINK_CHILDREN_ACCOUNT_SUCCESS:
       return {
         ...state,

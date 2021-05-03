@@ -10,6 +10,9 @@ import {
   inputChange,
   createTransaction,
 } from "./../../../redux/actions/paymentActions";
+import {
+  getChildren,
+} from '../../../redux/actions/parentActions';
 import { addClass } from "./../../../redux/actions/classActions";
 import { getRoles } from "./../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
@@ -29,10 +32,14 @@ const Payment = (props) => {
     activeEnrolledCourseId,
     email,
     courses,
+    children,
     role,
     error,
   } = props;
+
   const [selected, setSelected] = useState(null);
+  const [childCourses, setchildCourses] = useState([]);
+  const [childId, setChildId] = useState('');
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -63,6 +70,30 @@ const Payment = (props) => {
     }
   });
 
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true
+      props.getChildren()
+    }
+  })
+  
+  useEffect(() => {
+    let childCourses_ = []
+
+    let children_ = children.filter(c => c._id === childId);
+    let child = children_[0];
+
+    if(child) {
+      let subscribedCourses = child.enrolledCourses.filter(course => course.paymentIsActive);
+      let subscribedCoursesId = subscribedCourses.map(c => c.courseId._id);
+      let arr = courses.filter(c => !subscribedCoursesId.includes(c._id));
+      childCourses_ = childCourses_.concat(arr)
+    }
+
+    setchildCourses(childCourses_)
+  }, [children, childId]);
+
+
   const setBB = (price) => {
     //change background onClick
     const all = document.querySelectorAll(".item");
@@ -92,7 +123,7 @@ const Payment = (props) => {
     // Implementation for whatever you want to do with reference and after success call.
     const data = {
       tx_ref: reference.reference,
-      userId,
+      userId: role === "606ed82e70f40e18e029165e"? childId : userId,
       enrolledCourseId: activeEnrolledCourseId,
       courseId: courseId || parsed.courseId,
       paymentPlanId,
@@ -125,11 +156,38 @@ const Payment = (props) => {
       });
     }
   };
+  const childrenList = () => {
+    if (children.length) {
+      return children.map((child, index) => {
+        return <option value={child._id}>{child.fullName}</option>;
+      });
+    }
+  };
+  const childCoursesList = () => {
+    if (childCourses.length) {
+      return childCourses.map((course, index) => {
+        return <option value={course._id}>{course.name}</option>;
+      });
+    }
+  };
 
   const checkAndMakePayment = () => {
     if (!paymentAmount) {
       Swal.fire({
         html: "Select amount to pay",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();
+    } else if (!childId && role === "606ed82e70f40e18e029165e") {
+      Swal.fire({
+        html: "Select a child",
         showClass: {
           popup: "animate__animated animate__fadeInDown",
         },
@@ -194,8 +252,9 @@ const Payment = (props) => {
           <div class="col-md-7">
             <div className="sub-lenght">
               <Container>
-                {!parsed.courseId && <h3>Step 1: Select Class </h3>}
-                {!parsed.courseId && (
+                {!parsed.courseId && role !== '606ed82e70f40e18e029165e' &&
+                  <h3>Step 1: Select Class</h3>}
+                {!parsed.courseId && role !== '606ed82e70f40e18e029165e' && (
                   <select
                     class="form-select form-select-lg mb-3"
                     aria-label=".form-select-lg example"
@@ -207,6 +266,34 @@ const Payment = (props) => {
                     <option selected>Select Class</option>
                     {courseList()}
                   </select>
+                )}
+                {role === '606ed82e70f40e18e029165e' &&
+                  <h3>Step 1: Subscription For</h3>}
+                {role === '606ed82e70f40e18e029165e' && (
+                  <div>
+                    <select
+                      class="form-select form-select-lg mb-4"
+                      aria-label=".form-select-lg example"
+                      onChange={(e) => {
+                        e.preventDefault();
+                        setChildId(e.target.value);
+                      }}
+                    >
+                      <option selected>Select Child</option>
+                      {childrenList()}
+                    </select>
+                    <select
+                      class="form-select form-select-lg mb-3"
+                      aria-label=".form-select-lg example"
+                      onChange={(e) => {
+                        e.preventDefault();
+                        setCourseId(e.target.value);
+                      }}
+                    >
+                      <option selected>Select Class</option>
+                      {childCoursesList()}
+                    </select>
+                  </div>
                 )}
                 <h3>
                   {!parsed.courseId && "Step 2: "}Select Subscription Length
@@ -288,6 +375,7 @@ const mapStateToProps = (state) => ({
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   email: state.auth.email,
   courses: state.auth.classes,
+  children: state.parent.children,
   role: state.auth.role,
   error: state.error,
 });
@@ -297,6 +385,7 @@ export default connect(mapStateToProps, {
   inputChange,
   createTransaction,
   getRoles,
+  getChildren,
   addClass,
   clearErrors,
 })(Payment);
