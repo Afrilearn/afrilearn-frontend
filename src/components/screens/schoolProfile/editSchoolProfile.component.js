@@ -62,7 +62,7 @@ const EditSchoolProfile = (props) => {
 
   useEffect(() => {
     if (!mounted.current) {
-      dispatch(getSchoolProfile(user.schoolId));
+      dispatch(getSchoolProfile(user.schoolId._id));
       mounted.current = true;
       window.scrollTo(0, 0);
     }
@@ -113,7 +113,7 @@ const EditSchoolProfile = (props) => {
       website,
     };
     console.log("data", data);
-    dispatch(uploadSchoolProfile(user.schoolId, data));
+    dispatch(uploadSchoolProfile(user.schoolId._id, data));
   };
   return (
     <React.Fragment>
@@ -131,7 +131,7 @@ const EditSchoolProfile = (props) => {
               e.preventDefault();
               const data = new FormData();
               data.append("coverPhoto", e.target.files[0]);
-              dispatch(uploadSchoolCoverPhoto(user.schoolId, data));
+              dispatch(uploadSchoolCoverPhoto(user.schoolId._id, data));
             }}
           />
         </label>
@@ -149,7 +149,7 @@ const EditSchoolProfile = (props) => {
                 e.preventDefault();
                 const data = new FormData();
                 data.append("logo", e.target.files[0]);
-                dispatch(uploadSchoolLogo(user.schoolId, data));
+                dispatch(uploadSchoolLogo(user.schoolId._id, data));
               }}
             />
           </label>

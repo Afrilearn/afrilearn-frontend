@@ -73,7 +73,7 @@ const SchoolProfile = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!mounted.current) {
-      dispatch(getSchoolProfile(user.schoolId));
+      dispatch(getSchoolProfile(user.schoolId._id));
 
       // do componentDidMount logic
       mounted.current = true;
@@ -236,7 +236,7 @@ const SchoolProfile = (props) => {
                 e.preventDefault();
                 const data = new FormData();
                 data.append("coverPhoto", e.target.files[0]);
-                dispatch(uploadSchoolCoverPhoto(user.schoolId, data));
+                dispatch(uploadSchoolCoverPhoto(user.schoolId._id, data));
               }}
             />
           </label>

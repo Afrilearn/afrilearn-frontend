@@ -17,74 +17,10 @@ import {
   uploadSchoolCoverPhoto,
 } from "../../../redux/actions/schoolActions";
 import { inputChange } from "../../../redux/actions/authActions";
+import Stroke from "../../../assets/img/Stroke.png";
 
 const padWithZero = (num) => (num > 9 ? num : "0" + num);
 
-const dashboardData = {
-  enrolledCourse: {
-    courseId: {
-      _id: "uniqueId",
-      name: "JSS ONE",
-      relatedSubjects: [
-        {
-          mainSubjectId: {
-            name: "Mathematics",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/maths.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "English",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/english.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Physics",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/Physics.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Chemistry",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/chemistry.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Biology",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/biology.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Economics",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/economics.png",
-          },
-        },
-      ],
-      relatedPastQuestions: [
-        { pastQuestionTypes: [{ name: "WASSCE", categoryId: "1" }] },
-        { pastQuestionTypes: [{ name: "NECO", categoryId: "2" }] },
-        { pastQuestionTypes: [{ name: "JAMB", categoryId: "3" }] },
-      ],
-    },
-  },
-  relatedCourses: [
-    { name: "Primary One", teachers: 1, _id: "1" },
-    { name: "Primary Two", teachers: 2, _id: "2" },
-    { name: "Primary Three", teachers: 2, _id: "3" },
-    { name: "Primary Four", teachers: 3, _id: "4" },
-    { name: "Primary Five", teachers: 2, _id: "5" },
-    { name: "Primary Six", teachers: 4, _id: "6" },
-  ],
-};
 
 const SchoolDashboard = (props) => {
   const { user } = props;
@@ -102,8 +38,8 @@ const SchoolDashboard = (props) => {
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
-      dispatch(getSchoolProfile(user.schoolId));
-      dispatch(getSchoolCourses(user.schoolId));
+      dispatch(getSchoolProfile(user.schoolId._id));
+      dispatch(getSchoolCourses(user.schoolId._id));
     }
   });
   const [courseIndex, setCourseIndex] = useState(0);
@@ -123,10 +59,10 @@ const SchoolDashboard = (props) => {
             compiledNotes={3000}
             registeredUsers={50000}
             subjectName={item.mainSubjectId.name}
-            courseId={dashboardData.enrolledCourse.courseId._id}
+            courseId={item._id}
             introText={item.mainSubjectId.introText || "This is the intro text"}
-            courseName={dashboardData.enrolledCourse.courseId.name}
-            subjectId={item._id}
+            courseName={item.name}
+            subjectId={item.mainSubjectId._id}
           />
         );
       });
