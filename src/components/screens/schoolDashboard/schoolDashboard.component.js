@@ -21,7 +21,6 @@ import Stroke from "../../../assets/img/Stroke.png";
 
 const padWithZero = (num) => (num > 9 ? num : "0" + num);
 
-
 const SchoolDashboard = (props) => {
   const { user } = props;
   const [lessonsCourseId, setLessonsCourseId] = useState("");
@@ -33,7 +32,6 @@ const SchoolDashboard = (props) => {
   const courses = useSelector((state) => state.school.courses);
   const profile = useSelector((state) => state.school.profile);
   const coverPhoto = useSelector((state) => state.school.coverPhoto);
-  console.log("profile", profile);
 
   useEffect(() => {
     if (!mounted.current) {
@@ -43,7 +41,6 @@ const SchoolDashboard = (props) => {
     }
   });
   const [courseIndex, setCourseIndex] = useState(0);
-
   const indexincourses = (id) =>
     courses.findIndex((course) => course._id === id);
 
@@ -59,10 +56,10 @@ const SchoolDashboard = (props) => {
             compiledNotes={3000}
             registeredUsers={50000}
             subjectName={item.mainSubjectId.name}
-            courseId={item._id}
+            courseId={item.courseId && item.courseId._id}
             introText={item.mainSubjectId.introText || "This is the intro text"}
-            courseName={item.name}
-            subjectId={item.mainSubjectId._id}
+            courseName={item.courseId && item.courseId.name}
+            subjectId={item._id}
           />
         );
       });

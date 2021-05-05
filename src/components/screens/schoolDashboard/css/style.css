@@ -149,7 +149,7 @@
   font-weight: 700;
 }
 .select-class {
-
+  background-image: url("/static/media/Chevron.28912e1d.svg");
 }
 select.general {
   background: rgba(38, 170, 118, 0.28);
