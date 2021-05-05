@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   ButtonToggle,
@@ -45,6 +45,7 @@ import Avatar from "react-avatar";
 
 import "./css/style.css";
 import { type } from "jquery";
+import { getSchoolProfile } from "../../../redux/actions/schoolActions";
 
 const ProfilePage = (props) => {
   const {
@@ -113,9 +114,14 @@ const ProfilePage = (props) => {
   ];
 
   const mounted = useRef();
+  const school = useSelector((state) => state.school.school);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!mounted.current) {
+      if (user.role === "607ededa2712163504210684") {
+        dispatch(getSchoolProfile(user.schoolId));
+      }
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
@@ -299,6 +305,16 @@ const ProfilePage = (props) => {
       let myClasses = classes.filter((element) => element.userId === user._id);
       return myClasses.map((item, index) => {
         return <span>{item.name}</span>;
+      });
+    } else {
+      return <p className="shiftClass">No class list yet</p>;
+    }
+  };
+
+  const classListForSchool = () => {
+    if (school && school.schoolClassesData && school.schoolClassesData.length) {
+      return school.schoolClassesData.map((item, index) => {
+        return <span>{item.className}</span>;
       });
     } else {
       return <p className="shiftClass">No class list yet</p>;
