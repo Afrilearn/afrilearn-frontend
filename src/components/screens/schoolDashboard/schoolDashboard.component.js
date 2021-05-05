@@ -201,13 +201,17 @@ const SchoolDashboard = (props) => {
             />
             <div className="stat-display">
               <div>
-                <div style={{ minHeight: "2em" }}>Teachers</div>
+                <div style={{ minHeight: "2em" }} className="font2">
+                  Teachers
+                </div>
                 <div style={{ fontSize: "1.4em", color: "rgba(0,0,0,.49)" }}>
                   {padWithZero(school.numOfTeachers || 0)}
                 </div>
               </div>
               <div>
-                <div style={{ minHeight: "2em" }}>Students</div>
+                <div style={{ minHeight: "2em" }} className="font2">
+                  Students
+                </div>
                 <div style={{ fontSize: "1.4em", color: "rgba(0,0,0,.49)" }}>
                   {padWithZero(school.numOfStudents || 0)}
                 </div>
@@ -246,7 +250,7 @@ const SchoolDashboard = (props) => {
               <div className="d-flex mb-3 align-items-center">
                 <h4 className="font2 mr-4 my-0">Subjects</h4>
                 <select
-                  className="general mt-0 py-2 pl-3 pr-2"
+                  className="general mt-0 py-2 pl-3 pr-2 select-class"
                   style={{
                     maxWidth: "160px",
                     backgroundColor: "rgba(38, 170, 118, 0.28)",

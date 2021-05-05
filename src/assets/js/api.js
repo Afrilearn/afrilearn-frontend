@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: LocalURL,
+  url: HerokuURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -487,6 +487,29 @@ export default {
       url: `${this.url}auth/school/update-cover-photo/${schoolId}`,
       headers: this.headers(),
       data,
+    });
+  },
+  updateSchoolProfile(schoolId, data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/school/update-profile/${schoolId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  uploadSchoollogo(schoolId, data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/school/update-logo/${schoolId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  updateClassName(classId, name) {
+    return axios({
+      method: "patch",
+      url: `${this.url}classes/${classId}/rename`,
+      data: { name },
     });
   },
   getChildActivities(data) {

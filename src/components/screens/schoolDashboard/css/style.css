@@ -14,7 +14,6 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.7);
-
 }
 #school-dashboard .top-display input {
   width: 0;
@@ -144,4 +143,14 @@
 
 .nowrap {
   white-space: nowrap;
+}
+.font2 {
+  font-family: font2;
+  font-weight: 700;
+}
+.select-class {
+
+}
+select.general {
+  background: rgba(38, 170, 118, 0.28);
 }

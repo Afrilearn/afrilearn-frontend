@@ -2,7 +2,7 @@ import API from "../../assets/js/api";
 import { returnErrors } from "./errorActions";
 import { returnSuccess } from "./successActions";
 import {
-  INPUT_CHANGE,
+  SCHOOL_INPUT_CHANGE,
   ACCEPT_REJECT_SCHOOL_ADMIN_REQUEST_SUCCESS,
   ACCEPT_REJECT_SCHOOL_ADMIN_REQUEST_FAILURE,
   ACCEPT_REJECT_SCHOOL_TEACHER_REQUEST_SUCCESS,
@@ -17,6 +17,12 @@ import {
   SCHOOL_ADD_EXISTING_TEACHER_FAILURE,
   SCHOOL_SIGNUP_FOR_STUDENT_SUCCESS,
   SCHOOL_SIGNUP_FOR_STUDENT_FAILURE,
+  UPLOAD_SCHOOL_LOGO_FAILURE,
+  UPLOAD_SCHOOL_LOGO_SUCCESS,
+  UPLOAD_SCHOOL_PROFILE_SUCCESS,
+  UPLOAD_SCHOOL_PROFILE_FAILURE,
+  UPDATE_CLASS_NAME_SUCCESS,
+  UPDATE_CLASS_NAME_FAILURE,
 } from "./types";
 
 const dispatchError = (dispatch, err, id) => {
@@ -129,7 +135,7 @@ export const uploadSchoolCoverPhoto = (schoolId, data) => async (dispatch) => {
     });
     dispatchSuccess(
       dispatch,
-      `School profile Recieved`,
+      `School profile Updated`,
       UPLOAD_SCHOOL_COVER_PHOTO_SUCCESS
     );
     document.body.classList.remove("loading-indicator");
@@ -137,6 +143,47 @@ export const uploadSchoolCoverPhoto = (schoolId, data) => async (dispatch) => {
     // console.log(err);
     document.body.classList.remove("loading-indicator");
     dispatchError(dispatch, err, UPLOAD_SCHOOL_COVER_PHOTO_FAILURE);
+  }
+};
+export const uploadSchoolLogo = (schoolId, data) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.uploadSchoollogo(schoolId, data);
+    dispatch({
+      type: UPLOAD_SCHOOL_LOGO_SUCCESS,
+      payload: result.data.data,
+    });
+    dispatchSuccess(
+      dispatch,
+      `School profile Updated`,
+      UPLOAD_SCHOOL_LOGO_SUCCESS
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    // console.log(err);
+    document.body.classList.remove("loading-indicator");
+    dispatchError(dispatch, err, UPLOAD_SCHOOL_LOGO_FAILURE);
+  }
+};
+export const uploadSchoolProfile = (schoolId, data) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.updateSchoolProfile(schoolId, data);
+    dispatch({
+      type: UPLOAD_SCHOOL_PROFILE_SUCCESS,
+      payload: result.data.data,
+    });
+    dispatchSuccess(
+      dispatch,
+      `School profile Updated`,
+      200,
+      UPLOAD_SCHOOL_PROFILE_SUCCESS
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    // console.log(err);
+    document.body.classList.remove("loading-indicator");
+    dispatchError(dispatch, err, UPLOAD_SCHOOL_PROFILE_FAILURE);
   }
 };
 export const schoolAddExistingTeacher = (email, schoolId, classId) => async (
@@ -197,5 +244,24 @@ export const schoolSignUpForStudent = (
 };
 
 export const inputChange = (name, value) => (dispatch) => {
-  dispatch({ type: INPUT_CHANGE, payload: { name, value } });
+  dispatch({ type: SCHOOL_INPUT_CHANGE, payload: { name, value } });
+};
+
+export const updateClassName = (classId, name) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    await API.updateClassName(classId, name);
+    dispatch({
+      type: UPDATE_CLASS_NAME_SUCCESS,
+    });
+  } catch (err) {
+    dispatch(
+      returnErrors("Error Updating class", 500, "UPDATE_CLASS_NAME_FAILURE")
+    );
+    dispatch({
+      type: UPDATE_CLASS_NAME_FAILURE,
+    });
+  }
 };
