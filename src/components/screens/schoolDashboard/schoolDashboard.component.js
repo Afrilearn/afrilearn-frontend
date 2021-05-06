@@ -17,74 +17,9 @@ import {
   uploadSchoolCoverPhoto,
 } from "../../../redux/actions/schoolActions";
 import { inputChange } from "../../../redux/actions/authActions";
+import Stroke from "../../../assets/img/Stroke.png";
 
 const padWithZero = (num) => (num > 9 ? num : "0" + num);
-
-const dashboardData = {
-  enrolledCourse: {
-    courseId: {
-      _id: "uniqueId",
-      name: "JSS ONE",
-      relatedSubjects: [
-        {
-          mainSubjectId: {
-            name: "Mathematics",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/maths.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "English",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/english.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Physics",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/Physics.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Chemistry",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/chemistry.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Biology",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/biology.png",
-          },
-        },
-        {
-          mainSubjectId: {
-            name: "Economics",
-            imageUrl:
-              "https://afrilearn-media.s3.eu-west-3.amazonaws.com/subject-images/economics.png",
-          },
-        },
-      ],
-      relatedPastQuestions: [
-        { pastQuestionTypes: [{ name: "WASSCE", categoryId: "1" }] },
-        { pastQuestionTypes: [{ name: "NECO", categoryId: "2" }] },
-        { pastQuestionTypes: [{ name: "JAMB", categoryId: "3" }] },
-      ],
-    },
-  },
-  relatedCourses: [
-    { name: "Primary One", teachers: 1, _id: "1" },
-    { name: "Primary Two", teachers: 2, _id: "2" },
-    { name: "Primary Three", teachers: 2, _id: "3" },
-    { name: "Primary Four", teachers: 3, _id: "4" },
-    { name: "Primary Five", teachers: 2, _id: "5" },
-    { name: "Primary Six", teachers: 4, _id: "6" },
-  ],
-};
 
 const SchoolDashboard = (props) => {
   const { user } = props;
@@ -97,17 +32,15 @@ const SchoolDashboard = (props) => {
   const courses = useSelector((state) => state.school.courses);
   const profile = useSelector((state) => state.school.profile);
   const coverPhoto = useSelector((state) => state.school.coverPhoto);
-  console.log("profile", profile);
 
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
-      dispatch(getSchoolProfile(user.schoolId));
-      dispatch(getSchoolCourses(user.schoolId));
+      dispatch(getSchoolProfile(user.schoolId._id));
+      dispatch(getSchoolCourses(user.schoolId._id));
     }
   });
   const [courseIndex, setCourseIndex] = useState(0);
-
   const indexincourses = (id) =>
     courses.findIndex((course) => course._id === id);
 
@@ -123,9 +56,9 @@ const SchoolDashboard = (props) => {
             compiledNotes={3000}
             registeredUsers={50000}
             subjectName={item.mainSubjectId.name}
-            courseId={dashboardData.enrolledCourse.courseId._id}
+            courseId={item.courseId && item.courseId._id}
             introText={item.mainSubjectId.introText || "This is the intro text"}
-            courseName={dashboardData.enrolledCourse.courseId.name}
+            courseName={item.courseId && item.courseId.name}
             subjectId={item._id}
           />
         );
@@ -201,13 +134,19 @@ const SchoolDashboard = (props) => {
             />
             <div className="stat-display">
               <div>
-                <div style={{ minHeight: "2em" }}>Teachers</div>
+                <Link to="/people">
+                  <div style={{ minHeight: "2em" }} className="font2">
+                    Teachers
+                  </div>
+                </Link>
                 <div style={{ fontSize: "1.4em", color: "rgba(0,0,0,.49)" }}>
                   {padWithZero(school.numOfTeachers || 0)}
                 </div>
               </div>
               <div>
-                <div style={{ minHeight: "2em" }}>Students</div>
+                <div style={{ minHeight: "2em" }} className="font2">
+                  Students
+                </div>
                 <div style={{ fontSize: "1.4em", color: "rgba(0,0,0,.49)" }}>
                   {padWithZero(school.numOfStudents || 0)}
                 </div>
@@ -246,7 +185,7 @@ const SchoolDashboard = (props) => {
               <div className="d-flex mb-3 align-items-center">
                 <h4 className="font2 mr-4 my-0">Subjects</h4>
                 <select
-                  className="general mt-0 py-2 pl-3 pr-2"
+                  className="general mt-0 py-2 pl-3 pr-2 select-class"
                   style={{
                     maxWidth: "160px",
                     backgroundColor: "rgba(38, 170, 118, 0.28)",

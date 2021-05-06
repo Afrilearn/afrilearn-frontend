@@ -119,9 +119,7 @@ const ProfilePage = (props) => {
 
   useEffect(() => {
     if (!mounted.current) {
-      if (user.role === "607ededa2712163504210684") {
-        dispatch(getSchoolProfile(user.schoolId));
-      }
+  
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);

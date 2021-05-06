@@ -133,7 +133,7 @@ const authReducer = (state = initialState, action) => {
                 : "",
           };
         } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
-          myObj = {
+          myObj = { 
             activeEnrolledCourseId:
               action.payload.user.enrolledCourses &&
               action.payload.user.enrolledCourses.length

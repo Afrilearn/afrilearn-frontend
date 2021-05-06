@@ -14,7 +14,6 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.7);
-
 }
 #school-dashboard .top-display input {
   width: 0;
@@ -95,13 +94,26 @@
 }
 
 #school-dashboard select {
-  -moz-appearance: none; /* Firefox */
-  -webkit-appearance: none;
-  appearance: none;
+  /* -moz-appearance: none; Firefox */
+  /* -webkit-appearance: none; */
+  /* appearance: none;
   background-image: url("../../../../assets/img/Chevron.svg");
   background-repeat: no-repeat;
   background-position: calc(100% - 16px) 50%;
-  background-size: 14px;
+  background-size: 14px; */
+  width: 131px;
+  height: 44.17px;
+  left: 130px;
+  top: 458px;
+  border: none;
+  border-radius: 3px;
+  padding: 3px;
+
+  background: rgba(38, 170, 118, 0.28);
+  color: #26aa76;
+  border-radius: 12.186px;
+  border: none;
+  padding: 10px;
 }
 
 #school-dashboard .gradient-bg {
@@ -144,4 +156,14 @@
 
 .nowrap {
   white-space: nowrap;
+}
+.font2 {
+  font-family: font2;
+  font-weight: 700;
+}
+.select-class {
+  background-image: url("/static/media/Chevron.28912e1d.svg");
+}
+select.general {
+  /* background: rgba(38, 170, 118, 0.28); */
 }

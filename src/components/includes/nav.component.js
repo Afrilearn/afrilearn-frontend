@@ -67,6 +67,7 @@ import EditSchoolProfile from '../screens/schoolProfile/editSchoolProfile.compon
 import SchoolAddTeacher from '../screens/schoolAddTeacher/addTeacher.component'
 import SchoolAddStudent from '../screens/schoolAddStudent/addStudent.component'
 import AcceptRequests from '../screens/acceptRequests/acceptRequests.component'
+import SchoolPeople from '../screens/schoolPeople/schoolPeople'
 
 const MyNav = props => {
   const {
@@ -581,6 +582,7 @@ const MyNav = props => {
         <ProtectedRoute path='/my-students' component={myStudents} />
         <ProtectedRoute path='/performance' component={performance} />
         <Route path='/social-login' component={socialLogin} />
+        <Route path='/people' component={SchoolPeople} />
         <Route path='/subject' component={subject} />
         <Route path='/faq' component={faqPageComponent} />
         <Route path='/search-details' component={SearchDetails} />

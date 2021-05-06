@@ -1,0 +1,146 @@
+#schoolPeople #firstSection {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.63), rgba(0, 0, 0, 0.63)),
+    url("../../../../assets/img/parent-child.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  /* background-attachment: fixed; */
+  background-size: cover;
+  margin-top: -90px;
+  color: white;
+  height: 421px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#schoolPeople #secondSection {
+  min-height: 200px;
+  width: 100%;
+  background-color: #000000;
+  padding: 100px;
+  font-family: font1;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+
+  color: #ffffff;
+}
+#schoolPeople #secondSection .select-download {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#schoolPeople #secondSection .select-download select {
+  width: 131px;
+  height: 44.17px;
+  left: 130px;
+  top: 458px;
+  border: none;
+  border-radius: 3px;
+  padding: 3px;
+
+  background: rgba(38, 170, 118, 0.28);
+  color: #26aa76;
+  border-radius: 12.186px;
+  border: none;
+  padding: 10px;
+}
+#schoolPeople #secondSection .select-download div {
+  display: flex;
+  align-items: flex-start;
+  color: #ffffff;
+}
+#schoolPeople #secondSection .select-download div span {
+  margin-left: 10px;
+  text-decoration: underline;
+}
+#schoolPeople #secondSection .list-of-people {
+  width: 100%;
+  min-height: 400px;
+  justify-content: space-between;
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%,
+    rgba(51, 50, 50, 0) 142.59%,
+    rgba(51, 50, 50, 0) 145.33%
+  );
+  border-radius: 10px;
+  margin-top: 48px;
+  padding-bottom: 50px;
+}
+#schoolPeople #secondSection .list-of-people head {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 40px 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.46);
+}
+#schoolPeople #secondSection .list-of-people head input {
+  background-color: grey;
+  background-color: -internal-light-dark(black, grey);
+  padding: 10px;
+}
+#schoolPeople #secondSection .list-of-people head header {
+  margin-right: auto;
+  color: #26aa76;
+  font-family: font2;
+  font-weight: 700;
+  font-size: 30px;
+  margin-left: 20px;
+}
+#schoolPeople #secondSection .list-of-people-item {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 80px;
+  margin: 10px 0;
+}
+#schoolPeople #secondSection .list-of-people-item div {
+  height: 100%;
+}
+#schoolPeople #secondSection .list-of-people-item div span {
+  /* height: 100%; */
+  margin-left: 20px;
+}
+@media screen and (max-width: 900px) {
+  #schoolPeople #secondSection {
+    padding: 30px;
+  }
+  #schoolPeople #secondSection .list-of-people head {
+    padding: 12px;
+  }
+  #schoolPeople #secondSection .list-of-people head header {
+    margin-left: 10px;
+  }
+
+  #schoolPeople #secondSection .list-of-people-item {
+    height: 50px;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+  #schoolPeople #secondSection .list-of-people-item span {
+    order: 10;
+    flex: 100%;
+    text-align: center;
+  }
+  #schoolPeople #secondSection .list-of-people-item div {
+    height: 100%;
+  }
+  #schoolPeople #secondSection .list-of-people-item div span {
+    /* height: 100%; */
+    margin-left: 20px;
+  }
+}
+.cursor {
+  cursor: pointer;
+}
+.delete-modal {
+  text-align: center;
+}
+.delete-modal button {
+  margin: 10px;
+}

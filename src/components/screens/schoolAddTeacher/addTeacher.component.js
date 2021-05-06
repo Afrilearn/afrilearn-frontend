@@ -20,15 +20,7 @@ import {
 import { clearSuccess } from "../../../redux/actions/successActions";
 
 const SchoolAddTeacherToClass = (props) => {
-  const {
-    role,
-    classId,
-    email,
-    roles,
-    className,
-    error,
-    success,
-  } = props;
+  const { role, classId, email, roles, className, error, success } = props;
   const history = useHistory();
   const parsed = queryString.parse(props.location.search);
   const mounted = useRef();
@@ -121,7 +113,7 @@ const SchoolAddTeacherToClass = (props) => {
   const classSet = () => {
     if (school && school.schoolClassesData && school.schoolClassesData.length) {
       return school.schoolClassesData.map((item) => (
-        <option value={item._id} key={item._id}>
+        <option value={item.classId} key={item._id}>
           {item.className}
         </option>
       ));
