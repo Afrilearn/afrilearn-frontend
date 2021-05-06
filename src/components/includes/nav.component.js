@@ -324,7 +324,7 @@ const MyNav = props => {
         <NavbarBrand tag={Link} to='/'>
           <img
             className='logo'
-            src={require('../../assets/img/logo.png')}
+            src={require('../../assets/img/logo6.png')}
             alt='Afrilearn Logo'
           />
         </NavbarBrand>

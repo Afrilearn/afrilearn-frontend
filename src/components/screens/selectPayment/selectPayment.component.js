@@ -112,8 +112,8 @@ const Payment = (props) => {
   const config = {
     reference: new Date().getTime(),
     email,
-    amount: paymentAmount * 100,
-    // amount: 2 * 100,
+    // amount: paymentAmount * 100,
+    amount: 1 * 100,
     publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
     channels: ["card"],
   };
@@ -130,16 +130,16 @@ const Payment = (props) => {
       amount: paymentAmount,
       status: "paid",
     };
-
+    console.log(reference)
     props.createTransaction(data);
     if (role && role === "602f3ce39b146b3201c2dc1d") {
       props.addClass(courseId, nameOfClass);
     }
-    if (role && role === "602f3ce39b146b3201c2dc1d") {
-      window.location = "/classes/teacher";
-    } else {
-      window.location = "/dashboard";
-    }
+    // if (role && role === "602f3ce39b146b3201c2dc1d") {
+    //   window.location = "/classes/teacher";
+    // } else {
+    //   window.location = "/dashboard";
+    // }
   };
 
   // you can call this function anything

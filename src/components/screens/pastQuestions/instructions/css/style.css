@@ -9,7 +9,7 @@
 .Instructions .headingOne {
     text-align: center;
     margin-bottom: 50px;
-    color: #2bb58e;
+    color: #84BB29;
     font-family: font2;
 }
 .Instructions img.takeOff {
@@ -22,7 +22,7 @@
 }
 .Instructions .title {
     margin-top: 6px;
-    color: #2bb58e;
+    color: #84BB29;
 }
 .Instructions img.icon {
     width: 35px;
@@ -42,7 +42,7 @@
     color: white;
 }
 .Instructions .ready{
-    color: #2bb58e;
+    color: #84BB29;
     margin-top: 30px;
 }
 .Instructions .subjectName {

@@ -81,7 +81,7 @@
 
 .landingPageAdd svg {
     font-size: 29px;
-    color: #2bb58e;
+    color: #84BB29;
 }
 
 .landingPageAdd h5 {
@@ -130,7 +130,7 @@
     background: white !important;
     width: 100%;
     display: block;
-    padding: 16px 6px 14px 28px;
+    padding: 16px 6px 15px 28px;
     color: #787878 !important;
     border-radius: 5px 0px 0px 5px;
     margin-top: 12px;
@@ -194,7 +194,7 @@
 }
 
 #homepage input[type="submit"] {
-    background: #2bb58e;
+    background: #84BB29;
     color: white;
     border-radius: 0px 5px 5px 0px;
     font-size: 17px;
@@ -266,12 +266,12 @@
 }
 
 #homepage ul.courseSelectSectionDropDown li:hover {
-    background: #2bb58e;
+    background: #84BB29;
     color: white;
 }
 
 #homepage a.startLearning {
-    background: #2bb58e !important;
+    background: #84BB29 !important;
     border-radius: 10px;
     color: white !important;
     padding: 10px 28px;
@@ -317,7 +317,7 @@
     line-height: 28px;
     color: #a8a8a8;
     margin-top: -6px;
-    margin-left: 4px;
+    margin-left: 1px;
 }
 
 #homepage .slick-slider {
@@ -361,7 +361,7 @@
     display: block;
     /* margin-top: -54px;
     margin-left: -195px; */
-    color: #2bb58e;
+    color: #84BB29;
 }
 
 #tsparticles {

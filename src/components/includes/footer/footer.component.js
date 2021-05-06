@@ -99,7 +99,7 @@ const Footer = (props) => {
         </div>
         <div className="row r2">
             <div className="col-md-4">
-              <Link to="/"> <img className="logo" src={require('../../../assets/img/logo1.png')} alt='Logo'/></Link>
+              <Link to="/"> <img className="logo" src={require('../../../assets/img/whitelogo.png')} alt='Logo'/></Link>
             </div>
             <div className="col-md-5 listP">
                 <ul>

@@ -18,7 +18,7 @@
 }
 #aboutFirstSection hr {
 	width: 8%;
-	border: solid 2px #2bb58e; 
+	border: solid 2px #84BB29; 
 	float: left;   
 }
 #aboutFirstSection .col-md-5 {
@@ -41,10 +41,18 @@
 #aboutSecondSection h1{
     font-family: font2;
     margin-bottom: 40px;
-    color: #2bb58e;
+    color: #84BB29;
 }
 #aboutSecondSection .partOne p{
     font-size: 25px;
+}
+#aboutFifthSection .other4 {
+    margin-top: -58px;
+    background: white;
+}
+#aboutFifthSection .other5 {
+    margin-top: -46px;
+    background: white;
 }
 #aboutSecondSection .slide1 {
     margin-top: 100px;
@@ -60,7 +68,7 @@
 }
 #aboutSecondSection .partTwo svg {
     font-size: 38px;
-    color: #2bb58e;
+    color: #84BB29;
 }
 #aboutSecondSection .partTwo p {
     font-size: 20px;
@@ -71,10 +79,10 @@
 }
 #aboutFourthSection h1, #aboutFifthSection h1{
     margin-bottom: 100px;
-    color: #2bb58e;
+    color: #84BB29;
 }
 #aboutFourthSection svg {
-    background: #2bb58e;
+    background: #84BB29;
     padding: 13px;
     border-radius: 50%;
     color: white;
@@ -105,7 +113,7 @@
 }
 #aboutFifthSection h5{
     text-align: center;
-    color: #2bb58e;
+    color: #84BB29;
 }
 #aboutFifthSection .box {   
     border-radius: 0px 0px 8px 8px;
