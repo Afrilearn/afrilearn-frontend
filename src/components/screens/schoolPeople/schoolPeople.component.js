@@ -16,10 +16,10 @@ import {
 import Swal from "sweetalert2";
 import "animate.css";
 import { clearErrors } from "../../../redux/actions/errorActions";
+import Workbook from "react-excel-workbook";
 
 const SchoolPeople = (props) => {
   const error = useSelector((state) => state.error);
-  console.log("error", error);
   const user = useSelector((state) => state.auth.user);
   const school = useSelector((state) => state.school.school);
   const classMembers = useSelector((state) => state.class.classMembers);
@@ -76,16 +76,38 @@ const SchoolPeople = (props) => {
   const toggleDeleteModal = () => {
     setShowDeleteModal(!showDeleteModal);
   };
+
+  const excelData1 = classMembers.map((item) => {
+    return {
+      name: item.userId && item.userId.fullName,
+      email: item.userId && item.userId.email,
+    };
+  });
+  const excelData2 = admins.map((item) => {
+    return {
+      name: item.userId && item.userId.fullName,
+      email: item.userId && item.userId.email,
+      role: item.role,
+    };
+  });
+  const selectedClassName =
+    school &&
+    school.schoolClassesData &&
+    school.schoolClassesData.find((item) => item.classId === selected);
+  console.log("excelData1", excelData1);
+  console.log("excelData2", excelData2);
+  console.log("selectedClassName", selectedClassName);
   return (
     <div id="schoolPeople">
       <Modal isOpen={showDeleteModal}>
         <div className="delete-modal">
           <h2>{message}</h2>
           <p>Do you want to delete All?</p>
+          <p>Feature is coming soon</p>
           <button className="btn btn-primary" onClick={toggleDeleteModal}>
             Close
           </button>
-          <button className="btn btn-danger">Delete</button>
+          {/* <button className="btn btn-danger">Delete</button> */}
         </div>
       </Modal>
       <section id="firstSection">
@@ -108,27 +130,58 @@ const SchoolPeople = (props) => {
                   <option value={item.classId}>{item.className}</option>
                 ))}
             </select>
-            <div>
-              <img src={Downlaod} alt="Download Button" />
-              <span>Download List</span>
-            </div>
+
+            <Workbook
+              filename="classmembers.xlsx"
+              element={
+                <div>
+                  <img src={Downlaod} alt="Download Button" />
+                  <span>Download List</span>
+                </div>
+              }
+            >
+              <Workbook.Sheet
+                data={excelData1}
+                name={`${
+                  selectedClassName && selectedClassName.className
+                } Class Members`}
+              >
+                <Workbook.Column label="Name" value="name" />
+                <Workbook.Column label="Email" value="email" />
+              </Workbook.Sheet>
+              <Workbook.Sheet
+                data={excelData2}
+                name={`${
+                  selectedClassName && selectedClassName.className
+                } Admins`}
+              >
+                <Workbook.Column label="Name" value="name" />
+                <Workbook.Column label="Email" value="email" />
+                <Workbook.Column label="Role" value="role" />
+              </Workbook.Sheet>
+            </Workbook>
           </div>
           <div className="list-of-people">
             <head>
-              <input
-                type="checkbox"
-                name="SelectAll"
-                id="SelectAllTeachers"
-                onChange={() => {
-                  if (teachersToDelete.length === 0 && admins.length > 0) {
-                    setTeachersToDelete(admins);
-                    setMessage(`You have Selected ${admins.length} teacher(s)`);
-                    toggleDeleteModal();
-                  } else {
-                    setTeachersToDelete([]);
-                  }
-                }}
-              />
+              <label class="checkbox-container">
+                <input
+                  type="checkbox"
+                  name="SelectAll"
+                  id="SelectAllTeachers"
+                  onChange={() => {
+                    if (teachersToDelete.length === 0 && admins.length > 0) {
+                      setTeachersToDelete(admins);
+                      setMessage(
+                        `You have Selected ${admins.length} teacher(s)`
+                      );
+                      toggleDeleteModal();
+                    } else {
+                      setTeachersToDelete([]);
+                    }
+                  }}
+                />
+                <span className="checkmark"></span>
+              </label>
               <header>Teacher</header>
               <span>
                 {admins.length} Teacher
@@ -194,25 +247,28 @@ const SchoolPeople = (props) => {
             ))}
 
             <head>
-              <input
-                type="checkbox"
-                name="SelectAll"
-                id="SelectAllTeachers"
-                onChange={() => {
-                  if (
-                    studentsToDelete.length === 0 &&
-                    classMembers.length > 0
-                  ) {
-                    setStudentsToDelete(classMembers);
-                    setMessage(
-                      `You have Selected ${classMembers.length} student(s)`
-                    );
-                    toggleDeleteModal();
-                  } else {
-                    setStudentsToDelete([]);
-                  }
-                }}
-              />
+              <label class="checkbox-container">
+                <input
+                  type="checkbox"
+                  name="SelectAll"
+                  id="SelectAllTeachers"
+                  onChange={() => {
+                    if (
+                      studentsToDelete.length === 0 &&
+                      classMembers.length > 0
+                    ) {
+                      setStudentsToDelete(classMembers);
+                      setMessage(
+                        `You have Selected ${classMembers.length} student(s)`
+                      );
+                      toggleDeleteModal();
+                    } else {
+                      setStudentsToDelete([]);
+                    }
+                  }}
+                />
+                <span className="checkmark"></span>
+              </label>
               <header>Student</header>
               <span>
                 {classMembers.length} Pupil
