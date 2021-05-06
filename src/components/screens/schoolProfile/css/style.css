@@ -1,528 +1,528 @@
 #schoolProfilePageSectionOne {
-    background-image: linear-gradient(
-        1.17deg,
-        #000000 -14.82%,
-        rgba(0, 0, 0, 0) 118.73%
-      ),
-      url("../../../../assets/img/profile_page_back.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 600px;
-    padding-top: 300px;
-    margin-top: -320px;
+  height: 600px;
+  padding-top: 300px;
+  margin-top: -320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: grey;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* box-sizing:; */
+  background-size: cover;
+}
+#schoolProfilePageSectionOne label input {
+  width: 0;
+  height: 0;
+}
+#schoolProfilePageSectionOne label {
+  font-family: font2;
+  font-weight: 700;
+  position: relative;
+  z-index: 22;
+}
+#schoolProfilePageSectionTwo {
+  background-color: black;
+  position: relative;
+  color: white;
+  padding: 0 200px;
+  font-family: font3;
+}
+#schoolProfilePageSectionTwo .circle {
+  width: 200px;
+  height: 200px;
+  /* border-radius: 50%; */
+  transform: translate(0, -50%);
+  /* overflow: hidden; */
+  background-color: #26aa76;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#schoolProfilePageSectionTwo .circle span {
+  font-size: 40px;
+  text-transform: uppercase;
+}
+#schoolProfilePageSectionTwo .ellipse {
+  border-radius: 50%;
+  height: 100%;
+}
+#schoolProfilePageSectionTwo .br-50 {
+  border-radius: 50%;
+}
+#schoolProfilePageSectionTwo .image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  height: 110px;
+}
+#schoolProfilePageSectionTwo .top-details {
+  position: absolute;
+  top: 0;
+  width: 60%;
+  transform: translateX(27%);
+  padding-top: 20px;
+}
+#schoolProfilePageSectionTwo .classes h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  font-family: font2;
+}
+#schoolProfilePageSectionTwo .classes-list {
+  width: 60%;
+  padding: 20px;
+}
+#schoolProfilePageSectionTwo .top-details .items {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#schoolProfilePageSectionTwo .top-details .item {
+  flex: 0 0 50%;
+  margin-right: 9em;
+}
+#schoolProfilePageSectionTwo .top-details .item h4 {
+  font-family: font2;
+  font-size: 26px;
+}
+#schoolProfilePageSectionTwo .top-details .item p {
+  font-family: font1;
+  font-size: 15px;
+}
+#schoolProfilePageSectionTwo .item-plus-icon {
+  display: flex;
+  cursor: pointer;
+}
+@media screen and (max-width: 1230px) {
+  #schoolProfilePageSectionTwo .top-details {
+    position: relative;
+    width: 100%;
+    transform: translateX(0%);
+    padding-top: 0;
+    padding-left: 20px;
+    margin-top: -20px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #schoolProfilePageSectionOne {
+    margin-top: -302px;
+    height: 550px;
   }
   #schoolProfilePageSectionTwo {
-    background-color: black;
-    position: relative;
-    color: white;
-    padding: 0 200px;
-    font-family: font3;
+    padding: 0;
   }
   #schoolProfilePageSectionTwo .circle {
-    width: 200px;
-    height: 200px;
-    /* border-radius: 50%; */
-    transform: translate(0, -50%);
-    /* overflow: hidden; */
-    background-color: #26aa76;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #schoolProfilePageSectionTwo .circle span {
-    font-size: 40px;
-    text-transform: uppercase;
-  }
-  #schoolProfilePageSectionTwo .ellipse {
-    border-radius: 50%;
-    height: 100%;
-  }
-  #schoolProfilePageSectionTwo .br-50 {
-    border-radius: 50%;
-  }
-  #schoolProfilePageSectionTwo .image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    height: 110px;
+    transform: translate(calc(50vw - 50%), -50%);
+    width: 149px;
+    height: 149px;
   }
   #schoolProfilePageSectionTwo .top-details {
-    position: absolute;
-    top: 0;
-    width: 60%;
-    transform: translateX(27%);
-    padding-top: 20px;
-  }
-  #schoolProfilePageSectionTwo .classes h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
-    font-family: font2;
-  }
-  #schoolProfilePageSectionTwo .classes-list {
-    width: 60%;
-    padding: 20px;
-}
-  #schoolProfilePageSectionTwo .top-details .items {
+    position: relative;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    transform: translateX(0%);
   }
-  #schoolProfilePageSectionTwo .top-details .item {
-    flex: 0 0 50%;
-    margin-right: 9em;
-  }
-  #schoolProfilePageSectionTwo .top-details .item h4 {
-    font-family: font2;
-    font-size: 26px;
-  }
-  #schoolProfilePageSectionTwo .top-details .item p {
-    font-family: font1;
-    font-size: 15px;
-  }
-  #schoolProfilePageSectionTwo .item-plus-icon {
-    display: flex;
-    cursor: pointer;
-  }
-  @media screen and (max-width: 1230px) {
-    #schoolProfilePageSectionTwo .top-details {
-      position: relative;
-      width: 100%;
-      transform: translateX(0%);
-      padding-top: 0;
-      padding-left: 20px;
-      margin-top: -20px;
-    }
-  }
-  
-  @media screen and (max-width: 900px) {
-    #schoolProfilePageSectionOne {
-      margin-top: -302px;
-      height: 550px;
-    }
-    #schoolProfilePageSectionTwo {
-      padding: 0;
-    }
-    #schoolProfilePageSectionTwo .circle {
-      transform: translate(calc(50vw - 50%), -50%);
-      width: 149px;
-      height: 149px;
-    }
-    #schoolProfilePageSectionTwo .top-details {
-      position: relative;
-      width: 100%;
-      transform: translateX(0%);
-    }
-    #schoolProfilePageSectionTwo .top-details .items {
-      flex-wrap: wrap;
-    }
-    #schoolProfilePageSectionTwo .top-details .item {
-      flex: 0 0 100%;
-      margin-bottom: 20px;
-    }
-  }
-  #schoolProfilePageSectionTwo .personal-details h3 {
-    font-family: font2;
-  }
-  #schoolProfilePageSectionTwo .personal-details-list {
-    width: 60%;
-    padding: 20px;
-    height: 170px;
-    display: flex;
-    flex-direction: column;
+  #schoolProfilePageSectionTwo .top-details .items {
     flex-wrap: wrap;
   }
-  @media screen and (max-width: 900px) {
-    #schoolProfilePageSectionTwo .personal-details-list {
-      height: auto;
-      width: 100%;
-    }
+  #schoolProfilePageSectionTwo .top-details .item {
+    flex: 0 0 100%;
+    margin-bottom: 20px;
   }
-  #schoolProfilePageSectionTwo .classes h3 {
-    font-family: font2;
-  }
-  #schoolProfilePageSectionTwo .classes table {
+}
+#schoolProfilePageSectionTwo .personal-details h3 {
+  font-family: font2;
+}
+#schoolProfilePageSectionTwo .personal-details-list {
+  width: 60%;
+  padding: 20px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 900px) {
+  #schoolProfilePageSectionTwo .personal-details-list {
+    height: auto;
     width: 100%;
   }
-  #schoolProfilePageSectionTwo .classes table thead {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  }
-  #schoolProfilePageSectionTwo .classes table th {
-    padding: 0 20px;
-  }
-  #schoolProfilePageSectionTwo .classes table td {
-    padding: 10px 20px;
-  }
-  
-  #schoolProfilePageSectionTwo .classes table th:last-child,
-  #schoolProfilePageSectionTwo .classes table td:last-child {
-    text-align: center;
-  }
-  #schoolProfilePageSectionTwo .button {
-    background: rgba(38, 170, 118, 0.51);
-    border: none;
-    padding: 8px 40px;
-  }
-  #schoolProfilePageSectionTwo .link-button {
-    background: rgba(38, 170, 118, 0.51) !important;
-    border: none;
-    border-radius: 5px;
-    display: inline-block;
-    padding: 8px 40px;
-  }
-  #schoolProfilePageSectionTwo .referral-code {
-    padding-bottom: 50px;
-  }
-  #schoolProfilePageSectionTwo .referral-code h3 {
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    font-family: font2;
-  }
-  #schoolProfilePageSectionTwo .referral-code p,
-  #schoolProfilePageSectionTwo .referral-code .input-50 {
-    padding: 10px 20px;
-  }
-  #schoolProfilePageSectionTwo .button-2 {
-    background: #26aa76;
-    border: none;
-  }
+}
+#schoolProfilePageSectionTwo .classes h3 {
+  font-family: font2;
+}
+#schoolProfilePageSectionTwo .classes table {
+  width: 100%;
+}
+#schoolProfilePageSectionTwo .classes table thead {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+#schoolProfilePageSectionTwo .classes table th {
+  padding: 0 20px;
+}
+#schoolProfilePageSectionTwo .classes table td {
+  padding: 10px 20px;
+}
+
+#schoolProfilePageSectionTwo .classes table th:last-child,
+#schoolProfilePageSectionTwo .classes table td:last-child {
+  text-align: center;
+}
+#schoolProfilePageSectionTwo .button {
+  background: rgba(38, 170, 118, 0.51);
+  border: none;
+  padding: 8px 40px;
+}
+#schoolProfilePageSectionTwo .link-button {
+  background: rgba(38, 170, 118, 0.51) !important;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 8px 40px;
+}
+#schoolProfilePageSectionTwo .referral-code {
+  padding-bottom: 50px;
+}
+#schoolProfilePageSectionTwo .referral-code h3 {
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: font2;
+}
+#schoolProfilePageSectionTwo .referral-code p,
+#schoolProfilePageSectionTwo .referral-code .input-50 {
+  padding: 10px 20px;
+}
+#schoolProfilePageSectionTwo .button-2 {
+  background: #26aa76;
+  border: none;
+}
+#schoolProfilePageSectionTwo .input-50 {
+  width: 65%;
+}
+.shiftClass {
+  margin-left: 20px;
+  margin-bottom: 38px;
+}
+.refer {
+  padding-bottom: 67px;
+}
+#schoolProfilePageSectionTwo .input-two {
+  background-color: transparent;
+  padding: 0 30px;
+  border: 0.1px solid #26aa76;
+  margin-left: 20px;
+}
+@media screen and (max-width: 1200px) {
   #schoolProfilePageSectionTwo .input-50 {
-    width: 65%;
-  }
-  .shiftClass {
-    margin-left: 20px;
-    margin-bottom: 38px;
-  }
-  .refer {
-    padding-bottom: 67px;
-  }
-  #schoolProfilePageSectionTwo .input-two {
-    background-color: transparent;
-    padding: 0 30px;
-    border: 0.1px solid #26aa76;
-    margin-left: 20px;
-  }
-  @media screen and (max-width: 1200px) {
-    #schoolProfilePageSectionTwo .input-50 {
-      width: 100%;
-    }
-  }
-  #editSchoolProfile {
-    background-color: black;
-    position: relative;
-    color: white;
-    padding: 0 200px 100px 200px;
-    font-family: font3;
-    display: block;
-  }
-  @media screen and (max-width: 900px) {
-    #editSchoolProfilechoolProfile {
-      padding: 0;
-      padding-bottom: 100px;
-    }
-    #editSchoolProfilechoolProfile .round-image {
-      transform: translate(calc(50vw - 50%), -50%);
-    }
-    #editSchoolProfilechoolProfile .save-changes {
-      position: relative;
-      top: unset;
-      right: unset;
-      margin: 20px;
-    }
-  }
-  #editSchoolProfilechoolProfile .personal-details h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
-    font-family: font2;
-    font-size: 26px;
-  }
-  #editSchoolProfile .personal-details-form {
-    width: 90%;
-    padding: 20px;
-  }
-  #editSchoolProfile label{
-    color: #938585
-  }
-  .removePlaceholder::placeholder {
-     color: transparent; 
-  }
-  #editSchoolProfile input{
     width: 100%;
-    background: none;
-    border: none;
-    border-bottom: 1px solid #938585;
-    color: white;
-    padding-bottom: 12px;
   }
-  #editSchoolProfile .personal-details-form .phone-number {
-    width: 100%;
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+}
+#editSchoolProfile {
+  background-color: black;
+  position: relative;
+  color: white;
+  padding: 0 200px 100px 200px;
+  font-family: font3;
+  display: block;
+}
+
+@media screen and (max-width: 900px) {
+  #editSchoolProfilechoolProfile {
+    padding: 0;
+    padding-bottom: 100px;
   }
-  #editSchoolProfile .personal-details-form .phone-number .local {
-    flex: 1;
+  #editSchoolProfilechoolProfile .round-image {
+    transform: translate(calc(50vw - 50%), -50%);
   }
-  #editSchoolProfile
-    .personal-details-form
-    .phone-number
-    .input-column {
-    flex: 0 0 83%;
-    height: 45px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  #editSchoolProfile
-    .personal-details-form
-    .phone-number
-    .input-column
-    span {
-    flex: 0 0 10%;
-  }
-  #editSchoolProfile
-    .personal-details-form
-    .phone-number
-    .input-column
-    input {
-    flex: 1;
-    border: none;
-    border-left: solid 1px currentColor;
-    background-color: transparent;
-    color: #828282;
-    padding-left: 10px;
-  }
-  #editSchoolProfile .custom-input {
+  #editSchoolProfilechoolProfile .save-changes {
     position: relative;
+    top: unset;
+    right: unset;
+    margin: 20px;
   }
-  #editSchoolProfile .custom-input input {
-      width: 100%;
-      background: none;
-      border: none;
-      border-bottom: 1px solid #938585;
-      color: white;
-      padding-bottom: 12px;
-  }
-  @media screen and (max-width: 600px) {
-    #editSchoolProfile .personal-details-list {
-      height: auto;
-    }
-    #editSchoolProfile .personal-details-form {
-      width: 100%;
-    }
-    #editSchoolProfile .personal-details-form .phone-number {
-      flex-wrap: wrap;
-    }
-    #editSchoolProfile
-      .personal-details-form
-      .phone-number
-      .input-column {
-      margin-top: 10px;
-      flex: 1;
-    }
-  }
-  #editSchoolProfile .button {
-    background: rgba(38, 170, 118, 0.51);
-    border: none;
-  }
-  #editSchoolProfile .button-2 {
-    background: #26aa76;
-    border: none;
-  }
-  #editSchoolProfile .button-3 {
-    background: transparent;
-    border: #26aa76 0.1px solid;
-    border-left: solid #000000;
-  }
-  #editSchoolProfile .input-50 {
-    width: 50%;
-  }
-  #editSchoolProfile .input-two {
-    background-color: transparent;
-    padding: 0 30px;
-    border: 0.1px solid #26aa76;
+}
+#editSchoolProfilechoolProfile .personal-details h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  font-family: font2;
+  font-size: 26px;
+}
+#editSchoolProfile .personal-details-form {
+  width: 90%;
+  padding: 20px;
+}
+#editSchoolProfile label {
+  color: #938585;
+}
+.removePlaceholder::placeholder {
+  color: transparent;
+}
+#editSchoolProfile input {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #938585;
+  color: white;
+  padding-bottom: 12px;
+}
+#editSchoolProfile .personal-details-form .phone-number {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#editSchoolProfile .personal-details-form .phone-number .local {
+  flex: 1;
+}
+#editSchoolProfile .personal-details-form .phone-number .input-column {
+  flex: 0 0 83%;
+  height: 45px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+#editSchoolProfile .personal-details-form .phone-number .input-column span {
+  flex: 0 0 10%;
+}
+#editSchoolProfile .personal-details-form .phone-number .input-column input {
+  flex: 1;
+  border: none;
+  border-left: solid 1px currentColor;
+  background-color: transparent;
+  color: #828282;
+  padding-left: 10px;
+}
+#editSchoolProfile .custom-input {
+  position: relative;
+}
+#editSchoolProfile .custom-input input {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #938585;
+  color: white;
+  padding-bottom: 12px;
+}
+@media screen and (max-width: 600px) {
+  #editSchoolProfile .personal-details-list {
     height: auto;
   }
-  
-  #editSchoolProfile .input-three {
-    background-color: transparent;
-    /* padding: 0 30px; */
+  #editSchoolProfile .personal-details-form {
     width: 100%;
-    border: none;
   }
+  #editSchoolProfile .personal-details-form .phone-number {
+    flex-wrap: wrap;
+  }
+  #editSchoolProfile .personal-details-form .phone-number .input-column {
+    margin-top: 10px;
+    flex: 1;
+  }
+}
+#editSchoolProfile .button {
+  background: rgba(38, 170, 118, 0.51);
+  border: none;
+}
+#editSchoolProfile .button-2 {
+  background: #26aa76;
+  border: none;
+}
+#editSchoolProfile .button-3 {
+  background: transparent;
+  border: #26aa76 0.1px solid;
+  border-left: solid #000000;
+}
+#editSchoolProfile .input-50 {
+  width: 50%;
+}
+#editSchoolProfile .input-two {
+  background-color: transparent;
+  padding: 0 30px;
+  border: 0.1px solid #26aa76;
+  height: auto;
+}
 
-  #editSchoolProfile .save-changes.bottom {
+#editSchoolProfile .input-three {
+  background-color: transparent;
+  /* padding: 0 30px; */
+  width: 100%;
+  border: none;
+}
+
+#editSchoolProfile .save-changes.bottom {
+  display: none;
+}
+@media screen and (max-width: 1024px) {
+  #editSchoolProfile {
+    padding: 0 100px 100px 200px;
+  }
+}
+@media screen and (max-width: 900px) {
+  #editSchoolProfile .input-50 {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 575px) {
+  #editSchoolProfile .security-form form span {
+    left: 0;
+    top: 60px;
+  }
+  #editSchoolProfile .save-changes {
+    margin-top: 85px;
+  }
+  #editSchoolProfile .save-changes.top {
     display: none;
   }
-  @media screen and (max-width: 1024px) {
-    #editSchoolProfile {
-      padding: 0 100px 100px 200px;
-    }
-    
+  #editSchoolProfile .save-changes.bottom {
+    display: block;
   }
-  @media screen and (max-width: 900px) {
-    #editSchoolProfile .input-50 {
-      width: 100%;
-    }
-    
-  }
-  @media screen and (max-width: 575px) {
-    #editSchoolProfile .security-form form span {
-      left: 0;
-      top: 60px;
-    }
-    #editSchoolProfile .save-changes {
-      margin-top: 85px;
-    }
-    #editSchoolProfile .save-changes.top {
-      display: none;
-    }
-    #editSchoolProfile .save-changes.bottom {
-      display: block;
-    }
-  }
-  @media screen and (max-width: 370px) {
-    #editSchoolProfile .security-form form span {
-      left: 2em;
-      right: 1em;
+}
+@media screen and (max-width: 370px) {
+  #editSchoolProfile .security-form form span {
+    left: 2em;
+    right: 1em;
     bottom: 15px;
-    }
   }
-  #editSchoolProfile .class-details h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
-    font-family: font2;
-    font-size: 26px;
+}
+#editSchoolProfile .class-details h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  font-family: font2;
+  font-size: 26px;
+}
+#editSchoolProfile .class-details-list {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  width: 87%;
+  justify-content: space-between;
+}
+#editSchoolProfile .input-like-box {
+  background-color: transparent;
+  padding: 10px 0px !important;
+  border: 0.1px solid #26aa76;
+  width: 100%;
+  height: auto !important;
+  border-radius: 5px;
+}
+#editSchoolProfile .class-details-list div span {
+  padding: 0 10px;
+  /* padding-left: 10px; */
+  border-left: 1px solid;
+  display: inline-block;
+}
+#editSchoolProfile .class-details-list div span:first-child {
+  border-left: none;
+}
+#editSchoolProfile .security h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  font-family: font2;
+}
+#editSchoolProfile .security-form {
+  height: 50px;
+  width: 100%;
+  padding: 20px 0;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#editSchoolProfile .security-form form {
+  /* flex: 0 0 80%; */
+  height: 45px;
+  width: 85%;
+  /* border-radius: 5px; */
+  /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+  /* padding: 0 20px; */
+}
+#editSchoolProfile .security-form form input {
+  /* flex: 1;
+    background-color: transparent;
+    border: none; */
+  padding-left: 20px;
+  /* position: relative; */
+  height: 45px;
+}
+#editSchoolProfile .security-form form span {
+  /* flex: 0 0 20%; */
+  text-decoration: underline;
+  color: #ff5b5b;
+  position: absolute;
+  right: 13em;
+}
+@media screen and (max-width: 900px) {
+  #editSchoolProfile {
+    padding: 0 2em 200px 2em;
+  }
+  #editSchoolProfile .security-form form {
+    width: 100%;
   }
   #editSchoolProfile .class-details-list {
     margin: 20px;
-    display: flex;
-    align-items: center;
-    width: 87%;
-    justify-content: space-between;
-  }
-  #editSchoolProfile .input-like-box {
-    background-color: transparent;
-    padding: 10px 0px !important;
-    border: 0.1px solid #26aa76;
-    width: 100%;
-    height: auto !important;
-    border-radius: 5px;
-  }
-  #editSchoolProfile .class-details-list div span {
-    padding: 0 10px;
-    /* padding-left: 10px; */
-    border-left: 1px solid;
-    display: inline-block;
-  }
-  #editSchoolProfile .class-details-list div span:first-child {
-    border-left: none;
-  }
-  #editSchoolProfile .security h3 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 20px;
-    font-family: font2;
-  }
-  #editSchoolProfile .security-form {
-    height: 50px;
-    width: 100%;
-    padding: 20px 0;
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     flex-wrap: wrap;
   }
+  #editSchoolProfile .class-details-list div {
+    flex: 0 0 100%;
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  #editSchoolProfile .class-details-list div span {
+    margin-left: 0px;
+  }
+  #editSchoolProfile .security-form {
+    flex-wrap: wrap;
+  }
+  #editSchoolProfile .security-form span {
+    flex: 0 0 100%;
+  }
   #editSchoolProfile .security-form form {
-    /* flex: 0 0 80%; */
-    height: 45px;
-    width: 85%;
-    /* border-radius: 5px; */
-    /* display: flex;
-    align-items: center;
-    justify-content: space-between; */
-    /* padding: 0 20px; */
+    /* flex: 0 0 83%; */
+    border-radius: 5px;
+    margin: 10px 0;
   }
-  #editSchoolProfile .security-form form input {
-    /* flex: 1;
-    background-color: transparent;
-    border: none; */
-    padding-left: 20px;
-    /* position: relative; */
-    height: 45px;
-  }
-  #editSchoolProfile .security-form form span {
-    /* flex: 0 0 20%; */
-    text-decoration: underline;
-    color: #ff5b5b;
-    position: absolute;
-    right: 13em;
-  }
-  @media screen and (max-width: 900px) {
-    #editSchoolProfile {
-      padding: 0 2em 200px 2em;
-    }
-    #editSchoolProfile .security-form form {
-      width: 100%;
-    }
-    #editSchoolProfile .class-details-list {
-      margin: 20px;
-      flex-wrap: wrap;
-    }
-    #editSchoolProfile .class-details-list div {
-      flex: 0 0 100%;
-      margin-left: 0px;
-      margin-top: 10px;
-    }
-    #editSchoolProfile .class-details-list div span {
-      margin-left: 0px;
-    }
-    #editSchoolProfile .security-form {
-      flex-wrap: wrap;
-    }
-    #editSchoolProfile .security-form span {
-      flex: 0 0 100%;
-    }
-    #editSchoolProfile .security-form form {
-      /* flex: 0 0 83%; */
-      border-radius: 5px;
-      margin: 10px 0;
-    }
-  }
-  .hide {
-    display: none;
-  }
-  #editSchoolProfile .round-image {
-    width: 149px;
-    height: 149px;
-    border-radius: 50%;
-    transform: translate(30px, -50%);
-    overflow: hidden;
-    background-color: rgba(229, 229, 229, 0.43);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-  #editSchoolProfile .round-image img {
-    height: 100%;
-  }
-  #editSchoolProfile .round-image-icon {
-    position: absolute;
-    font-size: 40px;
-  }
-  #editSchoolProfile .save-changes {
-    background-color: #1b7763;
-    border-radius: 100px;
-    padding: 10px 32px;
-    /* margin-left: 21px; */
-    float: right;
-  }
-  #editSchoolProfile .save-changes.top {
-    margin-top: -80px;
-  }
-  
+}
+.hide {
+  display: none;
+}
+#editSchoolProfile .round-image {
+  width: 149px;
+  height: 149px;
+  border-radius: 50%;
+  transform: translate(30px, -50%);
+  overflow: hidden;
+  background-color: #26aa76;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* z-index: 22; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#editSchoolProfile .round-image input {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+#editSchoolProfile .round-image-icon {
+  font-size: 40px;
+}
+#editSchoolProfile .save-changes {
+  /* background-color: #1b7763; */
+  border-radius: 100px;
+  padding: 10px 32px;
+  /* margin-left: 21px; */
+  float: right;
+}
+#editSchoolProfile .save-changes.top {
+  margin-top: -80px;
+}

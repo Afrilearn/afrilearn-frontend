@@ -1,5 +1,5 @@
 #school-add-teacher #school-add-teacher-first-section {
-  background-image: url('../../../../assets/img/parent-child.png');
+  background-image: url("../../../../assets/img/parent-child.png");
   background-repeat: no-repeat;
   background-position: top center;
   background-attachment: fixed;
@@ -8,9 +8,18 @@
   color: white;
   height: 50vh;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#school-add-teacher #school-add-teacher-first-section h2 {
+  font-family: font2;
+  color: #ffffff;
+  position: relative;
+  z-index: 3;
 }
 #school-add-teacher #school-add-teacher-first-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -36,14 +45,44 @@
 }
 
 #school-add-teacher .form-field {
-  max-width: 532px;
+  max-width: 817px;
   background-color: rgba(190, 190, 190, 0.08);
-  padding: 16px 32px 32px 32px;
+  padding: 100px 120px;
   border-radius: 4px;
-  width: 100%
+  width: 100%;
+}
+#school-add-teacher .form-field p {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 15px;
 }
 
 #school-add-teacher select,
 #school-add-teacher input {
+  padding: 15px;
   padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+@media screen and (max-width: 900px) {
+  #school-add-teacher #school-add-teacher-first-section h2 {
+    margin-top: 90px;
+  }
+  #school-add-teacher .form-field {
+    max-width: 100%;
+    background-color: rgba(190, 190, 190, 0.08);
+    padding: 5%;
+    border-radius: 4px;
+    width: 100%;
+  }
+  #school-add-teacher .form-field p {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  #school-add-teacher select,
+  #school-add-teacher input {
+    margin-bottom: 0px;
+    font-size: 15px;
+  }
 }

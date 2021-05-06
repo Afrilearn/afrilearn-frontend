@@ -27,6 +27,7 @@
     "react-circular-progressbar": "^2.0.3",
     "react-compound-timer": "^1.2.0",
     "react-dom": "^16.13.1",
+    "react-excel-workbook": "0.0.4",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",
     "react-minimal-pie-chart": "^8.1.0",

@@ -7,6 +7,11 @@ import {
   ADD_CLASS_SUCCESS,
   ADD_ANNOUNCEMENT_SUCCESS,
   CLASS_INPUT_CHANGE,
+  GET_CLASS_MEMBERS_SUCCESS,
+  SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS,
+  SCHOOL_UNLINK_STUDENT_ACCOUNT_SUCCESS,
+  SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS,
+  SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +19,7 @@ const initialState = {
   class: {},
   classMembers: [],
   isLoading: false,
+  admins: [],
 };
 
 const classReducer = (state = initialState, action) => {
@@ -54,6 +60,43 @@ const classReducer = (state = initialState, action) => {
     case ADD_ANNOUNCEMENT_SUCCESS:
       return {
         ...state,
+      };
+    case GET_CLASS_MEMBERS_SUCCESS:
+      return {
+        ...state,
+        admins: action.payload.admins,
+        classMembers: action.payload.classMembers,
+      };
+
+    case SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        classMembers: state.classMembers.filter(
+          (user) => user.userId._id !== action.payload._id
+        ),
+      };
+
+    case SCHOOL_UNLINK_STUDENT_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        classMembers: state.classMembers.filter(
+          (user) => user.userId._id !== action.payload._id
+        ),
+      };
+    case SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        admins: state.admins.filter(
+          (user) => user.userId._id !== action.payload._id
+        ),
+      };
+
+    case SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        admins: state.admins.filter(
+          (user) => user.userId._id !== action.payload._id
+        ),
       };
 
     default:

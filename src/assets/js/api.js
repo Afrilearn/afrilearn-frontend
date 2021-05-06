@@ -6,11 +6,11 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: HerokuURL,
+  url: LocalURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
-    
+
     let header = {};
     if (fileupload) {
       header["Content-type"] = "multipart/form-data";
@@ -248,6 +248,12 @@ export default {
       url: `${this.url}classes/${classId}`,
     });
   },
+  getStudentsInClass(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}/students`,
+    });
+  },
 
   loadUser() {
     return axios({
@@ -425,7 +431,7 @@ export default {
     });
   },
 
-  async registerNewChild (data) {
+  async registerNewChild(data) {
     return axios({
       method: "post",
       url: `${this.url}auth/sign-up-for-a-child`,
@@ -434,28 +440,28 @@ export default {
     });
   },
 
-  getChildren () {
+  getChildren() {
     return axios({
-      method: 'get',
+      method: "get",
       url: `${this.url}auth/parent/children`,
-      headers: this.headers()
-    })
+      headers: this.headers(),
+    });
   },
-  linkChildAccount (data) {
+  linkChildAccount(data) {
     return axios({
-      method: 'post',
+      method: "post",
       url: `${this.url}/auth/add-user-as-child`,
       headers: this.headers(),
-      data
-    })
+      data,
+    });
   },
-  unlinkChildAccount (data) {
+  unlinkChildAccount(data) {
     return axios({
-      method: 'patch',
+      method: "patch",
       url: `${this.url}auth/unlink-child-account`,
       headers: this.headers(),
-      data
-    })
+      data,
+    });
   },
   unlinkChildrenAccounts(data) {
     return axios({
@@ -467,11 +473,11 @@ export default {
   },
   deleteChildAccount(data) {
     return axios({
-      method: 'delete',
+      method: "delete",
       url: `${this.url}auth/delete-child-account`,
       headers: this.headers(),
-      data
-    })
+      data,
+    });
   },
   deleteChildrenAccounts(data) {
     return axios({
@@ -481,19 +487,50 @@ export default {
       data,
     });
   },
-  getChildActivities (data) {
+  uploadSchoolCoverPhoto(schoolId, data) {
     return axios({
-      method: 'post',
+      method: "patch",
+      url: `${this.url}auth/school/update-cover-photo/${schoolId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  updateSchoolProfile(schoolId, data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/school/update-profile/${schoolId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  uploadSchoollogo(schoolId, data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/school/update-logo/${schoolId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  updateClassName(classId, name) {
+    return axios({
+      method: "patch",
+      url: `${this.url}classes/${classId}/rename`,
+      data: { name },
+    });
+  },
+  getChildActivities(data) {
+    return axios({
+      method: "post",
       url: `${this.url}dashboard/recentActivities-by-time`,
       headers: this.headers(),
-      data
-    })
+      data,
+    });
   },
   acceptChildRequest(email, parentId) {
     return axios({
       method: "post",
       url: `${this.url}auth/accept-parent-request`,
-      data: { email, parentId }, 
+      data: { email, parentId },
     });
   },
   acceptAdminRequest(email, schoolId, classId) {
@@ -503,11 +540,79 @@ export default {
       data: { email, schoolId, classId },
     });
   },
+  getSchoolCourses(schoolId) {
+    return axios({
+      method: "get",
+      url: `${this.url}schools/${schoolId}/courses`,
+    });
+  },
+  getSchoolProfile(schoolId) {
+    return axios({
+      method: "get",
+      url: `${this.url}schools/${schoolId}`,
+    });
+  },
   acceptTeacherRequest(email, schoolId, classId) {
     return axios({
       method: "post",
       url: `${this.url}auth/school/accept-teacher-request`,
       data: { email, schoolId, classId },
+    });
+  },
+
+  unLinkTeacherAccount(data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/school/unlink-teacher-account`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  deleteTeacherAccount(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}auth/school/delete-teacher-account`,
+      headers: this.headers(),
+      data,
+    });
+  },
+
+  unLinkStudentAccount(data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}auth/school/unlink-student-account`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  deleteStudentAccount(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}auth/school/delete-student-account`,
+      headers: this.headers(),
+      data,
+    });
+  },
+
+  schoolAddExistingTeacher(email, schoolId, classId) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/school/add-user-as-teacher`,
+      data: { email, schoolId, classId },
+    });
+  },
+  schoolSignUpForStudent(
+    fullName,
+    password,
+    email,
+    classId,
+    schoolId,
+    courseId
+  ) {
+    return axios({
+      method: "post",
+      url: `${this.url}auth/school/sign-up-for-student`,
+      data: { fullName, password, email, classId, schoolId, courseId },
     });
   },
 };

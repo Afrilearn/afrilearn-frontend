@@ -25,6 +25,16 @@ import {
   ADD_ANNOUNCEMENT_FAILURE,
   ADD_ANNOUNCEMENT_SUCCESS,
   CLASS_INPUT_CHANGE,
+  GET_CLASS_MEMBERS_SUCCESS,
+  GET_CLASS_MEMBERS_FAILURE,
+  SCHOOL_UNLINK_STUDENT_ACCOUNT_SUCCESS,
+  SCHOOL_UNLINK_STUDENT_ACCOUNT_FAILURE,
+  SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS,
+  SCHOOL_DELETE_TEACHER_ACCOUNT_FAILURE,
+  SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
+  SCHOOL_UNLINK_TEACHER_ACCOUNT_FAILURE,
+  SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS,
+  SCHOOL_DELETE_STUDENT_ACCOUNT_FAILURE,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -217,6 +227,58 @@ export const getClass = (classId) => async (dispatch) => {
   }
 };
 
+export const getMembersInClass = (classId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getStudentsInClass(classId);
+
+    dispatch({
+      type: GET_CLASS_MEMBERS_SUCCESS,
+      payload: {
+        admins: result.data.data.admins,
+        classMembers: result.data.data.classMembers,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_CLASS_MEMBERS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_CLASS_MEMBERS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  }
+};
+
 export const addClass = (courseId, name) => async (dispatch, getState) => {
   try {
     await API.addClass(courseId, name);
@@ -391,6 +453,107 @@ export const assignContent = (
     );
     dispatch({
       type: ASSIGN_CONTENT_TO_STUDENT_FAILURE,
+    });
+  }
+};
+
+export const schoolDeleteStudent = (userId, schoolId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const result = await API.deleteStudentAccount({ userId, schoolId });
+    dispatch({
+      type: SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS,
+      payload: result.data.data.user,
+    });
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "SCHOOL_DELETE_STUDENT_ACCOUNT_FAILURE"
+      )
+    );
+    dispatch({
+      type: SCHOOL_DELETE_STUDENT_ACCOUNT_FAILURE,
+    });
+  }
+};
+export const schoolUnlinkStudent = (userId, schoolId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const result = await API.unLinkStudentAccount({ userId, schoolId });
+    dispatch({
+      type: SCHOOL_UNLINK_STUDENT_ACCOUNT_SUCCESS,
+      payload: result.data.data.user,
+    });
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "SCHOOL_UNLINK_STUDENT_ACCOUNT_FAILURE"
+      )
+    );
+    dispatch({
+      type: SCHOOL_UNLINK_STUDENT_ACCOUNT_FAILURE,
+    });
+  }
+};
+export const schoolDeleteTeacher = (userId, schoolId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const result = await API.deleteTeacherAccount({ userId, schoolId });
+    dispatch({
+      type: SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS,
+      payload: result.data.data.user,
+    });
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "SCHOOL_DELETE_TEACHER_ACCOUNT_FAILURE"
+      )
+    );
+    dispatch({
+      type: SCHOOL_DELETE_TEACHER_ACCOUNT_FAILURE,
+    });
+  }
+};
+export const schoolUnlinkteacher = (userId, schoolId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const result = await API.unLinkTeacherAccount({ userId, schoolId });
+    dispatch({
+      type: SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
+      payload: result.data.data.user,
+    });
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "SCHOOL_UNLINK_TEACHER_ACCOUNT_FAILURE"
+      )
+    );
+    dispatch({
+      type: SCHOOL_UNLINK_TEACHER_ACCOUNT_FAILURE,
     });
   }
 };
