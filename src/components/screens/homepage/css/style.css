@@ -130,10 +130,11 @@
     background: white !important;
     width: 100%;
     display: block;
-    padding: 16px 6px 15px 28px;
+    padding: 15px 28px;
     color: #787878 !important;
     border-radius: 5px 0px 0px 5px;
     margin-top: 12px;
+    height: 53px;
 }
 
 #homepage .push88 {
@@ -191,6 +192,7 @@
     margin-bottom: 12px;
     margin-top: 12px !important;
     border-radius: 5px 0px 0px 5px;
+    height: 53px;
 }
 
 #homepage input[type="submit"] {
@@ -202,6 +204,7 @@
     padding: 14.4px 13px;
     border: none;
     margin-top: 12px;
+    height: 53px;
 }
 
 #homepage .supporter img {

@@ -40,6 +40,7 @@ const Payment = (props) => {
   const [selected, setSelected] = useState(null);
   const [childCourses, setchildCourses] = useState([]);
   const [childId, setChildId] = useState('');
+ 
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -149,6 +150,7 @@ const Payment = (props) => {
   };
 
   const initializePayment = usePaystackPayment(config);
+
   const courseList = () => {
     if (courses.length) {
       return courses.map((course, index) => {
@@ -156,6 +158,7 @@ const Payment = (props) => {
       });
     }
   };
+
   const childrenList = () => {
     if (children.length) {
       return children.map((child, index) => {
@@ -163,6 +166,7 @@ const Payment = (props) => {
       });
     }
   };
+  
   const childCoursesList = () => {
     if (childCourses.length) {
       return childCourses.map((course, index) => {
