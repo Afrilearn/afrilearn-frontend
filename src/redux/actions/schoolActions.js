@@ -23,6 +23,8 @@ import {
   UPLOAD_SCHOOL_PROFILE_FAILURE,
   UPDATE_CLASS_NAME_SUCCESS,
   UPDATE_CLASS_NAME_FAILURE,
+  SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS,
+  SCHOOL_DELETE_STUDENT_ACCOUNT_FAILURE,
 } from "./types";
 
 const dispatchError = (dispatch, err, id) => {
@@ -205,7 +207,15 @@ export const schoolAddExistingTeacher = (email, schoolId, classId) => async (
   } catch (err) {
     // console.log(err);
     document.body.classList.remove("loading-indicator");
-    dispatchError(dispatch, err, SCHOOL_ADD_EXISTING_TEACHER_FAILURE);
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "SCHOOL_ADD_EXISTING_TEACHER_FAILURE"
+      )
+    );
   }
 };
 export const schoolSignUpForStudent = (

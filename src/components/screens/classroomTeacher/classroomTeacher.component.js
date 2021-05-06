@@ -837,7 +837,7 @@ const ClassroomTeacher = (props) => {
                 <button
                   class="btn button-green text-white"
                   type="button"
-                  onClick={toggleAnnouncementModal}
+                  onClick={toggleAnnouncementModal} 
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
