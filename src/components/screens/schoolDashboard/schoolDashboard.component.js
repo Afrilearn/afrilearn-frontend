@@ -144,9 +144,11 @@ const SchoolDashboard = (props) => {
                 </div>
               </div>
               <div>
-                <div style={{ minHeight: "2em" }} className="font2">
-                  Students
-                </div>
+                <Link to="/people">
+                  <div style={{ minHeight: "2em" }} className="font2">
+                    Students
+                  </div>
+                </Link>
                 <div style={{ fontSize: "1.4em", color: "rgba(0,0,0,.49)" }}>
                   {padWithZero(school.numOfStudents || 0)}
                 </div>
