@@ -10,7 +10,7 @@ const Box = props => {
             </div>
             <div className="row">
                 <div className="col-md-12">
-                  <span className={`box ${props.other1? 'other1':props.other2? 'other2':props.other3? 'other3':''}`}>
+                  <span className={`box ${props.other1? 'other1':props.other2? 'other2':props.other3? 'other3':props.other4? 'other4':props.other5? 'other5':''}`}>
                     <h3 className="center">{props.name}</h3>
                     <h5>{props.position}</h5>
                   </span>                   

@@ -125,7 +125,7 @@ const MyNav = (props) => {
           >
             <span>
               <img
-                src={require("./../../assets/img/profile.png")}
+                src={require("./../../assets/img/profile.svg")}
                 alt="profile"
                 className="dropDownIcon"
               />{" "}
@@ -168,7 +168,7 @@ const MyNav = (props) => {
             >
               <span>
                 <img
-                  src={require("./../../assets/img/profile.png")}
+                  src={require("./../../assets/img/profile.svg")}
                   alt="profile"
                   className="dropDownIcon"
                 />{" "}
@@ -218,7 +218,7 @@ const MyNav = (props) => {
                 >
                   <span>
                     <img
-                      src={require("./../../assets/img/profile.png")}
+                      src={require("./../../assets/img/profile.svg")}
                       alt="profile"
                       className="dropDownIcon"
                     />{" "}
@@ -259,7 +259,7 @@ const MyNav = (props) => {
             >
               <span>
                 <img
-                  src={require("./../../assets/img/profile.png")}
+                  src={require("./../../assets/img/profile.svg")}
                   alt="profile"
                   className="dropDownIcon"
                 />{" "}
@@ -324,9 +324,9 @@ const MyNav = (props) => {
       <Navbar color="light" light expand="md">
         <NavbarBrand tag={Link} to="/">
           <img
-            className="logo"
-            src={require("../../assets/img/logo.png")}
-            alt="Afrilearn Logo"
+            className='logo'
+            src={require('../../assets/img/logo6.png')}
+            alt='Afrilearn Logo'
           />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -419,7 +419,7 @@ const MyNav = (props) => {
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <img
-                    src={require("./../../assets/img/profile.png")}
+                    src={require("./../../assets/img/profile.svg")}
                     alt="profile"
                     className="dropDownIcon dropDownIcon1"
                   />

@@ -35,6 +35,7 @@ import {
   SCHOOL_UNLINK_TEACHER_ACCOUNT_FAILURE,
   SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS,
   SCHOOL_DELETE_STUDENT_ACCOUNT_FAILURE,
+  GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -227,7 +228,7 @@ export const getClass = (classId) => async (dispatch) => {
   }
 };
 
-export const getMembersInClass = (classId) => async (dispatch) => {
+export const getMembersInClass = (classId, paymentClass = false) => async (dispatch) => {
   try {
     dispatch({
       type: CLASS_INPUT_CHANGE,
@@ -238,14 +239,23 @@ export const getMembersInClass = (classId) => async (dispatch) => {
     });
     document.body.classList.add("loading-indicator");
     const result = await API.getStudentsInClass(classId);
+    
+    if (paymentClass) {
+      dispatch({
+        type: GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
+        payload: result.data?.data,
+      });
+    } else {
+      dispatch({
+        type: GET_CLASS_MEMBERS_SUCCESS,
+        payload: {
+          admins: result.data.data.admins,
+          classMembers: result.data.data.classMembers,
+        },
+      });
+    }
 
-    dispatch({
-      type: GET_CLASS_MEMBERS_SUCCESS,
-      payload: {
-        admins: result.data.data.admins,
-        classMembers: result.data.data.classMembers,
-      },
-    });
+   
 
     document.body.classList.remove("loading-indicator");
     dispatch({

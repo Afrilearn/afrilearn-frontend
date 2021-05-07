@@ -237,7 +237,7 @@ const About = props => {
                         details="Chijioke studied Computer Science at Nnamdi Azikiwe University and has spent time in the software industry developing cutting-edge solutions. Professionally, he started out at ECSCORP Resources where he rose to Head the IT Unit. “Tech-Evangelist” as fondly called, Chijioke has proven expertise working with web and mobile application technologies. In the last 4 years, he has built several applications ranging from School Management to Ecommerce Systems. He believes he is wired to revolutionize education across Africa. When he's not busy learning, teaching, or coding, he enjoys watching movies and soccer."
                         />
                     <TeamBox 
-                        other2="true"
+                        // other2="true"
                         image={require('../../../assets/img/Yemisi.jpeg')}
                         name="Oluyemisi Oluwadare"
                         position="Associate, Digital Tutor"
@@ -251,7 +251,7 @@ const About = props => {
                         details="A calm media professional, Segun studied Mass Communication at the Federal Polytechnic, Kwara State, Nigeria after which he enhanced his video production skills at PEFTI Film Institute. His professional journey started at DAAR Communications where he worked as Video Editor for seven years, after which he joined Masters Sports as a producer and director. Prior to joining Afrilearn, Segun has brought his wealth of experience to life with the successful delivery of ground-breaking projects like Knorr Taste Quest and Pecadomor with R2tv. He loves playing video games and hopes to tour the world’s continents someday."
                         />     
                     <TeamBox   
-                        other2="true"                    
+                        other4="true"                    
                         image={require('../../../assets/img/Feyikemi.jpg')}
                         name="Feyikemi Alaka"
                         position="Associate, Product Design & Communication"
@@ -268,7 +268,7 @@ const About = props => {
                 <div className="row">
                     <TeamBox 
                         image={require('../../../assets/img/Sunday.jpg')}
-                        other1="true"
+                        // other1="true"
                         name="Sunday Olorunsheyi"
                         position="Co-founder, Pertinence Group"
                         details="A global business leader with over 20 years building businesses across different sectors, Sunday Olorunsheyi is Co-founder of the multi-billion Pertinence Group (owners of ABC and VIP Gardens with a team of over 3,000 staff nationwide) and CEO of Globarel Group.
@@ -303,7 +303,7 @@ const About = props => {
                     <TeamBox 
                         image={require('../../../assets/img/Mary-Akpobome.jpg')}                      
                         name="Mary Akpobome"
-                        other3="true"
+                        other5="true"
                         position="COO, Imperium Capital Partners Plc"
                         details="Mary Akpobome is the Chief Operating Officer of Imperium Capital Partners Plc (Formerly HBCL Investment Services Plc) a private Investments company. 
 

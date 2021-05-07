@@ -18,7 +18,7 @@
 }
 #contactFirstSection hr {
 	width: 8%;
-	border: solid 2px #2bb58e; 
+	border: solid 2px #84BB29; 
 	float: left;   
 }
 #contactFirstSection h3 {    
@@ -30,7 +30,7 @@
 }
 #contactSecondSection span {
     display: block;
-    background: #2bb58e;
+    background: #84BB29;
     color: white;
     padding: 60px 43px;
 }
@@ -51,11 +51,11 @@
 }
 #contactSecondSection .formPart h2{
     margin-bottom: 30px;
-    color: #2bb58e;
+    color: #84BB29;
 }
 #contactSecondSection input[type='submit'] {
     width: 24%;
-    background: #2bb58e;
+    background: #84BB29;
     color: white;   
 }
 #contactSecondSection .formPart {
@@ -73,7 +73,7 @@
     display: block;
 }
 #contactThirdSection h2{
-    color: #2bb58e;
+    color: #84BB29;
     margin-bottom: 15px;
 }
 #contactThirdSection img.pressLogo {

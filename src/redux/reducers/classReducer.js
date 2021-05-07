@@ -12,6 +12,7 @@ import {
   SCHOOL_UNLINK_STUDENT_ACCOUNT_SUCCESS,
   SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS,
   SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
+  GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   classMembers: [],
   isLoading: false,
   admins: [],
+  classMembersPayment:[]
 };
 
 const classReducer = (state = initialState, action) => {
@@ -34,7 +36,7 @@ const classReducer = (state = initialState, action) => {
       return {
         ...state,
         class: action.payload.class,
-        classMembers: action.payload.classMembers,
+          classMembers: action.payload.classMembers,
       };
     case GET_CLASSES_SUCCESS:
       return {
@@ -65,7 +67,7 @@ const classReducer = (state = initialState, action) => {
       return {
         ...state,
         admins: action.payload.admins,
-        classMembers: action.payload.classMembers,
+          classMembers: action.payload.classMembers,
       };
 
     case SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS:
@@ -97,6 +99,12 @@ const classReducer = (state = initialState, action) => {
         admins: state.admins.filter(
           (user) => user.userId._id !== action.payload._id
         ),
+      };
+
+    case GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS:
+      return {
+        ...state,
+        classMembersPayment: action.payload.classMembers
       };
 
     default:

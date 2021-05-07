@@ -5,8 +5,8 @@ import {
   PAYMENT_INPUT_CHANGE,
   GET_PAYMENT_PLANS_SUCCESS,
   GET_PAYMENT_PLANS_FAILURE,
-  CREATE_PAYMENT_TRANSACTION_SUCCESS,
-  CREATE_PAYMENT_TRANSACTION_FAILURE,
+  PAYMENT_VERIFICATION_SUCCESS,
+  PAYMENT_VERIFICATION_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -52,32 +52,48 @@ export const paymentPlans = () => async (dispatch, getState) => {
     });
   }
 };
-export const createTransaction = (data) => async (dispatch, getState) => {
+export const verifyPayStackPayment = (data) => async (dispatch) => {
   try {
-    const result = await API.createPaymentTransaction(data);
+    document.body.classList.add('loading-indicator')
+    const result = await API.verifyPayStackPayment(data);    
     
     dispatch({
-      type: CREATE_PAYMENT_TRANSACTION_SUCCESS,
+      type: PAYMENT_VERIFICATION_SUCCESS,
+      payload:result.data.data.verified
     });
-    dispatch(
-      returnErrors(
-        "Payment is successful",
-        "200",
-        "CREATE_PAYMENT_TRANSACTION_SUCCESS"
-      )
-    );
+    document.body.classList.remove('loading-indicator')
+    console.log(result.data.data.verified)
+    if(result.data.data.verified ===true){
+      dispatch(
+        returnErrors(
+          "Payment verified successfully",
+          "200",
+          "PAYMENT_VERIFICATION_SUCCESS"
+        )
+      );
+    }else{
+      dispatch(
+        returnErrors(
+          "Error verifying payment",
+          "200",
+          "PAYMENT_VERIFICATION_SUCCESS"
+        )
+      );
+    }
+   
   } catch (err) {
+    document.body.classList.remove('loading-indicator')
     dispatch(
       returnErrors(
         err.response.data.errors
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        "CREATE_PAYMENT_TRANSACTION_FAILURE"
+        "PAYMENT_VERIFICATION_FAILURE"
       )
     );
     dispatch({
-      type: CREATE_PAYMENT_TRANSACTION_FAILURE,
+      type: PAYMENT_VERIFICATION_FAILURE,
     });
   }
 };
