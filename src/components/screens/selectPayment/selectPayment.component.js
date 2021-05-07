@@ -4,7 +4,7 @@ import { usePaystackPayment } from "react-paystack";
 import "./css/style.css";
 import { Container, Row, Col } from "reactstrap";
 import SubscriptionBox from "../../includes/subscriptionBox/subscriptionBox.component";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import {
   paymentPlans,
   inputChange,
@@ -15,6 +15,7 @@ import {
 } from '../../../redux/actions/parentActions';
 import { getMembersInClass } from "./../../../redux/actions/classActions";
 import { getRoles } from "./../../../redux/actions/authActions";
+import { getSchoolProfile } from "./../../../redux/actions/schoolActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
@@ -24,6 +25,8 @@ const Payment = (props) => {
   const parsed = queryString.parse(props.location.search);
   const mounted = useRef();
 
+  const dispatch = useDispatch();
+  const school = useSelector((state) => state.school.school);
   const {
     categories,
     paymentPlanId,
@@ -48,13 +51,27 @@ const Payment = (props) => {
   const [receipientOption, setReceipientOption] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
  
-  const courseList = () => {
+  let courseList = () => {
     if (courses.length) {
       return courses.map((course, index) => {
         return <option value={course._id}>{course.name}</option>;
       });
     }
   };
+
+  if (
+    role === "607ededa2712163504210684" &&
+    school &&
+    school.schoolClassesData &&
+    school.schoolClassesData.length
+  ) {
+    courseList = () => {
+      return school.schoolClassesData.map((course, index) => {
+        return <option value={course.courseId}>{course.className}</option>;
+      });
+    };
+  }
+
   const newClass =  {"__v": 0, "_id":new Date().toString(), "classCode": "00000", "courseId": "1", "createdAt": "2021-04-16T07:30:43.040Z", "enrolledCourse": {"__v": 0, "_id": "60793d2258cbbb0015f28f1e", "classId": "60793d2358cbbb0015f28f1f", "courseId": "5fd12c70e74b15663c5f4c6e", "createdAt": "2021-04-16T07:30:42.886Z", "endDate": "2022-04-16T10:36:54.398Z", "id": "60793d2258cbbb0015f28f1e", "paymentIsActive": true, "startDate": "2021-04-16T10:36:54.398Z", "status": "paid", "updatedAt": "2021-04-16T10:36:54.435Z", "userId": "60793d2258cbbb0015f28f1d"}, "id": "60793d2358cbbb0015f28f1f", "name": "Create New Class", "updatedAt": "2021-04-16T07:30:43.040Z", "userId": "60793d2258cbbb0015f28f1d"}
   const myRecipientListOptions = [
     {"__v": 0, "_id":new Date().toString(), "classCode": "00000", "courseId": "1", "createdAt": "2021-04-16T07:30:43.040Z", "enrolledCourse": {"__v": 0, "_id": "60793d2258cbbb0015f28f1e", "classId": "60793d2358cbbb0015f28f1f", "courseId": "5fd12c70e74b15663c5f4c6e", "createdAt": "2021-04-16T07:30:42.886Z", "endDate": "2022-04-16T10:36:54.398Z", "id": "60793d2258cbbb0015f28f1e", "paymentIsActive": true, "startDate": "2021-04-16T10:36:54.398Z", "status": "paid", "updatedAt": "2021-04-16T10:36:54.435Z", "userId": "60793d2258cbbb0015f28f1d"}, "id": "60793d2358cbbb0015f28f1f", "name": "Personal Payment", "updatedAt": "2021-04-16T07:30:43.040Z", "userId": "60793d2258cbbb0015f28f1d"},
@@ -112,7 +129,10 @@ const Payment = (props) => {
       window.scrollTo(0, 0);
       props.paymentPlans();
       props.getRoles();     
-      user.classOwnership.push(newClass);        
+      user.classOwnership.push(newClass);   
+      if (role === "607ededa2712163504210684") {
+        dispatch(getSchoolProfile(user.schoolId && user.schoolId._id));
+      }
     } else {
       // do componentDidUpdate logic
       if (error.id === "PAYMENT_VERIFICATION_SUCCESS") {
