@@ -12,7 +12,8 @@ import {
   SCHOOL_UNLINK_STUDENT_ACCOUNT_SUCCESS,
   SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS,
   SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
-  GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS
+  CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS,
+  GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -21,7 +22,7 @@ const initialState = {
   classMembers: [],
   isLoading: false,
   admins: [],
-  classMembersPayment:[]
+  classMembersPayment: [],
 };
 
 const classReducer = (state = initialState, action) => {
@@ -36,7 +37,7 @@ const classReducer = (state = initialState, action) => {
       return {
         ...state,
         class: action.payload.class,
-          classMembers: action.payload.classMembers,
+        classMembers: action.payload.classMembers,
       };
     case GET_CLASSES_SUCCESS:
       return {
@@ -67,7 +68,7 @@ const classReducer = (state = initialState, action) => {
       return {
         ...state,
         admins: action.payload.admins,
-          classMembers: action.payload.classMembers,
+        classMembers: action.payload.classMembers,
       };
 
     case SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS:
@@ -101,12 +102,35 @@ const classReducer = (state = initialState, action) => {
         ),
       };
 
+    case CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS:
+      const classAnnouncements = state.class.classAnnouncements;
+      const classAnnouncementUpdated = state.class.classAnnouncements.find(
+        (item) => item._id === action.payload.announcementId
+      );
+      classAnnouncementUpdated.comments.push(action.payload);
+
+      return {
+        ...state,
+        class: { ...state.class, classAnnouncements },
+      };
+
+    case ADD_ANNOUNCEMENT_SUCCESS:
+      const classAnnouncementsN = state.class.classAnnouncements;
+      classAnnouncementsN.push(action.payload);
+
+      return {
+        ...state,
+        class: {
+          ...state.class,
+          classAnnouncements: classAnnouncementsN,
+        },
+      };
+
     case GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS:
       return {
         ...state,
-        classMembersPayment: action.payload.classMembers
+        classMembersPayment: action.payload.classMembers,
       };
-
     default:
       return state;
   }

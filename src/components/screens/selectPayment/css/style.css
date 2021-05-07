@@ -1,7 +1,7 @@
 #selectPaymentPageSectionOne {
   background-color: black;
   color: white;
-  /* height: 100vh; */
+  min-height: 100vh;
   /* border: solid 1px; */
   /* height: 100vh; */
 

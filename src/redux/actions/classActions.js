@@ -319,9 +319,10 @@ export const createComment = (announcementId, text) => async (
   getState
 ) => {
   try {
-    await API.addCommentToAnnouncement(announcementId, text);
+    const result = await API.addCommentToAnnouncement(announcementId, text);
     dispatch({
       type: CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS,
+      payload: result.data.data.comment,
     });
   } catch (err) {
     dispatch(
@@ -344,9 +345,10 @@ export const makeAnnouncement = (classId, text) => async (
   getState
 ) => {
   try {
-    await API.makeAnnouncement(classId, text);
+    const result = await API.makeAnnouncement(classId, text);
     dispatch({
       type: ADD_ANNOUNCEMENT_SUCCESS,
+      payload: result.data.data.announcement,
     });
     dispatch(
       returnErrors(

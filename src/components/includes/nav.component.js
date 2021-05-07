@@ -345,15 +345,17 @@ const MyNav = (props) => {
                 </NavItem>
                 {user.role !== "606ed82e70f40e18e029165e" ? (
                   <NavItem>
-                    {user.role !== "602f3ce39b146b3201c2dc1d" && !inClass && (
-                      <NavLink
-                        tag={Link}
-                        to="/performance"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Performance Analysis
-                      </NavLink>
-                    )}
+                    {user.role !== "602f3ce39b146b3201c2dc1d" &&
+                      user.role !== "607ededa2712163504210684" &&
+                      !inClass && (
+                        <NavLink
+                          tag={Link}
+                          to="/performance"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Performance Analysis
+                        </NavLink>
+                      )}
                   </NavItem>
                 ) : (
                   <NavLink

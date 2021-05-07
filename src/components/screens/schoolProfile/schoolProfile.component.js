@@ -71,7 +71,7 @@ const SchoolProfile = (props) => {
   const logo = useSelector((state) => state.school.logo);
   console.log("school", school);
   const dispatch = useDispatch();
-  useEffect(() => {
+  useEffect(() => { 
     if (!mounted.current) {
       dispatch(getSchoolProfile(user.schoolId._id));
 

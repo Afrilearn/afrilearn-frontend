@@ -236,7 +236,7 @@ const ClassroomTeacher = (props) => {
                   ? "s"
                   : ""}
               </small>
-              {newComments.map((comment) => (
+              {/* {newComments.map((comment) => (
                 <div className="pic-text-heading">
                   <img src={man} alt="comment" />
                   <div>
@@ -248,6 +248,7 @@ const ClassroomTeacher = (props) => {
                   </div>
                 </div>
               ))}
+             */}
               {classAnnouncement.comments.map((comment) => (
                 <div className="pic-text-heading" key={comment._id}>
                   <img src={man} alt="comment" />

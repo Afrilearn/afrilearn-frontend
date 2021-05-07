@@ -134,7 +134,7 @@ const SchoolPeople = (props) => {
             <Workbook
               filename="classmembers.xlsx"
               element={
-                <div>
+                <div className="cursor">
                   <img src={Downlaod} alt="Download Button" />
                   <span>Download List</span>
                 </div>

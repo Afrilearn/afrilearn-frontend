@@ -6,7 +6,7 @@ import flag from "../../../assets/img/flag.png";
 import podcast from "../../../assets/img/podcast.png";
 import { Button, UncontrolledPopover, PopoverBody } from "reactstrap";
 
-const QuizPage = () => {
+const QuizPage = () => { 
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
