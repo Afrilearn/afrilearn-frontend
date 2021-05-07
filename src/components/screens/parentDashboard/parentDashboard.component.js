@@ -357,7 +357,7 @@ const ParentDashboard = props => {
                       className='col-12 col-md-9 gradient-bg px-4 pt-4 rad-10'
                       style={{ paddingBottom: 90 }}
                     >
-                      <h4 className='font2' style={{ color: '#26aa76' }}>
+                      <h4 className='font2' style={{ color: '#84BB29' }}>
                         {selectedSubjectId &&
                           currentCourse.relatedSubjects &&
                           currentCourse.relatedSubjects.find(

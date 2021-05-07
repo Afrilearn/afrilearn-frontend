@@ -155,7 +155,7 @@
 }
 
 #lessonPageSectionTwo .left h4 {
-  color: #26aa76;
+  color: #84BB29;
   font-size: 18px;
   margin: 30px 0 20px 0;
   font-family: font2;
@@ -316,7 +316,7 @@
 #lessonPagePopUpOne .button,
 #lessonPagePopUpTwo button {
   border: none;
-  background-color: #26aa76 !important;
+  background-color: #84BB29 !important;
   color: white !important;
   /* height: 60px !important; */
   /* width: 300px !important; */

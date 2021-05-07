@@ -27,7 +27,7 @@
     z-index: 3;
 }
 #childrenSecondSection #link{
-    color: #26AA76
+    color: #84BB29
 }
 #childrenSecondSection #unlink{
     color: #AAA6A6
@@ -98,7 +98,7 @@ min-height: 300px;
     background-color: rgba(184, 181, 181, 0.5);
 } */
 .child-detail #send-request{
-    background: #26AA76;
+    background: #84BB29;
     color: #ffffff;
 }
 .child-detail #send-request:hover{

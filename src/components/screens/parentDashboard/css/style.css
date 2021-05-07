@@ -79,11 +79,11 @@
 
 #parent-dashboard .class-name.selected {
   color: white !important;
-  box-shadow: -3px 0 #26aa76;
+  box-shadow: -3px 0 #84BB29;
 }
 
 #parent-dashboard .class-name:hover {
-  box-shadow: -3px 0 #26aa76;
+  box-shadow: -3px 0 #84BB29;
 }
 
 #parent-dashboard select{

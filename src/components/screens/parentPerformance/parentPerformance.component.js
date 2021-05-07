@@ -171,7 +171,7 @@ const Performance = props => {
                         {
                           type: 'bar',
                           title: 'Subject Progress',
-                          color: '#26AA76',
+                          color: '#84BB29',
                           points: barChart
                         }
                       ]}

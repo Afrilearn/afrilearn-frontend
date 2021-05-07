@@ -29,7 +29,7 @@
   background-color: #fdad51;
 }
 #selectPaymentPageSectionOne .sub-lenght .quarterly {
-  background-color: #26aa76;
+  background-color: #84BB29;
 }
 #selectPaymentPageSectionOne .sub-lenght .bi-annual {
   background-color: #50e55a;
@@ -55,7 +55,7 @@
   opacity: 0.9;
 }
 #selectPaymentPageSectionOne .pay-methods .active {
-  background-color: #26aa76;
+  background-color: #84BB29;
 }
 #selectPaymentPageSectionOne .pay-methods .item h4 {
   font-family: font2;
@@ -182,7 +182,7 @@
   background: #fdc9a6;
 }
 #selectPaymentPageSectionOne .box .two::before {
-  background: #26aa76;
+  background: #84BB29;
 }
 #selectPaymentPageSectionOne .box .three::before {
   background: #fdad51;
