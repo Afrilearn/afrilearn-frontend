@@ -248,7 +248,7 @@ const EditSchoolProfile = (props) => {
         </div>
         <div>
           <h3
-            style={{ borderBottom: "1px solid #26AA76", paddingLeft: 20 }}
+            style={{ borderBottom: "1px solid #84BB29", paddingLeft: 20 }}
             className="pb-3 pt-3"
           >
             Class Name
@@ -283,7 +283,7 @@ const EditSchoolProfile = (props) => {
         </div>
         <div>
           <h3
-            style={{ borderBottom: "1px solid #26AA76", paddingLeft: 20 }}
+            style={{ borderBottom: "1px solid #84BB29", paddingLeft: 20 }}
             className="pb-3 pt-5"
           >
             Security

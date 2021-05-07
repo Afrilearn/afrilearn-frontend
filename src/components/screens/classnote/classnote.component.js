@@ -253,7 +253,7 @@ const ClassNote = (props) => {
             <FontAwesomeIcon
               icon={faAngleLeft}
               className="arrow"
-              color="#26aa76"
+              color="#84BB29"
             />
             <div>
               {prevLesson ? (
@@ -316,7 +316,7 @@ const ClassNote = (props) => {
             <FontAwesomeIcon
               icon={faAngleRight}
               className="arrow"
-              color="#26aa76"
+              color="#84BB29"
             />
           </Link>
         </div>

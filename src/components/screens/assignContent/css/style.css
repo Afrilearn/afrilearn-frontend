@@ -18,7 +18,7 @@
   }
 }
 #assignContentPageSectionOne h4 {
-  color: #26aa76;
+  color: #84BB29;
 }
 #assignContentPageSectionTwo {
   background-color: black;
@@ -61,7 +61,7 @@
   color: white;
 }
 #assignContentPageSectionTwo .attachment legend {
-  color: #26aa76;
+  color: #84BB29;
   font-size: 16px;
 }
 #assignContentPageSectionTwo .attachment .row {
@@ -121,5 +121,5 @@
   border: none;
   border-radius: 100px;
   color: white;
-  background-color: #26aa76;
+  background-color: #84BB29;
 }

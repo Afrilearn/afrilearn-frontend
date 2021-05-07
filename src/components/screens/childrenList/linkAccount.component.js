@@ -16,7 +16,7 @@ const UserForm = props => {
                 Link Existing Account
                     </h3>
             <p style={{ color: '#AAA6A6' }}>Enter email of an existing student account to send linking request</p>
-            <label style={{ color: '#26AA76' }} className='mb-4'>EMAIL</label>
+            <label style={{ color: '#84BB29' }} className='mb-4'>EMAIL</label>
             <input
                 type='text'
                 name='linkEmail'

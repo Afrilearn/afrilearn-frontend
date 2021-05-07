@@ -12,7 +12,7 @@
   font-weight: normal;
   /* font-size: 20px; */
   line-height: 47px;
-  color: #26aa76;
+  color: #84BB29;
   text-align: center;
   padding-top: 50px;
   margin-bottom: 70px;
@@ -26,7 +26,7 @@
   margin-bottom: 50px;
 }
 #quizPageSectionOne .progress-bar {
-  background-color: #26aa76;
+  background-color: #84BB29;
 }
 #quizPageSectionOne .left p {
   font-family: font3;
@@ -40,7 +40,7 @@
   margin-left: 20px;
   font-style: normal;
   font-weight: 500;
-  color: #26aa76;
+  color: #84BB29;
   border-radius: 5px;
 }
 #quizPageSectionOne .left .image {
@@ -79,7 +79,7 @@
 }
 #quizPageSectionOne .left .active {
   background-color: transparent;
-  border: solid 1px #26aa76;
+  border: solid 1px #84BB29;
   color: white;
 }
 #quizPageSectionOne .left .action-buttons {
@@ -139,7 +139,7 @@
   font-weight: normal;
   font-size: 22px;
   line-height: 57px;
-  color: #26aa76;
+  color: #84BB29;
   box-shadow: 0px 1px 0px rgba(225, 225, 225, 0.5);
 }
 #quizPageSectionOne .right .questions-answered .active {
