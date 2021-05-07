@@ -40,7 +40,6 @@ const LessonItem = (props) => {
 
   const isStudent = role === "5fd08fba50964811309722d5";
 
-
   const onClickLesson = (lesson) => {
     if (activeCoursePaidStatus || unlocked) {
       props.addRecentActivity(lesson._id, "lesson");
@@ -250,6 +249,12 @@ const LessonItem = (props) => {
     }
   };
 
+  function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
+
   return (
     <div key={lesson._id} className="term_item row">
       <div className="term_item_left col-md-12 accordion-item">
@@ -271,7 +276,7 @@ const LessonItem = (props) => {
                 color={isViewed ? "#26aa76" : "white"}
                 className="mark-done"
               />
-              {lesson.title}
+              {toTitleCase(lesson.title)}
 
               <div className="float-end">
                 {!unlocked ? (
