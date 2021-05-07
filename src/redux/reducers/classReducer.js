@@ -12,6 +12,7 @@ import {
   SCHOOL_UNLINK_STUDENT_ACCOUNT_SUCCESS,
   SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS,
   SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
+  CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -97,6 +98,30 @@ const classReducer = (state = initialState, action) => {
         admins: state.admins.filter(
           (user) => user.userId._id !== action.payload._id
         ),
+      };
+
+    case CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS:
+      const classAnnouncements = state.class.classAnnouncements;
+      const classAnnouncementUpdated = state.class.classAnnouncements.find(
+        (item) => item._id === action.payload.announcementId
+      );
+      classAnnouncementUpdated.comments.push(action.payload);
+
+      return {
+        ...state,
+        class: { ...state.class, classAnnouncements },
+      };
+
+    case ADD_ANNOUNCEMENT_SUCCESS:
+      const classAnnouncementsN = state.class.classAnnouncements;
+      classAnnouncementsN.push(action.payload);
+
+      return {
+        ...state,
+        class: {
+          ...state.class,
+          classAnnouncements: classAnnouncementsN,
+        },
       };
 
     default:

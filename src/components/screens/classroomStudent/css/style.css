@@ -24,6 +24,22 @@
   background: transparent;
   z-index: 1;
 }
+#classroomStudentSectionTwo .logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-0%, 10%);
+  width: 178px;
+  height: 178px;
+  background: transparent;
+  z-index: 1;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#classroomStudentSectionTwo .logo img {
+  height: 100%;
+}
 #classroomStudentSectionTwo .ellipse {
   position: absolute;
   top: -10%;
@@ -41,6 +57,10 @@
     left: 50%;
     transform: translateX(-50%);
   }
+  #classroomStudentSectionTwo .logo {
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
   #classroomStudentSectionTwo .circle {
     left: 50%;
     transform: translate(-50%, -69%);
@@ -56,7 +76,7 @@
   position: absolute;
   top: 0;
   right: 15%;
-  width: 57%; 
+  width: 57%;
   height: 40px;
   transform: translateY(-100%);
   /* overflow-y: auto; */
@@ -116,8 +136,29 @@
   box-sizing: border-box;
   padding: 10px;
 }
+#classroomStudentSectionTwo .announcements aside .school-details {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+#classroomStudentSectionTwo .announcements aside .school-details .img {
+  /* margin-left: 16px; */
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+#classroomStudentSectionTwo .announcements aside .school-details h2 {
+  margin-left: 16px;
+}
 #classroomStudentSectionTwo .announcements aside .student-details {
-  height: 250px;
+  min-height: 250px;
   background-color: #333232;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -125,6 +166,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 #classroomStudentSectionTwo .announcements aside .student-details .button-p-20 {
   padding: 5px 30px;
@@ -537,6 +579,27 @@
     width: 100%;
   }
 }
-.classPer { 
+.classPer {
   padding: 0px !important;
+}
+#performance .school-details {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+#performance .school-details .img {
+  /* margin-left: 16px; */
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+#performance .school-details h2 {
+  margin-left: 16px;
 }

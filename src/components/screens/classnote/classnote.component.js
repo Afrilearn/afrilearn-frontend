@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import {
   getSubjectAndRelatedLessons,
   addRecentActivity,
-  addSubjectProgress, 
+  addSubjectProgress,
 } from "./../../../redux/actions/subjectActions";
 
 import PropTypes from "prop-types";
@@ -37,12 +37,21 @@ import {
   WhatsappIcon,
 } from "react-share";
 import slugify from "react-slugify";
+import { inputChange } from "../../../redux/actions/pastQuestionsActions";
 
 const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
   const toggle1 = (e) => {
     e.preventDefault();
     setModal1(!modal1);
+  };
+  const [modal2, setModal2] = useState(false);
+  const toggle2 = () => {
+    setModal2(!modal2);
+  };
+  const [modal3, setModal3] = useState(false);
+  const toggle3 = () => {
+    setModal3(!modal3);
   };
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
@@ -80,38 +89,90 @@ const ClassNote = (props) => {
     return decodeHTMLEntities;
   })();
 
+  const terms = [];
+  const termIds = [
+    { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
+    { id: "600047f67cabf80f88f61735", name: "Second Term" },
+    { id: "600048197cabf80f88f61736", name: "Third Term" },
+  ];
+  termIds.forEach((item) => {
+    const lessons =
+      props.subject.relatedLessons &&
+      props.subject.relatedLessons.filter((les) => les.termId === item.id);
+    terms.push({ id: item.id, name: item.name, lessons });
+  });
+
+  const term = terms && terms?.find((term) => term.id === parsed.termId);
+
   const lessons =
     props.subject.relatedLessons &&
     props.subject.relatedLessons.filter((les) => les.termId === parsed.termId);
 
-  const targetLesson = lessons.find((lesson) => lesson._id === parsed.lessonId);
-  const targetLessonIndex = lessons.findIndex(
+  const targetLesson = term?.lessons?.find(
     (lesson) => lesson._id === parsed.lessonId
   );
-  const nextLesson = lessons[targetLessonIndex + 1];
 
-  const prevLesson = lessons[targetLessonIndex - 1];
+  const currentTermIndex =
+    targetLesson &&
+    terms &&
+    terms?.findIndex((term) => term.id === targetLesson.termId);
+  const nextTerm = terms[currentTermIndex + 1];
+  const prevTerm = terms[currentTermIndex - 1];
+
+  const currentLessonIndex = term?.lessons?.findIndex(
+    (lesson) => lesson._id === parsed.lessonId
+  );
+
+  let nextLesson = {};
+  if (term && term.lessons !== undefined) {
+    if (currentLessonIndex !== term.lessons.length - 1) {
+      nextLesson = term?.lessons[currentLessonIndex + 1];
+    } else if (currentTermIndex !== terms.length - 1) {
+      nextLesson = nextTerm && nextTerm.lessons[0];
+    } else {
+      nextLesson = null;
+    }
+  }
+
+  let prevLesson = {};
+  if (term && term.lessons !== undefined) {
+    if (currentLessonIndex !== 0) {
+      prevLesson = term?.lessons[currentLessonIndex - 1];
+    } else if (currentTermIndex !== 0) {
+      const goto = prevTerm && prevTerm.lessons && prevTerm.lessons.length - 1;
+      prevLesson = prevTerm && prevTerm.lessons[goto];
+    } else {
+      prevLesson = null;
+    }
+  }
 
   let prevNotAllowed =
-    prevLesson && !activeCoursePaidStatus && targetLessonIndex - 1 !== 0;
+    prevLesson && !activeCoursePaidStatus && currentLessonIndex - 1 !== 0;
   let nextNotAllowed =
-    nextLesson && !activeCoursePaidStatus && targetLessonIndex + 1 !== 0;
+    nextLesson && !activeCoursePaidStatus && currentLessonIndex + 1 !== 0;
   let shareLink = `https://www.myafrilearn.com/`;
 
   const onClickClassNote = (lesson) => {
-    props.addRecentActivity(lesson._id, "lesson");
+    props.addRecentActivity(lesson && lesson._id, "lesson");
     props.addSubjectProgress(
       inClass ? clazz._id : null,
-      lesson._id,
-      lesson.subjectId,
-      lesson.courseId,
-      lesson._id,
+      lesson && lesson._id,
+      lesson && lesson.subjectId,
+      lesson && lesson.courseId,
+      lesson && lesson._id,
       "lesson"
     );
   };
 
-  const payLink = inClass ? `/select-pay?${clazz._id}` : `/select-pay`;
-
+  const linkToNextLesson = `/classnote/${
+    props.subject.courseId && slugify(props.subject.courseId.name)
+  }/${
+    props.subject.mainSubjectId && slugify(props.subject.mainSubjectId.name)
+  }/${nextLesson && slugify(nextLesson.title)}?courseId=${
+    parsed.courseId
+  }&subjectId=${parsed.subjectId}&lessonId=${
+    nextLesson && nextLesson._id
+  }&termId=${nextLesson && nextLesson.termId}`;
   return (
     <span>
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
@@ -167,6 +228,66 @@ const ClassNote = (props) => {
               </Link>
             </li>
           </ul>
+        </ModalBody>
+      </Modal>
+      <Modal isOpen={modal2} toggle={toggle2}>
+        <ModalHeader toggle={toggle2}>&nbsp;</ModalHeader>
+        <ModalBody>
+          <div className="next-lesson-or-quiz">
+            {nextLesson ? (
+              <div>
+                <p>You have completed "{targetLesson.title}" </p>
+                {targetLesson.questions && targetLesson.questions.length > 0 ? (
+                  <div>
+                    <p>Next: Quiz</p>
+                    <Link to="/lesson/quiz/instructions">
+                      <button
+                        onClick={() =>
+                          props.inputChange(
+                            "nextLessonLocation",
+                            linkToNextLesson
+                          )
+                        }
+                      >
+                        Go to Quiz
+                      </button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div>
+                    <p>Next: "{nextLesson.title}"</p>
+                    <Link to={linkToNextLesson}>
+                      <button>Go to Next Lesson</button>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <p>You have completed Lessons in this Section </p>
+                <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
+                  <button>Go to Subject Page</button>
+                </Link>
+              </div>
+            )}
+          </div>
+        </ModalBody>
+      </Modal>
+      <Modal isOpen={modal3} toggle={toggle3}>
+        <ModalHeader toggle={toggle3}>&nbsp;</ModalHeader>
+        <ModalBody>
+          <div className="next-lesson-or-quiz">
+            <p>Subscribe to Unlock</p>
+            <Link to="/lesson/quiz/instructions">
+              <button
+                onClick={() =>
+                  props.inputChange("nextLessonLocation", linkToNextLesson)
+                }
+              >
+                Pay now
+              </button>
+            </Link>
+          </div>
         </ModalBody>
       </Modal>
 
@@ -270,7 +391,7 @@ const ClassNote = (props) => {
             </div>
           </Link>
           <div className="text">
-            Lesson {targetLessonIndex + 1} of{" "}
+            Lesson {currentLessonIndex + 1} of{" "}
             {props.subject && lessons && lessons.length}
           </div>
           <Link
@@ -290,9 +411,13 @@ const ClassNote = (props) => {
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             onClick={(e) => {
-              nextNotAllowed
-                ? e.preventDefault()
-                : onClickClassNote(nextLesson);
+              if (nextNotAllowed) {
+                e.preventDefault();
+              } else {
+                toggle2();
+              }
+              // nextNotAllowed ? e.preventDefault() : toggle2();
+              // : onClickClassNote(nextLesson);
             }}
             className="button button2"
             data-bs-toggle="tooltip"
@@ -328,6 +453,7 @@ ClassNote.propTypes = {
   getSubjectAndRelatedLessons: PropTypes.func.isRequired,
   addRecentActivity: PropTypes.func.isRequired,
   addSubjectProgress: PropTypes.func.isRequired,
+  inputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -342,5 +468,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getSubjectAndRelatedLessons,
   addRecentActivity,
+
   addSubjectProgress,
+  inputChange,
 })(ClassNote);

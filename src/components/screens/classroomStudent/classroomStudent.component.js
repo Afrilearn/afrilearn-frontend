@@ -283,7 +283,7 @@ const ClassroomStudent = (props) => {
                   </div>
                 </div>
               ))}
-              {newComment &&
+              {/* {newComment &&
                 newComment.announcementId === classAnnouncement._id && (
                   <div className="pic-text-heading">
                     <img src={man} alt="comment" />
@@ -297,7 +297,7 @@ const ClassroomStudent = (props) => {
                       <p>{newComment.text}</p>
                     </div>
                   </div>
-                )}
+                )} */}
             </div>
             <div className="send">
               <img src={woman} alt="sender" />
@@ -346,10 +346,23 @@ const ClassroomStudent = (props) => {
     <div>
       <div id="classroomStudentSectionOne"></div>
       <div id="classroomStudentSectionTwo">
-        <div className="circle">
-          <img className="ellipse" src={ellipse} alt="ellipse"></img>
-          <img className="woman" src={woman} alt="user"></img>
-        </div>
+        {clazz && clazz.schoolId && clazz.schoolId.logo ? (
+          <div className="circle">
+            <div
+              class="logo"
+              style={{
+                backgroundImage: `url(${
+                  clazz && clazz.schoolId && clazz.schoolId.logo
+                })`,
+              }}
+            ></div>
+          </div>
+        ) : (
+          <div className="circle">
+            <img className="ellipse" src={ellipse} alt="ellipse"></img>
+            <img className="woman" src={woman} alt="user"></img>
+          </div>
+        )}
         <div className="tab">
           <Nav tabs>
             <NavItem className=" tab-nav-item tab-nav-item-1">
@@ -406,6 +419,21 @@ const ClassroomStudent = (props) => {
               <div className="announcements">
                 <aside>
                   <div className="student-details">
+                    {clazz && clazz.schoolId && (
+                      <div className="school-details">
+                        <div
+                          class="img"
+                          style={{
+                            backgroundImage: `url(${
+                              clazz && clazz.schoolId && clazz.schoolId.logo
+                            })`,
+                          }}
+                        ></div>
+                        <h2>
+                          {clazz && clazz.schoolId && clazz.schoolId.name}{" "}
+                        </h2>
+                      </div>
+                    )}
                     <h2>{props.fullName && props.fullName}</h2>
                     <p>{props.email && props.email}</p>
                     <Button className="button-green button-p-20" size="sm">
@@ -447,7 +475,7 @@ const ClassroomStudent = (props) => {
                         </a>
                       </>
                     ) : (
-                      "No Event"
+                      "Oh oh! No work due soon!"
                     )}
                   </div>
                 </aside>
@@ -560,6 +588,25 @@ const ClassroomStudent = (props) => {
                       <span className="box">
                         <div className="row">
                           <div className="col-md-12">
+                            {clazz && clazz.schoolId && (
+                              <div className="school-details">
+                                <div
+                                  class="img"
+                                  style={{
+                                    backgroundImage: `url(${
+                                      clazz &&
+                                      clazz.schoolId &&
+                                      clazz.schoolId.logo
+                                    })`,
+                                  }}
+                                ></div>
+                                <h2>
+                                  {clazz &&
+                                    clazz.schoolId &&
+                                    clazz.schoolId.name}{" "}
+                                </h2>
+                              </div>
+                            )}
                             <h3>{fullName.toProperCase()}</h3>
                             <p>{email}</p>
                             <span className="myBadge">{activeCourseName}</span>
