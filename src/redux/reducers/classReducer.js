@@ -13,6 +13,7 @@ import {
   SCHOOL_DELETE_TEACHER_ACCOUNT_SUCCESS,
   SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
   CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS,
+  GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
   classMembers: [],
   isLoading: false,
   admins: [],
+  classMembersPayment: [],
 };
 
 const classReducer = (state = initialState, action) => {
@@ -124,6 +126,11 @@ const classReducer = (state = initialState, action) => {
         },
       };
 
+    case GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS:
+      return {
+        ...state,
+        classMembersPayment: action.payload.classMembers,
+      };
     default:
       return state;
   }

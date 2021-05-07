@@ -271,10 +271,10 @@ export default {
     });
   },
 
-  createPaymentTransaction(data) {
+  verifyPayStackPayment(data) {
     return axios({
       method: "post",
-      url: `${this.url}payments/add-transaction`,
+      url: `${this.url}payments/verify-paystack-payment`,
       headers: this.headers(),
       data,
     });

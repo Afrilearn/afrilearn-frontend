@@ -8,12 +8,12 @@ import { connect } from "react-redux";
 import {
   paymentPlans,
   inputChange,
-  createTransaction,
+  verifyPayStackPayment,
 } from "./../../../redux/actions/paymentActions";
 import {
   getChildren,
 } from '../../../redux/actions/parentActions';
-import { addClass } from "./../../../redux/actions/classActions";
+import { getMembersInClass } from "./../../../redux/actions/classActions";
 import { getRoles } from "./../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
@@ -29,29 +29,93 @@ const Payment = (props) => {
     paymentPlanId,
     paymentAmount,
     userId,
-    activeEnrolledCourseId,
+    classMembersPayment,
     email,
     courses,
     children,
     role,
     error,
+    user
   } = props;
 
   const [selected, setSelected] = useState(null);
   const [childCourses, setchildCourses] = useState([]);
   const [childId, setChildId] = useState('');
+  
+  const [courseId, setCourseId] = useState(null);
+  const [nameOfClass, setNameOfClass] = useState(null);
+  const [newClassContent, setNewClassContent] = useState(null);
+  const [receipientOption, setReceipientOption] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+ 
+  const courseList = () => {
+    if (courses.length) {
+      return courses.map((course, index) => {
+        return <option value={course._id}>{course.name}</option>;
+      });
+    }
+  };
+  const newClass =  {"__v": 0, "_id":new Date().toString(), "classCode": "00000", "courseId": "1", "createdAt": "2021-04-16T07:30:43.040Z", "enrolledCourse": {"__v": 0, "_id": "60793d2258cbbb0015f28f1e", "classId": "60793d2358cbbb0015f28f1f", "courseId": "5fd12c70e74b15663c5f4c6e", "createdAt": "2021-04-16T07:30:42.886Z", "endDate": "2022-04-16T10:36:54.398Z", "id": "60793d2258cbbb0015f28f1e", "paymentIsActive": true, "startDate": "2021-04-16T10:36:54.398Z", "status": "paid", "updatedAt": "2021-04-16T10:36:54.435Z", "userId": "60793d2258cbbb0015f28f1d"}, "id": "60793d2358cbbb0015f28f1f", "name": "Create New Class", "updatedAt": "2021-04-16T07:30:43.040Z", "userId": "60793d2258cbbb0015f28f1d"}
+  const myRecipientListOptions = [
+    {"__v": 0, "_id":new Date().toString(), "classCode": "00000", "courseId": "1", "createdAt": "2021-04-16T07:30:43.040Z", "enrolledCourse": {"__v": 0, "_id": "60793d2258cbbb0015f28f1e", "classId": "60793d2358cbbb0015f28f1f", "courseId": "5fd12c70e74b15663c5f4c6e", "createdAt": "2021-04-16T07:30:42.886Z", "endDate": "2022-04-16T10:36:54.398Z", "id": "60793d2258cbbb0015f28f1e", "paymentIsActive": true, "startDate": "2021-04-16T10:36:54.398Z", "status": "paid", "updatedAt": "2021-04-16T10:36:54.435Z", "userId": "60793d2258cbbb0015f28f1d"}, "id": "60793d2358cbbb0015f28f1f", "name": "Personal Payment", "updatedAt": "2021-04-16T07:30:43.040Z", "userId": "60793d2258cbbb0015f28f1d"},
+    {"__v": 1, "_id":new Date().toString(), "classCode": "0v000", "courseId": "2", "createdAt": "2021-04-16T07:30:43.040Z", "enrolledCourse": {"__v": 0, "_id": "60793d2258cbbb0015f28f1e", "classId": "60793d2358cbbb0015f28f1f", "courseId": "5fd12c70e74b15663c5f4c6e", "createdAt": "2021-04-16T07:30:42.886Z", "endDate": "2022-04-16T10:36:54.398Z", "id": "60793d2258cbbb0015f28f1e", "paymentIsActive": true, "startDate": "2021-04-16T10:36:54.398Z", "status": "paid", "updatedAt": "2021-04-16T10:36:54.435Z", "userId": "60793d2258cbbb0015f28f1d"}, "id": "60793d2358cbbb0015f28f1f", "name": "Pay for Student", "updatedAt": "2021-04-16T07:30:43.040Z", "userId": "60793d2258cbbb0015f28f1d"}
+  ]
+
+  const classList = () => {
+    if(user.classOwnership){
+      if (user.classOwnership.length) {
+        return user.classOwnership.map((teacherClass, index) => {
+          return <option value={teacherClass.courseId} className={teacherClass.id}>{teacherClass.name}</option>;
+        });
+      }
+    }    
+  };
+
+  const recipientList = () => {
+    if (myRecipientListOptions.length) {
+      return myRecipientListOptions.map((option, index) => {
+        return <option value={option.courseId}>{option.name}</option>;
+      });
+    }        
+  };
+  
+  const classMembersList = () => {
+    if (classMembersPayment.length) {
+      return classMembersPayment.map((student, index) => {
+        if(student.userId){
+          return <option value={student.userId.id}>{student.userId.fullName}</option>;
+        }        
+      });
+    }        
+  };
+
+  const childrenList = () => {
+    if (children.length) {
+      return children.map((child, index) => {
+        return <option value={child._id}>{child.fullName}</option>;
+      });
+    }
+  };
+
+  const childCoursesList = () => {
+    if (childCourses.length) {
+      return childCourses.map((course, index) => {
+        return <option value={course._id}>{course.name}</option>;
+      });
+    }
+  };
+  // console.log(classMembersPayment)
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
       props.paymentPlans();
-      // if (!courses) {
-      props.getRoles();
-      // }
+      props.getRoles();     
+      user.classOwnership.push(newClass);        
     } else {
       // do componentDidUpdate logic
-      if (error.id === "CREATE_PAYMENT_TRANSACTION_SUCCESS") {
+      if (error.id === "PAYMENT_VERIFICATION_SUCCESS") {
         const message =
           typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
         Swal.fire({
@@ -61,10 +125,16 @@ const Payment = (props) => {
           },
           hideClass: {
             popup: "animate__animated animate__fadeOutUp",
-          },
-          timer: 3500,
-          // position: 'top-end',,
-        });
+          }               
+        }
+       ).then(function(result) {       
+        if (role === "602f3ce39b146b3201c2dc1d") {
+          window.location = "/classes/teacher";
+        } else{
+          window.location = "/dashboard";
+        }
+       });
+      
         props.clearErrors();
       }
     }
@@ -105,76 +175,23 @@ const Payment = (props) => {
     target.classList.remove("active");
   };
 
-  const [courseId, setCourseId] = useState(null);
-  const [nameOfClass, setNameOfClass] = useState(null);
 
   //paystack settings
   const config = {
     reference: new Date().getTime(),
     email,
     amount: paymentAmount * 100,
-    // amount: 2 * 100,
     publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
     channels: ["card"],
-  };
-
-  // you can call this function anything
-  const onSuccess = (reference) => {
-    // Implementation for whatever you want to do with reference and after success call.
-    const data = {
-      tx_ref: reference.reference,
-      userId: role === "606ed82e70f40e18e029165e"? childId : userId,
-      enrolledCourseId: activeEnrolledCourseId,
-      courseId: courseId || parsed.courseId,
-      paymentPlanId,
-      amount: paymentAmount,
-      status: "paid",
-    };
-
-    props.createTransaction(data);
-    if (role && role === "602f3ce39b146b3201c2dc1d") {
-      props.addClass(courseId, nameOfClass);
-    }
-    if (role && role === "602f3ce39b146b3201c2dc1d") {
-      window.location = "/classes/teacher";
-    } else {
-      window.location = "/dashboard";
-    }
-  };
-
-  // you can call this function anything
-  const onClose = () => {
-    // implementation for  whatever you want to do when the Paystack dialog closed.
-    console.log("closed");
-  };
+  }; 
 
   const initializePayment = usePaystackPayment(config);
-  const courseList = () => {
-    if (courses.length) {
-      return courses.map((course, index) => {
-        return <option value={course._id}>{course.name}</option>;
-      });
-    }
-  };
-  const childrenList = () => {
-    if (children.length) {
-      return children.map((child, index) => {
-        return <option value={child._id}>{child.fullName}</option>;
-      });
-    }
-  };
-  const childCoursesList = () => {
-    if (childCourses.length) {
-      return childCourses.map((course, index) => {
-        return <option value={course._id}>{course.name}</option>;
-      });
-    }
-  };
 
-  const checkAndMakePayment = () => {
-    if (!paymentAmount) {
+ 
+  const checkAndMakePayment = () => {    
+    if (!courseId) {
       Swal.fire({
-        html: "Select amount to pay",
+        html: "Please select a class",
         showClass: {
           popup: "animate__animated animate__fadeInDown",
         },
@@ -185,9 +202,9 @@ const Payment = (props) => {
         // position: 'top-end',,
       });
       props.clearErrors();
-    } else if (!childId && role === "606ed82e70f40e18e029165e") {
+    }else if (role === '602f3ce39b146b3201c2dc1d' && courseId ==1 &&  !nameOfClass) {
       Swal.fire({
-        html: "Select a child",
+        html: "Please enter the new class name",
         showClass: {
           popup: "animate__animated animate__fadeInDown",
         },
@@ -197,10 +214,10 @@ const Payment = (props) => {
         timer: 3500,
         // position: 'top-end',,
       });
-      props.clearErrors();
-    } else if (!courseId && !parsed.courseId) {
+      props.clearErrors();    
+    }else if (role === '602f3ce39b146b3201c2dc1d' && courseId !=1 &&  !receipientOption && !newClassContent) {
       Swal.fire({
-        html: "Select a class",
+        html: "Please select recipient",
         showClass: {
           popup: "animate__animated animate__fadeInDown",
         },
@@ -210,15 +227,10 @@ const Payment = (props) => {
         timer: 3500,
         // position: 'top-end',,
       });
-      props.clearErrors();
-    } else if (
-      role &&
-      role === "602f3ce39b146b3201c2dc1d" &&
-      !parsed.courseId &&
-      !nameOfClass
-    ) {
+      props.clearErrors();    
+    }else if (role === '602f3ce39b146b3201c2dc1d' && courseId ==1 &&  !newClassContent) {
       Swal.fire({
-        html: "Name of class cannnot be empty",
+        html: "Please select class content",
         showClass: {
           popup: "animate__animated animate__fadeInDown",
         },
@@ -228,12 +240,71 @@ const Payment = (props) => {
         timer: 3500,
         // position: 'top-end',,
       });
-      props.clearErrors();
-    } else {
+      props.clearErrors();    
+    }else if (role === '602f3ce39b146b3201c2dc1d' && courseId !=1 && receipientOption == 2 &&  !selectedStudent) {
+      Swal.fire({
+        html: "Please select a student to make payment for",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();    
+    } else if (!paymentAmount) {
+      Swal.fire({
+        html: "Please select a payment plan",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();    
+    }else if (!childId && role ==='606ed82e70f40e18e029165e') {
+      Swal.fire({
+        html: "Please select a child",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();    
+    } else { 
       initializePayment(onSuccess, onClose);
     }
   };
 
+  const onSuccess = (reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    const data = {
+      reference: reference.reference,
+      productId:paymentPlanId,
+      courseId,
+      clientUserId: selectedStudent? selectedStudent: childId? childId: userId     
+    };  
+
+    if(nameOfClass){
+      data['newClassName'] = nameOfClass
+    } 
+    console.log(data)
+    props.verifyPayStackPayment(data);   
+  };
+
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
   return (
     <div id="selectPaymentPageSectionOne">
       <div class="container">
@@ -252,21 +323,98 @@ const Payment = (props) => {
           <div class="col-md-7">
             <div className="sub-lenght">
               <Container>
-                {!parsed.courseId && role !== '606ed82e70f40e18e029165e' &&
-                  <h3>Step 1: Select Class</h3>}
-                {!parsed.courseId && role !== '606ed82e70f40e18e029165e' && (
+                {/* for student and teacher */}
+                { role === '5fd08fba50964811309722d5' || role === '602f3ce39b146b3201c2dc1d'?
+                  <h3>Step 1: Select Class</h3>:
+                  null}
+                {/* for student */}
+                {role === '5fd08fba50964811309722d5'?
                   <select
                     class="form-select form-select-lg mb-3"
                     aria-label=".form-select-lg example"
                     onChange={(e) => {
                       e.preventDefault();
-                      setCourseId(e.target.value);
+                      setCourseId(e.target.value);                      
                     }}
                   >
                     <option selected>Select Class</option>
                     {courseList()}
                   </select>
-                )}
+                :null}
+
+                {/* for teacher */}
+                {role === '602f3ce39b146b3201c2dc1d'?
+                 <>
+                  <select
+                    class="form-select form-select-lg mb-3"
+                    aria-label=".form-select-lg example"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setCourseId(e.target.value);                    
+                      setNewClassContent(null)        
+                      if(e.target.value !=1){
+                        props.getMembersInClass(e.target.options[e.target.options.selectedIndex].className, true)                 
+                      } 
+                    }}
+                  >
+                    <option selected>Select Class</option>
+                    {classList()}
+                  </select>
+                    {courseId && courseId !=1 && !newClassContent? 
+                      <>
+                        <select
+                          class="form-select form-select-lg mb-3"
+                          aria-label=".form-select-lg example"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setReceipientOption(e.target.value);                      
+                          }}
+                        >
+                          <option selected>Select Recipient</option>
+                          {recipientList()}
+                        </select>
+                          { receipientOption && receipientOption =='2'? 
+                             <select
+                              class="form-select form-select-lg mb-3"
+                              aria-label=".form-select-lg example"
+                              onChange={(e) => {
+                                e.preventDefault();
+                                setSelectedStudent(e.target.value);                      
+                              }}
+                            >
+                              <option selected>Select Student</option>
+                              {classMembersList()}
+                            </select>
+                           :null}
+
+                      </>
+                      :courseId && courseId ==1 || newClassContent?
+                       <>
+                        <input
+                          className="form-control"
+                          placeholder="Enter new class name"
+                          onChange={(e) => {
+                            setNameOfClass(e.target.value);
+                          }}
+                        />
+                        <select
+                          class="form-select form-select-lg mb-3"
+                          aria-label=".form-select-lg example"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setCourseId(e.target.value); 
+                            setNewClassContent(e.target.value)                     
+                          }}
+                        >
+                          <option selected>Select Class Content</option>
+                          {courseList()}
+                        </select>
+                       </>
+                    :null}
+                  </>
+                :null}
+
+                {/* parent section */}
                 {role === '606ed82e70f40e18e029165e' &&
                   <h3>Step 1: Subscription For</h3>}
                 {role === '606ed82e70f40e18e029165e' && (
@@ -276,7 +424,7 @@ const Payment = (props) => {
                       aria-label=".form-select-lg example"
                       onChange={(e) => {
                         e.preventDefault();
-                        setChildId(e.target.value);
+                        setChildId(e.target.value);                        
                       }}
                     >
                       <option selected>Select Child</option>
@@ -287,7 +435,7 @@ const Payment = (props) => {
                       aria-label=".form-select-lg example"
                       onChange={(e) => {
                         e.preventDefault();
-                        setCourseId(e.target.value);
+                        setCourseId(e.target.value);                        
                       }}
                     >
                       <option selected>Select Class</option>
@@ -295,6 +443,7 @@ const Payment = (props) => {
                     </select>
                   </div>
                 )}
+
                 <h3>
                   {!parsed.courseId && "Step 2: "}Select Subscription Length
                 </h3>
@@ -327,20 +476,7 @@ const Payment = (props) => {
 
             <div className="proceed-button">
               <Container>
-                <Row>
-                  {role &&
-                    role === "602f3ce39b146b3201c2dc1d" &&
-                    !parsed.courseId && (
-                      <Col>
-                        <input
-                          className="form-control"
-                          placeholder="Add class name"
-                          onChange={(e) => {
-                            setNameOfClass(e.target.value);
-                          }}
-                        />
-                      </Col>
-                    )}
+                <Row>                 
                   <Col>
                     <button
                       disabled={paymentAmount === 0 ? true : false}
@@ -363,8 +499,8 @@ Payment.propTypes = {
   paymentPlans: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
   getRoles: PropTypes.func.isRequired,
-  addClass: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
+  getMembersInClass: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -378,14 +514,16 @@ const mapStateToProps = (state) => ({
   children: state.parent.children,
   role: state.auth.role,
   error: state.error,
+  user:state.auth.user,
+  classMembersPayment: state.class.classMembersPayment
 });
 
 export default connect(mapStateToProps, {
   paymentPlans,
   inputChange,
-  createTransaction,
+  verifyPayStackPayment,
   getRoles,
   getChildren,
-  addClass,
   clearErrors,
+  getMembersInClass
 })(Payment);

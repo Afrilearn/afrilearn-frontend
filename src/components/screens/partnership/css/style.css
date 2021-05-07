@@ -17,7 +17,7 @@
 }
 #partnershipFirstSection hr {
 	width: 8%;
-	border: solid 2px #2bb58e; 
+	border: solid 2px #84BB29; 
 	float: left;   
 }
 #partnershipFirstSection h3 {    
@@ -29,7 +29,7 @@
 }
 #partnershipSecondSection h1, #partnershipThirdSection h1{
     margin-bottom: 20px;
-    color: #2bb58e;
+    color: #84BB29;
     font-family: font2;
 }
 #partnershipSecondSection .box {
@@ -65,7 +65,7 @@
     font-size: 50px;
     margin: auto;
     display: block;
-    color: #2bb58e;
+    color: #84BB29;
 }
 
 @media screen and (max-width: 768px) {

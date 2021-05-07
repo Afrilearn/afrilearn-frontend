@@ -15,6 +15,7 @@ import {
   PASSWORD_CHANGE_FROM_PROFILE_SUCCESS,
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_PIC_SUCCESS,
+  PAYMENT_VERIFICATION_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -67,12 +68,13 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case INPUT_CHANGE:
+   
+    case INPUT_CHANGE:    
       return {
         ...state,
         [action.payload.name]: action.payload.value,
       };
-
+     
     case CHECK_USER_AND_JOIN_CLASS_SUCCESS:
       return {
         ...state,
@@ -236,6 +238,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case PAYMENT_VERIFICATION_SUCCESS:     
+      return {
+        ...state,
+        activeCoursePaidStatus: action.payload
+      };      
     case LOGOUT_SUCCESS:
       localStorage.removeItem("token");
       return {

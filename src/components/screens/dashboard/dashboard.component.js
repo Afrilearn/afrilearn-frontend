@@ -53,7 +53,7 @@ const Dashboard = (props) => {
     props.authInputChange("activeCoursePaidStatus", false);
     const data = {
       enrolledCourseId: activeEnrolledCourseId,
-    };
+    };  
     props.populateDashboard(activeEnrolledCourseId ? data : null);
     // } else {
     // do componentDidUpdate logic
