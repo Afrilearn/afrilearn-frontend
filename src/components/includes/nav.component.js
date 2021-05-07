@@ -125,7 +125,7 @@ const MyNav = (props) => {
           >
             <span>
               <img
-                src={require("./../../assets/img/profile.png")}
+                src={require("./../../assets/img/profile.svg")}
                 alt="profile"
                 className="dropDownIcon"
               />{" "}
@@ -168,7 +168,7 @@ const MyNav = (props) => {
             >
               <span>
                 <img
-                  src={require("./../../assets/img/profile.png")}
+                  src={require("./../../assets/img/profile.svg")}
                   alt="profile"
                   className="dropDownIcon"
                 />{" "}
@@ -218,7 +218,7 @@ const MyNav = (props) => {
                 >
                   <span>
                     <img
-                      src={require("./../../assets/img/profile.png")}
+                      src={require("./../../assets/img/profile.svg")}
                       alt="profile"
                       className="dropDownIcon"
                     />{" "}
@@ -259,7 +259,7 @@ const MyNav = (props) => {
             >
               <span>
                 <img
-                  src={require("./../../assets/img/profile.png")}
+                  src={require("./../../assets/img/profile.svg")}
                   alt="profile"
                   className="dropDownIcon"
                 />{" "}
@@ -419,7 +419,7 @@ const MyNav = (props) => {
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <img
-                    src={require("./../../assets/img/profile.png")}
+                    src={require("./../../assets/img/profile.svg")}
                     alt="profile"
                     className="dropDownIcon dropDownIcon1"
                   />

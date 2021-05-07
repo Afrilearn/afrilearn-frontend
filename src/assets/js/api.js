@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: LocalURL,
+  url: HerokuURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -271,10 +271,10 @@ export default {
     });
   },
 
-  createPaymentTransaction(data) {
+  verifyPayStackPayment(data) {
     return axios({
       method: "post",
-      url: `${this.url}payments/add-transaction`,
+      url: `${this.url}payments/verify-paystack-payment`,
       headers: this.headers(),
       data,
     });

@@ -123,6 +123,7 @@ export const populateDashboard = (data) => async (dispatch) => {
         value:true,
       },
     });  
+   
     const result = await API.populateDashboard(data);
     let excelling,
       average,
