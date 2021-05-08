@@ -163,6 +163,17 @@ const ClassNote = (props) => {
       "lesson"
     );
   };
+  const onClickQuiz = (lesson) => {
+    props.addRecentActivity(lesson && lesson._id, "quiz");
+    props.addSubjectProgress(
+      inClass ? clazz._id : null,
+      lesson && lesson._id,
+      lesson && lesson.subjectId,
+      lesson && lesson.courseId,
+      lesson && lesson._id,
+      "quiz"
+    );
+  };
 
   const linkToNextLesson = `/classnote/${
     props.subject.courseId && slugify(props.subject.courseId.name)
@@ -242,12 +253,14 @@ const ClassNote = (props) => {
                     <p>Next: Quiz</p>
                     <Link to="/lesson/quiz/instructions">
                       <button
-                        onClick={() =>
+                        onClick={() => {
                           props.inputChange(
                             "nextLessonLocation",
                             linkToNextLesson
-                          )
-                        }
+                          );
+                          onClickQuiz(nextLesson);
+                          toggle2();
+                        }}
                       >
                         Go to Quiz
                       </button>
@@ -257,7 +270,14 @@ const ClassNote = (props) => {
                   <div>
                     <p>Next: "{nextLesson.title}"</p>
                     <Link to={linkToNextLesson}>
-                      <button>Go to Next Lesson</button>
+                      <button
+                        onClick={() => {
+                          toggle2();
+                          onClickClassNote(nextLesson);
+                        }}
+                      >
+                        Go to Next Lesson
+                      </button>
                     </Link>
                   </div>
                 )}
@@ -278,14 +298,8 @@ const ClassNote = (props) => {
         <ModalBody>
           <div className="next-lesson-or-quiz">
             <p>Subscribe to Unlock</p>
-            <Link to="/lesson/quiz/instructions">
-              <button
-                onClick={() =>
-                  props.inputChange("nextLessonLocation", linkToNextLesson)
-                }
-              >
-                Pay now
-              </button>
+            <Link to="/select-pay">
+              <button>Pay now</button>
             </Link>
           </div>
         </ModalBody>

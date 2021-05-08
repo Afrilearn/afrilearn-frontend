@@ -181,7 +181,7 @@ const LessonItem = (props) => {
           lesson.courseId
         }&subjectId=${lesson.subjectId}&lessonId=${lesson._id}&videoId=${
           item._id
-        }`
+        }&termId=${lesson.termId}`
       : inClass && clazz.enrolledCourse && !clazz.enrolledCourse.paymentIsActive
       ? `/select-pay?courseId=${
           clazz.enrolledCourse && clazz.enrolledCourse.courseId
