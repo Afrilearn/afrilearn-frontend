@@ -9,6 +9,8 @@ import {
   faTimes,
   faInfoCircle,
   faShareAlt,
+  faAngleLeft,
+  faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -22,7 +24,11 @@ import moment from "moment";
 import ReactPlayer from "react-player/lazy";
 import Speech from "react-speech";
 import { getCourse } from "./../../../redux/actions/courseActions";
-import { getSubjectAndRelatedLessons } from "./../../../redux/actions/subjectActions";
+import {
+  getSubjectAndRelatedLessons,
+  addRecentActivity,
+  addSubjectProgress,
+} from "./../../../redux/actions/subjectActions";
 
 import parse from "html-react-parser";
 import {
@@ -44,8 +50,16 @@ import slugify from "react-slugify";
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
+  // console.log(parsed);
 
-  const { course, role, subject } = props;
+  const {
+    course,
+    role,
+    subject,
+    activeCoursePaidStatus,
+    clazz,
+    inClass,
+  } = props;
 
   const [isOpen, setIsOpen] = useState(true);
   const [modal1, setModal1] = useState(false);
@@ -55,10 +69,68 @@ const LessonPage = (props) => {
   };
 
   const toggleTranscript = () => setIsOpen(!isOpen);
-  const lesson =
-    subject &&
-    subject.relatedLessons &&
-    subject.relatedLessons.find((su) => su._id === parsed.lessonId);
+
+  const terms = [];
+  const termIds = [
+    { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
+    { id: "600047f67cabf80f88f61735", name: "Second Term" },
+    { id: "600048197cabf80f88f61736", name: "Third Term" },
+  ];
+  termIds.forEach((item) => {
+    const lessons =
+      props.subject.relatedLessons &&
+      props.subject.relatedLessons.filter((les) => les.termId === item.id);
+    terms.push({ id: item.id, name: item.name, lessons });
+  });
+
+  const term = terms && terms?.find((term) => term.id === parsed.termId);
+
+  const lessons =
+    props.subject.relatedLessons &&
+    props.subject.relatedLessons.filter((les) => les.termId === parsed.termId);
+
+  const lesson = term?.lessons?.find(
+    (lesson) => lesson._id === parsed.lessonId
+  );
+  console.log("lesson", lesson);
+
+  const currentTermIndex =
+    lesson && terms && terms?.findIndex((term) => term.id === lesson.termId);
+  const nextTerm = terms[currentTermIndex + 1];
+  const prevTerm = terms[currentTermIndex - 1];
+
+  const currentLessonIndex = term?.lessons?.findIndex(
+    (lesson) => lesson._id === parsed.lessonId
+  );
+
+  let nextLesson = {};
+  if (term && term.lessons !== undefined) {
+    if (currentLessonIndex !== term.lessons.length - 1) {
+      nextLesson = term?.lessons[currentLessonIndex + 1];
+    } else if (currentTermIndex !== terms.length - 1) {
+      nextLesson = nextTerm && nextTerm.lessons[0];
+    } else {
+      nextLesson = null;
+    }
+  }
+
+  let prevLesson = {};
+  if (term && term.lessons !== undefined) {
+    if (currentLessonIndex !== 0) {
+      prevLesson = term?.lessons[currentLessonIndex - 1];
+    } else if (currentTermIndex !== 0) {
+      const goto = prevTerm && prevTerm.lessons && prevTerm.lessons.length - 1;
+      prevLesson = prevTerm && prevTerm.lessons[goto];
+    } else {
+      prevLesson = null;
+    }
+  }
+
+  let prevNotAllowed =
+    prevLesson && !activeCoursePaidStatus && currentLessonIndex - 1 !== 0;
+  let nextNotAllowed =
+    nextLesson && !activeCoursePaidStatus && currentLessonIndex + 1 !== 0;
+
   const courseName = subject && subject.courseId && subject.courseId.name;
   const subjectName =
     subject && subject.mainSubjectId && subject.mainSubjectId.name;
@@ -77,13 +149,74 @@ const LessonPage = (props) => {
     lesson && lesson.videoUrls && videoIndex !== lesson.videoUrls.length
       ? lesson.videoUrls[videoIndex + 1]
       : null;
+  const nextLessonVideo =
+    nextLesson && nextLesson.videoUrls && nextLesson.videoUrls.length > 0
+      ? nextLesson.videoUrls[0]
+      : null;
+
+  const previousLessonVideo =
+    prevLesson && prevLesson.videoUrls && prevLesson.videoUrls.length > 0
+      ? prevLesson.videoUrls[0]
+      : null;
+
+  const linkToNextVideo = `/content/${slugify(courseName)}/${slugify(
+    subjectName
+  )}/${slugify(lesson && lesson.title)}/${
+    nextVideo && nextVideo._id
+  }?courseId=${lesson && lesson.courseId}&subjectId=${
+    lesson && lesson.subjectId
+  }&lessonId=${lesson && lesson._id}&videoId=${
+    nextVideo && nextVideo._id
+  }&termId=${parsed.termId}`;
 
   const linkToNextLesson = `/content/${slugify(courseName)}/${slugify(
     subjectName
-  )}/${slugify(lesson.title)}/${nextVideo && nextVideo._id}?courseId=${
-    lesson.courseId
-  }&subjectId=${lesson.subjectId}&lessonId=${lesson._id}&videoId=${
-    nextVideo && nextVideo._id
+  )}/${slugify(nextLesson && nextLesson.title)}/${
+    nextLessonVideo && nextLessonVideo._id
+  }?courseId=${nextLesson && nextLesson.courseId}&subjectId=${
+    nextLesson && nextLesson.subjectId
+  }&lessonId=${nextLesson && nextLesson._id}&videoId=${
+    nextLessonVideo && nextLessonVideo._id
+  }&termId=${nextLesson && nextLesson.termId}`;
+
+  const linkToLessonClassNote = `/classnote/${slugify(courseName)}/${slugify(
+    subjectName
+  )}/${slugify(lesson && lesson.title)}?courseId=${
+    lesson && lesson.courseId
+  }&subjectId=${lesson && lesson.subjectId}&lessonId=${
+    lesson && lesson._id
+  }&termId=${lesson && lesson.termId}`;
+
+  const linkToNextLessonClassNote = `/classnote/${slugify(
+    courseName
+  )}/${slugify(subjectName)}/${
+    nextLesson && slugify(nextLesson.title)
+  }?courseId=${parsed.courseId}&subjectId=${parsed.subjectId}&lessonId=${
+    nextLesson && nextLesson._id
+  }&termId=${nextLesson && nextLesson.termId}`;
+
+  const linkToPreviousLessonClassNote = `/classnote/${slugify(
+    courseName
+  )}/${slugify(subjectName)}/${
+    prevLesson && slugify(prevLesson.title)
+  }?courseId=${parsed.courseId}&subjectId=${parsed.subjectId}&lessonId=${
+    prevLesson && prevLesson._id
+  }&termId=${prevLesson && prevLesson.termId}`;
+
+  const linkToPreviousLesson = `/content/${slugify(courseName)}/${slugify(
+    subjectName
+  )}/${prevLesson && slugify(prevLesson.title)}/${
+    previousLessonVideo && previousLessonVideo._id
+  }?courseId=${prevLesson && prevLesson.courseId}&subjectId=${
+    prevLesson && prevLesson.subjectId
+  }&lessonId=${prevLesson && prevLesson._id}&videoId=${
+    previousLessonVideo && previousLessonVideo._id
+  }&termId=${prevLesson && prevLesson.termId}`;
+
+  const linkToSubjectPage = `/content/${slugify(courseName)}/${slugify(
+    subjectName
+  )}?courseId=${lesson && lesson.courseId}&subjectId=${
+    lesson && lesson.subjectId
   }`;
 
   const relatedVideos =
@@ -129,14 +262,6 @@ const LessonPage = (props) => {
     return decodeHTMLEntities;
   })();
 
-  const termIds = [
-    { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
-    { id: "600047f67cabf80f88f61735", name: "Second Term" },
-    { id: "600048197cabf80f88f61736", name: "Third Term" },
-  ];
-
-  const term = lesson && termIds.find((term) => term.id === lesson.termId);
-
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -169,12 +294,28 @@ const LessonPage = (props) => {
     const popTwo = document.getElementById("lessonPagePopUpTwo");
     popTwo.style.display = "flex";
   };
+  const openPopThree = () => {
+    const popThree = document.getElementById("lessonPagePopUpThree");
+    popThree.style.display = "flex";
+  };
+  const openPopFour = () => {
+    const popFour = document.getElementById("lessonPagePopUpFour");
+    popFour.style.display = "flex";
+  };
 
   const closePopOne = () => {
     const popOne = document.getElementById("lessonPagePopUpOne");
     popOne.style.display = "none";
   };
 
+  const closePopThree = () => {
+    const popThree = document.getElementById("lessonPagePopUpThree");
+    popThree.style.display = "none";
+  };
+  const closePopFour = () => {
+    const popFour = document.getElementById("lessonPagePopUpFour");
+    popFour.style.display = "none";
+  };
   const closePopTwo = () => {
     const popTwo = document.getElementById("lessonPagePopUpTwo");
     popTwo.style.display = "none";
@@ -184,6 +325,17 @@ const LessonPage = (props) => {
   const toggleModal = () => setModal(!modal);
   let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now or visit https://myafrilearn.com/`;
 
+  const storeProgress = (lesson) => {
+    props.addRecentActivity(lesson && lesson._id, "lesson");
+    props.addSubjectProgress(
+      inClass ? clazz._id : null,
+      lesson && lesson._id,
+      lesson && lesson.subjectId,
+      lesson && lesson.courseId,
+      lesson && lesson._id,
+      "lesson"
+    );
+  };
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
@@ -194,13 +346,13 @@ const LessonPage = (props) => {
             <ModalBody style={{ textAlign: "center" }}>
               {nextVideo ? (
                 <div>
-                  <p>Lesson completed</p>
+                  <p>Lesson Video completed</p>
                   <Link
-                    to={linkToNextLesson}
+                    to={linkToNextVideo}
                     className="btn btn-primary"
                     onClick={toggleModal}
                   >
-                    Go to next lesson
+                    Go to next Lesson Video
                   </Link>
                 </div>
               ) : (
@@ -218,14 +370,7 @@ const LessonPage = (props) => {
                   ) : (
                     <Button
                       tag={Link}
-                      to={`/content/${lesson && lesson.courseId}/${
-                        lesson && lesson.subjectId
-                      }/${lesson && lesson._id}`}
-                      to={`/content/${slugify(courseName)}/${slugify(
-                        subjectName
-                      )}?courseId=${lesson.courseId}&subjectId=${
-                        lesson.subjectId
-                      }`}
+                      to={linkToSubjectPage}
                       className="btn btn-success"
                     >
                       Go to topics page
@@ -362,6 +507,158 @@ const LessonPage = (props) => {
             {relatedVideosList()}{" "}
           </div>
         </div>
+        <div id="navigation">
+          <Link
+            to={prevLesson ? linkToPreviousLesson : linkToSubjectPage}
+            className="button button1"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-html="true"
+            onClick={(e) => {
+              if (
+                prevNotAllowed ||
+                (prevLesson &&
+                  prevLesson.videoUrls &&
+                  prevLesson.videoUrls.length === 0)
+              ) {
+                e.preventDefault();
+                if (!activeCoursePaidStatus) {
+                  return openPopTwo();
+                } else if (
+                  prevLesson &&
+                  prevLesson.videoUrls &&
+                  prevLesson.videoUrls.length === 0
+                ) {
+                  return openPopFour();
+                }
+              } else {
+                storeProgress(prevLesson);
+              }
+            }}
+            title={
+              prevLesson
+                ? prevNotAllowed
+                  ? "Subscribe to unlock"
+                  : prevLesson.title
+                : "Subject Page"
+            }
+          >
+            <FontAwesomeIcon
+              icon={faAngleLeft}
+              className="arrow"
+              color="#26aa76"
+            />
+            <div>
+              {prevLesson ? (
+                <p className="p1">
+                  Previous <span className="hide-900">Lesson</span>
+                </p>
+              ) : (
+                <p>Back to</p>
+              )}
+
+              <h6 className="custom-green">
+                {prevLesson
+                  ? prevLesson.title && prevLesson.title.slice(0, 13)
+                  : "Subject Page"}
+                {prevLesson && prevLesson.title && prevLesson.title.length > 13
+                  ? "..."
+                  : null}
+              </h6>
+            </div>
+          </Link>
+          <div className="text">
+            Lesson {currentLessonIndex + 1} of{" "}
+            {subject && lessons && lessons.length}
+          </div>
+          <Link
+            to={nextLesson ? linkToNextLesson : linkToSubjectPage}
+            className="button button2"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-html="true"
+            onClick={(e) => {
+              if (
+                nextNotAllowed ||
+                (nextLesson &&
+                  nextLesson.videoUrls &&
+                  nextLesson.videoUrls.length === 0)
+              ) {
+                e.preventDefault();
+                if (!activeCoursePaidStatus) {
+                  return openPopTwo();
+                } else if (
+                  nextLesson &&
+                  nextLesson.videoUrls &&
+                  nextLesson.videoUrls.length === 0
+                ) {
+                  return openPopThree();
+                }
+              } else {
+                storeProgress(nextLesson);
+              }
+            }}
+            title={
+              nextLesson
+                ? nextNotAllowed
+                  ? "Subscribe to unlock"
+                  : nextLesson.title
+                : "Subject Page"
+            }
+          >
+            <div>
+              <p>Next Lesson</p>
+              <h6 className="custom-green">
+                {nextLesson
+                  ? nextLesson.title && nextLesson.title.slice(0, 13)
+                  : "Subject Page"}
+                {nextLesson && nextLesson.title && nextLesson.title.length > 13
+                  ? "..."
+                  : null}
+              </h6>
+            </div>
+            <FontAwesomeIcon
+              icon={faAngleRight}
+              className="arrow"
+              color="#26aa76"
+            />
+          </Link>
+        </div>
+      </div>
+      <div id="lessonPagePopUpFour">
+        <span className="closePopUp cursor-pointer" onClick={closePopFour}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "40px" }} />
+        <h3>
+          There is no video lesson in the previuos lesson <br />
+          Do you wan to open class note?
+        </h3>
+        <Link
+          className="button"
+          to={linkToPreviousLessonClassNote}
+          onClick={storeProgress(prevLesson)}
+        >
+          Yes! Proceed to Class Note
+        </Link>
+      </div>
+
+      <div id="lessonPagePopUpThree">
+        <span className="closePopUp cursor-pointer" onClick={closePopThree}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "40px" }} />
+        <h3>
+          There is no video lesson in the next lesson <br />
+          Do you wan to open class note?
+        </h3>
+        <Link
+          className="button"
+          to={linkToNextLessonClassNote}
+          onClick={storeProgress(nextLesson)}
+        >
+          Yes! Proceed to Class Note
+        </Link>
       </div>
       <div id="lessonPagePopUpOne">
         <span className="closePopUp cursor-pointer" onClick={closePopOne}>
@@ -371,16 +668,7 @@ const LessonPage = (props) => {
         <h3>
           This action takes you to the complete <br /> class note page
         </h3>
-        <Link
-          className="button"
-          to={`/classnote/${slugify(
-            subject && subject.courseId && subject.courseId.name
-          )}/${slugify(
-            subject && subject.mainSubjectId && subject.mainSubjectId.name
-          )}/${slugify(lesson.title)}?courseId=${lesson.courseId}&subjectId=${
-            lesson.subjectId
-          }&lessonId=${lesson._id}&termId=${lesson.termId}`}
-        >
+        <Link className="button" to={linkToLessonClassNote}>
           Yes! Proceed to Class Note
         </Link>
         {/* <a href="/">Share your progress</a> */}
@@ -389,10 +677,10 @@ const LessonPage = (props) => {
         <span className="closePopUp" onClick={closePopTwo}>
           <FontAwesomeIcon icon={faTimes} />
         </span>
-        <h3>Yay Feyikemi ! You are doing well</h3>
-        <p>Keep up the good work</p>
-        <button>Proceed to Lesson 3</button>
-        <a href="/">Share your progress</a>
+        <h3>Subscribe to Unlock</h3>
+        <Link to="/select-pay">
+          <button>Subscribe now</button>
+        </Link>
       </div>
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
         <ModalHeader toggle={toggle1}>&nbsp;</ModalHeader>
@@ -456,14 +744,22 @@ const LessonPage = (props) => {
 LessonPage.propTypes = {
   getCourse: PropTypes.func.isRequired,
   getSubjectAndRelatedLessons: PropTypes.func.isRequired,
+  addRecentActivity: PropTypes.func.isRequired,
+  addSubjectProgress: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   subject: state.subject.subject,
   course: state.course.course,
+  clazz: state.class.class,
+  inClass: state.auth.inClass,
   role: state.auth.user.role,
+  activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
 });
 export default connect(mapStateToProps, {
   getCourse,
   getSubjectAndRelatedLessons,
+  addRecentActivity,
+
+  addSubjectProgress,
 })(LessonPage);

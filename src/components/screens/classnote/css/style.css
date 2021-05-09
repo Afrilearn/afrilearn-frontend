@@ -72,7 +72,7 @@
   margin-top: 10px;
 }
 
-#navigation p {
+#classNoteSecondSection #navigation p {
   margin-bottom: 0px !important;
   font-size: 14px;
 }
@@ -88,10 +88,10 @@
     margin-top: -24px;
     padding-top: 21px;
   }
-  #navigation .button {
-    height: 114px;
+  #classNoteSecondSection #navigation .button {
+    height: auto;
   }
-  #navigation h6 {
+  #classNoteSecondSection #navigation h6 {
     font-size: 14px;
   }
   #classNoteFirstSection h1 {
@@ -131,14 +131,14 @@
   }
 }
 
-#navigation {
+#classNoteSecondSection #navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 100px;
 }
 
-#navigation .button {
+#classNoteSecondSection #navigation .button {
   flex: 0 0 25%;
   background-color: rgba(255, 255, 255, 0.199) !important;
   display: flex;
@@ -147,32 +147,32 @@
   border-radius: 10px;
 }
 
-#navigation .button .arrow {
+#classNoteSecondSection #navigation .button .arrow {
   width: 15%;
   font-size: 28px;
   font-weight: lighter;
 }
 
-#navigation .button1 {
+#classNoteSecondSection #navigation .button1 {
   justify-content: flex-start;
 }
 
-#navigation .button2 {
+#classNoteSecondSection #navigation .button2 {
   justify-content: flex-end;
 }
 
-#navigation .button1 div {
+#classNoteSecondSection #navigation .button1 div {
   border-left: 1px solid #fff;
   padding: 0 20px;
 }
 
-#navigation .button2 div {
+#classNoteSecondSection #navigation .button2 div {
   text-align: right;
   border-right: 1px solid #fff;
   padding: 0 20px;
 }
 
-#navigation .text {
+#classNoteSecondSection #navigation .text {
   /* font-size: 20px; */
 }
 
@@ -181,36 +181,36 @@
 }
 
 @media screen and (max-width: 900px) {
-  #navigation .button {
+  #classNoteSecondSection #navigation .button {
     flex: 0 0 35%;
     padding: 10px 5px;
   }
 
-  #navigation .button div p {
+  #classNoteSecondSection #navigation .button div p {
     margin: 0;
     font-size: 10px;
   }
 
-  #navigation .button div h4 {
+  #classNoteSecondSection #navigation .button div h4 {
     margin: 0;
     font-size: 10px;
   }
 
-  #navigation .button1 div {
+  #classNoteSecondSection #navigation .button1 div {
     padding: 0 5px;
   }
 
-  #navigation .button2 div {
+  #classNoteSecondSection #navigation .button2 div {
     text-align: right;
     padding: 0 5px;
   }
 
-  #navigation .button .arrow {
+  #classNoteSecondSection #navigation .button .arrow {
     padding: 3px;
     margin-left: 0;
   }
 
-  #navigation .text {
+  #classNoteSecondSection #navigation .text {
     font-size: 10px;
   }
 }

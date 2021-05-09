@@ -148,7 +148,7 @@ const Dashboard = (props) => {
       let recommend = dashboardData.recommendation;
       // eslint-disable-next-line array-callback-return
       return recommend.map((item, index) => {
-        if (index < 3 && item.recommended) {
+        if (index < 3 && item.recommended) { 
           return (
             <RecommendBox
               pastQuestions={item.type === "lesson" ? false : true}
