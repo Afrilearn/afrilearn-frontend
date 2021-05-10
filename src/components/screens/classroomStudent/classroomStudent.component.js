@@ -115,7 +115,7 @@ const ClassroomStudent = (props) => {
       const item = items[index];
       item.style.borderBottom = "none";
     }
-    item.style.borderBottom = "4px solid #26AA76";
+    item.style.borderBottom = "4px solid #84BB29";
   };
 
   const subjectList = () => {
@@ -642,7 +642,7 @@ const ClassroomStudent = (props) => {
                                   {
                                     type: "bar",
                                     title: "Subject Progress",
-                                    color: "#26AA76",
+                                    color: "#84BB29",
                                     points: barChart,
                                   },
                                 ]}

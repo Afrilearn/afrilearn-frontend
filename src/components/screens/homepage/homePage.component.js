@@ -250,7 +250,7 @@ const Homepage = (props) => {
                   <div className="col-md-4">
                     <img
                       className="fullWidth"
-                      src={require("../../../assets/img/19 - Presentation.png")}
+                      src={require("../../../assets/img/videoLessons.svg")}
                       alt="Next big thing"
                     />
                   </div>
@@ -265,7 +265,7 @@ const Homepage = (props) => {
                   <div className="col-md-4">
                     <img
                       className="fullWidth"
-                      src={require("../../../assets/img/16 - Analytics.png")}
+                      src={require("../../../assets/img/practice questions.svg")}
                       alt="Next big thing"
                     />
                   </div>
@@ -287,7 +287,7 @@ const Homepage = (props) => {
                   <div className="col-md-4">
                     <img
                       className="fullWidth"
-                      src={require("../../../assets/img/5 - Presentation.png")}
+                      src={require("../../../assets/img/classnote.svg")}
                       alt="Next big thing"
                     />
                   </div>
@@ -307,7 +307,7 @@ const Homepage = (props) => {
                   <div className="col-md-4">
                     <img
                       className="fullWidth"
-                      src={require("../../../assets/img/4 - Connection.png")}
+                      src={require("../../../assets/img/engagements.svg")}
                       alt="Next big thing"
                     />
                   </div>

@@ -273,7 +273,7 @@ const LessonItem = (props) => {
             >
               <FontAwesomeIcon
                 icon={faCheckCircle}
-                color={isViewed ? "#26aa76" : "white"}
+                color={isViewed ? "#84BB29" : "white"}
                 className="mark-done"
               />
               {toTitleCase(lesson.title)}

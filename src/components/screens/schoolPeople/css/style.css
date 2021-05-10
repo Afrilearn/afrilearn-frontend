@@ -42,7 +42,7 @@
   padding: 3px;
 
   background: rgba(38, 170, 118, 0.28);
-  color: #26aa76;
+  color: #84BB29;
   border-radius: 12.186px;
   border: none;
   padding: 10px;
@@ -85,7 +85,7 @@
 }
 #schoolPeople #secondSection .list-of-people head header {
   margin-right: auto;
-  color: #26aa76;
+  color: #84BB29;
   font-family: font2;
   font-weight: 700;
   font-size: 30px;
@@ -144,12 +144,12 @@
 }
 .delete-modal button {
   margin: 10px;
-  background-color: #26aa76;
-  border: solid #26aa76;
+  background-color: #84BB29;
+  border: solid #84BB29;
 }
 .delete-modal button:hover {
-  background-color: #26aa76;
-  border: solid #26aa76;
+  background-color: #84BB29;
+  border: solid #84BB29;
 }
 /* Customize the label (the container) */
 .checkbox-container {
@@ -193,7 +193,7 @@
 
 /* When the checkbox is checked, add a blue background */
 .checkbox-container input:checked ~ .checkmark {
-  background-color: #26aa76;
+  background-color: #84BB29;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

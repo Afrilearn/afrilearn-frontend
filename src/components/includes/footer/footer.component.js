@@ -48,7 +48,7 @@ const Footer = (props) => {
               <li className="hh">
                 <img
                   className="logo1"
-                  src={require("../../../assets/img/Email.svg")}
+                  src={require("../../../assets/img/email homepage.svg")}
                   alt="Logo"
                 />{" "}
                 &nbsp;&nbsp;hello@myafrilearn.com
@@ -56,17 +56,17 @@ const Footer = (props) => {
               <li className="num">
                 <img
                   className="logo2"
-                  src={require("../../../assets/img/Phone_Call.png")}
+                  src={require("../../../assets/img/phone.svg")}
                   alt="Logo"
                 />
-                + 234 802 785 5262
+                &nbsp;&nbsp;&nbsp;+ 234 802 785 5262
                 <br />{" "}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+234 805 154 4949
               </li>
               <li>
                 <img
                   className="logo1"
-                  src={require("../../../assets/img/Location PIN.svg")}
+                  src={require("../../../assets/img/location homepage.svg")}
                   alt="Logo"
                 />{" "}
                 &nbsp;&nbsp;6 Gbemisola Street,

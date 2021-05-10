@@ -643,13 +643,13 @@ const ClassroomTeacher = (props) => {
             <PopoverBody>Add student to classroom</PopoverBody>
           </Popover>
           <span
-            className="btn btn-success"
+            className="btn dColor"
             id="Popover1"
             onMouseOver={() => setPopoverOpen("true")}
             onMouseLeave={toggle}
             onClick={toggleModal}
           >
-            <FontAwesomeIcon icon={faPlus} />
+            <FontAwesomeIcon icon={faPlus}  />
           </span>
         </div>
         <div className="main-tabs container ">
