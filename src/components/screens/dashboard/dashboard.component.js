@@ -24,6 +24,9 @@ import "rc-tooltip/assets/bootstrap_white.css";
 
 import norecent from "../../../assets/img/norecent.png";
 import norecommend from "../../../assets/img/norecommend.png";
+import RecentActivityLoader from "../../includes/Loaders/recentActivitiesLoader.component";
+import RecommendationLoader from "../../includes/Loaders/recommendationLoader.component";
+import ClassesLoader from "../../includes/Loaders/classesLoader.component";
 
 const Dashboard = (props) => {
   const {
@@ -53,7 +56,7 @@ const Dashboard = (props) => {
     props.authInputChange("activeCoursePaidStatus", false);
     const data = {
       enrolledCourseId: activeEnrolledCourseId,
-    };  
+    };
     props.populateDashboard(activeEnrolledCourseId ? data : null);
     // } else {
     // do componentDidUpdate logic
@@ -148,7 +151,7 @@ const Dashboard = (props) => {
       let recommend = dashboardData.recommendation;
       // eslint-disable-next-line array-callback-return
       return recommend.map((item, index) => {
-        if (index < 3 && item.recommended) { 
+        if (index < 3 && item.recommended) {
           return (
             <RecommendBox
               pastQuestions={item.type === "lesson" ? false : true}
@@ -357,37 +360,13 @@ const Dashboard = (props) => {
             </Tooltip>
           </div>
         </div>
-        {isLoading ? (
-          <img
-            className="centerImage"
-            src={require("../../../assets/img/loading.gif")}
-            alt="google"
-          />
-        ) : (
-          classList()
-        )}
+        {isLoading ? <ClassesLoader /> : classList()}
         <a name="recommendations"></a>
         <h4 className="push5">Recommendations</h4>
-        {isLoading ? (
-          <img
-            className="centerImage"
-            src={require("../../../assets/img/loading.gif")}
-            alt="google"
-          />
-        ) : (
-          recommendationList()
-        )}
+        {isLoading ? <RecommendationLoader /> : recommendationList()}
         <a name="recentActivities"></a>
         <h4 className="push5">Recent Activities</h4>
-        {isLoading ? (
-          <img
-            className="centerImage"
-            src={require("../../../assets/img/loading.gif")}
-            alt="google"
-          />
-        ) : (
-          recentActivitiesList()
-        )}
+        {isLoading ? <RecentActivityLoader /> : recentActivitiesList()}
       </div>
     </span>
   );
