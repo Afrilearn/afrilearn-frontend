@@ -13,7 +13,6 @@ const ClassesLoader = () => {
         <div className="col-md-4">
           <Skeleton />
         </div>
-
         <div className="col-md-4 right ">
           <Skeleton />
         </div>

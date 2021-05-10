@@ -3,7 +3,7 @@ import "./css/style.css";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import PastQuestionsBox from "../../includes/pastQuestions/box.component";
 import PerformanceBox from "../../includes/dashboard/performance.component";
-import RecentActivitesBox from "../../includes/dashboard/recentActivities.component";
+import RecentActivitesBox from "../../includes/dashboard/recentActivityDashboard.component";
 import ClassroomBox from "../../includes/dashboard/classroom.component";
 import RecommendBox from "../../includes/dashboard/recommend.component";
 import { PieChart } from "react-minimal-pie-chart";
@@ -244,11 +244,13 @@ const Dashboard = (props) => {
       // );
     }
   };
+
   String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+  
   return (
     <span id="classes" className="dashboard">
       <div id="dashboardFirstSection" className="container-fluid relative">
