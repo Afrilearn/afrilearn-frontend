@@ -51,6 +51,7 @@ import slugify from "react-slugify";
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
   // console.log(parsed);
+  console.log("parsed", parsed);
 
   const {
     course,
@@ -268,6 +269,7 @@ const LessonPage = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
+      storeProgress();
       if (
         subject &&
         subject.relatedLessons &&
@@ -325,14 +327,14 @@ const LessonPage = (props) => {
   const toggleModal = () => setModal(!modal);
   let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now or visit https://myafrilearn.com/`;
 
-  const storeProgress = (lesson) => {
-    props.addRecentActivity(lesson && lesson._id, "lesson");
+  const storeProgress = () => {
+    props.addRecentActivity(parsed.lessonId, "lesson");
     props.addSubjectProgress(
       inClass ? clazz._id : null,
-      lesson && lesson._id,
-      lesson && lesson.subjectId,
-      lesson && lesson.courseId,
-      lesson && lesson._id,
+      parsed.lessonId,
+      parsed.subjectId,
+      parsed.courseId,
+      parsed.lessonId,
       "lesson"
     );
   };
@@ -532,7 +534,6 @@ const LessonPage = (props) => {
                   return openPopFour();
                 }
               } else {
-                storeProgress(prevLesson);
               }
             }}
             title={
@@ -595,7 +596,6 @@ const LessonPage = (props) => {
                   return openPopThree();
                 }
               } else {
-                storeProgress(nextLesson);
               }
             }}
             title={
@@ -637,7 +637,6 @@ const LessonPage = (props) => {
         <Link
           className="button"
           to={linkToPreviousLessonClassNote}
-          onClick={storeProgress(prevLesson)}
         >
           Yes! Proceed to Class Note
         </Link>
@@ -655,7 +654,6 @@ const LessonPage = (props) => {
         <Link
           className="button"
           to={linkToNextLessonClassNote}
-          onClick={storeProgress(nextLesson)}
         >
           Yes! Proceed to Class Note
         </Link>

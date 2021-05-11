@@ -65,11 +65,12 @@ const ClassNote = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
+      storeProgress();
     } else {
       window.scrollTo(0, 0);
       // do componentDidUpdate logic
     }
-  });
+  }, [parsed.lessonId]);
   var decodeEntities = (function () {
     // this prevents any overhead from creating the object each time
     var element = document.createElement("div");
@@ -152,6 +153,17 @@ const ClassNote = (props) => {
     nextLesson && !activeCoursePaidStatus && currentLessonIndex + 1 !== 0;
   let shareLink = `https://www.myafrilearn.com/`;
 
+  const storeProgress = () => {
+    props.addRecentActivity(parsed.lessonId, "lesson");
+    props.addSubjectProgress(
+      inClass ? clazz._id : null,
+      parsed.lessonId,
+      parsed.subjectId,
+      parsed.courseId,
+      parsed.lessonId,
+      "lesson"
+    );
+  };
   const onClickClassNote = (lesson) => {
     props.addRecentActivity(lesson && lesson._id, "lesson");
     props.addSubjectProgress(
@@ -247,8 +259,13 @@ const ClassNote = (props) => {
           <div className="next-lesson-or-quiz">
             {nextLesson ? (
               <div>
-                <p>You have completed "{targetLesson.title}" </p>
-                {targetLesson.questions && targetLesson.questions.length > 0 ? (
+                <p>
+                  You have completed "{targetLesson && targetLesson.title}"{" "}
+                </p>
+                {targetLesson &&
+                targetLesson.questions &&
+                targetLesson &&
+                targetLesson.questions.length > 0 ? (
                   <div>
                     <p>Next: Quiz</p>
                     <Link to="/lesson/quiz/instructions">
@@ -273,7 +290,6 @@ const ClassNote = (props) => {
                       <button
                         onClick={() => {
                           toggle2();
-                          onClickClassNote(nextLesson);
                         }}
                       >
                         Go to Next Lesson
@@ -369,9 +385,7 @@ const ClassNote = (props) => {
                 : `/content/${parsed.courseId}/${parsed.subjectId}`
             }
             onClick={(e) => {
-              prevNotAllowed
-                ? e.preventDefault()
-                : onClickClassNote(prevLesson);
+              prevNotAllowed && e.preventDefault();
             }}
             className="button button1"
             data-bs-toggle="tooltip"
@@ -399,8 +413,12 @@ const ClassNote = (props) => {
                 <p>Back to</p>
               )}
               <h6 className="custom-green">
-                {prevLesson ? prevLesson.title.slice(0, 20) : "Subject Page"}
-                {prevLesson && prevLesson.title.length > 20 ? "..." : null}
+                {prevLesson
+                  ? prevLesson.title && prevLesson.title.slice(0, 20)
+                  : "Subject Page"}
+                {prevLesson && prevLesson.title && prevLesson.title.length > 20
+                  ? "..."
+                  : null}
               </h6>
             </div>
           </Link>
@@ -409,29 +427,13 @@ const ClassNote = (props) => {
             {props.subject && lessons && lessons.length}
           </div>
           <Link
-            to={
-              nextLesson
-                ? `/classnote/${
-                    props.subject.courseId &&
-                    slugify(props.subject.courseId.name)
-                  }/${
-                    props.subject.mainSubjectId &&
-                    slugify(props.subject.mainSubjectId.name)
-                  }/${nextLesson && slugify(nextLesson.title)}?courseId=${
-                    parsed.courseId
-                  }&subjectId=${parsed.subjectId}&lessonId=${
-                    nextLesson && nextLesson._id
-                  }&termId=${nextLesson && nextLesson.termId}`
-                : `/content/${parsed.courseId}/${parsed.subjectId}`
-            }
+            to="#"
             onClick={(e) => {
               if (nextNotAllowed) {
                 e.preventDefault();
               } else {
                 toggle2();
               }
-              // nextNotAllowed ? e.preventDefault() : toggle2();
-              // : onClickClassNote(nextLesson);
             }}
             className="button button2"
             data-bs-toggle="tooltip"
@@ -448,8 +450,12 @@ const ClassNote = (props) => {
             <div>
               <p>{nextLesson ? "Next Lesson" : "Back to"}</p>
               <h6 className="custom-green">
-                {nextLesson ? nextLesson.title.slice(0, 20) : "Subject Page"}
-                {nextLesson && nextLesson.title.length > 20 ? "..." : null}
+                {nextLesson
+                  ? nextLesson.title && nextLesson.title.slice(0, 20)
+                  : "Subject Page"}
+                {nextLesson && nextLesson.title && nextLesson.title.length > 20
+                  ? "..."
+                  : null}
               </h6>
             </div>
             <FontAwesomeIcon
