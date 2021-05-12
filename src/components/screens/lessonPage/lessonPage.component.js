@@ -515,9 +515,7 @@ const LessonPage = (props) => {
             <div className="icon">
               <Speech
                 id="audio"
-                text={decodeEntities(video && video.transcript)}                
-                pause={true} 
-                textAsButton={true}
+                text={decodeEntities(video && video.transcript)} 
                 displayText={
                   <FontAwesomeIcon icon={faMicrophone} color="white" />
                 }
