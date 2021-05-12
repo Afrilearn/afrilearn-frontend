@@ -36,6 +36,8 @@ import {
   SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS,
   SCHOOL_DELETE_STUDENT_ACCOUNT_FAILURE,
   GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
+  DELETE_ASSIGNED_CONTENT_SUCCESS,
+  DELETE_ASSIGNED_CONTENT_FAILURE,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -228,7 +230,9 @@ export const getClass = (classId) => async (dispatch) => {
   }
 };
 
-export const getMembersInClass = (classId, paymentClass = false) => async (dispatch) => {
+export const getMembersInClass = (classId, paymentClass = false) => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: CLASS_INPUT_CHANGE,
@@ -239,7 +243,7 @@ export const getMembersInClass = (classId, paymentClass = false) => async (dispa
     });
     document.body.classList.add("loading-indicator");
     const result = await API.getStudentsInClass(classId);
-    
+
     if (paymentClass) {
       dispatch({
         type: GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
@@ -254,8 +258,6 @@ export const getMembersInClass = (classId, paymentClass = false) => async (dispa
         },
       });
     }
-
-   
 
     document.body.classList.remove("loading-indicator");
     dispatch({
@@ -428,21 +430,9 @@ export const sendClassRequest = (classCode) => async (dispatch, getState) => {
   }
 };
 
-export const assignContent = (
-  description,
-  lessonId,
-  classId,
-  dueDate,
-  userId
-) => async (dispatch, getState) => {
+export const assignContent = (data, classId) => async (dispatch, getState) => {
   try {
-    await API.assignContentToStudent(
-      description,
-      lessonId,
-      classId,
-      dueDate,
-      userId
-    );
+    await API.assignContentToStudent(data, classId);
     dispatch({
       type: ASSIGN_CONTENT_TO_STUDENT_SUCCESS,
     });
@@ -465,6 +455,39 @@ export const assignContent = (
     );
     dispatch({
       type: ASSIGN_CONTENT_TO_STUDENT_FAILURE,
+    });
+  }
+};
+
+export const deleteAssignedContent = (classWorkId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const result = await API.deleteAssignedContent(classWorkId);
+    dispatch({
+      type: DELETE_ASSIGNED_CONTENT_SUCCESS,
+      payload: result.data.data.createdContent,
+    });
+    dispatch(
+      returnErrors(
+        "Content has been removed",
+        "200",
+        "DELETE_ASSIGNED_CONTENT_SUCCESS"
+      )
+    );
+  } catch (err) {
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "DELETE_ASSIGNED_CONTENT_FAILURE"
+      )
+    );
+    dispatch({
+      type: DELETE_ASSIGNED_CONTENT_FAILURE,
     });
   }
 };
