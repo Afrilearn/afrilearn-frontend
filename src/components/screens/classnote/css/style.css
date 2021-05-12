@@ -56,7 +56,7 @@
 
 #classNoteSecondSection .title {
   margin-top: 40px;
-  color: #84BB29;
+  color: #84bb29;
   font-family: font2;
   font-size: 23px;
 }
@@ -152,7 +152,7 @@
   font-size: 28px;
   font-weight: lighter;
 }
- 
+
 #classNoteSecondSection #navigation .button1 {
   justify-content: flex-start;
 }
@@ -177,7 +177,7 @@
 }
 
 .custom-green {
-  color: #84BB29;
+  color: #84bb29;
 }
 
 @media screen and (max-width: 900px) {
@@ -220,10 +220,16 @@
   background-color: #fff;
   text-align: center;
 }
+.next-lesson-or-quiz h3 {
+  font-weight: 900;
+}
 .next-lesson-or-quiz button {
   background: #26aa76;
   border-radius: 100px;
   padding: 10px 20px;
   border: none;
   color: #ffffff;
+}
+#navigation .button {
+  cursor: pointer;
 }
