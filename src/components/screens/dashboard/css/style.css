@@ -41,7 +41,9 @@ h6.jj {
   font-family: font2;
   margin-bottom: 20px;
 }
-
+.dashboard .recommedtn p{
+  margin-bottom: 0px !important;
+}
 .dashboard .pastQuestionsBox {
   display: block;
   background: #fc8a07;
@@ -68,7 +70,7 @@ h6.jj {
 }
 
 .dashboard .excel {
-  background: #1b7763;
+  background: #84BB29;
 }
 
 .dashboard .average {

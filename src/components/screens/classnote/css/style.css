@@ -10,7 +10,9 @@
   height: calc(105vh);
   padding-top: 165px;
 }
-
+.next-lesson-or-quiz p {
+  font-size: 25px;
+}
 #classNoteFirstSection h1 {
   font-family: font2;
   text-align: center;

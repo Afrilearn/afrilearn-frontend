@@ -615,4 +615,68 @@ export default {
       data: { fullName, password, email, classId, schoolId, courseId },
     });
   },
+  getDashboardEnrolledCourse(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/dashboard/web`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  getDashboardClassMembership(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/dashboard/class-membership`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  getDashboardRecommendations(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/dashboard/recommendations`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  getDashboardRecentActivites(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/dashboard/recentActivities`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  getDashboardPerformanceSummary(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}/dashboard/student-performance-summary`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  getSubjectProgressPerformance(courseId, data) {
+    return axios({
+      method: "post",
+      url: `${this.url}courses/${courseId}/progress`,
+      headers: this.headers(),
+      data
+    });
+  },
+  getSubjectQuizPerformance(courseId, data) {
+    return axios({
+      method: "post",
+      url: `${this.url}courses/${courseId}/subject-performance`,
+      headers: this.headers(),
+      data
+    });
+  },
+  getSubjectPastQuestionsPerformance(courseId, data) {
+    return axios({
+      method: "post",
+      url: `${this.url}courses/${courseId}/past-question-performance`,
+      headers: this.headers(),
+      data
+    });
+  },
 };

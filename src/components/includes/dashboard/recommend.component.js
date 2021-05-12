@@ -5,7 +5,7 @@ import Lessons from "../../../assets/img/play.png";
 
 const Box = (props) => {
   return (
-    <div className="row push10 bottomBorder">
+    <div className="row push10 bottomBorder recommedtn">
       <div className="col-md-2">
         <span className="recommend">
           <Link

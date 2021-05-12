@@ -226,7 +226,7 @@ a:hover {
 }
 
 .swal2-styled.swal2-confirm {
-  background-color: #249d6d !important;
+  background-color: #84BB29  !important;
 }
 
 .underline {
@@ -417,7 +417,7 @@ input.general {
 }
 
 input.authSubmit {
-  background: #249d6d;
+  background: #84BB29 ;
   color: white;
   text-align: center;
   font-weight: bolder;

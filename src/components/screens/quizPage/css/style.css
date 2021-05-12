@@ -109,7 +109,7 @@
   color: white;
 }
 #quizPageSectionOne .left .action-buttons .submit-button {
-  background-color: #249d6d;
+  background-color: #84BB29 ;
 }
 #quizPageSectionOne .right {
   flex: 0 0 47%;
@@ -144,7 +144,7 @@
 }
 #quizPageSectionOne .right .questions-answered .active {
   color: white;
-  background-color: #249d6d;
+  background-color: #84BB29 ;
 }
 #quizPageSectionOne .right .questions-answered .skipped {
   color: white;
@@ -235,7 +235,7 @@
   border-radius: 100px;
   border: none;
   margin: 20px;
-  background-color: #249d6d;
+  background-color: #84BB29 ;
   color: white;
 }
 #quizPageSectionTwo button:hover {
