@@ -196,7 +196,7 @@ const ClassNote = (props) => {
     parsed.courseId
   }&subjectId=${parsed.subjectId}&lessonId=${
     nextLesson && nextLesson._id
-  }&termId=${nextLesson && nextLesson.termId}`; 
+  }&termId=${nextLesson && nextLesson.termId}`;
 
   const [stopRedirect, setStopRedirect] = useState(false);
   return (
@@ -361,10 +361,14 @@ const ClassNote = (props) => {
       <Modal isOpen={modal3} toggle={toggle3}>
         <ModalHeader toggle={toggle3}>&nbsp;</ModalHeader>
         <ModalBody>
-          <div className="next-lesson-or-quiz">
-            <p>Subscribe to Unlock</p>
+          <div className="next-lesson-or-quiz py-5 px-2">
+            <h3>You need to subscribe to access this content!</h3>
+            <p>
+              Subscribe now to unlock all videos, class notes, tests & more in
+              this class.
+            </p>
             <Link to="/select-pay">
-              <button>Pay now</button>
+              <button>SUBSCRIBE NOW</button>
             </Link>
           </div>
         </ModalBody>
