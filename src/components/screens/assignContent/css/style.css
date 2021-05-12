@@ -18,7 +18,7 @@
   }
 }
 #assignContentPageSectionOne h4 {
-  color: #84BB29;
+  color: #84bb29;
 }
 #assignContentPageSectionTwo {
   background-color: black;
@@ -55,13 +55,12 @@
 #assignContentPageSectionTwo .input-textarea textarea::placeholder {
   color: white;
   font-size: 1.25rem;
-
 }
 #assignContentPageSectionTwo .attachment {
   color: white;
 }
 #assignContentPageSectionTwo .attachment legend {
-  color: #84BB29;
+  color: #84bb29;
   font-size: 16px;
 }
 #assignContentPageSectionTwo .attachment .row {
@@ -121,5 +120,30 @@
   border: none;
   border-radius: 100px;
   color: white;
-  background-color: #84BB29;
+  background-color: #84bb29;
+}
+#assignContentPageSectionTwo .list-group-item {
+  color: white;
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%
+  );
+  margin-bottom: 2px;
+}
+#assignContentPageSectionTwo .card p {
+  font-size: 17px;
+  font-weight: 500;
+}
+#assignContentPageSectionTwo .card small {
+  font-size: 14px;
+  color: grey;
+}
+.black-bag {
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%
+  );
+  color: white;
 }

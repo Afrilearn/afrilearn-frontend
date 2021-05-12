@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: HerokuURL,
+  url: LocalURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -316,12 +316,19 @@ export default {
     });
   },
 
-  assignContentToStudent(description, lessonId, classId, dueDate, userId) {
+  assignContentToStudent(data, classId) {
     return axios({
       method: "post",
       url: `${this.url}classes/${classId}/assign-content`,
       headers: this.headers(),
-      data: { description, lessonId, classId, dueDate, userId },
+      data,
+    });
+  },
+
+  deleteAssignedContent(classworkId) {
+    return axios({
+      method: "delete",
+      url: `${this.url}classes/assigned-content/${classworkId}/`,
     });
   },
 

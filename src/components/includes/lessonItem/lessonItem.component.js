@@ -40,32 +40,7 @@ const LessonItem = (props) => {
 
   const isStudent = role === "5fd08fba50964811309722d5";
 
-  const onClickLesson = (lesson) => {
-    if (activeCoursePaidStatus || unlocked) {
-      props.addRecentActivity(lesson._id, "lesson");
-      props.addSubjectProgress(
-        inClass ? clazz._id : null,
-        lesson._id,
-        lesson.subjectId,
-        lesson.courseId,
-        lesson._id,
-        "lesson"
-      );
-    }
-  };
-  const onClickClassNote = (lesson) => {
-    if (activeCoursePaidStatus || unlocked) {
-      props.addRecentActivity(lesson._id, "lesson");
-      props.addSubjectProgress(
-        inClass ? clazz._id : null,
-        lesson._id,
-        lesson.subjectId,
-        lesson.courseId,
-        lesson._id,
-        "lesson"
-      );
-    }
-  };
+
   const onClickQuiz = (lesson) => {
     if (activeCoursePaidStatus || unlocked) {
       props.addRecentActivity(lesson._id, "quiz");
@@ -216,11 +191,7 @@ const LessonItem = (props) => {
       return lesson.videoUrls.map((item, index) => {
         return (
           <>
-            <div
-              class="col-md-3"
-              key={index}
-              onClick={() => onClickLesson(lesson)}
-            >
+            <div class="col-md-3" key={index}>
               <Tooltip
                 overlay={lesonToolTipsComponent}
                 placement="top"
@@ -351,10 +322,7 @@ const LessonItem = (props) => {
                 }}
                 // className="quizButton"
               >
-                <div
-                  className="term_item_left_bottom_item "
-                  onClick={() => onClickClassNote(lesson)}
-                >
+                <div className="term_item_left_bottom_item ">
                   <button>Study Class Note</button>
                 </div>
               </Link>

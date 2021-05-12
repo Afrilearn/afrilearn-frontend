@@ -375,7 +375,7 @@ const Box = (props) => {
     </>
   );
 };
-
+ 
 Box.propTypes = {
   inputChange: PropTypes.func.isRequired,
 };
