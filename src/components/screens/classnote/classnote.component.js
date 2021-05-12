@@ -483,6 +483,9 @@ const ClassNote = (props) => {
             onClick={(e) => {
               if (nextNotAllowed) {
                 e.preventDefault();
+                if (!activeCoursePaidStatus) {
+                  return toggle3();
+                }
               } else {
                 toggle2();
               }
