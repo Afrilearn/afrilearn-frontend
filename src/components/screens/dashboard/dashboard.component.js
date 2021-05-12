@@ -12,6 +12,11 @@ import { connect } from "react-redux";
 import {
   populateDashboard,
   inputChange,
+  populateDashboardEnrolledCourses,
+  populateDashboardClassMembership,
+  populateDashboardRecommendations,
+  populateDashboardRecentActivities,
+  populateDashboardPerformanceSummary
 } from "./../../../redux/actions/courseActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import { sendClassRequest } from "./../../../redux/actions/classActions";
@@ -27,6 +32,8 @@ import norecommend from "../../../assets/img/norecommend.png";
 import RecentActivityLoader from "../../includes/Loaders/recentActivitiesLoader.component";
 import RecommendationLoader from "../../includes/Loaders/recommendationLoader.component";
 import ClassesLoader from "../../includes/Loaders/classesLoader.component";
+import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
+import PastQuestionsLoader from "../../includes/Loaders/pastQuestionsBox.component";
 
 const Dashboard = (props) => {
   const {
@@ -44,12 +51,20 @@ const Dashboard = (props) => {
     course,
     isLoading,
     error,
+    dashboardEnrolledCourse,
+    dashboardClassMembership,
+    classMembershipLoader,
+    dashboardRecommendations,
+    recommendationLoader,
+    enrolledCourseLoader,
+    dashboardRecentActivites,
+    recentActivitiesLoader,
+    performanceSummaryLoader
   } = props;
   const mounted = useRef();
 
   useEffect(() => {
-    // if (!mounted.current) {
-    // do componentDidMount logic
+   
     mounted.current = true;
     window.scrollTo(0, 0);
     props.authInputChange("inClass", false);
@@ -57,19 +72,17 @@ const Dashboard = (props) => {
     const data = {
       enrolledCourseId: activeEnrolledCourseId,
     };
-    props.populateDashboard(activeEnrolledCourseId ? data : null);
-    // } else {
-    // do componentDidUpdate logic
-    // }
+    props.populateDashboardEnrolledCourses(activeEnrolledCourseId ? data : null);
+    // props.populateDashboard(activeEnrolledCourseId ? data : null);
+    props.populateDashboardClassMembership(activeEnrolledCourseId ? data : null);
+    props.populateDashboardRecommendations(activeEnrolledCourseId ? data : null);
+    props.populateDashboardRecentActivities(activeEnrolledCourseId ? data : null);
+    props.populateDashboardPerformanceSummary(activeEnrolledCourseId ? data : null);
   }, [activeEnrolledCourseId]);
 
   const subjectList = () => {
-    if (
-      Object.keys(dashboardData).length &&
-      dashboardData.enrolledCourse &&
-      Object.keys(dashboardData.enrolledCourse).length
-    ) {
-      let subjects = dashboardData.enrolledCourse.courseId.relatedSubjects;
+    if (dashboardEnrolledCourse && dashboardEnrolledCourse.enrolledCourse) {
+      let subjects = dashboardEnrolledCourse.enrolledCourse.courseId.relatedSubjects;
       return subjects.map((item) => {
         return (
           <Box
@@ -79,9 +92,9 @@ const Dashboard = (props) => {
             compiledNotes={item.relatedLessons.length}
             registeredUsers={50000}
             subjectName={item.mainSubjectId.name}
-            courseId={dashboardData.enrolledCourse.courseId._id}
+            courseId={dashboardEnrolledCourse.enrolledCourse.courseId._id}
             introText={item.mainSubjectId.introText}
-            courseName={dashboardData.enrolledCourse.courseId.name}
+            courseName={dashboardEnrolledCourse.enrolledCourse.courseId.name}
             subjectId={item._id}
           />
         );
@@ -92,14 +105,9 @@ const Dashboard = (props) => {
   };
 
   const pastQuestionsList = () => {
-    if (
-      Object.keys(dashboardData).length &&
-      dashboardData.enrolledCourse &&
-      Object.keys(dashboardData.enrolledCourse.courseId.relatedPastQuestions)
-        .length
-    ) {
+    if (dashboardEnrolledCourse && dashboardEnrolledCourse.enrolledCourse && dashboardEnrolledCourse.enrolledCourse.courseId.relatedPastQuestions.length) {
       let pastQuestions =
-        dashboardData.enrolledCourse.courseId.relatedPastQuestions;
+      dashboardEnrolledCourse.enrolledCourse.courseId.relatedPastQuestions;
       return pastQuestions.map((item, index) => {
         return (
           <PastQuestionsBox
@@ -111,16 +119,13 @@ const Dashboard = (props) => {
         );
       });
     } else {
-      return <h6>No past questions yet</h6>;
+      return <h6> &nbsp;No past questions yet</h6>;
     }
   };
 
   const classList = () => {
-    if (
-      Object.keys(dashboardData).length &&
-      dashboardData.classMembership.length
-    ) {
-      return dashboardData.classMembership.map((item, index) => {
+    if (dashboardClassMembership && dashboardClassMembership.classMembership && dashboardClassMembership.classMembership.length) {
+      return dashboardClassMembership.classMembership.map((item, index) => {
         return (
           <ClassroomBox
             bullet2={index % 2 === 0 ? true : false}
@@ -144,11 +149,8 @@ const Dashboard = (props) => {
   };
 
   const recommendationList = () => {
-    if (
-      Object.keys(dashboardData).length &&
-      dashboardData.recommendation.length
-    ) {
-      let recommend = dashboardData.recommendation;
+    if (dashboardRecommendations && dashboardRecommendations.recommendation && dashboardRecommendations.recommendation.length) {
+      let recommend = dashboardRecommendations.recommendation;
       // eslint-disable-next-line array-callback-return
       return recommend.map((item, index) => {
         if (index < 3 && item.recommended) {
@@ -172,11 +174,8 @@ const Dashboard = (props) => {
   };
 
   const recentActivitiesList = () => {
-    if (
-      Object.keys(dashboardData).length &&
-      dashboardData.recentActivities.length
-    ) {
-      let activity = dashboardData.recentActivities;
+    if (dashboardRecentActivites && dashboardRecentActivites.recentActivities && dashboardRecentActivites.recentActivities.length) {
+      let activity = dashboardRecentActivites.recentActivities;
       // eslint-disable-next-line array-callback-return
       return activity.map((item, index) => {
         if (index < 3) {
@@ -257,14 +256,14 @@ const Dashboard = (props) => {
         <div className="row">
           <div className="col-md-12">
             <h1>
-              {isLoading ? (
+              {enrolledCourseLoader ? (
                 <img
                   className="social"
                   src={require("../../../assets/img/loading.gif")}
                   alt="google"
                 />
-              ) : dashboardData.enrolledCourse ? (
-                dashboardData.enrolledCourse.courseId.name
+              ) : dashboardEnrolledCourse.enrolledCourse ? (
+                dashboardEnrolledCourse.enrolledCourse.courseId.name
               ) : (
                 "Welcome"
               )}
@@ -289,61 +288,69 @@ const Dashboard = (props) => {
           </div>
         </div>
       </div>
-      <div id="dashboardSecondSection" className="container-fluid relative">
-        {Object.keys(dashboardData).length && dashboardData.enrolledCourse ? (
-          <>
-            <a name="subjects"></a>
-            <h4>My Subjects</h4>
-            <div className="row">{subjectList()}</div>
-            <a name="pastQuestions"></a>
-            <h4 className="push5">Past Questions</h4>
-            <div className="row jj">{pastQuestionsList()}</div>
-            <a name="performance"></a>
-            <h4 className="push5">Performance Summary</h4>
-            <div className="row">
-              <div className="col-md-4 myChart">
-                <PieChart
-                  data={[
-                    {
-                      title: "Below Average",
-                      value: belowAverage,
-                      color: "#FF5B5B",
-                    },
-                    { title: "Average", value: average, color: "#FDAD51" },
-                    { title: "No Rating", value: noRating, color: "#908989" },
-                    { title: "Excelling", value: excelling, color: "#1B7763" },
-                  ]}
-                  lineWidth={32}
-                  rounded
-                />
-              </div>
-              <div className="col-md-8 subjectList">
-                <PerformanceBox
-                  excel={true}
-                  title="Excelling In"
-                  data={excellingText}
-                />
-                <PerformanceBox
-                  average={true}
-                  title="Average In"
-                  data={averageText}
-                />
-                <PerformanceBox
-                  belowAverage={true}
-                  title="Below Average In"
-                  data={belowAverageText}
-                />
-                <PerformanceBox
-                  noRating={true}
-                  title="No rating"
-                  data={noRatingText}
-                />
-              </div>
-            </div>
-          </>
-        ) : (
-          ""
-        )}
+      <div id="dashboardSecondSection" className="container-fluid relative">      
+        <a name="subjects"></a>
+        <h4>My Subjects</h4>
+        {activeEnrolledCourseId && enrolledCourseLoader?
+         <SubjectLoader/>:
+          <div className="row">
+            {subjectList()}
+          </div>
+        }
+        <a name="pastQuestions"></a>
+        <h4 className="push5">Past Questions</h4>       
+        {activeEnrolledCourseId && enrolledCourseLoader?
+         <PastQuestionsLoader/>:
+          <div className="row jj">
+           {pastQuestionsList()}
+          </div>
+        }      
+        <a name="performance"></a>
+        <h4 className="push5">Performance Summary</h4>
+        {activeEnrolledCourseId && performanceSummaryLoader?
+         <RecentActivityLoader />:
+        <div className="row">       
+          <div className="col-md-4 myChart">
+            <PieChart
+              data={[
+                {
+                  title: "Below Average",
+                  value: belowAverage,
+                  color: "#FF5B5B",
+                },
+                { title: "Average", value: average, color: "#FDAD51" },
+                { title: "No Rating", value: noRating, color: "#908989" },
+                { title: "Excelling", value: excelling, color: "#84BB29 " },
+              ]}
+              lineWidth={32}
+              rounded
+            />
+          </div>
+          <div className="col-md-8 subjectList">
+            <PerformanceBox
+              excel={true}
+              title="Excelling In"
+              data={excellingText}
+            />
+            <PerformanceBox
+              average={true}
+              title="Average In"
+              data={averageText}
+            />
+            <PerformanceBox
+              belowAverage={true}
+              title="Below Average In"
+              data={belowAverageText}
+            />
+            <PerformanceBox
+              noRating={true}
+              title="No rating"
+              data={noRatingText}
+            />
+          </div>
+        </div>
+        } 
+      
         <a name="classroom"></a>
         <h4 className="push5">Classroom</h4>
         <div className="row push8">
@@ -362,13 +369,15 @@ const Dashboard = (props) => {
             </Tooltip>
           </div>
         </div>
-        {isLoading ? <ClassesLoader /> : classList()}
+        {classMembershipLoader ? <ClassesLoader /> : classList()}
+        
         <a name="recommendations"></a>
         <h4 className="push5">Recommendations</h4>
-        {isLoading ? <RecommendationLoader /> : recommendationList()}
-        <a name="recentActivities"></a>
+        {recommendationLoader ? <RecommendationLoader /> : recommendationList()}
+       
+        <a name="recentActivities"></a>        
         <h4 className="push5">Recent Activities</h4>
-        {isLoading ? <RecentActivityLoader /> : recentActivitiesList()}
+        {recentActivitiesLoader ? <RecentActivityLoader /> : recentActivitiesList()}      
       </div>
     </span>
   );
@@ -379,6 +388,11 @@ Dashboard.propTypes = {
   inputChange: PropTypes.func.isRequired,
   sendClassRequest: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
+  populateDashboardEnrolledCourses: PropTypes.func.isRequired,
+  populateDashboardClassMembership: PropTypes.func.isRequired,
+  populateDashboardRecommendations: PropTypes.func.isRequired,
+  populateDashboardRecentActivities: PropTypes.func.isRequired,
+  populateDashboardPerformanceSummary: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -396,6 +410,15 @@ const mapStateToProps = (state) => ({
   noRatingText: state.course.noRatingText,
   isLoading: state.course.isLoading,
   error: state.error,
+  enrolledCourseLoader: state.course.enrolledCourseLoader,
+  dashboardEnrolledCourse: state.course.dashboardEnrolledCourse,
+  dashboardClassMembership: state.course.dashboardClassMembership,
+  classMembershipLoader: state.course.classMembershipLoader,
+  dashboardRecommendations: state.course.dashboardRecommendations,
+  recommendationLoader: state.course.recommendationLoader,
+  dashboardRecentActivites: state.course.dashboardRecentActivites,
+  recentActivitiesLoader: state.course.recentActivitiesLoader,
+  performanceSummaryLoader: state.course.performanceSummaryLoader,
 });
 
 export default connect(mapStateToProps, {
@@ -404,4 +427,9 @@ export default connect(mapStateToProps, {
   sendClassRequest,
   authInputChange,
   clearErrors,
+  populateDashboardEnrolledCourses,
+  populateDashboardClassMembership,
+  populateDashboardRecommendations,
+  populateDashboardRecentActivities,
+  populateDashboardPerformanceSummary
 })(Dashboard);

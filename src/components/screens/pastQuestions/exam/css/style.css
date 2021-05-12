@@ -1,8 +1,9 @@
 .Exam {
-    padding: 115px 90px 90px 90px;
+    padding: 115px 90px 120px 90px;
     background: black;
     margin-top: -81px;
     color: white;
+    height: 120vh;
 }
 
 .Exam .partOne {
@@ -54,11 +55,11 @@ img.motivation {
     font-size: 15px;
     font-family: font1;
     text-align: center;
-    background: #1b7763;
+    background: #84BB29 ;
 }
 
 .Exam .bg-success {
-    background-color: #1b7763 !important;
+    background-color: #84BB29  !important;
 }
 
 .Exam .push33 {
@@ -111,7 +112,7 @@ img.motivation {
 }
 
 .Exam a.previous {
-    background: #1b7763 !important;
+    background: #84BB29  !important;
 }
 
 .Exam a.skip {
@@ -141,7 +142,7 @@ img.motivation {
     font-size: 14px;
     font-family: font1;
     float: right;
-    background: #1b7763;
+    background: #84BB29 ;
 }
 
 .Exam .questionImgSection, .Exam .questionSection, .Exam .questionSection span, .Exam .questionSection p {
@@ -177,14 +178,14 @@ img.motivation {
     background: white;
     border-radius: 10px;
     padding: 3px 2px;
-    color: #1b7763;
+    color: #84BB29 ;
     font-family: font2;
     display: block;
     margin-bottom: 20px;
 }
 
 .Exam .selectedOption {
-    background: #1b7763 !important;
+    background: #84BB29  !important;
     color: white !important;
 }
 

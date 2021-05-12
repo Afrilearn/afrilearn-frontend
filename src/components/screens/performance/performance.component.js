@@ -8,10 +8,14 @@ import { inputChange } from "./../../../redux/actions/authActions";
 import {
   getPerformance,
   getPerformanceInClass,
+  populateSubjectProgressPerformance,
+  populateSubjectQuizPerformance,
+  populateSubjectPastQuestionsPerformance
 } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 import SubjectBox from "./../../includes/performance/subjectBox.component";
 import PastQuestionBox from "./../../includes/performance/pastQuestions.component";
+import SubjectProgressLoader from '../../includes/Loaders/subjectProgressLoader.component';
 
 const Performance = (props) => {
   const {
@@ -29,6 +33,11 @@ const Performance = (props) => {
     inClass,
     clazz,
     targetUser,
+    populateSubjectProgressPerformanceLoader,
+    quizPerformance,
+    populateSubjectQuizPerformanceLoader,
+    populateSubjectPastQuestionPerformanceLoader,
+    pastQuestionPeformance,
   } = props;
 
   const mounted = useRef(); 
@@ -37,15 +46,18 @@ const Performance = (props) => {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      const data = { classId: clazz._id };
+
+      const data = { classId: clazz? clazz._id:null };
+
       if (targetUser) {
         data.userId = targetUser._id;
       }
-      if (inClass) {
-        props.getPerformanceInClass(activeCourseId, data);
-      } else {
-        props.getPerformance(activeCourseId);
-      }
+           
+      props.populateSubjectProgressPerformance(activeCourseId, data)
+      props.populateSubjectQuizPerformance(activeCourseId, data)
+      props.populateSubjectPastQuestionsPerformance(activeCourseId, data)
+      
+      
     } else {
       // do componentDidUpdate logic
     }
@@ -57,8 +69,8 @@ const Performance = (props) => {
   };
 
   const subjectList = () => {
-    if (performance.subjectsList && performance.subjectsList.length) {
-      let subjects = performance.subjectsList;
+    if (quizPerformance.subjectsList && quizPerformance.subjectsList.length) {
+      let subjects = quizPerformance.subjectsList;
       return subjects.map((item) => {
         return (
           <SubjectBox
@@ -80,8 +92,8 @@ const Performance = (props) => {
   };
 
   const pastQuestionsList = () => {
-    if (performance.examsList && performance.examsList.length) {
-      let exam = performance.examsList;
+    if (pastQuestionPeformance.examsList && pastQuestionPeformance.examsList.length) {
+      let exam = pastQuestionPeformance.examsList;
       return exam.map((item) => {
         return (
           <PastQuestionBox
@@ -101,6 +113,7 @@ const Performance = (props) => {
       return <h6>Performance loading...</h6>;
     }
   };
+
   String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -164,7 +177,8 @@ const Performance = (props) => {
               </div>
               <div className="row">
                 <div className="col-md-12">
-                  {barChart && barChart.length ? (
+                 {populateSubjectProgressPerformanceLoader? <SubjectProgressLoader/>:
+                  <>                    
                     <Chart
                       data={[
                         {
@@ -175,10 +189,9 @@ const Performance = (props) => {
                         },
                       ]}
                       keys={barChartTitles}
-                    />
-                  ) : (
-                    "Loading Chart..."
-                  )}
+                    />                   
+                  </>
+                 }                  
                 </div>
               </div>
             </span>
@@ -189,54 +202,7 @@ const Performance = (props) => {
                 <h3>Performance Analysis</h3>
               </div>
             </div>
-            <span className="box box1 box2">
-              {/* <div className="row">
-                <div className="col-md-12">Overrall</div>
-              </div>
-              <div className="row bottomBorder">
-                <div className="col-md-7">
-                  {overallProgress === 0 && overallPerformance === 0 ? (
-                    <PieChart
-                      data={[
-                        { title: "One", value: 50, color: "#50E55A" },
-                        // { title: 'Two', value: 15, color: '#FDAD51' },
-                        { title: "Three", value: 50, color: "#FF5B5B" },
-                      ]}
-                      lineWidth={40}
-                    />
-                  ) : (
-                    <PieChart
-                      data={[
-                        {
-                          title: "One",
-                          value: overallProgress,
-                          color: "#50E55A",
-                        },
-                        // { title: 'Two', value: 15, color: '#FDAD51' },
-                        {
-                          title: "Three",
-                          value: overallPerformance,
-                          color: "#FF5B5B",
-                        },
-                      ]}
-                      lineWidth={40}
-                    />
-                  )}
-                </div>
-                <div className="col-md-5">
-                  <div className="row push2">
-                    <div className="col-md-12 push1">
-                      <span className="legend commitment"></span>&nbsp;&nbsp;
-                      Progress: {overallProgress.toFixed(1)}%
-                    </div>
-                    <div className="col-md-12 push1">
-                      <span className="legend speed"></span>&nbsp;&nbsp;
-                      Performance: {overallPerformance.toFixed(1)}%
-                    </div>                  
-                  </div>
-                </div>
-              </div> */}
-             
+            <span className="box box1 box2">             
               <div className="row">
                 <div className="col-md-12">
                   <ul>
@@ -273,10 +239,10 @@ const Performance = (props) => {
                   </ul>
                 </div>
               </div>
-              {chartSection === "subject" ? (
-                <>{subjectList()}</>
+              {chartSection === "subject" ? (               
+                <>{populateSubjectQuizPerformanceLoader? <SubjectProgressLoader/>: subjectList()} </>
               ) : chartSection === "pastQuestions" ? (
-                <>{pastQuestionsList()}</>
+                <>{populateSubjectPastQuestionPerformanceLoader? <SubjectProgressLoader/>: pastQuestionsList()} </>
               ) : null}
             </span>
           </div>
@@ -306,9 +272,17 @@ const mapStateToProps = (state) => ({
   performance: state.course.performance,
   overallPerformance: state.course.overallPerformance,
   overallProgress: state.course.overallProgress,
+  populateSubjectProgressPerformanceLoader: state.course.populateSubjectProgressPerformanceLoader,
+  quizPerformance: state.course.quizPerformance,
+  populateSubjectQuizPerformanceLoader: state.course.populateSubjectQuizPerformanceLoader,
+  populateSubjectPastQuestionPerformanceLoader: state.course.populateSubjectPastQuestionPerformanceLoader,
+  pastQuestionPeformance: state.course.pastQuestionPeformance,
 });
 export default connect(mapStateToProps, {
   inputChange,
   getPerformance,
   getPerformanceInClass,
+  populateSubjectProgressPerformance,
+  populateSubjectQuizPerformance,
+  populateSubjectPastQuestionsPerformance
 })(Performance);
