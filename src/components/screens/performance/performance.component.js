@@ -133,7 +133,7 @@ const Performance = (props) => {
               <div className="col-md-12">
                 <img
                   className="ring"
-                  src={require("../../../assets/img/Ellipse.png")}
+                  src={require("../../../assets/img/profile circle.svg")}
                   alt="profilePix"
                 />
                 <img
