@@ -119,7 +119,6 @@ const ProfilePage = (props) => {
 
   useEffect(() => {
     if (!mounted.current) {
-  
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
@@ -360,16 +359,13 @@ const ProfilePage = (props) => {
     <React.Fragment>
       <div id="profilePageSectionOne"></div>
       <div id="profilePageSectionTwo">
-        <div class="circle">
-          {newProfilePic || user.profilePhotoUrl ? (
-            <img
-              className="ellipse"
-              src={newProfilePic || user.profilePhotoUrl}
-              alt="Profile"
-            ></img>
-          ) : (
-            <span>{myInitials}</span>
-          )}
+        <div
+          class="circle"
+          style={{
+            backgroundImage: `url(${newProfilePic || user.profilePhotoUrl})`,
+          }}
+        >
+          {!newProfilePic && !user.profilePhotoUrl && <span>{myInitials}</span>}
         </div>
         <div className="top-details">
           <div className="items">
@@ -378,8 +374,8 @@ const ProfilePage = (props) => {
                 {newName
                   ? newName
                   : user.fullName
-                    ? user.fullName
-                    : "Not Available"}
+                  ? user.fullName
+                  : "Not Available"}
               </h4>
               <p>{user.email ? user.email : "Not Available"}</p>
             </div>
@@ -389,7 +385,11 @@ const ProfilePage = (props) => {
                 style={{ marginRight: "15px", fontSize: "20px" }}
               />
               <p>
-                {newState ? newState : user.state ? user.state + " State," : "Not Available"}{" "}
+                {newState
+                  ? newState
+                  : user.state
+                  ? user.state + " State,"
+                  : "Not Available"}{" "}
                 {newCountry ? newCountry : user.country ? user.country : ""}
               </p>
             </div>
@@ -397,9 +397,9 @@ const ProfilePage = (props) => {
               <FontAwesomeIcon
                 icon={faEdit}
                 style={{ marginRight: "15px", fontSize: "20px" }}
-                id='editIcon'
+                id="editIcon"
               />
-              <p id='edit'>EDIT PROFILE</p>
+              <p id="edit">EDIT PROFILE</p>
             </div>
           </div>
         </div>
@@ -411,8 +411,8 @@ const ProfilePage = (props) => {
               {newPhone
                 ? newPhone
                 : user.phoneNumber
-                  ? user.phoneNumber
-                  : "Not Available"}
+                ? user.phoneNumber
+                : "Not Available"}
             </p>
             <p>
               State: &nbsp;{" "}
@@ -423,8 +423,8 @@ const ProfilePage = (props) => {
               {newGender
                 ? newGender
                 : user.gender
-                  ? user.gender
-                  : "Not Available"}
+                ? user.gender
+                : "Not Available"}
             </p>
 
             <p>
@@ -464,11 +464,11 @@ const ProfilePage = (props) => {
           </table>
         </div>
         <div className="row refer mt-3">
-          <div className="col-md-12 mb-3" style={{ padding: '0 35px' }}>
+          <div className="col-md-12 mb-3" style={{ padding: "0 35px" }}>
             Share your referral code with friends to Earn Money or Free
             Subscription
           </div>
-          <div className="col-md-12" style={{ paddingRight: '30px' }}>
+          <div className="col-md-12" style={{ paddingRight: "30px" }}>
             <InputGroup size="lg" className="input-50">
               <Input placeholder={referralLink} className="input-two" />
               <InputGroupAddon addonType="append" color="success">
@@ -502,19 +502,20 @@ const ProfilePage = (props) => {
       </div>
       <div id="hiddenProfilePageSectionTwo">
         <div
-          className="round-image dropdown-toggle"
-          role="button"
-          id="dropdownMenuLink"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
+          className="round-image"
+          style={{ backgroundImage: `url(${newProfilePic || woman})` }}
         >
-          {newProfilePic && (
-            <img src={newProfilePic} width="100%" alt="check out"></img>
-          )}
-          {!newProfilePic && <img src={woman} alt="check out"></img>}
-          {!newProfilePic && (
+          <label className="select-image-label" htmlFor="inputGroupFile01">
+            <input
+              type="file"
+              id="inputGroupFile01"
+              onChange={(e) => {
+                setNewProfilePic(URL.createObjectURL(e.target.files[0]));
+                setPhotoToUpload(e.target.files[0]);
+              }}
+            />
             <FontAwesomeIcon icon={faPencilAlt} className="round-image-icon" />
-          )}
+          </label>
         </div>
 
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -549,26 +550,31 @@ const ProfilePage = (props) => {
           )}
         </ul>
         <div className="personal-details">
-          <div id='backToProfile'>
+          <div id="backToProfile">
             <button
               style={{
-                background: 'none', border: 0,
-                float: 'right', marginTop: '-3em', marginRight: '2em'
+                background: "none",
+                border: 0,
+                float: "right",
+                marginTop: "-3em",
+                marginRight: "2em",
               }}
               onClick={showProfilePage}
-              className='d-flex align-items-center pb-3 pt-n8'
+              className="d-flex align-items-center pb-3 pt-n8"
             >
               <FontAwesomeIcon
                 icon={faArrowLeft}
                 style={{ marginRight: "15px", fontSize: "20px" }}
-                id='arrowLeftIcon'
-              />BACK TO PROFILE</button>
+                id="arrowLeftIcon"
+              />
+              BACK TO PROFILE
+            </button>
           </div>
           <h3>Personal Details</h3>
           <div className="personal-details-form">
             <Form>
-              <FormGroup className='d-flex justify-content-between flex-wrap'>
-                <label for="fullName" id='label-2'>
+              <FormGroup className="d-flex justify-content-between flex-wrap">
+                <label for="fullName" id="label-2">
                   Full Name:
                 </label>
                 <Input
@@ -582,10 +588,9 @@ const ProfilePage = (props) => {
                     setNewName(e.target.value);
                   }}
                 />
-
               </FormGroup>
-              <FormGroup className='d-flex justify-content-between flex-wrap'>
-                <Label for="email" id='label-2'>
+              <FormGroup className="d-flex justify-content-between flex-wrap">
+                <Label for="email" id="label-2">
                   Email:
                 </Label>
 
@@ -597,12 +602,13 @@ const ProfilePage = (props) => {
                   placeholder={user && user.email}
                   readOnly
                 />
-
               </FormGroup>
               <div className="phone-number d-flex justify-content-between flex-wrap">
-                <Label className="local" id='label-2'>Phone Number:</Label>
+                <Label className="local" id="label-2">
+                  Phone Number:
+                </Label>
                 <div id="phone" className="input-column custom-input input-8">
-                  <span >
+                  <span>
                     <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
                       <DropdownToggle className="button-2" size="sm" caret>
                         +234
@@ -618,7 +624,6 @@ const ProfilePage = (props) => {
                     placeholder={
                       user && user.phoneNumber ? user.phoneNumber : ""
                     }
-
                     onChange={(e) => {
                       e.preventDefault();
                       setNewPhone(e.target.value);
@@ -627,9 +632,9 @@ const ProfilePage = (props) => {
                 </div>
               </div>
               <FormGroup className="d-flex flex-wrap align-items-center">
-                <Label for="age" id='label-2'>
+                <Label for="age" id="label-2">
                   Date Of Birth:
-                    </Label>
+                </Label>
 
                 <Input
                   className="custom-input input-3"
@@ -644,12 +649,11 @@ const ProfilePage = (props) => {
                     setnewAge(e.target.value);
                   }}
                 ></Input>
-
               </FormGroup>
               <FormGroup className="d-flex flex-wrap align-items-center">
-                <Label for="state" id='label-2'>
+                <Label for="state" id="label-2">
                   State:
-                    </Label>
+                </Label>
                 <Input
                   className="custom-input input-3"
                   type="select"
@@ -668,9 +672,9 @@ const ProfilePage = (props) => {
                 {/* </Col> */}
               </FormGroup>
               <div>
-                <div >
-                  <FormGroup className='d-flex flex-wrap align-items-center'>
-                    <Label for="state" id='label-2'>
+                <div>
+                  <FormGroup className="d-flex flex-wrap align-items-center">
+                    <Label for="state" id="label-2">
                       Gender:
                     </Label>
                     <Input
@@ -692,7 +696,7 @@ const ProfilePage = (props) => {
                     {/* </Col> */}
                   </FormGroup>
                 </div>
-                <div >
+                <div>
                   {/* <FormGroup row>
                     <Label for="city" sm={2}>
                       City:
@@ -723,7 +727,7 @@ const ProfilePage = (props) => {
         <div className="class-details">
           <h3>Class Details</h3>
           <div className="class-details-list d-flex flex-wrap align-items-center">
-            <span id='label-2'>Subscribed Class:</span>
+            <span id="label-2">Subscribed Class:</span>
             <div className="input-like-box input-8" id="sub">
               {user && user.role === "602f3ce39b146b3201c2dc1d"
                 ? classListForTeachersOne()
@@ -734,7 +738,7 @@ const ProfilePage = (props) => {
         <div className="security">
           <h3>Security</h3>
           <div className="security-form d-flex flex-wrap align-items-center">
-            <span id='label-2'>Password:</span>
+            <span id="label-2">Password:</span>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -767,7 +771,7 @@ const ProfilePage = (props) => {
           </div>
         </div>
       </div>
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 

@@ -587,6 +587,9 @@
 #classroomTeacherSectionTwo .classwork main .class-item {
   margin-bottom: 20px;
 }
+#classroomTeacherSectionTwo .classwork main .class-item button{
+  color: #84BB29;
+}
 #classroomTeacherSectionTwo .classwork main .class-item h5 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.46);
   padding: 15px 30px;

@@ -8,7 +8,7 @@ import {
   faMicrophone,
   faShareAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {
   getSubjectAndRelatedLessons,
   addRecentActivity,
@@ -38,6 +38,7 @@ import {
 } from "react-share";
 import slugify from "react-slugify";
 import { inputChange } from "../../../redux/actions/pastQuestionsActions";
+import Countdown from "react-countdown";
 
 const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
@@ -60,16 +61,16 @@ const ClassNote = (props) => {
   const { activeCoursePaidStatus, clazz, inClass } = props;
   const mounted = useRef();
   useEffect(() => {
-    if (!mounted.current) {
-      // do componentDidMount logic
-      mounted.current = true;
-      window.scrollTo(0, 0);
-      props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
-      storeProgress();
-    } else {
-      window.scrollTo(0, 0);
-      // do componentDidUpdate logic
-    }
+    // if (!mounted.current) {
+    // do componentDidMount logic
+    // mounted.current = true;
+    window.scrollTo(0, 0);
+    props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
+    storeProgress();
+    // } else {
+    //   window.scrollTo(0, 0);
+    //   // do componentDidUpdate logic
+    // }
   }, [parsed.lessonId]);
   var decodeEntities = (function () {
     // this prevents any overhead from creating the object each time
@@ -195,7 +196,9 @@ const ClassNote = (props) => {
     parsed.courseId
   }&subjectId=${parsed.subjectId}&lessonId=${
     nextLesson && nextLesson._id
-  }&termId=${nextLesson && nextLesson.termId}`;
+  }&termId=${nextLesson && nextLesson.termId}`; 
+
+  const [stopRedirect, setStopRedirect] = useState(false);
   return (
     <span>
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
@@ -254,14 +257,21 @@ const ClassNote = (props) => {
         </ModalBody>
       </Modal>
       <Modal isOpen={modal2} toggle={toggle2}>
-        <ModalHeader toggle={toggle2}>&nbsp;</ModalHeader>
+        <ModalHeader
+          toggle={() => {
+            toggle2();
+            setStopRedirect(true);
+          }}
+        >
+          &nbsp;
+        </ModalHeader>
         <ModalBody>
           <div className="next-lesson-or-quiz">
             {nextLesson ? (
               <div>
-                <p>
+                <h4>
                   You have completed "{targetLesson && targetLesson.title}"{" "}
-                </p>
+                </h4>
                 {targetLesson &&
                 targetLesson.questions &&
                 targetLesson &&
@@ -277,6 +287,7 @@ const ClassNote = (props) => {
                           );
                           onClickQuiz(nextLesson);
                           toggle2();
+                          setStopRedirect(true);
                         }}
                       >
                         Go to Quiz
@@ -290,6 +301,7 @@ const ClassNote = (props) => {
                       <button
                         onClick={() => {
                           toggle2();
+                          setStopRedirect(true);
                         }}
                       >
                         Go to Next Lesson
@@ -302,10 +314,47 @@ const ClassNote = (props) => {
               <div>
                 <p>You have completed Lessons in this Section </p>
                 <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
-                  <button>Go to Subject Page</button>
+                  <button
+                    onClick={() => {
+                      toggle2();
+                      setStopRedirect(true);
+                    }}
+                  >
+                    Go to Subject Page
+                  </button>
                 </Link>
               </div>
             )}
+            <p className="my-2">
+              You will be redirected in{" "}
+              <Countdown
+                renderer={({ hours, minutes, seconds }) => (
+                  <span>{seconds}</span>
+                )}
+                date={Date.now() + 9000}
+                onComplete={() => {
+                  toggle2();
+                  if (!stopRedirect) {
+                    if (nextLesson) {
+                      if (
+                        targetLesson &&
+                        targetLesson.questions &&
+                        targetLesson &&
+                        targetLesson.questions.length > 0
+                      ) {
+                        props.history.push("/lesson/quiz/instructions");
+                      } else {
+                        props.history.push(linkToNextLesson);
+                      }
+                    } else {
+                      props.history.push(
+                        `/content/${parsed.courseId}/${parsed.subjectId}`
+                      );
+                    }
+                  }
+                }}
+              />
+            </p>
           </div>
         </ModalBody>
       </Modal>
@@ -426,8 +475,7 @@ const ClassNote = (props) => {
             Lesson {currentLessonIndex + 1} of{" "}
             {props.subject && lessons && lessons.length}
           </div>
-          <Link
-            to="#"
+          <div
             onClick={(e) => {
               if (nextNotAllowed) {
                 e.preventDefault();
@@ -463,7 +511,7 @@ const ClassNote = (props) => {
               className="arrow"
               color="#84BB29"
             />
-          </Link>
+          </div>
         </div>
       </div>
     </span>

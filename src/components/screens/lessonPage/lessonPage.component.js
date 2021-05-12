@@ -47,6 +47,7 @@ import {
 } from "react-share";
 import queryString from "query-string";
 import slugify from "react-slugify";
+import Countdown from "react-countdown";
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -338,48 +339,143 @@ const LessonPage = (props) => {
       "lesson"
     );
   };
+
+  const [stopRedirect, setStopRedirect] = useState(false);
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
 
         <div>
-          <Modal isOpen={modal} toggle={toggleModal} className={className}>
+          <Modal
+            isOpen={modal}
+            toggle={() => {
+              toggleModal();
+              setStopRedirect(true);
+            }}
+            className={className}
+          >
+            <ModalHeader
+              toggle={() => {
+                toggleModal();
+                setStopRedirect(true);
+              }}
+            >
+              &nbsp;
+            </ModalHeader>
             <ModalBody style={{ textAlign: "center" }}>
               {nextVideo ? (
                 <div>
-                  <p>Lesson Video completed</p>
+                  <h4>Lesson Video completed</h4>
                   <Link
                     to={linkToNextVideo}
                     className="btn btn-primary"
-                    onClick={toggleModal}
+                    onClick={() => {
+                      toggleModal();
+                      setStopRedirect(true);
+                    }}
                   >
                     Go to next Lesson Video
                   </Link>
                 </div>
               ) : (
                 <div>
-                  <p>Lessons completed for this section</p>
+                  <h4>Lessons completed for this section</h4>
                   <h2>Congratulations</h2>
                   {lesson && lesson.questions && lesson.questions.length > 0 ? (
                     <Button
                       tag={Link}
                       to="/lesson/quiz/instructions"
                       className="btn btn-success"
+                      onClick={() => {
+                        setStopRedirect(true);
+                      }}
                     >
                       Proceed to take Quiz
+                    </Button>
+                  ) : nextLessonVideo ? (
+                    <Button
+                      tag={Link}
+                      to={linkToNextLesson}
+                      className="btn btn-success"
+                      onClick={() => {
+                        setStopRedirect(true);
+                      }}
+                    >
+                      Go to "
+                      {nextLesson &&
+                        nextLesson.title &&
+                        nextLesson.title.slice(0, 25)}
+                      {nextLesson &&
+                        nextLesson.title &&
+                        nextLesson.title.length > 25 &&
+                        "..."}
+                      "
+                    </Button>
+                  ) : nextLesson ? (
+                    <Button
+                      tag={Link}
+                      to={linkToNextLessonClassNote}
+                      className="btn btn-success"
+                      onClick={() => {
+                        setStopRedirect(true);
+                      }}
+                    >
+                      Go to "
+                      {nextLesson &&
+                        nextLesson.title &&
+                        nextLesson.title.slice(0, 25)}
+                      {nextLesson &&
+                        nextLesson.title &&
+                        nextLesson.title.length > 25 &&
+                        "..."}
+                      "
                     </Button>
                   ) : (
                     <Button
                       tag={Link}
                       to={linkToSubjectPage}
                       className="btn btn-success"
+                      onClick={() => {
+                        setStopRedirect(true);
+                      }}
                     >
                       Go to topics page
                     </Button>
                   )}
                 </div>
               )}
+              <p className="my-2">
+                You will be redirected in{" "}
+                <Countdown
+                  renderer={({ hours, minutes, seconds }) => (
+                    <span>{seconds}</span>
+                  )}
+                  date={Date.now() + 9000}
+                  onComplete={() => {
+                    toggleModal();
+                    if (!stopRedirect) {
+                      if (nextVideo) {
+                        props.history.push(linkToNextVideo);
+                      } else {
+                        if (
+                          lesson &&
+                          lesson.questions &&
+                          lesson.questions.length > 0
+                        ) {
+                          props.history.push("/lesson/quiz/instructions");
+                        } else if (nextLessonVideo) {
+                          return props.history.push(linkToNextLesson);
+                        } else if (nextLesson) {
+                          return props.history.push(linkToNextLessonClassNote);
+                        } else {
+                          props.history.push(linkToSubjectPage);
+                        }
+                      }
+                    }
+                  }}
+                />
+              </p>
             </ModalBody>
           </Modal>
         </div>
@@ -634,10 +730,7 @@ const LessonPage = (props) => {
           There is no video lesson in the previuos lesson <br />
           Do you wan to open class note?
         </h3>
-        <Link
-          className="button"
-          to={linkToPreviousLessonClassNote}
-        >
+        <Link className="button" to={linkToPreviousLessonClassNote}>
           Yes! Proceed to Class Note
         </Link>
       </div>
@@ -651,10 +744,7 @@ const LessonPage = (props) => {
           There is no video lesson in the next lesson <br />
           Do you wan to open class note?
         </h3>
-        <Link
-          className="button"
-          to={linkToNextLessonClassNote}
-        >
+        <Link className="button" to={linkToNextLessonClassNote}>
           Yes! Proceed to Class Note
         </Link>
       </div>

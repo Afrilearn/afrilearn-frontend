@@ -26,6 +26,7 @@
     "react-bootstrap": "^1.4.3",
     "react-circular-progressbar": "^2.0.3",
     "react-compound-timer": "^1.2.0",
+    "react-countdown": "^2.3.2",
     "react-dom": "^16.13.1",
     "react-excel-workbook": "0.0.4",
     "react-facebook-login": "^4.1.1",

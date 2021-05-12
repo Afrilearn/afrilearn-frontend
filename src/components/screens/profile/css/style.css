@@ -24,12 +24,16 @@
   /* border-radius: 50%; */
   transform: translate(100px, -50%);
   /* overflow: hidden; */
-  background-color: #84BB29;
+  background-color: grey;
   /* border-radius: 50%; */
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #profilePageSectionTwo .circle span {
   font-size: 40px;
@@ -98,8 +102,11 @@
   #hiddenProfilePageSectionTwo #age,
   #hiddenProfilePageSectionTwo #sub,
   #hiddenProfilePageSectionTwo .security-form form.input-8,
-  #hiddenProfilePageSectionTwo form > input.input-8
-  #hiddenProfilePageSectionTwo input.input-3,
+  #hiddenProfilePageSectionTwo
+    form
+    > input.input-8
+    #hiddenProfilePageSectionTwo
+    input.input-3,
   #hiddenProfilePageSectionTwo select.input-3 {
     width: 100%;
   }
@@ -171,12 +178,12 @@
   text-align: center;
 }
 #profilePageSectionTwo .button {
-  background: rgba(38, 170, 118, 0.51);
+  background: #84bb29;
   border: none;
   padding: 8px 40px;
 }
 #profilePageSectionTwo .link-button {
-  background: rgba(38, 170, 118, 0.51) !important;
+  background: #84bb29 !important;
   border: none;
   border-radius: 5px;
   display: inline-block;
@@ -195,7 +202,7 @@
   padding: 10px 20px;
 }
 #profilePageSectionTwo .button-2 {
-  background: #84BB29;
+  background: #84bb29;
   border: none;
 }
 #profilePageSectionTwo .input-50 {
@@ -212,7 +219,7 @@
 #profilePageSectionTwo .input-two {
   background-color: transparent;
   padding: 0 30px;
-  border: 0.1px solid #84BB29;
+  border: 0.1px solid #84bb29;
   margin-left: 20px;
 }
 @media screen and (max-width: 1200px) {
@@ -228,14 +235,14 @@
   font-family: font3;
   display: none;
 }
-#hiddenProfilePageSectionTwo #label-2{
+#hiddenProfilePageSectionTwo #label-2 {
   width: 20%;
 }
 #hiddenProfilePageSectionTwo .input-8,
-#hiddenProfilePageSectionTwo form.input-8{
+#hiddenProfilePageSectionTwo form.input-8 {
   width: 80%;
 }
-#hiddenProfilePageSectionTwo .input-3{
+#hiddenProfilePageSectionTwo .input-3 {
   width: 30%;
 }
 #hiddenProfilePageSectionTwo .round-image {
@@ -249,6 +256,9 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 #hiddenProfilePageSectionTwo .round-image img {
   height: 100%;
@@ -258,7 +268,7 @@
   font-size: 40px;
 }
 #hiddenProfilePageSectionTwo .save-changes {
-  background-color: #1b7763;
+  background-color: #84bb29;
   border-radius: 100px;
   padding: 10px 32px;
   margin-left: 21px;
@@ -267,15 +277,13 @@
 #hiddenProfilePageSectionTwo #backToProfile button,
 #hiddenProfilePageSectionTwo #backToProfile #arrowLeftIcon,
 #profilePageSectionTwo #editIcon,
-#profilePageSectionTwo #edit
-{
+#profilePageSectionTwo #edit {
   color: #afa3a3;
 }
 #hiddenProfilePageSectionTwo #backToProfile button:hover,
 #hiddenProfilePageSectionTwo #backToProfile #arrowLeftIcon:hover,
 #profilePageSectionTwo #editIcon:hover,
-#profilePageSectionTwo #edit:hover
-{
+#profilePageSectionTwo #edit:hover {
   color: #f7f7f7;
 }
 @media screen and (max-width: 900px) {
@@ -346,7 +354,7 @@
 }
 #hiddenProfilePageSectionTwo .custom-input {
   background-color: transparent;
-  border: 0.1px solid #84BB29;
+  border: 0.1px solid #84bb29;
   height: 45px;
 }
 #hiddenProfilePageSectionTwo .custom-input input {
@@ -375,12 +383,12 @@
   border: none;
 }
 #hiddenProfilePageSectionTwo .button-2 {
-  background: #84BB29;
+  background: #84bb29;
   border: none;
 }
 #hiddenProfilePageSectionTwo .button-3 {
   background: transparent;
-  border: #84BB29 0.1px solid;
+  border: #84bb29 0.1px solid;
   border-left: solid #000000;
 }
 #hiddenProfilePageSectionTwo .input-50 {
@@ -389,7 +397,7 @@
 #hiddenProfilePageSectionTwo .input-two {
   background-color: transparent;
   padding: 0 30px;
-  border: 0.1px solid #84BB29;
+  border: 0.1px solid #84bb29;
   height: auto;
 }
 
@@ -419,7 +427,7 @@
 #hiddenProfilePageSectionTwo .input-like-box {
   background-color: transparent;
   padding: 10px 0px !important;
-  border: 0.1px solid #84BB29;
+  border: 0.1px solid #84bb29;
   /* width: 100%; */
   height: auto !important;
   border-radius: 5px;
@@ -494,4 +502,8 @@
 }
 .hide {
   display: none;
+}
+#inputGroupFile01 {
+  width: 0;
+  height: 0;
 }

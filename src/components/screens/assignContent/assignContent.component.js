@@ -39,34 +39,61 @@ const AssignContent = (props) => {
     }
   });
   const { clazz, classMembers, error } = props;
+  const terms = [];
+  const termIds = [
+    { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
+    { id: "600047f67cabf80f88f61735", name: "Second Term" },
+    { id: "600048197cabf80f88f61736", name: "Third Term" },
+  ];
+  const [selectedTerm, setSelectedTerm] = useState(termIds[0].id);
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  console.log("selectedSubject", selectedSubject);
+  console.log("selectedTerm", selectedTerm);
+  let subjects = [];
+  if (clazz) {
+    subjects = clazz.relatedSubjects;
+  }
 
-  const lessons = [];
-  clazz &&
-    clazz.relatedSubjects.forEach((subject) => {
-      subject.relatedLessons.forEach((lesson) => {
-        lessons.push({ _id: lesson._id, title: lesson.title });
-      });
-    });
+  const subject = subjects && subjects.find((su) => su._id === selectedSubject);
+  const lessons =
+    subject &&
+    subject.relatedLessons &&
+    subject.relatedLessons.filter(
+      (lesson) =>
+        lesson.termId === selectedTerm && lesson.subjectId === selectedSubject
+    );
 
+  console.log("lessons", lessons && lessons[0]);
   const members = [];
   classMembers.forEach((member) => {
     member.status === "approved" &&
       members.push({ _id: member.userId._id, name: member.userId.fullName });
   });
 
-  const [selectedStudent, setSelectedStudent] = useState(null);
-  const [selectedQuizOrLesson, setSelectedQuizOrLesson] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(["all"]);
+  console.log("selectedStudent", selectedStudent);
+  const [selectedQuizOrLesson, setSelectedQuizOrLesson] = useState([]);
+  console.log("selectedQuizOrLesson", selectedQuizOrLesson);
   const [assignedText, setAssignedText] = useState(null);
   const [date, setDate] = useState(null);
+
+  const getLessonName = (id) => {
+    const item = lessons && lessons.find((lesson) => lesson._id == id);
+    return item && item.title;
+  };
+  const getStudentName = (id) => {
+    const item = members && members.find((member) => member._id == id);
+    return item ? item.name : id;
+  };
 
   const handleSubmit = () => {
     let message;
     if (!assignedText) {
       message = "Please enter text";
     } else if (!selectedStudent) {
-      message = "Please select Student";
+      message = "Please select Students";
     } else if (!selectedQuizOrLesson) {
-      message = "Please select lesson";
+      message = "Please select lessons";
     } else if (!date) {
       message = "Please select date";
     }
@@ -84,13 +111,18 @@ const AssignContent = (props) => {
         // position: "top-end",
       });
     } else {
-      props.assignContent(
-        assignedText,
-        selectedQuizOrLesson,
-        clazz._id,
-        date,
-        selectedStudent
-      );
+      const data = {};
+      data.description = assignedText;
+      data.lessonIds = selectedQuizOrLesson;
+      data.subjectId = selectedSubject;
+      data.dueDate = date;
+      if (selectedStudent.includes("all")) {
+        data.audience = "all";
+      } else {
+        data.userIds = selectedStudent;
+      }
+      const classId = clazz && clazz._id;
+      props.assignContent(data, classId);
     }
   };
   return (
@@ -128,28 +160,138 @@ const AssignContent = (props) => {
                 aria-label=".form-select-lg example"
                 onChange={(e) => {
                   e.preventDefault();
-                  setSelectedQuizOrLesson(e.target.value);
+                  setSelectedSubject(e.target.value);
                 }}
               >
-                <option selected>select lesson or quiz</option>
-                {lessons.map((lesson) => (
-                  <option value={lesson._id}>{lesson.title}</option>
+                <option selected>Select subject</option>
+                {subjects &&
+                  subjects.map((subject) => (
+                    <option value={subject._id}>
+                      {subject &&
+                        subject.mainSubjectId &&
+                        subject.mainSubjectId.name}
+                    </option>
+                  ))}
+              </select>
+              <select
+                class="form-select form-control form-control-lg form-select-lg mb-3"
+                name="selectedQuizOrLesson"
+                aria-label=".form-select-lg example"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setSelectedTerm(e.target.value);
+                }}
+              >
+                <option disabled>Select term</option>
+                {termIds.map((term) => (
+                  <option value={term.id}>{term.name}</option>
                 ))}
               </select>
+              <select
+                class="form-select form-control form-control-lg form-select-lg mb-3"
+                name="selectedQuizOrLesson"
+                aria-label=".form-select-lg example"
+                onChange={(e) => {
+                  e.preventDefault();
+                  const newList = [...selectedQuizOrLesson];
+                  if (!newList.includes(e.target.value)) {
+                    newList.push(e.target.value);
+                  }
+                  setSelectedQuizOrLesson(newList);
+                }}
+              >
+                <option disabled selected>
+                  Select lesson
+                </option>
+                {lessons &&
+                  lessons.map((lesson) => (
+                    <option value={lesson._id}>{lesson.title}</option>
+                  ))}
+              </select>
+              <div className="card my-2 text-center p-2 black-bag">
+                <p>Selected lessons</p>
+                {selectedQuizOrLesson && selectedQuizOrLesson.length > 0 && (
+                  <small>Click on lesson item to remove</small>
+                )}
+                <ul class="list-group">
+                  {selectedQuizOrLesson &&
+                    selectedQuizOrLesson.length > 0 &&
+                    selectedQuizOrLesson.map((item) => (
+                      <li
+                        class="list-group-item"
+                        onClick={() => {
+                          const newList = selectedQuizOrLesson.filter(
+                            (n) => n !== item
+                          );
+
+                          setSelectedQuizOrLesson(newList || []);
+                        }}
+                      >
+                        {getLessonName(item)}
+                      </li>
+                    ))}
+                </ul>
+                {selectedQuizOrLesson && selectedQuizOrLesson.length === 0 && (
+                  <div>
+                    <p>Nothing Here</p>
+                    <small>Your selected lessons will appear here</small>
+                  </div>
+                )}
+              </div>
+
               <select
                 class="form-select form-control form-control-lg form-select-lg mb-3"
                 name="selectedStudent"
                 aria-label=".form-select-lg example"
                 onChange={(e) => {
                   e.preventDefault();
-                  setSelectedStudent(e.target.value);
+                  if (e.target.value === "all") {
+                    setSelectedStudent(["all"]);
+                  } else {
+                    const newList = [...selectedStudent];
+                    if (!newList.includes(e.target.value)) {
+                      newList.push(e.target.value);
+                    }
+                    setSelectedStudent(newList);
+                  }
                 }}
               >
-                <option selected>select student</option>
+                <option value="all" selected>
+                  All students
+                </option>
                 {members.map((member) => (
                   <option value={member._id}>{member.name}</option>
                 ))}
               </select>
+              <div className="card my-2 text-center p-2 black-bag">
+                <p>Selected students</p>
+                {selectedStudent && selectedStudent.length > 0 && (
+                  <small>Click on student item to remove</small>
+                )}
+                <ul class="list-group">
+                  {selectedStudent &&
+                    selectedStudent.length > 0 &&
+                    selectedStudent.map((item) => (
+                      <li
+                        class="list-group-item"
+                        onClick={() => {
+                          const newList = selectedStudent.filter(
+                            (n) => n !== item
+                          );
+                          setSelectedStudent(newList || []);
+                        }}
+                      >
+                        {getStudentName(item)}{" "}
+                      </li>
+                    ))}
+                </ul>
+                {selectedStudent && selectedStudent.length === 0 && (
+                  <div>
+                    <p>Nothing Here</p>
+                    <small>Your selected students will appear here</small>
+                  </div>
+                )}
+              </div>
               <div className="date">
                 <p className="text-white">Due Date</p>
                 <input

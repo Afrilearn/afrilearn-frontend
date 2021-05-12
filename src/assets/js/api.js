@@ -316,12 +316,19 @@ export default {
     });
   },
 
-  assignContentToStudent(description, lessonId, classId, dueDate, userId) {
+  assignContentToStudent(data, classId) {
     return axios({
       method: "post",
       url: `${this.url}classes/${classId}/assign-content`,
       headers: this.headers(),
-      data: { description, lessonId, classId, dueDate, userId },
+      data,
+    });
+  },
+
+  deleteAssignedContent(classworkId) {
+    return axios({
+      method: "delete",
+      url: `${this.url}classes/assigned-content/${classworkId}/`,
     });
   },
 

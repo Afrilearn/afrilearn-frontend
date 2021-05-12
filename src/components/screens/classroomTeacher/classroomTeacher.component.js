@@ -7,7 +7,7 @@ import man from "../../../assets/img/man.png";
 import woman from "../../../assets/img/woman.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import addstudent from "../../../assets/img/addstudent.png";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { inputChange } from "../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import {
@@ -16,6 +16,7 @@ import {
   sendClassInvitation,
   acceptRejectClassmember,
   makeAnnouncement,
+  deleteAssignedContent,
 } from "./../../../redux/actions/classActions";
 import { populateDashboard } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
@@ -28,6 +29,8 @@ import { Popover, PopoverBody, Modal, ModalBody, Alert } from "reactstrap";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { TabContent, TabPane } from "reactstrap";
+import SubjectBoxLoader from "../../includes/Loaders/subjectBoxLoader.component";
+import slugify from "react-slugify";
 
 const ClassroomTeacher = (props) => {
   const {
@@ -39,6 +42,7 @@ const ClassroomTeacher = (props) => {
   } = props;
 
   const [announcementText, setAnnouncementText] = useState(null);
+  const dispatch = useDispatch();
 
   const [activeTab, setActiveTab] = useState("1");
   const toggleTab = (tab) => {
@@ -159,6 +163,7 @@ const ClassroomTeacher = (props) => {
   if (clazz) {
     props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
   }
+  console.log("teacherAssignedContents", clazz.teacherAssignedContents);
   const copyToClipboard = (e) => {
     e.preventDefault();
     var textField = document.createElement("textarea");
@@ -353,18 +358,35 @@ const ClassroomTeacher = (props) => {
                             : content.description}
                         </p>
                         <Link
-                          to={`/content/${
-                            content.lessonId && content.lessonId.courseId
-                          }/${content.lessonId && content.lessonId.subjectId}`}
+                          to={`/classnote/${
+                            content.subjectId.courseId &&
+                            slugify(content.subjectId.courseId.name)
+                          }/${
+                            content.subjectId.mainSubjectId &&
+                            slugify(content.subjectId.mainSubjectId.name)
+                          }/${
+                            content.lessonId && slugify(content.lessonId.title)
+                          }?courseId=${
+                            content.subjectId &&
+                            content.subjectId.courseId &&
+                            content.subjectId.courseId &&
+                            content.subjectId.courseId._id
+                          }&subjectId=${
+                            content.subjectId && content.subjectId._id
+                          }&lessonId=${
+                            content.lessonId && content.lessonId._id
+                          }&termId=${
+                            content.lessonId && content.lessonId.termId
+                          }`}
                         >
-                          <span class="badge bg-primary text-white">
+                          <span class="badge bg-secondary text-white my-1">
                             {content.lessonId && content.lessonId.title}
                             &nbsp;&nbsp;
                             <FontAwesomeIcon icon={faLink} size={15} />
                           </span>
                         </Link>
                         <p>
-                          <span class="badge bg-success text-white">
+                          <span class="badge bg-secondary text-white my-1">
                             {content.userId && "for " + content.userId.fullName}
                           </span>
                         </p>
@@ -376,7 +398,33 @@ const ClassroomTeacher = (props) => {
                     <p className="small-grey no-margin">
                       Due {moment(content.dueDate).format("LL")}
                     </p>
-                    <img className="more" src={dots} alt="see-more" />
+                    <div class="dropdown">
+                      <img
+                        className="more"
+                        src={dots}
+                        alt="see-more"
+                        type="button"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      />
+                      <ul
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              dispatch(deleteAssignedContent(content._id));
+                            }}
+                          >
+                            Delete
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -649,7 +697,7 @@ const ClassroomTeacher = (props) => {
             onMouseLeave={toggle}
             onClick={toggleModal}
           >
-            <FontAwesomeIcon icon={faPlus}  />
+            <FontAwesomeIcon icon={faPlus} />
           </span>
         </div>
         <div className="main-tabs container ">
@@ -705,31 +753,11 @@ const ClassroomTeacher = (props) => {
               <div id="classes" className="container-fluid relative subjects">
                 <h4 className="font2">My Subjects</h4>
                 <div className="row">
-                  {isLoading ? (
-                    <div>
-                      <img
-                        className="centerImage"
-                        src={require("../../../assets/img/loading.gif")}
-                        alt="google"
-                      />
-                    </div>
-                  ) : (
-                    subjectList()
-                  )}
+                  {isLoading ? <SubjectBoxLoader /> : subjectList()}
                 </div>
                 <h4 className="push5 h4">Past Questions</h4>
                 <div className="row jj">
-                  {isLoading ? (
-                    <div>
-                      <img
-                        className="centerImage"
-                        src={require("../../../assets/img/loading.gif")}
-                        alt="google"
-                      />
-                    </div>
-                  ) : (
-                    pastQuestionsList()
-                  )}
+                  {isLoading ? <SubjectBoxLoader /> : pastQuestionsList()}
                 </div>
               </div>
 

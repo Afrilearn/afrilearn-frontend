@@ -14,6 +14,7 @@ import {
   SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS,
   CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS,
   GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
+  DELETE_ASSIGNED_CONTENT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -33,6 +34,14 @@ const classReducer = (state = initialState, action) => {
         [action.payload.name]: action.payload.value,
       };
 
+    case DELETE_ASSIGNED_CONTENT_SUCCESS:
+      const teacherAssignedContents = state.class.teacherAssignedContents.filter(
+        (item) => item._id !== action.payload._id
+      );
+      return {
+        ...state,
+        class: { ...state.class, teacherAssignedContents },
+      };
     case GET_SINGLE_CLASS_SUCCESS:
       return {
         ...state,
