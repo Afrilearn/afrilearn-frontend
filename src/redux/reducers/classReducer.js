@@ -15,6 +15,7 @@ import {
   CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS,
   GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
   DELETE_ASSIGNED_CONTENT_SUCCESS,
+  CREATE_COMMENT_TO_CONTENT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +35,18 @@ const classReducer = (state = initialState, action) => {
         [action.payload.name]: action.payload.value,
       };
 
+    case CREATE_COMMENT_TO_CONTENT_SUCCESS:
+      const teacherAssignedContentsZ = state.class.teacherAssignedContents.find(
+        (item) => item._id === action.payload.teacherAssignedContentId
+      );
+      teacherAssignedContentsZ.comments.push(action.payload);
+      return {
+        ...state,
+        class: {
+          ...state.class,
+          teacherAssignedContents: state.class.teacherAssignedContents,
+        },
+      };
     case DELETE_ASSIGNED_CONTENT_SUCCESS:
       const teacherAssignedContents = state.class.teacherAssignedContents.filter(
         (item) => item._id !== action.payload._id

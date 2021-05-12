@@ -12,6 +12,10 @@ import {
   getClass,
   createCommentForContent,
 } from "./../../../redux/actions/classActions";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+import slugify from "react-slugify";
 
 const ClassWork = (props) => {
   const { role, classMembers, clazz } = props;
@@ -95,6 +99,32 @@ const ClassWork = (props) => {
             <img src={event} alt="event" />
             <div>
               <p>{classWork && classWork.description}</p>
+              <Link
+                to={`/classnote/${
+                  classWork.subjectId.courseId &&
+                  slugify(classWork.subjectId.courseId.name)
+                }/${
+                  classWork.subjectId.mainSubjectId &&
+                  slugify(classWork.subjectId.mainSubjectId.name)
+                }/${
+                  classWork.lessonId && slugify(classWork.lessonId.title)
+                }?courseId=${
+                  classWork.subjectId &&
+                  classWork.subjectId.courseId &&
+                  classWork.subjectId.courseId &&
+                  classWork.subjectId.courseId._id
+                }&subjectId=${
+                  classWork.subjectId && classWork.subjectId._id
+                }&lessonId=${
+                  classWork.lessonId && classWork.lessonId._id
+                }&termId=${classWork.lessonId && classWork.lessonId.termId}`}
+              >
+                <span class="badge bg-secondary text-white my-1 text-truncate">
+                  {classWork.lessonId && classWork.lessonId.title}
+                  &nbsp;&nbsp;
+                  <FontAwesomeIcon icon={faLink} size={15} />
+                </span>
+              </Link>
               <p className="small-grey">
                 {classWork && classWork.teacher.fullName}{" "}
                 {classWork &&
