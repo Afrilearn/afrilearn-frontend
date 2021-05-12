@@ -279,7 +279,8 @@ const LessonPage = (props) => {
         props.getCourse(parsed.courseId);
         props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
       }
-    } else {
+    } else {     
+
       // do componentDidUpdate logic
     }
   });
@@ -517,8 +518,7 @@ const LessonPage = (props) => {
             <div className="icon">
               <Speech
                 id="audio"
-                text={decodeEntities(video && video.transcript)}
-                textAsButton={true}
+                text={decodeEntities(video && video.transcript)} 
                 displayText={
                   <FontAwesomeIcon icon={faMicrophone} color="white" />
                 }
@@ -615,6 +615,7 @@ const LessonPage = (props) => {
             data-bs-placement="top"
             data-bs-html="true"
             onClick={(e) => {
+              window.scrollTo(0, 0);
               if (
                 prevNotAllowed ||
                 (prevLesson &&
@@ -677,6 +678,7 @@ const LessonPage = (props) => {
             data-bs-placement="top"
             data-bs-html="true"
             onClick={(e) => {
+              window.scrollTo(0, 0);
               if (
                 nextNotAllowed ||
                 (nextLesson &&

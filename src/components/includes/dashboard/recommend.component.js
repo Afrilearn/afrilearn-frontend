@@ -18,7 +18,7 @@ const Box = (props) => {
     props.recommended._id._id
   }&termId=${props.recommended._id.termId}`;
   return (
-    <div className="row push10 bottomBorder">
+    <div className="row push10 bottomBorder recommedtn">
       <div className="col-md-2">
         <span className="recommend">
           <Link

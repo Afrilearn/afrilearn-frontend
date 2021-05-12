@@ -3,6 +3,7 @@
     background: black;
     margin-top: -81px;
     color: white;
+    height: 120vh;
 }
 .Review .partOne {
     padding-right: 150px;
@@ -26,7 +27,7 @@
     text-align: center;
 } 
 .Review .categoryBadgeActive {
-    background: #1b7763 !important;
+    background: #84BB29  !important;
     color: white !important;
 }
 .Review .push33{
@@ -213,7 +214,7 @@
 
 .Review  a.previous, .Review a.skip {
     border-radius: 6px;
-    background: #1b7763 !important;
+    background: #84BB29  !important;
     color: white !important;
     font-family: font1;
     padding: 7px 35px;
