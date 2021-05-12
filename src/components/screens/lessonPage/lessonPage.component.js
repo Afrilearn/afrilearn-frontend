@@ -323,9 +323,11 @@ const LessonPage = (props) => {
     const popTwo = document.getElementById("lessonPagePopUpTwo");
     popTwo.style.display = "none";
   };
-  const [modal, setModal] = useState(false);
   const { className } = props;
+  const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
+  const [modal3, setModal3] = useState(false);
+  const toggle3 = () => setModal3(!modal3);
   let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now or visit https://myafrilearn.com/`;
 
   const storeProgress = () => {
@@ -621,7 +623,7 @@ const LessonPage = (props) => {
               ) {
                 e.preventDefault();
                 if (!activeCoursePaidStatus) {
-                  return openPopTwo();
+                  return toggle3();
                 } else if (
                   prevLesson &&
                   prevLesson.videoUrls &&
@@ -683,7 +685,7 @@ const LessonPage = (props) => {
               ) {
                 e.preventDefault();
                 if (!activeCoursePaidStatus) {
-                  return openPopTwo();
+                  return toggle3();
                 } else if (
                   nextLesson &&
                   nextLesson.videoUrls &&
@@ -770,6 +772,20 @@ const LessonPage = (props) => {
           <button>Subscribe now</button>
         </Link>
       </div>
+      <Modal isOpen={modal3} toggle={toggle3}>
+        <ModalBody>
+          <div className="next-lesson-or-quiz py-5 px-2">
+            <h3>You need to subscribe to access this content!</h3>
+            <p>
+              Subscribe now to unlock all videos, class notes, tests & more in
+              this class.
+            </p>
+            <Link to="/select-pay">
+              <button>SUBSCRIBE NOW</button>
+            </Link>
+          </div>
+        </ModalBody>
+      </Modal>
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
         <ModalHeader toggle={toggle1}>&nbsp;</ModalHeader>
         <ModalBody>

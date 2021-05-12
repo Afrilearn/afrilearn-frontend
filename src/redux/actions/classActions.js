@@ -381,17 +381,21 @@ export const createCommentForContent = (
   student
 ) => async (dispatch, getState) => {
   try {
-    await API.addCommentToAssignedContent(assignedContentId, text, student);
+    const result = await API.addCommentToAssignedContent(
+      assignedContentId,
+      text,
+      student
+    );
     dispatch({
       type: CREATE_COMMENT_TO_CONTENT_SUCCESS,
+      payload: result.data.data.comment,
     });
   } catch (err) {
+    console.log(err);
     dispatch(
       returnErrors(
-        err.response.data.errors
-          ? err.response.data.errors
-          : err.response.data.error,
-        err.response.data.status,
+        "Error creating comment",
+        "500",
         "CREATE_COMMENT_TO_CONTENT_FAILURE"
       )
     );
