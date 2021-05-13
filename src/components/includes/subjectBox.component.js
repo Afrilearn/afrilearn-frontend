@@ -23,7 +23,7 @@ const SubjectBox = props => {
             props.inputChange('selectedYear',selectedYear);
             props.inputChange('selectedSubjectImg',selectedSubjectImg); 
             props.loadQuestions(subjectId);           
-        }
+        } 
 
     	return (
         <div className="col-md-2 dropdown relative">            
