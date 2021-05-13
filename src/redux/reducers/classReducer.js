@@ -21,10 +21,14 @@ import {
 const initialState = {
   classes: [],
   class: {},
-  classMembers: [],
+  classMembers: [], //
   isLoading: false,
-  admins: [],
+  admins: [], //
   classMembersPayment: [],
+  teacherAssignedContents: [], //
+  classRelatedPastQuestions: [],
+  classRelatedSubjects: [], //
+  classAnnouncements: [], // 
 };
 
 const classReducer = (state = initialState, action) => {

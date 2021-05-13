@@ -38,6 +38,10 @@ import {
   GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
   DELETE_ASSIGNED_CONTENT_SUCCESS,
   DELETE_ASSIGNED_CONTENT_FAILURE,
+  GET_CLASS_SUBJECTS_SUCCESS,
+  GET_CLASS_SUBJECTS_FAILURE,
+  GET_CLASS_PAST_QUESTIONS_SUCCESS,
+  GET_CLASS_PAST_QUESTIONS_FAILURE,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -219,6 +223,156 @@ export const getClass = (classId) => async (dispatch) => {
     );
     dispatch({
       type: GET_SINGLE_CLASS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  }
+};
+export const getClassBasicDetails = (classId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getClassBasicDetails(classId);
+
+    dispatch({
+      type: GET_SINGLE_CLASS_SUCCESS,
+      payload: {
+        class: result.data.data.class,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_SINGLE_CLASS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_SINGLE_CLASS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  }
+};
+export const getClassSubjects = (classId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getSubjectsInClass(classId);
+
+    dispatch({
+      type: GET_CLASS_SUBJECTS_SUCCESS,
+      payload: {
+        subjects: result.data.data.subjects,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_CLASS_SUBJECTS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_CLASS_SUBJECTS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  }
+};
+export const getClassPastQuestions = (classId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getPastQuestionsInClass(classId);
+
+    dispatch({
+      type: GET_CLASS_PAST_QUESTIONS_SUCCESS,
+      payload: {
+        relatedPastQuestions: result.data.data.relatedPastQuestions,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "isLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_CLASS_PAST_QUESTIONS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_CLASS_PAST_QUESTIONS_FAILURE,
     });
     dispatch({
       type: CLASS_INPUT_CHANGE,

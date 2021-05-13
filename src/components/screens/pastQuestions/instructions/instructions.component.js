@@ -54,7 +54,7 @@ const InstructionsPage = props => {
                                         <div className="col-2">
                                             <img src={require('../../../../assets/img/qicon.png')}  className="icon" alt="question number"/>
                                         </div> 
-                                        <div className="col-9 title paddingLeftOff">
+                                        <div className="col-9 title paddingLeftOff"> 
                                             QUESTIONS: {questionLength}
                                         </div>                                           
                                     </div>                                      
