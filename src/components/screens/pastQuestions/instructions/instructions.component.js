@@ -87,7 +87,7 @@ const InstructionsPage = props => {
                                         Instructions:
                                         </div>
                                         <div className="col-md-9">
-                                            <p>You are about to that a 10 question quiz to test how much you understand {quizTitle}.<br/><br/> No pressure! Take your time to answer the questions. Goodluck</p>
+                                            <p>You are about to take a 10 question quiz to test how much you understand {quizTitle}.<br/><br/> No pressure! Take your time to answer the questions. Goodluck</p>
                                         </div>
                                     </div>
                                 </> 
