@@ -50,6 +50,10 @@
   color: white;
   overflow: hidden;
 }
+#classNoteSecondSection .rs-stop {
+  top: -3px !important;
+  left: 13px !important;
+}
 
 #classNoteSecondSection .backArrow {
   border: solid 0.5px gray;

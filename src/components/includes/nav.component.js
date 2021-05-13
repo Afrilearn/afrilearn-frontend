@@ -50,6 +50,7 @@ import SearchPage from "../screens/searchResult/searchResult.component";
 import classNote from "../screens/classnote/classnote.component";
 import SearchDetails from "../screens/search/search.component";
 import PrivacyPolicy from "../screens/privacyPolicy/privacyPolicy";
+import TextToSpeech from "../includes/textToSpeech/textToSpeech.component";
 import ParentChildRegistration from "../screens/parentChildRegistration/parentChildRegistration.component";
 import {
   searchInputChange,
@@ -534,6 +535,7 @@ const MyNav = (props) => {
           exact
           component={quizPage}
         />
+        <Route  path="/text" component={TextToSpeech}/>
         <ProtectedRoute
           path="/classes/:classId/:subjectId/:classworkId"
           component={classWork}

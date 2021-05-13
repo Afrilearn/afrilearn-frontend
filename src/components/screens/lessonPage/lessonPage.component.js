@@ -22,7 +22,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
 import ReactPlayer from "react-player/lazy";
-import Speech from "react-speech";
+import Speech from "../../includes/textToSpeech/textToSpeech.component";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import {
   getSubjectAndRelatedLessons,
@@ -516,13 +516,7 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <Speech
-                id="audio"
-                text={decodeEntities(video && video.transcript)} 
-                displayText={
-                  <FontAwesomeIcon icon={faMicrophone} color="white" />
-                }
-              />
+              <Speech content={decodeEntities(video && video.transcript)}/>
               <div className="icon_pop">
                 <p>Audio Lesson</p>
                 <span></span>

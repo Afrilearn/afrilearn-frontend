@@ -12,6 +12,7 @@ import PaticleOption from "../../../assets/js/particles";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import slugify from "react-slugify";
+import TextToSpeech from '../../includes/textToSpeech/textToSpeech.component';
 
 const Homepage = (props) => {
   const {
@@ -46,23 +47,8 @@ const Homepage = (props) => {
   });
   
   const classSet = () => {
-    if (classes.length) {
-
-      let list = [];
-
-      for(let i = 0; i<classes.length; i++){
-          if(classes[i].categoryId === '605b218f8636bc00158b4ad7'){
-              list.push(classes[i])
-          }
-      }
-
-      for(let j = 0; j<classes.length; j++){
-        if(classes[j].categoryId === '605b21868636bc00158b4ad6'){
-            list.push(classes[j])
-        }
-      }
-          
-      return list.map((item) => {
+    if (classes.length) {          
+      return classes.map((item) => {
         return (
           <li>
             <Link to={`/classes/${slugify(item.name)}?classId=${item._id}`}>
@@ -87,7 +73,8 @@ const Homepage = (props) => {
    
  
   return (
-    <span id="homepage" oncontextmenu="return false"  onkeydown="return false;" onmousedown="return false;">
+    <span id="homepage">
+      <TextToSpeech/>
       <div className="container-fluid bannerSection">
         <div className="row">
           <div className="col-md-3"> </div>

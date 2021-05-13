@@ -23,6 +23,7 @@
     "rc-tooltip": "^5.0.1",
     "react": "^16.13.1",
     "react-avatar": "^3.10.0",
+    "react-blabla": "0.0.14",
     "react-bootstrap": "^1.4.3",
     "react-circular-progressbar": "^2.0.3",
     "react-compound-timer": "^1.2.0",
