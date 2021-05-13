@@ -37,7 +37,11 @@ import {
   WhatsappIcon,
 } from "react-share";
 import slugify from "react-slugify";
-import { inputChange } from "../../../redux/actions/pastQuestionsActions";
+import {
+  inputChange,
+  loadQuestions,
+  loadQuizQuestions,
+} from "../../../redux/actions/pastQuestionsActions";
 import Countdown from "react-countdown";
 
 const ClassNote = (props) => {
@@ -66,6 +70,7 @@ const ClassNote = (props) => {
     // mounted.current = true;
     window.scrollTo(0, 0);
     props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
+    // props.loadQuestions(parsed.subjectId);
     storeProgress();
     // } else {
     //   window.scrollTo(0, 0);
@@ -90,6 +95,14 @@ const ClassNote = (props) => {
     }
     return decodeHTMLEntities;
   })();
+
+  const updateQuizType = (lesson) => {
+    props.inputChange("examType", "quiz");
+    props.inputChange("quizTitle", lesson.title);
+    props.inputChange("quizLessonId", lesson._id);
+
+    props.loadQuizQuestions(lesson.questions);
+  };
 
   const terms = [];
   const termIds = [
@@ -288,6 +301,7 @@ const ClassNote = (props) => {
                           onClickQuiz(nextLesson);
                           toggle2();
                           setStopRedirect(true);
+                          updateQuizType(nextLesson);
                         }}
                       >
                         Go to Quiz
@@ -342,6 +356,7 @@ const ClassNote = (props) => {
                         targetLesson &&
                         targetLesson.questions.length > 0
                       ) {
+                        updateQuizType(targetLesson);
                         props.history.push("/lesson/quiz/instructions");
                       } else {
                         props.history.push(linkToNextLesson);
@@ -400,7 +415,7 @@ const ClassNote = (props) => {
             </Link>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Speech
-              content={decodeEntities(targetLesson && targetLesson.content)}             
+              content={decodeEntities(targetLesson && targetLesson.content)}
             />
           </div>
           <div className="col-md-7"></div>
@@ -524,6 +539,8 @@ ClassNote.propTypes = {
   addRecentActivity: PropTypes.func.isRequired,
   addSubjectProgress: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
+  loadQuestions: PropTypes.func.isRequired,
+  loadQuizQuestions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -541,4 +558,6 @@ export default connect(mapStateToProps, {
 
   addSubjectProgress,
   inputChange,
+  loadQuestions,
+  loadQuizQuestions,
 })(ClassNote);

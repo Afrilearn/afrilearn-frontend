@@ -23,6 +23,7 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import ReactPlayer from "react-player/lazy";
 import Speech from "../../includes/textToSpeech/textToSpeech.component";
+import { loadQuestions } from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import {
   getSubjectAndRelatedLessons,
@@ -271,6 +272,7 @@ const LessonPage = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       storeProgress();
+      // props.loadQuestions(parsed.subjectId);
       if (
         subject &&
         subject.relatedLessons &&
@@ -279,8 +281,7 @@ const LessonPage = (props) => {
         props.getCourse(parsed.courseId);
         props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
       }
-    } else {     
-
+    } else {
       // do componentDidUpdate logic
     }
   });
@@ -516,7 +517,7 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <Speech content={decodeEntities(video && video.transcript)}/>
+              <Speech content={decodeEntities(video && video.transcript)} />
               <div className="icon_pop">
                 <p>Audio Lesson</p>
                 <span></span>
@@ -846,6 +847,7 @@ LessonPage.propTypes = {
   getSubjectAndRelatedLessons: PropTypes.func.isRequired,
   addRecentActivity: PropTypes.func.isRequired,
   addSubjectProgress: PropTypes.func.isRequired,
+  loadQuestions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -862,4 +864,5 @@ export default connect(mapStateToProps, {
   addRecentActivity,
 
   addSubjectProgress,
+  loadQuestions,
 })(LessonPage);
