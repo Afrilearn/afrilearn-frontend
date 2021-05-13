@@ -294,7 +294,7 @@ const ClassroomTeacher = (props) => {
         <div class="card my-3 text-center py-2 bg-dark">
           <h6>No Announcement list yet</h6>
         </div>
-      );
+      ); 
     }
   };
   const newClassAnonouncementBox = () => {

@@ -248,10 +248,28 @@ export default {
       url: `${this.url}classes/${classId}`,
     });
   },
+  getClassBasicDetails(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}/basic-details`,
+    });
+  },
   getStudentsInClass(classId) {
     return axios({
       method: "get",
       url: `${this.url}classes/${classId}/students`,
+    });
+  },
+  getSubjectsInClass(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}/subjects`,
+    });
+  },
+  getPastQuestionsInClass(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}/past-questions`,
     });
   },
 
