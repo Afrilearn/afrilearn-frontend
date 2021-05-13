@@ -96,14 +96,6 @@ const ClassNote = (props) => {
     return decodeHTMLEntities;
   })();
 
-  const updateQuizType = (lesson) => {
-    props.inputChange("examType", "quiz");
-    props.inputChange("quizTitle", lesson.title);
-    props.inputChange("quizLessonId", lesson._id);
-
-    props.loadQuizQuestions(lesson.questions);
-  };
-
   const terms = [];
   const termIds = [
     { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
@@ -212,6 +204,16 @@ const ClassNote = (props) => {
   }&termId=${nextLesson && nextLesson.termId}`;
 
   const [stopRedirect, setStopRedirect] = useState(false);
+  const updateQuizType = (lesson) => {
+    props.inputChange("examType", "quiz");
+    props.inputChange("quizTitle", lesson.title);
+    props.inputChange("quizLessonId", lesson._id);
+
+    props.loadQuizQuestions(lesson.questions);
+    if (!nextNotAllowed) {
+      props.inputChange("nextLessonLocation", linkToNextLesson);
+    }
+  };
   return (
     <span>
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
@@ -294,10 +296,6 @@ const ClassNote = (props) => {
                     <Link to="/lesson/quiz/instructions">
                       <button
                         onClick={() => {
-                          props.inputChange(
-                            "nextLessonLocation",
-                            linkToNextLesson
-                          );
                           onClickQuiz(nextLesson);
                           toggle2();
                           setStopRedirect(true);

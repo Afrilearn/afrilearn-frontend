@@ -23,7 +23,10 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import ReactPlayer from "react-player/lazy";
 import Speech from "../../includes/textToSpeech/textToSpeech.component";
-import { loadQuestions } from "./../../../redux/actions/pastQuestionsActions";
+import {
+  loadQuestions,
+  inputChange,
+} from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import {
   getSubjectAndRelatedLessons,
@@ -392,6 +395,12 @@ const LessonPage = (props) => {
                       to="/lesson/quiz/instructions"
                       className="btn btn-success"
                       onClick={() => {
+                        if (!nextNotAllowed) {
+                          props.inputChange(
+                            "nextLessonLocation",
+                            linkToNextLessonClassNote
+                          );
+                        }
                         setStopRedirect(true);
                       }}
                     >
@@ -468,6 +477,12 @@ const LessonPage = (props) => {
                           lesson.questions.length > 0
                         ) {
                           props.history.push("/lesson/quiz/instructions");
+                          if (!nextNotAllowed) {
+                            props.inputChange(
+                              "nextLessonLocation",
+                              linkToNextLessonClassNote
+                            );
+                          }
                         } else if (nextLessonVideo) {
                           return props.history.push(linkToNextLesson);
                         } else if (nextLesson) {
@@ -848,6 +863,7 @@ LessonPage.propTypes = {
   addRecentActivity: PropTypes.func.isRequired,
   addSubjectProgress: PropTypes.func.isRequired,
   loadQuestions: PropTypes.func.isRequired,
+  inputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -865,4 +881,5 @@ export default connect(mapStateToProps, {
 
   addSubjectProgress,
   loadQuestions,
+  inputChange,
 })(LessonPage);

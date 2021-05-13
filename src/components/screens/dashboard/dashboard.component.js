@@ -16,9 +16,10 @@ import {
   populateDashboardClassMembership,
   populateDashboardRecommendations,
   populateDashboardRecentActivities,
-  populateDashboardPerformanceSummary
+  populateDashboardPerformanceSummary,
 } from "./../../../redux/actions/courseActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
+import { inputChange as pastQuestionInputChange } from "./../../../redux/actions/pastQuestionsActions";
 import { sendClassRequest } from "./../../../redux/actions/classActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
@@ -59,30 +60,41 @@ const Dashboard = (props) => {
     enrolledCourseLoader,
     dashboardRecentActivites,
     recentActivitiesLoader,
-    performanceSummaryLoader
+    performanceSummaryLoader,
   } = props;
   const mounted = useRef();
 
   useEffect(() => {
-   
     mounted.current = true;
     window.scrollTo(0, 0);
     props.authInputChange("inClass", false);
     props.authInputChange("activeCoursePaidStatus", false);
+    props.pastQuestionInputChange("nextLessonLocation", "");
     const data = {
       enrolledCourseId: activeEnrolledCourseId,
     };
-    props.populateDashboardEnrolledCourses(activeEnrolledCourseId ? data : null);
+    props.populateDashboardEnrolledCourses(
+      activeEnrolledCourseId ? data : null
+    );
     // props.populateDashboard(activeEnrolledCourseId ? data : null);
-    props.populateDashboardClassMembership(activeEnrolledCourseId ? data : null);
-    props.populateDashboardRecommendations(activeEnrolledCourseId ? data : null);
-    props.populateDashboardRecentActivities(activeEnrolledCourseId ? data : null);
-    props.populateDashboardPerformanceSummary(activeEnrolledCourseId ? data : null);
+    props.populateDashboardClassMembership(
+      activeEnrolledCourseId ? data : null
+    );
+    props.populateDashboardRecommendations(
+      activeEnrolledCourseId ? data : null
+    );
+    props.populateDashboardRecentActivities(
+      activeEnrolledCourseId ? data : null
+    );
+    props.populateDashboardPerformanceSummary(
+      activeEnrolledCourseId ? data : null
+    );
   }, [activeEnrolledCourseId]);
 
   const subjectList = () => {
     if (dashboardEnrolledCourse && dashboardEnrolledCourse.enrolledCourse) {
-      let subjects = dashboardEnrolledCourse.enrolledCourse.courseId.relatedSubjects;
+      let subjects =
+        dashboardEnrolledCourse.enrolledCourse.courseId.relatedSubjects;
       return subjects.map((item) => {
         return (
           <Box
@@ -105,9 +117,14 @@ const Dashboard = (props) => {
   };
 
   const pastQuestionsList = () => {
-    if (dashboardEnrolledCourse && dashboardEnrolledCourse.enrolledCourse && dashboardEnrolledCourse.enrolledCourse.courseId.relatedPastQuestions.length) {
+    if (
+      dashboardEnrolledCourse &&
+      dashboardEnrolledCourse.enrolledCourse &&
+      dashboardEnrolledCourse.enrolledCourse.courseId.relatedPastQuestions
+        .length
+    ) {
       let pastQuestions =
-      dashboardEnrolledCourse.enrolledCourse.courseId.relatedPastQuestions;
+        dashboardEnrolledCourse.enrolledCourse.courseId.relatedPastQuestions;
       return pastQuestions.map((item, index) => {
         return (
           <PastQuestionsBox
@@ -124,7 +141,11 @@ const Dashboard = (props) => {
   };
 
   const classList = () => {
-    if (dashboardClassMembership && dashboardClassMembership.classMembership && dashboardClassMembership.classMembership.length) {
+    if (
+      dashboardClassMembership &&
+      dashboardClassMembership.classMembership &&
+      dashboardClassMembership.classMembership.length
+    ) {
       return dashboardClassMembership.classMembership.map((item, index) => {
         return (
           <ClassroomBox
@@ -149,7 +170,11 @@ const Dashboard = (props) => {
   };
 
   const recommendationList = () => {
-    if (dashboardRecommendations && dashboardRecommendations.recommendation && dashboardRecommendations.recommendation.length) {
+    if (
+      dashboardRecommendations &&
+      dashboardRecommendations.recommendation &&
+      dashboardRecommendations.recommendation.length
+    ) {
       let recommend = dashboardRecommendations.recommendation;
       // eslint-disable-next-line array-callback-return
       return recommend.map((item, index) => {
@@ -174,7 +199,11 @@ const Dashboard = (props) => {
   };
 
   const recentActivitiesList = () => {
-    if (dashboardRecentActivites && dashboardRecentActivites.recentActivities && dashboardRecentActivites.recentActivities.length) {
+    if (
+      dashboardRecentActivites &&
+      dashboardRecentActivites.recentActivities &&
+      dashboardRecentActivites.recentActivities.length
+    ) {
       let activity = dashboardRecentActivites.recentActivities;
       // eslint-disable-next-line array-callback-return
       return activity.map((item, index) => {
@@ -249,7 +278,7 @@ const Dashboard = (props) => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
-  
+
   return (
     <span id="classes" className="dashboard">
       <div id="dashboardFirstSection" className="container-fluid relative">
@@ -288,69 +317,68 @@ const Dashboard = (props) => {
           </div>
         </div>
       </div>
-      <div id="dashboardSecondSection" className="container-fluid relative">      
+      <div id="dashboardSecondSection" className="container-fluid relative">
         <a name="subjects"></a>
         <h4>My Subjects</h4>
-        {activeEnrolledCourseId && enrolledCourseLoader?
-         <SubjectLoader/>:
-          <div className="row">
-            {subjectList()}
-          </div>
-        }
+        {activeEnrolledCourseId && enrolledCourseLoader ? (
+          <SubjectLoader />
+        ) : (
+          <div className="row">{subjectList()}</div>
+        )}
         <a name="pastQuestions"></a>
-        <h4 className="push5">Past Questions</h4>       
-        {activeEnrolledCourseId && enrolledCourseLoader?
-         <PastQuestionsLoader/>:
-          <div className="row jj">
-           {pastQuestionsList()}
-          </div>
-        }      
+        <h4 className="push5">Past Questions</h4>
+        {activeEnrolledCourseId && enrolledCourseLoader ? (
+          <PastQuestionsLoader />
+        ) : (
+          <div className="row jj">{pastQuestionsList()}</div>
+        )}
         <a name="performance"></a>
         <h4 className="push5">Performance Summary</h4>
-        {activeEnrolledCourseId && performanceSummaryLoader?
-         <RecentActivityLoader />:
-        <div className="row">       
-          <div className="col-md-4 myChart">
-            <PieChart
-              data={[
-                {
-                  title: "Below Average",
-                  value: belowAverage,
-                  color: "#FF5B5B",
-                },
-                { title: "Average", value: average, color: "#FDAD51" },
-                { title: "No Rating", value: noRating, color: "#908989" },
-                { title: "Excelling", value: excelling, color: "#84BB29 " },
-              ]}
-              lineWidth={32}
-              rounded
-            />
+        {activeEnrolledCourseId && performanceSummaryLoader ? (
+          <RecentActivityLoader />
+        ) : (
+          <div className="row">
+            <div className="col-md-4 myChart">
+              <PieChart
+                data={[
+                  {
+                    title: "Below Average",
+                    value: belowAverage,
+                    color: "#FF5B5B",
+                  },
+                  { title: "Average", value: average, color: "#FDAD51" },
+                  { title: "No Rating", value: noRating, color: "#908989" },
+                  { title: "Excelling", value: excelling, color: "#84BB29 " },
+                ]}
+                lineWidth={32}
+                rounded
+              />
+            </div>
+            <div className="col-md-8 subjectList">
+              <PerformanceBox
+                excel={true}
+                title="Excelling In"
+                data={excellingText}
+              />
+              <PerformanceBox
+                average={true}
+                title="Average In"
+                data={averageText}
+              />
+              <PerformanceBox
+                belowAverage={true}
+                title="Below Average In"
+                data={belowAverageText}
+              />
+              <PerformanceBox
+                noRating={true}
+                title="No rating"
+                data={noRatingText}
+              />
+            </div>
           </div>
-          <div className="col-md-8 subjectList">
-            <PerformanceBox
-              excel={true}
-              title="Excelling In"
-              data={excellingText}
-            />
-            <PerformanceBox
-              average={true}
-              title="Average In"
-              data={averageText}
-            />
-            <PerformanceBox
-              belowAverage={true}
-              title="Below Average In"
-              data={belowAverageText}
-            />
-            <PerformanceBox
-              noRating={true}
-              title="No rating"
-              data={noRatingText}
-            />
-          </div>
-        </div>
-        } 
-      
+        )}
+
         <a name="classroom"></a>
         <h4 className="push5">Classroom</h4>
         <div className="row push8">
@@ -370,14 +398,18 @@ const Dashboard = (props) => {
           </div>
         </div>
         {classMembershipLoader ? <ClassesLoader /> : classList()}
-        
+
         <a name="recommendations"></a>
         <h4 className="push5">Recommendations</h4>
         {recommendationLoader ? <RecommendationLoader /> : recommendationList()}
-       
-        <a name="recentActivities"></a>        
+
+        <a name="recentActivities"></a>
         <h4 className="push5">Recent Activities</h4>
-        {recentActivitiesLoader ? <RecentActivityLoader /> : recentActivitiesList()}      
+        {recentActivitiesLoader ? (
+          <RecentActivityLoader />
+        ) : (
+          recentActivitiesList()
+        )}
       </div>
     </span>
   );
@@ -393,6 +425,7 @@ Dashboard.propTypes = {
   populateDashboardRecommendations: PropTypes.func.isRequired,
   populateDashboardRecentActivities: PropTypes.func.isRequired,
   populateDashboardPerformanceSummary: PropTypes.func.isRequired,
+  pastQuestionInputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -431,5 +464,6 @@ export default connect(mapStateToProps, {
   populateDashboardClassMembership,
   populateDashboardRecommendations,
   populateDashboardRecentActivities,
-  populateDashboardPerformanceSummary
+  populateDashboardPerformanceSummary,
+  pastQuestionInputChange,
 })(Dashboard);
