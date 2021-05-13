@@ -12,7 +12,6 @@ import PaticleOption from "../../../assets/js/particles";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import slugify from "react-slugify";
-import TextToSpeech from '../../includes/textToSpeech/textToSpeech.component';
 
 const Homepage = (props) => {
   const {
@@ -73,8 +72,7 @@ const Homepage = (props) => {
    
  
   return (
-    <span id="homepage">
-      <TextToSpeech/>
+    <span id="homepage">     
       <div className="container-fluid bannerSection">
         <div className="row">
           <div className="col-md-3"> </div>
