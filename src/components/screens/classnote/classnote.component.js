@@ -14,10 +14,10 @@ import {
   addRecentActivity,
   addSubjectProgress,
 } from "./../../../redux/actions/subjectActions";
+import Speech from "../../includes/textToSpeech/textToSpeech.component";
 
 import PropTypes from "prop-types";
 import parse from "html-react-parser";
-import Speech from "react-speech";
 import queryString from "query-string";
 
 import { Modal, ModalHeader, ModalBody, Tooltip } from "reactstrap";
@@ -400,12 +400,7 @@ const ClassNote = (props) => {
             </Link>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Speech
-              id="audio"
-              text={decodeEntities(targetLesson && targetLesson.content)}
-              textAsButton={true}
-              displayText={
-                <FontAwesomeIcon icon={faMicrophone} color="white" size="lg" />
-              }
+              content={decodeEntities(targetLesson && targetLesson.content)}             
             />
           </div>
           <div className="col-md-7"></div>

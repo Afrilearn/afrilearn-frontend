@@ -1,0 +1,16 @@
+.rs-stop {
+    background-repeat: no-repeat;
+    /* background-image: url("../../../assets/img/mic-off.png"); */
+    background: transparent;
+    background-size: contain;
+    width: 21px;
+    height: 24px;
+    background-color: transparent !important;
+    position: absolute;
+    top: 2px;
+    left: 14px;
+}
+
+.adjust .rs-text {
+    display: none;
+}

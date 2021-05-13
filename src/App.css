@@ -265,11 +265,11 @@ img.logo {
   padding-right: 0px !important;
 }
 
-.rs-play,
-.rs-play:active {
-  background: none !important;
+.rs-play, .rs-play:active {
+  background: transparent !important;
   margin-left: 10px;
   border: none !important;
+  color: white;
 }
 
 .mobileOnly {
