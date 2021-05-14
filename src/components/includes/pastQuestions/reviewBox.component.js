@@ -33,7 +33,8 @@ const ReviewBox = props => {
     const {
         currentQuestion,
         questions,
-        answers  
+        answers,
+        nextLessonLocation  
     }=props;
     const handleTextToSpeech = () => {
         let options = '';
@@ -70,10 +71,11 @@ const ReviewBox = props => {
         return true;
     };
     const handleClosure = async () => {
-        Swal.fire('Thanks', 'We wish you success in your exams').then((result) => {
-            if (result.value) {              
-                props.inputChange('pastQuestionRedirectLocation', '/dashboard');
-                props.inputChange('pastQuestionRedirect', true);      
+        Swal.fire('Thanks', 'We wish you success in your exams').then((result) => {            
+            if (result.value) {
+                props.inputChange('pastQuestionRedirectLocation', nextLessonLocation? nextLessonLocation:'/dashboard');
+                props.inputChange('pastQuestionRedirect', true);     
+                props.inputChange('pastQuestionRedirectLocation', '');  
             } 
           })
     }; 
@@ -146,6 +148,7 @@ ReviewBox.propTypes= {
 const mapStateToProps = state => ({   
     currentQuestion: state.pastQuestion.currentQuestion,
     questions: state.pastQuestion.questions,
-    answers: state.pastQuestion.answers     
+    answers: state.pastQuestion.answers,
+    nextLessonLocation: state.pastQuestion.nextLessonLocation,     
 })
 export default connect(mapStateToProps, {inputChange})(ReviewBox);
