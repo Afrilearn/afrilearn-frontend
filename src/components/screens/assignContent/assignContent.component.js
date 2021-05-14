@@ -4,7 +4,7 @@ import "./css/style.css";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import { getClass, assignContent } from "./../../../redux/actions/classActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 
@@ -38,7 +38,12 @@ const AssignContent = (props) => {
       }
     }
   });
-  const { clazz, classMembers, error } = props;
+  const { clazz, error } = props;
+  const classRelatedSubjects = useSelector(
+    (state) => state.class.classRelatedSubjects
+  );
+  const classMembers = useSelector((state) => state.class.classMembers);
+
   const terms = [];
   const termIds = [
     { id: "5fc8d1b20fae0a06bc22db5c", name: "First Term" },
@@ -54,7 +59,9 @@ const AssignContent = (props) => {
     subjects = clazz.relatedSubjects;
   }
 
-  const subject = subjects && subjects.find((su) => su._id === selectedSubject);
+  const subject =
+    classRelatedSubjects &&
+    classRelatedSubjects.find((su) => su._id === selectedSubject);
   const lessons =
     subject &&
     subject.relatedLessons &&
@@ -164,8 +171,8 @@ const AssignContent = (props) => {
                 }}
               >
                 <option selected>Select subject</option>
-                {subjects &&
-                  subjects.map((subject) => (
+                {classRelatedSubjects &&
+                  classRelatedSubjects.map((subject) => (
                     <option value={subject._id}>
                       {subject &&
                         subject.mainSubjectId &&
@@ -249,10 +256,11 @@ const AssignContent = (props) => {
                     setSelectedStudent(["all"]);
                   } else {
                     const newList = [...selectedStudent];
-                    if (!newList.includes(e.target.value)) {
-                      newList.push(e.target.value);
+                    const removedAll = newList.filter((item) => item !== "all");
+                    if (!removedAll.includes(e.target.value)) {
+                      removedAll.push(e.target.value);
                     }
-                    setSelectedStudent(newList);
+                    setSelectedStudent(removedAll);
                   }
                 }}
               >
@@ -330,7 +338,6 @@ AssignContent.propTypes = {
 const mapStateToProps = (state) => ({
   role: state.auth.user.role,
   clazz: state.class.class,
-  classMembers: state.class.classMembers,
   error: state.error,
 });
 export default connect(mapStateToProps, {

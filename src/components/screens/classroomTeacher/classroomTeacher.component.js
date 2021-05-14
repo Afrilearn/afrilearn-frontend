@@ -7,7 +7,7 @@ import man from "../../../assets/img/man.png";
 import woman from "../../../assets/img/woman.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import addstudent from "../../../assets/img/addstudent.png";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { inputChange } from "../../../redux/actions/authActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import {
@@ -17,6 +17,12 @@ import {
   acceptRejectClassmember,
   makeAnnouncement,
   deleteAssignedContent,
+  getClassSubjects,
+  getClassPastQuestions,
+  getClassAnnouncements,
+  getClassAssignedContents,
+  getMembersInClass,
+  getClassBasicDetails,
 } from "./../../../redux/actions/classActions";
 import { populateDashboard } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
@@ -31,12 +37,14 @@ import Swal from "sweetalert2";
 import { TabContent, TabPane } from "reactstrap";
 import SubjectBoxLoader from "../../includes/Loaders/subjectBoxLoader.component";
 import slugify from "react-slugify";
+import AnnouncementsLoader from "../../includes/Loaders/announcementsLoader.component";
+import ClassWorksLoader from "../../includes/Loaders/classworksLoader.component";
 
 const ClassroomTeacher = (props) => {
   const {
     activeEnrolledCourseId,
     clazz,
-    classMembers,
+
     error,
     isLoading,
   } = props;
@@ -59,22 +67,48 @@ const ClassroomTeacher = (props) => {
   const [email, setEmail] = useState(null);
   const onDismiss = () => setVisible(false);
 
+  const classMembers = useSelector((state) => state.class.classMembers);
+  const classMembersLoading = useSelector(
+    (state) => state.class.classMembersLoading
+  );
+  const admins = useSelector((state) => state.class.admins);
+  const adminsLoading = useSelector((state) => state.class.adminsLoading);
+  const teacherAssignedContents = useSelector(
+    (state) => state.class.teacherAssignedContents
+  );
+  const teacherAssignedContentsLoading = useSelector(
+    (state) => state.class.teacherAssignedContentsLoading
+  );
+  const classRelatedPastQuestions = useSelector(
+    (state) => state.class.classRelatedPastQuestions
+  );
+  const classRelatedPastQuestionsLoading = useSelector(
+    (state) => state.class.classRelatedPastQuestionsLoading
+  );
+  const classRelatedSubjects = useSelector(
+    (state) => state.class.classRelatedSubjects
+  );
+  const classRelatedSubjectsLoading = useSelector(
+    (state) => state.class.classRelatedSubjectsLoading
+  );
+  const classAnnouncements = useSelector(
+    (state) => state.class.classAnnouncements
+  );
+  const classAnnouncementsLoading = useSelector(
+    (state) => state.class.classAnnouncementsLoading
+  );
+
   const subjects = [];
-  clazz &&
-    clazz.relatedSubjects &&
-    clazz.relatedSubjects.forEach((subject) => {
-      const assignedContent =
-        clazz.teacherAssignedContents &&
-        clazz.teacherAssignedContents.filter(
-          (content) =>
-            content.subjectId && content.subjectId._id === subject._id
-        );
-      subjects.push({
-        _id: subject._id,
-        name: subject.mainSubjectId.name,
-        assignedContent,
-      });
+  classRelatedSubjects.forEach((subject) => {
+    const assignedContent = teacherAssignedContents.filter(
+      (content) => content.subjectId && content.subjectId._id === subject._id
+    );
+    subjects.push({
+      _id: subject._id,
+      name: subject.mainSubjectId.name,
+      assignedContent,
     });
+  });
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
@@ -98,6 +132,12 @@ const ClassroomTeacher = (props) => {
   useEffect(() => {
     // if (!mounted.current) {
     // do componentDidMount logic
+    dispatch(getClassSubjects(activeEnrolledCourseId));
+    dispatch(getMembersInClass(activeEnrolledCourseId));
+    dispatch(getClassAssignedContents(activeEnrolledCourseId));
+    dispatch(getClassAnnouncements(activeEnrolledCourseId));
+    dispatch(getClassPastQuestions(activeEnrolledCourseId));
+    dispatch(getClassBasicDetails(activeEnrolledCourseId));
     mounted.current = true;
     window.scrollTo(0, 0);
     props.inputChange("dashboardRoute", true);
@@ -109,61 +149,61 @@ const ClassroomTeacher = (props) => {
     // };
     // props.populateDashboard(activeEnrolledCourseId ? data : null);
     toggleTab("1");
-    props.getClass(activeEnrolledCourseId);
+    // props.getClass(activeEnrolledCourseId);
 
     // do componentDidUpdate logic
-    if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
-      const message =
-        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-      Swal.fire({
-        html: message,
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-        timer: 3500,
-        // position: "top-end",
-      });
-      props.clearErrors();
-    } else if (error.id === "ACCEPT_REJECT_CLASSMEMBER_SUCCESS") {
-      const message =
-        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-      Swal.fire({
-        html: message,
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-        timer: 3500,
-        // position: "top-end",
-      });
-      props.clearErrors();
-    } // do componentDidUpdate logic
-    else if (error.id === "ADD_ANNOUNCEMENT_SUCCESS") {
-      const message =
-        typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
-      Swal.fire({
-        html: message,
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-        timer: 3500,
-        // position: "top-end",
-      });
-      props.clearErrors();
-    }
   }, [activeEnrolledCourseId]);
+
+  if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
+    const message =
+      typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      // position: "top-end",
+    });
+    props.clearErrors();
+  } else if (error.id === "ACCEPT_REJECT_CLASSMEMBER_SUCCESS") {
+    const message =
+      typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      // position: "top-end",
+    });
+    props.clearErrors();
+  } // do componentDidUpdate logic
+  else if (error.id === "ADD_ANNOUNCEMENT_SUCCESS") {
+    const message =
+      typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      // position: "top-end",
+    });
+    props.clearErrors();
+  }
   if (clazz) {
     props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
   }
-  console.log("teacherAssignedContents", clazz.teacherAssignedContents);
   const copyToClipboard = (e) => {
     e.preventDefault();
     var textField = document.createElement("textarea");
@@ -174,9 +214,10 @@ const ClassroomTeacher = (props) => {
     textField.classList.add("hide");
     setVisible(true);
   };
+
   const subjectList = () => {
-    if (clazz && Object.keys(clazz) && clazz.relatedSubjects) {
-      return clazz.relatedSubjects.map((item) => {
+    if (classRelatedSubjects.length > 0) {
+      return classRelatedSubjects.map((item) => {
         return (
           <Box
             image={item.mainSubjectId.imageUrl}
@@ -184,10 +225,10 @@ const ClassroomTeacher = (props) => {
             dashboard={true}
             compiledNotes={item.relatedLessons.length}
             registeredUsers={50000}
-            courseId={clazz.courseId._id}
+            courseId={clazz && clazz.courseId && clazz.courseId._id}
             subjectId={item._id}
             key={item._id}
-            courseName={clazz.courseId.name}
+            courseName={clazz && clazz.courseId && clazz.courseId.name}
             subjectId={item._id}
             subjectName={item.mainSubjectId.name}
           />
@@ -199,12 +240,8 @@ const ClassroomTeacher = (props) => {
   };
 
   const classAnonouncements = () => {
-    if (
-      clazz &&
-      clazz.classAnnouncements &&
-      clazz.classAnnouncements.length + newAnouncements.length > 0
-    ) {
-      return clazz.classAnnouncements.map((classAnnouncement) => {
+    if (classAnnouncements.length > 0) {
+      return classAnnouncements.map((classAnnouncement) => {
         const sendComment = (e, id) => {
           e.preventDefault();
           const targetComment = document.getElementById(classAnnouncement._id)
@@ -294,7 +331,7 @@ const ClassroomTeacher = (props) => {
         <div class="card my-3 text-center py-2 bg-dark">
           <h6>No Announcement list yet</h6>
         </div>
-      ); 
+      );
     }
   };
   const newClassAnonouncementBox = () => {
@@ -323,12 +360,7 @@ const ClassroomTeacher = (props) => {
   };
 
   const classWorksList = () => {
-    if (
-      subjects &&
-      clazz &&
-      clazz.teacherAssignedContents &&
-      clazz.teacherAssignedContents.length > 0
-    ) {
+    if (subjects && teacherAssignedContents.length > 0) {
       return subjects.map((item, index) => {
         return (
           item.assignedContent.length > 0 && (
@@ -483,14 +515,24 @@ const ClassroomTeacher = (props) => {
       return <div className="container padding-30">No Members list yet</div>;
     }
   };
+  const adminsList = () => {
+    if (admins.length > 0) {
+      return admins.map((admin) => {
+        return (
+          <div className="pupil">
+            <img src={man} height="50px" alt="pupil" />
+            <p>{admin && admin.userId && admin.userId.fullName}</p>
+          </div>
+        );
+      });
+    } else {
+      return <div className="container padding-30">No Admin yet</div>;
+    }
+  };
 
   const pastQuestionsList = () => {
-    if (
-      clazz &&
-      clazz.relatedPastQuestions &&
-      clazz.relatedPastQuestions.length > 0
-    ) {
-      let pastQuestions = clazz.relatedPastQuestions;
+    if (classRelatedPastQuestions.length > 0) {
+      let pastQuestions = classRelatedPastQuestions;
       return pastQuestions.map((item, index) => {
         return (
           <PastQuestionsBox
@@ -757,11 +799,19 @@ const ClassroomTeacher = (props) => {
               <div id="classes" className="container-fluid relative subjects">
                 <h4 className="font2">My Subjects</h4>
                 <div className="row">
-                  {isLoading ? <SubjectBoxLoader /> : subjectList()}
+                  {classRelatedSubjectsLoading ? (
+                    <SubjectBoxLoader />
+                  ) : (
+                    subjectList()
+                  )}
                 </div>
                 <h4 className="push5 h4">Past Questions</h4>
                 <div className="row jj">
-                  {isLoading ? <SubjectBoxLoader /> : pastQuestionsList()}
+                  {classRelatedPastQuestionsLoading ? (
+                    <SubjectBoxLoader />
+                  ) : (
+                    pastQuestionsList()
+                  )}
                 </div>
               </div>
 
@@ -783,36 +833,36 @@ const ClassroomTeacher = (props) => {
                     </div>
                   </div>
 
-                  {clazz &&
-                    clazz.classAnnouncements &&
-                    clazz.classAnnouncements.length + newAnouncements.length >
-                      0 && (
-                      <article>
-                        <div className="pic-text-heading">
-                          <img src={man} alt="announce" />
-                          <div>
-                            <p>Announcements from teacher</p>
-                          </div>
+                  {classAnnouncements.length + newAnouncements.length > 0 && (
+                    <article>
+                      <div className="pic-text-heading">
+                        <img src={man} alt="announce" />
+                        <div>
+                          <p>Announcements from teacher</p>
                         </div>
-                      </article>
-                    )}
+                      </div>
+                    </article>
+                  )}
 
                   <section>
                     {newClassAnonouncementBox()}
-                    {classAnonouncements()}
-                    {clazz &&
-                      clazz.teacherAssignedContents &&
-                      clazz.teacherAssignedContents.length > 0 && (
+                    {classAnnouncementsLoading ? (
+                      <AnnouncementsLoader />
+                    ) : (
+                      classAnonouncements()
+                    )}
+                    {teacherAssignedContentsLoading && <ClassWorksLoader />}
+                    {teacherAssignedContents &&
+                      teacherAssignedContents.length > 0 && (
                         <Link
                           to={`/classes/${clazz && clazz._id}/${
-                            clazz &&
-                            clazz.teacherAssignedContents &&
-                            clazz.teacherAssignedContents.length &&
-                            clazz.teacherAssignedContents[0].subjectId._id
+                            teacherAssignedContents &&
+                            teacherAssignedContents.length &&
+                            teacherAssignedContents[0].subjectId._id
                           }/${
-                            clazz.teacherAssignedContents &&
-                            clazz.teacherAssignedContents.length &&
-                            clazz.teacherAssignedContents[0]._id
+                            teacherAssignedContents &&
+                            teacherAssignedContents.length &&
+                            teacherAssignedContents[0]._id
                           }`}
                           className="notification-block"
                         >
@@ -820,18 +870,17 @@ const ClassroomTeacher = (props) => {
                             <img src={event} alt="event" />
                             <div>
                               <p>
-                                {clazz.teacherAssignedContents &&
-                                clazz.teacherAssignedContents.length
-                                  ? clazz.teacherAssignedContents[0].description
+                                {teacherAssignedContents &&
+                                teacherAssignedContents.length
+                                  ? teacherAssignedContents[0].description
                                   : ""}
                               </p>
                               <p>
                                 <small className="small-grey">
-                                  {clazz.teacherAssignedContents &&
-                                  clazz.teacherAssignedContents.length
+                                  {teacherAssignedContents &&
+                                  teacherAssignedContents.length
                                     ? moment(
-                                        clazz.teacherAssignedContents[0]
-                                          .createdAt
+                                        teacherAssignedContents[0].createdAt
                                       ).format("LL")
                                     : ""}
                                 </small>
@@ -860,7 +909,13 @@ const ClassroomTeacher = (props) => {
               </Link>
             </div>
             <div className="classwork accordion" id="accordionExample">
-              <main>{classWorksList()}</main>
+              <main>
+                {teacherAssignedContentsLoading ? (
+                  <ClassWorksLoader />
+                ) : (
+                  classWorksList()
+                )}
+              </main>
             </div>
           </TabPane>
           <TabPane tabId="3">
@@ -879,12 +934,9 @@ const ClassroomTeacher = (props) => {
             <div className="people">
               <section>
                 <div className="heading">
-                  <h5>Teacher</h5>
+                  <h5>Teacher and Admins</h5>
                 </div>
-                <div className="pupil">
-                  <img src={man} height="50px" alt="pupil" />
-                  <p>{clazz && clazz.userId && clazz.userId.fullName}</p>
-                </div>
+                {adminsList()}
               </section>
               <section>
                 <div className="heading">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "./css/style.css";
 import dots from "../../../assets/img/dots.png";
@@ -6,11 +6,12 @@ import event from "../../../assets/img/event.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import woman from "../../../assets/img/woman.png";
 import man from "../../../assets/img/man.png";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
   getClass,
   createCommentForContent,
+  getClassAssignedContent,
 } from "./../../../redux/actions/classActions";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,15 +20,20 @@ import slugify from "react-slugify";
 
 const ClassWork = (props) => {
   const { role, classMembers, clazz } = props;
-  const classWork = clazz.teacherAssignedContents.find(
-    (work) => work._id === props.match.params.classworkId
-  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getClassAssignedContent(props.match.params.classworkId));
+  }, []);
+  const classWork = useSelector((state) => state.class.teacherAssignedContent);
 
-  const studentSendComment = (e, student) => {
+  const studentSendComment = (e) => {
     e.preventDefault();
-    const targetComment = document.getElementById("commentForm").value;
-    if (targetComment !== "") {
-      props.createCommentForContent(classWork._id, targetComment, student);
+    if (newStudentComment) {
+      props.createCommentForContent(
+        classWork._id,
+        newStudentComment,
+        props.userId
+      );
       document.getElementById("commentForm").reset();
     }
   };
@@ -39,11 +45,15 @@ const ClassWork = (props) => {
       document.getElementById("commentForm" + index).reset();
     }
   };
+  const [newStudentComment, setNewStudentComment] = useState("");
 
   const commentList = (studentId, index) => {
-    const myComments = classWork.comments.filter(
-      (comment) => comment.student === studentId
-    );
+    const myComments =
+      classWork.comments &&
+      classWork.comments.filter(
+        (comment) =>
+          comment.student === studentId || comment.sender._id === studentId
+      );
     if (classWork && classWork.comments) {
       return (
         <div>
@@ -59,7 +69,7 @@ const ClassWork = (props) => {
                   <p>
                     {comment.sender && comment.sender.fullName} &nbsp;
                     <span className="small-grey">
-                      {moment(comment.createdAt).startOf("hour").fromNow()}
+                      {moment(comment.createdAt).fromNow()}
                     </span>
                   </p>
                   <p>{comment.text}</p>
@@ -101,9 +111,13 @@ const ClassWork = (props) => {
               <p>{classWork && classWork.description}</p>
               <Link
                 to={`/classnote/${
+                  classWork &&
+                  classWork.subjectId &&
                   classWork.subjectId.courseId &&
                   slugify(classWork.subjectId.courseId.name)
                 }/${
+                  classWork &&
+                  classWork.subjectId &&
                   classWork.subjectId.mainSubjectId &&
                   slugify(classWork.subjectId.mainSubjectId.name)
                 }/${
@@ -126,9 +140,8 @@ const ClassWork = (props) => {
                 </span>
               </Link>
               <p className="small-grey">
-                {classWork && classWork.teacher.fullName}{" "}
-                {classWork &&
-                  moment(classWork.createdAt).startOf("hour").fromNow()}
+                {classWork && classWork.teacher && classWork.teacher.fullName}{" "}
+                {classWork && moment(classWork.createdAt).fromNow()}
               </p>
               <p>Due {classWork && moment(classWork.dueDate).format("LL")}</p>
             </div>
@@ -138,16 +151,23 @@ const ClassWork = (props) => {
               <h6>Add replies</h6>
               <form
                 className="comment-input"
+                onSubmit={(e) => studentSendComment(e)}
                 id="commentForm"
-                onSubmit={(e) => studentSendComment(e, props.userId)}
               >
                 <img className="user-image" src={woman} alt="user" />
                 <div>
-                  <input id={classWork._id} placeholder="Add class comment" />
+                  <input
+                    id={classWork._id}
+                    placeholder="Add class comment"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setNewStudentComment(e.target.value);
+                    }}
+                  />
                   <img
                     src={sendicon}
                     alt="send"
-                    onClick={(e) => studentSendComment(e, props.userId)}
+                    onClick={(e) => studentSendComment(e)}
                   />
                 </div>
               </form>
@@ -196,20 +216,23 @@ const ClassWork = (props) => {
           ) : (
             <div className="class-comment">
               <h6>Private comments</h6>
-              {classWork.comments.map((comment) => (
-                <div className="pic-text-heading">
-                  <img src={man} alt="comment" />
-                  <div>
-                    <p>
-                      {comment.sender.fullName}
-                      <span className="small-grey">
-                        {moment(comment.createdAt).startOf("hour").fromNow()}
-                      </span>
-                    </p>
-                    <p>{comment.text}</p>
+              {classWork.comments &&
+                classWork.comments.map((comment) => (
+                  <div className="pic-text-heading">
+                    <img src={man} alt="comment" />
+                    <div>
+                      <p>
+                        {comment.sender.fullName}
+                        <span className="small-grey">
+                          {" "}
+                          &nbsp;
+                          {moment(comment.createdAt).fromNow()}
+                        </span>
+                      </p>
+                      <p>{comment.text}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
         </aside>
@@ -239,7 +262,7 @@ export default connect(mapStateToProps, { getClass, createCommentForContent })(
                   <p>
                     {comment.student.fullName} &nbsp;
                     <span className="small-grey">
-                      {moment(comment.createdAt).startOf("hour").fromNow()}
+                      {moment(comment.createdAt).fromNow()}
                     </span>
                   </p>
                   <p>{comment.text}</p>

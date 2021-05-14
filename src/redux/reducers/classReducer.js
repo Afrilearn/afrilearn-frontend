@@ -16,19 +16,33 @@ import {
   GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS,
   DELETE_ASSIGNED_CONTENT_SUCCESS,
   CREATE_COMMENT_TO_CONTENT_SUCCESS,
+  GET_CLASS_ASSIGNED_CONTENTS_SUCCESS,
+  GET_CLASS_PAST_QUESTIONS_SUCCESS,
+  GET_CLASS_SUBJECTS_SUCCESS,
+  GET_CLASS_ANNOUNCEMENTS_SUCCESS,
+  GET_CLASS_BASICS_SUCCESS,
+  GET_CLASS_ASSIGNED_CONTENT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
   classes: [],
   class: {},
-  classMembers: [], //
+  classMembersLoading: false,
+  classMembers: [],
   isLoading: false,
-  admins: [], //
+  adminsLoading: false,
+  admins: [],
   classMembersPayment: [],
-  teacherAssignedContents: [], //
+  teacherAssignedContentsLoading: false,
+  teacherAssignedContent: {},
+  teacherAssignedContentLoading: false,
+  teacherAssignedContents: [],
+  classRelatedPastQuestionsLoading: false,
   classRelatedPastQuestions: [],
-  classRelatedSubjects: [], //
-  classAnnouncements: [], // 
+  classRelatedSubjectsLoading: false,
+  classRelatedSubjects: [],
+  classAnnouncementsLoading: false,
+  classAnnouncements: [],
 };
 
 const classReducer = (state = initialState, action) => {
@@ -38,18 +52,44 @@ const classReducer = (state = initialState, action) => {
         ...state,
         [action.payload.name]: action.payload.value,
       };
-
-    case CREATE_COMMENT_TO_CONTENT_SUCCESS:
-      const teacherAssignedContentsZ = state.class.teacherAssignedContents.find(
-        (item) => item._id === action.payload.teacherAssignedContentId
-      );
-      teacherAssignedContentsZ.comments.push(action.payload);
+    case GET_CLASS_MEMBERS_SUCCESS:
       return {
         ...state,
-        class: {
-          ...state.class,
-          teacherAssignedContents: state.class.teacherAssignedContents,
-        },
+        classMembers: action.payload.classMembers,
+        admins: action.payload.admins,
+      };
+    case GET_CLASS_ANNOUNCEMENTS_SUCCESS:
+      return {
+        ...state,
+        classAnnouncements: action.payload.announcements,
+      };
+    case GET_CLASS_SUBJECTS_SUCCESS:
+      return {
+        ...state,
+        classRelatedSubjects: action.payload.subjects,
+      };
+    case GET_CLASS_PAST_QUESTIONS_SUCCESS:
+      return {
+        ...state,
+        classRelatedPastQuestions: action.payload.relatedPastQuestions,
+      };
+    case GET_CLASS_ASSIGNED_CONTENTS_SUCCESS:
+      return {
+        ...state,
+        teacherAssignedContents: action.payload.assignedContents,
+      };
+    case GET_CLASS_ASSIGNED_CONTENT_SUCCESS:
+      return {
+        ...state,
+        teacherAssignedContent: action.payload.assignedContent,
+      };
+
+    case CREATE_COMMENT_TO_CONTENT_SUCCESS:
+      const teacherAssignedContent = state.teacherAssignedContent;
+      teacherAssignedContent.comments.push(action.payload);
+      return {
+        ...state,
+        teacherAssignedContent: { ...teacherAssignedContent },
       };
     case DELETE_ASSIGNED_CONTENT_SUCCESS:
       const teacherAssignedContents = state.class.teacherAssignedContents.filter(
@@ -57,13 +97,19 @@ const classReducer = (state = initialState, action) => {
       );
       return {
         ...state,
-        class: { ...state.class, teacherAssignedContents },
+        teacherAssignedContents,
       };
     case GET_SINGLE_CLASS_SUCCESS:
       return {
         ...state,
         class: action.payload.class,
-        classMembers: action.payload.classMembers,
+        // classMembers: action.payload.classMembers,
+      };
+    case GET_CLASS_BASICS_SUCCESS:
+      return {
+        ...state,
+        class: action.payload.class,
+        // classMembers: action.payload.classMembers,
       };
     case GET_CLASSES_SUCCESS:
       return {
@@ -129,27 +175,24 @@ const classReducer = (state = initialState, action) => {
       };
 
     case CREATE_COMMENT_TO_ANNOUNCEMENT_SUCCESS:
-      const classAnnouncements = state.class.classAnnouncements;
-      const classAnnouncementUpdated = state.class.classAnnouncements.find(
+      const classAnnouncements = state.classAnnouncements;
+      const classAnnouncementUpdated = state.classAnnouncements.find(
         (item) => item._id === action.payload.announcementId
       );
       classAnnouncementUpdated.comments.push(action.payload);
 
       return {
         ...state,
-        class: { ...state.class, classAnnouncements },
+        classAnnouncements: [...state.classAnnouncements],
       };
 
     case ADD_ANNOUNCEMENT_SUCCESS:
-      const classAnnouncementsN = state.class.classAnnouncements;
+      const classAnnouncementsN = state.classAnnouncements;
       classAnnouncementsN.push(action.payload);
 
       return {
         ...state,
-        class: {
-          ...state.class,
-          classAnnouncements: classAnnouncementsN,
-        },
+        classAnnouncements: classAnnouncementsN,
       };
 
     case GET_PEOPLE_IN_PAYMENT_CLASS_SUCCESS:
