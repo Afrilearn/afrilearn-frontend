@@ -26,6 +26,7 @@ import Speech from "../../includes/textToSpeech/textToSpeech.component";
 import {
   loadQuestions,
   inputChange,
+  loadQuizQuestions
 } from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import {
@@ -290,7 +291,16 @@ const LessonPage = (props) => {
   });
 
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const updateQuizType = (lesson) => {
+    props.inputChange("examType", "quiz");
+    props.inputChange("quizTitle", lesson.title);
+    props.inputChange("quizLessonId", lesson._id);
 
+    props.loadQuizQuestions(lesson.questions);
+    if (!nextNotAllowed) {
+      props.inputChange("nextLessonLocation", linkToNextLesson);
+    }
+  };
   const toggle = () => setPopoverOpen(!popoverOpen);
 
   const openPopOne = () => {
@@ -402,6 +412,7 @@ const LessonPage = (props) => {
                           );
                         }
                         setStopRedirect(true);
+                        updateQuizType(lesson);
                       }}
                     >
                       Proceed to take Quiz
@@ -476,6 +487,7 @@ const LessonPage = (props) => {
                           lesson.questions &&
                           lesson.questions.length > 0
                         ) {
+                          updateQuizType(lesson);
                           props.history.push("/lesson/quiz/instructions");
                           if (!nextNotAllowed) {
                             props.inputChange(
@@ -864,6 +876,7 @@ LessonPage.propTypes = {
   addSubjectProgress: PropTypes.func.isRequired,
   loadQuestions: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
+  loadQuizQuestions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -882,4 +895,5 @@ export default connect(mapStateToProps, {
   addSubjectProgress,
   loadQuestions,
   inputChange,
+  loadQuizQuestions
 })(LessonPage);
