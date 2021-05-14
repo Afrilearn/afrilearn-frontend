@@ -247,7 +247,7 @@ const LessonItem = (props) => {
                 color={isViewed ? "#84BB29" : "white"}
                 className="mark-done"
               />
-              {toTitleCase(lesson.title)}
+              <span class={`${isViewed ? "color-green" : "text-white"}`}>{toTitleCase(lesson.title)}</span>
 
               <div className="float-end">
                 {!unlocked ? (
