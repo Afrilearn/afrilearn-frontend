@@ -96,7 +96,7 @@
   margin-left: 5px;
 }
 #classroomStudentSectionTwo .tab-nav-item-1 {
-  border-bottom: 4px solid #84BB29;
+  border-bottom: 4px solid #84bb29;
 }
 @media screen and (max-width: 1200px) {
   #classroomStudentSectionTwo .tab {
@@ -176,8 +176,8 @@
   font-family: font2;
 }
 #classroomStudentSectionTwo .button-green {
-  background-color: #84BB29;
-  border-color: #84BB29;
+  background-color: #84bb29;
+  border-color: #84bb29;
 }
 #classroomStudentSectionTwo .announcements aside .upcoming-events {
   background-color: #333232;
@@ -204,7 +204,7 @@
   margin: 5px 0;
 }
 #classroomStudentSectionTwo .announcements aside .upcoming-events a {
-  color: #84BB29 !important;
+  color: #84bb29 !important;
   text-align: end;
   display: block;
   text-decoration: underline;
@@ -276,7 +276,7 @@
   .chat-block
   .comments
   small {
-  color: #84BB29;
+  color: #84bb29;
 }
 #classroomStudentSectionTwo .announcements main section .chat-block .send {
   padding: 10px;
@@ -448,7 +448,7 @@
   color: rgba(255, 255, 255, 0.53);
 }
 #classroomStudentSectionTwo .classwork nav .active {
-  border-left: 3px solid #84BB29;
+  border-left: 3px solid #84bb29;
   color: white;
 }
 #classroomStudentSectionTwo .classwork main {
@@ -485,8 +485,8 @@
     cursor: pointer;
   }
   #classroomStudentSectionTwo .classwork nav .active {
-    border-color: #84BB29;
-    color: #84BB29;
+    border-color: #84bb29;
+    color: #84bb29;
   }
   #classroomStudentSectionTwo .classwork main {
     flex: 1;
@@ -498,7 +498,7 @@
 #classroomStudentSectionTwo .classwork main .class-item h5 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.46);
   padding: 15px 30px;
-  color: #84BB29;
+  color: #84bb29;
   font-family: font2;
 }
 #classroomStudentSectionTwo .classwork main .class-item .items {
@@ -555,7 +555,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.46);
 }
 #classroomStudentSectionTwo .people .heading h5 {
-  color: #84BB29;
+  color: #84bb29;
   font-family: font2;
 }
 #classroomStudentSectionTwo .people .heading p {
@@ -602,4 +602,10 @@
 }
 #performance .school-details h2 {
   margin-left: 16px;
+}
+.accordion-button.collapsed {
+  color: #84bb29;
+}
+.accordion-button:not(.collapsed) {
+  color: #84bb29;
 }

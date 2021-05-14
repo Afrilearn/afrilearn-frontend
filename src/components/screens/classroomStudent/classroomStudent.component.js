@@ -7,7 +7,7 @@ import man from "../../../assets/img/man.png";
 import woman from "../../../assets/img/woman.png";
 import ellipse from "../../../assets/img/Ellipse.png";
 import sendicon from "../../../assets/img/sendicon.png";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { getClass, createComment } from "./../../../redux/actions/classActions";
 import { getPerformanceInClass } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
@@ -37,6 +37,10 @@ const ClassroomStudent = (props) => {
     overallPerformance,
     overallProgress,
   } = props;
+
+  const teacherAssignedContents = useSelector(
+    (state) => state.class.teacherAssignedContents
+  );
 
   const [newComment, setNewComment] = useState(null);
 
@@ -159,7 +163,9 @@ const ClassroomStudent = (props) => {
     clazz.teacherAssignedContents &&
     clazz.teacherAssignedContents.length > 0 &&
     clazz.teacherAssignedContents.filter(
-      (item) => item.userId === props.userId
+      (item) =>
+        item.audience === "all" ||
+        (item.userIds && item.userIds.includes(props.userId))
     );
 
   const classWorksList = () => {
@@ -254,9 +260,7 @@ const ClassroomStudent = (props) => {
                         classAnnouncement.teacher.fullName}{" "}
                     </p>
                     <small className="small-grey">
-                      {moment(classAnnouncement.createdAt)
-                        .startOf("hour")
-                        .fromNow()}
+                      {moment(classAnnouncement.createdAt).fromNow()}
                     </small>
                   </div>
                 </div>
@@ -283,7 +287,7 @@ const ClassroomStudent = (props) => {
                   </div>
                 </div>
               ))}
-              
+
               {/* {newComment &&
                 newComment.announcementId === classAnnouncement._id && (
                   <div className="pic-text-heading">
@@ -332,9 +336,10 @@ const ClassroomStudent = (props) => {
     clazz.relatedSubjects.forEach((subject) => {
       const assignedContent = clazz.teacherAssignedContents.filter(
         (content) =>
-          content.subjectId &&
-          content.subjectId._id === subject._id &&
-          content.userId === props.userId
+          (content.subjectId &&
+            content.subjectId._id === subject._id &&
+            content.audience === "all") ||
+          (content.userIds && content.userIds.includes(props.userId))
       );
       subjects.push({
         _id: subject._id,
@@ -444,7 +449,9 @@ const ClassroomStudent = (props) => {
                   <div className="upcoming-events">
                     <h4>Upcoming</h4>
                     {clazz.teacherAssignedContents &&
-                    clazz.teacherAssignedContents.length ? (
+                    clazz.teacherAssignedContents.length &&
+                    clazz.teacherAssignedContents[0].dueDate >
+                      moment().format() ? (
                       <>
                         <div className="item">
                           <img src={event} alt="event"></img>
