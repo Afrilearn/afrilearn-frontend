@@ -42,6 +42,14 @@ import {
   GET_CLASS_SUBJECTS_FAILURE,
   GET_CLASS_PAST_QUESTIONS_SUCCESS,
   GET_CLASS_PAST_QUESTIONS_FAILURE,
+  GET_CLASS_BASICS_SUCCESS,
+  GET_CLASS_BASICS_FAILURE,
+  GET_CLASS_ANNOUNCEMENTS_SUCCESS,
+  GET_CLASS_ANNOUNCEMENTS_FAILURE,
+  GET_CLASS_ASSIGNED_CONTENTS_SUCCESS,
+  GET_CLASS_ASSIGNED_CONTENTS_FAILURE,
+  GET_CLASS_ASSIGNED_CONTENT_SUCCESS,
+  GET_CLASS_ASSIGNED_CONTENT_FAILURE,
 } from "./types";
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
@@ -246,7 +254,7 @@ export const getClassBasicDetails = (classId) => async (dispatch) => {
     const result = await API.getClassBasicDetails(classId);
 
     dispatch({
-      type: GET_SINGLE_CLASS_SUCCESS,
+      type: GET_CLASS_BASICS_SUCCESS,
       payload: {
         class: result.data.data.class,
       },
@@ -268,11 +276,11 @@ export const getClassBasicDetails = (classId) => async (dispatch) => {
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        "GET_SINGLE_CLASS_FAILURE"
+        "GET_CLASS_BASICS_FAILURE"
       )
     );
     dispatch({
-      type: GET_SINGLE_CLASS_FAILURE,
+      type: GET_CLASS_BASICS_FAILURE,
     });
     dispatch({
       type: CLASS_INPUT_CHANGE,
@@ -288,7 +296,7 @@ export const getClassSubjects = (classId) => async (dispatch) => {
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classRelatedSubjectsLoading",
         value: true,
       },
     });
@@ -306,7 +314,7 @@ export const getClassSubjects = (classId) => async (dispatch) => {
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classRelatedSubjectsLoading",
         value: false,
       },
     });
@@ -327,7 +335,7 @@ export const getClassSubjects = (classId) => async (dispatch) => {
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classRelatedSubjectsLoading",
         value: false,
       },
     });
@@ -338,7 +346,7 @@ export const getClassPastQuestions = (classId) => async (dispatch) => {
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classRelatedPastQuestionsLoading",
         value: true,
       },
     });
@@ -356,7 +364,7 @@ export const getClassPastQuestions = (classId) => async (dispatch) => {
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classRelatedPastQuestionsLoading",
         value: false,
       },
     });
@@ -377,7 +385,214 @@ export const getClassPastQuestions = (classId) => async (dispatch) => {
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classRelatedPastQuestionsLoading",
+        value: false,
+      },
+    });
+  }
+};
+
+export const getClassAnnouncements = (classId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "classAnnouncementsLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getAnnouncementsInClass(classId);
+
+    dispatch({
+      type: GET_CLASS_ANNOUNCEMENTS_SUCCESS,
+      payload: {
+        announcements: result.data.data.announcements,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "classAnnouncementsLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_CLASS_ANNOUNCEMENTS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_CLASS_ANNOUNCEMENTS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "classAnnouncementsLoading",
+        value: false,
+      },
+    });
+  }
+};
+
+export const getClassAssignedContent = (classWorkId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getAssignedContent(classWorkId);
+
+    dispatch({
+      type: GET_CLASS_ASSIGNED_CONTENT_SUCCESS,
+      payload: {
+        assignedContent: result.data.data.assignedContent,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_CLASS_ASSIGNED_CONTENT_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_CLASS_ASSIGNED_CONTENT_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentLoading",
+        value: false,
+      },
+    });
+  }
+};
+export const getClassAssignedContents = (classId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentsLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getAssignedContentsInClass(classId);
+
+    dispatch({
+      type: GET_CLASS_ASSIGNED_CONTENTS_SUCCESS,
+      payload: {
+        assignedContents: result.data.data.assignedContents,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentsLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_CLASS_ASSIGNED_CONTENTS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_CLASS_ASSIGNED_CONTENTS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentsLoading",
+        value: false,
+      },
+    });
+  }
+};
+export const getClassAssignedContentsForStudent = (classId, userId) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentsLoading",
+        value: true,
+      },
+    });
+    document.body.classList.add("loading-indicator");
+    const result = await API.getAssignedContentsInClassForStudent(
+      classId,
+      userId
+    );
+
+    dispatch({
+      type: GET_CLASS_ASSIGNED_CONTENTS_SUCCESS,
+      payload: {
+        assignedContents: result.data.data.assignedContents,
+      },
+    });
+
+    document.body.classList.remove("loading-indicator");
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentsLoading",
+        value: false,
+      },
+    });
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_CLASS_ASSIGNED_CONTENTS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_CLASS_ASSIGNED_CONTENTS_FAILURE,
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "teacherAssignedContentsLoading",
         value: false,
       },
     });
@@ -391,7 +606,14 @@ export const getMembersInClass = (classId, paymentClass = false) => async (
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classMembersLoading",
+        value: true,
+      },
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "adminsLoading",
         value: true,
       },
     });
@@ -417,7 +639,14 @@ export const getMembersInClass = (classId, paymentClass = false) => async (
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classMembersLoading",
+        value: false,
+      },
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "adminsLoading",
         value: false,
       },
     });
@@ -438,7 +667,14 @@ export const getMembersInClass = (classId, paymentClass = false) => async (
     dispatch({
       type: CLASS_INPUT_CHANGE,
       payload: {
-        name: "isLoading",
+        name: "classMembersLoading",
+        value: false,
+      },
+    });
+    dispatch({
+      type: CLASS_INPUT_CHANGE,
+      payload: {
+        name: "adminsLoading",
         value: false,
       },
     });

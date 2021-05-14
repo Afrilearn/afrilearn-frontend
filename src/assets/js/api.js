@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: HerokuURL,
+  url: LocalURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -272,6 +272,25 @@ export default {
       url: `${this.url}classes/${classId}/past-questions`,
     });
   },
+  getAnnouncementsInClass(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}/announcements`,
+    });
+  },
+  getAssignedContentsInClass(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}/assigned-contents`,
+    });
+  },
+  getAssignedContentsInClassForStudent(classId, userId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/${classId}/assigned-contents`,
+      data: { userId },
+    });
+  },
 
   loadUser() {
     return axios({
@@ -340,6 +359,13 @@ export default {
       url: `${this.url}classes/${classId}/assign-content`,
       headers: this.headers(),
       data,
+    });
+  },
+
+  getAssignedContent(classworkId) {
+    return axios({
+      method: "get",
+      url: `${this.url}classes/assigned-content/${classworkId}/`,
     });
   },
 
@@ -685,7 +711,7 @@ export default {
       method: "post",
       url: `${this.url}courses/${courseId}/progress`,
       headers: this.headers(),
-      data
+      data,
     });
   },
   getSubjectQuizPerformance(courseId, data) {
@@ -693,7 +719,7 @@ export default {
       method: "post",
       url: `${this.url}courses/${courseId}/subject-performance`,
       headers: this.headers(),
-      data
+      data,
     });
   },
   getSubjectPastQuestionsPerformance(courseId, data) {
@@ -701,7 +727,7 @@ export default {
       method: "post",
       url: `${this.url}courses/${courseId}/past-question-performance`,
       headers: this.headers(),
-      data
+      data,
     });
   },
 };
