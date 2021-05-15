@@ -48,7 +48,7 @@ const About = props => {
                 <div className="row">
                     <div className="col-md-6 partOne">
                         <h1>About Us</h1>
-                        <p>Afrilearn is an education technology corporation leveraging seasoned teachers, animators and developers to deliver affordable, world-class education for Africans, anywhere.</p>
+                        <p>Afrilearn is an education technology enterprise leveraging seasoned teachers, animators and developers to deliver affordable, world-class education for Africans, anywhere.</p>
                         <p className="slide1"> 
                             <PictureBox/>
                         </p>                       
