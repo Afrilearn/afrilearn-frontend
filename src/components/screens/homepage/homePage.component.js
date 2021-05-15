@@ -59,11 +59,15 @@ const Homepage = (props) => {
     }
   };
 
-  const handleChange = (e) => {
-    const target = e.target;
-    const name = target.name;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    props.inputChange(name, value);
+  const handleChange1 = (e) => {   
+      const target = e.target;
+      const name = target.name;
+      const value = target.type === "checkbox" ? target.checked : target.value;
+      props.inputChange(name, value);     
+  };
+
+  const handleChange = (role=false, e) => {    
+      props.inputChange('role', role);   
   };
 
   function numberWithCommas(x) {
@@ -130,7 +134,7 @@ const Homepage = (props) => {
                 <h5>Genius Content</h5>
                 <p>
                   Enjoy unlimited video lessons, class notes, practice quizzes
-                  created by top tutors for high-flying students.
+                  by top tutors for high-flying students.
                 </p>
               </div>
             </div>
@@ -146,7 +150,7 @@ const Homepage = (props) => {
                 <h5>Examination Success</h5>
                 <p>
                   Prepare effectively for best results in WASSCE, IGCSE, JSSCE,
-                  NECO, GCE, UTME, SAT and more.
+                  NECO, GCE, UTME, SAT.
                 </p>
               </div>
             </div>
@@ -170,8 +174,8 @@ const Homepage = (props) => {
               <div className="col-10 paddingLeftOff">
                 <h5>Personalised Education</h5>
                 <p>
-                  Understand how you learn best, where to focus, and study at
-                  your unique pace.
+                  Understand how you learn best, where<br className="desktopOnly"/> to focus, and study at
+                  your unique<br className="desktopOnly"/> pace.
                 </p>
               </div>
             </div>
@@ -193,6 +197,229 @@ const Homepage = (props) => {
             </div>
           </div>
         </div>{" "}
+        <div className="row fourProfiles">         
+          <div className="col-md-3">
+            <span className="profile">
+              <img src={require('../../../assets/img/student.gif')} alt="student" className="profileImg"/>
+              <div className="row box">
+                <div className="col-12">
+                  <h4>STUDENTS</h4>
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Learn through your syllabus at your unique pace 💃
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Genius library of video lessons, class notes, quizzes
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Achieve best grades & pass WAEC, JAMB, BECE easily 😄
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                     Interact with top tutors & become a high-flying student 
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12 center">                  
+                  <Link className="myButton" to="/register" onClick={handleChange.bind(null,'5fd08fba50964811309722d5')}>
+                    Create Free Student Account
+                  </Link>
+                </div>
+              </div>
+            </span>
+          </div>
+          <div className="col-md-3">
+            <span className="profile">
+              <img src={require('../../../assets/img/teacher.gif')} alt="student" className="profileImg"/>
+              <div className="row box">
+                <div className="col-12">
+                  <h4>TEACHERS</h4>
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Save time, stress, and paper<br className="desktopOnly"/> works ⏳
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Access ready content to teach on the go
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Improve classroom engagement & performance
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Become an award-winning <br className="desktopOnly"/>teacher 🌟
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12 center">                  
+                  <Link className="myButton" to="/register" onClick={handleChange.bind(null,'602f3ce39b146b3201c2dc1d')}>
+                    Create Free Teacher Account
+                  </Link>
+                </div>
+              </div>
+            </span>
+          </div>
+          <div className="col-md-3">
+            <span className="profile">
+              <img src={require('../../../assets/img/parent.gif')} alt="student" className="profileImg"/>
+              <div className="row box">
+                <div className="col-12">
+                  <h4>PARENTS</h4>
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Track your child’s progress, strengths, and gaps
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Access insights to accelerate your child’s learning
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Engage your child for success in school and life 🧑‍🎓
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Transform your child’s life with world-class education
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12 center">                  
+                  <Link className="myButton" to="/register" onClick={handleChange.bind(null,'606ed82e70f40e18e029165e')}>
+                    Create Free Parent Account
+                  </Link>
+                </div>
+              </div>
+            </span>
+          </div>
+          <div className="col-md-3">
+            <span className="profile">
+              <img src={require('../../../assets/img/school.gif')} alt="student" className="profileImg"/>
+              <div className="row box">
+                <div className="col-12">
+                  <h4>SCHOOLS</h4>
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Discover how your students learn best, where to focus
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Deliver best results in WASSCE, GCE, UME, BECE etc.
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Empower your school with advanced technologies 👩‍💻
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Improve enrollment & learning outcomes
+                    </div>
+                  </div>                  
+                </div>
+                <div className="col-12 center">                  
+                  <Link className="myButton" to="/register" onClick={handleChange.bind(null,'607ededa2712163504210684')}>
+                    Create Free School Account
+                  </Link>
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+       
         <div className="row relative">
           <Particles id="tsparticles" options={PaticleOption} />
           <div className="col-md-6">
@@ -543,8 +770,7 @@ const Homepage = (props) => {
                 </div>
               </div>
             </div>
-            {/* New  */}
-
+            
             <h6 className="center push88">
               Ready to learn? Simply enter your email!
             </h6>
@@ -556,7 +782,7 @@ const Homepage = (props) => {
                   placeholder="Email Address"
                   name="email"
                   value={email}
-                  onChange={handleChange}
+                  onChange={handleChange1}
                 />
               </div>
               <div className="col-3 paddingLeftOff">

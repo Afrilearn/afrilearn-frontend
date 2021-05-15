@@ -163,8 +163,9 @@
     margin-left: -8px !important;
 }
 
-#homepage .afterBanner>.row {
+#homepage .afterBanner > .row {
     border-top: solid 9px #222;
+    /* padding: 100px 59px; */
     padding: 100px 112px;
 }
 
@@ -193,6 +194,49 @@
     margin-top: 12px !important;
     border-radius: 5px 0px 0px 5px;
     height: 53px;
+}
+
+.profile img.profileImg {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.profile .box {
+    padding: 15px 10px 20px 10px;
+    font-size: 15px;
+}
+
+.profile {
+    background: #222;
+    display: block;
+    border-radius: 0px 0px 5px 5px;
+}
+
+a.myButton {
+    background: #84BB29 !important;
+    border-radius: 5px;
+    color: white !important;
+    padding: 8px 4px;
+    text-align: center;
+    width: 78% !important;
+    display: inline-block;
+    margin-top: 7px;
+}
+.profile h4{
+    text-align: center;
+    padding: 4px;    
+}
+.fourProfiles .col-md-3 {
+    padding: 5px;
+}
+.fourProfiles .col-10 {
+    padding-left: 1px;
+}
+.profile .bulletRow {
+    padding: 0px 11px;
+    margin-bottom: 5px;
 }
 
 #homepage input[type="submit"] {
@@ -280,9 +324,11 @@
     padding: 10px 28px;
     text-align: center;
 }
-#homepage .slick-dots{
+
+#homepage .slick-dots {
     display: none !important;
 }
+
 #homepage h3 {
     margin-bottom: 30px;
 }
@@ -382,6 +428,7 @@
     width: 1.2rem;
     height: 1.2rem;
 }
+
 #homepage .accordion-button:not(.collapsed) {
     border-bottom: solid 1px black !important;
 }
@@ -451,15 +498,18 @@
         font-size: 11px;
         margin-top: 12px !important;
     }
+
     #homepage input[type="submit"] {
         padding: 16.2px 6px;
         font-size: 13px;
         margin-top: 12px !important;
     }
+
     #homepage input.lastbee {
         font-size: 9px !important;
         padding: 16.2px 2px !important;
     }
+
     #homepage .students img {
         width: 28%;
         margin: auto;
@@ -552,8 +602,8 @@
         margin-left: 5px;
     } */
 
-    #homepage .afterBanner>.row {
-        padding: 50px 27px;
+    #homepage .afterBanner > .row {
+        padding: 50px 20px;
     }
 
     a.myPlaceholder {
@@ -565,6 +615,7 @@
         width: 15px;
         right: 10px;
     }
+
     #homepage .accordion-body {
         font-size: 13px !important;
     }
@@ -580,8 +631,19 @@
     .students .paddingLeftOff {
         padding-left: 15px !important;
     }
+
     #homepage .supporter img {
         margin: auto;
         display: block !important;
+    }
+    .profile {
+        margin-bottom: 14px;
+    }
+    .profile img.profileImg {     
+        height: 136px;      
+    }
+    a.myButton {      
+        padding: 6px 4px;
+        margin-top: 18px;       
     }
 }
