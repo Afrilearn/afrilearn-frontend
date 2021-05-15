@@ -373,10 +373,13 @@ const LessonPage = (props) => {
               />
               {nextVideo ? (
                 <div>
-                  <h3>Lesson Video {videoIndex} completed</h3>
+                  <h3>
+                    Lesson Video {videoIndex} - "{lesson && lesson.title}"{" "}
+                    completed
+                  </h3>
                   <p>
-                    Next: Lesson Video {videoIndex} -{" "}
-                    {nextLesson && nextLesson.title}
+                    Next: Lesson Video {videoIndex + 1} - "
+                    {nextLesson && nextLesson.title}"
                   </p>
                   <Link
                     to={linkToNextVideo}
@@ -390,7 +393,7 @@ const LessonPage = (props) => {
                 </div>
               ) : (
                 <div>
-                  <h3>Lessons completed for this section</h3>
+                  <h3>Lessons completed: {lesson && lesson.title}</h3>
                   {lesson && lesson.questions && lesson.questions.length > 0 ? (
                     <div>
                       <p>Next: Quiz</p>
@@ -428,7 +431,7 @@ const LessonPage = (props) => {
                     </div>
                   ) : nextLesson ? (
                     <div>
-                      <p>Next: {nextLesson && nextLesson.title}</p>
+                      <p>Next: "{nextLesson && nextLesson.title}"</p>
                       <Link
                         to={linkToNextLessonClassNote}
                         onClick={() => {
