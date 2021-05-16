@@ -25,8 +25,8 @@ import ReactPlayer from "react-player/lazy";
 import Speech from "../../includes/textToSpeech/textToSpeech.component";
 import {
   loadQuestions,
+  loadQuizQuestions,
   inputChange,
-  loadQuizQuestions
 } from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import {
@@ -53,6 +53,7 @@ import {
 import queryString from "query-string";
 import slugify from "react-slugify";
 import Countdown from "react-countdown";
+import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -291,56 +292,16 @@ const LessonPage = (props) => {
   });
 
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const updateQuizType = (lesson) => {
-    props.inputChange("examType", "quiz");
-    props.inputChange("quizTitle", lesson.title);
-    props.inputChange("quizLessonId", lesson._id);
-
-    props.loadQuizQuestions(lesson.questions);
-    if (!nextNotAllowed) {
-      props.inputChange("nextLessonLocation", linkToNextLesson);
-    }
-  };
+ 
   const toggle = () => setPopoverOpen(!popoverOpen);
 
-  const openPopOne = () => {
-    const popOne = document.getElementById("lessonPagePopUpOne");
-    popOne.style.display = "flex";
-  };
-
-  const openPopTwo = () => {
-    const popTwo = document.getElementById("lessonPagePopUpTwo");
-    popTwo.style.display = "flex";
-  };
-  const openPopThree = () => {
-    const popThree = document.getElementById("lessonPagePopUpThree");
-    popThree.style.display = "flex";
-  };
-  const openPopFour = () => {
-    const popFour = document.getElementById("lessonPagePopUpFour");
-    popFour.style.display = "flex";
-  };
-
-  const closePopOne = () => {
-    const popOne = document.getElementById("lessonPagePopUpOne");
-    popOne.style.display = "none";
-  };
-
-  const closePopThree = () => {
-    const popThree = document.getElementById("lessonPagePopUpThree");
-    popThree.style.display = "none";
-  };
-  const closePopFour = () => {
-    const popFour = document.getElementById("lessonPagePopUpFour");
-    popFour.style.display = "none";
-  };
-  const closePopTwo = () => {
-    const popTwo = document.getElementById("lessonPagePopUpTwo");
-    popTwo.style.display = "none";
-  };
   const { className } = props;
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
+  const [modal4, setModal4] = useState(false);
+  const toggleModal4 = () => setModal4(!modal4);
+  const [modal5, setModal5] = useState(false);
+  const toggleModal5 = () => setModal5(!modal5);
   const [modal3, setModal3] = useState(false);
   const toggle3 = () => setModal3(!modal3);
   let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now or visit https://myafrilearn.com/`;
@@ -358,6 +319,25 @@ const LessonPage = (props) => {
   };
 
   const [stopRedirect, setStopRedirect] = useState(false);
+
+  const updateQuizType = () => {
+    props.inputChange("examType", "quiz");
+    props.inputChange("quizTitle", lesson.title);
+    props.inputChange("quizLessonId", lesson._id);
+
+    props.loadQuizQuestions(lesson.questions);
+    if (!nextNotAllowed) {
+      if (
+        nextLesson &&
+        nextLesson.videoUrls &&
+        nextLesson.videoUrls.length > 0
+      ) {
+        props.inputChange("nextLessonLocation", linkToNextLesson);
+      } else {
+        props.inputChange("nextLessonLocation", linkToNextLessonClassNote);
+      }
+    }
+  };
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
@@ -372,104 +352,108 @@ const LessonPage = (props) => {
             }}
             className={className}
           >
-            <ModalHeader
-              toggle={() => {
-                toggleModal();
-                setStopRedirect(true);
-              }}
-            >
-              &nbsp;
-            </ModalHeader>
-            <ModalBody style={{ textAlign: "center" }}>
+            <ModalBody className="take-action-pop-up">
+              <FontAwesomeIcon
+                className="close-take-action-pop-up"
+                icon={faTimes}
+                onClick={() => {
+                  toggleModal();
+                  setStopRedirect(true);
+                }}
+              />
               {nextVideo ? (
                 <div>
-                  <h4>Lesson Video completed</h4>
+                  <h3>
+                    Lesson Video {videoIndex} - "{lesson && lesson.title}"{" "}
+                    completed
+                  </h3>
+                  <p>
+                    Next: Lesson Video {videoIndex + 1} - "
+                    {nextLesson && nextLesson.title}"
+                  </p>
                   <Link
                     to={linkToNextVideo}
-                    className="btn btn-primary"
                     onClick={() => {
                       toggleModal();
                       setStopRedirect(true);
                     }}
                   >
-                    Go to next Lesson Video
+                    <button>Go to next Lesson Video</button>
                   </Link>
                 </div>
               ) : (
                 <div>
-                  <h4>Lessons completed for this section</h4>
-                  <h2>Congratulations</h2>
+                  <h3>Lessons completed: {lesson && lesson.title}</h3>
                   {lesson && lesson.questions && lesson.questions.length > 0 ? (
-                    <Button
-                      tag={Link}
-                      to="/lesson/quiz/instructions"
-                      className="btn btn-success"
-                      onClick={() => {
-                        if (!nextNotAllowed) {
-                          props.inputChange(
-                            "nextLessonLocation",
-                            linkToNextLessonClassNote
-                          );
-                        }
-                        setStopRedirect(true);
-                        updateQuizType(lesson);
-                      }}
-                    >
-                      Proceed to take Quiz
-                    </Button>
+                    <div>
+                      <p>Next: Quiz</p>
+                      <Link
+                        to="/lesson/quiz/instructions"
+                        onClick={() => {
+                          updateQuizType();
+                          setStopRedirect(true);
+                        }}
+                      >
+                        <button>Proceed to take Quiz</button>
+                      </Link>
+                    </div>
                   ) : nextLessonVideo ? (
-                    <Button
-                      tag={Link}
-                      to={linkToNextLesson}
-                      className="btn btn-success"
-                      onClick={() => {
-                        setStopRedirect(true);
-                      }}
-                    >
-                      Go to "
-                      {nextLesson &&
-                        nextLesson.title &&
-                        nextLesson.title.slice(0, 25)}
-                      {nextLesson &&
-                        nextLesson.title &&
-                        nextLesson.title.length > 25 &&
-                        "..."}
-                      "
-                    </Button>
+                    <div>
+                      <p>Next: {nextLesson && nextLesson.title}</p>
+                      <Link
+                        to={linkToNextLesson}
+                        onClick={() => {
+                          setStopRedirect(true);
+                        }}
+                      >
+                        <button>
+                          Go to "
+                          {nextLesson &&
+                            nextLesson.title &&
+                            nextLesson.title.slice(0, 25)}
+                          {nextLesson &&
+                            nextLesson.title &&
+                            nextLesson.title.length > 25 &&
+                            "..."}
+                          "
+                        </button>
+                      </Link>
+                    </div>
                   ) : nextLesson ? (
-                    <Button
-                      tag={Link}
-                      to={linkToNextLessonClassNote}
-                      className="btn btn-success"
-                      onClick={() => {
-                        setStopRedirect(true);
-                      }}
-                    >
-                      Go to "
-                      {nextLesson &&
-                        nextLesson.title &&
-                        nextLesson.title.slice(0, 25)}
-                      {nextLesson &&
-                        nextLesson.title &&
-                        nextLesson.title.length > 25 &&
-                        "..."}
-                      "
-                    </Button>
+                    <div>
+                      <p>Next: "{nextLesson && nextLesson.title}"</p>
+                      <Link
+                        to={linkToNextLessonClassNote}
+                        onClick={() => {
+                          setStopRedirect(true);
+                        }}
+                      >
+                        <button>
+                          Go to "
+                          {nextLesson &&
+                            nextLesson.title &&
+                            nextLesson.title.slice(0, 25)}
+                          {nextLesson &&
+                            nextLesson.title &&
+                            nextLesson.title.length > 25 &&
+                            "..."}
+                          "
+                        </button>
+                      </Link>
+                    </div>
                   ) : (
-                    <Button
-                      tag={Link}
+                    <Link
                       to={linkToSubjectPage}
-                      className="btn btn-success"
                       onClick={() => {
                         setStopRedirect(true);
                       }}
                     >
-                      Go to topics page
-                    </Button>
+                      <button>Go to topics page</button>
+                    </Link>
                   )}
                 </div>
               )}
-              <p className="my-2">
+              <span className="my-2">
                 You will be redirected in{" "}
                 <Countdown
                   renderer={({ hours, minutes, seconds }) => (
@@ -489,12 +473,7 @@ const LessonPage = (props) => {
                         ) {
                           updateQuizType(lesson);
                           props.history.push("/lesson/quiz/instructions");
-                          if (!nextNotAllowed) {
-                            props.inputChange(
-                              "nextLessonLocation",
-                              linkToNextLessonClassNote
-                            );
-                          }
+                          updateQuizType();
                         } else if (nextLessonVideo) {
                           return props.history.push(linkToNextLesson);
                         } else if (nextLesson) {
@@ -506,7 +485,7 @@ const LessonPage = (props) => {
                     }
                   }}
                 />
-              </p>
+              </span>
             </ModalBody>
           </Modal>
         </div>
@@ -536,8 +515,10 @@ const LessonPage = (props) => {
               <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
               Lesson {videoIndex + 1}
             </div>
-            <div className="icon" onClick={openPopOne}>
-              <FontAwesomeIcon icon={faBook} />
+            <div className="icon">
+              <Link to={linkToLessonClassNote}>
+                <FontAwesomeIcon icon={faBook} />
+              </Link>
               <div className="icon_pop">
                 <p>Class Note</p>
                 <span></span>
@@ -652,7 +633,7 @@ const LessonPage = (props) => {
                   prevLesson.videoUrls &&
                   prevLesson.videoUrls.length === 0
                 ) {
-                  return openPopFour();
+                  return toggleModal5();
                 }
               } else {
               }
@@ -715,7 +696,7 @@ const LessonPage = (props) => {
                   nextLesson.videoUrls &&
                   nextLesson.videoUrls.length === 0
                 ) {
-                  return openPopThree();
+                  return toggleModal4();
                 }
               } else {
               }
@@ -747,69 +728,36 @@ const LessonPage = (props) => {
           </Link>
         </div>
       </div>
-      <div id="lessonPagePopUpFour">
-        <span className="closePopUp cursor-pointer" onClick={closePopFour}>
-          <FontAwesomeIcon icon={faTimes} />
-        </span>
-        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "40px" }} />
-        <h3>
-          There is no video lesson in the previuos lesson <br />
-          Do you wan to open class note?
-        </h3>
-        <Link className="button" to={linkToPreviousLessonClassNote}>
-          Yes! Proceed to Class Note
-        </Link>
-      </div>
 
-      <div id="lessonPagePopUpThree">
-        <span className="closePopUp cursor-pointer" onClick={closePopThree}>
-          <FontAwesomeIcon icon={faTimes} />
-        </span>
-        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "40px" }} />
-        <h3>
-          There is no video lesson in the next lesson <br />
-          Do you wan to open class note?
-        </h3>
-        <Link className="button" to={linkToNextLessonClassNote}>
-          Yes! Proceed to Class Note
-        </Link>
-      </div>
-      <div id="lessonPagePopUpOne">
-        <span className="closePopUp cursor-pointer" onClick={closePopOne}>
-          <FontAwesomeIcon icon={faTimes} />
-        </span>
-        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "40px" }} />
-        <h3>
-          This action takes you to the complete <br /> class note page
-        </h3>
-        <Link className="button" to={linkToLessonClassNote}>
-          Yes! Proceed to Class Note
-        </Link>
-        {/* <a href="/">Share your progress</a> */}
-      </div>
-      <div id="lessonPagePopUpTwo">
-        <span className="closePopUp" onClick={closePopTwo}>
-          <FontAwesomeIcon icon={faTimes} />
-        </span>
-        <h3>Subscribe to Unlock</h3>
-        <Link to="/select-pay">
-          <button>Subscribe now</button>
-        </Link>
-      </div>
-      <Modal isOpen={modal3} toggle={toggle3}>
-        <ModalBody>
-          <div className="next-lesson-or-quiz py-5 px-2">
-            <h3>You need to subscribe to access this content!</h3>
-            <p>
-              Subscribe now to unlock all videos, class notes, tests & more in
-              this class.
-            </p>
-            <Link to="/select-pay">
-              <button>SUBSCRIBE NOW</button>
-            </Link>
-          </div>
-        </ModalBody>
-      </Modal>
+      <TakeActionPopUp
+        headingText="There is no video lesson in the previous lesson"
+        smallText=" Do you wan to open class note?"
+        actionText="Yes! Proceed to Class Note"
+        modal={modal5}
+        showActionButton={true}
+        actionLink={linkToPreviousLessonClassNote}
+        toggle={toggleModal5}
+      />
+      <TakeActionPopUp
+        headingText="There is no video lesson in the next lesson"
+        smallText=" Do you wan to open class note?"
+        actionText="Yes! Proceed to Class Note"
+        modal={modal4}
+        showActionButton={true}
+        actionLink={linkToNextLessonClassNote}
+        toggle={toggleModal4}
+      />
+      <TakeActionPopUp
+        headingText="You need to subscribe to access this content!"
+        subText=" Subscribe now to unlock all videos, class notes, tests & more in
+        this class."
+        actionText="SUBSCRIBE NOW"
+        modal={modal3}
+        showActionButton={true}
+        actionLink="/select-pay"
+        toggle={toggle3}
+      />
+
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
         <ModalHeader toggle={toggle1}>&nbsp;</ModalHeader>
         <ModalBody>
@@ -895,5 +843,5 @@ export default connect(mapStateToProps, {
   addSubjectProgress,
   loadQuestions,
   inputChange,
-  loadQuizQuestions
+  loadQuizQuestions,
 })(LessonPage);

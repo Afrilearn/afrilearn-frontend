@@ -176,7 +176,7 @@ const ClassroomStudent = (props) => {
             <div className="class-item accordion-item" key={item._id}>
               <h5 class="accordion-header" id={`heading${index + 1}`}>
                 <button
-                  class="accordion-button"
+                  class="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse${index + 1}`}
