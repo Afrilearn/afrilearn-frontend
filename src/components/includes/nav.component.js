@@ -466,7 +466,13 @@ const MyNav = (props) => {
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/classes/teacher">
                     Teacher's Dashboard
-                  </DropdownItem> */}
+                  </DropdownItem> */}    
+                   <DropdownItem>
+                   <a href="https://rxg7hvu62hz.typeform.com/to/VS8LL5pI" target="_blank">
+                    Share your Feedback
+                  </a>
+                  </DropdownItem>              
+                
                   <DropdownItem tag={Link} to="/" onClick={handleLogout}>
                     Log Out
                   </DropdownItem>

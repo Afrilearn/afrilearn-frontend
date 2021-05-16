@@ -14,7 +14,7 @@ const Footer = (props) => {
       <div className="container-fluid">
         <div className="row r1">
           <div className="col-md-4">
-            <h6>Why Afrilearn?</h6>
+            {/* <h6>Why Afrilearn?</h6> */}
             <p className="p1">
               Afrilearn actively leverages genius tutors,
               animators, and developers to provide affordable, world-class
@@ -104,7 +104,7 @@ const Footer = (props) => {
             <div className="col-md-5 listP">
                 <ul>
                     <li><Link to="/privacy_policy">Privacy Policy</Link></li>
-                    <li><Link to="/privacy_policy">Copyright</Link></li>   
+                    <li><Link to="/privacy_policy">&nbsp;</Link></li>   
                     <li><Link to="/privacy_policy">Terms of Service</Link></li>                      
                 </ul>
             </div>
