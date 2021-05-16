@@ -84,7 +84,7 @@ const Homepage = (props) => {
             <h1>Get Ahead with Afrilearn!</h1>
             <h4>
               We provide every Secondary School Student freedom to
-              learn curriculum-relevant subjects and topics anytime, anywhere.
+              learn complete curriculum-relevant subjects and topics anytime, anywhere.
             </h4>
             <div className="row courseSelectSection">
               <div className="col-md-12">
@@ -133,7 +133,7 @@ const Homepage = (props) => {
               <div className="col-10 paddingLeftOff">
                 <h5>Genius Content</h5>
                 <p>
-                  Enjoy unlimited video lessons, class notes, practice quizzes
+                  Enjoy unlimited videos, class notes, practice quizzes
                   by top tutors for high-flying students.
                 </p>
               </div>
@@ -174,8 +174,8 @@ const Homepage = (props) => {
               <div className="col-10 paddingLeftOff">
                 <h5>Personalised Education</h5>
                 <p>
-                  Understand how you learn best, where<br className="desktopOnly"/> to focus, and study at
-                  your unique<br className="desktopOnly"/> pace.
+                  Understand how you learn best, where to focus, and study at
+                  your unique pace.
                 </p>
               </div>
             </div>
@@ -190,7 +190,7 @@ const Homepage = (props) => {
               <div className="col-10 paddingLeftOff">
                 <h5>Engaging Classroom</h5>
                 <p>
-                  School or Teacher? Access ready video lessons and class notes
+                  School or Teacher? Access ready-made contents
                   to accelerate your students’ learning.
                 </p>
               </div>
@@ -211,7 +211,17 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Learn through your syllabus at your unique pace 💃
+                      Learn through your syllabus at your unique pace💃✍️
+                    </div>
+                  </div>                  
+                </div>                
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Achieve best grades & pass WAEC, JAMB, BECE easily💯
                     </div>
                   </div>                  
                 </div>
@@ -221,27 +231,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Genius library of video lessons, class notes, quizzes
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                      Achieve best grades & pass WAEC, JAMB, BECE easily 😄
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                     Interact with top tutors & become a high-flying student 
+                     Interact with top tutors & become a high-flying student👨‍🚀
                     </div>
                   </div>                  
                 </div>
@@ -266,7 +256,17 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Save time, stress, and paper<br className="desktopOnly"/> works ⏳
+                      Save time, stress, and paper<br className="desktopOnly"/> works🕐
+                    </div>
+                  </div>                  
+                </div>               
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Improve classroom engagement & performance⚡
                     </div>
                   </div>                  
                 </div>
@@ -276,27 +276,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Access ready content to teach on the go
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                      Improve classroom engagement & performance
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                      Become an award-winning <br className="desktopOnly"/>teacher 🌟
+                      Become an award-winning <br className="desktopOnly"/>teacher🏆
                     </div>
                   </div>                  
                 </div>
@@ -321,7 +301,17 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Track your child’s progress, strengths, and gaps
+                      Track your child’s strengths and progress💪
+                    </div>
+                  </div>                  
+                </div>                
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Engage your child for success in school and life🎖️
                     </div>
                   </div>                  
                 </div>
@@ -331,27 +321,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Access insights to accelerate your child’s learning
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                      Engage your child for success in school and life 🧑‍🎓
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                      Transform your child’s life with world-class education
+                      Transform your child’s life with world-class education🎓
                     </div>
                   </div>                  
                 </div>
@@ -376,7 +346,18 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Discover how your students learn best, where to focus
+                      Discover how your students learn best, where to focus✨ 
+                    </div>
+                  </div>                  
+                </div>
+                
+                <div className="col-12">
+                  <div className="row bulletRow">
+                    <div className="col-1">
+                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
+                    </div>
+                    <div className="col-10 paddingRightOff">
+                      Empower your school with advanced technologies💻
                     </div>
                   </div>                  
                 </div>
@@ -386,27 +367,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Deliver best results in WASSCE, GCE, UME, BECE etc.
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                      Empower your school with advanced technologies 👩‍💻
-                    </div>
-                  </div>                  
-                </div>
-                <div className="col-12">
-                  <div className="row bulletRow">
-                    <div className="col-1">
-                      <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
-                    </div>
-                    <div className="col-10 paddingRightOff">
-                      Improve enrollment & learning outcomes
+                      Improve enrollment & learning outcomes🧑🏻‍🤝‍🧑🏻
                     </div>
                   </div>                  
                 </div>
@@ -615,8 +576,8 @@ const Homepage = (props) => {
                   data-bs-parent="#accordionExample"
                 >
                   <div class="accordion-body">
-                    Afrilearn is an education streaming service that provides
-                    West African Secondary School Students (JSS1-SS3) freedom to learn curriculum-relevant
+                    Afrilearn is an education streaming service that provides Nigerian and
+                    West African Secondary School Students (JSS1-SS3) freedom to learn complete curriculum-relevant
                     subjects and topics anytime, anywhere. With Afrilearn,
                     there's always something exciting to learn as new contents
                     are added weekly!
@@ -758,13 +719,13 @@ const Homepage = (props) => {
                   <div class="accordion-body">
                     We’ve got you! Simply{" "}
                     <Link to="/faq">
-                      <b><u>CLICK HERE</u></b>
+                      <u>CLICK HERE</u>
                     </Link>{" "}
                     to visit our{" "}
                     <Link to="/faq">
-                      <b><u>COMPLETE FAQ PAGE</u></b>
+                      <u>COMPLETE FAQ PAGE</u>
                     </Link>
-                    , which regularly gets updated based on new data insights
+                    , which regularly gets updated based on new data and insights
                     from our awesome users.
                   </div>
                 </div>

@@ -99,7 +99,7 @@
     margin-top: auto;
     margin-top: auto;
     display: block;
-    margin-top: 42px;
+    margin-top: 20px;
     height: 195px;
     object-fit: contain;
 }
@@ -165,8 +165,8 @@
 
 #homepage .afterBanner > .row {
     border-top: solid 9px #222;
-    /* padding: 100px 59px; */
-    padding: 100px 112px;
+    padding: 100px 59px;
+    padding: 100px 104px;
 }
 
 #homepage h1 {

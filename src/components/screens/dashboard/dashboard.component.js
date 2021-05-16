@@ -301,8 +301,8 @@ const Dashboard = (props) => {
         </div>
         <div className="row push2 mobileCenter">
           <div className="col-md-12">
-            <h2 className="boldFont">Welcome {fullName.toProperCase()}</h2>
-            <p>Explore the fun in learning!</p>
+            <h2 className="boldFont">Welcome {fullName.toProperCase()}!</h2>
+            <p>Explore the fun in learning💃</p>
           </div>
         </div>
         <div className="row push2"></div>
