@@ -27,7 +27,6 @@ import {
   loadQuestions,
   loadQuizQuestions,
   inputChange,
-  loadQuizQuestions
 } from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import {
@@ -293,16 +292,7 @@ const LessonPage = (props) => {
   });
 
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const updateQuizType = (lesson) => {
-    props.inputChange("examType", "quiz");
-    props.inputChange("quizTitle", lesson.title);
-    props.inputChange("quizLessonId", lesson._id);
-
-    props.loadQuizQuestions(lesson.questions);
-    if (!nextNotAllowed) {
-      props.inputChange("nextLessonLocation", linkToNextLesson);
-    }
-  };
+ 
   const toggle = () => setPopoverOpen(!popoverOpen);
 
   const { className } = props;
