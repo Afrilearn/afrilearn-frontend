@@ -18,12 +18,12 @@ export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
   try {
     document.body.classList.add("loading-indicator");
     const result = await API.getSubjectAndRelatedLessons(courseId, subjectId);
-   
+
     dispatch({
       type: GET_SUBJECT_AND_RELATED_LESSONS_SUCCESS,
       payload: {
         subject: result.data.data.subject,
-        numOfUsers:result.data.data.numOfUsers
+        numOfUsers: result.data.data.numOfUsers,
       },
     });
 
@@ -50,11 +50,11 @@ export const addSubjectProgress = (
   lessonId,
   subjectId,
   courseId,
-  reason, 
+  reason,
   type
 ) => async (dispatch) => {
   try {
-    document.body.classList.add("loading-indicator");
+    // document.body.classList.add("loading-indicator");
     await API.addSubjectProgress(
       classId,
       lessonId,
@@ -67,9 +67,9 @@ export const addSubjectProgress = (
       type: ADD_SUBJECT_PROGRESS_SUCCESS,
     });
 
-    document.body.classList.remove("loading-indicator");
+    // document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove("loading-indicator");
+    // document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
@@ -87,15 +87,15 @@ export const addSubjectProgress = (
 
 export const addRecentActivity = (lessonId, type) => async (dispatch) => {
   try {
-    document.body.classList.add("loading-indicator");
+    // document.body.classList.add("loading-indicator");
     await API.addRecentActivity(lessonId, type);
     dispatch({
       type: ADD_RECENT_ACTIVITIES_SUCCESS,
     });
 
-    document.body.classList.remove("loading-indicator");
+    // document.body.classList.remove("loading-indicator");
   } catch (err) {
-    document.body.classList.remove("loading-indicator");
+    // document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
@@ -111,18 +111,16 @@ export const addRecentActivity = (lessonId, type) => async (dispatch) => {
   }
 };
 
-export const getSingleLesson = (lessonId) => async (
-  dispatch
-) => {
+export const getSingleLesson = (lessonId) => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
 
     const result = await API.getSingleLesson(lessonId);
-   
+
     dispatch({
       type: GET_SINGLE_LESSON_SUCCESS,
       payload: {
-        lesson: result.data.data.lesson      
+        lesson: result.data.data.lesson,
       },
     });
 

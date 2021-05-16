@@ -40,7 +40,6 @@ const LessonItem = (props) => {
 
   const isStudent = role === "5fd08fba50964811309722d5";
 
-
   const onClickQuiz = (lesson) => {
     if (activeCoursePaidStatus || unlocked) {
       props.addRecentActivity(lesson._id, "quiz");
@@ -241,13 +240,16 @@ const LessonItem = (props) => {
               data-bs-toggle="collapse"
               data-bs-target={`#collapseOne${index}${lesson._id}`}
               aria-controls={`collapseOne${index}${lesson._id}`}
+              aria-expanded="false"
             >
               <FontAwesomeIcon
                 icon={faCheckCircle}
                 color={isViewed ? "#84BB29" : "white"}
                 className="mark-done"
               />
-              <span class={`${isViewed ? "color-green" : "text-white"}`}>{toTitleCase(lesson.title)}</span>
+              <span class={`${isViewed ? "color-green" : "text-white"}`}>
+                {toTitleCase(lesson.title)}
+              </span>
 
               <div className="float-end">
                 {!unlocked ? (

@@ -603,9 +603,9 @@
 #performance .school-details h2 {
   margin-left: 16px;
 }
-.accordion-button.collapsed {
-  color: #84bb29;
+.classwork .accordion-button.collapsed {
+  color: #ffffff;
 }
-.accordion-button:not(.collapsed) {
-  color: #84bb29;
+.classwork .accordion-button:not(.collapsed) {
+  color: #ffffff;
 }
