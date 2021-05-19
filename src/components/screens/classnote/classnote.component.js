@@ -237,16 +237,20 @@ const ClassNote = (props) => {
     props.inputChange("quizLessonId", targetLesson._id);
 
     props.loadQuizQuestions(targetLesson.questions);
-    if (!nextNotAllowed) {
-      if (
-        nextLesson &&
-        nextLesson.videoUrls &&
-        nextLesson.videoUrls.length > 0
-      ) {
-        props.inputChange("nextLessonLocation", linkToNextLesson);
-      } else {
-        props.inputChange("nextLessonLocation", linkToNextLessonClassNote);
-      }
+    // if (!nextNotAllowed) {
+    //   if (
+    //     nextLesson &&
+    //     nextLesson.videoUrls &&
+    //     nextLesson.videoUrls.length > 0
+    //   ) {
+    //     props.inputChange("nextLessonLocation", linkToNextLesson);
+    //   } else {
+    //     props.inputChange("nextLessonLocation", linkToNextLessonClassNote);
+    //   }
+    // }
+    if (!nextNotAllowed) {    
+      props.inputChange("nextLessonLocation", linkToNextLessonClassNote);
+      
     }
   };
   const [show, setShow] = useState(true);
