@@ -9,6 +9,7 @@ const initialState = {
   subject: {},
   lessonSubjectName: "",
   lessonSubjectId: "",
+  lessonCourseId:"",
   totalNumberOfLessons: 0,
   subjectProgresses: [],
   numOfUsers:0,
@@ -24,6 +25,7 @@ const subjectReducer = (state = initialState, action) => {
         subject: action.payload.subject,
         lessonSubjectName: action.payload.subject.mainSubjectId.name,
         lessonSubjectId: action.payload.subject._id,
+        lessonCourseId:action.payload.subject.courseId.id,
         numOfUsers: action.payload.numOfUsers
       };
     case ADD_SUBJECT_PROGRESS_SUCCESS:
