@@ -65,16 +65,13 @@ const ClassNote = (props) => {
   const parsed = queryString.parse(props.location.search);
   const { activeCoursePaidStatus, clazz, inClass } = props;
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (
-      props.subject &&
-      props.subject.relatedLessons &&
-      props.subject.relatedLessons.length === 0
-    ) {
+    window.scrollTo(0, 0);    
+    if (props.lessonCourseId !== parsed.courseId || props.lessonSubjectId !==parsed.subjectId) {
       props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
+      window.scrollTo(0, 0);    
     }
     storeProgress();
-  }, [parsed.lessonId]);
+  }, []);
   var decodeEntities = (function () {
     // this prevents any overhead from creating the object each time
     var element = document.createElement("div");
@@ -240,16 +237,20 @@ const ClassNote = (props) => {
     props.inputChange("quizLessonId", targetLesson._id);
 
     props.loadQuizQuestions(targetLesson.questions);
-    if (!nextNotAllowed) {
-      if (
-        nextLesson &&
-        nextLesson.videoUrls &&
-        nextLesson.videoUrls.length > 0
-      ) {
-        props.inputChange("nextLessonLocation", linkToNextLesson);
-      } else {
-        props.inputChange("nextLessonLocation", linkToNextLessonClassNote);
-      }
+    // if (!nextNotAllowed) {
+    //   if (
+    //     nextLesson &&
+    //     nextLesson.videoUrls &&
+    //     nextLesson.videoUrls.length > 0
+    //   ) {
+    //     props.inputChange("nextLessonLocation", linkToNextLesson);
+    //   } else {
+    //     props.inputChange("nextLessonLocation", linkToNextLessonClassNote);
+    //   }
+    // }
+    if (!nextNotAllowed) {    
+      props.inputChange("nextLessonLocation", linkToNextLessonClassNote);
+      
     }
   };
   const [show, setShow] = useState(true);
@@ -588,6 +589,8 @@ const mapStateToProps = (state) => ({
   course: state.course.course,
   subject: state.subject.subject,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
+  lessonSubjectId: state.subject.lessonSubjectId,
+  lessonCourseId:state.subject.lessonCourseId,
 });
 
 export default connect(mapStateToProps, {
