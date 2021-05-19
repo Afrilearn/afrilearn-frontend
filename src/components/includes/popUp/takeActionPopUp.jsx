@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Modal, ModalHeader, ModalBody, Tooltip } from "reactstrap";
 import Info from "../../../assets/img/Info.svg";
+import ThumbUp from "../../../assets/img/thumbs.gif";
 
 import "./css/style.css";
 
