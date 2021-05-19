@@ -23,6 +23,7 @@ import parse from "html-react-parser";
 import queryString from "query-string";
 
 import { Modal, ModalHeader, ModalBody, Tooltip } from "reactstrap";
+import ThumbUp from "../../../assets/img/thumbs.gif";
 
 import {
   EmailShareButton,
@@ -320,6 +321,7 @@ const ClassNote = (props) => {
             icon={faTimes}
             onClick={toggle2}
           />
+          <img src={ThumbUp} alt="" className="thumb" />
           {nextLesson ? (
             <div>
               <h3>

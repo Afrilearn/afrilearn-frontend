@@ -1,13 +1,13 @@
 .take-action-pop-up.modal-body {
   position: relative;
   text-align: center;
-  background-color: #fff;
   min-height: 200px;
   width: 100%;
   min-width: 100px;
   padding: 30px;
   margin: auto;
   border-radius: 16px;
+  background: #84bb29;
 }
 .take-action-pop-up .close-take-action-pop-up {
   position: absolute;
@@ -17,7 +17,7 @@
 .take-action-pop-up h3 {
   font-weight: 700;
   margin: 20px 0;
-  color: #313131;
+  color: white;
   font-family: font1;
   font-style: normal;
   font-size: 24px;
@@ -27,7 +27,7 @@
   font-family: font2;
   font-style: normal;
   font-size: 18px;
-  color: #000000;
+  color: white;
 
   line-height: 21px;
 }
@@ -35,21 +35,23 @@
   font-family: font2;
   font-style: normal;
   font-size: 14px;
-  color: rgba(21, 25, 32, 0.5);
+  color: white;
   line-height: 20px;
   display: block;
 }
 .take-action-pop-up button {
-  margin:  10px;
-  background: #84bb29;
+  margin: 0px;
   border-radius: 8px;
-  padding: 6px 16px;
-  border: none;
+  padding: 5px 16px;
+  border: red;
   color: #ffffff;
-  text-transform: uppercase;
+  background: maroon;
 }
 .take-action-pop-up .cancel-button {
   background: transparent;
   border: 1px solid rgba(86, 103, 137, 0.26);
-  color: rgba(21, 25, 32, 0.5);
+  color: white;
+}
+.take-action-pop-up .modal-content {
+  background-color: #84bb29;   
 }

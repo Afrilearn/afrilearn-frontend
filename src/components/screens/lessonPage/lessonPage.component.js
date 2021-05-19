@@ -15,6 +15,7 @@ import {
 
 import "./css/style.css";
 import firstterm from "../../../assets/img/firstterm.png";
+import ThumbUp from "../../../assets/img/thumbs.gif";
 import dots from "../../../assets/img/dots.png";
 import { Collapse, Popover, PopoverBody } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -54,6 +55,7 @@ import queryString from "query-string";
 import slugify from "react-slugify";
 import Countdown from "react-countdown";
 import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
+
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -346,6 +348,7 @@ const LessonPage = (props) => {
         <div>
           <Modal
             isOpen={modal}
+            // isOpen={true}
             toggle={() => {
               toggleModal();
               setStopRedirect(true);
@@ -361,8 +364,9 @@ const LessonPage = (props) => {
                   setStopRedirect(true);
                 }}
               />
+              <img src={ThumbUp} alt="" className="thumb" />
               {nextVideo ? (
-                <div>
+                <div>                  
                   <h3>
                     Lesson Video {videoIndex} - "{lesson && lesson.title}"{" "}
                     completed
@@ -382,7 +386,7 @@ const LessonPage = (props) => {
                   </Link>
                 </div>
               ) : (
-                <div>
+                <div>                 
                   <h3>Lessons completed: {lesson && lesson.title}</h3>
                   {lesson && lesson.questions && lesson.questions.length > 0 ? (
                     <div>
@@ -398,7 +402,7 @@ const LessonPage = (props) => {
                       </Link>
                     </div>
                   ) : nextLessonVideo ? (
-                    <div>
+                    <div>                     
                       <p>Next: {nextLesson && nextLesson.title}</p>
                       <Link
                         to={linkToNextLesson}
@@ -420,7 +424,7 @@ const LessonPage = (props) => {
                       </Link>
                     </div>
                   ) : nextLesson ? (
-                    <div>
+                    <div>                     
                       <p>Next: "{nextLesson && nextLesson.title}"</p>
                       <Link
                         to={linkToNextLessonClassNote}
