@@ -11,7 +11,12 @@ import {
   GET_USER_DASHBOARD_PERFORMANCE_SUMMARY_SUCCESS,
   GET_SUBJECT_PROGRESS_PERFORMANCE_SUCCESS,
   GET_SUBJECT_QUIZ_PERFORMANCE_SUCCESS,
-  GET_SUBJECT_PAST_QUESTIONS_PERFORMANCE_SUCCESS
+  GET_SUBJECT_PAST_QUESTIONS_PERFORMANCE_SUCCESS,
+  GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS,
+  GET_USER_DASHBOARD_TOPTEN_VIDEOS_SUCCESS,
+  GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
+  STORE_FAVOURITE_VIDEO_SUCCESS
+
 } from "../actions/types";
 
 const initialState = {
@@ -52,7 +57,14 @@ const initialState = {
   populateSubjectQuizPerformanceLoader: false,
   quizPerformance: [],
   populateSubjectPastQuestionPerformanceLoader: false,
-  pastQuestionPeformance: []
+  pastQuestionPeformance: [],
+  unFinishedVideoLoader: false,
+  dashboardUnFinishedVideos: [],
+  topTenVideoLoader: false,
+  dashboardTopTenVideos: [],
+  favouriteVideoLoader: false,
+  dashboardFavouriteVideos: [],
+  newlyAddedDashbaordFavouriteVideos:[]
 };
 
 const courseReducer = (state = initialState, action) => {
@@ -127,6 +139,28 @@ const courseReducer = (state = initialState, action) => {
       return {
         ...state,
         pastQuestionPeformance: action.payload.data
+      };
+    case GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS:
+      return {
+        ...state,
+        dashboardFavouriteVideos: action.payload.data
+      };
+    case STORE_FAVOURITE_VIDEO_SUCCESS:
+        let newItem = state.newlyAddedDashbaordFavouriteVideos;
+        newItem.push(action.payload)
+        state.newlyAddedDashbaordFavouriteVideos = [...newItem]
+        return {
+          ...state       
+        };
+    case GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS:
+      return {
+        ...state,
+        dashboardUnFinishedVideos: action.payload
+      };
+    case GET_USER_DASHBOARD_TOPTEN_VIDEOS_SUCCESS:
+      return {
+        ...state,
+        dashboardTopTenVideos: action.payload
       };
 
     case GET_PERFORMANCE_SUCCESS:

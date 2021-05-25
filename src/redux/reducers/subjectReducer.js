@@ -2,19 +2,18 @@ import {
   GET_SUBJECT_AND_RELATED_LESSONS_SUCCESS,
   ADD_SUBJECT_PROGRESS_SUCCESS,
   ADD_RECENT_ACTIVITIES_SUCCESS,
-  GET_SINGLE_LESSON_SUCCESS,
+  GET_SINGLE_LESSON_SUCCESS  
 } from "../actions/types";
 
 const initialState = {
   subject: {},
   lessonSubjectName: "",
   lessonSubjectId: "",
-  lessonCourseId:"",
+  lessonCourseId: "",
   totalNumberOfLessons: 0,
   subjectProgresses: [],
-  numOfUsers:0,
-  lesson:{}
-
+  numOfUsers: 0,
+  lesson: {} 
 };
 
 const subjectReducer = (state = initialState, action) => {
@@ -23,10 +22,10 @@ const subjectReducer = (state = initialState, action) => {
       return {
         ...state,
         subject: action.payload.subject,
-        lessonSubjectName: action.payload.subject.mainSubjectId.name,
-        lessonSubjectId: action.payload.subject._id,
-        lessonCourseId:action.payload.subject.courseId.id,
-        numOfUsers: action.payload.numOfUsers
+          lessonSubjectName: action.payload.subject.mainSubjectId.name,
+          lessonSubjectId: action.payload.subject._id,
+          lessonCourseId: action.payload.subject.courseId.id,
+          numOfUsers: action.payload.numOfUsers
       };
     case ADD_SUBJECT_PROGRESS_SUCCESS:
       return {
@@ -39,8 +38,10 @@ const subjectReducer = (state = initialState, action) => {
     case GET_SINGLE_LESSON_SUCCESS:
       return {
         ...state,
-        lesson: action.payload.lesson     
+        lesson: action.payload.lesson
       };
+ 
+
     default:
       return state;
   }

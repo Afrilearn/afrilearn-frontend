@@ -730,4 +730,51 @@ export default {
       data,
     });
   },
+  storeUnFinishedVideos(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}lessons/storeUnFinishedVideos`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  clearUnFinishedVideos(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}lessons/clearUnFinishedVideos`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  getDashboardUnFinishedVideos() {
+    return axios({
+      method: "get",
+      url: `${this.url}dashboard/unfinishedVideos`,
+      headers: this.headers()      
+    });
+  },
+  getDashboardTopTen(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}dashboard/topTen`,
+      headers: this.headers(),
+      data  ,    
+    });
+  },
+  saveFavouriteVideo(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}lessons/saveFavouriteVideos`,
+      headers: this.headers(),
+      data  ,    
+    });
+  },
+  getDashboardFavouriteVideo(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}dashboard/favourite`,
+      headers: this.headers(),
+      data  ,    
+    });
+  },
 };

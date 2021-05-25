@@ -1,6 +1,5 @@
 #dashboardFirstSection {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.99)),
-    url("../../../../assets/img/pencil.png");
+  background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.99)), url(/static/media/pencil.9027a403.png);
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -8,7 +7,7 @@
   margin-top: -90px;
   color: white;
   height: calc(105vh);
-  padding-top: 165px;
+  padding-top: 180px;
 }
 
 #dashboardFirstSection h1 {
@@ -68,7 +67,32 @@ h6.jj {
   border-radius: 5px;
   padding: 6px;
 }
-
+.resumePlaying p {
+  line-height: 18px;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+.resumePlaying span.mySpan {
+  font-size: 14px;
+  color: #84BB29;
+  display: block;
+  margin-top: 0px;
+  position: absolute;
+  bottom: -22px;
+}
+.resumePlaying {
+  margin-bottom: 78px !important;
+}
+.myTopTen {
+  margin-bottom: 63px !important;
+}
+.topTen small {
+  margin-top: 9px;
+  display: block;
+  font-size: 90%;
+  color: #84BB29;
+  margin-bottom: -5px;
+}
 .dashboard .excel {
   background: #84BB29;
 }
@@ -275,7 +299,9 @@ h6.jj {
   .dashboard a.view {
     padding: 3px 35px;
   }
-
+  .resumePlaying .col-md-2 {
+    margin-bottom: 50px;
+  }
   .dashboard .recommend {
     margin-bottom: 20px;
   }
