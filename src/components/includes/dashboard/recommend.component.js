@@ -5,8 +5,7 @@ import Lessons from "../../../assets/img/play.png";
 import slugify from "react-slugify";
 
 const Box = (props) => {
-  console.log(props.recommended);
-  const linkToNextRecommended = `/classnote/${
+   const linkToNextRecommended = `/classnote/${
     props.recommended.courseId && slugify(props.recommended.courseId.name)
   }/${
     props.recommended.subjectId &&

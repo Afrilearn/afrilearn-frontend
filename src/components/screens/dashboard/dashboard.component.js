@@ -6,6 +6,9 @@ import PerformanceBox from "../../includes/dashboard/performance.component";
 import RecentActivitesBox from "../../includes/dashboard/recentActivityDashboard.component";
 import ClassroomBox from "../../includes/dashboard/classroom.component";
 import RecommendBox from "../../includes/dashboard/recommend.component";
+import ResumeWatching from "../../includes/dashboard/resumeWatching.component";
+import TopTen from "../../includes/dashboard/topTen.component";
+import TopTenSlide from "../../includes/dashboard/topTenSlide.component";
 import { PieChart } from "react-minimal-pie-chart";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -17,6 +20,9 @@ import {
   populateDashboardRecommendations,
   populateDashboardRecentActivities,
   populateDashboardPerformanceSummary,
+  populateDashboardUnfinishedVideos,
+  populateDashboardTopTenVideos,
+  populateDashboardFavouriteVideos
 } from "./../../../redux/actions/courseActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import { inputChange as pastQuestionInputChange } from "./../../../redux/actions/pastQuestionsActions";
@@ -27,7 +33,6 @@ import Swal from "sweetalert2";
 import "animate.css";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
-
 import norecent from "../../../assets/img/norecent.png";
 import norecommend from "../../../assets/img/norecommend.png";
 import RecentActivityLoader from "../../includes/Loaders/recentActivitiesLoader.component";
@@ -35,6 +40,7 @@ import RecommendationLoader from "../../includes/Loaders/recommendationLoader.co
 import ClassesLoader from "../../includes/Loaders/classesLoader.component";
 import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
 import PastQuestionsLoader from "../../includes/Loaders/pastQuestionsBox.component";
+
 
 const Dashboard = (props) => {
   const {
@@ -61,6 +67,12 @@ const Dashboard = (props) => {
     dashboardRecentActivites,
     recentActivitiesLoader,
     performanceSummaryLoader,
+    dashboardUnFinishedVideos,
+    unFinishedVideoLoader,
+    topTenVideoLoader,
+    dashboardTopTenVideos,
+    favouriteVideoLoader,
+    dashboardFavouriteVideos
   } = props;
   const mounted = useRef();
 
@@ -76,8 +88,11 @@ const Dashboard = (props) => {
     props.populateDashboardEnrolledCourses(
       activeEnrolledCourseId ? data : null
     );
-    // props.populateDashboard(activeEnrolledCourseId ? data : null);
+    props.populateDashboardUnfinishedVideos();
     props.populateDashboardClassMembership(
+      activeEnrolledCourseId ? data : null
+    );
+    props.populateDashboardTopTenVideos(
       activeEnrolledCourseId ? data : null
     );
     props.populateDashboardRecommendations(
@@ -89,6 +104,10 @@ const Dashboard = (props) => {
     props.populateDashboardPerformanceSummary(
       activeEnrolledCourseId ? data : null
     );
+    props.populateDashboardFavouriteVideos(
+      activeEnrolledCourseId ? data : null
+    );
+    
   }, [activeEnrolledCourseId]);
 
   const subjectList = () => {
@@ -112,7 +131,7 @@ const Dashboard = (props) => {
         );
       });
     } else {
-      return <h6>No Subject list yet</h6>;
+      return <h6>No subject list yet</h6>;
     }
   };
 
@@ -224,7 +243,71 @@ const Dashboard = (props) => {
     } else {
       return (
         <div className="empty-class-state-2">
-          <img src={norecent} /> <p>No Recent Activities</p>
+          <img src={norecent} /> <p>You currently do not have any recorded recent activities</p>
+        </div>
+      );
+    }
+  };
+ 
+  const unFinishedVideosList = () => {
+    if (
+      dashboardUnFinishedVideos.unFinishedVideos &&     
+      dashboardUnFinishedVideos.unFinishedVideos.length
+    ) {      
+      // eslint-disable-next-line array-callback-return
+      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {      
+        return (
+          <ResumeWatching item= {item}/>
+        );        
+      });
+    } else {
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>You currently have 0 uncompleted Videos</p>
+        </div>
+      );
+    }
+  };
+
+  const topTenList = () => {
+    if (
+      dashboardTopTenVideos.lessons &&     
+      dashboardTopTenVideos.lessons.length
+    ) {      
+      // eslint-disable-next-line array-callback-return
+      let counter = 0;
+      return dashboardTopTenVideos.lessons.map((item, index) => {  
+        if(item.videoUrls.length>0 && counter<6){
+          ++counter
+          return (
+            <TopTen item= {item}/>
+          );     
+        } 
+      });
+    } else {
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>No top ten videos</p>
+        </div>
+      );
+    }
+  };
+  
+  const favouriteList = () => {
+    if (
+      dashboardFavouriteVideos.favouriteVideos &&     
+      dashboardFavouriteVideos.favouriteVideos.length
+    ) {      
+      // eslint-disable-next-line array-callback-return     
+      return dashboardFavouriteVideos.favouriteVideos.map((item, index) => {
+          return (
+            <ResumeWatching item= {item}/>
+          );
+      });
+    } else {
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>No favourite videos yet</p>
         </div>
       );
     }
@@ -310,8 +393,12 @@ const Dashboard = (props) => {
           <div className="col-md-12">
             <a href="#subjects">My Subjects</a> &nbsp;|&nbsp;{" "}
             <a href="#pastQuestions">Past Questions</a> &nbsp;|&nbsp;{" "}
+            <a href="#resumePlaying">Resume Watching</a> &nbsp;|&nbsp;{" "}
+            <a href="#topTen">Top Ten Video</a> &nbsp;|&nbsp;{" "}
             <a href="#performance">Performance Summary</a> &nbsp;|&nbsp;{" "}
             <a href="#classroom">Classroom</a> &nbsp;|&nbsp;{" "}
+            <a href="#favourite">My Favourite</a> &nbsp;|&nbsp;{" "}
+            
             <a href="#recommendations">Recommendations</a>
             &nbsp;|&nbsp; <a href="#recentActivities">Recent Activities</a>
           </div>
@@ -332,8 +419,30 @@ const Dashboard = (props) => {
         ) : (
           <div className="row jj">{pastQuestionsList()}</div>
         )}
+        <a name="resumePlaying"></a>
+        <h4 className="push5 resumePlayingBox">Resume Watching</h4>
+        <div className="row push10 resumePlaying">      
+          { unFinishedVideoLoader ? (
+              <SubjectLoader />
+          ) : (
+            unFinishedVideosList()
+          )}
+               
+        </div>
+
+        <a name="topTen"></a>
+        <h4 className="push5 resumePlayingBox">Top Ten Video</h4>
+        <div className="row push10 resumePlaying myTopTen">      
+          { topTenVideoLoader ? (
+              <SubjectLoader />
+          ) : (
+            topTenList()
+          )}
+          
+        </div>
+
         <a name="performance"></a>
-        <h4 className="push5">Performance Summary</h4>
+        <h4 className="push5">Performance Summary</h4>       
         {activeEnrolledCourseId && performanceSummaryLoader ? (
           <RecentActivityLoader />
         ) : (
@@ -377,7 +486,7 @@ const Dashboard = (props) => {
               />
             </div>
           </div>
-        )}
+        )}  
 
         <a name="classroom"></a>
         <h4 className="push5">Classroom</h4>
@@ -398,6 +507,18 @@ const Dashboard = (props) => {
           </div>
         </div>
         {classMembershipLoader ? <ClassesLoader /> : classList()}
+        
+
+        <a name="favourite"></a>
+        <h4 className="push5 resumePlayingBox">My Fav</h4>
+        <div className="row push10 resumePlaying myTopTen">      
+          { favouriteVideoLoader ? (
+              <SubjectLoader />
+          ) : (
+            favouriteList()
+          )}
+          
+        </div>
 
         <a name="recommendations"></a>
         <h4 className="push5">Recommendations</h4>
@@ -425,6 +546,9 @@ Dashboard.propTypes = {
   populateDashboardRecommendations: PropTypes.func.isRequired,
   populateDashboardRecentActivities: PropTypes.func.isRequired,
   populateDashboardPerformanceSummary: PropTypes.func.isRequired,
+  populateDashboardUnfinishedVideos: PropTypes.func.isRequired,
+  populateDashboardTopTenVideos: PropTypes.func.isRequired,
+  populateDashboardFavouriteVideos: PropTypes.func.isRequired,
   pastQuestionInputChange: PropTypes.func.isRequired,
 };
 
@@ -452,6 +576,12 @@ const mapStateToProps = (state) => ({
   dashboardRecentActivites: state.course.dashboardRecentActivites,
   recentActivitiesLoader: state.course.recentActivitiesLoader,
   performanceSummaryLoader: state.course.performanceSummaryLoader,
+  dashboardUnFinishedVideos:state.course.dashboardUnFinishedVideos,
+  unFinishedVideoLoader:state.course.unFinishedVideoLoader,
+  topTenVideoLoader: state.course.topTenVideoLoader,
+  dashboardTopTenVideos: state.course.dashboardTopTenVideos,
+  favouriteVideoLoader: state.course.favouriteVideoLoader,
+  dashboardFavouriteVideos: state.course.dashboardFavouriteVideos,
 });
 
 export default connect(mapStateToProps, {
@@ -466,4 +596,7 @@ export default connect(mapStateToProps, {
   populateDashboardRecentActivities,
   populateDashboardPerformanceSummary,
   pastQuestionInputChange,
+  populateDashboardUnfinishedVideos,
+  populateDashboardTopTenVideos,
+  populateDashboardFavouriteVideos
 })(Dashboard);

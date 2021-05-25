@@ -14,12 +14,12 @@ const RecentActivityLoader = () => {
           </p>
         </div>
         <div className="col-md-4">
-          <span>
-            <Skeleton />
-          </span>
+          <p className="green text-center text-md-start">
+              <Skeleton />{" "}
+          </p>
         </div>
         <div className="col-md-4 center">
-          <p>
+          <p className="green text-center text-md-start">
             <Skeleton />{" "}
           </p>
         </div>

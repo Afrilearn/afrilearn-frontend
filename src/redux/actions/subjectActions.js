@@ -10,6 +10,12 @@ import {
   ADD_SUBJECT_PROGRESS_SUCCESS,
   GET_SINGLE_LESSON_SUCCESS,
   GET_SINGLE_LESSON_FAILURE,
+  STORE_UNFINISHED_VIDEO_SUCCESS,
+  STORE_UNFINISHED_VIDEO_FAILURE,
+  CLEAR_UNFINISHED_VIDEO_SUCCESS,
+  CLEAR_UNFINISHED_VIDEO_FAILURE,
+  STORE_FAVOURITE_VIDEO_SUCCESS,
+  STORE_FAVOURITE_VIDEO_FAILURE
 } from "./types";
 
 export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
@@ -134,6 +140,73 @@ export const getSingleLesson = (lessonId) => async (dispatch) => {
     );
     dispatch({
       type: GET_SINGLE_LESSON_FAILURE,
+    });
+  }
+};
+
+export const storeUnFinishedVideos = (data) => async (dispatch) => {
+  try {       
+    await API.storeUnFinishedVideos(data);
+    dispatch({
+      type: STORE_UNFINISHED_VIDEO_SUCCESS,
+    });
+  } catch (err) {    
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "STORE_UNFINISHED_VIDEO_FAILURE"
+      )
+    );
+    dispatch({
+      type: STORE_UNFINISHED_VIDEO_FAILURE,
+    });
+  }
+};
+
+export const clearUnFinishedVideos = (data) => async (dispatch) => {
+  try {       
+    await API.clearUnFinishedVideos(data);
+    dispatch({
+      type: CLEAR_UNFINISHED_VIDEO_SUCCESS,
+    });
+  } catch (err) {    
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "CLEAR_UNFINISHED_VIDEO_FAILURE"
+      )
+    );
+    dispatch({
+      type: CLEAR_UNFINISHED_VIDEO_FAILURE,
+    });
+  }
+};
+
+export const storeFavouriteVideos = (data) => async (dispatch) => {
+  try {  
+    const result = await API.saveFavouriteVideo(data);  
+    dispatch({
+      type: STORE_FAVOURITE_VIDEO_SUCCESS,
+      payload:result.data.data.result
+    });
+  } catch (err) {    
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "STORE_FAVOURITE_VIDEO_FAILURE"
+      )
+    );
+    dispatch({
+      type: STORE_FAVOURITE_VIDEO_FAILURE,
     });
   }
 };

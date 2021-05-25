@@ -31,6 +31,12 @@ import {
   GET_SUBJECT_QUIZ_PERFORMANCE_FAILURE,
   GET_SUBJECT_PAST_QUESTIONS_PERFORMANCE_SUCCESS,
   GET_SUBJECT_PAST_QUESTIONS_PERFORMANCE_FAILURE,
+  GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS,
+  GET_USER_DASHBOARD_UNFINISHED_VIDEOS_FAILURE,
+  GET_USER_DASHBOARD_TOPTEN_VIDEOS_SUCCESS,
+  GET_USER_DASHBOARD_TOPTEN_VIDEOS_FAILURE,
+  GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
+  GET_USER_DASHBOARD_FAVOURITE_VIDEOS_FAILURE
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -144,8 +150,6 @@ export const populateDashboardEnrolledCourses = (data) => async (dispatch) => {
 
     const result = await API.getDashboardEnrolledCourse(data);
 
-    console.log(result.data.data)
-
     dispatch({
       type: GET_USER_DASHBOARD_ENROLLED_COURSE_SUCCESS,
       payload: result.data.data
@@ -178,6 +182,149 @@ export const populateDashboardEnrolledCourses = (data) => async (dispatch) => {
     );
     dispatch({
       type: GET_USER_DASHBOARD_ENROLLED_COURSE_FAILURE,
+    });
+  }
+};
+
+export const populateDashboardUnfinishedVideos = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'unFinishedVideoLoader',
+        value: true,
+      },
+    });
+
+    const result = await API.getDashboardUnFinishedVideos();
+    
+    dispatch({
+      type: GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS,
+      payload: result.data.data
+    });
+
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'unFinishedVideoLoader',
+        value: false,
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'unFinishedVideoLoader',
+        value: false,
+      },
+    });
+
+    dispatch(
+      returnErrors(
+        err.response && err.response.data.errors ?
+        err.response && err.response.data.errors :
+        err.response && err.response.data.error,
+        err.response && err.response.data.status,
+        "GET_USER_DASHBOARD_UNFINISHED_VIDEOS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_USER_DASHBOARD_UNFINISHED_VIDEOS_FAILURE,
+    });
+  }
+};
+
+export const populateDashboardTopTenVideos = (data) => async (dispatch) => {
+  try {   
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'topTenVideoLoader',
+        value: true,
+      },
+    });
+
+    const result = await API.getDashboardTopTen(data);   
+    dispatch({
+      type: GET_USER_DASHBOARD_TOPTEN_VIDEOS_SUCCESS,
+      payload: result.data.data
+    });
+
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'topTenVideoLoader',
+        value: false,
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'topTenVideoLoader',
+        value: false,
+      },
+    });
+
+    dispatch(
+      returnErrors(
+        err.response && err.response.data.errors ?
+        err.response && err.response.data.errors :
+        err.response && err.response.data.error,
+        err.response && err.response.data.status,
+        "GET_USER_DASHBOARD_TOPTEN_VIDEOS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_USER_DASHBOARD_TOPTEN_VIDEOS_FAILURE,
+    });
+  }
+};
+
+export const populateDashboardFavouriteVideos = (data) => async (dispatch) => {
+  try {    
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: true,
+      },
+    });
+
+    const result = await API.getDashboardFavouriteVideo(data);
+    dispatch({
+      type: GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
+      payload: result.data
+    });
+
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: false,
+      },
+    });
+
+  } catch (err) {
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: false,
+      },
+    });
+
+    dispatch(
+      returnErrors(
+        err.response && err.response.data.errors ?
+        err.response && err.response.data.errors :
+        err.response && err.response.data.error,
+        err.response && err.response.data.status,
+        "GET_USER_DASHBOARD_FAVOURITE_VIDEOS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_USER_DASHBOARD_FAVOURITE_VIDEOS_FAILURE,
     });
   }
 };
@@ -680,7 +827,6 @@ export const populateSubjectPastQuestionsPerformance = (data, data1) => async (d
     });
   }
 };
-
 
 export const getPerformance = (data) => async (dispatch) => {
   try {

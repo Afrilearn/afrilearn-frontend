@@ -231,7 +231,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                     Interact with top tutors & become a high-flying student👩‍💻💻
+                     Interact with top tutors & become a high-flying student👩‍
                     </div>
                   </div>                  
                 </div>
@@ -256,7 +256,7 @@ const Homepage = (props) => {
                       <img src={require('../../../assets/img/Group 2295.png')} alt="bullet"/>
                     </div>
                     <div className="col-10 paddingRightOff">
-                      Save time, stress, and paper<br className="desktopOnly"/> workse⏳
+                      Save time, stress, and paper<br className="desktopOnly"/> work⏳
                     </div>
                   </div>                  
                 </div>               

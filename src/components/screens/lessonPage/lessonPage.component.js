@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
   faBook,
-  faMicrophone,
   faTimes,
-  faInfoCircle,
   faShareAlt,
   faAngleLeft,
   faAngleRight,
+  faEllipsisV,
+  faThumbsUp  
+
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -27,13 +28,16 @@ import Speech from "../../includes/textToSpeech/textToSpeech.component";
 import {
   loadQuestions,
   loadQuizQuestions,
-  inputChange,
+  inputChange,  
 } from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import {
   getSubjectAndRelatedLessons,
   addRecentActivity,
   addSubjectProgress,
+  storeUnFinishedVideos,
+  clearUnFinishedVideos,
+  storeFavouriteVideos
 } from "./../../../redux/actions/subjectActions";
 
 import parse from "html-react-parser";
@@ -59,9 +63,7 @@ import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
-  // console.log(parsed);
-  console.log("parsed", parsed);
-
+ 
   const {
     course,
     role,
@@ -69,6 +71,8 @@ const LessonPage = (props) => {
     activeCoursePaidStatus,
     clazz,
     inClass,
+    dashboardFavouriteVideos,
+    newlyAddedDashbaordFavouriteVideos
   } = props;
 
   const [isOpen, setIsOpen] = useState(true);
@@ -102,8 +106,7 @@ const LessonPage = (props) => {
   const lesson = term?.lessons?.find(
     (lesson) => lesson._id === parsed.lessonId
   );
-  console.log("lesson", lesson);
-
+ 
   const currentTermIndex =
     lesson && terms && terms?.findIndex((term) => term.id === lesson.termId);
   const nextTerm = terms[currentTermIndex + 1];
@@ -273,25 +276,15 @@ const LessonPage = (props) => {
   })();
 
   const mounted = useRef();
+
   useEffect(() => {
-    if (!mounted.current) {
-      // do componentDidMount logic
-      mounted.current = true;
-      window.scrollTo(0, 0);
-      storeProgress();
-      // props.loadQuestions(parsed.subjectId);
-      if (
-        subject &&
-        subject.relatedLessons &&
-        subject.relatedLessons.length === 0
-      ) {
-        props.getCourse(parsed.courseId);
-        props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
-      }
-    } else {
-      // do componentDidUpdate logic
-    }
-  });
+    window.scrollTo(0, 0);    
+    if (props.lessonCourseId !== parsed.courseId || props.lessonSubjectId !==parsed.subjectId) {
+      props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
+      window.scrollTo(0, 0);    
+    }   
+    storeProgress();    
+  }, []);
 
   const [popoverOpen, setPopoverOpen] = useState(false);
  
@@ -307,6 +300,46 @@ const LessonPage = (props) => {
   const [modal3, setModal3] = useState(false);
   const toggle3 = () => setModal3(!modal3);
   let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now or visit https://myafrilearn.com/`;
+  
+  const storeUnFinishedVideo = () => {
+    const data = {
+      userId:props.userId,
+      courseId:parsed.courseId,
+      subjectId:parsed.subjectId,
+      lessonId:parsed.lessonId,
+      termId:parsed.termId,
+      videoId:parsed.videoId,
+      videoPosition:videoIndex
+    }
+    props.storeUnFinishedVideos(data) 
+  };
+
+  const clearUnFinishedVideo = () => {
+    const data = {
+      userId:props.userId,
+      courseId:parsed.courseId,
+      subjectId:parsed.subjectId,
+      lessonId:parsed.lessonId,
+      termId:parsed.termId,
+      videoId:parsed.videoId,
+      videoPosition:videoIndex
+    }
+    props.clearUnFinishedVideos(data) 
+  };
+  
+  const storeFavouriteVideos = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      courseId:parsed.courseId,
+      subjectId:parsed.subjectId,
+      lessonId:parsed.lessonId,
+      termId:parsed.termId,
+      videoId:parsed.videoId,
+      videoPosition:videoIndex   
+    }
+    props.storeFavouriteVideos(data) 
+  };
 
   const storeProgress = () => {
     props.addRecentActivity(parsed.lessonId, "lesson");
@@ -319,7 +352,28 @@ const LessonPage = (props) => {
       "lesson"
     );
   };
-
+  
+  const alreadyAddedToFavourite = () => {
+    let result = [];
+    let result1 = [];
+    //old records
+    if (dashboardFavouriteVideos.favouriteVideos &&
+      dashboardFavouriteVideos.favouriteVideos.length) { 
+        result = dashboardFavouriteVideos.favouriteVideos.filter(item =>item.lessonId.id ===parsed.lessonId)
+    }
+    //new records
+    if (newlyAddedDashbaordFavouriteVideos &&
+      newlyAddedDashbaordFavouriteVideos.length) { 
+        result1 = newlyAddedDashbaordFavouriteVideos.filter(item =>item.lessonId ===parsed.lessonId)
+    }
+    if(result.length || result1.length){
+      return true
+    }else{
+      return false
+    }
+  }
+   
+  
   const [stopRedirect, setStopRedirect] = useState(false);
 
   const updateQuizType = () => {
@@ -340,6 +394,9 @@ const LessonPage = (props) => {
       }
     }
   };
+  const handleLike = (e) =>{
+    e.preventDefault();
+  }
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
@@ -496,11 +553,15 @@ const LessonPage = (props) => {
         {video && video.videoUrl && (
           <ReactPlayer
             className="react-player"
+            onStart={
+              storeUnFinishedVideo
+            }
             // Disable download button
             config={{ file: { attributes: { controlsList: "nodownload" } } }}
             // Disable right click
             onContextMenu={(e) => e.preventDefault()}
             onEnded={(e) => {
+              clearUnFinishedVideo()
               toggleModal();
             }}
             url={video && video.videoUrl}
@@ -536,42 +597,44 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <Link onClick={toggle1}>
-                <FontAwesomeIcon icon={faShareAlt} />
+              <Link onClick={handleLike}>
+                <FontAwesomeIcon icon={faThumbsUp} />                
               </Link>
               <div className="icon_pop">
-                <p>Share</p>
+                <p>I like this content</p>
                 <span></span>
               </div>
             </div>
-            {role && role === "602f3ce39b146b3201c2dc1d" ? (
-              <div className="icon">
-                <span
-                  id="Popover1"
-                  onMouseOver={() => setPopoverOpen("true")}
-                  onMouseLeave={toggle}
+            <div className="icon">
+              <span
+                id="Popover1"
+                onMouseOver={() => setPopoverOpen("true")}
+                onMouseLeave={toggle}
+              >
+                <Popover
+                  placement="top"
+                  isOpen={popoverOpen}
+                  target="Popover1"
+                  toggle={toggle}
                 >
-                  <Popover
-                    placement="top"
-                    isOpen={popoverOpen}
-                    target="Popover1"
-                    toggle={toggle}
-                  >
-                    <PopoverBody>
-                      {role && role === "602f3ce39b146b3201c2dc1d" && (
-                        <Link to="/assign-content">
-                          <p>Assign Content</p>
-                        </Link>
-                      )}
-                      {/* <p>Community</p>
-                    <p>Bookmark</p> */}
-                      <p>Share</p>
-                    </PopoverBody>
-                  </Popover>
-                  <img src={dots} alt="see more" />
-                </span>
-              </div>
-            ) : null}
+                  <PopoverBody>
+                    {role && role === "602f3ce39b146b3201c2dc1d" && (
+                      <Link to="/assign-content">
+                        <p>Assign Content</p>
+                      </Link>
+                    )}                   
+                    <p><Link onClick={toggle1}>Share</Link></p>
+                    <p>
+                      {
+                       alreadyAddedToFavourite()? <Link onClick={storeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>
+                      }
+                      
+                    </p>
+                  </PopoverBody>
+                </Popover>
+                <FontAwesomeIcon icon={faEllipsisV}/>
+              </span>
+            </div>           
           </div>
           <a href="#transcriptText" onClick={toggleTranscript}>
             {isOpen ? "Hide" : "Show"} Transcript
@@ -838,6 +901,11 @@ const mapStateToProps = (state) => ({
   inClass: state.auth.inClass,
   role: state.auth.user.role,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
+  lessonSubjectId: state.subject.lessonSubjectId,
+  lessonCourseId:state.subject.lessonCourseId,
+  userId:state.auth.userId,
+  dashboardFavouriteVideos: state.course.dashboardFavouriteVideos,
+  newlyAddedDashbaordFavouriteVideos: state.course.newlyAddedDashbaordFavouriteVideos,
 });
 export default connect(mapStateToProps, {
   getCourse,
@@ -848,4 +916,7 @@ export default connect(mapStateToProps, {
   loadQuestions,
   inputChange,
   loadQuizQuestions,
+  storeUnFinishedVideos,
+  clearUnFinishedVideos,
+  storeFavouriteVideos
 })(LessonPage);
