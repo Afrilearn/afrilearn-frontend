@@ -44,7 +44,7 @@ const ClassroomTeacher = (props) => {
   const {
     activeEnrolledCourseId,
     clazz,
-
+    userData,
     error,
     isLoading,
   } = props;
@@ -278,19 +278,7 @@ const ClassroomTeacher = (props) => {
                   ? "s"
                   : ""}
               </small>
-              {/* {newComments.map((comment) => (
-                <div className="pic-text-heading">
-                  <img src={man} alt="comment" />
-                  <div>
-                    <p>
-                      {props.fullName && props.fullName} &nbsp;
-                      <span className="small-grey">less than a minute ago</span>
-                    </p>
-                    <p>{comment}</p>
-                  </div>
-                </div>
-              ))}
-             */}
+            
               {classAnnouncement.comments.map((comment) => (
                 <div className="pic-text-heading" key={comment._id}>
                   <img src={man} alt="comment" />
@@ -328,7 +316,7 @@ const ClassroomTeacher = (props) => {
       });
     } else {
       return (
-        <div class="card my-3 text-center py-2 bg-dark">
+        <div class="card my-3 text-center py-2 bg-dark1">
           <h6>No Announcement list yet</h6>
         </div>
       );
@@ -713,7 +701,7 @@ const ClassroomTeacher = (props) => {
       <div id="classroomTeacherSectionOne"></div>
 
       <div id="classroomTeacherSectionTwo">
-        <img src={man} className="image" alt="user" />
+        <img src={ userData.profilePhotoUrl? userData.profilePhotoUrl: man} className="image" alt="user" />
         <div className="welcome">
           <h1 className="font2">Welcome {props.fullName}</h1>
           <p>
@@ -844,8 +832,7 @@ const ClassroomTeacher = (props) => {
                     </article>
                   )}
 
-                  <section>
-                    {newClassAnonouncementBox()}
+                  <section>                  
                     {classAnnouncementsLoading ? (
                       <AnnouncementsLoader />
                     ) : (
@@ -975,6 +962,7 @@ const mapStateToProps = (state) => ({
   email: state.auth.email,
   userId: state.auth.userId,
   user: state.auth.user.role,
+  userData: state.auth.user,
   error: state.error,
   isLoading: state.class.isLoading,
 });

@@ -96,7 +96,7 @@ const AssignContent = (props) => {
   const handleSubmit = () => {
     let message;
     if (!assignedText) {
-      message = "Please enter text";
+      message = "Please enter assignment description";
     } else if (!selectedStudent) {
       message = "Please select Students";
     } else if (!selectedQuizOrLesson) {

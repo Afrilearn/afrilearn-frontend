@@ -14,7 +14,7 @@ const Box = props => {
             <div className="col-md-4 relative">
                 <CircularProgressbar 
                     value={props.performance === null? 0:props.performance}
-                    text={props.performance === null? '':props.performance+'%'}
+                    text={props.performance === null? '':(Math.round(props.performance * 100) / 100).toFixed(2)+'%'}
                     strokeWidth={10}
                     styles={{
                         path: {

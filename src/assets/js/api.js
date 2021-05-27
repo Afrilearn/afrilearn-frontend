@@ -769,6 +769,14 @@ export default {
       data  ,    
     });
   },
+  removeFavouriteVideo(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}lessons/removeFavouriteVideos`,
+      headers: this.headers(),
+      data  ,    
+    });
+  },
   getDashboardFavouriteVideo(data) {
     return axios({
       method: "post",

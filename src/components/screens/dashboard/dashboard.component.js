@@ -8,6 +8,7 @@ import ClassroomBox from "../../includes/dashboard/classroom.component";
 import RecommendBox from "../../includes/dashboard/recommend.component";
 import ResumeWatching from "../../includes/dashboard/resumeWatching.component";
 import TopTen from "../../includes/dashboard/topTen.component";
+import Favourite from "../../includes/dashboard/favourites.component";
 import TopTenSlide from "../../includes/dashboard/topTenSlide.component";
 import { PieChart } from "react-minimal-pie-chart";
 import { Link } from "react-router-dom";
@@ -301,7 +302,7 @@ const Dashboard = (props) => {
       // eslint-disable-next-line array-callback-return     
       return dashboardFavouriteVideos.favouriteVideos.map((item, index) => {
           return (
-            <ResumeWatching item= {item}/>
+            <Favourite item= {item}/>
           );
       });
     } else {

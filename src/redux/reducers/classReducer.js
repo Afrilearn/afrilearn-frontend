@@ -133,6 +133,9 @@ const classReducer = (state = initialState, action) => {
         ...state,
       };
     case ADD_ANNOUNCEMENT_SUCCESS:
+      let newArray = state.classAnnouncements;
+       newArray.unshift(action.payload);
+       state.classAnnouncements = [...newArray]
       return {
         ...state,
       };
