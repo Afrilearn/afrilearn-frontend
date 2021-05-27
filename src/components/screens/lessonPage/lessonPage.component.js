@@ -37,7 +37,8 @@ import {
   addSubjectProgress,
   storeUnFinishedVideos,
   clearUnFinishedVideos,
-  storeFavouriteVideos
+  storeFavouriteVideos,
+  removeFavouriteVideos
 } from "./../../../redux/actions/subjectActions";
 
 import parse from "html-react-parser";
@@ -299,7 +300,7 @@ const LessonPage = (props) => {
   const toggleModal5 = () => setModal5(!modal5);
   const [modal3, setModal3] = useState(false);
   const toggle3 = () => setModal3(!modal3);
-  let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now or visit https://myafrilearn.com/`;
+  let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now at https://play.google.com/store/apps/details?id=com.afrilearn or visit https://myafrilearn.com/`;
   
   const storeUnFinishedVideo = () => {
     const data = {
@@ -339,6 +340,20 @@ const LessonPage = (props) => {
       videoPosition:videoIndex   
     }
     props.storeFavouriteVideos(data) 
+  };
+
+  const removeFavouriteVideos = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      courseId:parsed.courseId,
+      subjectId:parsed.subjectId,
+      lessonId:parsed.lessonId,
+      termId:parsed.termId,
+      videoId:parsed.videoId,
+      videoPosition:videoIndex   
+    }
+    props.removeFavouriteVideos(data) 
   };
 
   const storeProgress = () => {
@@ -626,7 +641,7 @@ const LessonPage = (props) => {
                     <p><Link onClick={toggle1}>Share</Link></p>
                     <p>
                       {
-                       alreadyAddedToFavourite()? <Link onClick={storeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>
+                       alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>
                       }
                       
                     </p>
@@ -918,5 +933,6 @@ export default connect(mapStateToProps, {
   loadQuizQuestions,
   storeUnFinishedVideos,
   clearUnFinishedVideos,
-  storeFavouriteVideos
+  storeFavouriteVideos,
+  removeFavouriteVideos
 })(LessonPage);

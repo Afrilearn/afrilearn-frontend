@@ -738,6 +738,7 @@ export const makeAnnouncement = (classId, text) => async (
 ) => {
   try {
     const result = await API.makeAnnouncement(classId, text);
+    console.log(result.data.data.announcement)
     dispatch({
       type: ADD_ANNOUNCEMENT_SUCCESS,
       payload: result.data.data.announcement,

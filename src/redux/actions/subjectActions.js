@@ -15,7 +15,9 @@ import {
   CLEAR_UNFINISHED_VIDEO_SUCCESS,
   CLEAR_UNFINISHED_VIDEO_FAILURE,
   STORE_FAVOURITE_VIDEO_SUCCESS,
-  STORE_FAVOURITE_VIDEO_FAILURE
+  STORE_FAVOURITE_VIDEO_FAILURE,
+  REMOVE_FAVOURITE_VIDEO_SUCCESS,
+  REMOVE_FAVOURITE_VIDEO_FAILURE
 } from "./types";
 
 export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
@@ -207,6 +209,28 @@ export const storeFavouriteVideos = (data) => async (dispatch) => {
     );
     dispatch({
       type: STORE_FAVOURITE_VIDEO_FAILURE,
+    });
+  }
+};
+export const removeFavouriteVideos = (data) => async (dispatch) => {
+  try {  
+    await API.removeFavouriteVideo(data);  
+    dispatch({
+      type: REMOVE_FAVOURITE_VIDEO_SUCCESS,
+      payload:data.lessonId
+    });
+  } catch (err) {    
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "REMOVE_FAVOURITE_VIDEO_FAILURE"
+      )
+    );
+    dispatch({
+      type: REMOVE_FAVOURITE_VIDEO_FAILURE,
     });
   }
 };

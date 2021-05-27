@@ -15,7 +15,8 @@ import {
   GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS,
   GET_USER_DASHBOARD_TOPTEN_VIDEOS_SUCCESS,
   GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
-  STORE_FAVOURITE_VIDEO_SUCCESS
+  STORE_FAVOURITE_VIDEO_SUCCESS,
+  REMOVE_FAVOURITE_VIDEO_SUCCESS
 
 } from "../actions/types";
 
@@ -64,7 +65,7 @@ const initialState = {
   dashboardTopTenVideos: [],
   favouriteVideoLoader: false,
   dashboardFavouriteVideos: [],
-  newlyAddedDashbaordFavouriteVideos:[]
+  newlyAddedDashbaordFavouriteVideos: []
 };
 
 const courseReducer = (state = initialState, action) => {
@@ -146,12 +147,26 @@ const courseReducer = (state = initialState, action) => {
         dashboardFavouriteVideos: action.payload.data
       };
     case STORE_FAVOURITE_VIDEO_SUCCESS:
-        let newItem = state.newlyAddedDashbaordFavouriteVideos;
-        newItem.push(action.payload)
-        state.newlyAddedDashbaordFavouriteVideos = [...newItem]
-        return {
-          ...state       
-        };
+      let newItem = state.newlyAddedDashbaordFavouriteVideos;
+      newItem.push(action.payload)
+      state.newlyAddedDashbaordFavouriteVideos = [...newItem]
+      return {
+        ...state
+      };
+
+    case REMOVE_FAVOURITE_VIDEO_SUCCESS:
+      let newlyAddedItems = state.newlyAddedDashbaordFavouriteVideos;
+      newlyAddedItems = newlyAddedItems.filter(item =>item.lessonId !==action.payload)
+      state.newlyAddedDashbaordFavouriteVideos = [...newlyAddedItems]
+
+      let favouriteItems = state.dashboardFavouriteVideos.favouriteVideos;
+      favouriteItems = favouriteItems.filter(item =>item.lessonId.id !==action.payload)
+      state.dashboardFavouriteVideos.favouriteVideos = [...favouriteItems]
+            
+      return {
+        ...state
+      };
+
     case GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS:
       return {
         ...state,
