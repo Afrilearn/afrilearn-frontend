@@ -69,6 +69,8 @@ import SchoolAddTeacher from "../screens/schoolAddTeacher/addTeacher.component";
 import SchoolAddStudent from "../screens/schoolAddStudent/addStudent.component";
 import AcceptRequests from "../screens/acceptRequests/acceptRequests.component";
 import SchoolPeople from "../screens/schoolPeople/schoolPeople.component";
+import Favourite from "../screens/favourite/favourite.component";
+
 
 const MyNav = (props) => {
   const {
@@ -614,6 +616,7 @@ const MyNav = (props) => {
         <Route path="/edit/profile" component={EditSchoolProfile} />
         <Route path="/add-teacher" component={SchoolAddTeacher} />
         <Route path="/add-student" component={SchoolAddStudent} />
+        <Route path="/more-info" component={Favourite} />
       </Switch>
     </Router>
   );

@@ -17,7 +17,12 @@ import {
   STORE_FAVOURITE_VIDEO_SUCCESS,
   STORE_FAVOURITE_VIDEO_FAILURE,
   REMOVE_FAVOURITE_VIDEO_SUCCESS,
-  REMOVE_FAVOURITE_VIDEO_FAILURE
+  REMOVE_FAVOURITE_VIDEO_FAILURE,
+  ADD_LIKED_VIDEO_SUCCESS,
+  ADD_LIKED_VIDEO_FAILURE,
+  REMOVE_LIKED_VIDEO_SUCCESS,
+  REMOVE_LIKED_VIDEO_FAILURE,
+  COURSE_INPUT_CHANGE 
 } from "./types";
 
 export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
@@ -192,12 +197,33 @@ export const clearUnFinishedVideos = (data) => async (dispatch) => {
 
 export const storeFavouriteVideos = (data) => async (dispatch) => {
   try {  
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: true,
+      },
+    });
     const result = await API.saveFavouriteVideo(data);  
     dispatch({
       type: STORE_FAVOURITE_VIDEO_SUCCESS,
       payload:result.data.data.result
     });
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: false,
+      },
+    });
   } catch (err) {    
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: false,
+      },
+    });
     dispatch(
       returnErrors(
         err.response.data.errors
@@ -212,14 +238,36 @@ export const storeFavouriteVideos = (data) => async (dispatch) => {
     });
   }
 };
+
 export const removeFavouriteVideos = (data) => async (dispatch) => {
   try {  
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: true,
+      },
+    });
     await API.removeFavouriteVideo(data);  
     dispatch({
       type: REMOVE_FAVOURITE_VIDEO_SUCCESS,
       payload:data.lessonId
     });
-  } catch (err) {    
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: false,
+      },
+    });
+  } catch (err) {  
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'favouriteVideoLoader',
+        value: false,
+      },
+    });  
     dispatch(
       returnErrors(
         err.response.data.errors
@@ -231,6 +279,99 @@ export const removeFavouriteVideos = (data) => async (dispatch) => {
     );
     dispatch({
       type: REMOVE_FAVOURITE_VIDEO_FAILURE,
+    });
+  }
+};
+
+export const storeLikedVideos = (data, currentLessonIndex) => async (dispatch) => {
+  try {  
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'likedVideoLoader',
+        value: true,
+      },
+    });
+    const result = await API.saveLikedVideo(data);  
+    dispatch({
+      type: ADD_LIKED_VIDEO_SUCCESS,
+      payload:{
+        data:result.data.data.selectedLesson,
+        currentLessonIndex
+      }      
+    });
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'likedVideoLoader',
+        value: false,
+      },
+    });
+  } catch (err) {  
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'likedVideoLoader',
+        value: false,
+      },
+    });  
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "ADD_LIKED_VIDEO_FAILURE"
+      )
+    );
+    dispatch({
+      type: ADD_LIKED_VIDEO_FAILURE,
+    });
+  }
+};
+export const removeLikedVideos = (data,currentLessonIndex) => async (dispatch) => {
+  try {  
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'likedVideoLoader',
+        value: true,
+      },
+    });
+    await API.removeLikedVideo(data);  
+    dispatch({
+      type: REMOVE_LIKED_VIDEO_SUCCESS,
+      payload:{
+        userId:data.userId,
+        currentLessonIndex
+      } 
+    });
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'likedVideoLoader',
+        value: false,
+      },
+    });
+  } catch (err) {   
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'likedVideoLoader',
+        value: false,
+      },
+    }); 
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "REMOVE_LIKED_VIDEO_FAILURE"
+      )
+    );
+    dispatch({
+      type: REMOVE_LIKED_VIDEO_FAILURE,
     });
   }
 };

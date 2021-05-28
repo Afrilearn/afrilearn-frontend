@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 // import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { usePaystackPayment } from "react-paystack";
 import "./css/style.css";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Modal, ModalHeader, ModalBody  } from "reactstrap";
 import SubscriptionBox from "../../includes/subscriptionBox/subscriptionBox.component";
 import { connect, useDispatch, useSelector } from "react-redux";
 import {
@@ -10,6 +10,7 @@ import {
   inputChange,
   verifyPayStackPayment,
 } from "./../../../redux/actions/paymentActions";
+import { Link } from "react-router-dom";
 import { getChildren } from "../../../redux/actions/parentActions";
 import { getMembersInClass } from "./../../../redux/actions/classActions";
 import { getRoles } from "./../../../redux/actions/authActions";
@@ -48,6 +49,9 @@ const Payment = (props) => {
   const [newClassContent, setNewClassContent] = useState(null);
   const [receipientOption, setReceipientOption] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const toggle1 = () => setModal(false);
 
   let courseList = () => {
     if (courses.length) {
@@ -161,7 +165,9 @@ const Payment = (props) => {
       }
     }
   };
-
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   const recipientList = () => {
     if (myRecipientListOptions.length) {
       return myRecipientListOptions.map((option, index) => {
@@ -275,14 +281,26 @@ const Payment = (props) => {
   const config = {
     reference: new Date().getTime(),
     email,
-    amount: paymentAmount * 100,
+    amount: paymentAmount * 100,   
     publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
     channels: ["card"],
   };
 
+  const bankPayment = () => {
+    Swal.fire({
+      html: "These is working one",
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      }     
+    });
+  }
+
   const initializePayment = usePaystackPayment(config);
 
-  const checkAndMakePayment = () => {
+  const checkAndMakePayment = (bankPayment=false) => {   
     if (!courseId) {
       Swal.fire({
         html: "Please select a class",
@@ -393,7 +411,12 @@ const Payment = (props) => {
       });
       props.clearErrors();
     } else {
-      initializePayment(onSuccess, onClose);
+      if(bankPayment === true){
+        toggle()
+      }else{
+        initializePayment(onSuccess, onClose);
+      }
+     
     }
   };
 
@@ -422,6 +445,7 @@ const Payment = (props) => {
     console.log("closed");
   };
   return (
+    <>
     <div id="selectPaymentPageSectionOne">
       <div class="container">
         <div class="row">
@@ -599,12 +623,20 @@ const Payment = (props) => {
             <div className="proceed-button">
               <Container>
                 <Row>
+                  <Col className="whiteButton">
+                    <button
+                      // disabled={paymentAmount === 0 ? true : false}
+                      onClick={checkAndMakePayment.bind(null,true)}
+                    >
+                      Bank Transfer &rarr;
+                    </button>
+                  </Col>
                   <Col>
                     <button
-                      disabled={paymentAmount === 0 ? true : false}
+                      // disabled={paymentAmount === 0 ? true : false}
                       onClick={checkAndMakePayment}
                     >
-                      Proceed &rarr;
+                      Proceed with Card &rarr;
                     </button>
                   </Col>
                 </Row>
@@ -614,6 +646,56 @@ const Payment = (props) => {
         </div>
       </div>
     </div>
+    <Modal isOpen={modal} toggle={toggle} className="paymentModalClass">
+        {/* <ModalHeader toggle={toggle}>&nbsp;</ModalHeader> */}
+        <ModalBody>
+          <h4>Bank Deposit</h4>
+          <img src={require('../../../assets/img/Group 1832.png')} className="threeImg"/>
+          <p>Make deposit  using the bank details below:</p>
+          <div className="row push1">
+            <div className="col-md-4">
+               Bank Name:
+            </div>
+            <div className="col-md-8">
+               GTBank
+            </div>
+          </div>
+          <div className="row push1">
+            <div className="col-md-4">
+               Account Name:
+            </div>
+            <div className="col-md-8">
+              Afrilearn International
+            </div>
+          </div>
+          <div className="row push1">
+            <div className="col-md-4">
+              Account Number:       
+            </div>
+            <div className="col-md-8">
+              00928485993
+            </div>
+          </div>
+          <div className="row push1">
+            <div className="col-md-4">
+              Amount to be Paid:       
+            </div>
+            <div className="col-md-8">            
+              <span className="amountBox">N{paymentAmount? numberWithCommas(paymentAmount):0 }</span>
+            </div>
+          </div>
+          <p>Send proof of payment to hello@myafrilearn.com or Whatsapp  +234 805 154 4949 or + 234 802 785 5262 </p> 
+          <p>Your subscription will be automatically approved ones payment is confirmed.</p>
+          <div className="row">
+            <div className="col-md-4">  </div>
+            <div className="col-md-4">
+              <span className="submitButton"><Link onClick={toggle1}>Okay, Got it!</Link></span>
+            </div>
+            <div className="col-md-4">  </div>
+          </div>
+        </ModalBody>
+      </Modal>
+    </>
   );
 };
 

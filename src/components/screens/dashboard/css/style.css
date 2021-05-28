@@ -80,12 +80,12 @@ h6.jj {
   position: absolute;
   bottom: -22px;
 }
-.resumePlaying {
+/* .resumePlaying {
   margin-bottom: 78px !important;
-}
-.myTopTen {
+} */
+/* .myTopTen {
   margin-bottom: 63px !important;
-}
+} */
 .topTen small {
   margin-top: 9px;
   display: block;
@@ -156,7 +156,12 @@ h6.jj {
 }
 
 .dashboard .push10 {
-  margin-bottom: 22px;
+  margin-bottom: 47px;
+}
+small.showAll {
+  color: #84BB29;
+  margin-left: 40px;
+  font-size: 69%;
 }
 
 .dashboard .recommend {

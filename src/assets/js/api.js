@@ -785,4 +785,20 @@ export default {
       data  ,    
     });
   },
+  saveLikedVideo(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}lessons/saveLikedVideo`,
+      headers: this.headers(),
+      data  ,    
+    });
+  },
+  removeLikedVideo(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}lessons/removeLikedVideo`,
+      headers: this.headers(),
+      data  ,    
+    });
+  },
 };

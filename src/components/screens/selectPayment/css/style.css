@@ -21,6 +21,45 @@
   font-weight: normal;
   line-height: 55px;
 }
+.whiteButton  button{
+  background: white !important;
+  color: #222222 !important;
+}
+.paymentModalClass .modal-content {
+  padding: 3px 8px;
+  background-color: white;
+  color: #222222;
+}
+.paymentModalClass .push1 {
+  margin-bottom: 10px;
+}
+.paymentModalClass .col-md-8{
+  font-size: 20px;
+}
+.paymentModalClass span.submitButton {
+  display: block;
+  text-align: center;
+  background: #84BB29;
+  border-radius: 3px;
+  padding: 5px;
+  color: white;
+}
+.paymentModalClass span.submitButton:hover {
+ cursor: pointer;
+}
+.paymentModalClass .amountBox{
+  border: solid 0.5px #84BB29;
+  padding: 1px 16px;
+}
+.paymentModalClass h4{
+  font-weight: bold;
+}
+img.threeImg {
+  float: right;
+  width: 40px;
+  height: 10px;
+  margin-top: -27px;
+}
 
 #selectPaymentPageSectionOne .sub-lenght .monthly .row {
   text-align: center;

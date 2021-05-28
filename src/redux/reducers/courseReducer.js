@@ -17,7 +17,6 @@ import {
   GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
   STORE_FAVOURITE_VIDEO_SUCCESS,
   REMOVE_FAVOURITE_VIDEO_SUCCESS
-
 } from "../actions/types";
 
 const initialState = {
@@ -65,7 +64,9 @@ const initialState = {
   dashboardTopTenVideos: [],
   favouriteVideoLoader: false,
   dashboardFavouriteVideos: [],
-  newlyAddedDashbaordFavouriteVideos: []
+  newlyAddedDashbaordFavouriteVideos: [],
+  likedVideoLoader:false,
+  favouriteVideoLoader:false,  
 };
 
 const courseReducer = (state = initialState, action) => {

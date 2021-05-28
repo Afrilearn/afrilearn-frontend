@@ -14,6 +14,9 @@ img.thumb {
   height: 100px;
   object-fit: contain;
 }
+img.loader {
+  width: 18px;
+}
 #Popover1:hover{
   cursor: pointer;
 }

@@ -1,0 +1,82 @@
+#morePage {
+  min-height: 150vh;
+  background-color: black;
+  color: white;
+}
+
+#morePage h1 {
+  font-family: font2;
+}
+#morePage .empty-class-state-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#morePage .empty-class-state-2 img {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+#morePage .empty-class-state-2 p {
+  font-family: font1;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+
+  color: #c0c0c0;
+  margin: 0;
+}
+.title {
+  margin-top: 65px;
+}
+#morePage .row1{
+  padding: 58px 0px;
+}
+#morePage .col-md-3 {
+  margin-bottom: 40px;
+}
+#morePage h6 {
+  color: #918989;
+  margin-top: -15px;
+  font-size: 14px;
+}
+
+#morePage .negative-margin {
+  height: 180px;
+  margin-top: -180px;
+  background-color: black;
+}
+
+#morePage .mt-10 {
+  margin-top: 10px;
+}
+
+#morePage .bg-black {
+  background-color: black;
+}
+
+@media screen and (max-width: 996px) {
+  #morePage .hide-later {
+    display: none;
+  }
+
+  @media screen and (max-width: 900px) {
+    #morePage .negative-margin {
+      height: 180px;
+      margin-top: -180px;
+      background-color: black;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #morePage .negative-margin {
+    height: 180px;
+    margin-top: -110px;
+    background-color: black;
+  }
+  #morePage .col-md-10 {
+    padding-left: 15px;
+ }
+}
