@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const SubscriptionBox = (props) => {
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <div className="subscriptionBox" onClick={() => props.onClick()}>
       <div className={"item " + props.classname} id={props.price}>
@@ -19,7 +22,7 @@ const SubscriptionBox = (props) => {
           <h4>{props.title}</h4>
           <img src={subcircle} alt="subcircle" className="subcircle" />
         </div>
-        <small>₦{props.price}</small>
+        <small>₦{numberWithCommas(props.price)}</small>
       </div>
     </div>
   );

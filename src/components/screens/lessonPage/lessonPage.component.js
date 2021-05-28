@@ -6,7 +6,7 @@ import {
   faPlay,
   faBook,
   faTimes,
-  faShareAlt,
+  faEye,
   faAngleLeft,
   faAngleRight,
   faEllipsisV,
@@ -17,7 +17,7 @@ import {
 import "./css/style.css";
 import firstterm from "../../../assets/img/firstterm.png";
 import ThumbUp from "../../../assets/img/thumbs.gif";
-import dots from "../../../assets/img/dots.png";
+import loader from "../../../assets/img/loading.gif";
 import { Collapse, Popover, PopoverBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -38,7 +38,9 @@ import {
   storeUnFinishedVideos,
   clearUnFinishedVideos,
   storeFavouriteVideos,
-  removeFavouriteVideos
+  removeFavouriteVideos,
+  storeLikedVideos,
+  removeLikedVideos
 } from "./../../../redux/actions/subjectActions";
 
 import parse from "html-react-parser";
@@ -73,7 +75,10 @@ const LessonPage = (props) => {
     clazz,
     inClass,
     dashboardFavouriteVideos,
-    newlyAddedDashbaordFavouriteVideos
+    newlyAddedDashbaordFavouriteVideos,
+    relatedLessons,
+    likedVideoLoader,
+    favouriteVideoLoader
   } = props;
 
   const [isOpen, setIsOpen] = useState(true);
@@ -277,7 +282,7 @@ const LessonPage = (props) => {
   })();
 
   const mounted = useRef();
-
+  let likeArray = [];
   useEffect(() => {
     window.scrollTo(0, 0);    
     if (props.lessonCourseId !== parsed.courseId || props.lessonSubjectId !==parsed.subjectId) {
@@ -367,6 +372,24 @@ const LessonPage = (props) => {
       "lesson"
     );
   };
+
+  const storeLikedVideo = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      lessonId:parsed.lessonId     
+    }
+    props.storeLikedVideos(data, currentLessonIndex) 
+  };
+
+  const removeLikedVideo = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      lessonId:parsed.lessonId     
+    }
+    props.removeLikedVideos(data, currentLessonIndex) 
+  }; 
   
   const alreadyAddedToFavourite = () => {
     let result = [];
@@ -387,7 +410,29 @@ const LessonPage = (props) => {
       return false
     }
   }
-   
+  
+  const alreadyAddedToLike = () => {
+    let result = [];
+    let result1 = [];
+
+    //old records
+    if (relatedLessons &&
+      relatedLessons.length) { 
+      result = relatedLessons.filter(item =>item._id === parsed.lessonId)
+    }
+    if(result[0] && result[0].likes  && result[0].likes.length){
+      result = result[0].likes.filter(item => item === props.userId)
+      likeArray = result
+    }else{
+      result = []
+    }
+    
+    if(result.length || result1.length){
+      return true
+    }else{
+      return false
+    }
+  }
   
   const [stopRedirect, setStopRedirect] = useState(false);
 
@@ -409,9 +454,7 @@ const LessonPage = (props) => {
       }
     }
   };
-  const handleLike = (e) =>{
-    e.preventDefault();
-  }
+ 
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
@@ -612,11 +655,15 @@ const LessonPage = (props) => {
               </div>
             </div>
             <div className="icon">
-              <Link onClick={handleLike}>
+              <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>
                 <FontAwesomeIcon icon={faThumbsUp} />                
               </Link>
               <div className="icon_pop">
-                <p>I like this content</p>
+                {likedVideoLoader? <p><img src={loader} className="loader"/> </p> :
+                <>
+                  <p> {alreadyAddedToLike()? 'I don\'t like this item':'I like this content'}</p> 
+                </>
+                }              
                 <span></span>
               </div>
             </div>
@@ -639,12 +686,12 @@ const LessonPage = (props) => {
                       </Link>
                     )}                   
                     <p><Link onClick={toggle1}>Share</Link></p>
-                    <p>
-                      {
-                       alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>
-                      }
-                      
-                    </p>
+                    
+                    {favouriteVideoLoader? <p>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src={loader} className="loader"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> :
+                      <>
+                        <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p>
+                      </>
+                    } 
                   </PopoverBody>
                 </Popover>
                 <FontAwesomeIcon icon={faEllipsisV}/>
@@ -655,6 +702,7 @@ const LessonPage = (props) => {
             {isOpen ? "Hide" : "Show"} Transcript
           </a>
           <h4>{lesson && parse(lesson.title)}</h4>
+          <FontAwesomeIcon icon={faEye} /> {lesson && lesson.views+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {likeArray.length+' like(s)'}
           <Collapse isOpen={isOpen}>
             <p className="lessonContent">
               {video && video.transcript
@@ -907,6 +955,8 @@ LessonPage.propTypes = {
   loadQuestions: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
   loadQuizQuestions: PropTypes.func.isRequired,
+  storeLikedVideos: PropTypes.func.isRequired,
+  removeLikedVideos: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -921,6 +971,9 @@ const mapStateToProps = (state) => ({
   userId:state.auth.userId,
   dashboardFavouriteVideos: state.course.dashboardFavouriteVideos,
   newlyAddedDashbaordFavouriteVideos: state.course.newlyAddedDashbaordFavouriteVideos,
+  relatedLessons:state.subject.relatedLessons,
+  likedVideoLoader:state.course.likedVideoLoader,
+  favouriteVideoLoader:state.course.favouriteVideoLoader  
 });
 export default connect(mapStateToProps, {
   getCourse,
@@ -934,5 +987,7 @@ export default connect(mapStateToProps, {
   storeUnFinishedVideos,
   clearUnFinishedVideos,
   storeFavouriteVideos,
-  removeFavouriteVideos
+  removeFavouriteVideos,
+  storeLikedVideos,
+  removeLikedVideos
 })(LessonPage);

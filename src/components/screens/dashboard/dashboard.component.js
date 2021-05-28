@@ -432,7 +432,7 @@ const Dashboard = (props) => {
         </div>
 
         <a name="topTen"></a>
-        <h4 className="push5 resumePlayingBox">Top Ten Video</h4>
+        <h4 className="push5 resumePlayingBox">Top Ten Video </h4>
         <div className="row push10 resumePlaying myTopTen">      
           { topTenVideoLoader ? (
               <SubjectLoader />
@@ -511,7 +511,7 @@ const Dashboard = (props) => {
         
 
         <a name="favourite"></a>
-        <h4 className="push5 resumePlayingBox">My Fav</h4>
+        <h4 className="push5 resumePlayingBox">My Fav <small className="showAll"><Link to="/more-info">Show all</Link></small></h4>
         <div className="row push10 resumePlaying myTopTen">      
           { favouriteVideoLoader ? (
               <SubjectLoader />
