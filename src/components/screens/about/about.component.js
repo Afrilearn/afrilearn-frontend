@@ -322,7 +322,7 @@ const About = props => {
                         "
                     /> 
                     <TeamBox 
-                        image={require('../../../assets/img/Ngozi.jpg')}
+                        image={require('../../../assets/img/ngozii.jpeg')}
                         name="Ngozi Ayanru"
                         other3="true"
                         position="Managing Partner, Realty Invest"

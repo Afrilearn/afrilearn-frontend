@@ -52,6 +52,7 @@ import {
   GET_CLASS_ASSIGNED_CONTENT_FAILURE,
 } from "./types";
 
+
 export const joinClassApproved = (classId, email, fullName, password) => async (
   dispatch
 ) => {

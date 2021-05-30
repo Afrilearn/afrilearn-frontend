@@ -67,6 +67,7 @@ const initialState = {
   newlyAddedDashbaordFavouriteVideos: [],
   likedVideoLoader:false,
   favouriteVideoLoader:false,  
+  subjectAndRelatedLessonsLoader:false
 };
 
 const courseReducer = (state = initialState, action) => {
@@ -145,7 +146,7 @@ const courseReducer = (state = initialState, action) => {
     case GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS:
       return {
         ...state,
-        dashboardFavouriteVideos: action.payload.data
+        dashboardFavouriteVideos: action.payload.data.favouriteVideos
       };
     case STORE_FAVOURITE_VIDEO_SUCCESS:
       let newItem = state.newlyAddedDashbaordFavouriteVideos;
@@ -160,9 +161,9 @@ const courseReducer = (state = initialState, action) => {
       newlyAddedItems = newlyAddedItems.filter(item =>item.lessonId !==action.payload)
       state.newlyAddedDashbaordFavouriteVideos = [...newlyAddedItems]
 
-      let favouriteItems = state.dashboardFavouriteVideos.favouriteVideos;
+      let favouriteItems = state.dashboardFavouriteVideos;
       favouriteItems = favouriteItems.filter(item =>item.lessonId.id !==action.payload)
-      state.dashboardFavouriteVideos.favouriteVideos = [...favouriteItems]
+      state.dashboardFavouriteVideos = [...favouriteItems]
             
       return {
         ...state

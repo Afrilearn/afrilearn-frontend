@@ -31,6 +31,7 @@ import {
   inputChange,  
 } from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
+import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import {
   getSubjectAndRelatedLessons,
   addRecentActivity,
@@ -78,7 +79,9 @@ const LessonPage = (props) => {
     newlyAddedDashbaordFavouriteVideos,
     relatedLessons,
     likedVideoLoader,
-    favouriteVideoLoader
+    favouriteVideoLoader,
+    subjectAndRelatedLessonsLoader,
+    user
   } = props;
 
   const [isOpen, setIsOpen] = useState(true);
@@ -283,13 +286,34 @@ const LessonPage = (props) => {
 
   const mounted = useRef();
   let likeArray = [];
+
   useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      if (inClass) {
+        const paymentIsActive = clazz.enrolledCourse.paymentIsActive;
+        props.authInputChange("activeCoursePaidStatus", paymentIsActive);
+      } else {
+        const myActiveEnrolledCourse =
+          user.enrolledCourses &&
+          user.enrolledCourses.find(
+            (course) => course.courseId._id === parsed.courseId
+          );
+        if (myActiveEnrolledCourse) {
+          props.authInputChange(
+            "activeCoursePaidStatus",
+            myActiveEnrolledCourse.paymentIsActive
+          );
+        }
+      }
+    }
+
     window.scrollTo(0, 0);    
     if (props.lessonCourseId !== parsed.courseId || props.lessonSubjectId !==parsed.subjectId) {
       props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
       window.scrollTo(0, 0);    
     }   
-    storeProgress();    
+    storeProgress();     
   }, []);
 
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -395,9 +419,9 @@ const LessonPage = (props) => {
     let result = [];
     let result1 = [];
     //old records
-    if (dashboardFavouriteVideos.favouriteVideos &&
-      dashboardFavouriteVideos.favouriteVideos.length) { 
-        result = dashboardFavouriteVideos.favouriteVideos.filter(item =>item.lessonId.id ===parsed.lessonId)
+    if (dashboardFavouriteVideos &&
+      dashboardFavouriteVideos.length) { 
+        result = dashboardFavouriteVideos.filter(item =>item.lessonId.id ===parsed.lessonId)
     }
     //new records
     if (newlyAddedDashbaordFavouriteVideos &&
@@ -626,237 +650,241 @@ const LessonPage = (props) => {
             controls="true"
             width="100%"
             height="auto"
-            muted={true}
+            // muted={true}
             playing={true}
           />
         )}
       </div>
       <div id="lessonPageSectionTwo">
-        <div className="left">
-          <div className="top">
-            <div className="button">
-              <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
-              Lesson {videoIndex + 1}
-            </div>
-            <div className="icon">
-              <Link to={linkToLessonClassNote}>
-                <FontAwesomeIcon icon={faBook} />
-              </Link>
-              <div className="icon_pop">
-                <p>Class Note</p>
-                <span></span>
+        {!subjectAndRelatedLessonsLoader? 
+        <>
+          <div className="left">
+            <div className="top">
+              <div className="button">
+                <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
+                Lesson {videoIndex + 1}
               </div>
-            </div>
-            <div className="icon">
-              <Speech content={decodeEntities(video && video.transcript)} />
-              <div className="icon_pop">
-                <p>Audio Lesson</p>
-                <span></span>
+              <div className="icon">
+                <Link to={linkToLessonClassNote}>
+                  <FontAwesomeIcon icon={faBook} />
+                </Link>
+                <div className="icon_pop">
+                  <p>Class Note</p>
+                  <span></span>
+                </div>
               </div>
-            </div>
-            <div className="icon">
-              <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>
-                <FontAwesomeIcon icon={faThumbsUp} />                
-              </Link>
-              <div className="icon_pop">
-                {likedVideoLoader? <p><img src={loader} className="loader"/> </p> :
-                <>
-                  <p> {alreadyAddedToLike()? 'I don\'t like this item':'I like this content'}</p> 
-                </>
-                }              
-                <span></span>
+              <div className="icon">
+                <Speech content={decodeEntities(video && video.transcript)} />
+                <div className="icon_pop">
+                  <p>Audio Lesson</p>
+                  <span></span>
+                </div>
               </div>
-            </div>
-            <div className="icon">
-              <span
-                id="Popover1"
-                onMouseOver={() => setPopoverOpen("true")}
-                onMouseLeave={toggle}
-              >
-                <Popover
-                  placement="top"
-                  isOpen={popoverOpen}
-                  target="Popover1"
-                  toggle={toggle}
+              <div className="icon">
+                <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>
+                  <FontAwesomeIcon icon={faThumbsUp} />                
+                </Link>
+                <div className="icon_pop">
+                  {likedVideoLoader? <p><img src={loader} className="loader"/> </p> :
+                  <>
+                    <p> {alreadyAddedToLike()? 'I don\'t like this item':'I like this content'}</p> 
+                  </>
+                  }              
+                  <span></span>
+                </div>
+              </div>
+              <div className="icon">
+                <span
+                  id="Popover1"
+                  onMouseOver={() => setPopoverOpen("true")}
+                  onMouseLeave={toggle}
                 >
-                  <PopoverBody>
-                    {role && role === "602f3ce39b146b3201c2dc1d" && (
-                      <Link to="/assign-content">
-                        <p>Assign Content</p>
-                      </Link>
-                    )}                   
-                    <p><Link onClick={toggle1}>Share</Link></p>
-                    
-                    {favouriteVideoLoader? <p>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src={loader} className="loader"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> :
-                      <>
-                        <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p>
-                      </>
-                    } 
-                  </PopoverBody>
-                </Popover>
-                <FontAwesomeIcon icon={faEllipsisV}/>
-              </span>
-            </div>           
+                  <Popover
+                    placement="top"
+                    isOpen={popoverOpen}
+                    target="Popover1"
+                    toggle={toggle}
+                  >
+                    <PopoverBody>
+                      {role && role === "602f3ce39b146b3201c2dc1d" && (
+                        <Link to="/assign-content">
+                          <p>Assign Content</p>
+                        </Link>
+                      )}                   
+                      <p><Link onClick={toggle1}>Share</Link></p>
+                      
+                      {favouriteVideoLoader? <p>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src={loader} className="loader"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> :
+                        <>
+                          <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p>
+                        </>
+                      } 
+                    </PopoverBody>
+                  </Popover>
+                  <FontAwesomeIcon icon={faEllipsisV}/>
+                </span>
+              </div>           
+            </div>
+            <a href="#transcriptText" onClick={toggleTranscript}>
+              {isOpen ? "Hide" : "Show"} Transcript
+            </a>
+            <h4>{lesson && parse(lesson.title)}</h4>
+            <FontAwesomeIcon icon={faEye} /> {lesson && lesson.views+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {likeArray.length+' like(s)'}
+            <Collapse isOpen={isOpen}>
+              <p className="lessonContent">
+                {video && video.transcript
+                  ? parse(video.transcript)
+                  : "No Transcript available"}
+              </p>
+            </Collapse>
           </div>
-          <a href="#transcriptText" onClick={toggleTranscript}>
-            {isOpen ? "Hide" : "Show"} Transcript
-          </a>
-          <h4>{lesson && parse(lesson.title)}</h4>
-          <FontAwesomeIcon icon={faEye} /> {lesson && lesson.views+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {likeArray.length+' like(s)'}
-          <Collapse isOpen={isOpen}>
-            <p className="lessonContent">
-              {video && video.transcript
-                ? parse(video.transcript)
-                : "No Transcript available"}
-            </p>
-          </Collapse>
-        </div>
-        <div className="right">
-          <div className="top">
-            <p>
-              <span>Class:&nbsp;&nbsp; &nbsp; </span>{" "}
-              {subject && subject.courseId && subject.courseId.alias}
-            </p>
-            <p>
-              <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
-              {subject && subject.mainSubjectId && subject.mainSubjectId.name}
-            </p>
-            <p>
-              <span>Term:&nbsp;&nbsp; &nbsp; </span> {term && term.name}
-            </p>
-            <p>
-              <span>Date Created:&nbsp;&nbsp; &nbsp; </span>{" "}
-              {moment(lesson && lesson.createdAt).format("LL")}
-            </p>
-          </div>
-          {/* <div className="mid">
-            <h4>Related Videos</h4>
-            {relatedVideosList()}
-          </div> */}
-          <div className="mid">
-            {relatedVideos && relatedVideos.length !== 0 && (
-              <h4>Recommended for you</h4>
-            )}
-            {relatedVideosList()}{" "}
-          </div>
-        </div>
-        <div id="navigation">
-          <Link
-            to={prevLesson ? linkToPreviousLesson : linkToSubjectPage}
-            className="button button1"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            data-bs-html="true"
-            onClick={(e) => {
-              window.scrollTo(0, 0);
-              if (
-                prevNotAllowed ||
-                (prevLesson &&
-                  prevLesson.videoUrls &&
-                  prevLesson.videoUrls.length === 0)
-              ) {
-                e.preventDefault();
-                if (!activeCoursePaidStatus) {
-                  return toggle3();
-                } else if (
-                  prevLesson &&
-                  prevLesson.videoUrls &&
-                  prevLesson.videoUrls.length === 0
-                ) {
-                  return toggleModal5();
-                }
-              } else {
-              }
-            }}
-            title={
-              prevLesson
-                ? prevNotAllowed
-                  ? "Subscribe to unlock"
-                  : prevLesson.title
-                : "Subject Page"
-            }
-          >
-            <FontAwesomeIcon
-              icon={faAngleLeft}
-              className="arrow"
-              color="#26aa76"
-            />
-            <div>
-              {prevLesson ? (
-                <p className="p1">
-                  Previous <span className="hide-900">Lesson</span>
-                </p>
-              ) : (
-                <p>Back to</p>
+          <div className="right">
+            <div className="top">
+              <p>
+                <span>Class:&nbsp;&nbsp; &nbsp; </span>{" "}
+                {subject && subject.courseId && subject.courseId.alias}
+              </p>
+              <p>
+                <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
+                {subject && subject.mainSubjectId && subject.mainSubjectId.name}
+              </p>
+              <p>
+                <span>Term:&nbsp;&nbsp; &nbsp; </span> {term && term.name}
+              </p>
+              <p>
+                <span>Date Created:&nbsp;&nbsp; &nbsp; </span>{" "}
+                {moment(lesson && lesson.createdAt).format("LL")}
+              </p>
+            </div>
+            {/* <div className="mid">
+              <h4>Related Videos</h4>
+              {relatedVideosList()}
+            </div> */}
+            <div className="mid">
+              {relatedVideos && relatedVideos.length !== 0 && (
+                <h4>Recommended for you</h4>
               )}
-
-              <h6 className="custom-green">
-                {prevLesson
-                  ? prevLesson.title && prevLesson.title.slice(0, 13)
-                  : "Subject Page"}
-                {prevLesson && prevLesson.title && prevLesson.title.length > 13
-                  ? "..."
-                  : null}
-              </h6>
+              {relatedVideosList()}{" "}
             </div>
-          </Link>
-          <div className="text">
-            Lesson {currentLessonIndex + 1} of{" "}
-            {subject && lessons && lessons.length}
           </div>
-          <Link
-            to={nextLesson ? linkToNextLesson : linkToSubjectPage}
-            className="button button2"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            data-bs-html="true"
-            onClick={(e) => {
-              window.scrollTo(0, 0);
-              if (
-                nextNotAllowed ||
-                (nextLesson &&
-                  nextLesson.videoUrls &&
-                  nextLesson.videoUrls.length === 0)
-              ) {
-                e.preventDefault();
-                if (!activeCoursePaidStatus) {
-                  return toggle3();
-                } else if (
-                  nextLesson &&
-                  nextLesson.videoUrls &&
-                  nextLesson.videoUrls.length === 0
+          <div id="navigation">
+            <Link
+              to={prevLesson ? linkToPreviousLesson : linkToSubjectPage}
+              className="button button1"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-html="true"
+              onClick={(e) => {
+                window.scrollTo(0, 0);
+                if (
+                  prevNotAllowed ||
+                  (prevLesson &&
+                    prevLesson.videoUrls &&
+                    prevLesson.videoUrls.length === 0)
                 ) {
-                  return toggleModal4();
+                  e.preventDefault();
+                  if (!activeCoursePaidStatus) {
+                    return toggle3();
+                  } else if (
+                    prevLesson &&
+                    prevLesson.videoUrls &&
+                    prevLesson.videoUrls.length === 0
+                  ) {
+                    return toggleModal5();
+                  }
+                } else {
                 }
-              } else {
+              }}
+              title={
+                prevLesson
+                  ? prevNotAllowed
+                    ? "Subscribe to unlock"
+                    : prevLesson.title
+                  : "Subject Page"
               }
-            }}
-            title={
-              nextLesson
-                ? nextNotAllowed
-                  ? "Subscribe to unlock"
-                  : nextLesson.title
-                : "Subject Page"
-            }
-          >
-            <div>
-              <p>Next Lesson</p>
-              <h6 className="custom-green">
-                {nextLesson
-                  ? nextLesson.title && nextLesson.title.slice(0, 13)
-                  : "Subject Page"}
-                {nextLesson && nextLesson.title && nextLesson.title.length > 13
-                  ? "..."
-                  : null}
-              </h6>
+            >
+              <FontAwesomeIcon
+                icon={faAngleLeft}
+                className="arrow"
+                color="#26aa76"
+              />
+              <div>
+                {prevLesson ? (
+                  <p className="p1">
+                    Previous <span className="hide-900">Lesson</span>
+                  </p>
+                ) : (
+                  <p>Back to</p>
+                )}
+
+                <h6 className="custom-green">
+                  {prevLesson
+                    ? prevLesson.title && prevLesson.title.slice(0, 13)
+                    : "Subject Page"}
+                  {prevLesson && prevLesson.title && prevLesson.title.length > 13
+                    ? "..."
+                    : null}
+                </h6>
+              </div>
+            </Link>
+            <div className="text">
+              Lesson {currentLessonIndex + 1} of{" "}
+              {subject && lessons && lessons.length}
             </div>
-            <FontAwesomeIcon
-              icon={faAngleRight}
-              className="arrow"
-              color="#26aa76"
-            />
-          </Link>
-        </div>
+            <Link
+              to={nextLesson ? linkToNextLesson : linkToSubjectPage}
+              className="button button2"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-html="true"
+              onClick={(e) => {
+                window.scrollTo(0, 0);
+                if (
+                  nextNotAllowed ||
+                  (nextLesson &&
+                    nextLesson.videoUrls &&
+                    nextLesson.videoUrls.length === 0)
+                ) {
+                  e.preventDefault();
+                  if (!activeCoursePaidStatus) {
+                    return toggle3();
+                  } else if (
+                    nextLesson &&
+                    nextLesson.videoUrls &&
+                    nextLesson.videoUrls.length === 0
+                  ) {
+                    return toggleModal4();
+                  }
+                } else {
+                }
+              }}
+              title={
+                nextLesson
+                  ? nextNotAllowed
+                    ? "Subscribe to unlock"
+                    : nextLesson.title
+                  : "Subject Page"
+              }
+            >
+              <div>
+                <p>Next Lesson</p>
+                <h6 className="custom-green">
+                  {nextLesson
+                    ? nextLesson.title && nextLesson.title.slice(0, 13)
+                    : "Subject Page"}
+                  {nextLesson && nextLesson.title && nextLesson.title.length > 13
+                    ? "..."
+                    : null}
+                </h6>
+              </div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                className="arrow"
+                color="#26aa76"
+              />
+            </Link>
+          </div>
+        </>
+        :''}
       </div>
 
       <TakeActionPopUp
@@ -956,7 +984,8 @@ LessonPage.propTypes = {
   inputChange: PropTypes.func.isRequired,
   loadQuizQuestions: PropTypes.func.isRequired,
   storeLikedVideos: PropTypes.func.isRequired,
-  removeLikedVideos: PropTypes.func.isRequired
+  removeLikedVideos: PropTypes.func.isRequired,
+  authInputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -973,13 +1002,14 @@ const mapStateToProps = (state) => ({
   newlyAddedDashbaordFavouriteVideos: state.course.newlyAddedDashbaordFavouriteVideos,
   relatedLessons:state.subject.relatedLessons,
   likedVideoLoader:state.course.likedVideoLoader,
-  favouriteVideoLoader:state.course.favouriteVideoLoader  
+  favouriteVideoLoader:state.course.favouriteVideoLoader,
+  subjectAndRelatedLessonsLoader: state.course.subjectAndRelatedLessonsLoader, 
+  user: state.auth.user 
 });
 export default connect(mapStateToProps, {
   getCourse,
   getSubjectAndRelatedLessons,
   addRecentActivity,
-
   addSubjectProgress,
   loadQuestions,
   inputChange,
@@ -989,5 +1019,6 @@ export default connect(mapStateToProps, {
   storeFavouriteVideos,
   removeFavouriteVideos,
   storeLikedVideos,
-  removeLikedVideos
+  removeLikedVideos,
+  authInputChange
 })(LessonPage);
