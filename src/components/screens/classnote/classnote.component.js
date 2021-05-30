@@ -45,6 +45,7 @@ import {
   loadQuestions,
   loadQuizQuestions,
 } from "../../../redux/actions/pastQuestionsActions";
+import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import Countdown from "react-countdown";
 import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
 
@@ -63,8 +64,30 @@ const ClassNote = (props) => {
     setModal3(!modal3);
   };
   const parsed = queryString.parse(props.location.search);
-  const { activeCoursePaidStatus, clazz, inClass } = props;
+  const { activeCoursePaidStatus, clazz, inClass, user } = props;
+
+  const mounted = useRef();
   useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      if (inClass) {
+        const paymentIsActive = clazz.enrolledCourse.paymentIsActive;
+        props.authInputChange("activeCoursePaidStatus", paymentIsActive);
+      } else {
+        const myActiveEnrolledCourse =
+          user.enrolledCourses &&
+          user.enrolledCourses.find(
+            (course) => course.courseId._id === parsed.courseId
+          );
+        if (myActiveEnrolledCourse) {
+          props.authInputChange(
+            "activeCoursePaidStatus",
+            myActiveEnrolledCourse.paymentIsActive
+          );
+        }
+      }
+    }
+
     window.scrollTo(0, 0);    
     if (props.lessonCourseId !== parsed.courseId || props.lessonSubjectId !==parsed.subjectId) {
       props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
@@ -428,149 +451,151 @@ const ClassNote = (props) => {
           </div>
         </div>
       </div>
-      <div id="classNoteSecondSection" className="container-fluid relative">
-        <div className="row">
-          <div className="col-md-5">
-            <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
-              <span className="backArrow">
-                <img
-                  src={require("../../../assets/img/back-arrow.png")}
-                  alt="back button"
-                />{" "}
-                &nbsp; Go back to Lesson
-              </span>
-            </Link>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link onClick={toggle1}>
-              <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
-            </Link>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            {targetLesson &&
-              targetLesson.videoUrls &&
-              targetLesson.videoUrls.length > 0 && (
-                <Link to={linkToLessonVideoPage}>
-                  <FontAwesomeIcon icon={faPlay} color="white" size="lg" />
+      {!props.subjectAndRelatedLessonsLoader? 
+          <div id="classNoteSecondSection" className="container-fluid relative">
+            <div className="row">
+              <div className="col-md-5">
+                <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
+                  <span className="backArrow">
+                    <img
+                      src={require("../../../assets/img/back-arrow.png")}
+                      alt="back button"
+                    />{" "}
+                    &nbsp; Go back to Lesson
+                  </span>
                 </Link>
-              )}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Speech
-              content={decodeEntities(targetLesson && targetLesson.content)}
-            />
-          </div>
-          <div className="col-md-7"></div>
-        </div>
-        <div className="row">
-          <div className="col-md-12 title">
-            {targetLesson && targetLesson.title}
-          </div>
-          <div className="col-md-12">
-            <p className="content">
-              {targetLesson && parse(targetLesson.content)}
-            </p>
-          </div>
-        </div>
-        <div id="navigation">
-          <Link
-            to={
-              prevLesson
-                ? `/classnote/${
-                    props.subject.courseId &&
-                    slugify(props.subject.courseId.name)
-                  }/${
-                    props.subject.mainSubjectId &&
-                    slugify(props.subject.mainSubjectId.name)
-                  }/${prevLesson && slugify(prevLesson.title)}?courseId=${
-                    parsed.courseId
-                  }&subjectId=${parsed.subjectId}&lessonId=${
-                    prevLesson && prevLesson._id
-                  }&termId=${prevLesson && prevLesson.termId}`
-                : `/content/${parsed.courseId}/${parsed.subjectId}`
-            }
-            onClick={(e) => {
-              prevNotAllowed && e.preventDefault();
-            }}
-            className="button button1"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            data-bs-html="true"
-            title={
-              prevLesson
-                ? prevNotAllowed
-                  ? "Subscribe to unlock"
-                  : prevLesson.title
-                : "Subject Page"
-            }
-          >
-            <FontAwesomeIcon
-              icon={faAngleLeft}
-              className="arrow"
-              color="#84BB29"
-            />
-            <div>
-              {prevLesson ? (
-                <p className="p1">
-                  Previous <span className="hide-900">Lesson</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Link onClick={toggle1}>
+                  <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
+                </Link>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {targetLesson &&
+                  targetLesson.videoUrls &&
+                  targetLesson.videoUrls.length > 0 && (
+                    <Link to={linkToLessonVideoPage}>
+                      <FontAwesomeIcon icon={faPlay} color="white" size="lg" />
+                    </Link>
+                  )}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Speech
+                  content={decodeEntities(targetLesson && targetLesson.content)}
+                />
+              </div>
+              <div className="col-md-7"></div>
+            </div>
+            <div className="row">
+              <div className="col-md-12 title">
+                {targetLesson && targetLesson.title}
+              </div>
+              <div className="col-md-12">
+                <p className="content">
+                  {targetLesson && parse(targetLesson.content)}
                 </p>
-              ) : (
-                <p>Back to</p>
-              )}
-              <h6 className="custom-green">
-                {prevLesson
-                  ? prevLesson.title && prevLesson.title.slice(0, 20)
-                  : "Subject Page"}
-                {prevLesson && prevLesson.title && prevLesson.title.length > 20
-                  ? "..."
-                  : null}
-              </h6>
+              </div>
             </div>
-          </Link>
-          <div className="text">
-            Lesson {currentLessonIndex + 1} of{" "}
-            {props.subject && lessons && lessons.length}
-          </div>
-          <div
-            onClick={(e) => {
-              if (nextNotAllowed) {
-                e.preventDefault();
-                if (!activeCoursePaidStatus) {
-                  return toggle3();
+            <div id="navigation">
+              <Link
+                to={
+                  prevLesson
+                    ? `/classnote/${
+                        props.subject.courseId &&
+                        slugify(props.subject.courseId.name)
+                      }/${
+                        props.subject.mainSubjectId &&
+                        slugify(props.subject.mainSubjectId.name)
+                      }/${prevLesson && slugify(prevLesson.title)}?courseId=${
+                        parsed.courseId
+                      }&subjectId=${parsed.subjectId}&lessonId=${
+                        prevLesson && prevLesson._id
+                      }&termId=${prevLesson && prevLesson.termId}`
+                    : `/content/${parsed.courseId}/${parsed.subjectId}`
                 }
-              } else {
-                toggle2();
-              }
-            }}
-            className="button button2"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            data-bs-html="true"
-            title={
-              nextLesson
-                ? nextNotAllowed
-                  ? "Subscribe to unlock"
-                  : nextLesson.title
-                : "Subject Page"
-            }
-          >
-            <div>
-              <p>{nextLesson ? "Next Lesson" : "Back to"}</p>
-              <h6 className="custom-green">
-                {nextLesson
-                  ? nextLesson.title && nextLesson.title.slice(0, 20)
-                  : "Subject Page"}
-                {nextLesson && nextLesson.title && nextLesson.title.length > 20
-                  ? "..."
-                  : null}
-              </h6>
+                onClick={(e) => {
+                  prevNotAllowed && e.preventDefault();
+                }}
+                className="button button1"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-html="true"
+                title={
+                  prevLesson
+                    ? prevNotAllowed
+                      ? "Subscribe to unlock"
+                      : prevLesson.title
+                    : "Subject Page"
+                }
+              >
+                <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  className="arrow"
+                  color="#84BB29"
+                />
+                <div>
+                  {prevLesson ? (
+                    <p className="p1">
+                      Previous <span className="hide-900">Lesson</span>
+                    </p>
+                  ) : (
+                    <p>Back to</p>
+                  )}
+                  <h6 className="custom-green">
+                    {prevLesson
+                      ? prevLesson.title && prevLesson.title.slice(0, 20)
+                      : "Subject Page"}
+                    {prevLesson && prevLesson.title && prevLesson.title.length > 20
+                      ? "..."
+                      : null}
+                  </h6>
+                </div>
+              </Link>
+              <div className="text">
+                Lesson {currentLessonIndex + 1} of{" "}
+                {props.subject && lessons && lessons.length}
+              </div>
+              <div
+                onClick={(e) => {
+                  if (nextNotAllowed) {
+                    e.preventDefault();
+                    if (!activeCoursePaidStatus) {
+                      return toggle3();
+                    }
+                  } else {
+                    toggle2();
+                  }
+                }}
+                className="button button2"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-html="true"
+                title={
+                  nextLesson
+                    ? nextNotAllowed
+                      ? "Subscribe to unlock"
+                      : nextLesson.title
+                    : "Subject Page"
+                }
+              >
+                <div>
+                  <p>{nextLesson ? "Next Lesson" : "Back to"}</p>
+                  <h6 className="custom-green">
+                    {nextLesson
+                      ? nextLesson.title && nextLesson.title.slice(0, 20)
+                      : "Subject Page"}
+                    {nextLesson && nextLesson.title && nextLesson.title.length > 20
+                      ? "..."
+                      : null}
+                  </h6>
+                </div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  className="arrow"
+                  color="#84BB29"
+                />
+              </div>
             </div>
-            <FontAwesomeIcon
-              icon={faAngleRight}
-              className="arrow"
-              color="#84BB29"
-            />
           </div>
-        </div>
-      </div>
-    </span>
+      :''}
+   </span>
   );
 };
 ClassNote.propTypes = {
@@ -580,17 +605,19 @@ ClassNote.propTypes = {
   inputChange: PropTypes.func.isRequired,
   loadQuestions: PropTypes.func.isRequired,
   loadQuizQuestions: PropTypes.func.isRequired,
+  authInputChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   clazz: state.class.class,
   inClass: state.auth.inClass,
-  user: state.auth.user.role,
+  user: state.auth.user, 
   course: state.course.course,
   subject: state.subject.subject,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
   lessonSubjectId: state.subject.lessonSubjectId,
   lessonCourseId:state.subject.lessonCourseId,
+  subjectAndRelatedLessonsLoader: state.course.subjectAndRelatedLessonsLoader,  
 });
 
 export default connect(mapStateToProps, {
@@ -601,4 +628,5 @@ export default connect(mapStateToProps, {
   inputChange,
   loadQuestions,
   loadQuizQuestions,
+  authInputChange
 })(ClassNote);

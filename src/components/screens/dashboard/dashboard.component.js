@@ -296,11 +296,11 @@ const Dashboard = (props) => {
   
   const favouriteList = () => {
     if (
-      dashboardFavouriteVideos.favouriteVideos &&     
-      dashboardFavouriteVideos.favouriteVideos.length
+      dashboardFavouriteVideos &&     
+      dashboardFavouriteVideos.length
     ) {      
       // eslint-disable-next-line array-callback-return     
-      return dashboardFavouriteVideos.favouriteVideos.map((item, index) => {
+      return dashboardFavouriteVideos.map((item, index) => {
           return (
             <Favourite item= {item}/>
           );
@@ -432,7 +432,7 @@ const Dashboard = (props) => {
         </div>
 
         <a name="topTen"></a>
-        <h4 className="push5 resumePlayingBox">Top Ten Video </h4>
+        <h4 className="push5 resumePlayingBox">Top Ten Video <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
         <div className="row push10 resumePlaying myTopTen">      
           { topTenVideoLoader ? (
               <SubjectLoader />
@@ -511,7 +511,7 @@ const Dashboard = (props) => {
         
 
         <a name="favourite"></a>
-        <h4 className="push5 resumePlayingBox">My Fav <small className="showAll"><Link to="/more-info">Show all</Link></small></h4>
+        <h4 className="push5 resumePlayingBox">My Fav <small className="showAll"><Link to="/more-info?section=favourites">Show all</Link></small></h4>
         <div className="row push10 resumePlaying myTopTen">      
           { favouriteVideoLoader ? (
               <SubjectLoader />

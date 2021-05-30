@@ -29,15 +29,35 @@ export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
   dispatch
 ) => {
   try {
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'subjectAndRelatedLessonsLoader',
+        value: true,
+      },
+    });
     document.body.classList.add("loading-indicator");
     const result = await API.getSubjectAndRelatedLessons(courseId, subjectId);
     dispatch({
       type: GET_SUBJECT_AND_RELATED_LESSONS_SUCCESS,
       payload:result.data.data      
     });
-
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'subjectAndRelatedLessonsLoader',
+        value: false,
+      },
+    });
     document.body.classList.remove("loading-indicator");
   } catch (err) {
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'subjectAndRelatedLessonsLoader',
+        value: false,
+      },
+    });
     document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
