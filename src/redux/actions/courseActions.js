@@ -36,7 +36,9 @@ import {
   GET_USER_DASHBOARD_TOPTEN_VIDEOS_SUCCESS,
   GET_USER_DASHBOARD_TOPTEN_VIDEOS_FAILURE,
   GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
-  GET_USER_DASHBOARD_FAVOURITE_VIDEOS_FAILURE
+  GET_USER_DASHBOARD_FAVOURITE_VIDEOS_FAILURE,
+  GET_AFRILEARN_TOPTEN_VIDEOS_SUCCESS,
+  GET_AFRILEARN_TOPTEN_VIDEOS_FAILURE
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -277,6 +279,52 @@ export const populateDashboardTopTenVideos = (data) => async (dispatch) => {
     );
     dispatch({
       type: GET_USER_DASHBOARD_TOPTEN_VIDEOS_FAILURE,
+    });
+  }
+};
+
+export const populateAfrilearnTopTenVideos = () => async (dispatch) => {
+  try {   
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'afrilearnTopTenVideoLoader',
+        value: true,
+      },
+    });
+    const result = await API.getAfrilearnTopTen();   
+    dispatch({
+      type: GET_AFRILEARN_TOPTEN_VIDEOS_SUCCESS,
+      payload: result.data.data
+    });
+
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'afrilearnTopTenVideoLoader',
+        value: false,
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: COURSE_INPUT_CHANGE,
+      payload: {
+        name: 'afrilearnTopTenVideoLoader',
+        value: false,
+      },
+    });
+
+    dispatch(
+      returnErrors(
+        err.response && err.response.data.errors ?
+        err.response && err.response.data.errors :
+        err.response && err.response.data.error,
+        err.response && err.response.data.status,
+        "GET_AFRILEARN_TOPTEN_VIDEOS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_AFRILEARN_TOPTEN_VIDEOS_FAILURE,
     });
   }
 };

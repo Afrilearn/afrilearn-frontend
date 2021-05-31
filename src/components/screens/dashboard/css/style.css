@@ -36,9 +36,21 @@ h6.jj {
   margin-left: 5px;
 }
 
+/* .dashboard h4 {
+  font-family: font2;
+  margin-bottom: 20px;
+} */
+.jj .col-md-3, .push3 .col-md-12, #dashboardFirstSection .col-md-12, .subjectList> .col-md-4{
+  padding:5px
+}
+.jj h6 {
+  margin-left: 0px;
+  padding-left: 0px;
+}
 .dashboard h4 {
   font-family: font2;
   margin-bottom: 20px;
+  margin-left: -11px;
 }
 .dashboard .recommedtn p{
   margin-bottom: 0px !important;
@@ -67,9 +79,10 @@ h6.jj {
   border-radius: 5px;
   padding: 6px;
 }
+
 .resumePlaying p {
   line-height: 18px;
-  margin-top: 6px;
+  margin-top: 8px;
   margin-bottom: 0;
 }
 .resumePlaying span.mySpan {

@@ -64,6 +64,7 @@ const initialState = {
   allUsers: 0,
   courseCategoryId: "",
   redirectTo: "",
+  rolesLoader:false
 };
 
 const authReducer = (state = initialState, action) => {

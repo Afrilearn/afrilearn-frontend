@@ -801,4 +801,11 @@ export default {
       data  ,    
     });
   },
+  getAfrilearnTopTen(data) {
+    return axios({
+      method: "get",
+      url: `${this.url}dashboard/topTen`,
+      headers: this.headers()      
+    });
+  },
 };

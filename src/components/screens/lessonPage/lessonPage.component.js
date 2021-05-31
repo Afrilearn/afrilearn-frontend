@@ -17,6 +17,9 @@ import {
 import "./css/style.css";
 import firstterm from "../../../assets/img/firstterm.png";
 import ThumbUp from "../../../assets/img/thumbs.gif";
+import Unlike from "../../../assets/img/like.svg";
+import Like from "../../../assets/img/unlike.svg";
+
 import loader from "../../../assets/img/loading.gif";
 import { Collapse, Popover, PopoverBody } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -250,7 +253,7 @@ const LessonPage = (props) => {
         return (
           <div className="item" key={index}>
             <div className="img">
-              <img src={firstterm} alt="see this"></img>
+              <img src={firstterm} alt="see this"/>
             </div>
             <div className="right">
               <p>{lesson && lesson.title}</p>
@@ -681,13 +684,13 @@ const LessonPage = (props) => {
                 </div>
               </div>
               <div className="icon">
-                <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>
-                  <FontAwesomeIcon icon={faThumbsUp} />                
+                <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>                 
+                  <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
                 </Link>
                 <div className="icon_pop">
                   {likedVideoLoader? <p><img src={loader} className="loader"/> </p> :
                   <>
-                    <p> {alreadyAddedToLike()? 'I don\'t like this item':'I like this content'}</p> 
+                    <p> {alreadyAddedToLike()? 'Unlike':'I like this'}</p> 
                   </>
                   }              
                   <span></span>

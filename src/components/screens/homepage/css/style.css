@@ -145,6 +145,50 @@
     display: inline-block;
 }
 
+#homepage .courseName {
+    border: solid white 0.5px;
+    padding: 1px 3px;
+    color: white;
+}
+
+#homepage .resumePlaying p {
+    margin-top: 10px;
+}
+
+#homepage .topTen {
+    padding: 5px;
+}
+
+img.rolesLoader {
+    width: auto;
+}
+
+.trendingModalClass .modal-content {
+    padding: 0px;
+    background-color: white;
+    color: #222222;
+}
+.modal-dialog.trendingModalClass {
+    max-width: 828px;
+    margin: 1.75rem auto;
+}
+.trendingModalClass .modal-title {   
+    text-align: center;
+    width: 100%;
+    color:#2bb58e;
+    font-weight: bold;
+}
+.trendingModalClass .modal-footer {   
+    padding: 0.4rem 1rem;
+}
+.trendingModalClass .btn-primary {  
+    background-color: #2bb58e;
+    border-color: #2bb58e;
+}
+.trendingModalClass .modal-body {
+    padding: 0px;
+}
+
 #homepage .react-countdown .digit {
     font-size: 78px;
 }
@@ -163,7 +207,7 @@
     margin-left: -8px !important;
 }
 
-#homepage .afterBanner > .row {
+#homepage .afterBanner>.row {
     border-top: solid 9px #222;
     padding: 100px 59px;
     padding: 100px 104px;
@@ -209,31 +253,39 @@
 }
 
 .profile {
-    background: #222;
+    background: white;
     display: block;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    color: #333;
 }
 
 a.myButton {
     background: #84BB29 !important;
-    border-radius: 5px;
     color: white !important;
     padding: 8px 4px;
     text-align: center;
     width: 78% !important;
     display: inline-block;
     margin-top: 7px;
+    border-radius: 30px;
+    border: solid 6px white;
+    position: relative;
+    bottom: -38px;
 }
-.profile h4{
+
+.profile h4 {
     text-align: center;
-    padding: 4px;    
+    padding: 4px;
 }
+
 .fourProfiles .col-md-3 {
     padding: 5px;
 }
+
 .fourProfiles .col-10 {
     padding-left: 1px;
 }
+
 .profile .bulletRow {
     padding: 0px 11px;
     margin-bottom: 5px;
@@ -602,7 +654,7 @@ a.myButton {
         margin-left: 5px;
     } */
 
-    #homepage .afterBanner > .row {
+    #homepage .afterBanner>.row {
         padding: 50px 20px;
     }
 
@@ -636,14 +688,17 @@ a.myButton {
         margin: auto;
         display: block !important;
     }
+
     .profile {
         margin-bottom: 14px;
     }
-    .profile img.profileImg {     
-        height: 136px;      
+
+    .profile img.profileImg {
+        height: 136px;
     }
-    a.myButton {      
+
+    a.myButton {
         padding: 6px 4px;
-        margin-top: 18px;       
+        margin-top: 18px;
     }
 }

@@ -278,7 +278,7 @@ const Dashboard = (props) => {
       // eslint-disable-next-line array-callback-return
       let counter = 0;
       return dashboardTopTenVideos.lessons.map((item, index) => {  
-        if(item.videoUrls.length>0 && counter<6){
+        if(counter<6){
           ++counter
           return (
             <TopTen item= {item}/>
@@ -432,7 +432,7 @@ const Dashboard = (props) => {
         </div>
 
         <a name="topTen"></a>
-        <h4 className="push5 resumePlayingBox">Top Ten Video <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
+        <h4 className="push5 resumePlayingBox">Top Ten Lessons <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
         <div className="row push10 resumePlaying myTopTen">      
           { topTenVideoLoader ? (
               <SubjectLoader />

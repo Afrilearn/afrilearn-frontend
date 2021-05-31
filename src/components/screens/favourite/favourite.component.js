@@ -38,7 +38,7 @@ const MorePage = (props) => {
         props.populateDashboardTopTenVideos(
           activeEnrolledCourseId ? data : null
         );
-      }      
+      }       
     } else {
       // do componentDidUpdate logic
     }
@@ -73,12 +73,12 @@ const MorePage = (props) => {
       // eslint-disable-next-line array-callback-return
       let counter = 0;
       return dashboardTopTenVideos.lessons.map((item, index) => {  
-        if(item.videoUrls.length>0 && counter<6){
+        // if(counter<6){
           ++counter
           return (
             <Box item= {item}/>
           );     
-        } 
+        // } 
       });
     } else {
       return (
