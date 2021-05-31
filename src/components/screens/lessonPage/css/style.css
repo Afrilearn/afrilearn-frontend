@@ -17,6 +17,10 @@ img.thumb {
 img.loader {
   width: 18px;
 }
+img.likeIcon{
+  width: 21px;
+  margin-top: -6px;
+}
 #Popover1:hover{
   cursor: pointer;
 }

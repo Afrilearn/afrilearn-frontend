@@ -646,7 +646,7 @@ const Payment = (props) => {
         </div>
       </div>
     </div>
-    <Modal isOpen={modal} toggle={toggle} className="paymentModalClass">
+    <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
         {/* <ModalHeader toggle={toggle}>&nbsp;</ModalHeader> */}
         <ModalBody>
           <h4>Bank Deposit</h4>

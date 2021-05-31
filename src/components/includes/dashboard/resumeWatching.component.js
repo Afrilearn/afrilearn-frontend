@@ -19,9 +19,10 @@ const Box = (props) => {
     props.item.videoId
   }&termId=${props.item.termId}`;
   return (
-    <div className="col-md-2">
+    <div className="col-md-2 topTen">
       <Link to={linkToVideotLesson}>
       <img src={rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>
+      <small>{props.item.subjectId.mainSubjectId.name}</small>
       <p>{props.item && props.item.lessonId? (props.item.lessonId.title.length >40? props.item.lessonId.title.substr(0,37)+'...' :props.item.lessonId.title):'unknown'}</p>
       {/* <small>Lesson {+props.item.videoPosition + 1}</small> */}
       {/* <span className="mySpan"> <img src={Arrow}/>&nbsp;&nbsp; Continue Watching</span> */}

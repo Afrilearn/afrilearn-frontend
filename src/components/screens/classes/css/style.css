@@ -16,6 +16,9 @@
 #classes .heading {
   font-family: font2;
 }
+#classes .col-md-2{
+  padding:5px
+}
 
 #classes .firstSection .myclasses div {
   padding-left: 0px;

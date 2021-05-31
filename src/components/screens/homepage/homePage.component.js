@@ -7,6 +7,12 @@ import Footer from "../../includes/footer/footer.component";
 import Particles from "react-tsparticles";
 import { connect } from "react-redux";
 import { inputChange, getRoles } from "./../../../redux/actions/authActions";
+import {  
+  populateAfrilearnTopTenVideos
+} from "./../../../redux/actions/courseActions";
+import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
+import norecent from "../../../assets/img/norecent.png";
+import TopTen from "../../includes/dashboard/topTen.component";
 import PropTypes from "prop-types";
 import PaticleOption from "../../../assets/js/particles";
 import Tooltip from "rc-tooltip";
@@ -14,6 +20,7 @@ import "rc-tooltip/assets/bootstrap_white.css";
 import slugify from "react-slugify";
 
 const Homepage = (props) => {
+
   const {
     classLabel,
     classes,
@@ -22,7 +29,10 @@ const Homepage = (props) => {
     numberOfQuizQuestions,
     students,
     teachers,
-    allUsers
+    allUsers,
+    afrilearnTopTenVideos,
+    afrilearnTopTenVideoLoader,
+    rolesLoader    
   } = props;
 
   const mounted = useRef();
@@ -36,8 +46,10 @@ const Homepage = (props) => {
       props.inputChange("dashboardRoute", false);
 
       if(!classes.length){
-        props.getRoles();
-      }    
+        props.getRoles(true);
+      } 
+
+      props.populateAfrilearnTopTenVideos();
      
     } else {
       // do componentDidUpdate logic
@@ -73,7 +85,30 @@ const Homepage = (props) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-   
+  
+  const topTenList = () => {
+    if (
+      afrilearnTopTenVideos.lessons &&     
+      afrilearnTopTenVideos.lessons.length
+    ) {      
+      // eslint-disable-next-line array-callback-return
+      let counter = 0;
+      return afrilearnTopTenVideos.lessons.map((item, index) => {  
+        if(counter<6){
+          ++counter
+          return (
+            <TopTen item= {item} homepage={true}/>
+          );     
+        } 
+      });
+    } else {
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>No top ten videos</p>
+        </div>
+      );
+    }
+  };
  
   return (
     <span id="homepage">     
@@ -86,7 +121,11 @@ const Homepage = (props) => {
               We provide every Secondary School Student freedom to
               learn complete curriculum-relevant subjects and topics anytime, anywhere.
             </h4>
+           
             <div className="row courseSelectSection">
+             {rolesLoader?
+               <img src={require("../../../assets/img/loading.gif")} className="centerImage rolesLoader"/>
+              :
               <div className="col-md-12">
                 <div className="row">
                   <div className="col-8 paddingRightOff">
@@ -113,7 +152,9 @@ const Homepage = (props) => {
                   </div>
                 </div>
               </div>
+              }
             </div>
+
           </div>
           <div className="col-md-3"> </div>
         </div>
@@ -380,7 +421,6 @@ const Homepage = (props) => {
             </span>
           </div>
         </div>
-       
         <div className="row relative">
           <Particles id="tsparticles" options={PaticleOption} />
           <div className="col-md-6">
@@ -405,93 +445,108 @@ const Homepage = (props) => {
             </Link>
           </div>
         </div>
+        <div className="row push10 resumePlaying myTopTen kkj"> 
+        <h1 className="hOne">Trending on Afrilearn</h1>     
+          { afrilearnTopTenVideoLoader ? (
+              <SubjectLoader />
+          ) : (
+            topTenList()
+          )}
+          
+        </div>
         <div className="row students relative">
-          <div className="col-md-6">
-            <h1>
-              {" "}
-              {students && students > 0
-                ? numberWithCommas(allUsers)
-                : 0}
-              + Star Students, Schools & Teachers love Afrilearn!{" "}
-            </h1>
-            <h3>New content added every week!</h3>
-          </div>
-          <div className="col-md-6">
-            <div className="row push">
-              <div className="col-md-6">
-                <div className="row">
-                  <div className="col-md-4">
-                    <img
-                      className="fullWidth"
-                      src={require("../../../assets/img/videoLessons.svg")}
-                      alt="Next big thing"
-                    />
+        {rolesLoader?
+          <img src={require("../../../assets/img/loading.gif")} className="centerImage rolesLoader"/>
+          :
+          <>
+            <div className="col-md-6">
+              <h1>
+                {" "}
+                {students && students > 0
+                  ? numberWithCommas(allUsers)
+                  : 0}
+                + Star Students, Schools & Teachers love Afrilearn!{" "}
+              </h1>
+              <h3>New content added every week!</h3>
+            </div>
+            <div className="col-md-6">
+              <div className="row push">
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <img
+                        className="fullWidth"
+                        src={require("../../../assets/img/videoLessons.svg")}
+                        alt="Next big thing"
+                      />
+                    </div>
+                    <div className="col-md-8 paddingLeftOff">
+                      <h3>{numberWithCommas(1500)}+</h3>
+                      <p>Video & Audio Lessons</p>
+                    </div>
                   </div>
-                  <div className="col-md-8 paddingLeftOff">
-                    <h3>1500+</h3>
-                    <p>Video & Audio Lessons</p>
+                </div>
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <img
+                        className="fullWidth"
+                        src={require("../../../assets/img/practice questions.svg")}
+                        alt="Next big thing"
+                      />
+                    </div>
+                    <div className="col-md-8 paddingLeftOff">
+                      <h3>
+                        {numberOfQuizQuestions && numberOfQuizQuestions > 0
+                          ? numberWithCommas(22122 + numberOfQuizQuestions)
+                          : 0}
+                        +{" "}
+                      </h3>
+                      <p>Practice Questions</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="row">
-                  <div className="col-md-4">
-                    <img
-                      className="fullWidth"
-                      src={require("../../../assets/img/practice questions.svg")}
-                      alt="Next big thing"
-                    />
+              <div className="row push">
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <img
+                        className="fullWidth"
+                        src={require("../../../assets/img/classnote.svg")}
+                        alt="Next big thing"
+                      />
+                    </div>
+                    <div className="col-md-8 paddingLeftOff">
+                      <h3>
+                        {numberOfClassNote && numberOfClassNote > 0
+                          ? numberWithCommas(numberOfClassNote)
+                          : 0}
+                        +{" "}
+                      </h3>
+                      <p>Rich & Ready Class Notes</p>
+                    </div>
                   </div>
-                  <div className="col-md-8 paddingLeftOff">
-                    <h3>
-                      {numberOfQuizQuestions && numberOfQuizQuestions > 0
-                        ? numberWithCommas(22122 + numberOfQuizQuestions)
-                        : 0}
-                      +{" "}
-                    </h3>
-                    <p>Practice Questions</p>
+                </div>
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <img
+                        className="fullWidth"
+                        src={require("../../../assets/img/engagements.svg")}
+                        alt="Next big thing"
+                      />
+                    </div>
+                    <div className="col-md-8 paddingLeftOff">
+                      <h3>345,948+</h3>
+                      <p>Learning minutes</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="row push">
-              <div className="col-md-6">
-                <div className="row">
-                  <div className="col-md-4">
-                    <img
-                      className="fullWidth"
-                      src={require("../../../assets/img/classnote.svg")}
-                      alt="Next big thing"
-                    />
-                  </div>
-                  <div className="col-md-8 paddingLeftOff">
-                    <h3>
-                      {numberOfClassNote && numberOfClassNote > 0
-                        ? numberWithCommas(numberOfClassNote)
-                        : 0}
-                      +{" "}
-                    </h3>
-                    <p>Rich & Ready Class Notes</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="row">
-                  <div className="col-md-4">
-                    <img
-                      className="fullWidth"
-                      src={require("../../../assets/img/engagements.svg")}
-                      alt="Next big thing"
-                    />
-                  </div>
-                  <div className="col-md-8 paddingLeftOff">
-                    <h3>345,948+</h3>
-                    <p>Engagements</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </>
+        }
         </div>
         <div className="row relative">
           <div className="col-md-5">
@@ -777,6 +832,7 @@ const Homepage = (props) => {
 Homepage.propTypes = {
   inputChange: PropTypes.func.isRequired,
   getRoles: PropTypes.func.isRequired,
+  populateAfrilearnTopTenVideos: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -788,5 +844,9 @@ const mapStateToProps = (state) => ({
   students: state.auth.students,
   teachers: state.auth.teachers,
   allUsers: state.auth.allUsers,
+  afrilearnTopTenVideoLoader: state.course.afrilearnTopTenVideoLoader,
+  afrilearnTopTenVideos: state.course.afrilearnTopTenVideos,
+  rolesLoader: state.auth.rolesLoader,
+  isAuthenticated: state.auth.isAuthenticated
 });
-export default connect(mapStateToProps, { inputChange, getRoles })(Homepage);
+export default connect(mapStateToProps, { inputChange, getRoles, populateAfrilearnTopTenVideos })(Homepage);

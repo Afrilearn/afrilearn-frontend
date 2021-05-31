@@ -76,17 +76,49 @@ export const checkUserExists = (email, classId) => async dispatch => {
   }
 }
 
-export const getRoles = () => async dispatch => {
+export const getRoles = (homepage=false) => async dispatch => {
   try {
-    document.body.classList.add('loading-indicator')
+    if(homepage){
+      dispatch({
+        type: INPUT_CHANGE,
+        payload: {
+          name: 'rolesLoader',
+          value: true
+        }
+      })      
+    }else{
+      document.body.classList.add('loading-indicator')
+    }
+  
+
     const result = await API.getRoles()
     dispatch({
       type: GET_ROLES_SUCCESS,
       payload: result.data.data
     })
-    document.body.classList.remove('loading-indicator')
+    if(homepage){
+      dispatch({
+        type: INPUT_CHANGE,
+        payload: {
+          name: 'rolesLoader',
+          value: false
+        }
+      })      
+    }else{
+      document.body.classList.remove('loading-indicator')
+    } 
   } catch (err) {
-    document.body.classList.remove('loading-indicator')
+    if(homepage){
+      dispatch({
+        type: INPUT_CHANGE,
+        payload: {
+          name: 'rolesLoader',
+          value: false
+        }
+      })      
+    }else{
+      document.body.classList.remove('loading-indicator')
+    } 
     dispatch(
       returnErrors(
         err.response.data.errors
@@ -379,7 +411,7 @@ export const courseEnrolment = user => async dispatch => {
 }
 export const loadUser = () => async dispatch => {
   try {
-    document.body.classList.add('loading-indicator')
+    // document.body.classList.add('loading-indicator')
     const result = await API.loadUser()
 
     dispatch({
