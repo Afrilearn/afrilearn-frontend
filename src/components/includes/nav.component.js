@@ -42,7 +42,6 @@ import assignContent from "../screens/assignContent/assignContent.component";
 import performance from "../screens/performance/performance.component";
 import socialLogin from "../screens/socialLogin/socialLogin.component";
 import { inputChange, logout } from "./../../redux/actions/authActions";
-import ProtectedRoute from "./protectedRoute.component";
 import PropTypes from "prop-types";
 import subject from "../screens/subject/subject.component";
 import joinClassComponent from "../screens/joinClass/joinClass.component";
@@ -514,57 +513,57 @@ const MyNav = (props) => {
         <Route path="/privacy" component={PrivacyPolicy} />
         <Route path="/accept-request" component={AcceptRequests} />
         <Route path="/contact" component={contact} />
-        <ProtectedRoute
+        <Route
           path="/past-questions/instructions"
           exact
           component={pastQuestionsInstruction}
         />
-        <ProtectedRoute
+        <Route
           path="/lesson/quiz/instructions"
           exact
           component={pastQuestionsInstruction}
         />
-        <ProtectedRoute
+        <Route
           path="/past-questions/remark"
           exact
           component={pastQuestionsRemark}
         />
-        <ProtectedRoute
+        <Route
           path="/past-questions/exam"
           exact
           component={pastQuestionExamPage}
         />
-        <ProtectedRoute
+        <Route
           path="/past-questions/:categoryId"
           component={pastQuestions}
         />
-        <ProtectedRoute
+        <Route
           path="/classes/:classId/:subjectId/quiz"
           exact
           component={quizPage}
         />
         <Route  path="/text" component={TextToSpeech}/>
-        <ProtectedRoute
+        <Route
           path="/classes/:classId/:subjectId/:classworkId"
           component={classWork}
         />
-        <ProtectedRoute
+        <Route
           path="/classroom/:classId"
           component={classroomStudent}
         />
-        <ProtectedRoute
+        <Route
           path="/classes/teacher"
           component={classroomTeacherComponent}
         />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
-        <ProtectedRoute path="/assign-content" component={assignContent} />
-        <ProtectedRoute
+        <Route path="/assign-content" component={assignContent} />
+        <Route
           path="/content/:courseId/:subjectId/:lessonId/:videoId"
           component={lessonPage}
         />
         <Route path="/content/:courseId/:subjectId" component={content} />
-        <ProtectedRoute
+        <Route
           path="/profile"
           component={
             user.role !== "607ededa2712163504210684"
@@ -578,13 +577,13 @@ const MyNav = (props) => {
         <Route path="/login" component={login} />
         <Route path="/reset_password" component={resetPassword} />
         <Route path="/change_password" component={changePassword} />
-        <ProtectedRoute
+        <Route
           path="/classnote/:courseId/:subjectId/:lessonId"
           component={classNote}
         />
-        <ProtectedRoute path="/select-pay" component={selectPayment} />
+        <Route path="/select-pay" component={selectPayment} />
         {/* <Route path='/dashboard' component={SchoolDashboard} /> */}
-        <ProtectedRoute
+        <Route
           path="/dashboard"
           component={
             user.role === "5fd08fba50964811309722d5"
@@ -593,11 +592,13 @@ const MyNav = (props) => {
               ? ParentDashboard
               : user.role === "607ededa2712163504210684"
               ? SchoolDashboard
-              : classroomTeacherComponent
+              : user.role ==="602f3ce39b146b3201c2dc1d"
+              ? classroomTeacherComponent
+              :null
           }
         />
-        <ProtectedRoute path="/my-students" component={myStudents} />
-        <ProtectedRoute path="/performance" component={performance} />
+        <Route path="/my-students" component={myStudents} />
+        <Route path="/performance" component={performance} />
         <Route path="/social-login" component={socialLogin} />
         <Route path="/people" component={SchoolPeople} />
         <Route path="/subject" component={subject} />
@@ -605,11 +606,11 @@ const MyNav = (props) => {
         <Route path="/search-details" component={SearchDetails} />
         <Route path="/register-child" component={ParentChildRegistration} />
         <Route path="/children" component={ChildrenList} />
-        <ProtectedRoute
+        <Route
           path="/child-performance"
           component={ParentPerformance}
         />
-        <ProtectedRoute
+        <Route
           path="/child-timed-performance"
           component={ParentTimedPerformance}
         />

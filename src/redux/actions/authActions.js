@@ -296,7 +296,6 @@ export const updateProfile = user => async dispatch => {
     })
   }
 }
-
 export const changePassword = user => async dispatch => {
   try {
     document.body.classList.add('loading-indicator')
@@ -328,7 +327,6 @@ export const changePassword = user => async dispatch => {
     })
   }
 }
-
 export const changePasswordFromProfile = user => async dispatch => {
   try {
     document.body.classList.add('loading-indicator')
@@ -412,6 +410,13 @@ export const courseEnrolment = user => async dispatch => {
 export const loadUser = () => async dispatch => {
   try {
     // document.body.classList.add('loading-indicator')
+    dispatch({
+      type: INPUT_CHANGE,
+      payload: {
+        name: 'authLoader',
+        value: true
+      }
+    })   
     const result = await API.loadUser()
 
     dispatch({
@@ -419,9 +424,23 @@ export const loadUser = () => async dispatch => {
       payload: result.data.data
     })
 
-    document.body.classList.remove('loading-indicator')
+    // document.body.classList.remove('loading-indicator')
+    dispatch({
+      type: INPUT_CHANGE,
+      payload: {
+        name: 'authLoader',
+        value: false
+      }
+    })   
   } catch (err) {
-    document.body.classList.remove('loading-indicator')
+    // document.body.classList.remove('loading-indicator')
+    dispatch({
+      type: INPUT_CHANGE,
+      payload: {
+        name: 'authLoader',
+        value: false
+      }
+    })   
     dispatch(
       returnErrors(
         err.response.data.errors

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import slugify from "react-slugify";
-import Arrow from '../../../assets/img/play-button-arrowhead 1.png';
 import Picture1 from '../../../assets/img/Group 2323.png';
 import Picture2 from '../../../assets/img/Group 2324.png';
 import Picture3 from '../../../assets/img/Group 2327.png';
 import Picture4 from '../../../assets/img/Group 2328.png';
 import Classnote from '../../../assets/img/classnote.png';
+import paymentIcon from '../../../assets/img/Lock.png';
+
 import ReactPlayer from "react-player/lazy";
 import { connect } from "react-redux";
 import parse from "html-react-parser";
@@ -18,12 +19,26 @@ const Box = (props) => {
   const toggle = (e) => {
     e.preventDefault()
     setModal(!modal);
+    setModal1(false)
+  }
+  const [modal1, setModal1] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const toggle1 = (e) => {
+    e.preventDefault()
+    setModal1(!modal1);    
   }
   String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+  const handleProgress = (data) =>{
+    let progressSeconds = Math.round(data.playedSeconds);
+    if(progressSeconds >=30){       
+        setIsPlaying(false)
+        setModal1(true)
+    }
+  }
   let linkToVideotLesson;
   const rndInt = Math.floor(Math.random() * 3)  
 
@@ -49,11 +64,11 @@ const Box = (props) => {
 
   return (
     <>
-    <div className="col-md-2 topTen">
+    <div className={`topTen ${props.homepage? 'col-md-3' : 'col-md-2'}`}>
       <Link onClick={props.homepage? toggle : ''} to={props.homepage? '' : linkToVideotLesson}>
         <img src={!props.item.videoUrls || !props.item.videoUrls.length? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>
         {props.homepage? 
-        <small> <span className="courseName">{props.item.courseId.name}</span>&nbsp;&nbsp;<span>{props.item.subjectId.mainSubjectId.name.length >19? props.item.subjectId.mainSubjectId.name.substr(0,16)+'...' :props.item.subjectId.mainSubjectId.name}</span></small>
+        <small> <span className="courseName">{props.item.courseId.name}</span>&nbsp;&nbsp;<span>{props.item.subjectId.mainSubjectId.name.length >26? props.item.subjectId.mainSubjectId.name.substr(0,16)+'...' :props.item.subjectId.mainSubjectId.name}</span></small>
         :
         <small>{props.item.subjectId.mainSubjectId.name}</small>
         }     
@@ -62,25 +77,41 @@ const Box = (props) => {
     </div>
     <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
       <ModalHeader toggle={toggle}>{props.item.title}</ModalHeader>
-      <ModalBody>     
-        {props.item.videoUrls && props.item.videoUrls.length?
-          <ReactPlayer
-            className="react-player"
-            // onStart={
-            //   storeUnFinishedVideo
-            // }
-            // Disable download button
-            config={{ file: { attributes: { controlsList: "nodownload" } } }}
-            // Disable right click
-            onContextMenu={(e) => e.preventDefault()}             
-            url={props.item.videoUrls && props.item.videoUrls.length? props.item.videoUrls[0].videoUrl:''}
-            controls="true"
-            width="100%"
-            height="auto"
-            // muted={true}
-            playing={true}
-          />: props.item.content? parse(props.item.content):''
-        }     
+      <ModalBody>  
+        {
+          modal1? 
+          <div className="container">
+            <div className="row">
+              <div className="col-md-2"></div>
+              <div className="col-md-8 center paymentBox">
+                <img src={paymentIcon}/>
+                <h3>You need to subscribe to access this content!</h3>
+                <h5>Subscribe now to unlock all videos, class notes, tests & more in this class</h5>
+                <Link to={props.isAuthenticated? '/select-pay':'/register'}>Subscribe Now</Link>
+                <Link className="activeButton" onClick={toggle}>Subscribe Later</Link>
+              </div>
+              <div className="col-md-2"></div>
+            </div>
+          </div>  
+          :
+          props.item.videoUrls && props.item.videoUrls.length?
+            <ReactPlayer
+              className="react-player"            
+              config={{ file: { attributes: { controlsList: "nodownload" } } }}
+              // Disable right click
+              onContextMenu={(e) => e.preventDefault()}             
+              url={props.item.videoUrls && props.item.videoUrls.length? props.item.videoUrls[0].videoUrl:''}
+              controls="true"
+              width="100%"
+              height="auto"
+              // muted={true}
+              playing={isPlaying}
+              onProgress={handleProgress}
+            />: props.item.content? <p className="classNote"> {parse(props.item.content)}</p>:''
+               
+        }
+         
+       
       
       </ModalBody>
       {!props.isAuthenticated? 

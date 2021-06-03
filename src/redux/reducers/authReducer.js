@@ -64,7 +64,8 @@ const initialState = {
   allUsers: 0,
   courseCategoryId: "",
   redirectTo: "",
-  rolesLoader:false
+  rolesLoader:false,
+  authLoader:false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -75,7 +76,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
         [action.payload.name]: action.payload.value,
       };
-     
     case CHECK_USER_AND_JOIN_CLASS_SUCCESS:
       return {
         ...state,
@@ -92,7 +92,6 @@ const authReducer = (state = initialState, action) => {
         numberOfQuizQuestions: action.payload.numberOfQuizQuestions,
         allUsers: action.payload.allUsers,
       };
-
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
     case AUTH_SUCCESS:
@@ -188,7 +187,6 @@ const authReducer = (state = initialState, action) => {
         ...myObj,
         ...otherObj,
       };
-
     case CLEAR_FORM:
       return {
         ...state,
@@ -207,7 +205,6 @@ const authReducer = (state = initialState, action) => {
         formConfirmPassword: "",
         formCourseId: "",
       };
-
     case REGISTER_FAILURE:
     case LOGIN_FAILURE:
     case AUTH_FAILURE:

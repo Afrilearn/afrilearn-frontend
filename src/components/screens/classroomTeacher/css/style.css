@@ -15,7 +15,9 @@
 .bg-dark1{
   background-color:#212529;
 }
-
+#classroomTeacherSectionTwo .content-section .subjects h4 {
+  margin-left: -10px;
+}
 #classroomTeacherSectionTwo {
   width: 100%;
   background-color: black;
