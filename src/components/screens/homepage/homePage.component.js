@@ -18,6 +18,8 @@ import PaticleOption from "../../../assets/js/particles";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import slugify from "react-slugify";
+import VideoThumbnail from 'react-video-thumbnail';
+import VideoPlayer from 'simple-react-video-thumbnail'
 
 const Homepage = (props) => {
 
@@ -94,7 +96,7 @@ const Homepage = (props) => {
       // eslint-disable-next-line array-callback-return
       let counter = 0;
       return afrilearnTopTenVideos.lessons.map((item, index) => {  
-        if(counter<6){
+        if(counter<4){
           ++counter
           return (
             <TopTen item= {item} homepage={true}/>
@@ -154,7 +156,6 @@ const Homepage = (props) => {
               </div>
               }
             </div>
-
           </div>
           <div className="col-md-3"> </div>
         </div>
@@ -539,7 +540,7 @@ const Homepage = (props) => {
                     </div>
                     <div className="col-md-8 paddingLeftOff">
                       <h3>345,948+</h3>
-                      <p>Learning minutes</p>
+                      <p>Learning Minutes</p>
                     </div>
                   </div>
                 </div>

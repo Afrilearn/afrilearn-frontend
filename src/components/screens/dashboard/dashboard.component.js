@@ -299,11 +299,15 @@ const Dashboard = (props) => {
       dashboardFavouriteVideos &&     
       dashboardFavouriteVideos.length
     ) {      
+      let counter = 0;
       // eslint-disable-next-line array-callback-return     
       return dashboardFavouriteVideos.map((item, index) => {
+        if(counter<6){
+          ++counter
           return (
             <Favourite item= {item}/>
           );
+        }         
       });
     } else {
       return (
@@ -370,11 +374,12 @@ const Dashboard = (props) => {
           <div className="col-md-12">
             <h1>
               {enrolledCourseLoader ? (
-                <img
-                  className="social"
-                  src={require("../../../assets/img/loading.gif")}
-                  alt="google"
-                />
+                "Welcome!"
+                // <img
+                //   className="social"
+                //   src={require("../../../assets/img/loading.gif")}
+                //   alt="google"
+                // />
               ) : dashboardEnrolledCourse.enrolledCourse ? (
                 dashboardEnrolledCourse.enrolledCourse.courseId.name
               ) : (

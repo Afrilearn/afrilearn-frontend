@@ -19,6 +19,7 @@ import firstterm from "../../../assets/img/firstterm.png";
 import ThumbUp from "../../../assets/img/thumbs.gif";
 import Unlike from "../../../assets/img/like.svg";
 import Like from "../../../assets/img/unlike.svg";
+import ClasnoteIcon from "../../../assets/img/classnote1.png";
 
 import loader from "../../../assets/img/loading.gif";
 import { Collapse, Popover, PopoverBody } from "reactstrap";
@@ -668,8 +669,8 @@ const LessonPage = (props) => {
                 Lesson {videoIndex + 1}
               </div>
               <div className="icon">
-                <Link to={linkToLessonClassNote}>
-                  <FontAwesomeIcon icon={faBook} />
+                <Link to={linkToLessonClassNote}>                 
+                  <img src={ClasnoteIcon} alt="Class Note" className="likeIcon"/>   
                 </Link>
                 <div className="icon_pop">
                   <p>Class Note</p>
@@ -687,12 +688,8 @@ const LessonPage = (props) => {
                 <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>                 
                   <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
                 </Link>
-                <div className="icon_pop">
-                  {likedVideoLoader? <p><img src={loader} className="loader"/> </p> :
-                  <>
-                    <p> {alreadyAddedToLike()? 'Unlike':'I like this'}</p> 
-                  </>
-                  }              
+                <div className="icon_pop">                 
+                    <p> {alreadyAddedToLike()? 'Unlike':'I like this'}</p>                              
                   <span></span>
                 </div>
               </div>
@@ -708,19 +705,9 @@ const LessonPage = (props) => {
                     target="Popover1"
                     toggle={toggle}
                   >
-                    <PopoverBody>
-                      {role && role === "602f3ce39b146b3201c2dc1d" && (
-                        <Link to="/assign-content">
-                          <p>Assign Content</p>
-                        </Link>
-                      )}                   
+                    <PopoverBody>                                    
                       <p><Link onClick={toggle1}>Share</Link></p>
-                      
-                      {favouriteVideoLoader? <p>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src={loader} className="loader"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> :
-                        <>
-                          <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p>
-                        </>
-                      } 
+                      <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p>                     
                     </PopoverBody>
                   </Popover>
                   <FontAwesomeIcon icon={faEllipsisV}/>

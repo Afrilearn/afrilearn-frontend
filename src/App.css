@@ -271,7 +271,9 @@ img.logo {
   border: none !important;
   color: white;
 }
-
+.rc-tooltip {
+  font-size: 15px !important;
+}
 .mobileOnly {
   display: none !important;
 }

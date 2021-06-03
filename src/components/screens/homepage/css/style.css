@@ -168,6 +168,9 @@ img.rolesLoader {
     background-color: white;
     color: #222222;
 }
+.trendingModalClass p {
+    padding: 40px;
+}
 .modal-dialog.trendingModalClass {
     max-width: 828px;
     margin: 1.75rem auto;
@@ -175,15 +178,42 @@ img.rolesLoader {
 .trendingModalClass .modal-title {   
     text-align: center;
     width: 100%;
-    color:#2bb58e;
+    color:#222222;
     font-weight: bold;
 }
-.trendingModalClass .modal-footer {   
-    padding: 0.4rem 1rem;
+.trendingModalClass .paymentBox {
+    margin: 50px 0px;
+    padding: 29px 40px;
+    border-radius: 8px;
+    box-shadow: 0 .5pt 10pt rgba(0,0,0,.1);
 }
-.trendingModalClass .btn-primary {  
-    background-color: #2bb58e;
-    border-color: #2bb58e;
+.trendingModalClass .paymentBox img {
+    margin-bottom: 16px;
+}
+.trendingModalClass .paymentBox h3, .trendingModalClass .paymentBox h5 {
+    padding: 4px 56px;
+}
+.trendingModalClass .paymentBox a {
+    display: block;
+    background: #84BB29 !important;
+    padding: 6px;
+    color: white !important;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+.trendingModalClass .paymentBox a.activeButton {
+    border: solid 0.5px #222222;
+    background: white !important;
+    color: #222222 !important;
+}
+.trendingModalClass .modal-footer {
+    padding: 0.4rem 1rem;
+    text-align: center;
+    display: block;
+}
+.trendingModalClass .btn-primary {
+    background-color: #84BB29;
+    border-color: #84BB29;
 }
 .trendingModalClass .modal-body {
     padding: 0px;
@@ -248,15 +278,15 @@ img.rolesLoader {
 }
 
 .profile .box {
-    padding: 15px 10px 20px 10px;
+    padding: 15px 10px 0px 10px;
     font-size: 15px;
 }
 
 .profile {
-    background: white;
+    background: #333;
     display: block;
     border-radius: 5px 5px 5px 5px;
-    color: #333;
+    color: white;
 }
 
 a.myButton {
@@ -266,11 +296,11 @@ a.myButton {
     text-align: center;
     width: 78% !important;
     display: inline-block;
-    margin-top: 7px;
+    margin-top: 0px;
     border-radius: 30px;
-    border: solid 6px white;
+    border: solid 6px #666;
     position: relative;
-    bottom: -38px;
+    bottom: -18px;
 }
 
 .profile h4 {
@@ -486,6 +516,15 @@ a.myButton {
 }
 
 @media screen and (max-width: 768px) {
+    .trendingModalClass .paymentBox {
+        margin: 0px;
+        padding: 20px 3px;
+        border-radius: 8px;
+        box-shadow: 0 .5pt 10pt rgba(0,0,0,.1);
+    }
+    .trendingModalClass .paymentBox h3, .trendingModalClass .paymentBox h5 {
+        padding: 4px 23px;
+    }
     iframe {
         width: 100%;
         height: 100%;

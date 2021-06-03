@@ -5,16 +5,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
   faAngleRight,
-  faMicrophone,
+  faEllipsisV,
   faPlay,
-  faShareAlt,
   faTimes,
+  faEye,
+  faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, Redirect } from "react-router-dom";
 import {
   getSubjectAndRelatedLessons,
   addRecentActivity,
   addSubjectProgress,
+  storeFavouriteVideos,
+  removeFavouriteVideos,
+  storeLikedVideos,
+  removeLikedVideos
 } from "./../../../redux/actions/subjectActions";
 import Speech from "../../includes/textToSpeech/textToSpeech.component";
 
@@ -24,6 +29,10 @@ import queryString from "query-string";
 
 import { Modal, ModalHeader, ModalBody, Tooltip } from "reactstrap";
 import ThumbUp from "../../../assets/img/thumbs.gif";
+import DTooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap_white.css";
+import Unlike from "../../../assets/img/like.svg";
+import Like from "../../../assets/img/unlike.svg";
 
 import {
   EmailShareButton,
@@ -64,8 +73,20 @@ const ClassNote = (props) => {
     setModal3(!modal3);
   };
   const parsed = queryString.parse(props.location.search);
-  const { activeCoursePaidStatus, clazz, inClass, user } = props;
+  const {
+    activeCoursePaidStatus,
+    clazz,
+    inClass,
+    user,
+    dashboardFavouriteVideos,
+    newlyAddedDashbaordFavouriteVideos,
+    relatedLessons,
+    likedVideoLoader,
+    favouriteVideoLoader,
+    subjectAndRelatedLessonsLoader,
+  } = props;
 
+  let likeArray =[];
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -95,6 +116,98 @@ const ClassNote = (props) => {
     }
     storeProgress();
   }, []);
+
+  const storeFavouriteVideos = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      courseId:parsed.courseId,
+      subjectId:parsed.subjectId,
+      lessonId:parsed.lessonId,
+      termId:parsed.termId,
+      // videoId:parsed.videoId,
+      // videoPosition:videoIndex   
+    }
+    props.storeFavouriteVideos(data) 
+  };
+
+  const removeFavouriteVideos = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      courseId:parsed.courseId,
+      subjectId:parsed.subjectId,
+      lessonId:parsed.lessonId,
+      termId:parsed.termId,
+      // videoId:parsed.videoId,
+      // videoPosition:videoIndex   
+    }
+    props.removeFavouriteVideos(data) 
+  };
+
+  const storeLikedVideo = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      lessonId:parsed.lessonId     
+    }
+    props.storeLikedVideos(data, currentLessonIndex) 
+  };
+
+  const removeLikedVideo = (e) => {
+    e.preventDefault()
+    const data = {
+      userId:props.userId,
+      lessonId:parsed.lessonId     
+    }
+    props.removeLikedVideos(data, currentLessonIndex) 
+  }; 
+  
+  const alreadyAddedToFavourite = () => {
+    let result = [];
+    let result1 = [];
+    //old records
+    if (dashboardFavouriteVideos &&
+      dashboardFavouriteVideos.length) { 
+        result = dashboardFavouriteVideos.filter(item =>item.lessonId.id ===parsed.lessonId)
+    }
+    //new records
+    if (newlyAddedDashbaordFavouriteVideos &&
+      newlyAddedDashbaordFavouriteVideos.length) { 
+        result1 = newlyAddedDashbaordFavouriteVideos.filter(item =>item.lessonId ===parsed.lessonId)
+    }
+    if(result.length || result1.length){
+      return true
+    }else{
+      return false
+    }
+  }
+  
+  const alreadyAddedToLike = () => {
+    let result = [];
+    let result1 = [];
+
+    //old records
+    if (relatedLessons &&
+      relatedLessons.length) { 
+      result = relatedLessons.filter(item =>item._id === parsed.lessonId)
+    }
+  
+    if(result[0] && result[0].likes  && result[0].likes.length){
+      result = result[0].likes.filter(item => item === props.userId)
+      likeArray = result
+    }else{
+      result = []
+    }
+   
+    if(result.length || result1.length){
+      return true
+    }else{
+      return false
+    }
+  }
+  
+
   var decodeEntities = (function () {
     // this prevents any overhead from creating the object each time
     var element = document.createElement("div");
@@ -432,7 +545,6 @@ const ClassNote = (props) => {
           </span>
         </ModalBody>
       </Modal>
-
      
       <TakeActionPopUp
         headingText="You need to subscribe to access this content!"
@@ -455,37 +567,102 @@ const ClassNote = (props) => {
           <div id="classNoteSecondSection" className="container-fluid relative">
             <div className="row">
               <div className="col-md-5">
-                <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
-                  <span className="backArrow">
-                    <img
-                      src={require("../../../assets/img/back-arrow.png")}
-                      alt="back button"
-                    />{" "}
-                    &nbsp; Go back to Lesson
-                  </span>
-                </Link>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <Link onClick={toggle1}>
-                  <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
-                </Link>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {targetLesson &&
-                  targetLesson.videoUrls &&
-                  targetLesson.videoUrls.length > 0 && (
-                    <Link to={linkToLessonVideoPage}>
-                      <FontAwesomeIcon icon={faPlay} color="white" size="lg" />
-                    </Link>
-                  )}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <Speech
-                  content={decodeEntities(targetLesson && targetLesson.content)}
-                />
+                <ul>
+                  <li>
+                    <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
+                      <span className="backArrow">
+                        <img
+                          src={require("../../../assets/img/back-arrow.png")}
+                          alt="back button"
+                        />{" "}
+                        &nbsp; Go back to Lesson
+                      </span>
+                    </Link>    
+                  </li>                 
+                  {targetLesson &&
+                    targetLesson.videoUrls &&
+                    targetLesson.videoUrls.length > 0 && (
+                      <li>
+                        <DTooltip
+                          placement="top"
+                          trigger={["hover"]}
+                          overlay={
+                            <span>
+                              Video Lesson
+                            </span>
+                          }
+                        >
+                           <Link to={linkToLessonVideoPage}>
+                            <FontAwesomeIcon icon={faPlay} color="white" size="lg" />
+                          </Link>
+                        </DTooltip>                       
+                      </li>
+                    )}                
+                  <li>
+                    <DTooltip
+                      placement="top"
+                      trigger={["hover"]}
+                      overlay={
+                        <span>
+                          Audio Lesson
+                        </span>
+                      }
+                    >
+                      <Link onClick={(e) => {e.preventDefault()}}>
+                        <Speech
+                          content={decodeEntities(targetLesson && targetLesson.content)}
+                        /> 
+                      </Link> 
+                    </DTooltip> 
+                  </li>
+                  <li>
+                    <DTooltip
+                      placement="top"
+                      trigger={["hover"]}
+                      overlay={
+                        <span>
+                          {alreadyAddedToLike()? 'Unlike':'I like this'}
+                        </span>
+                      }
+                    >
+                       <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>                 
+                          <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
+                        </Link>
+                    </DTooltip> 
+                  
+                  {/* <Link onClick={toggle1}>
+                    <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
+                  </Link> */}
+                  </li>
+                  <li className="moreOptions">
+                    <DTooltip
+                      placement="top"
+                      trigger={["hover"]}
+                      overlay={
+                        <span>
+                          <Link onClick={toggle1
+                            }>
+                              Share
+                          </Link><br/>
+                          <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link>
+                        </span>
+                      }
+                    >
+                      <Link onClick={(e) => {e.preventDefault()}}>
+                        <FontAwesomeIcon icon={faEllipsisV} color="white" size="lg" />
+                      </Link> 
+                    </DTooltip> 
+                  </li>
+                </ul>                      
               </div>
               <div className="col-md-7"></div>
             </div>
             <div className="row">
               <div className="col-md-12 title">
-                {targetLesson && targetLesson.title}
+                {targetLesson && targetLesson.title}               
+              </div>
+              <div className="col-md-12 stat">
+                <FontAwesomeIcon icon={faEye} /> {targetLesson && targetLesson.views+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {likeArray.length+' like(s)'}
               </div>
               <div className="col-md-12">
                 <p className="content">
@@ -618,6 +795,12 @@ const mapStateToProps = (state) => ({
   lessonSubjectId: state.subject.lessonSubjectId,
   lessonCourseId:state.subject.lessonCourseId,
   subjectAndRelatedLessonsLoader: state.course.subjectAndRelatedLessonsLoader,  
+  userId:state.auth.userId,
+  dashboardFavouriteVideos: state.course.dashboardFavouriteVideos,
+  newlyAddedDashbaordFavouriteVideos: state.course.newlyAddedDashbaordFavouriteVideos,
+  relatedLessons:state.subject.relatedLessons,
+  likedVideoLoader:state.course.likedVideoLoader,
+  favouriteVideoLoader:state.course.favouriteVideoLoader,
 });
 
 export default connect(mapStateToProps, {
@@ -628,5 +811,9 @@ export default connect(mapStateToProps, {
   inputChange,
   loadQuestions,
   loadQuizQuestions,
-  authInputChange
+  authInputChange,
+  storeFavouriteVideos,
+  removeFavouriteVideos,
+  storeLikedVideos,
+  removeLikedVideos,
 })(ClassNote);

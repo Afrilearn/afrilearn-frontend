@@ -39,15 +39,25 @@ const Box = (props) => {
   const rndInt = Math.floor(Math.random() * 3) 
   let linkToVideotLesson;
   if(props.favourites){    
-    linkToVideotLesson = `/content/${slugify(props.item.courseId.name)}/${slugify(
-      props.item.subjectId.mainSubjectId.name
-    )}/${slugify(props.item.lessonId.title)}/${
-     props.item.videoId
-    }?courseId=${props.item.courseId.id}&subjectId=${
-      props.item.subjectId.id
-    }&lessonId=${props.item.lessonId.id}&videoId=${
-      props.item.videoId
-    }&termId=${props.item.termId}`;
+    if(props.item.videoId){
+      linkToVideotLesson = `/content/${slugify(props.item.courseId.name)}/${slugify(
+        props.item.subjectId.mainSubjectId.name
+      )}/${slugify(props.item.lessonId.title)}/${
+       props.item.videoId
+      }?courseId=${props.item.courseId.id}&subjectId=${
+        props.item.subjectId.id
+      }&lessonId=${props.item.lessonId.id}&videoId=${
+        props.item.videoId
+      }&termId=${props.item.termId}`;
+    }else{
+      linkToVideotLesson = `/classnote/${slugify(props.item.courseId.name)}/${slugify(
+        props.item.subjectId.mainSubjectId.name
+      )}/${slugify(props.item.lessonId.title)}?courseId=${
+        props.item.courseId.id
+      }&subjectId=${props.item.subjectId.id}&lessonId=${
+        props.item.lessonId.id
+      }&termId=${props.item.termId}`;
+    }
   }else{
     if(props.item.videoUrls && props.item.videoUrls.length){
       linkToVideotLesson = `/content/${slugify(props.item.courseId.name)}/${slugify(
@@ -73,7 +83,11 @@ const Box = (props) => {
   return (
     <div className="col-md-3 topTen">
       <Link to={linkToVideotLesson}>
-        <img src={props.item.videoUrls && !props.item.videoUrls.length? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>
+        {props.favourites? 
+         <img src={!props.item.videoId? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>
+        :
+        <img src={props.item.videoUrls && !props.item.videoUrls.length? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>}
+        
         <small>{props.item.subjectId.mainSubjectId.name}</small>
         {props.favourites? 
           <>
