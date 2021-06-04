@@ -151,7 +151,7 @@ export const populateDashboardEnrolledCourses = (data) => async (dispatch) => {
     });
 
     const result = await API.getDashboardEnrolledCourse(data);
-
+    
     dispatch({
       type: GET_USER_DASHBOARD_ENROLLED_COURSE_SUCCESS,
       payload: result.data.data

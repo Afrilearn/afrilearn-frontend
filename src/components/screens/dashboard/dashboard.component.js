@@ -73,7 +73,7 @@ const Dashboard = (props) => {
     topTenVideoLoader,
     dashboardTopTenVideos,
     favouriteVideoLoader,
-    dashboardFavouriteVideos
+    dashboardFavouriteVideos   
   } = props;
   const mounted = useRef();
 
@@ -121,8 +121,9 @@ const Dashboard = (props) => {
             image={item.mainSubjectId.imageUrl}
             singleClass={true}
             dashboard={true}
+            lessons={item.relatedLessons}
             compiledNotes={item.relatedLessons.length}
-            registeredUsers={50000}
+            numOfUsers={dashboardEnrolledCourse.numOfUsers}
             subjectName={item.mainSubjectId.name}
             courseId={dashboardEnrolledCourse.enrolledCourse.courseId._id}
             introText={item.mainSubjectId.introText}

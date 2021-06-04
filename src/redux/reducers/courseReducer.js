@@ -103,7 +103,7 @@ const courseReducer = (state = initialState, action) => {
     case GET_USER_DASHBOARD_ENROLLED_COURSE_SUCCESS:
       return {
         ...state,
-        dashboardEnrolledCourse: action.payload
+        dashboardEnrolledCourse: action.payload    
       };
     case GET_USER_DASHBOARD_CLASS_MEMBERSHIP_SUCCESS:
       return {
