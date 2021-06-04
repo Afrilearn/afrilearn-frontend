@@ -12,11 +12,11 @@ const Box = (props) => {
   const linkToVideotLesson = `/content/${slugify(props.item.courseId.name)}/${slugify(
     props.item.subjectId.mainSubjectId.name
   )}/${slugify(props.item.lessonId.title)}/${
-   props.item.videoId
+   props.item.lessonId.videoUrls[0]._id
   }?courseId=${props.item.courseId.id}&subjectId=${
     props.item.subjectId.id
   }&lessonId=${props.item.lessonId.id}&videoId=${
-    props.item.videoId
+  props.item.lessonId.videoUrls[0]._id
   }&termId=${props.item.termId}`;
   return (
     <div className="col-md-2 topTen">

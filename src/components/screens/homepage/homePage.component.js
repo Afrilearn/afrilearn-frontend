@@ -18,8 +18,8 @@ import PaticleOption from "../../../assets/js/particles";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import slugify from "react-slugify";
-import VideoThumbnail from 'react-video-thumbnail';
-import VideoPlayer from 'simple-react-video-thumbnail'
+// import VideoThumbnail from 'react-video-thumbnail';
+// import VideoPlayer from 'simple-react-video-thumbnail'
 
 const Homepage = (props) => {
 

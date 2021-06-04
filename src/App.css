@@ -274,6 +274,9 @@ img.logo {
 .rc-tooltip {
   font-size: 15px !important;
 }
+.resumePlaying img{
+  border-radius: 6px 6px 0px 0px;
+}
 .mobileOnly {
   display: none !important;
 }

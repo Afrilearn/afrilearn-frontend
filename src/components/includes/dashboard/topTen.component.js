@@ -6,7 +6,7 @@ import Picture2 from '../../../assets/img/Group 2324.png';
 import Picture3 from '../../../assets/img/Group 2327.png';
 import Picture4 from '../../../assets/img/Group 2328.png';
 import Classnote from '../../../assets/img/classnote.png';
-import paymentIcon from '../../../assets/img/Lock.png';
+import paymentIcon from '../../../assets/img/lockIcon.svg';
 
 import ReactPlayer from "react-player/lazy";
 import { connect } from "react-redux";
@@ -66,7 +66,7 @@ const Box = (props) => {
     <>
     <div className={`topTen ${props.homepage? 'col-md-3' : 'col-md-2'}`}>
       <Link onClick={props.homepage? toggle : ''} to={props.homepage? '' : linkToVideotLesson}>
-        <img src={!props.item.videoUrls || !props.item.videoUrls.length? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>
+        <img src={props.item.thumbnailUrl? props.item.thumbnailUrl:!props.item.videoUrls || !props.item.videoUrls.length? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>
         {props.homepage? 
         <small> <span className="courseName">{props.item.courseId.name}</span>&nbsp;&nbsp;<span>{props.item.subjectId.mainSubjectId.name.length >26? props.item.subjectId.mainSubjectId.name.substr(0,16)+'...' :props.item.subjectId.mainSubjectId.name}</span></small>
         :
