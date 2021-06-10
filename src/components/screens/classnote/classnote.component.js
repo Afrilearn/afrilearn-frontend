@@ -57,6 +57,8 @@ import {
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import Countdown from "react-countdown";
 import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
+import { getLessonComments } from "./../../../redux/actions/commentActions";
+import CommentBox from "../../includes/comment/addComment.component";
 
 const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
@@ -84,6 +86,7 @@ const ClassNote = (props) => {
     likedVideoLoader,
     favouriteVideoLoader,
     subjectAndRelatedLessonsLoader,
+    isAuthenticated
   } = props;
 
   let likeArray =[];
@@ -108,6 +111,8 @@ const ClassNote = (props) => {
         }
       }
     }
+     //get lesson comments
+    props.getLessonComments(parsed.lessonId,{commentSection:'note'})
 
     window.scrollTo(0, 0);    
     if (props.lessonCourseId !== parsed.courseId || props.lessonSubjectId !==parsed.subjectId) {
@@ -393,6 +398,9 @@ const ClassNote = (props) => {
   const handleShowPopUp = () => {
     setShow(!show);
   };
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <span>
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
@@ -644,7 +652,8 @@ const ClassNote = (props) => {
                             }>
                               Share
                           </Link><br/>
-                          <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link>
+                          {isAuthenticated?  <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link>:''}
+                         
                         </span>
                       }
                     >
@@ -662,12 +671,15 @@ const ClassNote = (props) => {
                 {targetLesson && targetLesson.title}               
               </div>
               <div className="col-md-12 stat">
-                <FontAwesomeIcon icon={faEye} /> {targetLesson && targetLesson.views+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {likeArray.length+' like(s)'}
+                <FontAwesomeIcon icon={faEye} /> {targetLesson && numberWithCommas(targetLesson.views)+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {numberWithCommas(likeArray.length)+' like(s)'}
               </div>
               <div className="col-md-12">
                 <p className="content">
                   {targetLesson && parse(targetLesson.content)}
                 </p>
+              </div>
+              <div className="col-md-6">
+                <CommentBox lessonId={parsed.lessonId} commentSection='note'/>
               </div>
             </div>
             <div id="navigation">
@@ -688,7 +700,16 @@ const ClassNote = (props) => {
                     : `/content/${parsed.courseId}/${parsed.subjectId}`
                 }
                 onClick={(e) => {
-                  prevNotAllowed && e.preventDefault();
+                  if(prevNotAllowed){
+                    e.preventDefault();
+                  }else{
+                    if(prevLesson){
+                      //get lesson comments
+                       props.getLessonComments(prevLesson.id,{commentSection:'note'})
+                    }      
+                  }
+                  
+                
                 }}
                 className="button button1"
                 data-bs-toggle="tooltip"
@@ -736,8 +757,13 @@ const ClassNote = (props) => {
                     if (!activeCoursePaidStatus) {
                       return toggle3();
                     }
-                  } else {
+                  } else {                    
                     toggle2();
+                    if(nextLesson){
+                      //get lesson comments
+                       props.getLessonComments(nextLesson.id,{commentSection:'note'})
+                    }        
+                      
                   }
                 }}
                 className="button button2"
@@ -783,6 +809,7 @@ ClassNote.propTypes = {
   loadQuestions: PropTypes.func.isRequired,
   loadQuizQuestions: PropTypes.func.isRequired,
   authInputChange: PropTypes.func.isRequired,
+  getLessonComments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -801,6 +828,7 @@ const mapStateToProps = (state) => ({
   relatedLessons:state.subject.relatedLessons,
   likedVideoLoader:state.course.likedVideoLoader,
   favouriteVideoLoader:state.course.favouriteVideoLoader,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {
@@ -816,4 +844,5 @@ export default connect(mapStateToProps, {
   removeFavouriteVideos,
   storeLikedVideos,
   removeLikedVideos,
+  getLessonComments
 })(ClassNote);

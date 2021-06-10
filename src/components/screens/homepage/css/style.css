@@ -1,7 +1,6 @@
 #homepage .bannerSection {
     height: calc(120vh);
-    background-image: radial-gradient(rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.5)),
-        url("../../../../assets/img/sample.jpg");
+    background-image: radial-gradient(rgba(0, 0, 0, 0.2), rgb(0, 0, 0)), url('../../../../assets/img/bg3.jpg');
     background-repeat: no-repeat;
     background-position: top center;
     background-attachment: fixed;
@@ -281,7 +280,11 @@ img.rolesLoader {
     padding: 15px 10px 0px 10px;
     font-size: 15px;
 }
-
+.myTopTen img {
+    height: 154px;
+    object-fit: cover;
+    object-position: top;
+}
 .profile {
     background: #333;
     display: block;

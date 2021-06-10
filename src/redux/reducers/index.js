@@ -9,7 +9,8 @@ import classReducer from "./classReducer";
 import pastQuestionsReducer from "./pastQuestionsReducer";
 import searchReducer from "./searchReducer";
 import parentReducer from "./parentReducer"
-import schoolReducer from "./schoolReducer"
+import schoolReducer from "./schoolReducer";
+import commentReducer from "./commentReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   pastQuestion: pastQuestionsReducer,
   parent: parentReducer,
   school: schoolReducer,
+  comment: commentReducer,
 });

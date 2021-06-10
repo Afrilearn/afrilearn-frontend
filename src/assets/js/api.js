@@ -57,6 +57,7 @@ export default {
       data: { email, classId },
     });
   },
+  
   getRoles() {
     return axios({
       method: "get",
@@ -808,4 +809,44 @@ export default {
       headers: this.headers()      
     });
   },
+  getLessonComments(lessonId, data) {
+    return axios({
+      method: "post",
+      url: `${this.url}comments/${lessonId}`,
+      headers: this.headers(),
+      data      
+    });
+  },  
+  postLessonComment(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}comments/`,
+      headers: this.headers(),
+      data      
+    });
+  },  
+  likeLessonComment(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}comments/like-comment`,
+      headers: this.headers(),
+      data      
+    });
+  },
+  unlikeLessonComment(data) {
+    return axios({
+      method: "delete",
+      url: `${this.url}comments/unlike-comment`,
+      headers: this.headers(),
+      data      
+    });
+  },   
+  addLessonCommentReply(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}comments/reply/add`,
+      headers: this.headers(),
+      data      
+    });
+  },  
 };

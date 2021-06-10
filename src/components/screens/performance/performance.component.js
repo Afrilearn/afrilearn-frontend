@@ -47,7 +47,8 @@ const Performance = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
 
-      const data = { classId: clazz? clazz._id:null };
+      // const data = { classId: clazz? clazz._id:null };
+      const data = { };
 
       if (targetUser) {
         data.userId = targetUser._id;

@@ -190,7 +190,7 @@ const LessonItem = (props) => {
       return lesson.videoUrls.map((item, index) => {
         return (
           <>
-            <div class="col-md-3" key={index}>
+            <div class="col-md-2" key={index}>
               <Tooltip
                 overlay={lesonToolTipsComponent}
                 placement="top"
@@ -206,8 +206,8 @@ const LessonItem = (props) => {
                       e.preventDefault();
                   }}
                 >
-                  <div className="term_item_left_bottom_item ">
-                    <FontAwesomeIcon icon={faPlay} />
+                  <div className="term_item_left_bottom_item videoLessonBox">
+                    {/* <FontAwesomeIcon icon={faPlay} /> */}
                     <button>Watch Video Lesson {index + 1}</button>
                   </div>
                 </Link>
@@ -309,7 +309,7 @@ const LessonItem = (props) => {
           ) : null}
 
           {lessonVideos()}
-          <div class="col-md-3">
+          <div class="col-md-2">
             <Tooltip
               overlay={classnoteToolTipsComponent}
               placement="top"
@@ -324,7 +324,7 @@ const LessonItem = (props) => {
                 }}
                 // className="quizButton"
               >
-                <div className="term_item_left_bottom_item ">
+                <div className="term_item_left_bottom_item classnoteBox">
                   <button>Study Class Note</button>
                 </div>
               </Link>
@@ -332,7 +332,7 @@ const LessonItem = (props) => {
           </div>
 
           {lesson.questions.length && lesson.questions.length > 0 ? (
-            <div class="col-md-3">
+            <div class="col-md-2">
               <Tooltip
                 overlay={quizToolTipsComponent}
                 placement="top"
@@ -348,10 +348,10 @@ const LessonItem = (props) => {
                   className="quizButton"
                 >
                   <div
-                    className="term_item_left_bottom_item "
+                    className="term_item_left_bottom_item classnoteBox"
                     onClick={() => onClickQuiz(lesson)}
                   >
-                    <button>Quiz</button>
+                    <button>Practice Quiz</button>
                   </div>
                 </Link>
               </Tooltip>

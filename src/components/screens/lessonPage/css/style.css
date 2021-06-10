@@ -155,6 +155,11 @@ img.likeIcon {
   border-top-right-radius: 5px;
 }
 
+/* .commentBox .divider {
+  border-bottom: solid 0.5px gray;
+  padding-bottom: 14px;
+} */
+
 #lessonPageSectionTwo .left .top .icon .icon_pop p:last-of-type {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -418,7 +423,8 @@ img.likeIcon {
   #lessonPageSectionTwo .left h4 {
     font-size: 17px;
     margin: 8px 0 0px 0;
-  }
+    margin-bottom: 20px;
+}
 
   #lessonPageSectionTwo p {
     margin-bottom: 5px;
@@ -441,9 +447,8 @@ img.likeIcon {
   align-items: center;
   margin-top: 100px;
   width: 100%;
-  padding: 80px;
+  padding: 0px 53px;
 }
-
 #lessonPageSectionTwo #navigation .button {
   flex: 0 0 25%;
   background-color: rgba(255, 255, 255, 0.199) !important;
