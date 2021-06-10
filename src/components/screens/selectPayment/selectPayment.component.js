@@ -622,21 +622,21 @@ const Payment = (props) => {
 
             <div className="proceed-button">
               <Container>
-                <Row>
-                  <Col className="whiteButton">
-                    <button
-                      // disabled={paymentAmount === 0 ? true : false}
-                      onClick={checkAndMakePayment.bind(null,true)}
-                    >
-                      Bank Transfer &rarr;
-                    </button>
-                  </Col>
+                <Row>                  
                   <Col>
                     <button
                       // disabled={paymentAmount === 0 ? true : false}
                       onClick={checkAndMakePayment}
                     >
                       Proceed with Card &rarr;
+                    </button>
+                  </Col>
+                  <Col className="whiteButton">
+                    <button
+                      // disabled={paymentAmount === 0 ? true : false}
+                      onClick={checkAndMakePayment.bind(null,true)}
+                    >
+                      Bank Transfer &rarr;
                     </button>
                   </Col>
                 </Row>

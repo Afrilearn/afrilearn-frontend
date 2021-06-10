@@ -21,6 +21,38 @@
 }
 .term_item .bg-green {
   background-color: #84BB29;
+  padding: 6px 17px;
+}
+.classnoteBox {
+  background: rgba(255, 255, 255, 0.19) !important; 
+  border: none !important;
+}
+.classnoteBox:hover {
+  background: rgba(119, 97, 97, 0.1) !important; 
+}
+.classnoteBox:active {
+  border: solid 2px white !important;  
+}
+.videoLessonBox:hover {
+  background: rgba(219, 233, 229, 0.493) !important;  
+}
+.videoLessonBox:active {
+  border: solid 2px white !important;  
+}
+.accordion-item:last-of-type .accordion-collapse {
+  border-bottom-width: 1px;
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+  margin-left: 0px;
+}
+.accordion-item {
+  background: rgba(229, 229, 229, 0.08);
+}
+.accordion {
+  overflow-anchor: none; 
+}
+.classnoteBox button{
+  color: white !important;
 }
 .term_item .mr-10 {
   margin-right: 10px;
@@ -33,9 +65,12 @@
 }
 .term_item .accordion-button:focus {
   z-index: 3;
-  border-color: black;
+  /* border-color: black; */
   outline: 0;
   box-shadow: none;
+}
+.term_item .accordion-button{
+  border: none !important;
 }
 .term_item .accordion-button::after {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
@@ -62,7 +97,7 @@
 }
 .quizButton {
   margin-bottom: -4.5px;
-  display: block;
+  /* display: block; */
   width: 100%;
 }
 .lesson-list:last-of-type .term_item_see_more {
@@ -119,15 +154,17 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 9px 10px;
   box-sizing: border-box;
-  background-color: transparent;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
 }
 .term_item_left_bottom_item button {
   border: none;
   display: inline-block;
   background-color: transparent;
-  color: white;
+  color: black;
   font-size: 13px;
 }
 @media screen and (max-width: 900px) {

@@ -20,8 +20,7 @@ import ThumbUp from "../../../assets/img/thumbs.gif";
 import Unlike from "../../../assets/img/like.svg";
 import Like from "../../../assets/img/unlike.svg";
 import ClasnoteIcon from "../../../assets/img/classnote1.png";
-
-import loader from "../../../assets/img/loading.gif";
+import CommentBox from "../../includes/comment/addComment.component";
 import { Collapse, Popover, PopoverBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -47,6 +46,7 @@ import {
   storeLikedVideos,
   removeLikedVideos
 } from "./../../../redux/actions/subjectActions";
+import { getLessonComments } from "./../../../redux/actions/commentActions";
 
 import parse from "html-react-parser";
 import {
@@ -85,10 +85,11 @@ const LessonPage = (props) => {
     likedVideoLoader,
     favouriteVideoLoader,
     subjectAndRelatedLessonsLoader,
-    user
+    user,
+    isAuthenticated
   } = props;
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [modal1, setModal1] = useState(false);
   const toggle1 = (e) => {
     e.preventDefault();
@@ -103,6 +104,7 @@ const LessonPage = (props) => {
     { id: "600047f67cabf80f88f61735", name: "Second Term" },
     { id: "600048197cabf80f88f61736", name: "Third Term" },
   ];
+
   termIds.forEach((item) => {
     const lessons =
       props.subject.relatedLessons &&
@@ -310,6 +312,9 @@ const LessonPage = (props) => {
           );
         }
       }
+
+      //get lesson comments
+      props.getLessonComments(parsed.lessonId,{commentSection:'video'})
     }
 
     window.scrollTo(0, 0);    
@@ -461,7 +466,7 @@ const LessonPage = (props) => {
       return false
     }
   }
-  
+
   const [stopRedirect, setStopRedirect] = useState(false);
 
   const updateQuizType = () => {
@@ -482,7 +487,10 @@ const LessonPage = (props) => {
       }
     }
   };
- 
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <React.Fragment>
       <div id="lessonPageSectionOne">
@@ -654,7 +662,7 @@ const LessonPage = (props) => {
             controls="true"
             width="100%"
             height="auto"
-            // muted={true}
+            muted={false}
             playing={true}
           />
         )}
@@ -675,7 +683,7 @@ const LessonPage = (props) => {
                 <div className="icon_pop">
                   <p>Class Note</p>
                   <span></span>
-                </div>
+                </div>               
               </div>
               <div className="icon">
                 <Speech content={decodeEntities(video && video.transcript)} />
@@ -707,18 +715,19 @@ const LessonPage = (props) => {
                   >
                     <PopoverBody>                                    
                       <p><Link onClick={toggle1}>Share</Link></p>
-                      <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p>                     
+                      {isAuthenticated? <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p> :''}                      
                     </PopoverBody>
                   </Popover>
                   <FontAwesomeIcon icon={faEllipsisV}/>
                 </span>
               </div>           
             </div>
+            <h4>{lesson && parse(lesson.title)}</h4>
+            <FontAwesomeIcon icon={faEye} /> {lesson && numberWithCommas(lesson.views)+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {numberWithCommas(likeArray.length)+' like(s)'}
+            <br/><br/>
             <a href="#transcriptText" onClick={toggleTranscript}>
               {isOpen ? "Hide" : "Show"} Transcript
             </a>
-            <h4>{lesson && parse(lesson.title)}</h4>
-            <FontAwesomeIcon icon={faEye} /> {lesson && lesson.views+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {likeArray.length+' like(s)'}
             <Collapse isOpen={isOpen}>
               <p className="lessonContent">
                 {video && video.transcript
@@ -726,6 +735,8 @@ const LessonPage = (props) => {
                   : "No Transcript available"}
               </p>
             </Collapse>
+            <CommentBox lessonId={parsed.lessonId} commentSection='video'/>           
+           
           </div>
           <div className="right">
             <div className="top">
@@ -764,6 +775,7 @@ const LessonPage = (props) => {
               data-bs-placement="top"
               data-bs-html="true"
               onClick={(e) => {
+
                 window.scrollTo(0, 0);
                 if (
                   prevNotAllowed ||
@@ -782,6 +794,10 @@ const LessonPage = (props) => {
                     return toggleModal5();
                   }
                 } else {
+                  if(prevLesson){
+                    //get lesson comments
+                     props.getLessonComments(prevLesson.id,{commentSection:'video'})
+                  }                  
                 }
               }}
               title={
@@ -845,6 +861,10 @@ const LessonPage = (props) => {
                     return toggleModal4();
                   }
                 } else {
+                  if(nextLesson){
+                    //get lesson comments
+                     props.getLessonComments(nextLesson.id,{commentSection:'video'})
+                  }    
                 }
               }}
               title={
@@ -976,6 +996,7 @@ LessonPage.propTypes = {
   storeLikedVideos: PropTypes.func.isRequired,
   removeLikedVideos: PropTypes.func.isRequired,
   authInputChange: PropTypes.func.isRequired,
+  getLessonComments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -994,7 +1015,8 @@ const mapStateToProps = (state) => ({
   likedVideoLoader:state.course.likedVideoLoader,
   favouriteVideoLoader:state.course.favouriteVideoLoader,
   subjectAndRelatedLessonsLoader: state.course.subjectAndRelatedLessonsLoader, 
-  user: state.auth.user 
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 export default connect(mapStateToProps, {
   getCourse,
@@ -1010,5 +1032,6 @@ export default connect(mapStateToProps, {
   removeFavouriteVideos,
   storeLikedVideos,
   removeLikedVideos,
-  authInputChange
+  authInputChange,
+  getLessonComments
 })(LessonPage);

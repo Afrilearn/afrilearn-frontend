@@ -203,7 +203,7 @@
   align-items: center;
   position: relative;
   margin: 0px;
-  border-bottom: 0.5px solid darkslategray;
+  margin-bottom: 10px !important;
 }
 
 #contentPageSecondSection .term_item:last-child .term_item_see_more {
