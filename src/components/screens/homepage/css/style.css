@@ -1,6 +1,6 @@
 #homepage .bannerSection {
     height: calc(120vh);
-    background-image: radial-gradient(rgba(0, 0, 0, 0.2), rgb(0, 0, 0)), url('../../../../assets/img/bg3.jpg');
+    background-image: radial-gradient(rgba(0, 0, 0, 0.2), rgb(0, 0, 0)), url('../../../../assets/img/bg4.png');
     background-repeat: no-repeat;
     background-position: top center;
     background-attachment: fixed;

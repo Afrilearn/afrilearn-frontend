@@ -206,9 +206,8 @@ const LessonItem = (props) => {
                       e.preventDefault();
                   }}
                 >
-                  <div className="term_item_left_bottom_item videoLessonBox">
-                    {/* <FontAwesomeIcon icon={faPlay} /> */}
-                    <button>Watch Video Lesson {index + 1}</button>
+                  <div className="term_item_left_bottom_item videoLessonBox">                   
+                    <button>Watch Video Lesson {lesson.videoUrls.length !==1 ? index + 1:''}</button>
                   </div>
                 </Link>
               </Tooltip>
@@ -331,7 +330,7 @@ const LessonItem = (props) => {
             </Tooltip>{" "}
           </div>
 
-          {lesson.questions.length && lesson.questions.length > 0 ? (
+          {lesson.questions && lesson.questions.length > 0 ? (
             <div class="col-md-2">
               <Tooltip
                 overlay={quizToolTipsComponent}

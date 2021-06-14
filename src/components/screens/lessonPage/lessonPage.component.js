@@ -10,8 +10,7 @@ import {
   faAngleLeft,
   faAngleRight,
   faEllipsisV,
-  faThumbsUp  
-
+  faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -20,6 +19,8 @@ import ThumbUp from "../../../assets/img/thumbs.gif";
 import Unlike from "../../../assets/img/like.svg";
 import Like from "../../../assets/img/unlike.svg";
 import ClasnoteIcon from "../../../assets/img/classnote1.png";
+import BackArrow from "../../../assets/img/VideobackButton.svg";
+
 import CommentBox from "../../includes/comment/addComment.component";
 import { Collapse, Popover, PopoverBody } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -67,6 +68,8 @@ import queryString from "query-string";
 import slugify from "react-slugify";
 import Countdown from "react-countdown";
 import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
+import DTooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap_white.css";
 
 
 const LessonPage = (props) => {
@@ -454,8 +457,8 @@ const LessonPage = (props) => {
       result = relatedLessons.filter(item =>item._id === parsed.lessonId)
     }
     if(result[0] && result[0].likes  && result[0].likes.length){
-      result = result[0].likes.filter(item => item === props.userId)
-      likeArray = result
+      likeArray = result[0].likes
+      result = result[0].likes.filter(item => item === props.userId)     
     }else{
       result = []
     }
@@ -491,11 +494,17 @@ const LessonPage = (props) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  const goBack = (e) =>{
+    e.preventDefault();
+    window.history.back();
+  }
+
   return (
     <React.Fragment>
-      <div id="lessonPageSectionOne">
+      <div id="lessonPageSectionOne">        
         <div className="negative_margin"></div>
-
+          <Link onClick={goBack}><img src={BackArrow} alt="Class Note" className="backButton"/></Link>  
         <div>
           <Modal
             isOpen={modal}
@@ -671,57 +680,92 @@ const LessonPage = (props) => {
         {!subjectAndRelatedLessonsLoader? 
         <>
           <div className="left">
-            <div className="top">
-              <div className="button">
-                <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
-                Lesson {videoIndex + 1}
-              </div>
-              <div className="icon">
-                <Link to={linkToLessonClassNote}>                 
-                  <img src={ClasnoteIcon} alt="Class Note" className="likeIcon"/>   
-                </Link>
-                <div className="icon_pop">
-                  <p>Class Note</p>
-                  <span></span>
-                </div>               
-              </div>
-              <div className="icon">
-                <Speech content={decodeEntities(video && video.transcript)} />
-                <div className="icon_pop">
-                  <p>Audio Lesson</p>
-                  <span></span>
-                </div>
-              </div>
-              <div className="icon">
-                <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>                 
-                  <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
-                </Link>
-                <div className="icon_pop">                 
-                    <p> {alreadyAddedToLike()? 'Unlike':'I like this'}</p>                              
-                  <span></span>
-                </div>
-              </div>
-              <div className="icon">
-                <span
-                  id="Popover1"
-                  onMouseOver={() => setPopoverOpen("true")}
-                  onMouseLeave={toggle}
-                >
-                  <Popover
-                    placement="top"
-                    isOpen={popoverOpen}
-                    target="Popover1"
-                    toggle={toggle}
-                  >
-                    <PopoverBody>                                    
-                      <p><Link onClick={toggle1}>Share</Link></p>
-                      {isAuthenticated? <p> {alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </p> :''}                      
-                    </PopoverBody>
-                  </Popover>
-                  <FontAwesomeIcon icon={faEllipsisV}/>
-                </span>
-              </div>           
-            </div>
+            <div className="row controlBar">
+              <div className="col-md-12">
+                <ul>
+                  <li>                   
+                    <span className="backArrow">
+                      <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
+                      Lesson {videoIndex + 1}
+                    </span>                  
+                  </li>                 
+                  <li>
+                    <DTooltip
+                      placement="top"
+                      trigger={["hover"]}
+                      overlay={
+                        <span>
+                         Class Note
+                        </span>
+                      }
+                    >
+                      <Link to={linkToLessonClassNote}>
+                        <img src={ClasnoteIcon} alt="Class Note" className="likeIcon"/>  
+                      </Link> 
+                    </DTooltip> 
+                    <br/>Note       
+                  </li>
+                  <li>
+                    <DTooltip
+                      placement="top"
+                      trigger={["hover"]}
+                      overlay={
+                        <span>
+                          Audio Lesson
+                        </span>
+                      }
+                    >
+                      <Link onClick={(e) => {e.preventDefault()}}>
+                        <Speech
+                          content={decodeEntities(video && video.transcript)} 
+                        /> 
+                      </Link> 
+                    </DTooltip> 
+                    <br/>Audio       
+                  </li>
+                  <li>
+                    <DTooltip
+                      placement="top"
+                      trigger={["hover"]}
+                      overlay={
+                        <span>
+                         {alreadyAddedToLike()? 'Unlike':'I like this'}
+                        </span>
+                      }
+                    >
+                      <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>                 
+                        <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
+                      </Link>
+                    </DTooltip> 
+                    <br/>{numberWithCommas(likeArray.length)+' like(s)'}   
+                  {/* <Link onClick={toggle1}>
+                    <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
+                  </Link> */}
+                  </li>
+                  <li className="moreOptions">
+                    <DTooltip
+                      placement="top"
+                      trigger={["hover"]}
+                      overlay={
+                        <span>
+                          <Link onClick={toggle1}>
+                            Share
+                          </Link><br/>
+                          {isAuthenticated?  <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link>:''}
+                         
+                        </span>
+                      }
+                    >
+                      <Link onClick={(e) => {e.preventDefault()}}>
+                        <FontAwesomeIcon icon={faEllipsisV} color="white" size="lg" />
+                      </Link> 
+                    </DTooltip> 
+                    <br/>More
+                  </li>
+                </ul>                      
+              </div>              
+            </div>         
+            
             <h4>{lesson && parse(lesson.title)}</h4>
             <FontAwesomeIcon icon={faEye} /> {lesson && numberWithCommas(lesson.views)+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {numberWithCommas(likeArray.length)+' like(s)'}
             <br/><br/>
@@ -775,7 +819,6 @@ const LessonPage = (props) => {
               data-bs-placement="top"
               data-bs-html="true"
               onClick={(e) => {
-
                 window.scrollTo(0, 0);
                 if (
                   prevNotAllowed ||

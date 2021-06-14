@@ -51,7 +51,7 @@ const Box = (props) => {
                 }               
             });
         } else {
-          return <h3>Be the first to comment💃</h3>
+          return <h5 className="center">Be the first to comment🥳</h5>
         }
     };
     

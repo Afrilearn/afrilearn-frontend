@@ -109,7 +109,7 @@ const Content = (props) => {
         <div className="subHead">
           {subject.mainSubjectId && subject.mainSubjectId.name}
         </div>
-        <div className="subHeadTwo">Explore the fun in learning</div>
+        <div className="subHeadTwo">Explore the fun in learning💃</div>
       </div>
       <div id="contentPageSecondSection">
         <div class="container-fluid">

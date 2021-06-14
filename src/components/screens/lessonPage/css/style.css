@@ -14,13 +14,21 @@ img.thumb {
   height: 100px;
   object-fit: contain;
 }
+img.backButton {
+  position: absolute;
+  left: 28px;
+  top: 80px;
+}
 img.loader {
   width: 18px;
 }
 img.likeIcon {
-  width: 21px;
+  width: 44px;
   margin-top: -4px;
-  height: 22px;
+  height: 31px;
+  margin-bottom: 3px;
+  object-fit: contain;
+  object-position: top;
 }
 #Popover1:hover{
   cursor: pointer;
