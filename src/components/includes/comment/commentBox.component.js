@@ -66,7 +66,7 @@ const Box = (props) => {
               return <ReplyBox reply={item} />
           });
       } else {
-          return <h6 className="center"> Be the first to respond💃 </h6>
+          return <h6 className="center"> Be the first to respond🥳 </h6>
       }
   };
 

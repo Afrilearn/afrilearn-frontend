@@ -50,9 +50,11 @@
   color: white;
   overflow: hidden;
 }
-#classNoteSecondSection .rs-stop {
-  top: -5px !important;
-  left: 14px !important;
+.controlBar .rs-stop {
+  top: -6px !important;
+  left: -3px !important;
+  height: inherit !important;
+  width: inherit !important;
 }
 #classNoteSecondSection .icon {
   flex: 0 0 40px;
@@ -109,24 +111,34 @@
   clip-path: polygon(0 0, 100% 0, 100% 0%, 41% 0%, 38% 100%, 34% 0%, 0 0%);
   background-color: #fff;
 }
-#classNoteSecondSection ul {
+.controlBar ul {
   padding: 0px;
   list-style: none;
   margin: 0px;
 }
-#classNoteSecondSection ul li {
-  display: inline;
-  margin-right: 20px;
+.controlBar ul li {
+  display: inline-block;
+  margin-right: 52px;
+  text-align: center;
+  vertical-align: text-top;
 }
-#classNoteSecondSection ul li.moreOptions {
-  margin-left: 18px;
+
+.controlBar ul li .fa-lg {
+  font-size: 1.7em;
 }
-#classNoteSecondSection .rs-container {
+.controlBar ul li .svg-inline--fa.fa-microphone {
+  font-size: 1.5em !important;
+  margin-bottom: -5px;
+}
+.controlBar .rs-container, .controlBar .rs-play {
   font-size: 19px;
+  padding: 0px;
+  margin: 0;
 }
-#classNoteSecondSection .backArrow {
+.controlBar .backArrow {
   border: solid 0.5px gray;
-  padding: 7px 12px;
+  padding: 10px 12px;
+  display: block;
 }
 
 #classNoteSecondSection .title {
@@ -141,11 +153,16 @@
   margin-top: 16px;
   margin-bottom: 60px;
 }
-
+#classNoteSecondSection .stat {
+  margin-top: 15px;
+}
 #classNoteSecondSection .content img {
   display: block;
   margin-bottom: 20px;
   margin-top: 10px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 #classNoteSecondSection #navigation p {
@@ -154,11 +171,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  /* #classNoteFirstSection {
-    height: 118vh;
-    margin-top: -180px;
-    padding-top: 211px;
-} */
+  .controlBar ul li {
+    margin-right: 29px;   
+}
   #classNoteFirstSection {
     height: calc(100vh);
     margin-top: -24px;
@@ -176,7 +191,7 @@
     margin-bottom: 0px;
   }
 
-  #classNoteSecondSection .backArrow {
+  .controlBar .backArrow {
     padding: 7px 10px;
     display: block;
     margin-bottom: 14px;

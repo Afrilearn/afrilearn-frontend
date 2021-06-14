@@ -190,7 +190,6 @@ const authReducer = (state = initialState, action) => {
     case CLEAR_FORM:
       return {
         ...state,
-        role: "",
         fullName: "",
         email: "",
         password: "",

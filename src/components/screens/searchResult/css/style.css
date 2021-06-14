@@ -49,10 +49,6 @@
   overflow: hidden;
 }
 
-#classNoteSecondSection .backArrow {
-  border: solid 0.5px gray;
-  padding: 7px 12px;
-}
 
 #classNoteSecondSection .title {
   margin-top: 40px;
@@ -101,10 +97,10 @@
     margin-top: 145px;
     margin-bottom: 0px;
   }
-
+/* 
   #classNoteSecondSection .backArrow {
     padding: 7px 10px;
-  }
+  } */
 
   #classNoteSecondSection svg {
     margin-left: -15px;

@@ -59,6 +59,7 @@ import Countdown from "react-countdown";
 import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
 import { getLessonComments } from "./../../../redux/actions/commentActions";
 import CommentBox from "../../includes/comment/addComment.component";
+import BackArrow from "../../../assets/img/VideobackButton.svg";
 
 const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
@@ -199,8 +200,8 @@ const ClassNote = (props) => {
     }
   
     if(result[0] && result[0].likes  && result[0].likes.length){
-      result = result[0].likes.filter(item => item === props.userId)
-      likeArray = result
+      likeArray = result[0].likes
+      result = result[0].likes.filter(item => item === props.userId)     
     }else{
       result = []
     }
@@ -293,7 +294,7 @@ const ClassNote = (props) => {
     prevLesson && !activeCoursePaidStatus && currentLessonIndex - 1 !== 0;
   let nextNotAllowed =
     nextLesson && !activeCoursePaidStatus && currentLessonIndex + 1 !== 0;
-  let shareLink = `https://www.myafrilearn.com/`;
+    let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now at https://play.google.com/store/apps/details?id=com.afrilearn or visit https://myafrilearn.com/`;
 
   const storeProgress = () => {
     props.addRecentActivity(parsed.lessonId, "lesson");
@@ -328,6 +329,11 @@ const ClassNote = (props) => {
       "quiz"
     );
   };
+
+  const goBack = (e) =>{
+    e.preventDefault();
+    window.history.back();
+  }
 
   const lessonVideo =
     targetLesson && targetLesson.videoUrls && targetLesson.videoUrls.length > 0
@@ -566,15 +572,16 @@ const ClassNote = (props) => {
       />
       <div id="classNoteFirstSection" className="container-fluid relative">
         <div className="row">
+          <Link onClick={goBack}><img src={BackArrow} alt="Class Note" className="backButton"/></Link>  
           <div className="col-md-12">
             <h1>{targetLesson && targetLesson.title}</h1>
           </div>
         </div>
       </div>
       {!props.subjectAndRelatedLessonsLoader? 
-          <div id="classNoteSecondSection" className="container-fluid relative">
+          <div id="classNoteSecondSection" className="container-fluid relative controlBar">
             <div className="row">
-              <div className="col-md-5">
+              <div className="col-md-9">
                 <ul>
                   <li>
                     <Link to={`/content/${parsed.courseId}/${parsed.subjectId}`}>
@@ -603,7 +610,8 @@ const ClassNote = (props) => {
                            <Link to={linkToLessonVideoPage}>
                             <FontAwesomeIcon icon={faPlay} color="white" size="lg" />
                           </Link>
-                        </DTooltip>                       
+                        </DTooltip>  
+                        <br/>Video                    
                       </li>
                     )}                
                   <li>
@@ -622,6 +630,7 @@ const ClassNote = (props) => {
                         /> 
                       </Link> 
                     </DTooltip> 
+                    <br/>Audio       
                   </li>
                   <li>
                     <DTooltip
@@ -637,7 +646,7 @@ const ClassNote = (props) => {
                           <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
                         </Link>
                     </DTooltip> 
-                  
+                    <br/>{numberWithCommas(likeArray.length)+' like(s)'}   
                   {/* <Link onClick={toggle1}>
                     <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
                   </Link> */}
@@ -661,17 +670,18 @@ const ClassNote = (props) => {
                         <FontAwesomeIcon icon={faEllipsisV} color="white" size="lg" />
                       </Link> 
                     </DTooltip> 
+                    <br/>More
                   </li>
                 </ul>                      
               </div>
-              <div className="col-md-7"></div>
+              <div className="col-md-3"></div>
             </div>
             <div className="row">
               <div className="col-md-12 title">
                 {targetLesson && targetLesson.title}               
               </div>
               <div className="col-md-12 stat">
-                <FontAwesomeIcon icon={faEye} /> {targetLesson && numberWithCommas(targetLesson.views)+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {numberWithCommas(likeArray.length)+' like(s)'}
+                <FontAwesomeIcon icon={faEye} /> {targetLesson && numberWithCommas(targetLesson.views)+' view(s)'}
               </div>
               <div className="col-md-12">
                 <p className="content">
