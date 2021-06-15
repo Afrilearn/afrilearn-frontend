@@ -4,7 +4,9 @@ import {
   ADD_LESSON_COMMENT_SUCCESS,
   LIKE_LESSON_COMMENT_SUCCESS,
   UNLIKE_LESSON_COMMENT_SUCCESS,
-  ADD_LESSON_COMMENT_REPLY_SUCCESS
+  ADD_LESSON_COMMENT_REPLY_SUCCESS,
+  DELETE_LESSON_COMMENT_SUCCESS,
+  UPDATE_LESSON_COMMENT_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -13,7 +15,9 @@ const initialState = {
   addCommentLoader: false,
   newComment: '',
   addCommentResponseLoader: false,
-  newCommentReply:''
+  newCommentReply: '',
+  commentUpdateText:'',
+  updateCommentResponseLoader: false,
 };
 
 const commentReducer = (state = initialState, action) => {
@@ -40,6 +44,7 @@ const commentReducer = (state = initialState, action) => {
       };
 
     case LIKE_LESSON_COMMENT_SUCCESS:
+    case UPDATE_LESSON_COMMENT_SUCCESS:  
       let allComments = state.comments;
       allComments[action.payload.currentCommentIndex] = action.payload.data
       state.comments = [...allComments]
@@ -53,24 +58,34 @@ const commentReducer = (state = initialState, action) => {
       let targetLesssonCommentLikes = targetLesssonComment.likes;
       targetLesssonCommentLikes = targetLesssonCommentLikes.filter(item => item !== action.payload.userId)
       targetLesssonComment.likes = [...targetLesssonCommentLikes]
-      lesssonComments[action.payload.currentCommentIndex] = {...targetLesssonComment}
+      lesssonComments[action.payload.currentCommentIndex] = {
+        ...targetLesssonComment
+      }
       state.comments = [...lesssonComments]
       return {
         ...state,
       };
-    
+
     case ADD_LESSON_COMMENT_REPLY_SUCCESS:
       let DlesssonComments = state.comments;
       let DtargetLesssonComment = DlesssonComments[action.payload.currentCommentIndex];
-      let DtargetLesssonCommentReplies = DtargetLesssonComment.commentReplies; 
-      DtargetLesssonCommentReplies.unshift({...action.payload.commentReply});
-        
+      let DtargetLesssonCommentReplies = DtargetLesssonComment.commentReplies;
+      DtargetLesssonCommentReplies.unshift({
+        ...action.payload.commentReply
+      });
+
       return {
         ...state,
         newCommentReply: ''
       };
 
-
+    case DELETE_LESSON_COMMENT_SUCCESS:
+      let ourComments = state.comments;
+      ourComments = ourComments.filter(item => item.id !== action.payload.commentId)
+      state.comments = [...ourComments]
+      return {
+        ...state,
+      };
     default:
       return state;
   }

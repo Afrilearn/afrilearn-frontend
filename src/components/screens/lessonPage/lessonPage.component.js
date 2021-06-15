@@ -767,8 +767,7 @@ const LessonPage = (props) => {
             </div>         
             
             <h4>{lesson && parse(lesson.title)}</h4>
-            <FontAwesomeIcon icon={faEye} /> {lesson && numberWithCommas(lesson.views)+' view(s)'}&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faThumbsUp} /> {numberWithCommas(likeArray.length)+' like(s)'}
-            <br/><br/>
+            <FontAwesomeIcon icon={faEye} /> {lesson && numberWithCommas(lesson.views)+' view(s)'}            <br/><br/>
             <a href="#transcriptText" onClick={toggleTranscript}>
               {isOpen ? "Hide" : "Show"} Transcript
             </a>

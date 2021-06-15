@@ -849,4 +849,19 @@ export default {
       data      
     });
   },  
+  deleteLessonComment(commentId) {
+    return axios({
+      method: "delete",
+      url: `${this.url}comments/${commentId}`,
+      headers: this.headers()       
+    });
+  },
+  updateLessonComment(data, commentId) {
+    return axios({
+      method: "patch",
+      url: `${this.url}comments/${commentId}`,
+      headers: this.headers(),
+      data       
+    });
+  },
 };
