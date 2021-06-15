@@ -561,6 +561,17 @@ img.dropDownIcon1 {
 .shareModalClass .modal-header .close {
   color: white;
 }
+.rc-tooltip {
+  line-height: 2;
+  font-size: 12px;
+  background-color: white !important;
+  padding: 1px;
+  opacity: 1 !important;
+  border-radius: 6px;
+}
+.rc-tooltip-inner { 
+  border: none !important;
+}
 
 @media screen and (max-width: 768px) {
   .mobileOnly {

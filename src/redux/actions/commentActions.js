@@ -12,7 +12,11 @@ import {
   UNLIKE_LESSON_COMMENT_SUCCESS,
   UNLIKE_LESSON_COMMENT_FAILURE,
   ADD_LESSON_COMMENT_REPLY_SUCCESS,
-  ADD_LESSON_COMMENT_REPLY_FAILURE
+  ADD_LESSON_COMMENT_REPLY_FAILURE,
+  DELETE_LESSON_COMMENT_SUCCESS,
+  DELETE_LESSON_COMMENT_FAILURE,
+  UPDATE_LESSON_COMMENT_SUCCESS,
+  UPDATE_LESSON_COMMENT_FAILURE
 } from "./types";
 
 export const commentInputChange = (name, value) => async (dispatch) => {
@@ -229,6 +233,86 @@ export const addLessonCommentResponse = (data, currentCommentIndex) => async (
     );
     dispatch({
       type: ADD_LESSON_COMMENT_REPLY_FAILURE,
+    });
+  }
+};
+
+export const deleteLessonComment = (commentId) => async (
+  dispatch
+) => {
+  try {       
+    await API.deleteLessonComment(commentId);      
+    dispatch({
+      type: DELETE_LESSON_COMMENT_SUCCESS,
+      payload:{       
+        commentId
+      }     
+    });
+  } catch (err) {  
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "DELETE_LESSON_COMMENT_FAILURE"
+      )
+    );
+    dispatch({
+      type: DELETE_LESSON_COMMENT_FAILURE,
+    });
+  }
+};
+
+export const updateLessonComment = (data, commentId, currentCommentIndex) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: COMMENT_INPUT_CHANGE,
+      payload: {
+        name: 'updateCommentResponseLoader',
+        value: true,
+      },
+    }); 
+  
+    const result = await API.updateLessonComment(data, commentId);   
+    
+    dispatch({
+      type: UPDATE_LESSON_COMMENT_SUCCESS,
+      payload:{
+        data: result.data.data.comment,
+        currentCommentIndex
+      }     
+    });
+
+    dispatch({
+      type: COMMENT_INPUT_CHANGE,
+      payload: {
+        name: 'updateCommentResponseLoader',
+        value: false,
+      },
+    });   
+  } catch (err) {
+    dispatch({
+      type: COMMENT_INPUT_CHANGE,
+      payload: {
+        name: 'updateCommentResponseLoader',
+        value: false,
+      },
+    });
+   
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "UPDATE_LESSON_COMMENT_FAILURE"
+      )
+    );
+    dispatch({
+      type: UPDATE_LESSON_COMMENT_FAILURE,
     });
   }
 };

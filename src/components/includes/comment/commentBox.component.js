@@ -1,6 +1,6 @@
 import React from "react";
 import { inputChange } from "./../../../redux/actions/authActions";
-import { likeLessonComment, unlikeLessonComment, commentInputChange,addLessonCommentResponse } from "./../../../redux/actions/commentActions";
+import { likeLessonComment, unlikeLessonComment, commentInputChange,addLessonCommentResponse, deleteLessonComment, updateLessonComment } from "./../../../redux/actions/commentActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -12,16 +12,31 @@ import Like from "../../../assets/img/unlike.svg";
 import './css/style.css';
 import ReactTimeAgo from 'react-time-ago';
 import ReplyBox from "./replyCommentBox.component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {  
+  faEllipsisV, faEdit, faTrash
+} from "@fortawesome/free-solid-svg-icons";
+import DTooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap_white.css";
 
 const Box = (props) => {   
-  const {newCommentReply, user, addCommentResponseLoader, isAuthenticated} = props;
+  const {newCommentReply, user, addCommentResponseLoader, isAuthenticated, commentUpdateText, updateCommentResponseLoader} = props;
   
   const handleReply = (id, e) =>{
     e.preventDefault() 
-    const x = document.getElementsByClassName(id);   
-    x[0].classList.toggle("off")
+    const x = document.getElementsByClassName(id); 
+    x[0].classList.add("off") 
+    x[1].classList.toggle("off")      
   } 
 
+  const handleCommentUpdateBox = (id, e) =>{
+    e.preventDefault() 
+    props.commentInputChange('commentUpdateText', props.comment.text);
+    const x = document.getElementsByClassName(id);
+    x[1].classList.add("off") 
+    x[0].classList.toggle("off")     
+  } 
+  
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -87,6 +102,22 @@ const Box = (props) => {
       props.addLessonCommentResponse(data, props.currentCommentIndex)
   }
 
+  const handleCommentUpdate = (e) => {
+    e.preventDefault()
+    const data = {           
+        text: commentUpdateText        
+    }        
+    props.updateLessonComment(data, props.comment.id, props.currentCommentIndex)
+    const x = document.getElementsByClassName(props.comment.id);   
+    x[0].classList.add("off")    
+  }
+  
+  const handleDeleteComment = (e) => {
+    e.preventDefault()  
+    props.deleteLessonComment(props.comment.id)
+  }
+
+  
   String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -121,7 +152,43 @@ const Box = (props) => {
                     </div>  
                     <div className="col-3 ourGreen">
                         <Link onClick={handleReply.bind(null, props.id)}>REPLY</Link>
-                    </div>                  
+                    </div> 
+                    { isAuthenticated && ((props.user.id === props.comment.userId.id) || props.user.isAdmin)? 
+                     <div className="col-3 ourGreen">
+                        <DTooltip
+                          placement="top"
+                          trigger={["hover"]}
+                          overlay={
+                            <span> 
+                              {props.user.id === props.comment.userId.id?
+                               <><Link onClick={handleCommentUpdateBox.bind(null, props.id)}><FontAwesomeIcon icon={faEdit} color="grey"/>&nbsp;Edit Comment </Link><br/></>
+                               :''}                                
+                                <Link onClick={handleDeleteComment}><FontAwesomeIcon icon={faTrash} color="grey"/>&nbsp;&nbsp;Delete Comment</Link><br/>
+                            </span>
+                          }
+                        >
+                          <Link onClick={(e) => {e.preventDefault()}}>
+                            <FontAwesomeIcon icon={faEllipsisV} color="white" size="lg" />
+                          </Link> 
+                        </DTooltip> 
+                      </div> 
+                      :
+                      ''}
+                   
+                    <span className={`replyBox commentUpdateBox off ${props.id}`}>                    
+                        <form onSubmit={handleCommentUpdate}>
+                            <div className="row input2">                              
+                                <div className="col-2">
+                                    <img src={props.user.profilePhotoUrl?props.user.profilePhotoUrl:dummy} alt="profile" className="profilePix1"/>
+                                </div> 
+                                <div className="col-10 relative">
+                                    <input type="text" name="commentUpdateText" value={commentUpdateText} onChange={handleChange} required/>                    
+                                    <button className="submitButton" type="submit" disabled={updateCommentResponseLoader?true:false}><img src={submitButton} alt="profile" className=""/></button>
+                                </div>  
+                            </div>
+                        </form> 
+                    </span>     
+
                     <span className={`replyBox off ${props.id}`}>
                         {isAuthenticated? 
                         <form onSubmit={handleSubmit}>
@@ -149,6 +216,8 @@ Box.propTypes = {
   commentInputChange:PropTypes.func.isRequired,
   unlikeLessonComment:PropTypes.func.isRequired,
   addLessonCommentResponse:PropTypes.func.isRequired,
+  deleteLessonComment:PropTypes.func.isRequired,
+  updateLessonComment:PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({   
@@ -156,6 +225,8 @@ const mapStateToProps = (state) => ({
     newCommentReply: state.comment.newCommentReply,
     addCommentResponseLoader: state.comment.addCommentResponseLoader,
     isAuthenticated: state.auth.isAuthenticated,
+    commentUpdateText: state.comment.commentUpdateText,
+    updateCommentResponseLoader: state.comment.updateCommentResponseLoader,
 });
 
 export default connect(mapStateToProps, {
@@ -163,5 +234,7 @@ export default connect(mapStateToProps, {
   likeLessonComment,
   unlikeLessonComment,
   commentInputChange,
-  addLessonCommentResponse
+  addLessonCommentResponse,
+  deleteLessonComment,
+  updateLessonComment
 })(Box);
