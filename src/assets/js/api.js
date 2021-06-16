@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: HerokuURL,
+  url: LocalURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -57,7 +57,7 @@ export default {
       data: { email, classId },
     });
   },
-  
+
   getRoles() {
     return axios({
       method: "get",
@@ -486,7 +486,7 @@ export default {
   async registerNewChild(data) {
     return axios({
       method: "post",
-      url: `${this.url}auth/sign-up-for-a-child`,
+      url: `${this.url}parents/sign-up-for-a-child`,
       headers: this.headers(),
       data,
     });
@@ -495,14 +495,14 @@ export default {
   getChildren() {
     return axios({
       method: "get",
-      url: `${this.url}auth/parent/children`,
+      url: `${this.url}parents/children`,
       headers: this.headers(),
     });
   },
   linkChildAccount(data) {
     return axios({
       method: "post",
-      url: `${this.url}/auth/add-user-as-child`,
+      url: `${this.url}/parents/add-user-as-child`,
       headers: this.headers(),
       data,
     });
@@ -510,7 +510,7 @@ export default {
   unlinkChildAccount(data) {
     return axios({
       method: "patch",
-      url: `${this.url}auth/unlink-child-account`,
+      url: `${this.url}parents/unlink-child-account`,
       headers: this.headers(),
       data,
     });
@@ -518,7 +518,7 @@ export default {
   unlinkChildrenAccounts(data) {
     return axios({
       method: "patch",
-      url: `${this.url}auth/unlink-children-accounts`,
+      url: `${this.url}parents/unlink-children-accounts`,
       headers: this.headers(),
       data,
     });
@@ -526,7 +526,7 @@ export default {
   deleteChildAccount(data) {
     return axios({
       method: "delete",
-      url: `${this.url}auth/delete-child-account`,
+      url: `${this.url}parents/delete-child-account`,
       headers: this.headers(),
       data,
     });
@@ -534,7 +534,7 @@ export default {
   deleteChildrenAccounts(data) {
     return axios({
       method: "delete",
-      url: `${this.url}auth/delete-children-accounts`,
+      url: `${this.url}parents/delete-children-accounts`,
       headers: this.headers(),
       data,
     });
@@ -542,7 +542,7 @@ export default {
   uploadSchoolCoverPhoto(schoolId, data) {
     return axios({
       method: "patch",
-      url: `${this.url}auth/school/update-cover-photo/${schoolId}`,
+      url: `${this.url}schools/update-cover-photo/${schoolId}`,
       headers: this.headers(),
       data,
     });
@@ -550,7 +550,7 @@ export default {
   updateSchoolProfile(schoolId, data) {
     return axios({
       method: "patch",
-      url: `${this.url}auth/school/update-profile/${schoolId}`,
+      url: `${this.url}schools/update-profile/${schoolId}`,
       headers: this.headers(),
       data,
     });
@@ -558,7 +558,7 @@ export default {
   uploadSchoollogo(schoolId, data) {
     return axios({
       method: "patch",
-      url: `${this.url}auth/school/update-logo/${schoolId}`,
+      url: `${this.url}schools/update-logo/${schoolId}`,
       headers: this.headers(),
       data,
     });
@@ -581,14 +581,14 @@ export default {
   acceptChildRequest(email, parentId) {
     return axios({
       method: "post",
-      url: `${this.url}auth/accept-parent-request`,
+      url: `${this.url}parents/accept-parent-request`,
       data: { email, parentId },
     });
   },
   acceptAdminRequest(email, schoolId, classId) {
     return axios({
       method: "post",
-      url: `${this.url}auth/school/accept-admin-request`,
+      url: `${this.url}schools/accept-admin-request`,
       data: { email, schoolId, classId },
     });
   },
@@ -607,7 +607,7 @@ export default {
   acceptTeacherRequest(email, schoolId, classId) {
     return axios({
       method: "post",
-      url: `${this.url}auth/school/accept-teacher-request`,
+      url: `${this.url}schools/accept-teacher-request`,
       data: { email, schoolId, classId },
     });
   },
@@ -615,7 +615,7 @@ export default {
   unLinkTeacherAccount(data) {
     return axios({
       method: "patch",
-      url: `${this.url}auth/school/unlink-teacher-account`,
+      url: `${this.url}schools/unlink-teacher-account`,
       headers: this.headers(),
       data,
     });
@@ -623,7 +623,7 @@ export default {
   deleteTeacherAccount(data) {
     return axios({
       method: "delete",
-      url: `${this.url}auth/school/delete-teacher-account`,
+      url: `${this.url}schools/delete-teacher-account`,
       headers: this.headers(),
       data,
     });
@@ -632,7 +632,7 @@ export default {
   unLinkStudentAccount(data) {
     return axios({
       method: "patch",
-      url: `${this.url}auth/school/unlink-student-account`,
+      url: `${this.url}schools/unlink-student-account`,
       headers: this.headers(),
       data,
     });
@@ -640,7 +640,7 @@ export default {
   deleteStudentAccount(data) {
     return axios({
       method: "delete",
-      url: `${this.url}auth/school/delete-student-account`,
+      url: `${this.url}schools/delete-student-account`,
       headers: this.headers(),
       data,
     });
@@ -649,7 +649,7 @@ export default {
   schoolAddExistingTeacher(email, schoolId, classId) {
     return axios({
       method: "post",
-      url: `${this.url}auth/school/add-user-as-teacher`,
+      url: `${this.url}schools/add-user-as-teacher`,
       data: { email, schoolId, classId },
     });
   },
@@ -663,7 +663,7 @@ export default {
   ) {
     return axios({
       method: "post",
-      url: `${this.url}auth/school/sign-up-for-student`,
+      url: `${this.url}schools/sign-up-for-student`,
       data: { fullName, password, email, classId, schoolId, courseId },
     });
   },
@@ -751,7 +751,7 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}dashboard/unfinishedVideos`,
-      headers: this.headers()      
+      headers: this.headers(),
     });
   },
   getDashboardTopTen(data) {
@@ -759,7 +759,7 @@ export default {
       method: "post",
       url: `${this.url}dashboard/topTen`,
       headers: this.headers(),
-      data  ,    
+      data,
     });
   },
   saveFavouriteVideo(data) {
@@ -767,7 +767,7 @@ export default {
       method: "post",
       url: `${this.url}lessons/saveFavouriteVideos`,
       headers: this.headers(),
-      data  ,    
+      data,
     });
   },
   removeFavouriteVideo(data) {
@@ -775,7 +775,7 @@ export default {
       method: "delete",
       url: `${this.url}lessons/removeFavouriteVideos`,
       headers: this.headers(),
-      data  ,    
+      data,
     });
   },
   getDashboardFavouriteVideo(data) {
@@ -783,7 +783,7 @@ export default {
       method: "post",
       url: `${this.url}dashboard/favourite`,
       headers: this.headers(),
-      data  ,    
+      data,
     });
   },
   saveLikedVideo(data) {
@@ -791,7 +791,7 @@ export default {
       method: "post",
       url: `${this.url}lessons/saveLikedVideo`,
       headers: this.headers(),
-      data  ,    
+      data,
     });
   },
   removeLikedVideo(data) {
@@ -799,14 +799,14 @@ export default {
       method: "delete",
       url: `${this.url}lessons/removeLikedVideo`,
       headers: this.headers(),
-      data  ,    
+      data,
     });
   },
   getAfrilearnTopTen(data) {
     return axios({
       method: "get",
       url: `${this.url}dashboard/topTen`,
-      headers: this.headers()      
+      headers: this.headers(),
     });
   },
   getLessonComments(lessonId, data) {
@@ -814,23 +814,23 @@ export default {
       method: "post",
       url: `${this.url}comments/${lessonId}`,
       headers: this.headers(),
-      data      
+      data,
     });
-  },  
+  },
   postLessonComment(data) {
     return axios({
       method: "post",
       url: `${this.url}comments/`,
       headers: this.headers(),
-      data      
+      data,
     });
-  },  
+  },
   likeLessonComment(data) {
     return axios({
       method: "post",
       url: `${this.url}comments/like-comment`,
       headers: this.headers(),
-      data      
+      data,
     });
   },
   unlikeLessonComment(data) {
@@ -838,15 +838,15 @@ export default {
       method: "delete",
       url: `${this.url}comments/unlike-comment`,
       headers: this.headers(),
-      data      
+      data,
     });
-  },   
+  },
   addLessonCommentReply(data) {
     return axios({
       method: "post",
       url: `${this.url}comments/reply/add`,
       headers: this.headers(),
-      data      
+      data,
     });
   },  
   deleteLessonComment(commentId) {
