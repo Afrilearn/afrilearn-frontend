@@ -864,4 +864,12 @@ export default {
       data       
     });
   },
+  reportLesson(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}lessons/reportLesson`,
+      headers: this.headers(),
+      data       
+    });
+  },
 };

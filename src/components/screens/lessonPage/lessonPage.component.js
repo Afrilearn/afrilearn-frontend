@@ -70,6 +70,7 @@ import Countdown from "react-countdown";
 import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
 import DTooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
+import ReportBox from "../../includes/modal/reportLesson.component"
 
 
 const LessonPage = (props) => {
@@ -738,9 +739,7 @@ const LessonPage = (props) => {
                       </Link>
                     </DTooltip> 
                     <br/>{numberWithCommas(likeArray.length)+' like(s)'}   
-                  {/* <Link onClick={toggle1}>
-                    <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
-                  </Link> */}
+                 
                   </li>
                   <li className="moreOptions">
                     <DTooltip
@@ -751,8 +750,8 @@ const LessonPage = (props) => {
                           <Link onClick={toggle1}>
                             Share
                           </Link><br/>
-                          {isAuthenticated?  <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link>:''}
-                         
+                          {isAuthenticated? <> <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link><br/></>:''}
+                          <ReportBox lesson={lesson}/>
                         </span>
                       }
                     >
