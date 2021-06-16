@@ -33,19 +33,19 @@ const ReportBox = (props) => {
     const reportQuestion = () => {     
         let message = `${subjectData.courseId.name}-${subjectData.mainSubjectId.name} ${props.classnote? 'class note':'video lesson'} with title '${props.lesson.title}' has the following complaints:`;
         if(report1){
-          message+=`${props.classnote? 'Typographic Error, ':'Video not clear, '}`
+          message+=`${props.classnote? 'Typographic error, ':'Video not clear, '}`
         }
         if(report2){
-          message+=`${props.classnote? 'Images does not look quite right, ':'Spam or misleading video, '}`
+          message+=`${props.classnote? 'Incomplete text, ':'Grammatical error, '}`
         }
         if(report3){
-            message+=`${props.classnote? 'Spam or misleading, ':'Video not loading, '}`
+            message+=`${props.classnote? 'Images does not look quite right, ':'Wrong title or transcript, '}`
         }
         if(report4){
-            message+=`${props.classnote? 'Violent or repulsive content, ':'Hateful or abusive content, '}`
+            message+=`${props.classnote? 'An image is missing , ':'Video not loading, '}`
         }
         if(report5){
-            message+=`${props.classnote? 'Hateful or abusive content, ':'Violent or repulsive content, '}`
+            message+='Spam, repulsive or abusive content,'
         }       
         if(report7){
           message+=report7
@@ -75,19 +75,19 @@ const ReportBox = (props) => {
                         <div className="col-12">                                                                          
                             <div className="row">                          
                                 <div className="col-12 push333">
-                                    <CustomInput type="checkbox" id="report1" label={props.classnote? 'Typographic Error':'Video not clear'} checked={report1} onClick={handleChange}/>
+                                    <CustomInput type="checkbox" id="report1" label={props.classnote? 'Typographic error':'Video not clear'} checked={report1} onClick={handleChange}/>
                                 </div>   
                                 <div className="col-12 push333">
-                                    <CustomInput type="checkbox" id="report2" label={props.classnote? 'Images does not look quite right':'Spam or misleading video'} checked={report2} onClick={handleChange}/>
+                                    <CustomInput type="checkbox" id="report2" label={props.classnote? 'Incomplete text':'Grammatical error'} checked={report2} onClick={handleChange}/>
                                 </div>   
                                 <div className="col-12 push333">
-                                    <CustomInput type="checkbox" id="report3" label={props.classnote? 'Spam or misleading':'Video not loading'} checked={report3} onChange={handleChange}/>
+                                    <CustomInput type="checkbox" id="report3" label={props.classnote? 'Images does not look quite right':'Wrong title or transcript'} checked={report3} onChange={handleChange}/>
                                 </div> 
                                 <div className="col-12 push333">
-                                    <CustomInput type="checkbox" id="report4" label={props.classnote? 'Violent or repulsive content':'Hateful or abusive content'} checked={report4} onChange={handleChange}/>
+                                    <CustomInput type="checkbox" id="report4" label={props.classnote? 'An image is missing ':'Video not loading'} checked={report4} onChange={handleChange}/>
                                 </div>    
                                 <div className="col-12 push333">
-                                    <CustomInput type="checkbox" id="report5" label={props.classnote? 'Hateful or abusive content':'Violent or repulsive content'} checked={report5} onChange={handleChange}/>
+                                    <CustomInput type="checkbox" id="report5" label= 'Spam, repulsive or abusive content' checked={report5} onChange={handleChange}/>
                                 </div>                               
                                 <div className="col-12 push333">
                                     <input type="text" placeholder="eg. Something else..." id="report7" value={report7}  onChange={handleChange}/>
