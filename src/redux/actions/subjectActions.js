@@ -22,8 +22,26 @@ import {
   ADD_LIKED_VIDEO_FAILURE,
   REMOVE_LIKED_VIDEO_SUCCESS,
   REMOVE_LIKED_VIDEO_FAILURE,
-  COURSE_INPUT_CHANGE 
+  COURSE_INPUT_CHANGE,
+  SUBJECT_INPUT_CHANGE,
+  REPORT_LESSON_SUCCESS,
+  REPORT_LESSON_FAILURE 
 } from "./types";
+
+
+export const subjectInputChange = (name, value) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SUBJECT_INPUT_CHANGE,
+      payload: {
+        name,
+        value,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const getSubjectAndRelatedLessons = (courseId, subjectId) => async (
   dispatch
@@ -349,6 +367,7 @@ export const storeLikedVideos = (data, currentLessonIndex) => async (dispatch) =
     });
   }
 };
+
 export const removeLikedVideos = (data,currentLessonIndex) => async (dispatch) => {
   try {  
     dispatch({
@@ -392,6 +411,28 @@ export const removeLikedVideos = (data,currentLessonIndex) => async (dispatch) =
     );
     dispatch({
       type: REMOVE_LIKED_VIDEO_FAILURE,
+    });
+  }
+};
+
+export const reportLesson = (data) => async (dispatch) => {
+  try {    
+    await API.reportLesson(data);  
+    dispatch({
+      type: REPORT_LESSON_SUCCESS    
+    });    
+  } catch (err) {    
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "REPORT_LESSON_FAILURE"
+      )
+    );
+    dispatch({
+      type: REPORT_LESSON_FAILURE,
     });
   }
 };

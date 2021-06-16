@@ -27,7 +27,7 @@ import PropTypes from "prop-types";
 import parse from "html-react-parser";
 import queryString from "query-string";
 
-import { Modal, ModalHeader, ModalBody, Tooltip } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, CustomInput } from "reactstrap";
 import ThumbUp from "../../../assets/img/thumbs.gif";
 import DTooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
@@ -60,6 +60,8 @@ import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
 import { getLessonComments } from "./../../../redux/actions/commentActions";
 import CommentBox from "../../includes/comment/addComment.component";
 import BackArrow from "../../../assets/img/VideobackButton.svg";
+import ReportBox from "../../includes/modal/reportLesson.component"
+
 
 const ClassNote = (props) => {
   const [modal1, setModal1] = useState(false);
@@ -84,9 +86,6 @@ const ClassNote = (props) => {
     dashboardFavouriteVideos,
     newlyAddedDashbaordFavouriteVideos,
     relatedLessons,
-    likedVideoLoader,
-    favouriteVideoLoader,
-    subjectAndRelatedLessonsLoader,
     isAuthenticated
   } = props;
 
@@ -646,10 +645,7 @@ const ClassNote = (props) => {
                           <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
                         </Link>
                     </DTooltip> 
-                    <br/>{numberWithCommas(likeArray.length)+' like(s)'}   
-                  {/* <Link onClick={toggle1}>
-                    <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
-                  </Link> */}
+                    <br/>{numberWithCommas(likeArray.length)+' like(s)'} 
                   </li>
                   <li className="moreOptions">
                     <DTooltip
@@ -660,9 +656,10 @@ const ClassNote = (props) => {
                           <Link onClick={toggle1
                             }>
                               Share
-                          </Link><br/>
-                          {isAuthenticated?  <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link>:''}
-                         
+                          </Link><br/>                        
+                          {isAuthenticated? <> <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link><br/> </>:''}
+                          <ReportBox lesson={targetLesson} classnote={true}/>
+                          <br/>
                         </span>
                       }
                     >

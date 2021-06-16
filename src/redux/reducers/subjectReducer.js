@@ -4,7 +4,9 @@ import {
   ADD_RECENT_ACTIVITIES_SUCCESS,
   GET_SINGLE_LESSON_SUCCESS,
   ADD_LIKED_VIDEO_SUCCESS,
-  REMOVE_LIKED_VIDEO_SUCCESS
+  REMOVE_LIKED_VIDEO_SUCCESS,
+  SUBJECT_INPUT_CHANGE,
+  REPORT_LESSON_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -16,16 +18,41 @@ const initialState = {
   subjectProgresses: [],
   numOfUsers: 0,
   lesson: {},
-  relatedLessons:[]  
+  relatedLessons: [],
+  report1: false,
+  report2: false,
+  report3: false,
+  report4: false,
+  report5: false,
+  report6: false,
+  report7: ''
 };
 
 const subjectReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case SUBJECT_INPUT_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+
+    case REPORT_LESSON_SUCCESS:
+      return {
+        ...state,
+        report1: false,
+        report2: false,
+        report3: false,
+        report4: false,
+        report5: false,
+        report6: false,
+        report7: ''
+      };
     case GET_SUBJECT_AND_RELATED_LESSONS_SUCCESS:
       return {
         ...state,
         subject: action.payload.subject,
-        relatedLessons: action.payload.subject.relatedLessons,
+          relatedLessons: action.payload.subject.relatedLessons,
           lessonSubjectName: action.payload.subject.mainSubjectId.name,
           lessonSubjectId: action.payload.subject._id,
           lessonCourseId: action.payload.subject.courseId.id,
@@ -58,7 +85,7 @@ const subjectReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-      
+
     case ADD_RECENT_ACTIVITIES_SUCCESS:
       return {
         ...state,
