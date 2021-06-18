@@ -8,7 +8,7 @@ import Particles from "react-tsparticles";
 import { connect } from "react-redux";
 import { inputChange, getRoles } from "./../../../redux/actions/authActions";
 import {  
-  populateAfrilearnTopTenVideos
+  populateAfrilearnTopTenVideos 
 } from "./../../../redux/actions/courseActions";
 import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
 import norecent from "../../../assets/img/norecent.png";

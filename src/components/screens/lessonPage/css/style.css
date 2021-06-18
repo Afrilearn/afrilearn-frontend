@@ -2,12 +2,43 @@
   margin-bottom: -7px;
 }
 
+#lessonPageSectionOne .play-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#lessonPageSectionOne .play-wrapper:hover .player-controls-icon {
+  display: flex;
+}
+
+#lessonPageSectionOne .player-controls-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 3;
+  font-size: 100px;
+  color: #fff;
+  background-color: #84bb29;
+  opacity: 0.5;
+  padding: 15px;
+  border-radius: 50%;
+}
+#lessonPageSectionOne .player-controls-icon-forward {
+  right: 10%;
+}
+#lessonPageSectionOne .player-controls-icon-backward {
+  left: 10%;
+}
 #lessonPageSectionOne video {
   width: 100%;
   height: 600px;
 }
 .modal-content {
-  background-color: #84bb29; 
+  background-color: #84bb29;
 }
 img.thumb {
   width: 109px;
@@ -18,8 +49,9 @@ img.backButton {
   position: absolute;
   left: 28px;
   top: 95px;
-  background: #84BB29;
+  background: #84bb29;
   border-radius: 50%;
+  z-index: 3;
 }
 img.loader {
   width: 18px;
@@ -32,7 +64,7 @@ img.likeIcon {
   object-fit: contain;
   object-position: top;
 }
-#Popover1:hover{
+#Popover1:hover {
   cursor: pointer;
 }
 .negative_margin {
@@ -188,7 +220,7 @@ img.likeIcon {
 }
 
 #lessonPageSectionTwo .left h4 {
-  color: #84BB29;
+  color: #84bb29;
   font-size: 18px;
   margin: 30px 0 20px 0;
   font-family: font2;
@@ -283,6 +315,10 @@ img.likeIcon {
   #lessonPageSectionTwo {
     padding: 10px;
   }
+  #lessonPageSectionOne .player-controls-icon {
+    font-size: 30px;
+    padding: 5px;
+  }
 
   #lessonPageSectionTwo .left {
     flex: 0 0 100%;
@@ -349,7 +385,7 @@ img.likeIcon {
 #lessonPagePopUpOne .button,
 #lessonPagePopUpTwo button {
   border: none;
-  background-color: #84BB29 !important;
+  background-color: #84bb29 !important;
   color: white !important;
   /* height: 60px !important; */
   /* width: 300px !important; */
@@ -434,7 +470,7 @@ img.likeIcon {
     font-size: 17px;
     margin: 8px 0 0px 0;
     margin-bottom: 20px;
-}
+  }
 
   #lessonPageSectionTwo p {
     margin-bottom: 5px;
@@ -472,7 +508,7 @@ img.likeIcon {
   width: 15%;
   font-size: 28px;
   font-weight: lighter;
-  color:#84BB29;
+  color: #84bb29;
 }
 
 #lessonPageSectionTwo #navigation .button1 {

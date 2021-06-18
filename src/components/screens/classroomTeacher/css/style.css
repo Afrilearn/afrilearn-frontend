@@ -7,13 +7,14 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.btn .btn-success, .dColor{
+.btn .btn-success,
+.dColor {
   color: #fff;
-  background-color: #84BB29 !important;
-  border-color: #84BB29 !important;
+  background-color: #84bb29 !important;
+  border-color: #84bb29 !important;
 }
-.bg-dark1{
-  background-color:#212529;
+.bg-dark1 {
+  background-color: #212529;
 }
 #classroomTeacherSectionTwo .content-section .subjects h4 {
   margin-left: -10px;
@@ -30,9 +31,12 @@
   top: -100px;
   left: 7%;
   width: 150px;
-  background: transparent;
+  background: grey;
   border-radius: 50%;
-  height: 140px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 #classroomTeacherSectionTwo .text {
   position: absolute;
@@ -60,7 +64,7 @@
   margin: 5px auto;
 }
 #classroomTeacherSectionTwo .main-tab-item.active {
-  background-color: #84BB29;
+  background-color: #84bb29;
   border: none;
   font-weight: normal !important;
 }
@@ -116,7 +120,7 @@
   margin-left: 5px;
 }
 #classroomTeacherSectionTwo .tab-nav-item-1 {
-  border-bottom: 4px solid #84BB29;
+  border-bottom: 4px solid #84bb29;
 }
 @media screen and (max-width: 1200px) {
   #classroomTeacherSectionTwo .tab {
@@ -182,12 +186,12 @@
   font-family: font2;
 }
 #classroomTeacherSectionTwo .button-green {
-  background-color: #84BB29;
-  border-color: #84BB29;
+  background-color: #84bb29;
+  border-color: #84bb29;
 }
 .button-green {
-  background-color: #84BB29;
-  border-color: #84BB29;
+  background-color: #84bb29;
+  border-color: #84bb29;
   color: white;
 }
 #classroomTeacherSectionTwo .announcements aside .upcoming-events {
@@ -215,7 +219,7 @@
   margin: 5px 0;
 }
 #classroomTeacherSectionTwo .announcements aside .upcoming-events a {
-  color: #84BB29 !important;
+  color: #84bb29 !important;
   text-align: end;
   display: block;
   text-decoration: underline;
@@ -237,7 +241,7 @@
   background-color: #333232;
   border-radius: 5px;
   padding: 15px;
-      padding-bottom: 15px;
+  padding-bottom: 15px;
   padding-bottom: 100px;
 }
 #classroomTeacherSectionTwo .announcements main section .chat-block {
@@ -289,7 +293,7 @@
   .chat-block
   .comments
   small {
-  color: #84BB29;
+  color: #84bb29;
 }
 #classroomTeacherSectionTwo .announcements main section .chat-block .send {
   padding: 10px;
@@ -456,7 +460,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.46);
 }
 #classroomTeacherSectionTwo .people .heading h5 {
-  color: #84BB29;
+  color: #84bb29;
   font-family: font2;
 }
 #classroomTeacherSectionTwo .people .heading p {
@@ -510,11 +514,11 @@
   padding: 20px;
 }
 .addStudentItemPopUp .c-green-bg {
-  background-color: #84BB29;
+  background-color: #84bb29;
   color: white;
 }
 .addStudentItemPopUp .c-green {
-  color: #84BB29;
+  color: #84bb29;
 }
 .addStudentItemPopUp .popup-body h4 {
   font-family: font3;
@@ -595,13 +599,13 @@
 #classroomTeacherSectionTwo .classwork main .class-item {
   margin-bottom: 20px;
 }
-#classroomTeacherSectionTwo .classwork main .class-item button{
-  color: #84BB29;
+#classroomTeacherSectionTwo .classwork main .class-item button {
+  color: #84bb29;
 }
 #classroomTeacherSectionTwo .classwork main .class-item h5 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.46);
   padding: 15px 30px;
-  color: #84BB29;
+  color: #84bb29;
   font-family: font2;
 }
 #classroomTeacherSectionTwo .classwork main .class-item .items {
@@ -667,7 +671,7 @@
 }
 
 #classroomTeacherSectionTwo .pastQuestionsBox1 {
-  background: #84BB29;
+  background: #84bb29;
 }
 #classroomTeacherSectionTwo .pastQuestionsBox img {
   max-width: 70px;

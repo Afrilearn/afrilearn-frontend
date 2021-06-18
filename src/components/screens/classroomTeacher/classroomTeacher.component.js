@@ -41,13 +41,7 @@ import AnnouncementsLoader from "../../includes/Loaders/announcementsLoader.comp
 import ClassWorksLoader from "../../includes/Loaders/classworksLoader.component";
 
 const ClassroomTeacher = (props) => {
-  const {
-    activeEnrolledCourseId,
-    clazz,
-    userData,
-    error,
-    isLoading,
-  } = props;
+  const { activeEnrolledCourseId, clazz, userData, error, isLoading } = props;
 
   const [announcementText, setAnnouncementText] = useState(null);
   const dispatch = useDispatch();
@@ -278,7 +272,7 @@ const ClassroomTeacher = (props) => {
                   ? "s"
                   : ""}
               </small>
-            
+
               {classAnnouncement.comments.map((comment) => (
                 <div className="pic-text-heading" key={comment._id}>
                   <img src={man} alt="comment" />
@@ -701,7 +695,15 @@ const ClassroomTeacher = (props) => {
       <div id="classroomTeacherSectionOne"></div>
 
       <div id="classroomTeacherSectionTwo">
-        <img src={ userData.profilePhotoUrl? userData.profilePhotoUrl: man} className="image" alt="user" />
+        <div
+          className="image"
+          style={{
+            backgroundImage: `url(${
+              userData.profilePhotoUrl ? userData.profilePhotoUrl : man
+            })`,
+          }}
+        ></div>
+      
         <div className="welcome">
           <h1 className="font2">Welcome {props.fullName}</h1>
           <p>
@@ -832,7 +834,7 @@ const ClassroomTeacher = (props) => {
                     </article>
                   )}
 
-                  <section>                  
+                  <section>
                     {classAnnouncementsLoading ? (
                       <AnnouncementsLoader />
                     ) : (

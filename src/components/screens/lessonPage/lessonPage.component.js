@@ -10,7 +10,9 @@ import {
   faAngleLeft,
   faAngleRight,
   faEllipsisV,
-  faThumbsUp
+  faThumbsUp,
+  faFastForward,
+  faFastBackward,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./css/style.css";
@@ -32,7 +34,7 @@ import Speech from "../../includes/textToSpeech/textToSpeech.component";
 import {
   loadQuestions,
   loadQuizQuestions,
-  inputChange,  
+  inputChange,
 } from "./../../../redux/actions/pastQuestionsActions";
 import { getCourse } from "./../../../redux/actions/courseActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
@@ -45,7 +47,7 @@ import {
   storeFavouriteVideos,
   removeFavouriteVideos,
   storeLikedVideos,
-  removeLikedVideos
+  removeLikedVideos,
 } from "./../../../redux/actions/subjectActions";
 import { getLessonComments } from "./../../../redux/actions/commentActions";
 
@@ -72,10 +74,9 @@ import DTooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import ReportBox from "../../includes/modal/reportLesson.component"
 
-
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
- 
+
   const {
     course,
     role,
@@ -90,7 +91,7 @@ const LessonPage = (props) => {
     favouriteVideoLoader,
     subjectAndRelatedLessonsLoader,
     user,
-    isAuthenticated
+    isAuthenticated,
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -125,7 +126,7 @@ const LessonPage = (props) => {
   const lesson = term?.lessons?.find(
     (lesson) => lesson._id === parsed.lessonId
   );
- 
+
   const currentTermIndex =
     lesson && terms && terms?.findIndex((term) => term.id === lesson.termId);
   const nextTerm = terms[currentTermIndex + 1];
@@ -260,7 +261,7 @@ const LessonPage = (props) => {
         return (
           <div className="item" key={index}>
             <div className="img">
-              <img src={firstterm} alt="see this"/>
+              <img src={firstterm} alt="see this" />
             </div>
             <div className="right">
               <p>{lesson && lesson.title}</p>
@@ -318,19 +319,22 @@ const LessonPage = (props) => {
       }
 
       //get lesson comments
-      props.getLessonComments(parsed.lessonId,{commentSection:'video'})
+      props.getLessonComments(parsed.lessonId, { commentSection: "video" });
     }
 
-    window.scrollTo(0, 0);    
-    if (props.lessonCourseId !== parsed.courseId || props.lessonSubjectId !==parsed.subjectId) {
+    window.scrollTo(0, 0);
+    if (
+      props.lessonCourseId !== parsed.courseId ||
+      props.lessonSubjectId !== parsed.subjectId
+    ) {
       props.getSubjectAndRelatedLessons(parsed.courseId, parsed.subjectId);
-      window.scrollTo(0, 0);    
-    }   
-    storeProgress();     
+      window.scrollTo(0, 0);
+    }
+    storeProgress();
   }, []);
 
   const [popoverOpen, setPopoverOpen] = useState(false);
- 
+
   const toggle = () => setPopoverOpen(!popoverOpen);
 
   const { className } = props;
@@ -341,61 +345,63 @@ const LessonPage = (props) => {
   const [modal5, setModal5] = useState(false);
   const toggleModal5 = () => setModal5(!modal5);
   const [modal3, setModal3] = useState(false);
-  const toggle3 = () => setModal3(!modal3);
+  const toggle3 = () => {
+    setModal3(!modal3);
+  };
   let shareLink = `Transform your life through world-class education. Download the Afrilearn App for free now at https://play.google.com/store/apps/details?id=com.afrilearn or visit https://myafrilearn.com/`;
-  
+
   const storeUnFinishedVideo = () => {
     const data = {
-      userId:props.userId,
-      courseId:parsed.courseId,
-      subjectId:parsed.subjectId,
-      lessonId:parsed.lessonId,
-      termId:parsed.termId,
-      videoId:parsed.videoId,
-      videoPosition:videoIndex
-    }
-    props.storeUnFinishedVideos(data) 
+      userId: props.userId,
+      courseId: parsed.courseId,
+      subjectId: parsed.subjectId,
+      lessonId: parsed.lessonId,
+      termId: parsed.termId,
+      videoId: parsed.videoId,
+      videoPosition: videoIndex,
+    };
+    props.storeUnFinishedVideos(data);
   };
 
   const clearUnFinishedVideo = () => {
     const data = {
-      userId:props.userId,
-      courseId:parsed.courseId,
-      subjectId:parsed.subjectId,
-      lessonId:parsed.lessonId,
-      termId:parsed.termId,
-      videoId:parsed.videoId,
-      videoPosition:videoIndex
-    }
-    props.clearUnFinishedVideos(data) 
+      userId: props.userId,
+      courseId: parsed.courseId,
+      subjectId: parsed.subjectId,
+      lessonId: parsed.lessonId,
+      termId: parsed.termId,
+      videoId: parsed.videoId,
+      videoPosition: videoIndex,
+    };
+    props.clearUnFinishedVideos(data);
   };
-  
+
   const storeFavouriteVideos = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
-      userId:props.userId,
-      courseId:parsed.courseId,
-      subjectId:parsed.subjectId,
-      lessonId:parsed.lessonId,
-      termId:parsed.termId,
-      videoId:parsed.videoId,
-      videoPosition:videoIndex   
-    }
-    props.storeFavouriteVideos(data) 
+      userId: props.userId,
+      courseId: parsed.courseId,
+      subjectId: parsed.subjectId,
+      lessonId: parsed.lessonId,
+      termId: parsed.termId,
+      videoId: parsed.videoId,
+      videoPosition: videoIndex,
+    };
+    props.storeFavouriteVideos(data);
   };
 
   const removeFavouriteVideos = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
-      userId:props.userId,
-      courseId:parsed.courseId,
-      subjectId:parsed.subjectId,
-      lessonId:parsed.lessonId,
-      termId:parsed.termId,
-      videoId:parsed.videoId,
-      videoPosition:videoIndex   
-    }
-    props.removeFavouriteVideos(data) 
+      userId: props.userId,
+      courseId: parsed.courseId,
+      subjectId: parsed.subjectId,
+      lessonId: parsed.lessonId,
+      termId: parsed.termId,
+      videoId: parsed.videoId,
+      videoPosition: videoIndex,
+    };
+    props.removeFavouriteVideos(data);
   };
 
   const storeProgress = () => {
@@ -411,65 +417,69 @@ const LessonPage = (props) => {
   };
 
   const storeLikedVideo = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
-      userId:props.userId,
-      lessonId:parsed.lessonId     
-    }
-    props.storeLikedVideos(data, currentLessonIndex) 
+      userId: props.userId,
+      lessonId: parsed.lessonId,
+    };
+    props.storeLikedVideos(data, currentLessonIndex);
   };
 
   const removeLikedVideo = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
-      userId:props.userId,
-      lessonId:parsed.lessonId     
-    }
-    props.removeLikedVideos(data, currentLessonIndex) 
-  }; 
-  
+      userId: props.userId,
+      lessonId: parsed.lessonId,
+    };
+    props.removeLikedVideos(data, currentLessonIndex);
+  };
+
   const alreadyAddedToFavourite = () => {
     let result = [];
     let result1 = [];
     //old records
-    if (dashboardFavouriteVideos &&
-      dashboardFavouriteVideos.length) { 
-        result = dashboardFavouriteVideos.filter(item =>item.lessonId.id ===parsed.lessonId)
+    if (dashboardFavouriteVideos && dashboardFavouriteVideos.length) {
+      result = dashboardFavouriteVideos.filter(
+        (item) => item.lessonId.id === parsed.lessonId
+      );
     }
     //new records
-    if (newlyAddedDashbaordFavouriteVideos &&
-      newlyAddedDashbaordFavouriteVideos.length) { 
-        result1 = newlyAddedDashbaordFavouriteVideos.filter(item =>item.lessonId ===parsed.lessonId)
+    if (
+      newlyAddedDashbaordFavouriteVideos &&
+      newlyAddedDashbaordFavouriteVideos.length
+    ) {
+      result1 = newlyAddedDashbaordFavouriteVideos.filter(
+        (item) => item.lessonId === parsed.lessonId
+      );
     }
-    if(result.length || result1.length){
-      return true
-    }else{
-      return false
+    if (result.length || result1.length) {
+      return true;
+    } else {
+      return false;
     }
-  }
-  
+  };
+
   const alreadyAddedToLike = () => {
     let result = [];
     let result1 = [];
 
     //old records
-    if (relatedLessons &&
-      relatedLessons.length) { 
-      result = relatedLessons.filter(item =>item._id === parsed.lessonId)
+    if (relatedLessons && relatedLessons.length) {
+      result = relatedLessons.filter((item) => item._id === parsed.lessonId);
     }
-    if(result[0] && result[0].likes  && result[0].likes.length){
-      likeArray = result[0].likes
-      result = result[0].likes.filter(item => item === props.userId)     
-    }else{
-      result = []
+    if (result[0] && result[0].likes && result[0].likes.length) {
+      likeArray = result[0].likes;
+      result = result[0].likes.filter((item) => item === props.userId);
+    } else {
+      result = [];
     }
-    
-    if(result.length || result1.length){
-      return true
-    }else{
-      return false
+
+    if (result.length || result1.length) {
+      return true;
+    } else {
+      return false;
     }
-  }
+  };
 
   const [stopRedirect, setStopRedirect] = useState(false);
 
@@ -496,16 +506,21 @@ const LessonPage = (props) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  const goBack = (e) =>{
+  const goBack = (e) => {
     e.preventDefault();
     window.history.back();
-  }
+  };
+
+  const ref = useRef("");
 
   return (
     <React.Fragment>
-      <div id="lessonPageSectionOne">        
+      <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
-          <Link onClick={goBack}><img src={BackArrow} alt="Class Note" className="backButton"/></Link>  
+        <Link onClick={goBack}>
+          <img src={BackArrow} alt="Class Note" className="backButton" />
+        </Link>
+
         <div>
           <Modal
             isOpen={modal}
@@ -517,167 +532,187 @@ const LessonPage = (props) => {
             className={className}
           >
             <ModalBody className="take-action-pop-up">
-              <FontAwesomeIcon
-                className="close-take-action-pop-up"
-                icon={faTimes}
-                onClick={() => {
-                  toggleModal();
-                  setStopRedirect(true);
-                }}
-              />
-              <img src={ThumbUp} alt="" className="thumb" />
-              {nextVideo ? (
-                <div>                  
-                  <h3>
-                    Lesson Video {videoIndex} - "{lesson && lesson.title}"{" "}
-                    completed
-                  </h3>
-                  <p>
-                    Next: Lesson Video {videoIndex + 1} - "
-                    {nextLesson && nextLesson.title}"
-                  </p>
-                  <Link
-                    to={linkToNextVideo}
-                    onClick={() => {
-                      toggleModal();
-                      setStopRedirect(true);
-                    }}
-                  >
-                    <button>Go to next Lesson Video</button>
-                  </Link>
-                </div>
-              ) : (
-                <div>                 
-                  <h3>Lessons completed: {lesson && lesson.title}</h3>
-                  {lesson && lesson.questions && lesson.questions.length > 0 ? (
+              <div className="container">
+                <div className="p-3 center paymentBox">
+                  <img src={ThumbUp} alt="" className="thumb" />
+                  {nextVideo ? (
                     <div>
-                      <p>Next: Quiz</p>
+                      <h3>
+                        Lesson Video {videoIndex} - "{lesson && lesson.title}"{" "}
+                        completed
+                      </h3>
+                      <p>
+                        Next: Lesson Video {videoIndex + 1} - "
+                        {nextLesson && nextLesson.title}"
+                      </p>
                       <Link
-                        to="/lesson/quiz/instructions"
+                        to={linkToNextVideo}
                         onClick={() => {
-                          updateQuizType();
+                          toggleModal();
                           setStopRedirect(true);
                         }}
                       >
-                        <button>Proceed to take Quiz</button>
-                      </Link>
-                    </div>
-                  ) : nextLessonVideo ? (
-                    <div>                     
-                      <p>Next: {nextLesson && nextLesson.title}</p>
-                      <Link
-                        to={linkToNextLesson}
-                        onClick={() => {
-                          setStopRedirect(true);
-                        }}
-                      >
-                        <button>
-                          Go to "
-                          {nextLesson &&
-                            nextLesson.title &&
-                            nextLesson.title.slice(0, 25)}
-                          {nextLesson &&
-                            nextLesson.title &&
-                            nextLesson.title.length > 25 &&
-                            "..."}
-                          "
-                        </button>
-                      </Link>
-                    </div>
-                  ) : nextLesson ? (
-                    <div>                     
-                      <p>Next: "{nextLesson && nextLesson.title}"</p>
-                      <Link
-                        to={linkToNextLessonClassNote}
-                        onClick={() => {
-                          setStopRedirect(true);
-                        }}
-                      >
-                        <button>
-                          Go to "
-                          {nextLesson &&
-                            nextLesson.title &&
-                            nextLesson.title.slice(0, 25)}
-                          {nextLesson &&
-                            nextLesson.title &&
-                            nextLesson.title.length > 25 &&
-                            "..."}
-                          "
-                        </button>
+                        <button>Go to next Lesson Video</button>
                       </Link>
                     </div>
                   ) : (
-                    <Link
-                      to={linkToSubjectPage}
-                      onClick={() => {
-                        setStopRedirect(true);
-                      }}
-                    >
-                      <button>Go to topics page</button>
-                    </Link>
+                    <div>
+                      <h3>Lessons completed: {lesson && lesson.title}</h3>
+                      {lesson &&
+                      lesson.questions &&
+                      lesson.questions.length > 0 ? (
+                        <div>
+                          <p>Next: Quiz</p>
+                          <Link
+                            to="/lesson/quiz/instructions"
+                            onClick={() => {
+                              updateQuizType();
+                              setStopRedirect(true);
+                            }}
+                          >
+                            <button>Proceed to take Quiz</button>
+                          </Link>
+                        </div>
+                      ) : nextLessonVideo ? (
+                        <div>
+                          <p>Next: {nextLesson && nextLesson.title}</p>
+                          <Link
+                            to={linkToNextLesson}
+                            onClick={() => {
+                              setStopRedirect(true);
+                            }}
+                          >
+                            <button>
+                              Go to "
+                              {nextLesson &&
+                                nextLesson.title &&
+                                nextLesson.title.slice(0, 25)}
+                              {nextLesson &&
+                                nextLesson.title &&
+                                nextLesson.title.length > 25 &&
+                                "..."}
+                              "
+                            </button>
+                          </Link>
+                        </div>
+                      ) : nextLesson ? (
+                        <div>
+                          <p>Next: "{nextLesson && nextLesson.title}"</p>
+                          <Link
+                            to={linkToNextLessonClassNote}
+                            onClick={() => {
+                              setStopRedirect(true);
+                            }}
+                          >
+                            <button>
+                              Go to "
+                              {nextLesson &&
+                                nextLesson.title &&
+                                nextLesson.title.slice(0, 25)}
+                              {nextLesson &&
+                                nextLesson.title &&
+                                nextLesson.title.length > 25 &&
+                                "..."}
+                              "
+                            </button>
+                          </Link>
+                        </div>
+                      ) : (
+                        <Link
+                          to={linkToSubjectPage}
+                          onClick={() => {
+                            setStopRedirect(true);
+                          }}
+                        >
+                          <button>Go to topics page</button>
+                        </Link>
+                      )}
+                    </div>
                   )}
-                </div>
-              )}
-              <span className="my-2">
-                You will be redirected in{" "}
-                <Countdown
-                  renderer={({ hours, minutes, seconds }) => (
-                    <span>{seconds}</span>
-                  )}
-                  date={Date.now() + 9000}
-                  onComplete={() => {
-                    toggleModal();
-                    if (!stopRedirect) {
-                      if (nextVideo) {
-                        props.history.push(linkToNextVideo);
-                      } else {
-                        if (
-                          lesson &&
-                          lesson.questions &&
-                          lesson.questions.length > 0
-                        ) {
-                          updateQuizType(lesson);
-                          props.history.push("/lesson/quiz/instructions");
-                          updateQuizType();
-                        } else if (nextLessonVideo) {
-                          return props.history.push(linkToNextLesson);
-                        } else if (nextLesson) {
-                          return props.history.push(linkToNextLessonClassNote);
-                        } else {
-                          props.history.push(linkToSubjectPage);
+                  <span className="my-2">
+                    You will be redirected in{" "}
+                    <Countdown
+                      renderer={({ hours, minutes, seconds }) => (
+                        <span>{seconds}</span>
+                      )}
+                      date={Date.now() + 9000}
+                      onComplete={() => {
+                        toggleModal();
+                        if (!stopRedirect) {
+                          if (nextVideo) {
+                            props.history.push(linkToNextVideo);
+                          } else {
+                            if (
+                              lesson &&
+                              lesson.questions &&
+                              lesson.questions.length > 0
+                            ) {
+                              updateQuizType(lesson);
+                              props.history.push("/lesson/quiz/instructions");
+                              updateQuizType();
+                            } else if (nextLessonVideo) {
+                              return props.history.push(linkToNextLesson);
+                            } else if (nextLesson) {
+                              return props.history.push(
+                                linkToNextLessonClassNote
+                              );
+                            } else {
+                              props.history.push(linkToSubjectPage);
+                            }
+                          }
                         }
-                      }
-                    }
-                  }}
-                />
-              </span>
+                      }}
+                    />
+                  </span>
+                </div>
+              </div>
             </ModalBody>
           </Modal>
         </div>
         {video && video.videoUrl && (
-          <ReactPlayer
-            className="react-player"
-            onStart={
-              storeUnFinishedVideo
-            }
-            // Disable download button
-            config={{ file: { attributes: { controlsList: "nodownload" } } }}
-            // Disable right click
-            onContextMenu={(e) => e.preventDefault()}
-            onEnded={(e) => {
-              clearUnFinishedVideo()
-              toggleModal();
-            }}
-            url={video && video.videoUrl}
-            controls="true"
-            width="100%"
-            height="auto"
-            muted={false}
-            playing={true}
-          />
+          <div class="play-wrapper">
+            <FontAwesomeIcon
+              icon={faFastBackward}
+              className="player-controls-icon  player-controls-icon-backward"
+              onClick={() => {
+                ref.current.seekTo(
+                  ref.current.getCurrentTime() - 10,
+                  "seconds"
+                );
+              }}
+            />
+            <FontAwesomeIcon
+              icon={faFastForward}
+              className="player-controls-icon player-controls-icon-forward"
+              onClick={() =>
+                ref.current.seekTo(ref.current.getCurrentTime() + 10, "seconds")
+              }
+            />
+            <ReactPlayer
+              className="react-player"
+              onStart={storeUnFinishedVideo}
+              // onSeek={(e) => console.log("onSeek", e)}
+              // Disable download button
+              config={{ file: { attributes: { controlsList: "nodownload" } } }}
+              // Disable right click
+              onContextMenu={(e) => e.preventDefault()}
+              onEnded={(e) => {
+                clearUnFinishedVideo();
+                toggleModal();
+              }}
+              url={video && video.videoUrl}
+              controls="true"
+              width="100%"
+              height="auto"
+              muted={false}
+              playing={true}
+              ref={ref}
+            />
+          </div>
         )}
       </div>
       <div id="lessonPageSectionTwo">
+<<<<<<< HEAD
         {!subjectAndRelatedLessonsLoader? 
         <>
           <div className="left">
@@ -797,145 +832,317 @@ const LessonPage = (props) => {
                 <span>Date Created:&nbsp;&nbsp; &nbsp; </span>{" "}
                 {moment(lesson && lesson.createdAt).format("LL")}
               </p>
+=======
+        {!subjectAndRelatedLessonsLoader ? (
+          <>
+            <div className="left">
+              <div className="row controlBar">
+                <div className="col-md-12">
+                  <ul>
+                    <li>
+                      <span className="backArrow">
+                        <FontAwesomeIcon
+                          icon={faPlay}
+                          style={{ marginRight: "10px" }}
+                        />
+                        Lesson {videoIndex + 1}
+                      </span>
+                    </li>
+                    <li>
+                      <DTooltip
+                        placement="top"
+                        trigger={["hover"]}
+                        overlay={<span>Class Note</span>}
+                      >
+                        <Link to={linkToLessonClassNote}>
+                          <img
+                            src={ClasnoteIcon}
+                            alt="Class Note"
+                            className="likeIcon"
+                          />
+                        </Link>
+                      </DTooltip>
+                      <br />
+                      Note
+                    </li>
+                    <li>
+                      <DTooltip
+                        placement="top"
+                        trigger={["hover"]}
+                        overlay={<span>Audio Lesson</span>}
+                      >
+                        <Link
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          <Speech
+                            content={decodeEntities(video && video.transcript)}
+                          />
+                        </Link>
+                      </DTooltip>
+                      <br />
+                      Audio
+                    </li>
+                    <li>
+                      <DTooltip
+                        placement="top"
+                        trigger={["hover"]}
+                        overlay={
+                          <span>
+                            {alreadyAddedToLike() ? "Unlike" : "I like this"}
+                          </span>
+                        }
+                      >
+                        <Link
+                          onClick={
+                            alreadyAddedToLike()
+                              ? removeLikedVideo
+                              : storeLikedVideo
+                          }
+                        >
+                          <img
+                            src={alreadyAddedToLike() ? Unlike : Like}
+                            alt="see this"
+                            className="likeIcon"
+                          />
+                        </Link>
+                      </DTooltip>
+                      <br />
+                      {numberWithCommas(likeArray.length) + " like(s)"}
+                      {/* <Link onClick={toggle1}>
+                    <FontAwesomeIcon icon={faShareAlt} color="white" size="lg" />
+                  </Link> */}
+                    </li>
+                    <li className="moreOptions">
+                      <DTooltip
+                        placement="top"
+                        trigger={["hover"]}
+                        overlay={
+                          <span>
+                            <Link onClick={toggle1}>Share</Link>
+                            <br />
+                            {isAuthenticated ? (
+                              <Link>
+                                {alreadyAddedToFavourite() ? (
+                                  <Link onClick={removeFavouriteVideos}>
+                                    Remove from Favourites
+                                  </Link>
+                                ) : (
+                                  <Link onClick={storeFavouriteVideos}>
+                                    Add to Favourites
+                                  </Link>
+                                )}{" "}
+                              </Link>
+                            ) : (
+                              ""
+                            )}
+                          </span>
+                        }
+                      >
+                        <Link
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faEllipsisV}
+                            color="white"
+                            size="lg"
+                          />
+                        </Link>
+                      </DTooltip>
+                      <br />
+                      More
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <h4>{lesson && parse(lesson.title)}</h4>
+              <FontAwesomeIcon icon={faEye} />{" "}
+              {lesson && numberWithCommas(lesson.views) + " view(s)"} <br />
+              <br />
+              <a href="#transcriptText" onClick={toggleTranscript}>
+                {isOpen ? "Hide" : "Show"} Transcript
+              </a>
+              <Collapse isOpen={isOpen}>
+                <p className="lessonContent">
+                  {video && video.transcript
+                    ? parse(video.transcript)
+                    : "No Transcript available"}
+                </p>
+              </Collapse>
+              <CommentBox lessonId={parsed.lessonId} commentSection="video" />
+>>>>>>> e9d50d8... Fixes
             </div>
-            {/* <div className="mid">
+            <div className="right">
+              <div className="top">
+                <p>
+                  <span>Class:&nbsp;&nbsp; &nbsp; </span>{" "}
+                  {subject && subject.courseId && subject.courseId.alias}
+                </p>
+                <p>
+                  <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
+                  {subject &&
+                    subject.mainSubjectId &&
+                    subject.mainSubjectId.name}
+                </p>
+                <p>
+                  <span>Term:&nbsp;&nbsp; &nbsp; </span> {term && term.name}
+                </p>
+                <p>
+                  <span>Date Created:&nbsp;&nbsp; &nbsp; </span>{" "}
+                  {moment(lesson && lesson.createdAt).format("LL")}
+                </p>
+              </div>
+              {/* <div className="mid">
               <h4>Related Videos</h4>
               {relatedVideosList()}
             </div> */}
-            <div className="mid">
-              {relatedVideos && relatedVideos.length !== 0 && (
-                <h4>Recommended for you</h4>
-              )}
-              {relatedVideosList()}{" "}
-            </div>
-          </div>
-          <div id="navigation">
-            <Link
-              to={prevLesson ? linkToPreviousLesson : linkToSubjectPage}
-              className="button button1"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-html="true"
-              onClick={(e) => {
-                window.scrollTo(0, 0);
-                if (
-                  prevNotAllowed ||
-                  (prevLesson &&
-                    prevLesson.videoUrls &&
-                    prevLesson.videoUrls.length === 0)
-                ) {
-                  e.preventDefault();
-                  if (!activeCoursePaidStatus) {
-                    return toggle3();
-                  } else if (
-                    prevLesson &&
-                    prevLesson.videoUrls &&
-                    prevLesson.videoUrls.length === 0
-                  ) {
-                    return toggleModal5();
-                  }
-                } else {
-                  if(prevLesson){
-                    //get lesson comments
-                     props.getLessonComments(prevLesson.id,{commentSection:'video'})
-                  }                  
-                }
-              }}
-              title={
-                prevLesson
-                  ? prevNotAllowed
-                    ? "Subscribe to unlock"
-                    : prevLesson.title
-                  : "Subject Page"
-              }
-            >
-              <FontAwesomeIcon
-                icon={faAngleLeft}
-                className="arrow"
-                color="#26aa76"
-              />
-              <div>
-                {prevLesson ? (
-                  <p className="p1">
-                    Previous <span className="hide-900">Lesson</span>
-                  </p>
-                ) : (
-                  <p>Back to</p>
+              <div className="mid">
+                {relatedVideos && relatedVideos.length !== 0 && (
+                  <h4>Recommended for you</h4>
                 )}
-
-                <h6 className="custom-green">
-                  {prevLesson
-                    ? prevLesson.title && prevLesson.title.slice(0, 13)
-                    : "Subject Page"}
-                  {prevLesson && prevLesson.title && prevLesson.title.length > 13
-                    ? "..."
-                    : null}
-                </h6>
+                {relatedVideosList()}{" "}
               </div>
-            </Link>
-            <div className="text">
-              Lesson {currentLessonIndex + 1} of{" "}
-              {subject && lessons && lessons.length}
             </div>
-            <Link
-              to={nextLesson ? linkToNextLesson : linkToSubjectPage}
-              className="button button2"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-html="true"
-              onClick={(e) => {
-                window.scrollTo(0, 0);
-                if (
-                  nextNotAllowed ||
-                  (nextLesson &&
-                    nextLesson.videoUrls &&
-                    nextLesson.videoUrls.length === 0)
-                ) {
-                  e.preventDefault();
-                  if (!activeCoursePaidStatus) {
-                    return toggle3();
-                  } else if (
-                    nextLesson &&
-                    nextLesson.videoUrls &&
-                    nextLesson.videoUrls.length === 0
+            <div id="navigation">
+              <Link
+                to={prevLesson ? linkToPreviousLesson : linkToSubjectPage}
+                className="button button1"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-html="true"
+                onClick={(e) => {
+                  window.scrollTo(0, 0);
+                  if (
+                    prevNotAllowed ||
+                    (prevLesson &&
+                      prevLesson.videoUrls &&
+                      prevLesson.videoUrls.length === 0)
                   ) {
-                    return toggleModal4();
+                    e.preventDefault();
+                    if (!activeCoursePaidStatus) {
+                      return toggle3();
+                    } else if (
+                      prevLesson &&
+                      prevLesson.videoUrls &&
+                      prevLesson.videoUrls.length === 0
+                    ) {
+                      return toggleModal5();
+                    }
+                  } else {
+                    if (prevLesson) {
+                      //get lesson comments
+                      props.getLessonComments(prevLesson.id, {
+                        commentSection: "video",
+                      });
+                    }
                   }
-                } else {
-                  if(nextLesson){
-                    //get lesson comments
-                     props.getLessonComments(nextLesson.id,{commentSection:'video'})
-                  }    
+                }}
+                title={
+                  prevLesson
+                    ? prevNotAllowed
+                      ? "Subscribe to unlock"
+                      : prevLesson.title
+                    : "Subject Page"
                 }
-              }}
-              title={
-                nextLesson
-                  ? nextNotAllowed
-                    ? "Subscribe to unlock"
-                    : nextLesson.title
-                  : "Subject Page"
-              }
-            >
-              <div>
-                <p>Next Lesson</p>
-                <h6 className="custom-green">
-                  {nextLesson
-                    ? nextLesson.title && nextLesson.title.slice(0, 13)
-                    : "Subject Page"}
-                  {nextLesson && nextLesson.title && nextLesson.title.length > 13
-                    ? "..."
-                    : null}
-                </h6>
+              >
+                <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  className="arrow"
+                  color="#26aa76"
+                />
+                <div>
+                  {prevLesson ? (
+                    <p className="p1">
+                      Previous <span className="hide-900">Lesson</span>
+                    </p>
+                  ) : (
+                    <p>Back to</p>
+                  )}
+
+                  <h6 className="custom-green">
+                    {prevLesson
+                      ? prevLesson.title && prevLesson.title.slice(0, 13)
+                      : "Subject Page"}
+                    {prevLesson &&
+                    prevLesson.title &&
+                    prevLesson.title.length > 13
+                      ? "..."
+                      : null}
+                  </h6>
+                </div>
+              </Link>
+              <div className="text">
+                Lesson {currentLessonIndex + 1} of{" "}
+                {subject && lessons && lessons.length}
               </div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                className="arrow"
-                color="#26aa76"
-              />
-            </Link>
-          </div>
-        </>
-        :''}
+              <Link
+                to={nextLesson ? linkToNextLesson : linkToSubjectPage}
+                className="button button2"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-html="true"
+                onClick={(e) => {
+                  window.scrollTo(0, 0);
+                  if (
+                    nextNotAllowed ||
+                    (nextLesson &&
+                      nextLesson.videoUrls &&
+                      nextLesson.videoUrls.length === 0)
+                  ) {
+                    e.preventDefault();
+                    if (!activeCoursePaidStatus) {
+                      return toggle3();
+                    } else if (
+                      nextLesson &&
+                      nextLesson.videoUrls &&
+                      nextLesson.videoUrls.length === 0
+                    ) {
+                      return toggleModal4();
+                    }
+                  } else {
+                    if (nextLesson) {
+                      //get lesson comments
+                      props.getLessonComments(nextLesson.id, {
+                        commentSection: "video",
+                      });
+                    }
+                  }
+                }}
+                title={
+                  nextLesson
+                    ? nextNotAllowed
+                      ? "Subscribe to unlock"
+                      : nextLesson.title
+                    : "Subject Page"
+                }
+              >
+                <div>
+                  <p>Next Lesson</p>
+                  <h6 className="custom-green">
+                    {nextLesson
+                      ? nextLesson.title && nextLesson.title.slice(0, 13)
+                      : "Subject Page"}
+                    {nextLesson &&
+                    nextLesson.title &&
+                    nextLesson.title.length > 13
+                      ? "..."
+                      : null}
+                  </h6>
+                </div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  className="arrow"
+                  color="#26aa76"
+                />
+              </Link>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
 
       <TakeActionPopUp
@@ -1048,16 +1255,17 @@ const mapStateToProps = (state) => ({
   role: state.auth.user.role,
   activeCoursePaidStatus: state.auth.activeCoursePaidStatus,
   lessonSubjectId: state.subject.lessonSubjectId,
-  lessonCourseId:state.subject.lessonCourseId,
-  userId:state.auth.userId,
+  lessonCourseId: state.subject.lessonCourseId,
+  userId: state.auth.userId,
   dashboardFavouriteVideos: state.course.dashboardFavouriteVideos,
-  newlyAddedDashbaordFavouriteVideos: state.course.newlyAddedDashbaordFavouriteVideos,
-  relatedLessons:state.subject.relatedLessons,
-  likedVideoLoader:state.course.likedVideoLoader,
-  favouriteVideoLoader:state.course.favouriteVideoLoader,
-  subjectAndRelatedLessonsLoader: state.course.subjectAndRelatedLessonsLoader, 
+  newlyAddedDashbaordFavouriteVideos:
+    state.course.newlyAddedDashbaordFavouriteVideos,
+  relatedLessons: state.subject.relatedLessons,
+  likedVideoLoader: state.course.likedVideoLoader,
+  favouriteVideoLoader: state.course.favouriteVideoLoader,
+  subjectAndRelatedLessonsLoader: state.course.subjectAndRelatedLessonsLoader,
   isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
+  user: state.auth.user,
 });
 export default connect(mapStateToProps, {
   getCourse,
@@ -1074,5 +1282,5 @@ export default connect(mapStateToProps, {
   storeLikedVideos,
   removeLikedVideos,
   authInputChange,
-  getLessonComments
+  getLessonComments,
 })(LessonPage);

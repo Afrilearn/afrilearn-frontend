@@ -105,7 +105,7 @@ body {
 }
 
 .loading-indicator:after {
-  content: url('./assets/img/loading.gif');
+  content: url("./assets/img/loading.gif");
   position: fixed;
   width: 100%;
   top: 50%;
@@ -119,7 +119,7 @@ body {
 }
 
 .loading-indicator:before {
-  content: '';
+  content: "";
   background: #000000cc;
   position: fixed;
   width: 100%;
@@ -233,7 +233,7 @@ a:hover {
 }
 
 .swal2-styled.swal2-confirm {
-  background-color: #84BB29 !important;
+  background-color: #84bb29 !important;
 }
 
 .underline {
@@ -241,7 +241,7 @@ a:hover {
 }
 
 .green {
-  color: #84BB29;
+  color: #84bb29;
 }
 
 .moveToFront {
@@ -328,7 +328,7 @@ img.logo {
 }
 
 .contact {
-  background: #84BB29 !important;
+  background: #84bb29 !important;
   border-radius: 10px;
   color: white !important;
   width: 100px;
@@ -425,7 +425,7 @@ input.searchBox {
 }
 
 .ourGreen {
-  color: #84BB29;
+  color: #84bb29;
 }
 
 select.general,
@@ -440,7 +440,7 @@ input.general {
 }
 
 input.authSubmit {
-  background: #84BB29;
+  background: #84bb29;
   color: white;
   text-align: center;
   font-weight: bolder;
@@ -511,7 +511,7 @@ img.dropDownIcon1 {
 }
 
 .attempted {
-  background: #84BB29 !important;
+  background: #84bb29 !important;
   color: white !important;
 }
 
@@ -522,7 +522,7 @@ img.dropDownIcon1 {
 
 .pending {
   background: white !important;
-  color: #84BB29 !important;
+  color: #84bb29 !important;
   box-shadow: 0pt 0.5pt 4pt rgba(0, 0, 0, 0.1);
 }
 
@@ -569,7 +569,7 @@ img.dropDownIcon1 {
   opacity: 1 !important;
   border-radius: 6px;
 }
-.rc-tooltip-inner { 
+.rc-tooltip-inner {
   border: none !important;
 }
 
@@ -599,7 +599,7 @@ img.dropDownIcon1 {
 
   .navbar-light .navbar-toggler {
     color: white !important;
-    border-color: #84BB29;
+    border-color: #84bb29;
   }
 
   .navbar-nav {
@@ -733,4 +733,17 @@ select.no-appearance {
   .text-md-start {
     text-align: start !important;
   }
+}
+.paymentBox a {
+  display: block;
+  background: #84bb29 !important;
+  padding: 6px;
+  color: white !important;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+.paymentBox a.activeButton {
+  border: solid 0.5px #222222;
+  background: white !important;
+  color: #222222 !important;
 }

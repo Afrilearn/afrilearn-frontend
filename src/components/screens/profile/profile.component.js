@@ -57,6 +57,7 @@ const ProfilePage = (props) => {
     classes,
     error,
     referralCode,
+    dashboardClassMembership
   } = props;
 
   const [newName, setNewName] = useState(null);
@@ -213,11 +214,7 @@ const ProfilePage = (props) => {
       if (newState) {
         userData.state = newState;
       }
-      if (newProfilePic) {
-        const data = new FormData();
-        data.append("profilePhotoUrl", photoToUpload);
-        props.updateProfilePicture(data);
-      }
+
       props.updateProfile(userData);
     }
 
@@ -240,12 +237,12 @@ const ProfilePage = (props) => {
 
   const classListForStudents = () => {
     if (
-      dashboardData &&
-      dashboardData.classMembership &&
-      Object.keys(dashboardData).length &&
-      dashboardData.classMembership.length
+      dashboardClassMembership &&
+      dashboardClassMembership.classMembership &&
+      Object.keys(dashboardClassMembership).length &&
+      dashboardClassMembership.classMembership.length
     ) {
-      return dashboardData.classMembership.map((item, index) => {
+      return dashboardClassMembership.classMembership.map((item, index) => {
         return (
           <tr>
             <td>{item.classId.name}</td>
@@ -264,12 +261,12 @@ const ProfilePage = (props) => {
 
   const classListForStudentsOne = () => {
     if (
-      dashboardData &&
-      dashboardData.classMembership &&
-      Object.keys(dashboardData).length &&
-      dashboardData.classMembership.length
+      dashboardClassMembership &&
+      dashboardClassMembership.classMembership &&
+      Object.keys(dashboardClassMembership).length &&
+      dashboardClassMembership.classMembership.length
     ) {
-      return dashboardData.classMembership.map((item, index) => {
+      return dashboardClassMembership.classMembership.map((item, index) => {
         return <span>{item.classId.name}</span>;
       });
     } else {
@@ -362,10 +359,10 @@ const ProfilePage = (props) => {
         <div
           class="circle"
           style={{
-            backgroundImage: `url(${newProfilePic || user.profilePhotoUrl})`,
+            backgroundImage: `url(${user.profilePhotoUrl})`,
           }}
         >
-          {!newProfilePic && !user.profilePhotoUrl && <span>{myInitials}</span>}
+          {!user.profilePhotoUrl && <span>{myInitials}</span>}
         </div>
         <div className="top-details">
           <div className="items">
@@ -418,7 +415,7 @@ const ProfilePage = (props) => {
               State: &nbsp;{" "}
               {newState ? newState : user.state ? user.state : "Not Available"}
             </p>
-            <p>
+            <p className="gender-text">
               Gender: &nbsp;{" "}
               {newGender
                 ? newGender
@@ -503,15 +500,16 @@ const ProfilePage = (props) => {
       <div id="hiddenProfilePageSectionTwo">
         <div
           className="round-image"
-          style={{ backgroundImage: `url(${newProfilePic || woman})` }}
+          style={{ backgroundImage: `url(${user.profilePhotoUrl || woman})` }}
         >
           <label className="select-image-label" htmlFor="inputGroupFile01">
             <input
               type="file"
               id="inputGroupFile01"
               onChange={(e) => {
-                setNewProfilePic(URL.createObjectURL(e.target.files[0]));
-                setPhotoToUpload(e.target.files[0]);
+                const data = new FormData();
+                data.append("profilePhotoUrl", e.target.files[0]);
+                props.updateProfilePicture(data);
               }}
             />
             <FontAwesomeIcon icon={faPencilAlt} className="round-image-icon" />
@@ -587,6 +585,7 @@ const ProfilePage = (props) => {
                     e.preventDefault();
                     setNewName(e.target.value);
                   }}
+                  defaultValue={user && user.fullName}
                 />
               </FormGroup>
               <FormGroup className="d-flex justify-content-between flex-wrap">
@@ -601,6 +600,7 @@ const ProfilePage = (props) => {
                   id="email"
                   placeholder={user && user.email}
                   readOnly
+                  defaultValue={user && user.email}
                 />
               </FormGroup>
               <div className="phone-number d-flex justify-content-between flex-wrap">
@@ -622,12 +622,13 @@ const ProfilePage = (props) => {
                   </span>
                   <input
                     placeholder={
-                      user && user.phoneNumber ? user.phoneNumber : ""
+                      user && user.phoneNumber ? user.phoneNumber : "00-000-000"
                     }
                     onChange={(e) => {
                       e.preventDefault();
                       setNewPhone(e.target.value);
                     }}
+                    defaultValue={user && user.phoneNumber}
                   />
                 </div>
               </div>
@@ -648,6 +649,7 @@ const ProfilePage = (props) => {
                     e.preventDefault();
                     setnewAge(e.target.value);
                   }}
+                  defaultValue={user.dateOfBirth}
                 ></Input>
               </FormGroup>
               <FormGroup className="d-flex flex-wrap align-items-center">
@@ -664,7 +666,9 @@ const ProfilePage = (props) => {
                     setnewState(e.target.value);
                   }}
                 >
-                  <option>{user && user.state}</option>
+                  <option>
+                    {user && user.state ? user.state : "Select state"}
+                  </option>
                   {statesInNigeria.map((state) => (
                     <option key={state.id}>{state.name}</option>
                   ))}
@@ -687,11 +691,13 @@ const ProfilePage = (props) => {
                         setNewGender(e.target.value);
                       }}
                     >
-                      <option>
-                        {user && user.gender ? user.gender : "Select Gender"}
+                      <option unselectable>Select Gender</option>
+                      <option selected={user && user.gender === "male"}>
+                        Male
                       </option>
-                      <option>Male</option>
-                      <option>Female</option>
+                      <option selected={user && user.gender === "female"}>
+                        Female
+                      </option>
                     </Input>
                     {/* </Col> */}
                   </FormGroup>
@@ -790,6 +796,7 @@ const mapStateToProps = (state) => ({
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
   user: state.auth.user,
   dashboardData: state.course.dashboardData,
+  dashboardClassMembership: state.course.dashboardClassMembership,
   classes: state.class.classes,
   error: state.error,
 });

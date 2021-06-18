@@ -15,7 +15,7 @@ import {
   PASSWORD_CHANGE_FROM_PROFILE_SUCCESS,
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_PIC_SUCCESS,
-  PAYMENT_VERIFICATION_SUCCESS
+  PAYMENT_VERIFICATION_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -64,14 +64,13 @@ const initialState = {
   allUsers: 0,
   courseCategoryId: "",
   redirectTo: "",
-  rolesLoader:false,
-  authLoader:false
+  rolesLoader: false,
+  authLoader: false,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-   
-    case INPUT_CHANGE:    
+    case INPUT_CHANGE:
       return {
         ...state,
         [action.payload.name]: action.payload.value,
@@ -136,7 +135,7 @@ const authReducer = (state = initialState, action) => {
                 : "",
           };
         } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
-          myObj = {
+          myObj = { 
             activeEnrolledCourseId:
               action.payload.user.enrolledCourses &&
               action.payload.user.enrolledCourses.length
@@ -230,16 +229,29 @@ const authReducer = (state = initialState, action) => {
     case UPDATE_PROFILE_SUCCES:
       return {
         ...state,
+        user: {
+          ...state.user,
+          fullName: action.payload.fullName,
+          phoneNumber: action.payload.phoneNumber,
+          dateOfBirth: action.payload.dateOfBirth,
+          country: action.payload.country,
+          state: action.payload.state,
+          gender: action.payload.gender,
+        },
       };
     case UPDATE_PROFILE_PIC_SUCCESS:
       return {
         ...state,
+        user: {
+          ...state.user,
+          profilePhotoUrl: action.payload.profilePhotoUrl,
+        },
       };
-    case PAYMENT_VERIFICATION_SUCCESS:     
+    case PAYMENT_VERIFICATION_SUCCESS:
       return {
         ...state,
-        activeCoursePaidStatus: action.payload
-      };      
+        activeCoursePaidStatus: action.payload,
+      };
     case LOGOUT_SUCCESS:
       localStorage.removeItem("token");
       return {

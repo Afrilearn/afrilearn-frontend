@@ -848,12 +848,12 @@ export default {
       headers: this.headers(),
       data,
     });
-  },  
+  },
   deleteLessonComment(commentId) {
     return axios({
       method: "delete",
       url: `${this.url}comments/${commentId}`,
-      headers: this.headers()       
+      headers: this.headers(),
     });
   },
   updateLessonComment(data, commentId) {
@@ -861,7 +861,7 @@ export default {
       method: "patch",
       url: `${this.url}comments/${commentId}`,
       headers: this.headers(),
-      data       
+      data,
     });
   },
   reportLesson(data) {

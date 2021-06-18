@@ -93,7 +93,7 @@ const Box = (props) => {
               <div className="col-md-2"></div>
             </div>
           </div>  
-          :
+          : 
           props.item.videoUrls && props.item.videoUrls.length?
             <ReactPlayer
               className="react-player"            
