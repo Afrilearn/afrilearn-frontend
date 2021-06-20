@@ -69,7 +69,7 @@ import SchoolAddStudent from "../screens/schoolAddStudent/addStudent.component";
 import AcceptRequests from "../screens/acceptRequests/acceptRequests.component";
 import SchoolPeople from "../screens/schoolPeople/schoolPeople.component";
 import Favourite from "../screens/favourite/favourite.component";
-
+import schoolAddAdminComponent from "../screens/schoolAddAdmin/schoolAddAdmin.component";
 
 const MyNav = (props) => {
   const {
@@ -326,9 +326,9 @@ const MyNav = (props) => {
       <Navbar color="light" light expand="md">
         <NavbarBrand tag={Link} to="/">
           <img
-            className='logo'
-            src={require('../../assets/img/logonew.png')}
-            alt='Afrilearn Logo'
+            className="logo"
+            src={require("../../assets/img/logonew.png")}
+            alt="Afrilearn Logo"
           />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -467,13 +467,16 @@ const MyNav = (props) => {
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/classes/teacher">
                     Teacher's Dashboard
-                  </DropdownItem> */}    
-                   <DropdownItem>
-                   <a href="https://rxg7hvu62hz.typeform.com/to/VS8LL5pI" target="_blank">
-                    Share your Feedback
-                  </a>
-                  </DropdownItem>              
-                
+                  </DropdownItem> */}
+                  <DropdownItem>
+                    <a
+                      href="https://rxg7hvu62hz.typeform.com/to/VS8LL5pI"
+                      target="_blank"
+                    >
+                      Share your Feedback
+                    </a>
+                  </DropdownItem>
+
                   <DropdownItem tag={Link} to="/" onClick={handleLogout}>
                     Log Out
                   </DropdownItem>
@@ -533,28 +536,19 @@ const MyNav = (props) => {
           exact
           component={pastQuestionExamPage}
         />
-        <Route
-          path="/past-questions/:categoryId"
-          component={pastQuestions}
-        />
+        <Route path="/past-questions/:categoryId" component={pastQuestions} />
         <Route
           path="/classes/:classId/:subjectId/quiz"
           exact
           component={quizPage}
         />
-        <Route  path="/text" component={TextToSpeech}/>
+        <Route path="/text" component={TextToSpeech} />
         <Route
           path="/classes/:classId/:subjectId/:classworkId"
           component={classWork}
         />
-        <Route
-          path="/classroom/:classId"
-          component={classroomStudent}
-        />
-        <Route
-          path="/classes/teacher"
-          component={classroomTeacherComponent}
-        />
+        <Route path="/classroom/:classId" component={classroomStudent} />
+        <Route path="/classes/teacher" component={classroomTeacherComponent} />
         <Route path="/classes/:classId" component={classPage} />
         <Route path="/classes" component={classes} />
         <Route path="/assign-content" component={assignContent} />
@@ -592,9 +586,9 @@ const MyNav = (props) => {
               ? ParentDashboard
               : user.role === "607ededa2712163504210684"
               ? SchoolDashboard
-              : user.role ==="602f3ce39b146b3201c2dc1d"
+              : user.role === "602f3ce39b146b3201c2dc1d"
               ? classroomTeacherComponent
-              :null
+              : null
           }
         />
         <Route path="/my-students" component={myStudents} />
@@ -606,15 +600,13 @@ const MyNav = (props) => {
         <Route path="/search-details" component={SearchDetails} />
         <Route path="/register-child" component={ParentChildRegistration} />
         <Route path="/children" component={ChildrenList} />
-        <Route
-          path="/child-performance"
-          component={ParentPerformance}
-        />
+        <Route path="/child-performance" component={ParentPerformance} />
         <Route
           path="/child-timed-performance"
           component={ParentTimedPerformance}
         />
         <Route path="/edit/profile" component={EditSchoolProfile} />
+        <Route path="/add-admin" component={schoolAddAdminComponent} />
         <Route path="/add-teacher" component={SchoolAddTeacher} />
         <Route path="/add-student" component={SchoolAddStudent} />
         <Route path="/more-info" component={Favourite} />

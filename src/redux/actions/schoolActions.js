@@ -25,6 +25,8 @@ import {
   UPDATE_CLASS_NAME_FAILURE,
   SCHOOL_DELETE_STUDENT_ACCOUNT_SUCCESS,
   SCHOOL_DELETE_STUDENT_ACCOUNT_FAILURE,
+  SCHOOL_SIGNUP_FOR_ADMIN_SUCCESS,
+  SCHOOL_SIGNUP_FOR_ADMIN_FAILURE,
 } from "./types";
 
 const dispatchError = (dispatch, err, id) => {
@@ -250,6 +252,41 @@ export const schoolSignUpForStudent = (
     // console.log(err);
     document.body.classList.remove("loading-indicator");
     dispatchError(dispatch, err, SCHOOL_SIGNUP_FOR_STUDENT_FAILURE);
+  }
+};
+
+export const schoolSignUpForAdmin = (
+  fullName,
+  password,
+  confirmPassword,
+  email,
+  schoolId,
+  roleDescription
+) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    await API.schoolSignUpForAdmin(
+      fullName,
+      password,
+      confirmPassword,
+      email,
+      schoolId,
+      roleDescription
+    );
+    dispatch({
+      type: SCHOOL_SIGNUP_FOR_ADMIN_SUCCESS,
+    });
+    dispatchSuccess(
+      dispatch,
+      `Admin Signed Up Successfully`,
+      200,
+      SCHOOL_SIGNUP_FOR_ADMIN_SUCCESS
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    // console.log(err);
+    document.body.classList.remove("loading-indicator");
+    dispatchError(dispatch, err, SCHOOL_SIGNUP_FOR_ADMIN_FAILURE);
   }
 };
 

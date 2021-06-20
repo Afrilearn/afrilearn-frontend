@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: HerokuURL,
+  url: LocalURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -667,6 +667,27 @@ export default {
       data: { fullName, password, email, classId, schoolId, courseId },
     });
   },
+  schoolSignUpForAdmin(
+    fullName,
+    password,
+    confirmPassword,
+    email,
+    schoolId,
+    roleDescription
+  ) {
+    return axios({
+      method: "post",
+      url: `${this.url}schools/sign-up-for-admin`,
+      data: {
+        fullName,
+        password,
+        confirmPassword,
+        email,
+        schoolId,
+        roleDescription,
+      },
+    });
+  },
   getDashboardEnrolledCourse(data) {
     return axios({
       method: "post",
@@ -869,7 +890,14 @@ export default {
       method: "post",
       url: `${this.url}lessons/reportLesson`,
       headers: this.headers(),
-      data       
+      data,
+    });
+  },
+  addNewAdminToClass(fullName, email, password, classId) {
+    return axios({
+      method: "post",
+      url: `${this.url}adminroles/add-admin-to-class`,
+      data: { fullName, email, password, classId },
     });
   },
 };

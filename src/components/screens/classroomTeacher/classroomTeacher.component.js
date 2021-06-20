@@ -23,6 +23,7 @@ import {
   getClassAssignedContents,
   getMembersInClass,
   getClassBasicDetails,
+  addNewAdminToClass,
 } from "./../../../redux/actions/classActions";
 import { populateDashboard } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
@@ -59,6 +60,9 @@ const ClassroomTeacher = (props) => {
   };
   const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState(null);
+  const [newAdminEmail, setNewAdminEmail] = useState(null);
+  const [newAdminFullName, setNewAdminFullName] = useState(null);
+  const [newAdminPassword, setNewAdminPassword] = useState(null);
   const onDismiss = () => setVisible(false);
 
   const classMembers = useSelector((state) => state.class.classMembers);
@@ -106,6 +110,8 @@ const ClassroomTeacher = (props) => {
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
+  const [modal2, setModal2] = useState(false);
+  const toggleModal2 = () => setModal2(!modal2);
 
   const [announcementModal, setAnnouncementModal] = useState(false);
   const toggleAnnouncementModal = () =>
@@ -114,9 +120,11 @@ const ClassroomTeacher = (props) => {
   const [addTeacherModal, setAddTeacherModal] = useState(false);
   const toggleAddTeacherModal = () => setAddTeacherModal(!addTeacherModal);
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [popoverOpen2, setPopoverOpen2] = useState(false);
   // const [status, setStatus] = useState(null)
 
   const toggle = () => setPopoverOpen(!popoverOpen);
+  const toggle2 = () => setPopoverOpen2(!popoverOpen2);
 
   const [newAnouncements, setNewAnouncements] = useState([]);
   const [newComments, setNewComments] = useState([]);
@@ -164,6 +172,38 @@ const ClassroomTeacher = (props) => {
     });
     props.clearErrors();
   } else if (error.id === "ACCEPT_REJECT_CLASSMEMBER_SUCCESS") {
+    const message =
+      typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      // position: "top-end",
+    });
+    props.clearErrors();
+  } // do componentDidUpdate logic
+  else if (error.id === "ADD_NEW_ADMIN_TO_CLASS_SUCCESS") {
+    const message =
+      typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      // position: "top-end",
+    });
+    props.clearErrors();
+  } // do componentDidUpdate logic
+  else if (error.id === "ADD_NEW_ADMIN_TO_CLASS_FAILURE") {
     const message =
       typeof error.msg === "object" ? error.msg.join("<br/>") : error.msg;
     Swal.fire({
@@ -604,6 +644,101 @@ const ClassroomTeacher = (props) => {
         </ModalBody>
       </Modal>
       <Modal
+        isOpen={modal2}
+        toggle={toggleModal2}
+        className="addStudentItemPopUp"
+      >
+        <ModalBody>
+          <div class="popup-body">
+            <FontAwesomeIcon
+              icon={faTimes}
+              style={{ position: "absolute", top: "5px", right: "10px" }}
+              onClick={toggleModal2}
+              className="cursor-pointer"
+            />
+            <h4>Add Admin to your classroom</h4>
+            <img src={addstudent} alt="mail" />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                props.addNewAdminToClass(
+                  newAdminFullName,
+                  newAdminEmail,
+                  newAdminPassword,
+                  activeEnrolledCourseId
+                );
+              }}
+            >
+              <label for="username" class="form-label">
+                Full Name
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Full Name"
+                aria-label="Recipient's full name"
+                aria-describedby="button-addon2"
+                required
+                onChange={(e) => {
+                  e.preventDefault();
+                  setNewAdminFullName(e.target.value);
+                }}
+              />
+              <label for="username" class="form-label">
+                Email Address
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email address"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+                required
+                onChange={(e) => {
+                  e.preventDefault();
+                  setNewAdminEmail(e.target.value);
+                }}
+              />
+              <label for="username" class="form-label">
+                Password
+              </label>
+              <input
+                type="password"
+                security
+                class="form-control"
+                placeholder="Password"
+                aria-label="Recipient's password"
+                aria-describedby="button-addon2"
+                required
+                onChange={(e) => {
+                  e.preventDefault();
+                  setNewAdminPassword(e.target.value);
+                }}
+              />
+              <button type="submit" className="btn dColor my-3">
+                Add Admin
+              </button>
+            </form>
+
+            <small
+              id="copyLinkText"
+              class="form-text text-right c-green cursor-pointer"
+              onClick={(e) => copyToClipboard(e)}
+            >
+              Copy Code
+            </small>
+          </div>
+          <Alert
+            color="info"
+            isOpen={visible}
+            toggle={onDismiss}
+            style={{ zIndex: 22 }}
+          >
+            Classcode copied to Clipboard!
+          </Alert>
+        </ModalBody>
+      </Modal>
+      <Modal
         isOpen={announcementModal}
         toggle={toggleAnnouncementModal}
         className="addStudentItemPopUp"
@@ -703,7 +838,7 @@ const ClassroomTeacher = (props) => {
             })`,
           }}
         ></div>
-      
+
         <div className="welcome">
           <h1 className="font2">Welcome {props.fullName}</h1>
           <p>
@@ -714,10 +849,9 @@ const ClassroomTeacher = (props) => {
           </small>
         </div>
         <div className="text">
-          <span className="">
+          <span className="mx-2">
             <u>Add Student</u>
           </span>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Popover
             placement="bottom"
             isOpen={popoverOpen}
@@ -732,6 +866,27 @@ const ClassroomTeacher = (props) => {
             onMouseOver={() => setPopoverOpen("true")}
             onMouseLeave={toggle}
             onClick={toggleModal}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </span>
+          <span className="mx-2">
+            <u>Add Admin</u>
+          </span>
+
+          <Popover
+            placement="bottom"
+            isOpen={popoverOpen2}
+            target="Popover2"
+            toggle={toggle2}
+          >
+            <PopoverBody>Add Admin to classroom</PopoverBody>
+          </Popover>
+          <span
+            className="btn dColor"
+            id="Popover2"
+            onMouseOver={() => setPopoverOpen2("true")}
+            onMouseLeave={toggle2}
+            onClick={toggleModal2}
           >
             <FontAwesomeIcon icon={faPlus} />
           </span>
@@ -949,6 +1104,7 @@ ClassroomTeacher.propTypes = {
   inputChange: PropTypes.func.isRequired,
   getClass: PropTypes.func.isRequired,
   createComment: PropTypes.func.isRequired,
+  addNewAdminToClass: PropTypes.func.isRequired,
   sendClassInvitation: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   acceptRejectClassmember: PropTypes.func.isRequired,
@@ -974,6 +1130,7 @@ export default connect(mapStateToProps, {
   populateDashboard,
   getClass,
   createComment,
+  addNewAdminToClass,
   sendClassInvitation,
   clearErrors,
   acceptRejectClassmember,

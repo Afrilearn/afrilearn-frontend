@@ -69,7 +69,7 @@ import {
 import queryString from "query-string";
 import slugify from "react-slugify";
 import Countdown from "react-countdown";
-import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
+import TakeActionPopUp from "../../includes/popUp/takeActionPopUp.component";
 import DTooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import ReportBox from "../../includes/modal/reportLesson.component"
@@ -712,127 +712,6 @@ const LessonPage = (props) => {
         )}
       </div>
       <div id="lessonPageSectionTwo">
-<<<<<<< HEAD
-        {!subjectAndRelatedLessonsLoader? 
-        <>
-          <div className="left">
-            <div className="row controlBar">
-              <div className="col-md-12">
-                <ul>
-                  <li>                   
-                    <span className="backArrow">
-                      <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
-                      Lesson {videoIndex + 1}
-                    </span>                  
-                  </li>                 
-                  <li>
-                    <DTooltip
-                      placement="top"
-                      trigger={["hover"]}
-                      overlay={
-                        <span>
-                         Class Note
-                        </span>
-                      }
-                    >
-                      <Link to={linkToLessonClassNote}>
-                        <img src={ClasnoteIcon} alt="Class Note" className="likeIcon"/>  
-                      </Link> 
-                    </DTooltip> 
-                    <br/>Note       
-                  </li>
-                  <li>
-                    <DTooltip
-                      placement="top"
-                      trigger={["hover"]}
-                      overlay={
-                        <span>
-                          Audio Lesson
-                        </span>
-                      }
-                    >
-                      <Link onClick={(e) => {e.preventDefault()}}>
-                        <Speech
-                          content={decodeEntities(video && video.transcript)} 
-                        /> 
-                      </Link> 
-                    </DTooltip> 
-                    <br/>Audio       
-                  </li>
-                  <li>
-                    <DTooltip
-                      placement="top"
-                      trigger={["hover"]}
-                      overlay={
-                        <span>
-                         {alreadyAddedToLike()? 'Unlike':'I like this'}
-                        </span>
-                      }
-                    >
-                      <Link onClick={alreadyAddedToLike()? removeLikedVideo:storeLikedVideo}>                 
-                        <img src={alreadyAddedToLike()? Unlike:Like} alt="see this" className="likeIcon"/>              
-                      </Link>
-                    </DTooltip> 
-                    <br/>{numberWithCommas(likeArray.length)+' like(s)'}   
-                 
-                  </li>
-                  <li className="moreOptions">
-                    <DTooltip
-                      placement="top"
-                      trigger={["hover"]}
-                      overlay={
-                        <span>
-                          <Link onClick={toggle1}>
-                            Share
-                          </Link><br/>
-                          {isAuthenticated? <> <Link>{alreadyAddedToFavourite()? <Link onClick={removeFavouriteVideos}>Remove from Favourites</Link>:<Link onClick={storeFavouriteVideos}>Add to Favourites</Link>} </Link><br/></>:''}
-                          <ReportBox lesson={lesson}/>
-                        </span>
-                      }
-                    >
-                      <Link onClick={(e) => {e.preventDefault()}}>
-                        <FontAwesomeIcon icon={faEllipsisV} color="white" size="lg" />
-                      </Link> 
-                    </DTooltip> 
-                    <br/>More
-                  </li>
-                </ul>                      
-              </div>              
-            </div>         
-            
-            <h4>{lesson && parse(lesson.title)}</h4>
-            <FontAwesomeIcon icon={faEye} /> {lesson && numberWithCommas(lesson.views)+' view(s)'}            <br/><br/>
-            <a href="#transcriptText" onClick={toggleTranscript}>
-              {isOpen ? "Hide" : "Show"} Transcript
-            </a>
-            <Collapse isOpen={isOpen}>
-              <p className="lessonContent">
-                {video && video.transcript
-                  ? parse(video.transcript)
-                  : "No Transcript available"}
-              </p>
-            </Collapse>
-            <CommentBox lessonId={parsed.lessonId} commentSection='video'/>           
-           
-          </div>
-          <div className="right">
-            <div className="top">
-              <p>
-                <span>Class:&nbsp;&nbsp; &nbsp; </span>{" "}
-                {subject && subject.courseId && subject.courseId.alias}
-              </p>
-              <p>
-                <span>Subject:&nbsp;&nbsp; &nbsp; </span>{" "}
-                {subject && subject.mainSubjectId && subject.mainSubjectId.name}
-              </p>
-              <p>
-                <span>Term:&nbsp;&nbsp; &nbsp; </span> {term && term.name}
-              </p>
-              <p>
-                <span>Date Created:&nbsp;&nbsp; &nbsp; </span>{" "}
-                {moment(lesson && lesson.createdAt).format("LL")}
-              </p>
-=======
         {!subjectAndRelatedLessonsLoader ? (
           <>
             <div className="left">
@@ -973,7 +852,6 @@ const LessonPage = (props) => {
                 </p>
               </Collapse>
               <CommentBox lessonId={parsed.lessonId} commentSection="video" />
->>>>>>> e9d50d8... Fixes
             </div>
             <div className="right">
               <div className="top">

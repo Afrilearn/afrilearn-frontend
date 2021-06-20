@@ -50,8 +50,9 @@ import {
   GET_CLASS_ASSIGNED_CONTENTS_FAILURE,
   GET_CLASS_ASSIGNED_CONTENT_SUCCESS,
   GET_CLASS_ASSIGNED_CONTENT_FAILURE,
+  ADD_NEW_ADMIN_TO_CLASS_SUCCESS,
+  ADD_NEW_ADMIN_TO_CLASS_FAILURE,
 } from "./types";
-
 
 export const joinClassApproved = (classId, email, fullName, password) => async (
   dispatch
@@ -157,6 +158,48 @@ export const sendClassInvitation = (email, link) => async (dispatch) => {
     );
     dispatch({
       type: SEND_CLASS_INVITE_FAILURE,
+    });
+  }
+};
+
+export const addNewAdminToClass = (
+  fullName,
+  email,
+  password,
+  classId
+) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.addNewAdminToClass(
+      fullName,
+      email,
+      password,
+      classId
+    );
+
+    dispatch({
+      type: ADD_NEW_ADMIN_TO_CLASS_SUCCESS,
+      payload: {
+        admin: result.data.data.admin,
+      },
+    });
+    dispatch(
+      returnErrors("Admin Added", "200", "ADD_NEW_ADMIN_TO_CLASS_SUCCESS")
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "ADD_NEW_ADMIN_TO_CLASS_FAILURE"
+      )
+    );
+    dispatch({
+      type: ADD_NEW_ADMIN_TO_CLASS_FAILURE,
     });
   }
 };
@@ -739,7 +782,7 @@ export const makeAnnouncement = (classId, text) => async (
 ) => {
   try {
     const result = await API.makeAnnouncement(classId, text);
-    console.log(result.data.data.announcement)
+    console.log(result.data.data.announcement);
     dispatch({
       type: ADD_ANNOUNCEMENT_SUCCESS,
       payload: result.data.data.announcement,

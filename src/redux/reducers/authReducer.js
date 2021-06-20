@@ -109,14 +109,30 @@ const authReducer = (state = initialState, action) => {
         };
       } else {
         if (action.payload.user.role === "602f3ce39b146b3201c2dc1d") {
+          let activeEnrolledCourseId = "";
+          if (
+            action.payload.user.adminRoles &&
+            action.payload.user.adminRoles.length &&
+            action.payload.user.adminRoles.length > 0
+          ) {
+            activeEnrolledCourseId =
+              action.payload.user.adminRoles[0] &&
+              action.payload.user.adminRoles[0].classId &&
+              action.payload.user.adminRoles[0].classId._id;
+          }
+          if (
+            action.payload.user.classOwnership &&
+            action.payload.user.classOwnership.length &&
+            action.payload.user.classOwnership.length > 0
+          ) {
+            activeEnrolledCourseId =
+              action.payload.user.classOwnership[0] &&
+              action.payload.user.classOwnership[0]._id;
+          }
           myObj = {
             isAuthenticated: true,
             location: "/classes/teacher",
-            activeEnrolledCourseId:
-              action.payload.user.classOwnership &&
-              action.payload.user.classOwnership.length
-                ? action.payload.user.classOwnership[0]._id
-                : "",
+            activeEnrolledCourseId,
             activeCourseId:
               action.payload.user.classOwnership &&
               action.payload.user.classOwnership.length
@@ -135,7 +151,7 @@ const authReducer = (state = initialState, action) => {
                 : "",
           };
         } else if (action.payload.user.role === "5fd08fba50964811309722d5") {
-          myObj = { 
+          myObj = {
             activeEnrolledCourseId:
               action.payload.user.enrolledCourses &&
               action.payload.user.enrolledCourses.length

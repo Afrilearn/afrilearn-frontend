@@ -22,6 +22,7 @@ import {
   GET_CLASS_ANNOUNCEMENTS_SUCCESS,
   GET_CLASS_BASICS_SUCCESS,
   GET_CLASS_ASSIGNED_CONTENT_SUCCESS,
+  ADD_NEW_ADMIN_TO_CLASS_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -134,8 +135,8 @@ const classReducer = (state = initialState, action) => {
       };
     case ADD_ANNOUNCEMENT_SUCCESS:
       let newArray = state.classAnnouncements;
-       newArray.unshift(action.payload);
-       state.classAnnouncements = [...newArray]
+      newArray.unshift(action.payload);
+      state.classAnnouncements = [...newArray];
       return {
         ...state,
       };
@@ -167,6 +168,11 @@ const classReducer = (state = initialState, action) => {
         admins: state.admins.filter(
           (user) => user.userId._id !== action.payload._id
         ),
+      };
+    case ADD_NEW_ADMIN_TO_CLASS_SUCCESS:
+      return {
+        ...state,
+        admins: [...state.admins, action.payload.admin],
       };
 
     case SCHOOL_UNLINK_TEACHER_ACCOUNT_SUCCESS:
