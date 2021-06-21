@@ -6,6 +6,7 @@ import {
   SCHOOL_ADD_EXISTING_TEACHER_SUCCESS,
   SCHOOL_INPUT_CHANGE,
   SCHOOL_SIGNUP_FOR_STUDENT_SUCCESS,
+  SCHOOL_SIGNUP_FOR_ADMIN_SUCCESS,
   UPDATE_CLASS_NAME_SUCCESS,
   UPLOAD_SCHOOL_COVER_PHOTO_SUCCESS,
   UPLOAD_SCHOOL_LOGO_SUCCESS,
@@ -68,6 +69,14 @@ const schoolReducer = (state = initialState, action) => {
         school: {
           ...state.school,
           numOfStudents: state.school.numOfStudents + 1,
+        },
+      };
+    case SCHOOL_SIGNUP_FOR_ADMIN_SUCCESS:
+      return {
+        ...state,
+        school: {
+          ...state.school,
+          numOfTeachers: state.school.numOfTeachers + 1,
         },
       };
     case UPLOAD_SCHOOL_PROFILE_SUCCESS:

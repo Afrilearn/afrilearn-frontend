@@ -153,10 +153,7 @@ const SchoolDashboard = (props) => {
                   {padWithZero(school.numOfStudents || 0)}
                 </div>
               </div>
-              <div
-                style={{ position: "absolute", bottom: "-40px" }}
-                className="d-flex justify-content-around w-100"
-              >
+              <div className="d-flex justify-content-around w-100 add-student-teacher">
                 <Link
                   to={`/add-teacher?schoolId=${profile._id}`}
                   className="underlined"
@@ -176,6 +173,16 @@ const SchoolDashboard = (props) => {
                   }}
                 >
                   +Add New Student
+                </Link>
+                <Link
+                  to={`/add-admin?schoolId=${profile._id}`}
+                  className="underlined"
+                  style={{
+                    fontSize: ".9em",
+                    color: "rgba(38, 170, 118, 1)",
+                  }}
+                >
+                  +Add New Admin
                 </Link>
               </div>
             </div>

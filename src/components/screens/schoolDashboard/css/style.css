@@ -110,7 +110,7 @@
   padding: 3px;
 
   background: rgba(38, 170, 118, 0.28);
-  color: #84BB29;
+  color: #84bb29;
   border-radius: 12.186px;
   border: none;
   padding: 10px;
@@ -166,4 +166,13 @@
 }
 select.general {
   /* background: rgba(38, 170, 118, 0.28); */
+}
+.add-student-teacher {
+  position: absolute;
+  bottom: -40px;
+}
+@media screen and (max-width: 900px) {
+  .add-student-teacher {
+    bottom: -60px;
+  }
 }

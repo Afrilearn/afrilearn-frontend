@@ -56,7 +56,7 @@ import {
 } from "../../../redux/actions/pastQuestionsActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import Countdown from "react-countdown";
-import TakeActionPopUp from "../../includes/popUp/takeActionPopUp";
+import TakeActionPopUp from "../../includes/popUp/takeActionPopUp.component";
 import { getLessonComments } from "./../../../redux/actions/commentActions";
 import CommentBox from "../../includes/comment/addComment.component";
 import BackArrow from "../../../assets/img/VideobackButton.svg";

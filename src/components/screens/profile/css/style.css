@@ -32,7 +32,7 @@
   align-items: center;
   border-radius: 50%;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #profilePageSectionTwo .circle span {
@@ -268,7 +268,7 @@
   font-size: 40px;
 }
 #hiddenProfilePageSectionTwo .save-changes {
-  background-color: #84BB29 ;
+  background-color: #84bb29;
   border-radius: 100px;
   padding: 10px 32px;
   margin-left: 21px;
@@ -506,4 +506,7 @@
 #inputGroupFile01 {
   width: 0;
   height: 0;
+}
+.gender-text {
+  text-transform: capitalize;
 }
