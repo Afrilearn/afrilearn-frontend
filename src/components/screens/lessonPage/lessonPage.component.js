@@ -72,7 +72,9 @@ import Countdown from "react-countdown";
 import TakeActionPopUp from "../../includes/popUp/takeActionPopUp.component";
 import DTooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
-import ReportBox from "../../includes/modal/reportLesson.component"
+import ReportBox from "../../includes/modal/reportLesson.component";
+import TimeBack from "../../../assets/img/TimeBack.svg";
+import TimeForward from "../../../assets/img/TimeForward.svg";
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -671,9 +673,9 @@ const LessonPage = (props) => {
         </div>
         {video && video.videoUrl && (
           <div class="play-wrapper">
-            <FontAwesomeIcon
-              icon={faFastBackward}
-              className="player-controls-icon  player-controls-icon-backward"
+            <img
+              src={TimeBack}
+              className="player-controls-icon player-controls-icon-backward"
               onClick={() => {
                 ref.current.seekTo(
                   ref.current.getCurrentTime() - 10,
@@ -681,13 +683,15 @@ const LessonPage = (props) => {
                 );
               }}
             />
-            <FontAwesomeIcon
-              icon={faFastForward}
+
+            <img
+              src={TimeForward}
               className="player-controls-icon player-controls-icon-forward"
               onClick={() =>
                 ref.current.seekTo(ref.current.getCurrentTime() + 10, "seconds")
               }
             />
+
             <ReactPlayer
               className="react-player"
               onStart={storeUnFinishedVideo}
@@ -1046,6 +1050,7 @@ const LessonPage = (props) => {
         subText=" Subscribe now to unlock all videos, class notes, tests & more in
         this class."
         actionText="SUBSCRIBE NOW"
+        closeText="SUBSCRIBE LATER"
         modal={modal3}
         showActionButton={true}
         actionLink="/select-pay"

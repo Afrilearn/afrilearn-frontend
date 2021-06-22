@@ -27,14 +27,9 @@ const TakeActionPopUp = ({
         <div className="container">
           <div className="p-3 center paymentBox">
             <img className="mb-2" src={paymentIcon} />
-            <h3 className="my-2">
-              You need to subscribe to access this content!
-            </h3>
-            <h5 className="my-2">
-              Subscribe now to unlock all videos, class notes, tests & more in
-              this class
-            </h5>
-            <Link to={actionLink}>Subscribe Now</Link>
+            <h3 className="my-2">{headingText}</h3>
+            <h5 className="my-2">{subText}</h5>
+            <Link to={actionLink}>{actionText}</Link>
             <Link
               className="activeButton"
               onClick={(e) => {
@@ -42,7 +37,7 @@ const TakeActionPopUp = ({
                 toggle();
               }}
             >
-              Subscribe Later
+              {closeText}
             </Link>
           </div>
         </div>
