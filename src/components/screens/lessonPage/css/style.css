@@ -13,23 +13,19 @@
 
 #lessonPageSectionOne .player-controls-icon {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: transparent;
+  bottom: -6%;
   display: none;
-  justify-content: space-around;
   align-items: center;
   z-index: 3;
-  font-size: 100px;
-  color: #fff;
-  background-color: #84bb29;
-  opacity: 0.5;
-  padding: 15px;
-  border-radius: 50%;
+  display: none;
+  height: 30px;
+  cursor: pointer;
 }
+
 #lessonPageSectionOne .player-controls-icon-forward {
-  right: 10%;
+  left: 15%;
 }
+
 #lessonPageSectionOne .player-controls-icon-backward {
   left: 10%;
 }
@@ -316,8 +312,16 @@ img.likeIcon {
     padding: 10px;
   }
   #lessonPageSectionOne .player-controls-icon {
-    font-size: 30px;
-    padding: 5px;
+    bottom: 44px;
+    height: 25px;
+  }
+
+  #lessonPageSectionOne .player-controls-icon-forward {
+    left: 180px;
+  }
+
+  #lessonPageSectionOne .player-controls-icon-backward {
+    left: 130px;
   }
 
   #lessonPageSectionTwo .left {

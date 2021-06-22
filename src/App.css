@@ -239,9 +239,22 @@ a:hover {
 .underline {
   text-decoration: underline;
 }
+.grey-text {
+  color: #a8a8a8;
+}
 
 .green {
-  color: #84bb29;
+  color: #84bb29 !important;
+}
+.grey-border {
+  border-color: #a8a8a8 !important;
+}
+.light-grey-border {
+  border-color: #5b5a5a !important;
+  border-width: 0.5px;
+}
+.green-bg {
+  background-color: #84bb29;
 }
 
 .moveToFront {

@@ -70,6 +70,7 @@ import AcceptRequests from "../screens/acceptRequests/acceptRequests.component";
 import SchoolPeople from "../screens/schoolPeople/schoolPeople.component";
 import Favourite from "../screens/favourite/favourite.component";
 import schoolAddAdminComponent from "../screens/schoolAddAdmin/schoolAddAdmin.component";
+import Feeds from "../screens/feeds/feeds";
 
 const MyNav = (props) => {
   const {
@@ -610,6 +611,7 @@ const MyNav = (props) => {
         <Route path="/add-teacher" component={SchoolAddTeacher} />
         <Route path="/add-student" component={SchoolAddStudent} />
         <Route path="/more-info" component={Favourite} />
+        <Route path="/feeds" component={Feeds} />
       </Switch>
     </Router>
   );
