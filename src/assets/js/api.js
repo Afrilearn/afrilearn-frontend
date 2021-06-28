@@ -900,4 +900,140 @@ export default {
       data: { fullName, email, password, classId },
     });
   },
+  addAPostToFeed(data) {
+    // visibility
+    // courseId
+    // subjectId
+    // lessonId
+    // text
+    //image
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/posts`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  updateAPost(postId, data) {
+    // visibility
+    // courseId
+    // subjectId
+    // lessonId
+    // text
+    //image
+    return axios({
+      method: "patch",
+      url: `${this.url}feeds/posts/${postId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  deleteAPost(postId) {
+    return axios({
+      method: "delete",
+      url: `${this.url}feeds/posts/${postId}`,
+      headers: this.headers(),
+    });
+  },
+  commentToAPost(postId, data) {
+    // text
+    //image
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/comment/${postId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  likeAPost(postId) {
+    // text
+    //image
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/add-like/${postId}`,
+      headers: this.headers(),
+    });
+  },
+  unLikeAPost(postId) {
+    // text
+    //image
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/remove-like/${postId}`,
+      headers: this.headers(),
+    });
+  },
+  likeAComment(commentId) {
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/add-comment-like/${commentId}`,
+      headers: this.headers(),
+    });
+  },
+  unLikeAComment(commentId) {
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/remove-comment-like/${commentId}`,
+      headers: this.headers(),
+    });
+  },
+  searchForUsersInFeed(searchQuery) {
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/users/${searchQuery}`,
+    });
+  },
+  getUsersInMyFeed() {
+    return axios({
+      method: "get",
+      url: `${this.url}feeds/users`,
+    });
+  },
+  searchForPostsInFeed(searchQuery) {
+    return axios({
+      method: "post",
+      url: `${this.url}feeds/search/${searchQuery}`,
+    });
+  },
+  followAUserInFeed(userId) {
+    return axios({
+      method: "patch",
+      url: `${this.url}feeds/follow/${userId}`,
+      headers: this.headers(),
+    });
+  },
+  getMyPostsInFeed() {
+    return axios({
+      method: "get",
+      url: `${this.url}feeds/posts`,
+      headers: this.headers(),
+    });
+  },
+  getMyFollowingsInFeed() {
+    return axios({
+      method: "get",
+      url: `${this.url}feeds/followings`,
+      headers: this.headers(),
+    });
+  },
+  getMyFollowersInFeed() {
+    return axios({
+      method: "get",
+      url: `${this.url}feeds/followers`,
+      headers: this.headers(),
+    });
+  },
+  getAUserProfileInFeed(userId) {
+    return axios({
+      method: "get",
+      url: `${this.url}feeds/profile/${userId}`,
+      headers: this.headers(),
+    });
+  },
+  getCourseAndRelatedSubjectsForFeed() {
+    return axios({
+      method: "get",
+      url: `${this.url}feeds/courses-subjects`,
+    });
+  },
 };

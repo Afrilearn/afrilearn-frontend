@@ -11,6 +11,7 @@ import searchReducer from "./searchReducer";
 import parentReducer from "./parentReducer"
 import schoolReducer from "./schoolReducer";
 import commentReducer from "./commentReducer";
+import feedReducer from "./feedReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -25,4 +26,5 @@ export default combineReducers({
   parent: parentReducer,
   school: schoolReducer,
   comment: commentReducer,
+  feed: feedReducer,
 });
