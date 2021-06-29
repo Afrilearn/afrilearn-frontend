@@ -533,6 +533,26 @@ const Feeds = (props) => {
 
   let { path, url } = useRouteMatch();
 
+  window.addEventListener("scroll", () => {
+    const sideBarOffset = document.querySelector(".sticky-part-one");
+    const sideBarTwoOffset = document.querySelector(".sticky-part-two");
+    const mainSection = document.querySelector(".sticky-part.col-md-7");
+    if (window.scrollY > sideBarOffset.clientTop) {
+      sideBarOffset.classList.add("sticky-now-one");
+      mainSection.classList.add("middle-now");
+    } else {
+      sideBarOffset.classList.remove("sticky-now-one");
+      mainSection.classList.remove("middle-now");
+    }
+    if (window.scrollY > sideBarTwoOffset.clientTop) {
+      sideBarTwoOffset.classList.add("sticky-now-two");
+      mainSection.classList.add("middle-now");
+    } else {
+      sideBarTwoOffset.classList.remove("sticky-now-two");
+      mainSection.classList.remove("middle-now");
+    }
+  });
+
   return (
     <div id="feeds">
       <div className="negative_margin"></div>
@@ -667,9 +687,9 @@ const Feeds = (props) => {
         </ul>
       </div>
 
-      <div className="row g-3 px-4">
-        <div className="col-12 col-md-2 sticky-part hide-900 pb-5">
-          <div id="feedsLeftSideSection" className="p-3 mb-5">
+      <div className="row g-3 px-4 position-relative">
+        <div className="col-12 col-md-2 sticky-part sticky-part-one hide-900 pb-5">
+          <div id="feedsLeftSideSection" className="p-3 mb-5 ">
             <div className="who-to-follow row justify-content-between align-items-center  border-bottom py-2  grey-border">
               <div className="d-flex justify-content-between">
                 <h5 className="">My Profile</h5>
@@ -710,7 +730,7 @@ const Feeds = (props) => {
             </div>
           </div>
 
-          <div id="feedsLeftSideSection" className="p-3">
+          <div id="feedsLeftSideSection" className="p-3 ">
             <ul class="nav" id="myTab" role="tablist">
               <li class="" role="">
                 <NavLink to={`${url}/my-feeds`}>My Feeds</NavLink>
@@ -801,7 +821,7 @@ const Feeds = (props) => {
             </ul>
           </div>
         </div>
-        <div className="col-12 col-md-7 sticky-part pb-5">
+        <div className="col-12 col-md-7 sticky-part pb-5 ">
           <div id="feedsMainSection" className="p-3">
             <Redirect from={`${path}`} to={`${path}/my-feeds`} />
             <Route path={`${path}/connections`}>
@@ -1406,8 +1426,8 @@ const Feeds = (props) => {
             </Route>
           </div>
         </div>
-        <div className="col-12 col-md-3 sticky-part hide-900 pb-5">
-          <div id="feedsRightSideSection" className="p-3">
+        <div className="col-12 col-md-3 sticky-part sticky-part-two hide-900 pb-5">
+          <div id="feedsRightSideSection" className="p-3 ">
             <div className="who-to-follow row justify-content-between align-items-center  border-bottom py-2  grey-border">
               <h1 className="">Who to follow</h1>
             </div>
