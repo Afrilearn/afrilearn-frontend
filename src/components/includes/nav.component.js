@@ -70,7 +70,7 @@ import AcceptRequests from "../screens/acceptRequests/acceptRequests.component";
 import SchoolPeople from "../screens/schoolPeople/schoolPeople.component";
 import Favourite from "../screens/favourite/favourite.component";
 import schoolAddAdminComponent from "../screens/schoolAddAdmin/schoolAddAdmin.component";
-import Feeds from "../screens/feeds/feeds";
+import Feeds from "../screens/feeds/feeds.component";
 
 const MyNav = (props) => {
   const {
@@ -452,6 +452,13 @@ const MyNav = (props) => {
                       </DropdownItem>
                     </>
                   )}
+                  <DropdownItem
+                    tag={Link}
+                    to="/feeds"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    My Feeds <span className="badge badge-primary">New</span>
+                  </DropdownItem>
                   <DropdownItem
                     tag={Link}
                     to="/profile"

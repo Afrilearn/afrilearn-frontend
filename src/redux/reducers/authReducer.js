@@ -16,6 +16,7 @@ import {
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_PIC_SUCCESS,
   PAYMENT_VERIFICATION_SUCCESS,
+  FOLLOW_A_USER_IN_FEED_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -79,6 +80,29 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload.user,
+      };
+    case FOLLOW_A_USER_IN_FEED_SUCCESS:
+      const inFollowing = state.user.followings.includes(
+        action.payload.followed.userId._id
+      );
+      const currentUser = state.user;
+      let currentFollowings = state.user.followings;
+      console.log("current", currentFollowings);
+      if (inFollowing) {
+        currentFollowings = currentFollowings.filter(
+          (following) => following !== action.payload.followed.userId._id
+        );
+        console.log("removing", currentFollowings);
+      } else {
+        currentFollowings = [
+          ...currentUser.followings,
+          action.payload.followed.userId._id,
+        ];
+        console.log("adding", currentFollowings);
+      }
+      return {
+        ...state,
+        user: { ...currentUser, followings: [...currentFollowings] },
       };
     case GET_ROLES_SUCCESS:
       return {
