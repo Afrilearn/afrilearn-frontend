@@ -72,6 +72,7 @@ import Favourite from "../screens/favourite/favourite.component";
 import schoolAddAdminComponent from "../screens/schoolAddAdmin/schoolAddAdmin.component";
 import Feeds from "../screens/feeds/feeds.component";
 import ProtectedRoute from "../includes/protectedRoute.component";
+import Analytics from "../../analytics";
 
 const MyNav = (props) => {
   const {
@@ -621,6 +622,7 @@ const MyNav = (props) => {
         <Route path="/more-info" component={Favourite} />
         <Route path="/feeds" component={Feeds} />
       </Switch>
+      <Analytics/>
     </Router>
   );
 };

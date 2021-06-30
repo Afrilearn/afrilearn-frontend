@@ -17,6 +17,7 @@ import "animate.css";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import queryString from "query-string";
+import ReactGA from "react-ga";
 
 const Signup = (props) => {
   const {
@@ -147,6 +148,10 @@ const Signup = (props) => {
         user.referralCode = referralCode;
       }
       props.registerUser(user);
+      ReactGA.event({
+        category: 'User Signup',
+        action: 'User Clicked on the signup button'
+      });
     }
   };
 
@@ -187,6 +192,10 @@ const Signup = (props) => {
       token,
     };
     props.loginUser(data, true);
+    ReactGA.event({
+      category: 'User Signup',
+      action: 'User Clicked on the signup button'
+    });
   };
 
   const facebookLoginResponse = (response) => {

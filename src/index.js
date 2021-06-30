@@ -6,11 +6,11 @@ import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en";
 import ru from "javascript-time-ago/locale/ru";
-import ReactGA from "react-ga";
+
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
-ReactGA.initialize("UA-144130945-1");
+
 
 ReactDOM.render(
   <React.StrictMode>
