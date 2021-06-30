@@ -11,18 +11,19 @@ import "./App.css";
 import { loadUser } from "./redux/actions/authActions";
 import { getCourses } from "./redux/actions/courseActions";
 import Navigation from "./components/includes/nav.component";
-
+import ReactGA from "react-ga";
 
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
     // store.dispatch(getCourses());
-  
+    ReactGA.initialize('UA-141691274-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);  
   });
   
   return (
     <Provider store={store}>
-      <Navigation />
+      <Navigation />     
     </Provider>
   );
 };

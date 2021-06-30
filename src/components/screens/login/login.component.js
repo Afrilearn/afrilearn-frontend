@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import 'animate.css';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import ReactGA from "react-ga";
 
 
 const Login = props => { 
@@ -83,6 +84,10 @@ const Login = props => {
                 password                           
             };         
             props.loginUser(user);
+            ReactGA.event({
+                category: 'User Login',
+                action: 'User Clicked on the login button'
+              });
         }
     }
 
@@ -97,6 +102,10 @@ const Login = props => {
 			token,		
 		}	
 		props.loginUser(data, true);
+        ReactGA.event({
+            category: 'User Login',
+            action: 'User Clicked on the login button'
+          });
     };
 
     const facebookLoginResponse = (response) => {
