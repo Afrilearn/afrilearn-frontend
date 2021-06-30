@@ -71,6 +71,7 @@ import SchoolPeople from "../screens/schoolPeople/schoolPeople.component";
 import Favourite from "../screens/favourite/favourite.component";
 import schoolAddAdminComponent from "../screens/schoolAddAdmin/schoolAddAdmin.component";
 import Feeds from "../screens/feeds/feeds.component";
+import ProtectedRoute from "../includes/protectedRoute.component";
 
 const MyNav = (props) => {
   const {

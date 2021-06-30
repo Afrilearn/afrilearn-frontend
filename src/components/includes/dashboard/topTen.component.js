@@ -64,7 +64,7 @@ const Box = (props) => {
 
   return (
     <>
-    <div className={`topTen ${props.homepage? 'col-md-3' : 'col-md-2'}`}>
+    <div className={`topTen ${props.homepage? 'col-md-3 homeImage' : 'col-md-2'}`}>
       <Link onClick={props.homepage? toggle : ''} to={props.homepage? '' : linkToVideotLesson}>
         <img src={props.item.thumbnailUrl? props.item.thumbnailUrl:!props.item.videoUrls || !props.item.videoUrls.length? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>
         {props.homepage? 
