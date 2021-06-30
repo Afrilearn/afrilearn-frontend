@@ -820,6 +820,9 @@ const LessonPage = (props) => {
                             ) : (
                               ""
                             )}
+                            <br/>
+                            <ReportBox lesson={lesson}/>
+                            <br/>
                           </span>
                         }
                       >

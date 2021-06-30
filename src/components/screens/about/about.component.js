@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHandshake, faSmile, faAward, faBomb, faUser, faTrophy,faEdit, faRocket  } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHandshake, faSmile, faAward, faBomb, faUser, faTrophy,faEdit, faRocket, faBolt  } from '@fortawesome/free-solid-svg-icons';
 import ValueBox from './../../includes/valueBox.component';
 import TeamBox from './../../includes/team.component';
 import PictureBox from './../../includes/aboutBoxSlick.component';
@@ -205,7 +205,61 @@ const About = props => {
                             </div>
                         </div>
                     </div>
-                </div>             
+                </div> 
+                <div className="row">                   
+                    <div className="col-md-6 push2">
+                        <div className="row">
+                            <div className="col-7">
+                                <p>We get selected for UK-Nigeria Tech Hub’s <a href="https://bit.ly/2SSyObT" target="_blank" rel="noopener noreferrer"><span className="bold">Top 10 Accelerator</span></a></p>
+                            </div>                           
+                            <div className="col-3">
+                                <h4>Mar 2021</h4>
+                            </div>
+                            <div className="col-2">
+                                <FontAwesomeIcon icon={faHandshake} />
+                            </div>                            
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        
+                    </div>
+                </div> 
+                <div className="row">
+                    <div className="col-md-6">
+                        
+                    </div>
+                    <div className="col-md-6 push1">
+                        <div className="row">
+                            <div className="col-2">
+                                <FontAwesomeIcon icon={faHandshake} />
+                            </div>
+                            <div className="col-3">
+                                <h4>Apr 2021</h4>
+                            </div>
+                            <div className="col-7">
+                                <p>We get selected for the <a href="https://ventureburn.com/2021/05/future-of-work-africa-2021-accelerator-participants-announced/" target="_blank" rel="noopener noreferrer"><span className="bold">Future of Work Africa 2021 Accelerator</span></a> by Village Capital & IFC</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div className="row">                   
+                    <div className="col-md-6 push2">
+                        <div className="row">
+                            <div className="col-7">
+                                <p>Afrilearn activates <a href="https://www.linkedin.com/pulse/afrilearn-unveils-board-directors-disrupt-education-across-oladipupo/" target="_blank" rel="noopener noreferrer"><span className="bold">Board of Directors</span></a></p>
+                            </div>                           
+                            <div className="col-3">
+                                <h4>May 2021</h4>
+                            </div>
+                            <div className="col-2">
+                                <FontAwesomeIcon icon={faBolt} />
+                            </div>                            
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        
+                    </div>
+                </div>            
                            
             </div>
             <a href="/" name="team">&nbsp;</a>
