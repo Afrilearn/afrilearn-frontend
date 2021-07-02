@@ -262,10 +262,16 @@
   vertical-align: baseline;
   margin-right: 0;
 }
+#feeds .dropdown-menu {
+  padding: 0;
+}
 #feeds .emojiSelector {
   position: absolute;
   top: 50px;
   z-index: 3;
+  height: 30px;
+  width: 100px;
+  background-color: #ddd;
 }
 #feeds .uploaded-image-preview {
   height: 40px;
@@ -381,7 +387,7 @@
 }
 @media screen and (max-width: 500px) {
   #feeds .emojiSelector {
-    left: 50%;
-    transform: translateX(-50%);
+    left: 50% !important;
+    transform: translate(-50%, 100%) !important;
   }
 }
