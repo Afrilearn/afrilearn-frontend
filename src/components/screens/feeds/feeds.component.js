@@ -943,20 +943,21 @@ const Feeds = (props) => {
                                 aria-controls="hashTags"
                               />
 
-                              <img
-                                src={EmojiIcon}
-                                data-bs-toggle="collapse"
-                                className="mr-3"
-                                data-bs-target="#emojiSelector"
-                                aria-expanded="false"
-                                aria-controls="emojiSelector"
-                              />
-                              <span
-                                class="collapse emojiSelector"
-                                id="emojiSelector"
-                              >
-                                <Picker onEmojiClick={onEmojiClick} />
-                              </span>
+                              <div class="dropdown">
+                                <img
+                                  src={EmojiIcon}
+                                  className="mr-3"
+                                  data-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                />
+                                <div
+                                  class="dropdown-menu emojiSelector"
+                                  aria-labelledby="dropdownMenuButton"
+                                >
+                                  <Picker onEmojiClick={onEmojiClick} />
+                                </div>
+                              </div>
 
                               <input
                                 type="file"
@@ -1218,7 +1219,7 @@ const Feeds = (props) => {
                                 {post.likes && post.likes.length}
                               </span>
                               <span
-                                className="mr-4"
+                                className="mr-4 cursor-pointer"
                                 data-bs-toggle="collapse"
                                 data-bs-target={`#collapseComments${post._id}`}
                                 aria-expanded="false"
