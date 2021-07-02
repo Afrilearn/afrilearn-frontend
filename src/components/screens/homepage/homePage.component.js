@@ -120,7 +120,7 @@ const Homepage = (props) => {
           <div className="col-md-6 box">
             <h1>Get Ahead with Afrilearn!</h1>
             <h4>
-              We provide every Secondary School Student freedom to
+              We provide every Primary and Secondary School Student freedom to
               learn complete curriculum-relevant subjects and topics anytime, anywhere.
             </h4>
            
