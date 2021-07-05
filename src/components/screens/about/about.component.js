@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHandshake, faSmile, faAward, faBomb, faUser, faTrophy,faEdit, faRocket, faBolt  } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHandshake, faSmile, faAward, faBomb, faUser, faTrophy,faEdit, faRocket, faUsers } from '@fortawesome/free-solid-svg-icons';
 import ValueBox from './../../includes/valueBox.component';
 import TeamBox from './../../includes/team.component';
 import PictureBox from './../../includes/aboutBoxSlick.component';
@@ -35,7 +35,7 @@ const About = props => {
                 <div className="overlay"></div>
                 <div className="row">                   
                     <div className="col-md-7">               
-                        <h1 className="bold">Africa’s largest and best-loved e-learning brand.</h1>
+                        <h1 className="bold">Africa’s best-loved e-learning brand.</h1>
                         <hr/><br/>
                         <h3>Delivering affordable, world-class education for Africans, anywhere.</h3>                    
                     </div>  
@@ -252,7 +252,7 @@ const About = props => {
                                 <h4>May 2021</h4>
                             </div>
                             <div className="col-2">
-                                <FontAwesomeIcon icon={faBolt} />
+                                <FontAwesomeIcon icon={faUsers} />
                             </div>                            
                         </div>
                     </div>
