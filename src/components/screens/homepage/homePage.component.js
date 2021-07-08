@@ -472,21 +472,21 @@ const Homepage = (props) => {
             </div>
             <div className="col-md-6">
               <div className="row push">
-                <div className="col-md-6">
+              <div className="col-md-6">
                   <div className="row">
                     <div className="col-md-4">
                       <img
                         className="fullWidth"
-                        src={require("../../../assets/img/videoLessons.svg")}
+                        src={require("../../../assets/img/engagements.svg")}
                         alt="Next big thing"
                       />
                     </div>
                     <div className="col-md-8 paddingLeftOff">
-                      <h3>{numberWithCommas(1500)}+</h3>
-                      <p>Video & Audio Lessons</p>
+                      <h3>{numberWithCommas(237601)}+</h3>
+                      <p>Users Reached</p>
                     </div>
                   </div>
-                </div>
+                </div>                
                 <div className="col-md-6">
                   <div className="row">
                     <div className="col-md-4">
@@ -534,13 +534,13 @@ const Homepage = (props) => {
                     <div className="col-md-4">
                       <img
                         className="fullWidth"
-                        src={require("../../../assets/img/engagements.svg")}
+                        src={require("../../../assets/img/videoLessons.svg")}
                         alt="Next big thing"
                       />
                     </div>
                     <div className="col-md-8 paddingLeftOff">
-                      <h3>345,948+</h3>
-                      <p>Learning Minutes</p>
+                      <h3>{numberWithCommas(1500)}+</h3>
+                      <p>Video & Audio Lessons</p>
                     </div>
                   </div>
                 </div>
