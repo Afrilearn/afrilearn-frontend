@@ -42,6 +42,13 @@ h6.jj {
   object-fit: cover;
   object-position: top;
 }
+.moreInfo img{
+  width: 255px;
+  height: 170px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: top;
+}
 
 .jj .col-md-3, .push3 .col-md-12, #dashboardFirstSection .col-md-12, .subjectList> .col-md-4{
   padding:5px
