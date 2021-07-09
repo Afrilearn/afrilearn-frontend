@@ -257,10 +257,14 @@ const Dashboard = (props) => {
       dashboardUnFinishedVideos.unFinishedVideos.length
     ) {      
       // eslint-disable-next-line array-callback-return
-      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {      
-        return (
-          <ResumeWatching item= {item}/>
-        );        
+      let counter = 0;
+      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {  
+        if(counter<6){
+          ++counter
+          return (
+            <ResumeWatching item= {item}/>
+          );     
+        } 
       });
     } else {
       return (
@@ -428,7 +432,7 @@ const Dashboard = (props) => {
         )}
         <a name="resumePlaying"></a>
         <h4 className="push5 resumePlayingBox">Resume Watching</h4>
-        <div className="row push10 resumePlaying">      
+        <div className="row push10 resumePlaying resumePlayingDashboard">      
           { unFinishedVideoLoader ? (
               <SubjectLoader />
           ) : (
@@ -439,7 +443,7 @@ const Dashboard = (props) => {
 
         <a name="topTen"></a>
         <h4 className="push5 resumePlayingBox">Top Ten Lessons <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
-        <div className="row push10 resumePlaying myTopTen">      
+        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
           { topTenVideoLoader ? (
               <SubjectLoader />
           ) : (
@@ -518,7 +522,7 @@ const Dashboard = (props) => {
 
         <a name="favourite"></a>
         <h4 className="push5 resumePlayingBox">My Fav <small className="showAll"><Link to="/more-info?section=favourites">Show all</Link></small></h4>
-        <div className="row push10 resumePlaying myTopTen">      
+        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
           { favouriteVideoLoader ? (
               <SubjectLoader />
           ) : (

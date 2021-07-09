@@ -483,7 +483,7 @@ const Homepage = (props) => {
                     </div>
                     <div className="col-md-8 paddingLeftOff">
                       <h3>{numberWithCommas(237601)}+</h3>
-                      <p>Users Reached</p>
+                      <p>Learners Reached</p>
                     </div>
                   </div>
                 </div>                

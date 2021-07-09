@@ -81,7 +81,7 @@ const Box = (props) => {
   }  
  
   return (
-    <div className="col-md-3 topTen">
+    <div className="col-md-3 topTen moreInfo">
       <Link to={linkToVideotLesson}>
         {props.favourites? 
          <img src={props.item.lessonId.videoUrls && !props.item.lessonId.videoUrls.length? Classnote : rndInt===0?Picture1:rndInt===1?Picture2:rndInt===2?Picture3:Picture4} className="fullWidth"/>

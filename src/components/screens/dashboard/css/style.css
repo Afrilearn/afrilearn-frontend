@@ -35,11 +35,21 @@ h6.jj {
   margin-top: 30px;
   margin-left: 5px;
 }
+.resumePlayingDashboard img {
+  border-radius: 6px;
+  width: 184px;
+  height: 122px;
+  object-fit: cover;
+  object-position: top;
+}
+.moreInfo img{
+  width: 255px;
+  height: 170px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: top;
+}
 
-/* .dashboard h4 {
-  font-family: font2;
-  margin-bottom: 20px;
-} */
 .jj .col-md-3, .push3 .col-md-12, #dashboardFirstSection .col-md-12, .subjectList> .col-md-4{
   padding:5px
 }
