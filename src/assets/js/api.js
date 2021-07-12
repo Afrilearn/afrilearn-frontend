@@ -6,7 +6,7 @@ const LocalURL = "http://localhost:5000/api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: HerokuURL,
+  url: LocalURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -1034,6 +1034,13 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}feeds/courses-subjects`,
+    });
+  },
+  activateAccount(uuid) {
+    return axios({
+      method: "get",
+      url: `${this.url}auth/activate_account?token=${uuid}`,
+      headers: this.headers(),
     });
   },
 };
