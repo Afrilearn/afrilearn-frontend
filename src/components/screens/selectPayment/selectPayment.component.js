@@ -684,7 +684,7 @@ const Payment = (props) => {
               <span className="amountBox">N{paymentAmount? numberWithCommas(paymentAmount):0 }</span>
             </div>
           </div>
-          <p>Send proof of payment to hello@myafrilearn.com or Whatsapp  +234 805 154 4949 or + 234 802 785 5262 </p> 
+          <p>Send proof of payment to hello@myafrilearn.com or Whatsapp  +234 805 154 4949 </p> 
           <p>Your subscription will be automatically approved ones payment is confirmed.</p>
           <div className="row">
             <div className="col-md-4">  </div>
