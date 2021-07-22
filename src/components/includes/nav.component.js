@@ -523,7 +523,7 @@ const MyNav = (props) => {
         <Route exact path="/" component={homepage} />
         <Route path="/about" component={about} />
         <Route path="/partnership" component={partnership} />
-        <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/privacy_policy" component={PrivacyPolicy} />
         <Route path="/accept-request" component={AcceptRequests} />
         <Route path="/contact" component={contact} />
         <Route
