@@ -32,6 +32,8 @@ import {
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_PIC_SUCCESS,
   UPDATE_PROFILE__PIC_FAILURE,
+  ACTIVATE_MT_ACCOUNT_FAILURE,
+  ACTIVATE_MT_ACCOUNT_SUCCESS,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -75,7 +77,37 @@ export const checkUserExists = (email, classId) => async (dispatch) => {
     });
   }
 };
-
+export const activateAccount = (uuid) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    await API.activateAccount(uuid);
+    dispatch({
+      type: ACTIVATE_MT_ACCOUNT_SUCCESS,
+    });
+    dispatch(
+      returnErrors(
+        "Your Account has been Activated",
+        "200",
+        "ACTIVATE_MT_ACCOUNT_SUCCESS"
+      )
+    );
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "ACTIVATE_MT_ACCOUNT_FAILURE"
+      )
+    );
+    dispatch({
+      type: ACTIVATE_MT_ACCOUNT_FAILURE,
+    });
+  }
+};
 export const getRoles = (homepage = false) => async (dispatch) => {
   try {
     if (homepage) {

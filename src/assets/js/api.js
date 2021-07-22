@@ -1036,4 +1036,11 @@ export default {
       url: `${this.url}feeds/courses-subjects`,
     });
   },
+  activateAccount(uuid) {
+    return axios({
+      method: "get",
+      url: `${this.url}auth/activate_account?token=${uuid}`,
+      headers: this.headers(),
+    });
+  },
 };
