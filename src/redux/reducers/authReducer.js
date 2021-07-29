@@ -38,6 +38,7 @@ const initialState = {
   password: "",
   confirmPassword: "",
   formFullName: "",
+  phoneNumber: "",
   formEmail: "",
   formPassword: "",
   formConfirmPassword: "",

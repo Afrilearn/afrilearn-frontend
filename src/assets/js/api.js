@@ -1040,7 +1040,7 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}auth/activate_account?token=${uuid}`,
-      headers: this.headers(),
+      headers: { token: uuid },
     });
   },
 };
