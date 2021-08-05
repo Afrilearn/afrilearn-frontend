@@ -7,7 +7,7 @@ const PrivacyPolicy = () => {
       <div id="classNoteFirstSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">
-            <h1>Privacy Policy</h1>
+            <h1>Welcome to the Afrilearn's Privacy Notice (“Notice”).</h1>
           </div>
         </div>
       </div>
