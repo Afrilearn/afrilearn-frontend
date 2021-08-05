@@ -36,6 +36,7 @@ const Signup = (props) => {
     referralCode,
     schoolName,
     courseCategoryId,
+    phoneNumber,
   } = props;
 
   const parsed = queryString.parse(props.location.search);
@@ -99,6 +100,8 @@ const Signup = (props) => {
       message = "Please enter full name";
     } else if (!email) {
       message = "Please enter email";
+    } else if (!phoneNumber) {
+      message = "Please enter Phone Number";
     } else if (!password) {
       message = "Please enter password";
     } else if (!className && role === "602f3ce39b146b3201c2dc1d") {
@@ -137,6 +140,7 @@ const Signup = (props) => {
         password,
         confirmPassword: password,
         className,
+        phoneNumber,
       };
       if (courseCategoryId) {
         user.courseCategoryId = courseCategoryId;
@@ -149,8 +153,8 @@ const Signup = (props) => {
       }
       props.registerUser(user);
       ReactGA.event({
-        category: 'User Signup',
-        action: 'User Clicked on the signup button'
+        category: "User Signup",
+        action: "User Clicked on the signup button",
       });
     }
   };
@@ -193,8 +197,8 @@ const Signup = (props) => {
     };
     props.loginUser(data, true);
     ReactGA.event({
-      category: 'User Signup',
-      action: 'User Clicked on the signup button'
+      category: "User Signup",
+      action: "User Clicked on the signup button",
     });
   };
 
@@ -298,6 +302,16 @@ const Signup = (props) => {
                 className="general"
                 name="email"
                 value={email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="col-md-12">
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                className="general"
+                name="phoneNumber"
+                value={phoneNumber}
                 onChange={handleChange}
               />
             </div>
@@ -412,6 +426,7 @@ const mapStateToProps = (state) => ({
   role: state.auth.role,
   courseId: state.auth.courseId,
   fullName: state.auth.fullName,
+  phoneNumber: state.auth.phoneNumber,
   email: state.auth.email,
   password: state.auth.password,
   confirmPassword: state.auth.confirmPassword,

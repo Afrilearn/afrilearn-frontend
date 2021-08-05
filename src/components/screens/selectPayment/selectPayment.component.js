@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 // import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { usePaystackPayment } from "react-paystack";
 import "./css/style.css";
-import { Container, Row, Col, Modal, ModalHeader, ModalBody  } from "reactstrap";
+import { Container, Row, Col, Modal, ModalHeader, ModalBody } from "reactstrap";
 import SubscriptionBox from "../../includes/subscriptionBox/subscriptionBox.component";
 import { connect, useDispatch, useSelector } from "react-redux";
 import {
@@ -281,7 +281,7 @@ const Payment = (props) => {
   const config = {
     reference: new Date().getTime(),
     email,
-    amount: paymentAmount * 100,   
+    amount: paymentAmount * 100,
     publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
     channels: ["card"],
   };
@@ -294,13 +294,13 @@ const Payment = (props) => {
       },
       hideClass: {
         popup: "animate__animated animate__fadeOutUp",
-      }     
+      },
     });
-  }
+  };
 
   const initializePayment = usePaystackPayment(config);
 
-  const checkAndMakePayment = (bankPayment=false) => {   
+  const checkAndMakePayment = (bankPayment = false) => {
     if (!courseId) {
       Swal.fire({
         html: "Please select a class",
@@ -411,12 +411,11 @@ const Payment = (props) => {
       });
       props.clearErrors();
     } else {
-      if(bankPayment === true){
-        toggle()
-      }else{
+      if (bankPayment === true) {
+        toggle();
+      } else {
         initializePayment(onSuccess, onClose);
       }
-     
     }
   };
 
@@ -446,252 +445,254 @@ const Payment = (props) => {
   };
   return (
     <>
-    <div id="selectPaymentPageSectionOne">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-5">
-            <div className="box">
-              <h3>Unlock Unlimited Access!</h3>
-              <p className="one">Video & Audio Lessons</p>
-              <p className="two">Rich & Ready Class Notes</p>
-              <p className="three">Practice Quizzes & Solutions</p>
-              <p className="four">Gain Mastery with Storytelling</p>
-              <p className="one">Learn on Any Device, Anytime, Anywhere</p>
-              <p className="two">Achieve Academic Excellence</p>
+      <div id="selectPaymentPageSectionOne">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5">
+              <div className="box">
+                <h3>Unlock Unlimited Access!</h3>
+                <p className="one">Video & Audio Lessons</p>
+                <p className="two">Rich & Ready Class Notes</p>
+                <p className="three">Practice Quizzes & Solutions</p>
+                <p className="four">Gain Mastery with Storytelling</p>
+                <p className="one">Learn on Any Device, Anytime, Anywhere</p>
+                <p className="two">Achieve Academic Excellence</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-7">
-            <div className="sub-lenght">
-              <Container>
-                {/* for student and teacher */}
-                {role === "5fd08fba50964811309722d5" ||
-                role === "602f3ce39b146b3201c2dc1d" ? (
-                  <h3>Step 1: Select Class</h3>
-                ) : null}
-                {/* for student and school*/}
-                {role === "5fd08fba50964811309722d5" ||
-                role === "607ededa2712163504210684" ? (
-                  <select
-                    class="form-select form-select-lg mb-3"
-                    aria-label=".form-select-lg example"
-                    onChange={(e) => {
-                      e.preventDefault();
-                      setCourseId(e.target.value);
-                    }}
-                  >
-                    <option selected>Select Class</option>
-                    {courseList()}
-                  </select>
-                ) : null}
-
-                {/* for teacher */}
-                {role === "602f3ce39b146b3201c2dc1d" ? (
-                  <>
+            <div class="col-md-7">
+              <div className="sub-lenght">
+                <Container>
+                  {/* for student and teacher */}
+                  {role === "5fd08fba50964811309722d5" ||
+                  role === "602f3ce39b146b3201c2dc1d" ? (
+                    <h3>Step 1: Select Class</h3>
+                  ) : null}
+                  {/* for student and school*/}
+                  {role === "5fd08fba50964811309722d5" ||
+                  role === "607ededa2712163504210684" ? (
                     <select
                       class="form-select form-select-lg mb-3"
                       aria-label=".form-select-lg example"
                       onChange={(e) => {
                         e.preventDefault();
                         setCourseId(e.target.value);
-                        setNewClassContent(null);
-                        if (e.target.value != 1) {
-                          props.getMembersInClass(
-                            e.target.options[e.target.options.selectedIndex]
-                              .className,
-                            true
-                          );
-                        }
                       }}
                     >
                       <option selected>Select Class</option>
-                      {classList()}
+                      {courseList()}
                     </select>
-                    {courseId && courseId != 1 && !newClassContent ? (
-                      <>
-                        <select
-                          class="form-select form-select-lg mb-3"
-                          aria-label=".form-select-lg example"
-                          onChange={(e) => {
-                            e.preventDefault();
-                            setReceipientOption(e.target.value);
-                          }}
-                        >
-                          <option selected>Select Recipient</option>
-                          {recipientList()}
-                        </select>
-                        {receipientOption && receipientOption == "2" ? (
+                  ) : null}
+
+                  {/* for teacher */}
+                  {role === "602f3ce39b146b3201c2dc1d" ? (
+                    <>
+                      <select
+                        class="form-select form-select-lg mb-3"
+                        aria-label=".form-select-lg example"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setCourseId(e.target.value);
+                          setNewClassContent(null);
+                          if (e.target.value != 1) {
+                            props.getMembersInClass(
+                              e.target.options[e.target.options.selectedIndex]
+                                .className,
+                              true
+                            );
+                          }
+                        }}
+                      >
+                        <option selected>Select Class</option>
+                        {classList()}
+                      </select>
+                      {courseId && courseId != 1 && !newClassContent ? (
+                        <>
                           <select
                             class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example"
                             onChange={(e) => {
                               e.preventDefault();
-                              setSelectedStudent(e.target.value);
+                              setReceipientOption(e.target.value);
                             }}
                           >
-                            <option selected>Select Student</option>
-                            {classMembersList()}
+                            <option selected>Select Recipient</option>
+                            {recipientList()}
                           </select>
-                        ) : null}
-                      </>
-                    ) : (courseId && courseId == 1) || newClassContent ? (
-                      <>
-                        <input
-                          className="form-control"
-                          placeholder="Enter new class name"
-                          onChange={(e) => {
-                            setNameOfClass(e.target.value);
-                          }}
-                        />
-                        <select
-                          class="form-select form-select-lg mb-3"
-                          aria-label=".form-select-lg example"
-                          onChange={(e) => {
-                            e.preventDefault();
-                            setCourseId(e.target.value);
-                            setNewClassContent(e.target.value);
-                          }}
-                        >
-                          <option selected>Select Class Content</option>
-                          {courseList()}
-                        </select>
-                      </>
-                    ) : null}
-                  </>
-                ) : null}
+                          {receipientOption && receipientOption == "2" ? (
+                            <select
+                              class="form-select form-select-lg mb-3"
+                              aria-label=".form-select-lg example"
+                              onChange={(e) => {
+                                e.preventDefault();
+                                setSelectedStudent(e.target.value);
+                              }}
+                            >
+                              <option selected>Select Student</option>
+                              {classMembersList()}
+                            </select>
+                          ) : null}
+                        </>
+                      ) : (courseId && courseId == 1) || newClassContent ? (
+                        <>
+                          <input
+                            className="form-control"
+                            placeholder="Enter new class name"
+                            onChange={(e) => {
+                              setNameOfClass(e.target.value);
+                            }}
+                          />
+                          <select
+                            class="form-select form-select-lg mb-3"
+                            aria-label=".form-select-lg example"
+                            onChange={(e) => {
+                              e.preventDefault();
+                              setCourseId(e.target.value);
+                              setNewClassContent(e.target.value);
+                            }}
+                          >
+                            <option selected>Select Class Content</option>
+                            {courseList()}
+                          </select>
+                        </>
+                      ) : null}
+                    </>
+                  ) : null}
 
-                {/* parent section */}
-                {role === "606ed82e70f40e18e029165e" && (
-                  <h3>Step 1: Subscription For</h3>
-                )}
-                {role === "606ed82e70f40e18e029165e" && (
-                  <div>
-                    <select
-                      class="form-select form-select-lg mb-4"
-                      aria-label=".form-select-lg example"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setChildId(e.target.value);
-                      }}
-                    >
-                      <option selected>Select Child</option>
-                      {childrenList()}
-                    </select>
-                    <select
-                      class="form-select form-select-lg mb-3"
-                      aria-label=".form-select-lg example"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setCourseId(e.target.value);
-                      }}
-                    >
-                      <option selected>Select Class</option>
-                      {childCoursesList()}
-                    </select>
-                  </div>
-                )}
-
-                <h3>
-                  {!parsed.courseId && "Step 2: "}Select Subscription Length
-                </h3>
-                <div className="row">
-                  {categories.map((paymentPlan) => (
-                    <div className="col-6 col-md-3" key={paymentPlan._id}>
-                      <SubscriptionBox
-                        onClick={() => {
-                          props.inputChange(
-                            "paymentAmount",
-                            paymentPlan.amount
-                          );
-                          props.inputChange("paymentPlanId", paymentPlan._id);
-                          setBB(paymentPlan.amount);
-                          setSelected(paymentPlan._id);
-                          // setSelected()
+                  {/* parent section */}
+                  {role === "606ed82e70f40e18e029165e" && (
+                    <h3>Step 1: Subscription For</h3>
+                  )}
+                  {role === "606ed82e70f40e18e029165e" && (
+                    <div>
+                      <select
+                        class="form-select form-select-lg mb-4"
+                        aria-label=".form-select-lg example"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setChildId(e.target.value);
                         }}
-                        selected={selected}
-                        id={paymentPlan._id}
-                        title={paymentPlan.name}
-                        price={paymentPlan.amount}
-                        classname={paymentPlan.name.toLocaleLowerCase().trim()}
-                        newClass
-                      />
+                      >
+                        <option selected>Select Child</option>
+                        {childrenList()}
+                      </select>
+                      <select
+                        class="form-select form-select-lg mb-3"
+                        aria-label=".form-select-lg example"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setCourseId(e.target.value);
+                        }}
+                      >
+                        <option selected>Select Class</option>
+                        {childCoursesList()}
+                      </select>
                     </div>
-                  ))}
-                </div>
-              </Container>
-            </div>
+                  )}
 
-            <div className="proceed-button">
-              <Container>
-                <Row>                  
-                  <Col>
-                    <button
-                      // disabled={paymentAmount === 0 ? true : false}
-                      onClick={checkAndMakePayment}
-                    >
-                      Proceed with Card &rarr;
-                    </button>
-                  </Col>
-                  <Col className="whiteButton">
-                    <button
-                      // disabled={paymentAmount === 0 ? true : false}
-                      onClick={checkAndMakePayment.bind(null,true)}
-                    >
-                      Bank Transfer &rarr;
-                    </button>
-                  </Col>
-                </Row>
-              </Container>
+                  <h3>
+                    {!parsed.courseId && "Step 2: "}Select Subscription Length
+                  </h3>
+                  <div className="row">
+                    {categories.map((paymentPlan) => {
+                      if (paymentPlan.duration > 0) {
+                        return (
+                          <div className="col-6 col-md-3" key={paymentPlan._id}>
+                            <SubscriptionBox
+                              onClick={() => {
+                                props.inputChange(
+                                  "paymentAmount",
+                                  paymentPlan.amount
+                                );
+                                props.inputChange(
+                                  "paymentPlanId",
+                                  paymentPlan._id
+                                );
+                                setBB(paymentPlan.amount);
+                                setSelected(paymentPlan._id);
+                                // setSelected()
+                              }}
+                              selected={selected}
+                              id={paymentPlan._id}
+                              title={paymentPlan.name}
+                              price={paymentPlan.amount}
+                              classname={paymentPlan.name
+                                .toLocaleLowerCase()
+                                .trim()}
+                              newClass
+                            />
+                          </div>
+                        );
+                      }
+                    })}
+                  </div>
+                </Container>
+              </div>
+
+              <div className="proceed-button">
+                <Container>
+                  <Row>
+                    <Col>
+                      <button
+                        // disabled={paymentAmount === 0 ? true : false}
+                        onClick={checkAndMakePayment}
+                      >
+                        Proceed with Card &rarr;
+                      </button>
+                    </Col>
+                    <Col className="whiteButton">
+                      <button
+                        // disabled={paymentAmount === 0 ? true : false}
+                        onClick={checkAndMakePayment.bind(null, true)}
+                      >
+                        Bank Transfer &rarr;
+                      </button>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <Modal isOpen={modal} toggle={toggle} className="paymentModalClass">
+      <Modal isOpen={modal} toggle={toggle} className="paymentModalClass">
         {/* <ModalHeader toggle={toggle}>&nbsp;</ModalHeader> */}
         <ModalBody>
           <h4>Bank Deposit</h4>
-          <img src={require('../../../assets/img/Group 1832.png')} className="threeImg"/>
-          <p>Make deposit  using the bank details below:</p>
+          <img
+            src={require("../../../assets/img/Group 1832.png")}
+            className="threeImg"
+          />
+          <p>Make deposit using the bank details below:</p>
           <div className="row push1">
-            <div className="col-md-4">
-               Bank Name:
-            </div>
-            <div className="col-md-8">
-               GTBank
-            </div>
+            <div className="col-md-4">Bank Name:</div>
+            <div className="col-md-8">GTBank</div>
           </div>
           <div className="row push1">
-            <div className="col-md-4">
-               Account Name:
-            </div>
-            <div className="col-md-8">
-              Afrilearn International
-            </div>
+            <div className="col-md-4">Account Name:</div>
+            <div className="col-md-8">Afrilearn International</div>
           </div>
           <div className="row push1">
-            <div className="col-md-4">
-              Account Number:       
-            </div>
-            <div className="col-md-8">
-              0538617241
-            </div>
+            <div className="col-md-4">Account Number:</div>
+            <div className="col-md-8">0538617241</div>
           </div>
           <div className="row push1">
-            <div className="col-md-4">
-              Amount to be Paid:       
-            </div>
-            <div className="col-md-8">            
-              <span className="amountBox">N{paymentAmount? numberWithCommas(paymentAmount):0 }</span>
+            <div className="col-md-4">Amount to be Paid:</div>
+            <div className="col-md-8">
+              <span className="amountBox">
+                N{paymentAmount ? numberWithCommas(paymentAmount) : 0}
+              </span>
             </div>
           </div>
           <p>Send proof of payment to hello@myafrilearn.com or Whatsapp  +234 805 154 4949 </p> 
           <p>Your subscription will be automatically approved ones payment is confirmed.</p>
           <div className="row">
-            <div className="col-md-4">  </div>
+            <div className="col-md-4"> </div>
             <div className="col-md-4">
-              <span className="submitButton"><Link onClick={toggle1}>Okay, Got it!</Link></span>
+              <span className="submitButton">
+                <Link onClick={toggle1}>Okay, Got it!</Link>
+              </span>
             </div>
-            <div className="col-md-4">  </div>
+            <div className="col-md-4"> </div>
           </div>
         </ModalBody>
       </Modal>
