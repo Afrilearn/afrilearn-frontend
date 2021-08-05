@@ -342,6 +342,19 @@ const Signup = (props) => {
                 <i>Optional</i>
               </p>
             </div>
+            <div className="col-md-12 push">
+              <p className="text-white">
+                By Signing Up for Afrilearn, you agree to our{" "}
+                <Link to="/privacy_policy" className="underline">
+                  Terms of use
+                </Link>{" "}
+                and{" "}
+                <Link to="/privacy_policy" className="underline">
+                  Privacy policy
+                </Link>{" "}
+              </p>
+            </div>
+
             <div className="col-md-12">
               <input
                 type="submit"
@@ -400,7 +413,7 @@ const Signup = (props) => {
               </div>
             </div>
           </div>
-          <div className="col-md-12 socialText push">
+          <div className="col-md-12 socialText push ">
             Already have an account?{" "}
             <b className="white">
               &nbsp; <Link to="/login">Log in</Link>
