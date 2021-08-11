@@ -47,6 +47,10 @@ const Signup = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.inputChange("redirect", false);
+      if(parsed.referralCode){
+        props.inputChange("referralCode", parsed.referralCode);
+      }
+   
       if (!roles.length) {
         props.getRoles();
       }
@@ -151,6 +155,7 @@ const Signup = (props) => {
       if (referralCode) {
         user.referralCode = referralCode;
       }
+      console.log(user)
       props.registerUser(user);
       ReactGA.event({
         category: "User Signup",
