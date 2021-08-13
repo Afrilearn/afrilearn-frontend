@@ -120,6 +120,7 @@ const Signup = (props) => {
         role !== "607ededa2712163504210684" &&
         !courseId) ||
       !fullName ||
+      !phoneNumber ||
       !email ||
       !password ||
       (!className && role === "602f3ce39b146b3201c2dc1d")
