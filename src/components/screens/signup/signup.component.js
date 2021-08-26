@@ -146,6 +146,7 @@ const Signup = (props) => {
         confirmPassword: password,
         className,
         phoneNumber,
+        channel:'web'
       };
       if (courseCategoryId) {
         user.courseCategoryId = courseCategoryId;
@@ -156,7 +157,6 @@ const Signup = (props) => {
       if (referralCode) {
         user.referralCode = referralCode;
       }
-      console.log(user)
       props.registerUser(user);
       ReactGA.event({
         category: "User Signup",
