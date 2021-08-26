@@ -67,14 +67,15 @@ h6.jj {
 }
 .dashboard .pastQuestionsBox {
   display: block;
-  background: #fc8a07;
+  background:#118330;
   padding: 23px;
-  border-radius: 5px;
+  border-radius: 22px;
   margin-bottom: 30px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 .dashboard .pastQuestionsBox1 {
-  background: #84BB29;
+  background:#340067;
 }
 
 .dashboard .myChart svg {
@@ -141,7 +142,10 @@ h6.jj {
 }
 
 .dashboard .pastQuestionsBox img {
-  max-width: 70px;
+  height: 67px;
+  display: block;
+  margin: auto;
+  object-fit: cover;
 }
 
 .dashboard .pastQuestionsBox p {
@@ -151,7 +155,9 @@ h6.jj {
 .dashboard img.bullet {
   margin-top: -3px;
 }
-
+img.downloadMobileHeader{
+  width:20%;
+}
 .dashboard .instructor,
 .dashboard .recommendT {
   color: #636060;

@@ -17,7 +17,9 @@ const SocialSignup = props => {
         classes,      
         redirect,
         location,
-        className
+        className,
+        phoneNumber,
+        referralCode
     } = props;
 
     const mounted = useRef(); 
@@ -65,9 +67,11 @@ const SocialSignup = props => {
             message='Please select a class';   
         } else if(!className && role ==='602f3ce39b146b3201c2dc1d'){
             message='Please enter class name';  
+        }else if(!phoneNumber){
+            message='Please enter phone number';  
         }  
 
-        if(!role || !activeEnrolledCourseId || (!className && role ==='602f3ce39b146b3201c2dc1d')){               
+        if(!role || !activeEnrolledCourseId || !phoneNumber || (!className && role ==='602f3ce39b146b3201c2dc1d')){               
             Swal.fire({
                 title: message,
                 showClass: {
@@ -82,11 +86,17 @@ const SocialSignup = props => {
         }else{          
             const user = {
                 role,
-                courseId:activeEnrolledCourseId                                            
+                phoneNumber,                
+                courseId:activeEnrolledCourseId,
+                channel:'web'
             }; 
             if(className){
                 user['className'] = className;
             }
+            if(referralCode){
+                user['referralCode'] = referralCode;
+            }
+            
             props.socialLoginUpdate(user);        
             
         }
@@ -124,7 +134,9 @@ const SocialSignup = props => {
                                     {roleSet()}                      
                                 </select>
                             </div>
-
+                            <div className="col-md-12">
+                                <input type="text" placeholder="Phone Number" className="general" name="phoneNumber" value={phoneNumber} onChange={handleChange}/>
+                            </div>
                             <div className="col-md-12">
                                 <select className="general" name="activeEnrolledCourseId" value={activeEnrolledCourseId} onChange={handleChange}>
                                     <option>Select class</option>
@@ -162,5 +174,7 @@ const mapStateToProps = (state) => ({
     classes: state.auth.classes,    
     error: state.error,   
     className: state.auth.className, 
+    phoneNumber: state.auth.phoneNumber, 
+    referralCode:state.auth.referralCode, 
 });
 export default connect(mapStateToProps, {inputChange, getRoles, clearErrors, socialLoginUpdate, courseEnrolment})(SocialSignup);

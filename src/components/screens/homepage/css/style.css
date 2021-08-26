@@ -166,6 +166,35 @@ img.rolesLoader {
     background-color: white;
     color: #222222;
 }
+.trendingModalClass .downloadMobile .col-1 img {
+    width: 25px;
+    margin-top: 3px;
+}
+.trendingModalClass .downloadMobile .col-6 img {
+    width: 60%;
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+.trendingModalClass .downloadMobile {
+    padding: 33px 0px;
+    font-size: 18px;
+}
+.trendingModalClass .downloadMobile .myRow {
+    margin-bottom: 20px;
+}
+.trendingModalClass .downloadMobile .head1 {
+    text-align: center;
+    font-family: font2;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.trendingModalClass .downloadMobile .myRow1 {
+    text-align: center;
+    display: block;
+}
 .trendingModalClass p {
     padding: 40px;
 }
@@ -646,6 +675,10 @@ a.myButton {
         font-size: 17px;
     }
 
+    .trendingModalClass .downloadMobile .col-11 {
+        margin-left: 18px;
+    }
+
     #homepage .react-countdown .digit {
         font-size: 35px;
     }
@@ -741,5 +774,8 @@ a.myButton {
     a.myButton {
         padding: 6px 4px;
         margin-top: 18px;
+    }
+    img.downloadMobileHeader {
+        width: 35%;
     }
 }

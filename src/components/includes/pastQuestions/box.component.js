@@ -24,15 +24,15 @@ const Box = (props) => {
           }
         >
           <div className="row">
-            <div className="col-4">
+            <div className="col-4 padOff">
               <img
-                src={require("../../../assets/img/past-questions.png")}
+                src={props.image}
                 alt="past questions"
               />
             </div>
             <div className="col-8">
               <h6>{props.title}</h6>
-              <p>Over 13,000 questions per subject</p>
+              <p>{props.description}</p>
             </div>
           </div>
         </span>
