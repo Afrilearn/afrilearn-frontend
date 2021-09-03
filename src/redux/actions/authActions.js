@@ -34,6 +34,8 @@ import {
   UPDATE_PROFILE__PIC_FAILURE,
   ACTIVATE_MT_ACCOUNT_FAILURE,
   ACTIVATE_MT_ACCOUNT_SUCCESS,
+  GET_ACTIVE_SUBS_SUCCESS,
+  GET_ACTIVE_SUBS_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -572,3 +574,35 @@ export const updateProfilePicture = (profilePhotoUrl) => async (dispatch) => {
     });
   }
 };
+export const getActiveSubs = (userId) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.getActiveSubs(userId);
+
+    dispatch({
+      type: GET_ACTIVE_SUBS_SUCCESS,
+      payload: result.data.data.actives,
+    });
+
+    dispatch(
+      returnErrors("Image update succesfully", "200", "GET_ACTIVE_SUBS_SUCCESS")
+    );
+
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_ACTIVE_SUBS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_ACTIVE_SUBS_FAILURE,
+    });
+  }
+};
+ 

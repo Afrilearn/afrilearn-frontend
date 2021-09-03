@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { Provider } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store";
-import "bootstrap/dist/css/bootstrap.css"; 
+import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -17,15 +17,14 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
     // store.dispatch(getCourses());
-    ReactGA.initialize('UA-141691274-1');
-    ReactGA.pageview(window.location.pathname + window.location.search);  
+    ReactGA.initialize("UA-141691274-1");
+    ReactGA.pageview(window.location.pathname + window.location.search);
   });
-  
+
   return (
     <Provider store={store}>
-      <Navigation />     
+      <Navigation />
     </Provider>
   );
 };
 export default App;
-
