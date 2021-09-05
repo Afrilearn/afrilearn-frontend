@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 
 import queryString from "query-string";
+import {Helmet} from "react-helmet";
 
 const Content = (props) => {
   const { subject, role, userId, numOfUsers, inClass, clazz, user } = props;
@@ -98,6 +99,11 @@ const Content = (props) => {
  
   return (
     <div>
+       <Helmet>
+        <meta charSet="utf-8" />
+        <title>{subject.mainSubjectId  ? subject.mainSubjectId.name+' | Myafrilearn.com' : "Subject Page"}</title>
+        <meta name="description" content='Subject Page' />
+      </Helmet> 
       <div
         id="contentPageFirstSection"
         style={{

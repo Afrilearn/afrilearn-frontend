@@ -19,6 +19,7 @@ import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import queryString from "query-string";
+import {Helmet} from "react-helmet";
 
 const Payment = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -445,6 +446,11 @@ const Payment = (props) => {
   };
   return (
     <>
+     <Helmet>
+          <meta charSet="utf-8" />
+          <title>Payment Page | Myafrilearn.com</title>
+          <meta name="description" content='Payment Page' />
+      </Helmet>   
       <div id="selectPaymentPageSectionOne">
         <div class="container">
           <div class="row">

@@ -7,6 +7,7 @@ import { clearErrors } from './../../../redux/actions/errorActions';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import 'animate.css';
+import {Helmet} from "react-helmet";
 
 const SocialSignup = props => {  
     const {
@@ -119,7 +120,12 @@ const SocialSignup = props => {
     };
    
 	return (        
-		<span id="signup">  
+		<span id="signup"> 
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Social Signup | Myafrilearn.com</title>
+                <meta name="description" content='Reset Password Page' />
+            </Helmet>    
             {redirect ? <Redirect to={location} /> : null} 
             <div id="socialSignupFirstSection" className="container-fluid relative">                         
                 <div className="row fly">

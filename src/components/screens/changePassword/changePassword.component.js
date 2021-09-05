@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import 'animate.css';
 import queryString from "query-string";
+import {Helmet} from "react-helmet";
  
 
 const ChangePassword = props => { 
@@ -94,7 +95,12 @@ const ChangePassword = props => {
     }
    
 	return (        
-		<span>   
+		<span>  
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Change Password | Myafrilearn.com</title>
+                <meta name="description" content="Change Password" />
+            </Helmet>       
             <div id="changePassword" className="container-fluid relative">                         
                 <div className="row fly">
                      <div className="overlay overlayAuth"></div> 

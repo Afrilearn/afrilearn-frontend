@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import queryString from "query-string";
 import Footer from "../../includes/footer/footer.component";
 import { getRoles } from "./../../../redux/actions/authActions";
+import {Helmet} from "react-helmet";
 
 const ClassDisplay = (props) => {
   const {
@@ -77,6 +78,11 @@ const ClassDisplay = (props) => {
 
   return (
     <span id="classes">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{course.name ? course.name:'Classnote | Video-lessons | Practice Questions | Exams | Subjects'} | Myafrilearn.com</title>
+        <meta name="description" content="Access video lessons | Class Notes | Past questions" />
+      </Helmet>     
       <div id="classFirstSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">

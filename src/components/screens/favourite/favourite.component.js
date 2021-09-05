@@ -10,6 +10,7 @@ import {
   populateDashboardFavouriteVideos
 } from "./../../../redux/actions/courseActions";
 import queryString from "query-string";
+import {Helmet} from "react-helmet";
 
 const MorePage = (props) => { 
    
@@ -93,6 +94,11 @@ const MorePage = (props) => {
  
   return (    
       <div id="morePage" className="bg-black">
+        <Helmet>
+        <meta charSet="utf-8" />
+        <title>{parsed.section === 'favourites'? 'My Faves ':'Top Ten Lessons'}</title>
+        <meta name="description" content='More Options' />
+      </Helmet> 
         <div className="negative-margin"></div>     
           <div class="container mt-10 bg-black">
             <div class="title">

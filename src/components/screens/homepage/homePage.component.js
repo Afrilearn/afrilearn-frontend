@@ -23,6 +23,7 @@ import "rc-tooltip/assets/bootstrap_white.css";
 import slugify from "react-slugify";
 import queryString from "query-string";
 import Swal from "sweetalert2";
+import {Helmet} from "react-helmet";
 
 // import VideoThumbnail from 'react-video-thumbnail';
 // import VideoPlayer from 'simple-react-video-thumbnail'
@@ -47,8 +48,7 @@ const Homepage = (props) => {
 
   const mounted = useRef();
   const dispatch = useDispatch();
-  console.log("props", props);
-
+  
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -138,6 +138,11 @@ const Homepage = (props) => {
 
   return (
     <span id="homepage">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Homepage | Myafrilearn.com</title>
+        <meta name="description" content='Frequently Asked Questions' />
+      </Helmet> 
       <div className="container-fluid bannerSection">
         <div className="row">
           <div className="col-md-3"> </div>

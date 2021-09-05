@@ -18,6 +18,7 @@ import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import queryString from "query-string";
 import ReactGA from "react-ga";
+import {Helmet} from "react-helmet";
 
 const Signup = (props) => {
   const {
@@ -218,6 +219,11 @@ const Signup = (props) => {
   };
   return (
     <span id="signup">
+       <Helmet>
+          <meta charSet="utf-8" />
+          <title>Register | Myafrilearn.com</title>
+          <meta name="description" content="Register on Afrilearn" />
+      </Helmet>     
       {redirect ? <Redirect to={authlocation} /> : null}
       <div id="signupFirstSection" className="container-fluid relative">
         <div className="row fly">

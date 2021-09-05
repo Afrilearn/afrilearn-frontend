@@ -10,6 +10,7 @@ import { getRoles } from "./../../../redux/actions/authActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import './css/style.css';
+import {Helmet} from "react-helmet";
 
 const About = props => {  
     const mounted = useRef(); 
@@ -30,7 +31,12 @@ const About = props => {
     })       
    
 	return (        
-		<span id="about">   
+		<span id="about"> 
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>About Us - Know more about Afrilearn</title>
+                <meta name="description" content="Afrilearn is an education technology enterprise leveraging seasoned teachers, animators and developers to deliver affordable, world-class education for Africans, anywhere." />
+            </Helmet>      
             <div id="aboutFirstSection" className="container-fluid relative">
                 <div className="overlay"></div>
                 <div className="row">                   

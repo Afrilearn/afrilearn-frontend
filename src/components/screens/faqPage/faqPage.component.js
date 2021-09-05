@@ -7,7 +7,7 @@ import { getClass, assignContent } from "../../../redux/actions/classActions";
 import { clearErrors } from "../../../redux/actions/errorActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Swal from "sweetalert2";
+import {Helmet} from "react-helmet";
 
 const FaqPage = (props) => {
   const mounted = useRef();
@@ -23,6 +23,11 @@ const FaqPage = (props) => {
 
   return (
     <div id="faqPage">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Frequently Asked Questions | Myafrilearn.com</title>
+        <meta name="description" content='Frequently Asked Questions' />
+      </Helmet> 
       <div id="faqPageSectionOne">
         <h1 className="font2 text-bottom">
           Frequently <span>Asked Questions</span>

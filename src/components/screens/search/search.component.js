@@ -6,6 +6,7 @@ import Box from './../../includes/search/resultBox.component';
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import { Link } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 const SearchPage = (props) => {
 
@@ -184,6 +185,11 @@ const SearchPage = (props) => {
   }
   return (    
       <div id="searchPage" className="bg-black">
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>Search... | Myafrilearn.com</title>
+            <meta name="description" content='Reset Password Page' />
+        </Helmet>   
         <div className="negative-margin"></div>     
           <div class="card container mt-10 bg-black">
             <div class="card-body title">
