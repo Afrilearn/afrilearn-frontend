@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { loadSubjects, inputChange } from './../../../redux/actions/pastQuestionsActions';
 import Box from './../../includes/pastQuestions/subjectBox.component'
 import PropTypes from 'prop-types';
+import {Helmet} from "react-helmet";
 
 const PastQuestions = props => {
   const {
@@ -46,6 +47,11 @@ const PastQuestions = props => {
 
   return ( 
     <>
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>{selectedCategory?selectedCategory+'| Myafrilearn.com':'Past Questions'}</title>
+          <meta name="description" content='Past questions | WAEC | NECO | GCE' />
+      </Helmet>  
       <div id="pastQuestionsSectionone">
         <h1>{selectedCategory}</h1>
         <aside>

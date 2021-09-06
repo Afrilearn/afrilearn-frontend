@@ -61,7 +61,8 @@ import TakeActionPopUp from "../../includes/popUp/takeActionPopUp.component";
 import { getLessonComments } from "./../../../redux/actions/commentActions";
 import CommentBox from "../../includes/comment/addComment.component";
 import BackArrow from "../../../assets/img/VideobackButton.svg";
-import ReportBox from "../../includes/modal/reportLesson.component"
+import ReportBox from "../../includes/modal/reportLesson.component";
+import {Helmet} from "react-helmet";
 
 
 const ClassNote = (props) => {
@@ -409,6 +410,11 @@ const ClassNote = (props) => {
   }
   return (
     <span>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{targetLesson? targetLesson.title:'Classnote'} | Myafrilearn.com</title>
+        <meta name="description" content={targetLesson? targetLesson.content:'Classnote'} />
+      </Helmet>     
       <Modal isOpen={modal1} toggle={toggle1} className="shareModalClass">
         <ModalHeader toggle={toggle1}>&nbsp;</ModalHeader>
         <ModalBody>

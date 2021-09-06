@@ -43,6 +43,7 @@ import PastQuestionsLoader from "../../includes/Loaders/pastQuestionsBox.compone
 import { Modal, ModalHeader, ModalBody} from "reactstrap";
 import bullet from "../../../assets/img/circleBullet.png";
 import logo from "../../../assets/img/logonew.png";
+import {Helmet} from "react-helmet";
 
 
 
@@ -385,6 +386,13 @@ const Dashboard = (props) => {
 
   return (
     <span id="classes" className="dashboard">
+       <Helmet>
+        <meta charSet="utf-8" />
+        <title>{dashboardEnrolledCourse.enrolledCourse ? dashboardEnrolledCourse.enrolledCourse.courseId.name+' | Myafrilearn.com':
+                "Welcome"
+              }</title>
+        <meta name="description" content='Student Dashboard' />
+      </Helmet>  
       <div id="dashboardFirstSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">

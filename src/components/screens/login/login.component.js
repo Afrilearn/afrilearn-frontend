@@ -11,7 +11,7 @@ import 'animate.css';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import ReactGA from "react-ga";
-
+import {Helmet} from "react-helmet";
 
 const Login = props => { 
      
@@ -118,9 +118,14 @@ const Login = props => {
     };
      
 	return (        
-		<span id="login">  
+		<span id="login"> 
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Login | Myafrilearn.com</title>
+                <meta name="description" content="Login to Afrilearn" />
+            </Helmet>       
             {redirect ? <Redirect to={location} /> : null}  
-            <div id="loginFirstSection" className="container-fluid relative">                         
+            <div id="loginFirstSection" className="container-fluid relative">                              
                 <div className="row fly">
                      <div className="overlay overlayAuth"></div> 
                         <form onSubmit={handleSubmit} method="post">                 

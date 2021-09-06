@@ -7,6 +7,7 @@ import { clearErrors } from './../../../redux/actions/errorActions';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import 'animate.css';
+import {Helmet} from "react-helmet";
 
 const ResetPassword = props => {     
     const {
@@ -65,7 +66,12 @@ const ResetPassword = props => {
     }
 
 	return (        
-		<span>   
+		<span>  
+             <Helmet>
+                <meta charSet="utf-8" />
+                <title>Reset Password | Myafrilearn.com</title>
+                <meta name="description" content='Reset Password Page' />
+            </Helmet>   
             <div id="resetPassword" className="container-fluid relative">                         
                 <div className="row fly">
                      <div className="overlay overlayAuth"></div> 

@@ -11,6 +11,7 @@ import { clearErrors } from '../../../redux/actions/errorActions'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import {Helmet} from "react-helmet";
 
 import './css/style.css'
 
@@ -150,6 +151,11 @@ const ParentDashboard = props => {
 
   return (
     <div id='parent-dashboard' className='negative-top'>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Parent | Future of learning</title>
+        <meta name="description" content='Parent | Children | Subjects' />
+      </Helmet> 
       <div className='top-display'></div>
       <div className='px-3 px-sm-4 px-md-5'>
         <div className='d-flex justify-content-center mx-auto'>

@@ -75,6 +75,7 @@ import "rc-tooltip/assets/bootstrap_white.css";
 import ReportBox from "../../includes/modal/reportLesson.component";
 import TimeBack from "../../../assets/img/TimeBack.svg";
 import TimeForward from "../../../assets/img/TimeForward.svg";
+import {Helmet} from "react-helmet";
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -517,6 +518,11 @@ const LessonPage = (props) => {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{lesson  ? lesson.title : "Video Lesson Page"}</title>
+        <meta name="description" content='Video Lesson' />
+      </Helmet>
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
         <Link onClick={goBack}>

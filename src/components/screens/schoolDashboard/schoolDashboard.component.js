@@ -17,7 +17,7 @@ import {
   uploadSchoolCoverPhoto,
 } from "../../../redux/actions/schoolActions";
 import { inputChange } from "../../../redux/actions/authActions";
-import Stroke from "../../../assets/img/Stroke.png";
+import {Helmet} from "react-helmet";
 
 const padWithZero = (num) => (num > 9 ? num : "0" + num);
 
@@ -88,6 +88,11 @@ const SchoolDashboard = (props) => {
 
   return (
     <div id="school-dashboard" className="negative-top dashboard">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>School | Future of learning</title>
+        <meta name="description" content='School | Children | Subjects' />
+      </Helmet> 
       <div
         className="top-display"
         style={{

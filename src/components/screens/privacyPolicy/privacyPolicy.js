@@ -1,9 +1,15 @@
 import React from "react";
 import "./css/style.css";
+import {Helmet} from "react-helmet";
 
 const PrivacyPolicy = () => {
   return (
     <span>
+       <Helmet>
+          <meta charSet="utf-8" />
+          <title> PrivacyPolicy | Myafrilearn.com</title>
+          <meta name="description" content='Privacy Policy Page' />
+      </Helmet>  
       <div id="classNoteFirstSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">

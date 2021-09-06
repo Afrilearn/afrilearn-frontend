@@ -4,6 +4,7 @@ import Footer from "../../includes/footer/footer.component";
 import { getRoles } from "./../../../redux/actions/authActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import {Helmet} from "react-helmet";
 
 const Partnership = props => {  
     const mounted = useRef(); 
@@ -24,7 +25,12 @@ const Partnership = props => {
     })       
    
 	return (        
-		<span id="partnership">   
+		<span id="partnership">  
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Partnership | Myafrilearn.com</title>
+                <meta name="description" content='Partnership Page' />
+            </Helmet>  
             <div id="partnershipFirstSection" className="container-fluid relative">
                 <div className="overlay"></div>
                 <div className="row">                   

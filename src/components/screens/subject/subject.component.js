@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { inputChange } from '../../../redux/actions/authActions';
 import Box from '../../includes/subjectBox.component';
+import {Helmet} from "react-helmet";
 
 const SubjectPage = props => {  
     const mounted = useRef(); 
@@ -61,8 +62,11 @@ const SubjectPage = props => {
     
 	return (        
 		<>   
-           {/* {redirect ? <Redirect to={location} /> : null}        */}
-           
+           <Helmet>
+                <meta charSet="utf-8" />
+                <title>Subject Page | Myafrilearn.com</title>
+                <meta name="description" content='Subject Page' />
+            </Helmet>             
            <div className="container-fluid Subject" onClick={handleCloseBox}>
                 <div className="row">
                  
