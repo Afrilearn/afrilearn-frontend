@@ -40,6 +40,7 @@ import SubjectBoxLoader from "../../includes/Loaders/subjectBoxLoader.component"
 import slugify from "react-slugify";
 import AnnouncementsLoader from "../../includes/Loaders/announcementsLoader.component";
 import ClassWorksLoader from "../../includes/Loaders/classworksLoader.component";
+import {Helmet} from "react-helmet";
 
 const ClassroomTeacher = (props) => {
   const { activeEnrolledCourseId, clazz, userData, error, isLoading } = props;
@@ -572,6 +573,11 @@ const ClassroomTeacher = (props) => {
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{clazz.courseId && clazz.courseId.name} | Future of learning</title>
+        <meta name="description" content='Classroom | Teacher | Subjects' />
+      </Helmet> 
       <Modal
         isOpen={modal}
         toggle={toggleModal}

@@ -140,7 +140,7 @@ const Homepage = (props) => {
     <span id="homepage">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Homepage | Myafrilearn.com</title>
+        <title>Afrilearn | Future of learning</title>
         <meta name="description" content='Frequently Asked Questions' />
       </Helmet> 
       <div className="container-fluid bannerSection">

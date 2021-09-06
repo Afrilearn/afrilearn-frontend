@@ -48,6 +48,7 @@
     "react-share": "^4.3.1",
     "react-slick": "^0.27.11",
     "react-slugify": "^2.0.3",
+    "react-snap": "^1.23.0",
     "react-speech": "^1.0.2",
     "react-time-ago": "^6.2.2",
     "react-tsparticles": "^1.18.11",
@@ -63,7 +64,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": "react-app"
