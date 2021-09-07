@@ -1,3 +1,4 @@
+import socket from "../../assets/js/socket";
 import {
   INPUT_CHANGE,
   GET_ROLES_SUCCESS,
@@ -17,7 +18,18 @@ import {
   UPDATE_PROFILE_PIC_SUCCESS,
   PAYMENT_VERIFICATION_SUCCESS,
   FOLLOW_A_USER_IN_FEED_SUCCESS,
+  GET_ACTIVE_SUBS_SUCCESS,
 } from "../actions/types";
+// import socketClient from "socket.io-client";
+
+// const SERVER = "http://127.0.0.1:5000/";
+// var socket = socketClient(SERVER);
+socket.on("get_users_online", (users) => {
+  console.log("get_users_online", users);
+});
+socket.on("promt_invite", (data) => {
+  console.log("promt_invite", data);
+});
 
 const initialState = {
   drop: false,
@@ -68,6 +80,9 @@ const initialState = {
   redirectTo: "",
   rolesLoader: false,
   authLoader: false,
+  status: "online",
+  users_online: [],
+  actives: [],
 };
 
 const authReducer = (state = initialState, action) => {
@@ -76,6 +91,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         [action.payload.name]: action.payload.value,
+      };
+    case GET_ACTIVE_SUBS_SUCCESS: 
+      return {
+        ...state,
+        actives: action.payload,
       };
     case CHECK_USER_AND_JOIN_CLASS_SUCCESS:
       return {
@@ -122,6 +142,10 @@ const authReducer = (state = initialState, action) => {
     case SOCIAL_LOGIN_UPDATE_SUCCESS:
       let myObj = {};
       let otherObj = {};
+      socket.emit("login", {
+        userId: action.payload.user._id,
+        name: action.payload.user.fullName,
+      });
 
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);
@@ -295,6 +319,7 @@ const authReducer = (state = initialState, action) => {
       };
     case LOGOUT_SUCCESS:
       localStorage.removeItem("token");
+      socket.disconnect();
       return {
         ...state,
         drop: false,

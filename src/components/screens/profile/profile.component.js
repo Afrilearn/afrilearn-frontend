@@ -112,6 +112,7 @@ const ProfilePage = (props) => {
     { id: 35, name: "Taraba" },
     { id: 36, name: "Yobe" },
     { id: 37, name: "Zamfara" },
+    { id: 38, name: "Federal Capital Territory" },
   ];
 
   const mounted = useRef();
