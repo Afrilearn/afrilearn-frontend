@@ -47,6 +47,18 @@ export default {
       url: `${this.url}auth/active-subs/${userId}`,
     });
   },
+  getFaculty() {
+    return axios({
+      method: "get",
+      url: `${this.url}faculty`,
+    });
+  },
+  getRecentBlog() {
+    return axios({
+      method: "get",
+      url: `https://afrilearn-cms.herokuapp.com/api/v1/blog/articles?limit=5`,
+    });
+  },
   acceptRejectClassmember(classId, userId, status) {
     return axios({
       method: "patch",
