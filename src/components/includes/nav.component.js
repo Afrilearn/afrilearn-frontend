@@ -73,6 +73,7 @@ import schoolAddAdminComponent from "../screens/schoolAddAdmin/schoolAddAdmin.co
 import Feeds from "../screens/feeds/feeds.component";
 import ProtectedRoute from "../includes/protectedRoute.component";
 import Analytics from "../../analytics";
+import faculties from "../screens/faculties/faculties.component";
 
 const MyNav = (props) => {
   const {
@@ -525,6 +526,7 @@ const MyNav = (props) => {
         <Route path="/partnership" component={partnership} />
         <Route path="/privacy_policy" component={PrivacyPolicy} />
         <Route path="/accept-request" component={AcceptRequests} />
+        <Route path="/faculties" component={faculties} />
         <Route path="/contact" component={contact} />
         <Route
           path="/past-questions/instructions"
@@ -622,7 +624,7 @@ const MyNav = (props) => {
         <Route path="/more-info" component={Favourite} />
         <Route path="/feeds" component={Feeds} />
       </Switch>
-      <Analytics/>
+      <Analytics />
     </Router>
   );
 };

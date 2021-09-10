@@ -1,0 +1,40 @@
+.uppercase {
+  text-transform: uppercase;
+}
+/* Style the search field */
+form.faculty-search {
+  border: 1px solid rgb(238, 237, 237);
+  background-color: #f1f1f181;
+}
+form.faculty-search input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: unset;
+  float: left;
+  width: 80%;
+  background: transparent;
+}
+
+/* Style the submit button */
+form.faculty-search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: transparent;
+  color: white;
+  font-size: 17px;
+  border: unset;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.faculty-search button:hover {
+  background: transparent;
+}
+
+/* Clear floats */
+form.faculty-search::after {
+  content: "";
+  clear: both;
+  display: table;
+}

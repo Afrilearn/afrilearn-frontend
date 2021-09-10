@@ -36,6 +36,10 @@ import {
   ACTIVATE_MT_ACCOUNT_SUCCESS,
   GET_ACTIVE_SUBS_SUCCESS,
   GET_ACTIVE_SUBS_FAILURE,
+  GET_FACULTIES_SUCCESS,
+  GET_FACULTIES_FAILURE,
+  GET_RECENT_BLOGS_SUCCESS,
+  GET_RECENT_BLOGS_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -605,4 +609,65 @@ export const getActiveSubs = (userId) => async (dispatch) => {
     });
   }
 };
- 
+export const getFaculty = () => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.getFaculty();
+
+    dispatch({
+      type: GET_FACULTIES_SUCCESS,
+      payload: result.data,
+    });
+
+    dispatch(
+      returnErrors("Faculties recieved", "200", "GET_FACULTIES_SUCCESS")
+    );
+
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_FACULTIES_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_FACULTIES_FAILURE,
+    });
+  }
+};
+export const getRecentBlogs = () => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.getRecentBlog();
+
+    dispatch({
+      type: GET_RECENT_BLOGS_SUCCESS,
+      payload: result.data.data.articles,
+    });
+
+    dispatch(
+      returnErrors("Faculties recieved", "200", "GET_RECENT_BLOGS_SUCCESS")
+    );
+
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_RECENT_BLOGS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_RECENT_BLOGS_FAILURE,
+    });
+  }
+};
