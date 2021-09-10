@@ -73,6 +73,7 @@ import schoolAddAdminComponent from "../screens/schoolAddAdmin/schoolAddAdmin.co
 import Feeds from "../screens/feeds/feeds.component";
 import ProtectedRoute from "../includes/protectedRoute.component";
 import Analytics from "../../analytics";
+import Stories from "../screens/customerStories/customerStories.component";
 
 const MyNav = (props) => {
   const {
@@ -413,8 +414,8 @@ const MyNav = (props) => {
               </NavLink>
             </NavItem>
             {/* <NavItem>
-              <NavLink tag={Link} to="/classes">
-                Classes
+              <NavLink tag={Link} to="/stories">
+                 Stories
               </NavLink>
             </NavItem> */}
             <NavItem>
@@ -621,6 +622,7 @@ const MyNav = (props) => {
         <Route path="/add-student" component={SchoolAddStudent} />
         <Route path="/more-info" component={Favourite} />
         <Route path="/feeds" component={Feeds} />
+        <Route path="/stories" component={Stories} />
       </Switch>
       <Analytics/>
     </Router>

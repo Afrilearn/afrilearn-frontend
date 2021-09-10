@@ -71,7 +71,14 @@ body {
   font-size: 16px;
   margin-bottom: -14px;
 }
-
+.articleText {
+  font-size: 17px;
+  padding: 30px 15px;
+}
+img.articleImage {
+  margin-top: 15px;
+  border-radius: 5px 5px 0px 0px;
+}
 .relative {
   position: relative;
 }
