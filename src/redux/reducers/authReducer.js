@@ -19,6 +19,8 @@ import {
   PAYMENT_VERIFICATION_SUCCESS,
   FOLLOW_A_USER_IN_FEED_SUCCESS,
   GET_ACTIVE_SUBS_SUCCESS,
+  GET_FACULTIES_SUCCESS,
+  GET_RECENT_BLOGS_SUCCESS,
 } from "../actions/types";
 // import socketClient from "socket.io-client";
 
@@ -83,16 +85,28 @@ const initialState = {
   status: "online",
   users_online: [],
   actives: [],
+  blogs: [],
+  faculties: [],
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case INPUT_CHANGE:
-      return {
+      return { 
         ...state,
         [action.payload.name]: action.payload.value,
       };
-    case GET_ACTIVE_SUBS_SUCCESS: 
+    case GET_RECENT_BLOGS_SUCCESS:
+      return {
+        ...state,
+        blogs: action.payload,
+      };
+    case GET_FACULTIES_SUCCESS:
+      return {
+        ...state,
+        faculties: action.payload,
+      };
+    case GET_ACTIVE_SUBS_SUCCESS:
       return {
         ...state,
         actives: action.payload,
