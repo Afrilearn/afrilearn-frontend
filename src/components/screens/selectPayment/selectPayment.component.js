@@ -13,7 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import { getChildren } from "../../../redux/actions/parentActions";
 import { getMembersInClass } from "./../../../redux/actions/classActions";
-import { getRoles } from "./../../../redux/actions/authActions";
+import { getActiveSubs, getRoles } from "./../../../redux/actions/authActions";
 import { getSchoolProfile } from "./../../../redux/actions/schoolActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
@@ -26,6 +26,7 @@ const Payment = (props) => {
   const mounted = useRef();
 
   const dispatch = useDispatch();
+  const actives = useSelector((state) => state.auth.actives);
   const school = useSelector((state) => state.school.school);
   const {
     categories,
@@ -57,7 +58,12 @@ const Payment = (props) => {
   let courseList = () => {
     if (courses.length) {
       return courses.map((course, index) => {
-        return <option value={course._id}>{course.name}</option>;
+        // if ()
+        return (
+          <option disabled={actives.includes(course._id)} value={course._id}>
+            {course.name} {actives.includes(course._id) && "(Subscribed)"}
+          </option>
+        );
       });
     }
   };
@@ -70,7 +76,15 @@ const Payment = (props) => {
   ) {
     courseList = () => {
       return school.schoolClassesData.map((course, index) => {
-        return <option value={course.courseId}>{course.className}</option>;
+        return (
+          <option
+            value={course.courseId}
+            disabled={actives.includes(course.courseId)}
+          >
+            {course.className}{" "}
+            {actives.includes(course.courseId) && "(Subscribed)"}
+          </option>
+        );
       });
     };
   }
@@ -158,8 +172,13 @@ const Payment = (props) => {
       if (user.classOwnership.length) {
         return user.classOwnership.map((teacherClass, index) => {
           return (
-            <option value={teacherClass.courseId} className={teacherClass.id}>
-              {teacherClass.name}
+            <option
+              disabled={actives.includes(teacherClass.courseId)}
+              value={teacherClass.courseId}
+              className={teacherClass.id}
+            >
+              {teacherClass.name}{" "}
+              {actives.includes(teacherClass.courseId) && "Subscribed"}
             </option>
           );
         });
@@ -204,9 +223,11 @@ const Payment = (props) => {
       });
     }
   };
-  // console.log(classMembersPayment)
   useEffect(() => {
     if (!mounted.current) {
+      if (!childId) {
+        dispatch(getActiveSubs(user._id));
+      }
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
@@ -251,6 +272,9 @@ const Payment = (props) => {
 
   useEffect(() => {
     let childCourses_ = [];
+    if (childId) {
+      dispatch(getActiveSubs(childId));
+    }
 
     let children_ = children.filter((c) => c._id === childId);
     let child = children_[0];
@@ -436,13 +460,11 @@ const Payment = (props) => {
     if (nameOfClass) {
       data["newClassName"] = nameOfClass;
     }
-    console.log(data);
     props.verifyPayStackPayment(data);
   };
 
   const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
-    console.log("closed");
   };
   return (
     <>
@@ -689,8 +711,14 @@ const Payment = (props) => {
               </span>
             </div>
           </div>
-          <p>Send proof of payment to hello@myafrilearn.com or Whatsapp  +234 805 154 4949 </p> 
-          <p>Your subscription will be automatically approved ones payment is confirmed.</p>
+          <p>
+            Send proof of payment to hello@myafrilearn.com or Whatsapp +234 805
+            154 4949{" "}
+          </p>
+          <p>
+            Your subscription will be automatically approved ones payment is
+            confirmed.
+          </p>
           <div className="row">
             <div className="col-md-4"> </div>
             <div className="col-md-4">

@@ -41,6 +41,12 @@ export default {
       data: profilePhotoUrl,
     });
   },
+  getActiveSubs(userId) {
+    return axios({
+      method: "get",
+      url: `${this.url}auth/active-subs/${userId}`,
+    });
+  },
   acceptRejectClassmember(classId, userId, status) {
     return axios({
       method: "patch",
