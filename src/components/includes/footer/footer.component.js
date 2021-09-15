@@ -22,14 +22,16 @@ const Footer = (props) => {
             </p>
           </div>
           <div className="col-md-2 partTwo">
-            <h6>About</h6>
             <ul>
               {/* <li><Link>Blog</Link></li> */}
+              <li>
+                <a href="/about">About</a>
+              </li>
               <li>
                 <a href="/contact#career">Media</a>
               </li>
               <li>
-                <a href="/faculties">Faculty</a>
+                <a href="/faculty">Faculty</a>
               </li>
               <li>
                 <a href="/contact#career">Careers</a>

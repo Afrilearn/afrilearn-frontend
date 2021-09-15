@@ -73,14 +73,12 @@ export default function Faculties() {
               <strong>Meet our Faculty!</strong>
             </h1>
             <p>
-              <strong>MyAfrilearn.com</strong> would love to thank every
-              individual, organization, and government who has dedicated their
-              time, resources, and expertise to our mission of delivering
-              quality education to Africans anywhere. The vast content on{" "}
-              <strong>MyAfrilearn.com</strong>
-              is made possible by the selfless commitment of our in-house team
-              alongside our network of highly experienced teachers, volunteers,
-              and partners.
+              Afrilearn would like to thank every individual, organization, and
+              government who has dedicated their time, resources, and expertise
+              to our mission of delivering quality education to Africans
+              anywhere. The vast content on Afrilearn is made possible by the
+              selfless commitment of our in-house team alongside our seasoned
+              network of highly experienced teachers, volunteers, and partners.
             </p>
             <p>________________</p>
 
@@ -110,6 +108,7 @@ export default function Faculties() {
               By joining our network of genius tutors and content providers to
               deliver quality education for Africans anywhere. To join our ace
               team, simply send an email to{" "}
+              <a href="mailto:hello@myafrilearn.com">hello@myafrilearn.com.</a>
             </p>
           </div>
           <div className="col-12 col-md-4">
