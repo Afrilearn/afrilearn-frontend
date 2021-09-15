@@ -49,7 +49,7 @@ export default function Faculties() {
   };
 
   return (
-    <div>
+    <div id="faculties">
       <div className="container pt-4 my-5">
         <div className="w-100 row justify-content-end mb-4">
           <div className="col-12 col-md-4 ">
@@ -72,13 +72,12 @@ export default function Faculties() {
             <h1 className="green">
               <strong>Meet our Faculty!</strong>
             </h1>
-            <p>
+            <p className="intro">
               <strong>MyAfrilearn.com</strong> would love to thank every
               individual, organization, and government who has dedicated their
               time, resources, and expertise to our mission of delivering
               quality education to Africans anywhere. The vast content on{" "}
-              <strong>MyAfrilearn.com</strong>
-              is made possible by the selfless commitment of our in-house team
+              <strong>MyAfrilearn.com</strong> is made possible by the selfless commitment of our in-house team
               alongside our network of highly experienced teachers, volunteers,
               and partners.
             </p>
@@ -106,13 +105,13 @@ export default function Faculties() {
             <h3 className="green">
               <strong>You too can inspire Africa to love learning!</strong>
             </h3>
-            <p>
+            <p className="lastGuy">
               By joining our network of genius tutors and content providers to
               deliver quality education for Africans anywhere. To join our ace
               team, simply send an email to{" "}
             </p>
           </div>
-          <div className="col-12 col-md-4">
+          {/* <div className="col-12 col-md-4">
             <div className="display-6 mb-4">Recent Posts</div>
             {mappedBlogs.map((item, index) => (
               <a key={index} href={item.link} className="my-2 d-block green">
@@ -124,7 +123,7 @@ export default function Faculties() {
                 <div className="card-body text-center">No recent post</div>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />

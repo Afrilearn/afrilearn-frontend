@@ -14,7 +14,19 @@ form.faculty-search input[type="text"] {
   width: 80%;
   background: transparent;
 }
-
+#faculties .intro{
+  font-size: 19px;
+}
+#faculties .my-2 {
+  margin-bottom: .5rem!important;
+  font-size: 17px;
+}
+#faculties strong {
+  font-size: 20px;
+}
+#faculties .lastGuy {
+  font-size: 18px;
+}
 /* Style the submit button */
 form.faculty-search button {
   float: left;
