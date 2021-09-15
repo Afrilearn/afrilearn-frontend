@@ -109,6 +109,7 @@ export default function Faculties() {
               By joining our network of genius tutors and content providers to
               deliver quality education for Africans anywhere. To join our ace
               team, simply send an email to{" "}
+              <a href="mailto:hello@myafrilearn.com">hello@myafrilearn.com.</a>
             </p>
           </div>
           {/* <div className="col-12 col-md-4">
