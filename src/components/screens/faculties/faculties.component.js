@@ -33,17 +33,19 @@ export default function Faculties() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFaculty());
-    dispatch(getRecentBlogs());
+    // dispatch(getRecentBlogs());
   }, []);
 
   const FacultyMember = ({ name, image, description }) => {
     return (
-      <div className="my-3">
-        <p className="uppercase">
-          <strong>{name}</strong>
-        </p>
-        <img src={image} alt={name} height="250px" />
-        <p className="my-2">{description}</p>
+      <div className="m-3 faculty-member">
+        <div class="img" style={{ backgroundImage: `url(${image})` }}></div>
+        <div class="show-on-hover ">
+          <p className="uppercase text-center">
+            <strong>{name}</strong>
+          </p>
+          <p className="my-2 ">{description}</p>
+        </div>
       </div>
     );
   };
@@ -51,23 +53,8 @@ export default function Faculties() {
   return (
     <div id="faculties">
       <div className="container pt-4 my-5">
-        <div className="w-100 row justify-content-end mb-4">
-          <div className="col-12 col-md-4 ">
-            <form class="faculty-search">
-              <input
-                type="text"
-                placeholder="Search.."
-                name="search"
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button type="submit">
-                <i class="fa fa-search text-secondary"></i>
-              </button>
-            </form>
-          </div>
-        </div>
         <div className="row">
-          <div className="col-12 col-md-8">
+          <div className="col-12 ">
             <h1 className="display-6 green">Faculty</h1>
             <h1 className="green">
               <strong>Meet our Faculty!</strong>
@@ -90,14 +77,16 @@ export default function Faculties() {
                 </div>
               </div>
             )}
-            {filtered.map((item, index) => (
-              <FacultyMember
-                key={index}
-                name={item.name}
-                image={item.image}
-                description={item.description}
-              />
-            ))}
+            <div class="d-flex align-items-center flex-wrap faculty-members">
+              {filtered.map((item, index) => (
+                <FacultyMember
+                  key={index}
+                  name={item.name}
+                  image={item.image}
+                  description={item.description}
+                />
+              ))}
+            </div>
 
             <br />
             <br />
@@ -112,7 +101,7 @@ export default function Faculties() {
               <a href="mailto:hello@myafrilearn.com">hello@myafrilearn.com.</a>
             </p>
           </div>
-          {/* <div className="col-12 col-md-4">
+          {/* <div className="col-12 ">
             <div className="display-6 mb-4">Recent Posts</div>
             {mappedBlogs.map((item, index) => (
               <a key={index} href={item.link} className="my-2 d-block green">
