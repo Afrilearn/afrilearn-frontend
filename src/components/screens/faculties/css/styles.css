@@ -1,10 +1,14 @@
 .uppercase {
   text-transform: uppercase;
 }
+.green {
+  color: #688a02 !important;
+}
 /* Style the search field */
 form.faculty-search {
   border: 1px solid rgb(238, 237, 237);
   background-color: #f1f1f181;
+  /* 688a02 */
 }
 form.faculty-search input[type="text"] {
   padding: 10px;
@@ -49,4 +53,53 @@ form.faculty-search::after {
   content: "";
   clear: both;
   display: table;
+}
+.show-on-hover {
+  min-height: 260px;
+  max-height: 360px;
+  width: 180px;
+  background-color: #fff;
+  position: absolute;
+  display: none;
+  padding: 20px 10px;
+  box-shadow: 1 1 1 blur #000;
+  overflow-y: scroll;
+  z-index: 2;
+  /* border: solid 1px rgb(241, 239, 239); */
+}
+.faculty-member .img {
+  height: 260px;
+  width: 180px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* border: solid 1px rgb(241, 239, 239); */
+}
+.show-on-hover::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+.faculty-members:hover .img {
+  opacity: 0.6;
+}
+.faculty-member:hover .show-on-hover {
+  display: block;
+  border: solid 1px rgb(241, 239, 239);
+}
+.faculty-member:hover .img {
+  opacity: 1;
+  border: solid 1px rgb(241, 239, 239);
+}
+@media screen and (max-width: 900px) {
+  .show-on-hover {
+    height: 100px;
+    width: 100px;
+  }
+  .faculty-member .img {
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
 }
