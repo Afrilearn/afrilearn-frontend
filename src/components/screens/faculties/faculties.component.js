@@ -59,14 +59,13 @@ export default function Faculties() {
             <h1 className="green">
               <strong>Meet our Faculty!</strong>
             </h1>
-            <p className="intro">
-              <strong>MyAfrilearn.com</strong> would love to thank every
-              individual, organization, and government who has dedicated their
-              time, resources, and expertise to our mission of delivering
-              quality education to Africans anywhere. The vast content on{" "}
-              <strong>MyAfrilearn.com</strong> is made possible by the selfless commitment of our in-house team
-              alongside our network of highly experienced teachers, volunteers,
-              and partners.
+            <p className="lastGuy">
+              Afrilearn would like to thank every individual, organization, and
+              government who has dedicated their time, resources, and expertise
+              to our mission of delivering quality education to Africans
+              anywhere. The vast content on Afrilearn is made possible by the
+              selfless commitment of our in-house team alongside our seasoned
+              network of highly experienced teachers, volunteers, and partners.
             </p>
             <p>________________</p>
 
