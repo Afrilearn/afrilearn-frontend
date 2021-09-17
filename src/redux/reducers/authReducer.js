@@ -92,7 +92,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case INPUT_CHANGE:
-      return { 
+      return {
         ...state,
         [action.payload.name]: action.payload.value,
       };
@@ -158,6 +158,8 @@ const authReducer = (state = initialState, action) => {
       let otherObj = {};
       socket.emit("login", {
         userId: action.payload.user._id,
+        email: action.payload.user.email,
+        profilePhotoUrl: action.payload.user.profilePhotoUrl,
         name: action.payload.user.fullName,
       });
 

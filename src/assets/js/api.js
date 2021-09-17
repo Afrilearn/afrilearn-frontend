@@ -1,10 +1,12 @@
 import axios from "axios";
-const URL = "https://afrilearn-backend-01.herokuapp.com/api/v1/";
-const LocalURL = "http://localhost:5000/api/v1/";
+export const HerokuServer = "https://afrilearn-backend-01.herokuapp.com/";
+export const HerokuURL = HerokuServer + "api/v1/";
+export const LocalServer = "http://localhost:5000/";
+export const LocalURL = LocalServer + "api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: URL,
+  url: HerokuURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
