@@ -44,7 +44,7 @@
     border-radius: 0px 0px 8px 8px;
     padding: 20px;
     box-shadow: 0 0.5pt 10pt rgb(0 0 0 / 10%);
-    height: 240px;
+    height: 208px;
     background-color: white;
 }
 #storriesThirdSection .readMore{
@@ -75,8 +75,28 @@
     padding: 35px 365px;
     font-size: 20px;
 }
-
+#storries video {
+    width: 100% !important;
+    height: 270px !important; 
+    margin-top: -72px;
+}
+.storyFull .react-player {
+    height: 100% !important;
+}
 @media screen and (max-width: 768px) {
-   
+    #storriesSecondSection {
+        padding: 50px 20px;
+    }
+    #storriesThirdSection> .row {
+        padding: 30px 1px;
+    }
+    #storries video {
+        margin-bottom: -9px;
+        height: 226px !important;
+        margin-top: -51px;
+    }
+    #storriesThirdSection span {
+        height: 196px;        
+    }
   
 }

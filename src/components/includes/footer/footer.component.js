@@ -34,6 +34,9 @@ const Footer = (props) => {
                 <a href="/faculty">Faculty</a>
               </li>
               <li>
+                <a href="/impact-stories">Impact Stories</a>
+              </li>
+              <li>
                 <a href="/contact#career">Careers</a>
               </li>
               <li>

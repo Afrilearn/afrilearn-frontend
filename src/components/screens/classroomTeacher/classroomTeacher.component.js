@@ -575,7 +575,7 @@ const ClassroomTeacher = (props) => {
     <div>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{clazz.courseId && clazz.courseId.name} | Future of learning</title>
+        {/* <title>{clazz.courseId && clazz.courseId.name} | Future of learning</title> */}
         <meta name="description" content='Classroom | Teacher | Subjects' />
       </Helmet> 
       <Modal

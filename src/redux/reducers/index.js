@@ -12,6 +12,7 @@ import parentReducer from "./parentReducer"
 import schoolReducer from "./schoolReducer";
 import commentReducer from "./commentReducer";
 import feedReducer from "./feedReducer";
+import userStoriesReducer from "./userStoriesReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   school: schoolReducer,
   comment: commentReducer,
   feed: feedReducer,
+  userStory:userStoriesReducer
 });
