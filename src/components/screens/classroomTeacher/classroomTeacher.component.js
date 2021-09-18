@@ -25,7 +25,11 @@ import {
   getClassBasicDetails,
   addNewAdminToClass,
 } from "./../../../redux/actions/classActions";
-import { populateDashboard } from "./../../../redux/actions/courseActions";
+import {  
+  populateDashboardUnfinishedVideos,
+  populateDashboardTopTenVideos,
+  populateDashboardFavouriteVideos 
+} from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import PastQuestionsBox from "../../includes/pastQuestions/box.component";
@@ -41,9 +45,26 @@ import slugify from "react-slugify";
 import AnnouncementsLoader from "../../includes/Loaders/announcementsLoader.component";
 import ClassWorksLoader from "../../includes/Loaders/classworksLoader.component";
 import {Helmet} from "react-helmet";
+import ResumeWatching from "../../includes/dashboard/resumeWatching.component";
+import TopTen from "../../includes/dashboard/topTen.component";
+import Favourite from "../../includes/dashboard/favourites.component";
+import norecent from "../../../assets/img/norecent.png";
+import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
 
 const ClassroomTeacher = (props) => {
-  const { activeEnrolledCourseId, clazz, userData, error, isLoading } = props;
+  const { 
+    activeEnrolledCourseId,
+    clazz,
+    userData,
+    error, 
+    dashboardUnFinishedVideos,
+    unFinishedVideoLoader,
+    topTenVideoLoader,
+    dashboardTopTenVideos,
+    favouriteVideoLoader,
+    dashboardFavouriteVideos,
+    activeCourseId 
+  } = props;
 
   const [announcementText, setAnnouncementText] = useState(null);
   const dispatch = useDispatch();
@@ -133,28 +154,30 @@ const ClassroomTeacher = (props) => {
   const invitationLink = `https://myafrilearn.com/join-class?email=${email}&classId=${activeEnrolledCourseId}`;
 
   useEffect(() => {
-    // if (!mounted.current) {
-    // do componentDidMount logic
+    const data = {
+      enrolledCourseId: activeEnrolledCourseId,
+    };
+    const data1 = {
+      enrolledCourseId: activeCourseId,
+    };
+    
     dispatch(getClassSubjects(activeEnrolledCourseId));
     dispatch(getMembersInClass(activeEnrolledCourseId));
     dispatch(getClassAssignedContents(activeEnrolledCourseId));
     dispatch(getClassAnnouncements(activeEnrolledCourseId));
     dispatch(getClassPastQuestions(activeEnrolledCourseId));
     dispatch(getClassBasicDetails(activeEnrolledCourseId));
+    dispatch(populateDashboardUnfinishedVideos());
+    dispatch(populateDashboardTopTenVideos(activeEnrolledCourseId ? data1 : null))
+    dispatch(populateDashboardFavouriteVideos(activeEnrolledCourseId ? data : null));
+  
     mounted.current = true;
     window.scrollTo(0, 0);
     props.inputChange("dashboardRoute", true);
     props.inputChange("inClass", true);
     props.inputChange("targetUser", null);
 
-    // const data = {
-    //   enrolledCourseId: activeEnrolledCourseId,
-    // };
-    // props.populateDashboard(activeEnrolledCourseId ? data : null);
-    toggleTab("1");
-    // props.getClass(activeEnrolledCourseId);
-
-    // do componentDidUpdate logic
+    toggleTab("1");    
   }, [activeEnrolledCourseId]);
 
   if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
@@ -236,9 +259,9 @@ const ClassroomTeacher = (props) => {
     });
     props.clearErrors();
   }
-  if (clazz) {
-    props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
-  }
+  // if (clazz) {
+  //   props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
+  // }
   const copyToClipboard = (e) => {
     e.preventDefault();
     var textField = document.createElement("textarea");
@@ -355,30 +378,6 @@ const ClassroomTeacher = (props) => {
           <h6>No Announcement list yet</h6>
         </div>
       );
-    }
-  };
-  const newClassAnonouncementBox = () => {
-    if (newAnouncements && newAnouncements.length > 0) {
-      return newAnouncements.map((newAnouncement) => (
-        <div className="chat-block">
-          <div className="sender">
-            <div className="sender-head">
-              <div className="pic-text-heading">
-                <img src={man} alt="sender" />
-                <div>
-                  <p>Me </p>
-                  <small className="small-grey">Just now</small>
-                </div>
-              </div>
-              <img src={dots} alt="see-more" />
-            </div>
-            <p className="sender-message">{newAnouncement}</p>
-          </div>
-          <div className="comments">
-            <small>0 class comments</small>
-          </div>
-        </div>
-      ));
     }
   };
 
@@ -538,6 +537,7 @@ const ClassroomTeacher = (props) => {
       return <div className="container padding-30">No Members list yet</div>;
     }
   };
+
   const adminsList = () => {
     if (admins.length > 0) {
       return admins.map((admin) => {
@@ -563,6 +563,8 @@ const ClassroomTeacher = (props) => {
             other={index % 2 === 0 ? true : false}
             categoryId={item.pastQuestionTypeId.categoryId}
             categoryName={item.pastQuestionTypeId.name}
+            image={item.pastQuestionTypeId.imageUrl}
+            description={item.pastQuestionTypeId.description}
           />
         );
       });
@@ -571,11 +573,84 @@ const ClassroomTeacher = (props) => {
     }
   };
 
+  const unFinishedVideosList = () => {
+    if (
+      dashboardUnFinishedVideos.unFinishedVideos &&     
+      dashboardUnFinishedVideos.unFinishedVideos.length
+    ) {      
+      // eslint-disable-next-line array-callback-return
+      let counter = 0;
+      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {  
+        if(counter<6){
+          ++counter
+          return (
+            <ResumeWatching item= {item}/>
+          );     
+        } 
+      });
+    } else {
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>You currently have 0 uncompleted Videos</p>
+        </div>
+      );
+    }
+  };
+
+  const topTenList = () => {
+    if (
+      dashboardTopTenVideos.lessons &&     
+      dashboardTopTenVideos.lessons.length
+    ) {      
+      // eslint-disable-next-line array-callback-return
+      let counter = 0;
+      return dashboardTopTenVideos.lessons.map((item, index) => {  
+        if(counter<6){
+          ++counter
+          return (
+            <TopTen item= {item}/>
+          );     
+        } 
+      });
+    } else {
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>No top ten videos</p>
+        </div>
+      );
+    }
+  };
+  
+  const favouriteList = () => {
+    if (
+      dashboardFavouriteVideos &&     
+      dashboardFavouriteVideos.length
+    ) {      
+      let counter = 0;
+      // eslint-disable-next-line array-callback-return     
+      return dashboardFavouriteVideos.map((item, index) => {
+        if(counter<6){
+          ++counter
+          return (
+            <Favourite item= {item}/>
+          );
+        }         
+      });
+    } else {
+      return (
+        <div className="empty-class-state-2">
+          <img src={norecent} /> <p>No favourite videos yet</p>
+        </div>
+      );
+    }
+  };
+ 
+
   return (
     <div>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{clazz.courseId && clazz.courseId.name} | Future of learning</title>
+        <title>{clazz.courseId && clazz.courseId.name? clazz.courseId.name:''} | Future of learning</title>
         <meta name="description" content='Classroom | Teacher | Subjects' />
       </Helmet> 
       <Modal
@@ -956,7 +1031,7 @@ const ClassroomTeacher = (props) => {
                     subjectList()
                   )}
                 </div>
-                <h4 className="push5 h4">Past Questions</h4>
+                <h4 className="push5 h4 past">Past Questions</h4>
                 <div className="row jj">
                   {classRelatedPastQuestionsLoading ? (
                     <SubjectBoxLoader />
@@ -964,8 +1039,38 @@ const ClassroomTeacher = (props) => {
                     pastQuestionsList()
                   )}
                 </div>
+                <a name="resumePlaying"></a>
+                <h4 className="push5 resumePlayingBox">Resume Watching</h4>
+                <div className="row push10 resumePlaying resumePlayingDashboard">      
+                  { unFinishedVideoLoader ? (
+                      <SubjectLoader />
+                  ) : (
+                    unFinishedVideosList()
+                  )}
+                      
+                </div>
+                <a name="topTen"></a>
+                <h4 className="push5 resumePlayingBox topT">Top Ten Lessons <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
+                <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
+                  { topTenVideoLoader ? (
+                      <SubjectLoader />
+                  ) : (
+                    topTenList()
+                  )}
+                  
+                </div>
+                <a name="favourite"></a>
+                <h4 className="push5 resumePlayingBox favT">My Fav <small className="showAll"><Link to="/more-info?section=favourites">Show all</Link></small></h4>
+                <div className="row push10 resumePlaying myTopTen resumePlayingDashboard favU">      
+                  { favouriteVideoLoader ? (
+                      <SubjectLoader />
+                  ) : (
+                    favouriteList()
+                  )}
+                  
+                </div>
               </div>
-
+              
               <div className="announcements ">
                 <main>
                   <div class="row justify-content-between">
@@ -1119,6 +1224,7 @@ ClassroomTeacher.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
+  
   clazz: state.class.class,
   dashboardData: state.course.dashboardData,
   classMembers: state.class.classMembers,
@@ -1128,12 +1234,17 @@ const mapStateToProps = (state) => ({
   user: state.auth.user.role,
   userData: state.auth.user,
   error: state.error,
-  isLoading: state.class.isLoading,
+  dashboardUnFinishedVideos:state.course.dashboardUnFinishedVideos,
+  unFinishedVideoLoader:state.course.unFinishedVideoLoader,
+  topTenVideoLoader: state.course.topTenVideoLoader,
+  dashboardTopTenVideos: state.course.dashboardTopTenVideos,
+  favouriteVideoLoader: state.course.favouriteVideoLoader,
+  dashboardFavouriteVideos: state.course.dashboardFavouriteVideos,
+  activeCourseId: state.auth.activeCourseId
 });
 
 export default connect(mapStateToProps, {
   inputChange,
-  populateDashboard,
   getClass,
   createComment,
   addNewAdminToClass,
@@ -1141,4 +1252,7 @@ export default connect(mapStateToProps, {
   clearErrors,
   acceptRejectClassmember,
   makeAnnouncement,
+  populateDashboardUnfinishedVideos,
+  populateDashboardTopTenVideos,
+  populateDashboardFavouriteVideos
 })(ClassroomTeacher);

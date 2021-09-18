@@ -1,6 +1,4 @@
 import axios from "axios";
-const URL =
-  "http://afrilearnbackend-env.eba-kmm3jyax.eu-west-3.elasticbeanstalk.com/api/v1/";
 export const HerokuServer = "https://afrilearn-backend-01.herokuapp.com/";
 export const HerokuURL = HerokuServer + "api/v1/";
 export const LocalServer = "http://localhost:5000/";
@@ -1061,6 +1059,13 @@ export default {
       method: "get",
       url: `${this.url}auth/activate_account?token=${uuid}`,
       headers: { token: uuid },
+    });
+  },
+  getUserStories() {
+    return axios({
+      method: "get",
+      url: `${this.url}user-story/`,
+      headers: this.headers(),
     });
   },
 };

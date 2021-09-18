@@ -261,7 +261,7 @@ const authReducer = (state = initialState, action) => {
         role: action.payload.user.role ? action.payload.user.role : "",
         state: action.payload.user.state ? action.payload.user.state : "",
       };
-
+     
       return {
         ...state,
         ...myObj,

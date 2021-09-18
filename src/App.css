@@ -78,6 +78,9 @@ body {
 img.articleImage {
   margin-top: 15px;
   border-radius: 5px 5px 0px 0px;
+  height: 350px;
+  object-fit: cover;
+  object-position: center;
 }
 .relative {
   position: relative;
@@ -698,6 +701,7 @@ img.dropDownIcon1 {
   .react-player {
     width: 100%;
     height: auto !important;
+    overflow: hidden;
   }
 }
 

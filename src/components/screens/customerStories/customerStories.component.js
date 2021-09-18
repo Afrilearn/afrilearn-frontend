@@ -2,16 +2,17 @@ import React, { useEffect, useRef } from "react";
 import Footer from "../../includes/footer/footer.component";
 import StoryBox from "../../includes/stories/storyBox.component";
 import { getRoles } from "../../../redux/actions/authActions";
+import { getUserStories } from "../../../redux/actions/userStoriesActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import './css/style.css';
 import {Helmet} from "react-helmet";
-import { Link } from "react-router-dom";
 
 const Stories = props => {  
     const mounted = useRef(); 
     const {   
-        classes     
+        classes,
+        userStories     
     } = props;
     useEffect(()=>{
         if (!mounted.current) {
@@ -20,11 +21,29 @@ const Stories = props => {
             window.scrollTo(0, 0);   
             if(!classes.length){
                 props.getRoles();
-            }          
+            } 
+            props.getUserStories()                     
         } else {
             // do componentDidUpdate logic          
           } 	       
-    })       
+    }) 
+    
+    const userStoryList = () => {
+        if (userStories && userStories.length) {
+          return userStories.map((item) => {
+            return (
+                <StoryBox story={item} key={item.id}/>
+            );
+          });
+        } else {
+          return (
+            <div className="empty-class-state">
+              <span className="pink-dot"></span>
+              <p>We currently don't have any user stories</p>
+            </div>
+          );
+        }
+    };
    
 	return (        
 		<span id="storries"> 
@@ -44,12 +63,7 @@ const Stories = props => {
             </div>
             <div id="storriesThirdSection" className="container-fluid">
                 <div className="row">
-                    <StoryBox/>
-                    <StoryBox/>
-                    <StoryBox/>
-                    <StoryBox/>   
-                    <StoryBox/>
-                    <StoryBox/>                         
+                    {userStoryList()}                     
                 </div>
             </div>
             {/* <div className="center"><span className="myButton"><Link>VIEW ALL STORIES</Link></span></div>  
@@ -90,9 +104,11 @@ const Stories = props => {
 
 Stories.propTypes = {   
     getRoles: PropTypes.func.isRequired,
+    getUserStories: PropTypes.func.isRequired,
 };
   
 const mapStateToProps = (state) => ({
-    classes: state.auth.classes   
+    classes: state.auth.classes,
+    userStories:state.userStory.userStories   
 });
-export default connect(mapStateToProps, { getRoles })(Stories);
+export default connect(mapStateToProps, { getRoles, getUserStories })(Stories);
