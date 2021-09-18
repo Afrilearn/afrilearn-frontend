@@ -65,8 +65,6 @@ const Dashboard = (props) => {
     averageText,
     belowAverageText,
     noRatingText,
-    course,
-    isLoading,
     error,
     dashboardEnrolledCourse,
     dashboardClassMembership,

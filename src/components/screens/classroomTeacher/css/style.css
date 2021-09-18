@@ -659,19 +659,21 @@
 
 #classroomTeacherSectionTwo .h4 {
   font-family: font2;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
-
+#classroomTeacherSectionTwo .past {
+  margin-top: 13px;
+}
 #classroomTeacherSectionTwo .pastQuestionsBox {
   display: block;
-  background: #fc8a07;
+  background: #118330;
   padding: 23px;
   border-radius: 5px;
   margin-bottom: 30px;
 }
 
 #classroomTeacherSectionTwo .pastQuestionsBox1 {
-  background: #84bb29;
+  background: #340067;
 }
 #classroomTeacherSectionTwo .pastQuestionsBox img {
   max-width: 70px;
@@ -688,4 +690,13 @@
   color: orangered !important;
   font-weight: lighter;
   font-family: font3;
+}
+#classroomTeacherSectionTwo .favT {
+  margin-top: 13px;
+}
+#classroomTeacherSectionTwo .favU {
+  margin-bottom: 52px;
+}
+#classroomTeacherSectionTwo .topT {
+  margin-top: 32px;
 }

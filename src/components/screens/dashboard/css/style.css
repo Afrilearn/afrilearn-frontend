@@ -249,17 +249,18 @@ small.showAll {
   color: #c0c0c0;
   margin: 0;
 }
-#dashboardSecondSection .empty-class-state-2 {
+.empty-class-state-2 {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-#dashboardSecondSection .empty-class-state-2 img {
+.empty-class-state-2 img {
   margin-top: 30px;
   margin-bottom: 30px;
+  width: auto;
 }
-#dashboardSecondSection .empty-class-state-2 p {
+.empty-class-state-2 p {
   font-family: font1;
   font-style: normal;
   font-weight: normal;
@@ -352,4 +353,5 @@ small.showAll {
   #dashboardSecondSection .pink-dot {
     margin-right: 10px;
   }
+ 
 }

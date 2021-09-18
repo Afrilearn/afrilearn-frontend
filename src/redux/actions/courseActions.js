@@ -199,7 +199,6 @@ export const populateDashboardUnfinishedVideos = () => async (dispatch) => {
     });
 
     const result = await API.getDashboardUnFinishedVideos();
-    
     dispatch({
       type: GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS,
       payload: result.data.data
