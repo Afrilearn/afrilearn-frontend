@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import './css/style.css';
 import {Helmet} from "react-helmet";
 
+
 const Stories = props => {  
     const mounted = useRef(); 
     const {   
@@ -49,15 +50,15 @@ const Stories = props => {
 		<span id="storries"> 
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Stories and Features | myafrilearn.com</title>
+                <title>Impact Stories & Features | myafrilearn.com</title>
                 <meta name="description" content="Stories and Features" />
             </Helmet>      
             <div id="storriesFirstSection" className="container-fluid relative">    </div>
             <div id="storriesSecondSection" className="container-fluid">
                 <div className="row">
                     <div className="col-md-12">
-                        <h1>Stories and Features</h1>
-                        <p>Beyound the headlines, every child has a story</p>
+                        <h1>Impact Stories & Features</h1>
+                        <p>Whatever goes into a mind comes out in a life.</p>
                     </div>                
                 </div>
             </div>

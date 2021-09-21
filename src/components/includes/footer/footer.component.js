@@ -21,38 +21,52 @@ const Footer = (props) => {
               Africans, anywhere.
             </p>
           </div>
-          <div className="col-md-2 partTwo">
+          <div className="col-md-3 partTwo">
             <ul>
               {/* <li><Link>Blog</Link></li> */}
               <li>
                 <a href="/about">About</a>
               </li>
               <li>
-                <a href="/contact#career">Media</a>
+                <a href="/impact-stories" target="_blank">Impact Stories</a>
               </li>
               <li>
-                <a href="/faculty">Faculty</a>
+                <a href="/about#team">Team</a>
               </li>
               <li>
-                <a href="/impact-stories">Impact Stories</a>
-              </li>
-              <li>
-                <a href="/contact#career">Careers</a>
-              </li>
-              <li>
-                <a href="/about#team">Our Team</a>
+                <a href="/faculty" target="_blank">Faculty</a>
               </li>
               <li>
                 <Link to="/partnership">Partnership</Link>
               </li>
               <li>
+                <a href="/contact#career">Careers</a>
+              </li>             
+              <li>
                 <Link to="/contact">Contact</Link>
+              </li>              
+            </ul>
+            <ul className="floatUl desktopOnly">
+              <li>
+                <a href="https://blog.myafrilearn.com/" target='_blank'>Blog</a>
+              </li>  
+              <li>
+                <a href="/contact#career">Media</a>
+              </li> 
+              <li className="download">
+                <a href="https://play.google.com/store/apps/details?id=com.afrilearn" target='_blank'>Download our App</a>
+              </li>           
+              <li>
+                <a href="https://play.google.com/store/apps/details?id=com.afrilearn" target='_blank'>Android App</a>
+              </li>
+              <li>
+                <a href="" target='_blank'>iOS App</a>
               </li>
             </ul>
           </div>
           <div className="col-md-3 partThree">
-            <h6>Contact</h6>
-            <ul>
+            <h6 className="shift">Contact</h6>
+            <ul className="shift">
               <li className="hh">
                 <img
                   className="logo1"
@@ -88,7 +102,7 @@ const Footer = (props) => {
               </li>
             </ul>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-2">
             <h6>Key Stats</h6>
             <p>Registered Students</p>
             <p className="p2"> {students ? numberWithCommas(students) : ""}+</p>

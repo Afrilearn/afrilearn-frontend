@@ -9,6 +9,18 @@
     margin: 0px;
     padding: 0px;
 }
+#footer .shift {
+    margin-left: 40px;
+}
+#footer .download {
+    margin-top: 40px;
+}
+#footer .floatUl {
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 12px;
+}
 #footer h6 {
     margin-bottom: 14px;
     font-family: font2;

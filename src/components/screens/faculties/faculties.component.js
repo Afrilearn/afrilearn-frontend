@@ -52,8 +52,8 @@ export default function Faculties() {
 
   return (
     <div id="faculties">
-      <div className="container pt-4 my-5">
-        <div className="row">
+      <div className="container-fluid pt-4 my-5">
+        <div className="row faculty33">
           <div className="col-12 ">
             <h1 className="display-6 green">Faculty</h1>
             <h1 className="green">

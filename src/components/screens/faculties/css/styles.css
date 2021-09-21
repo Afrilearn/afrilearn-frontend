@@ -23,7 +23,8 @@ form.faculty-search input[type="text"] {
 }
 #faculties .my-2 {
   margin-bottom: .5rem!important;
-  font-size: 17px;
+  font-size: 16px;
+  text-align: justify;
 }
 #faculties strong {
   font-size: 20px;
@@ -57,7 +58,7 @@ form.faculty-search::after {
 .show-on-hover {
   min-height: 260px;
   max-height: 360px;
-  width: 180px;
+  width: 226px;
   background-color: #fff;
   position: absolute;
   display: none;
@@ -69,11 +70,17 @@ form.faculty-search::after {
 }
 .faculty-member .img {
   height: 260px;
-  width: 180px;
+  width: 226px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   /* border: solid 1px rgb(241, 239, 239); */
+}
+.faculty33 .m-3 {
+  margin: 0.4rem!important;
+}
+.faculty33{
+  padding: 2px 60px;
 }
 .show-on-hover::-webkit-scrollbar {
   width: 0; /* Remove scrollbar space */

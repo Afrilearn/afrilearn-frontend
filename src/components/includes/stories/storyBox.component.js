@@ -2,6 +2,7 @@ import React,{ useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import ReactPlayer from "react-player/lazy";
+import moment from "moment";
 
 const Box = props => {	
     const {story} = props;
@@ -33,7 +34,8 @@ const Box = props => {
             <span  onClick={()=>toggle()}>
                     <h5>{story.title.length >20? story.title.substr(0,17)+'...' :story.title}</h5>
                     <p>{story.description.length >100? story.description.substr(0,87)+'...' :story.description}</p>
-                    <p className="readMore"><Link><b>Read More</b></Link></p>
+                    <small>Posted on: {moment(story.createdAt).format('DD-MM-YYYY')}</small>
+                    <p className="readMore"><Link><b>{'>'} See the story</b></Link></p>
             </span>
         </div> 
         <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">

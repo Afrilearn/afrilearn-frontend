@@ -77,10 +77,11 @@
     margin-bottom: 15px;
 }
 #contactThirdSection img.pressLogo {
-    width: 300px !important;
-    height: 149px !important;
+    width: 100% !important;
+    height: 147px !important;
     margin: auto !important;
     display: block !important;
+    object-fit: contain;
 }
 
 @media screen and (max-width: 768px) {
