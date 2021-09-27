@@ -19,12 +19,16 @@ import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import queryString from "query-string";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import { getCourseSubjects } from "../../../redux/actions/courseActions";
 
 const Payment = (props) => {
   const parsed = queryString.parse(props.location.search);
   const mounted = useRef();
-
+  const costPreSubject = 100;
+  const subjectsForSignUp = useSelector(
+    (state) => state.course.subjectsForSignUp
+  );
   const dispatch = useDispatch();
   const actives = useSelector((state) => state.auth.actives);
   const school = useSelector((state) => state.school.school);
@@ -41,12 +45,16 @@ const Payment = (props) => {
     error,
     user,
   } = props;
+  console.log("categories", categories);
 
   const [selected, setSelected] = useState(null);
   const [childCourses, setchildCourses] = useState([]);
   const [childId, setChildId] = useState("");
 
   const [courseId, setCourseId] = useState(null);
+  console.log("courseId", courseId);
+  const [subjectId, setSubjectId] = useState(null);
+  const [classToPayFor, setClassToPayFor] = useState(null);
   const [nameOfClass, setNameOfClass] = useState(null);
   const [newClassContent, setNewClassContent] = useState(null);
   const [receipientOption, setReceipientOption] = useState(null);
@@ -358,6 +366,23 @@ const Payment = (props) => {
       props.clearErrors();
     } else if (
       role === "602f3ce39b146b3201c2dc1d" &&
+      courseId == 1 &&
+      !subjectId
+    ) {
+      Swal.fire({
+        html: "Please select a subject subscribe to.",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();
+    } else if (
+      role === "602f3ce39b146b3201c2dc1d" &&
       courseId != 1 &&
       !receipientOption &&
       !newClassContent
@@ -460,6 +485,9 @@ const Payment = (props) => {
     if (nameOfClass) {
       data["newClassName"] = nameOfClass;
     }
+    if (subjectId) {
+      data["subjectId"] = subjectId;
+    }
     props.verifyPayStackPayment(data);
   };
 
@@ -468,11 +496,11 @@ const Payment = (props) => {
   };
   return (
     <>
-     <Helmet>
-          <meta charSet="utf-8" />
-          <title>Payment Page | Myafrilearn.com</title>
-          <meta name="description" content='Payment Page' />
-      </Helmet>   
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Payment Page | Myafrilearn.com</title>
+        <meta name="description" content="Payment Page" />
+      </Helmet>
       <div id="selectPaymentPageSectionOne">
         <div class="container">
           <div class="row">
@@ -528,6 +556,19 @@ const Payment = (props) => {
                               true
                             );
                           }
+                          const cc = user.classOwnership.find(
+                            (i) =>
+                              i._id ===
+                              e.target.options[e.target.options.selectedIndex]
+                                .className
+                          );
+                          if (role === "602f3ce39b146b3201c2dc1d") {
+                            console.log("cc", cc);
+                            setClassToPayFor(cc);
+                          } else {
+                            setClassToPayFor(null);
+                            setSubjectId(null);
+                          }
                         }}
                       >
                         <option selected>Select Class</option>
@@ -576,10 +617,26 @@ const Payment = (props) => {
                               e.preventDefault();
                               setCourseId(e.target.value);
                               setNewClassContent(e.target.value);
+                              dispatch(getCourseSubjects(e.target.value));
                             }}
                           >
                             <option selected>Select Class Content</option>
                             {courseList()}
+                          </select>
+                          <select
+                            class="form-select form-select-lg mb-3"
+                            aria-label=".form-select-lg example"
+                            onChange={(e) => {
+                              e.preventDefault();
+                              setSubjectId(e.target.value);
+                            }}
+                          >
+                            <option>Select Subject</option>
+                            {subjectsForSignUp.map((i, index) => (
+                              <option key={index} value={i._id}>
+                                {i.mainSubjectId.name}
+                              </option>
+                            ))}
                           </select>
                         </>
                       ) : null}
@@ -622,27 +679,31 @@ const Payment = (props) => {
                   </h3>
                   <div className="row">
                     {categories.map((paymentPlan) => {
+                      const thePrice = classToPayFor
+                        ? costPreSubject *
+                          classToPayFor?.subjectIds?.length *
+                          paymentPlan.duration
+                        : subjectId
+                        ? costPreSubject * paymentPlan.duration
+                        : paymentPlan.amount;
                       if (paymentPlan.duration > 0) {
                         return (
                           <div className="col-6 col-md-3" key={paymentPlan._id}>
                             <SubscriptionBox
                               onClick={() => {
-                                props.inputChange(
-                                  "paymentAmount",
-                                  paymentPlan.amount
-                                );
+                                props.inputChange("paymentAmount", thePrice);
                                 props.inputChange(
                                   "paymentPlanId",
                                   paymentPlan._id
                                 );
-                                setBB(paymentPlan.amount);
+                                setBB(thePrice);
                                 setSelected(paymentPlan._id);
                                 // setSelected()
                               }}
                               selected={selected}
                               id={paymentPlan._id}
                               title={paymentPlan.name}
-                              price={paymentPlan.amount}
+                              price={thePrice}
                               classname={paymentPlan.name
                                 .toLocaleLowerCase()
                                 .trim()}

@@ -31,6 +31,11 @@ socket.on("get_users_online", (users) => {
 });
 socket.on("promt_invite", (data) => {
   console.log("promt_invite", data);
+  socket.emit("joinRoom", {
+    username: "Random ",
+    user: { fullName: "Random User" },
+    roomname: data.roomname,
+  });
 });
 
 const initialState = {
@@ -64,6 +69,8 @@ const initialState = {
   classLabel: "Select a Class",
   userId: "",
   user: {},
+  subjectIds: [],
+  subjectId: "",
   courseId: "",
   formClassId: "",
   formCourseId: "",

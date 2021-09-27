@@ -1,7 +1,5 @@
 import API from "./../../assets/js/api";
-import {
-  returnErrors
-} from "./errorActions";
+import { returnErrors } from "./errorActions";
 
 import {
   COURSE_INPUT_CHANGE,
@@ -38,7 +36,9 @@ import {
   GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
   GET_USER_DASHBOARD_FAVOURITE_VIDEOS_FAILURE,
   GET_AFRILEARN_TOPTEN_VIDEOS_SUCCESS,
-  GET_AFRILEARN_TOPTEN_VIDEOS_FAILURE
+  GET_AFRILEARN_TOPTEN_VIDEOS_FAILURE,
+  GET_COURSE_SUBJECTS_SUCCESS,
+  GET_COURSE_SUBJECTS_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -68,15 +68,32 @@ export const getCourses = () => async (dispatch) => {
     document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
         "GET_ALL_COURSES_FAILURE"
       )
     );
     dispatch({
       type: GET_ALL_COURSES_FAILURE,
+    });
+  }
+};
+export const getCourseSubjects = (courseId) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.getCourseSubjects(courseId);
+    dispatch({
+      type: GET_COURSE_SUBJECTS_SUCCESS,
+      payload: result.data.data,
+    });
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+
+    dispatch({
+      type: GET_COURSE_SUBJECTS_FAILURE,
     });
   }
 };
@@ -89,7 +106,6 @@ export const getCourse = (data) => async (dispatch) => {
     let classNoteCount = 0;
     let videoLessonCount = 0;
     let quizQuestionsCount = 0;
-
 
     const subjects = result.data.data.course.relatedSubjects;
     let i;
@@ -109,7 +125,6 @@ export const getCourse = (data) => async (dispatch) => {
       }
     }
 
-
     dispatch({
       type: GET_SINGLE_COURSE_SUCCESS,
       payload: {
@@ -118,7 +133,7 @@ export const getCourse = (data) => async (dispatch) => {
         quizQuestionsCount,
         course: result.data.data.course,
         subjectCount: result.data.data.course.relatedSubjects.length,
-        numOfUsers: result.data.data.numOfUsers
+        numOfUsers: result.data.data.numOfUsers,
       },
     });
 
@@ -127,9 +142,9 @@ export const getCourse = (data) => async (dispatch) => {
     document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
         "GET_SINGLE_COURSE_FAILURE"
       )
@@ -145,22 +160,22 @@ export const populateDashboardEnrolledCourses = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'enrolledCourseLoader',
+        name: "enrolledCourseLoader",
         value: true,
       },
     });
 
     const result = await API.getDashboardEnrolledCourse(data);
-    
+
     dispatch({
       type: GET_USER_DASHBOARD_ENROLLED_COURSE_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'enrolledCourseLoader',
+        name: "enrolledCourseLoader",
         value: false,
       },
     });
@@ -168,16 +183,16 @@ export const populateDashboardEnrolledCourses = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'enrolledCourseLoader',
+        name: "enrolledCourseLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_ENROLLED_COURSE_FAILURE"
       )
@@ -193,21 +208,25 @@ export const populateDashboardUnfinishedVideos = () => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'unFinishedVideoLoader',
+        name: "unFinishedVideoLoader",
         value: true,
       },
     });
 
     const result = await API.getDashboardUnFinishedVideos();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
     dispatch({
       type: GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'unFinishedVideoLoader',
+        name: "unFinishedVideoLoader",
         value: false,
       },
     });
@@ -215,16 +234,16 @@ export const populateDashboardUnfinishedVideos = () => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'unFinishedVideoLoader',
+        name: "unFinishedVideoLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_UNFINISHED_VIDEOS_FAILURE"
       )
@@ -236,25 +255,25 @@ export const populateDashboardUnfinishedVideos = () => async (dispatch) => {
 };
 
 export const populateDashboardTopTenVideos = (data) => async (dispatch) => {
-  try {   
+  try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'topTenVideoLoader',
+        name: "topTenVideoLoader",
         value: true,
       },
     });
 
-    const result = await API.getDashboardTopTen(data);   
+    const result = await API.getDashboardTopTen(data);
     dispatch({
       type: GET_USER_DASHBOARD_TOPTEN_VIDEOS_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'topTenVideoLoader',
+        name: "topTenVideoLoader",
         value: false,
       },
     });
@@ -262,16 +281,16 @@ export const populateDashboardTopTenVideos = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'topTenVideoLoader',
+        name: "topTenVideoLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_TOPTEN_VIDEOS_FAILURE"
       )
@@ -283,24 +302,24 @@ export const populateDashboardTopTenVideos = (data) => async (dispatch) => {
 };
 
 export const populateAfrilearnTopTenVideos = () => async (dispatch) => {
-  try {   
+  try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'afrilearnTopTenVideoLoader',
+        name: "afrilearnTopTenVideoLoader",
         value: true,
       },
     });
-    const result = await API.getAfrilearnTopTen();   
+    const result = await API.getAfrilearnTopTen();
     dispatch({
       type: GET_AFRILEARN_TOPTEN_VIDEOS_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'afrilearnTopTenVideoLoader',
+        name: "afrilearnTopTenVideoLoader",
         value: false,
       },
     });
@@ -308,16 +327,16 @@ export const populateAfrilearnTopTenVideos = () => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'afrilearnTopTenVideoLoader',
+        name: "afrilearnTopTenVideoLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_AFRILEARN_TOPTEN_VIDEOS_FAILURE"
       )
@@ -329,11 +348,11 @@ export const populateAfrilearnTopTenVideos = () => async (dispatch) => {
 };
 
 export const populateDashboardFavouriteVideos = (data) => async (dispatch) => {
-  try {    
+  try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'favouriteVideoLoader',
+        name: "favouriteVideoLoader",
         value: true,
       },
     });
@@ -341,31 +360,30 @@ export const populateDashboardFavouriteVideos = (data) => async (dispatch) => {
     const result = await API.getDashboardFavouriteVideo(data);
     dispatch({
       type: GET_USER_DASHBOARD_FAVOURITE_VIDEOS_SUCCESS,
-      payload: result.data
+      payload: result.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'favouriteVideoLoader',
+        name: "favouriteVideoLoader",
         value: false,
       },
     });
-
   } catch (err) {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'favouriteVideoLoader',
+        name: "favouriteVideoLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_FAVOURITE_VIDEOS_FAILURE"
       )
@@ -381,7 +399,7 @@ export const populateDashboardClassMembership = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'classMembershipLoader',
+        name: "classMembershipLoader",
         value: true,
       },
     });
@@ -390,13 +408,13 @@ export const populateDashboardClassMembership = (data) => async (dispatch) => {
 
     dispatch({
       type: GET_USER_DASHBOARD_CLASS_MEMBERSHIP_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'classMembershipLoader',
+        name: "classMembershipLoader",
         value: false,
       },
     });
@@ -404,16 +422,16 @@ export const populateDashboardClassMembership = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'classMembershipLoader',
+        name: "classMembershipLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_CLASS_MEMBERSHIP_FAILURE"
       )
@@ -429,24 +447,22 @@ export const populateDashboardRecommendations = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'recommendationLoader',
+        name: "recommendationLoader",
         value: true,
       },
     });
 
     const result = await API.getDashboardRecommendations(data);
 
-
-
     dispatch({
       type: GET_USER_DASHBOARD_RECOMMENDATIONS_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'recommendationLoader',
+        name: "recommendationLoader",
         value: false,
       },
     });
@@ -454,16 +470,16 @@ export const populateDashboardRecommendations = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'recommendationLoader',
+        name: "recommendationLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_RECOMMENDATIONS_FAILURE"
       )
@@ -479,7 +495,7 @@ export const populateDashboardRecentActivities = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'recentActivitiesLoader',
+        name: "recentActivitiesLoader",
         value: true,
       },
     });
@@ -488,13 +504,13 @@ export const populateDashboardRecentActivities = (data) => async (dispatch) => {
 
     dispatch({
       type: GET_USER_DASHBOARD_RECENT_ACTIVITIES_SUCCESS,
-      payload: result.data.data
+      payload: result.data.data,
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'recentActivitiesLoader',
+        name: "recentActivitiesLoader",
         value: false,
       },
     });
@@ -502,16 +518,16 @@ export const populateDashboardRecentActivities = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'recentActivitiesLoader',
+        name: "recentActivitiesLoader",
         value: false,
       },
     });
 
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_RECENT_ACTIVITIES_FAILURE"
       )
@@ -522,12 +538,14 @@ export const populateDashboardRecentActivities = (data) => async (dispatch) => {
   }
 };
 
-export const populateDashboardPerformanceSummary = (data) => async (dispatch) => {
+export const populateDashboardPerformanceSummary = (data) => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'performanceSummaryLoader',
+        name: "performanceSummaryLoader",
         value: true,
       },
     });
@@ -551,9 +569,9 @@ export const populateDashboardPerformanceSummary = (data) => async (dispatch) =>
     );
     belowAverage = subjects.filter(
       (item) =>
-      item.performance < 40 &&
-      item.performance >= 0 &&
-      item.performance !== null
+        item.performance < 40 &&
+        item.performance >= 0 &&
+        item.performance !== null
     );
     noRating = subjects.filter((item) => item.performance === null);
 
@@ -586,7 +604,7 @@ export const populateDashboardPerformanceSummary = (data) => async (dispatch) =>
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'performanceSummaryLoader',
+        name: "performanceSummaryLoader",
         value: false,
       },
     });
@@ -594,15 +612,15 @@ export const populateDashboardPerformanceSummary = (data) => async (dispatch) =>
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'performanceSummaryLoader',
+        name: "performanceSummaryLoader",
         value: false,
       },
     });
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "GET_USER_DASHBOARD_PERFORMANCE_SUMMARY_FAILURE"
       )
@@ -618,7 +636,7 @@ export const populateDashboard = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'isLoading',
+        name: "isLoading",
         value: true,
       },
     });
@@ -644,9 +662,9 @@ export const populateDashboard = (data) => async (dispatch) => {
       );
       belowAverage = subjects.filter(
         (item) =>
-        item.performance < 40 &&
-        item.performance >= 0 &&
-        item.performance !== null
+          item.performance < 40 &&
+          item.performance >= 0 &&
+          item.performance !== null
       );
       noRating = subjects.filter((item) => item.performance === null);
 
@@ -680,7 +698,7 @@ export const populateDashboard = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'isLoading',
+        name: "isLoading",
         value: false,
       },
     });
@@ -688,15 +706,15 @@ export const populateDashboard = (data) => async (dispatch) => {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'isLoading',
+        name: "isLoading",
         value: false,
       },
     });
     dispatch(
       returnErrors(
-        err.response && err.response.data.errors ?
-        err.response && err.response.data.errors :
-        err.response && err.response.data.error,
+        err.response && err.response.data.errors
+          ? err.response && err.response.data.errors
+          : err.response && err.response.data.error,
         err.response && err.response.data.status,
         "POPULATE_DASHBOARD_FAILURE"
       )
@@ -707,48 +725,48 @@ export const populateDashboard = (data) => async (dispatch) => {
   }
 };
 
-export const populateSubjectProgressPerformance = (data, data1) => async (dispatch) => {
-  
+export const populateSubjectProgressPerformance = (data, data1) => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectProgressPerformance',
+        name: "populateSubjectProgressPerformance",
         value: true,
       },
     });
 
     const result = await API.getSubjectProgressPerformance(data, data1);
-   
+
     let barChart = [];
     let barChartTitles = [];
-    
 
     if (result.data.data.subjectsList.length) {
-      barChart = result.data.data.subjectsList.map((item) => { 
+      barChart = result.data.data.subjectsList.map((item) => {
         return {
           key: item.subject,
           value: item.progress,
         };
-      });  
-      
+      });
+
       barChartTitles = result.data.data.subjectsList.map((item) => {
         return item.subject;
       });
-    }  
+    }
 
     dispatch({
-      type:  GET_SUBJECT_PROGRESS_PERFORMANCE_SUCCESS,
-      payload: {      
+      type: GET_SUBJECT_PROGRESS_PERFORMANCE_SUCCESS,
+      payload: {
         barChart,
-        barChartTitles       
+        barChartTitles,
       },
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectProgressPerformance',
+        name: "populateSubjectProgressPerformance",
         value: false,
       },
     });
@@ -756,15 +774,15 @@ export const populateSubjectProgressPerformance = (data, data1) => async (dispat
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectProgressPerformance',
+        name: "populateSubjectProgressPerformance",
         value: false,
       },
     });
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
         "GET_SUBJECT_PROGRESS_PERFORMANCE_FAILURE"
       )
@@ -775,13 +793,14 @@ export const populateSubjectProgressPerformance = (data, data1) => async (dispat
   }
 };
 
-export const populateSubjectQuizPerformance = (data, data1) => async (dispatch) => {
-  
+export const populateSubjectQuizPerformance = (data, data1) => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectQuizPerformanceLoader',
+        name: "populateSubjectQuizPerformanceLoader",
         value: true,
       },
     });
@@ -789,16 +808,16 @@ export const populateSubjectQuizPerformance = (data, data1) => async (dispatch) 
     const result = await API.getSubjectQuizPerformance(data, data1);
 
     dispatch({
-      type:  GET_SUBJECT_QUIZ_PERFORMANCE_SUCCESS,
+      type: GET_SUBJECT_QUIZ_PERFORMANCE_SUCCESS,
       payload: {
-        data: result.data.data       
-      }
+        data: result.data.data,
+      },
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectQuizPerformanceLoader',
+        name: "populateSubjectQuizPerformanceLoader",
         value: false,
       },
     });
@@ -806,15 +825,15 @@ export const populateSubjectQuizPerformance = (data, data1) => async (dispatch) 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectQuizPerformanceLoader',
+        name: "populateSubjectQuizPerformanceLoader",
         value: false,
       },
     });
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
         "GET_SUBJECT_QUIZ_PERFORMANCE_FAILURE"
       )
@@ -825,13 +844,14 @@ export const populateSubjectQuizPerformance = (data, data1) => async (dispatch) 
   }
 };
 
-export const populateSubjectPastQuestionsPerformance = (data, data1) => async (dispatch) => {
-  
+export const populateSubjectPastQuestionsPerformance = (data, data1) => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectPastQuestionPerformanceLoader',
+        name: "populateSubjectPastQuestionPerformanceLoader",
         value: true,
       },
     });
@@ -839,16 +859,16 @@ export const populateSubjectPastQuestionsPerformance = (data, data1) => async (d
     const result = await API.getSubjectPastQuestionsPerformance(data, data1);
 
     dispatch({
-      type:  GET_SUBJECT_PAST_QUESTIONS_PERFORMANCE_SUCCESS,
+      type: GET_SUBJECT_PAST_QUESTIONS_PERFORMANCE_SUCCESS,
       payload: {
-        data: result.data.data       
-      }
+        data: result.data.data,
+      },
     });
 
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectPastQuestionPerformanceLoader',
+        name: "populateSubjectPastQuestionPerformanceLoader",
         value: false,
       },
     });
@@ -856,15 +876,15 @@ export const populateSubjectPastQuestionsPerformance = (data, data1) => async (d
     dispatch({
       type: COURSE_INPUT_CHANGE,
       payload: {
-        name: 'populateSubjectPastQuestionPerformanceLoader',
+        name: "populateSubjectPastQuestionPerformanceLoader",
         value: false,
       },
     });
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
         "GET_SUBJECT_PAST_QUESTIONS_PERFORMANCE_FAILURE"
       )
@@ -921,9 +941,9 @@ export const getPerformance = (data) => async (dispatch) => {
     document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
         "GET_PERFORMANCE_FAILURE"
       )
@@ -934,9 +954,7 @@ export const getPerformance = (data) => async (dispatch) => {
   }
 };
 
-export const getPerformanceInClass = (courseId, data) => async (
-  dispatch
-) => {
+export const getPerformanceInClass = (courseId, data) => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
     const result = await API.getPerformanceInClass(courseId, data);
@@ -982,9 +1000,9 @@ export const getPerformanceInClass = (courseId, data) => async (
     document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
-        err.response.data.errors ?
-        err.response.data.errors :
-        err.response.data.error,
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
         err.response.data.status,
         "GET_PERFORMANCE_IN_CLASS_FAILURE"
       )

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 
 import queryString from "query-string";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 const Content = (props) => {
   const { subject, role, userId, numOfUsers, inClass, clazz, user } = props;
@@ -96,14 +96,18 @@ const Content = (props) => {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
- 
+
   return (
     <div>
-       <Helmet>
+      <Helmet>
         <meta charSet="utf-8" />
-        <title>{subject.mainSubjectId  ? subject.mainSubjectId.name+' | Myafrilearn.com' : "Subject Page"}</title>
-        <meta name="description" content='Subject Page' />
-      </Helmet> 
+        <title>
+          {subject.mainSubjectId
+            ? subject.mainSubjectId.name + " | Myafrilearn.com"
+            : "Subject Page"}
+        </title>
+        <meta name="description" content="Subject Page" />
+      </Helmet>
       <div
         id="contentPageFirstSection"
         style={{
@@ -156,7 +160,7 @@ const Content = (props) => {
                 Registered Students
               </p>
               {role && role === "602f3ce39b146b3201c2dc1d" && (
-                <Link to="/assign-content">
+                <Link to={`/assign-content?classId=${clazz?._id}`}>
                   <p className="teacher-assign-content-green">
                     Assign study content to students
                   </p>
