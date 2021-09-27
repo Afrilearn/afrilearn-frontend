@@ -47,7 +47,7 @@ const AssignContent = (props) => {
   let subjectsToDisplay = classRelatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
     subjectsToDisplay = classRelatedSubjects.filter((subject) =>
-      clazz.subjectIds.includes(subject._id)
+      clazz.subjectIds.find((i) => i.subjectId == subject._id)
     );
   }
   const classMembers = useSelector((state) => state.class.classMembers);

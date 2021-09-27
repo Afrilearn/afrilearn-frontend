@@ -25,7 +25,6 @@ import { getCourseSubjects } from "../../../redux/actions/courseActions";
 const Payment = (props) => {
   const parsed = queryString.parse(props.location.search);
   const mounted = useRef();
-  const costPreSubject = 100;
   const subjectsForSignUp = useSelector(
     (state) => state.course.subjectsForSignUp
   );
@@ -45,14 +44,16 @@ const Payment = (props) => {
     error,
     user,
   } = props;
-  console.log("categories", categories);
+  let paymentPlansToShow = categories;
+  if (role === "602f3ce39b146b3201c2dc1d") {
+    paymentPlansToShow = categories.filter((i) => i.category?._id === role);
+  }
 
   const [selected, setSelected] = useState(null);
   const [childCourses, setchildCourses] = useState([]);
   const [childId, setChildId] = useState("");
 
   const [courseId, setCourseId] = useState(null);
-  console.log("courseId", courseId);
   const [subjectId, setSubjectId] = useState(null);
   const [classToPayFor, setClassToPayFor] = useState(null);
   const [nameOfClass, setNameOfClass] = useState(null);
@@ -68,8 +69,12 @@ const Payment = (props) => {
       return courses.map((course, index) => {
         // if ()
         return (
-          <option disabled={actives.includes(course._id)} value={course._id}>
-            {course.name} {actives.includes(course._id) && "(Subscribed)"}
+          <option
+            // disabled={actives.includes(course._id)}
+            value={course._id}
+          >
+            {course.name}
+            {/* {actives.includes(course._id) && "(Subscribed)"} */}
           </option>
         );
       });
@@ -87,10 +92,10 @@ const Payment = (props) => {
         return (
           <option
             value={course.courseId}
-            disabled={actives.includes(course.courseId)}
+            // disabled={actives.includes(course.courseId)}
           >
             {course.className}{" "}
-            {actives.includes(course.courseId) && "(Subscribed)"}
+            {/* {actives.includes(course.courseId) && "(Subscribed)"} */}
           </option>
         );
       });
@@ -148,31 +153,31 @@ const Payment = (props) => {
       updatedAt: "2021-04-16T07:30:43.040Z",
       userId: "60793d2258cbbb0015f28f1d",
     },
-    {
-      __v: 1,
-      _id: new Date().toString(),
-      classCode: "0v000",
-      courseId: "2",
-      createdAt: "2021-04-16T07:30:43.040Z",
-      enrolledCourse: {
-        __v: 0,
-        _id: "60793d2258cbbb0015f28f1e",
-        classId: "60793d2358cbbb0015f28f1f",
-        courseId: "5fd12c70e74b15663c5f4c6e",
-        createdAt: "2021-04-16T07:30:42.886Z",
-        endDate: "2022-04-16T10:36:54.398Z",
-        id: "60793d2258cbbb0015f28f1e",
-        paymentIsActive: true,
-        startDate: "2021-04-16T10:36:54.398Z",
-        status: "paid",
-        updatedAt: "2021-04-16T10:36:54.435Z",
-        userId: "60793d2258cbbb0015f28f1d",
-      },
-      id: "60793d2358cbbb0015f28f1f",
-      name: "Pay for Student",
-      updatedAt: "2021-04-16T07:30:43.040Z",
-      userId: "60793d2258cbbb0015f28f1d",
-    },
+    // {
+    //   __v: 1,
+    //   _id: new Date().toString(),
+    //   classCode: "0v000",
+    //   courseId: "2",
+    //   createdAt: "2021-04-16T07:30:43.040Z",
+    //   enrolledCourse: {
+    //     __v: 0,
+    //     _id: "60793d2258cbbb0015f28f1e",
+    //     classId: "60793d2358cbbb0015f28f1f",
+    //     courseId: "5fd12c70e74b15663c5f4c6e",
+    //     createdAt: "2021-04-16T07:30:42.886Z",
+    //     endDate: "2022-04-16T10:36:54.398Z",
+    //     id: "60793d2258cbbb0015f28f1e",
+    //     paymentIsActive: true,
+    //     startDate: "2021-04-16T10:36:54.398Z",
+    //     status: "paid",
+    //     updatedAt: "2021-04-16T10:36:54.435Z",
+    //     userId: "60793d2258cbbb0015f28f1d",
+    //   },
+    //   id: "60793d2358cbbb0015f28f1f",
+    //   name: "Pay for Student",
+    //   updatedAt: "2021-04-16T07:30:43.040Z",
+    //   userId: "60793d2258cbbb0015f28f1d",
+    // },
   ];
 
   const classList = () => {
@@ -186,7 +191,7 @@ const Payment = (props) => {
               className={teacherClass.id}
             >
               {teacherClass.name}{" "}
-              {actives.includes(teacherClass.courseId) && "Subscribed"}
+              {actives.includes(teacherClass.courseId) && "(Subscribed)"}
             </option>
           );
         });
@@ -480,10 +485,14 @@ const Payment = (props) => {
         : childId
         ? childId
         : userId,
+      amount: paymentAmount,
     };
 
     if (nameOfClass) {
       data["newClassName"] = nameOfClass;
+    }
+    if (classToPayFor) {
+      data["classId"] = classToPayFor._id;
     }
     if (subjectId) {
       data["subjectId"] = subjectId;
@@ -563,7 +572,6 @@ const Payment = (props) => {
                                 .className
                           );
                           if (role === "602f3ce39b146b3201c2dc1d") {
-                            console.log("cc", cc);
                             setClassToPayFor(cc);
                           } else {
                             setClassToPayFor(null);
@@ -678,32 +686,28 @@ const Payment = (props) => {
                     {!parsed.courseId && "Step 2: "}Select Subscription Length
                   </h3>
                   <div className="row">
-                    {categories.map((paymentPlan) => {
-                      const thePrice = classToPayFor
-                        ? costPreSubject *
-                          classToPayFor?.subjectIds?.length *
-                          paymentPlan.duration
-                        : subjectId
-                        ? costPreSubject * paymentPlan.duration
-                        : paymentPlan.amount;
+                    {paymentPlansToShow.map((paymentPlan) => {
                       if (paymentPlan.duration > 0) {
                         return (
                           <div className="col-6 col-md-3" key={paymentPlan._id}>
                             <SubscriptionBox
                               onClick={() => {
-                                props.inputChange("paymentAmount", thePrice);
+                                props.inputChange(
+                                  "paymentAmount",
+                                  paymentPlan.amount
+                                );
                                 props.inputChange(
                                   "paymentPlanId",
                                   paymentPlan._id
                                 );
-                                setBB(thePrice);
+                                setBB(paymentPlan.amount);
                                 setSelected(paymentPlan._id);
                                 // setSelected()
                               }}
                               selected={selected}
                               id={paymentPlan._id}
                               title={paymentPlan.name}
-                              price={thePrice}
+                              price={paymentPlan.amount}
                               classname={paymentPlan.name
                                 .toLocaleLowerCase()
                                 .trim()}
