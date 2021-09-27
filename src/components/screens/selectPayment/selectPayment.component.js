@@ -47,6 +47,8 @@ const Payment = (props) => {
   let paymentPlansToShow = categories;
   if (role === "602f3ce39b146b3201c2dc1d") {
     paymentPlansToShow = categories.filter((i) => i.category?._id === role);
+  } else {
+    paymentPlansToShow = categories.filter((i) => i.category?._id !== role);
   }
 
   const [selected, setSelected] = useState(null);
@@ -70,11 +72,16 @@ const Payment = (props) => {
         // if ()
         return (
           <option
-            // disabled={actives.includes(course._id)}
+            disabled={
+              role !== "602f3ce39b146b3201c2dc1d" &&
+              actives.includes(course._id)
+            }
             value={course._id}
           >
             {course.name}
-            {/* {actives.includes(course._id) && "(Subscribed)"} */}
+            {role !== "602f3ce39b146b3201c2dc1d" &&
+              actives.includes(course._id) &&
+              "(Subscribed)"}
           </option>
         );
       });
@@ -573,6 +580,7 @@ const Payment = (props) => {
                           );
                           if (role === "602f3ce39b146b3201c2dc1d") {
                             setClassToPayFor(cc);
+                            dispatch(getCourseSubjects(e.target.value));
                           } else {
                             setClassToPayFor(null);
                             setSubjectId(null);
@@ -584,6 +592,21 @@ const Payment = (props) => {
                       </select>
                       {courseId && courseId != 1 && !newClassContent ? (
                         <>
+                          <select
+                            class="form-select form-select-lg mb-3"
+                            aria-label=".form-select-lg example"
+                            onChange={(e) => {
+                              e.preventDefault();
+                              setSubjectId(e.target.value);
+                            }}
+                          >
+                            <option>Select Subject</option>
+                            {subjectsForSignUp.map((i, index) => (
+                              <option key={index} value={i._id}>
+                                {i.mainSubjectId.name}
+                              </option>
+                            ))}
+                          </select>
                           <select
                             class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example"
