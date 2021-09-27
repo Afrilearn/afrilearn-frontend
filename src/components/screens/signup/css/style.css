@@ -57,3 +57,21 @@
 .underline {
   text-decoration: underline;
 }
+.css-yk16xz-control,
+.css-1pahdxg-control {
+  background-color: rgba(49, 48, 48, 0.9) !important;
+  border-color: rgba(49, 48, 48, 0.9) !important;
+  margin: 20px 0;
+}
+.subjects-box {
+  height: 200px;
+  background-color: rgba(49, 48, 48, 0.9) !important;
+  border-color: rgba(49, 48, 48, 0.9) !important;
+  width: 100%;
+  overflow-y: scroll;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+.subjects-box::-webkit-scrollbar {
+  display: none;
+}

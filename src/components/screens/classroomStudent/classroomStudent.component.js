@@ -121,10 +121,18 @@ const ClassroomStudent = (props) => {
     }
     item.style.borderBottom = "4px solid #84BB29";
   };
-
+  const classRelatedSubjects = useSelector(
+    (state) => state.class.classRelatedSubjects
+  );
+  let subjectsToDisplay = clazz?.relatedSubjects;
+  if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
+    subjectsToDisplay = clazz?.relatedSubjects.filter((subject) =>
+      clazz.subjectIds.includes(subject._id)
+    );
+  }
   const subjectList = () => {
-    if (Object.keys(clazz) && clazz.relatedSubjects) {
-      return clazz.relatedSubjects.map((item) => {
+    if (subjectsToDisplay) {
+      return subjectsToDisplay.map((item) => {
         return (
           <Box
             image={item.mainSubjectId.imageUrl}

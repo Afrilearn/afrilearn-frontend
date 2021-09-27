@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./css/style.css";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import {
   inputChange,
   getRoles,
@@ -18,11 +18,19 @@ import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import queryString from "query-string";
 import ReactGA from "react-ga";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import { getCourseSubjects } from "../../../redux/actions/courseActions";
+import Select from "react-select";
 
 const Signup = (props) => {
+  const dispatch = useDispatch();
+  const subjectsForSignUp = useSelector(
+    (state) => state.course.subjectsForSignUp
+  );
+
   const {
     role,
+    subjectId,
     courseId,
     fullName,
     email,
@@ -48,10 +56,10 @@ const Signup = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       props.inputChange("redirect", false);
-      if(parsed.referralCode){
+      if (parsed.referralCode) {
         props.inputChange("referralCode", parsed.referralCode);
       }
-   
+
       if (!roles.length) {
         props.getRoles();
       }
@@ -101,6 +109,8 @@ const Signup = (props) => {
       !courseId
     ) {
       message = "Please select a class";
+    } else if (!subjectId && role === "602f3ce39b146b3201c2dc1d") {
+      message = "Please select a subject";
     } else if (!fullName) {
       message = "Please enter full name";
     } else if (!email) {
@@ -124,7 +134,8 @@ const Signup = (props) => {
       !phoneNumber ||
       !email ||
       !password ||
-      (!className && role === "602f3ce39b146b3201c2dc1d")
+      (!className && role === "602f3ce39b146b3201c2dc1d") ||
+      (!subjectId && role === "602f3ce39b146b3201c2dc1d")
     ) {
       Swal.fire({
         title: message,
@@ -147,8 +158,11 @@ const Signup = (props) => {
         confirmPassword: password,
         className,
         phoneNumber,
-        channel:'web'
+        channel: "web",
       };
+      if (subjectId) {
+        user.subjectIds = [subjectId];
+      }
       if (courseCategoryId) {
         user.courseCategoryId = courseCategoryId;
       }
@@ -158,6 +172,12 @@ const Signup = (props) => {
       if (referralCode) {
         user.referralCode = referralCode;
       }
+      console.log(
+        "!subjectId && role === '602f3ce39b146b3201c2dc1d'",
+        !subjectId && role === "602f3ce39b146b3201c2dc1d"
+      );
+      console.log("subjectId", !subjectId);
+      console.log("user", user);
       props.registerUser(user);
       ReactGA.event({
         category: "User Signup",
@@ -219,11 +239,11 @@ const Signup = (props) => {
   };
   return (
     <span id="signup">
-       <Helmet>
-          <meta charSet="utf-8" />
-          <title>Register | Myafrilearn.com</title>
-          <meta name="description" content="Register on Afrilearn" />
-      </Helmet>     
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Register | Myafrilearn.com</title>
+        <meta name="description" content="Register on Afrilearn" />
+      </Helmet>
       {redirect ? <Redirect to={authlocation} /> : null}
       <div id="signupFirstSection" className="container-fluid relative">
         <div className="row fly">
@@ -237,7 +257,11 @@ const Signup = (props) => {
                 className="general"
                 name="role"
                 value={role}
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  props.inputChange("courseId", "");
+                  props.inputChange("subjectId", "");
+                }}
               >
                 <option>Select a role</option>
                 {roleSet()}
@@ -250,13 +274,33 @@ const Signup = (props) => {
                     className="general"
                     name="courseId"
                     value={courseId}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      handleChange(e);
+                      dispatch(getCourseSubjects(e.target.value));
+                    }}
                   >
                     <option>Select class</option>
                     {classSet()}
                   </select>
                 </div>
               )}
+            {role === "602f3ce39b146b3201c2dc1d" && (
+              <div className="col-md-12">
+                <select
+                  className="general"
+                  name="subjectId"
+                  value={subjectId}
+                  onChange={handleChange}
+                >
+                  <option>Select Subject</option>
+                  {subjectsForSignUp.map((i, index) => (
+                    <option key={index} value={i._id}>
+                      {i.mainSubjectId.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             {role === "602f3ce39b146b3201c2dc1d" ? (
               <div className="col-md-12">
                 <input
@@ -449,6 +493,7 @@ const mapStateToProps = (state) => ({
   redirect: state.auth.redirect,
   authlocation: state.auth.location,
   role: state.auth.role,
+  subjectId: state.auth.subjectId,
   courseId: state.auth.courseId,
   fullName: state.auth.fullName,
   phoneNumber: state.auth.phoneNumber,

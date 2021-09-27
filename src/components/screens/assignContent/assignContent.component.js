@@ -7,8 +7,10 @@ import { clearErrors } from "./../../../redux/actions/errorActions";
 import { connect, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
+import queryString from "query-string";
 
 const AssignContent = (props) => {
+  const parsed = queryString.parse(props.location.search);
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -16,7 +18,7 @@ const AssignContent = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       if (!classMembers.length) {
-        props.getClass("5fc8f0fd5194183bf09b94fb");
+        props.getClass(parsed.classId);
       }
     } else {
       // do componentDidUpdate logic
@@ -42,6 +44,12 @@ const AssignContent = (props) => {
   const classRelatedSubjects = useSelector(
     (state) => state.class.classRelatedSubjects
   );
+  let subjectsToDisplay = classRelatedSubjects;
+  if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
+    subjectsToDisplay = classRelatedSubjects.filter((subject) =>
+      clazz.subjectIds.includes(subject._id)
+    );
+  }
   const classMembers = useSelector((state) => state.class.classMembers);
 
   const terms = [];
@@ -52,16 +60,14 @@ const AssignContent = (props) => {
   ];
   const [selectedTerm, setSelectedTerm] = useState(termIds[0].id);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  console.log("selectedSubject", selectedSubject);
-  console.log("selectedTerm", selectedTerm);
   let subjects = [];
   if (clazz) {
     subjects = clazz.relatedSubjects;
   }
 
   const subject =
-    classRelatedSubjects &&
-    classRelatedSubjects.find((su) => su._id === selectedSubject);
+    subjectsToDisplay &&
+    subjectsToDisplay.find((su) => su._id === selectedSubject);
   const lessons =
     subject &&
     subject.relatedLessons &&
@@ -70,7 +76,6 @@ const AssignContent = (props) => {
         lesson.termId === selectedTerm && lesson.subjectId === selectedSubject
     );
 
-  console.log("lessons", lessons && lessons[0]);
   const members = [];
   classMembers.forEach((member) => {
     member.status === "approved" &&
@@ -78,9 +83,7 @@ const AssignContent = (props) => {
   });
 
   const [selectedStudent, setSelectedStudent] = useState(["all"]);
-  console.log("selectedStudent", selectedStudent);
   const [selectedQuizOrLesson, setSelectedQuizOrLesson] = useState([]);
-  console.log("selectedQuizOrLesson", selectedQuizOrLesson);
   const [assignedText, setAssignedText] = useState(null);
   const [date, setDate] = useState(null);
 
@@ -171,8 +174,8 @@ const AssignContent = (props) => {
                 }}
               >
                 <option selected>Select subject</option>
-                {classRelatedSubjects &&
-                  classRelatedSubjects.map((subject) => (
+                {subjectsToDisplay &&
+                  subjectsToDisplay.map((subject) => (
                     <option value={subject._id}>
                       {subject &&
                         subject.mainSubjectId &&

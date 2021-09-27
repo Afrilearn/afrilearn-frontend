@@ -5,7 +5,7 @@ import AppreciationBox from "../../includes/appreciationSlick.component";
 import SupportersSlide from "../../includes/supportersSlide.component";
 import Footer from "../../includes/footer/footer.component";
 import Particles from "react-tsparticles";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import {
   inputChange,
   getRoles,
@@ -23,8 +23,8 @@ import "rc-tooltip/assets/bootstrap_white.css";
 import slugify from "react-slugify";
 import queryString from "query-string";
 import Swal from "sweetalert2";
-import {Helmet} from "react-helmet";
-
+import { Helmet } from "react-helmet";
+import socket from "../../../assets/js/socket";
 // import VideoThumbnail from 'react-video-thumbnail';
 // import VideoPlayer from 'simple-react-video-thumbnail'
 
@@ -48,7 +48,7 @@ const Homepage = (props) => {
 
   const mounted = useRef();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     if (!mounted.current) {
       // do componentDidMount logic
@@ -136,14 +136,36 @@ const Homepage = (props) => {
     }
   };
 
+  const user = useSelector((state) => state.auth.user);
   return (
     <span id="homepage">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Afrilearn | Future of learning</title>
-        <meta name="description" content='Frequently Asked Questions' />
-      </Helmet> 
+        <meta name="description" content="Frequently Asked Questions" />
+      </Helmet>
       <div className="container-fluid bannerSection">
+        {/* <button
+          className="btn btn-primary btn-lg"
+          onClick={() => {
+            socket.emit("invite", {
+              roomname: "603fdf31a36c060015655272",
+              guest: {
+                _id: "603fdf31a36c060015655272",
+                email: "admin@myafrilearn.com",
+                fullName: "Admin Afrilearn",
+              },
+              host: user,
+            });
+            socket.emit("joinRoom", {
+              username: user.fullName,
+              user: user,
+              roomname: "603fdf31a36c060015655272",
+            });
+          }}
+        >
+          Invite
+        </button> */}
         <div className="row">
           <div className="col-md-3"> </div>
           <div className="col-md-6 box">

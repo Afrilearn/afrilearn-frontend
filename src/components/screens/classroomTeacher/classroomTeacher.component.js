@@ -44,12 +44,16 @@ import SubjectBoxLoader from "../../includes/Loaders/subjectBoxLoader.component"
 import slugify from "react-slugify";
 import AnnouncementsLoader from "../../includes/Loaders/announcementsLoader.component";
 import ClassWorksLoader from "../../includes/Loaders/classworksLoader.component";
+<<<<<<< HEAD
 import {Helmet} from "react-helmet";
 import ResumeWatching from "../../includes/dashboard/resumeWatching.component";
 import TopTen from "../../includes/dashboard/topTen.component";
 import Favourite from "../../includes/dashboard/favourites.component";
 import norecent from "../../../assets/img/norecent.png";
 import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
+=======
+import { Helmet } from "react-helmet";
+>>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
 
 const ClassroomTeacher = (props) => {
   const { 
@@ -108,6 +112,13 @@ const ClassroomTeacher = (props) => {
   const classRelatedSubjects = useSelector(
     (state) => state.class.classRelatedSubjects
   );
+
+  let subjectsToDisplay = classRelatedSubjects;
+  if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
+    subjectsToDisplay = classRelatedSubjects.filter((subject) =>
+      clazz.subjectIds.includes(subject._id)
+    );
+  }
   const classRelatedSubjectsLoading = useSelector(
     (state) => state.class.classRelatedSubjectsLoading
   );
@@ -259,9 +270,15 @@ const ClassroomTeacher = (props) => {
     });
     props.clearErrors();
   }
+<<<<<<< HEAD
   // if (clazz) {
   //   props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
   // }
+=======
+  if (clazz) {
+    props.inputChange("activeCourseId", clazz?.courseId && clazz.courseId._id);
+  }
+>>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
   const copyToClipboard = (e) => {
     e.preventDefault();
     var textField = document.createElement("textarea");
@@ -274,8 +291,8 @@ const ClassroomTeacher = (props) => {
   };
 
   const subjectList = () => {
-    if (classRelatedSubjects.length > 0) {
-      return classRelatedSubjects.map((item) => {
+    if (subjectsToDisplay.length > 0) {
+      return subjectsToDisplay.map((item) => {
         return (
           <Box
             image={item.mainSubjectId.imageUrl}
@@ -375,7 +392,7 @@ const ClassroomTeacher = (props) => {
     } else {
       return (
         <div class="card my-3 text-center py-2 bg-dark1">
-          <h6>No Announcement list yet</h6>
+          <h6>No Announcement yet</h6>
         </div>
       );
     }
@@ -648,11 +665,23 @@ const ClassroomTeacher = (props) => {
 
   return (
     <div>
+<<<<<<< HEAD
       <Helmet>
         <meta charSet="utf-8" />
         <title>{clazz.courseId && clazz.courseId.name? clazz.courseId.name:''} | Future of learning</title>
         <meta name="description" content='Classroom | Teacher | Subjects' />
       </Helmet> 
+=======
+      {clazz && clazz.courseId && (
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>
+            {clazz.courseId && clazz.courseId.name} | Future of learning
+          </title>
+          <meta name="description" content="Classroom | Teacher | Subjects" />
+        </Helmet>
+      )}
+>>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
       <Modal
         isOpen={modal}
         toggle={toggleModal}
@@ -1152,7 +1181,10 @@ const ClassroomTeacher = (props) => {
           </TabPane>
           <TabPane tabId="2">
             <div className="w-85 row justify-content-between">
-              <Link class="col text-start" to="/assign-content">
+              <Link
+                class="col text-start"
+                to={`/assign-content?classId=${clazz?._id}`}
+              >
                 Add classwork &nbsp; &nbsp;
                 <button
                   class="btn button-green text-white"
