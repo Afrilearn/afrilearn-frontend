@@ -78,7 +78,7 @@
 
 #classes img.subjectImage {
   border-radius: 5px;
-  width: 191px;
+  width: 100% !important;
   /* height: 127px; */
   object-fit: cover;
   object-position: top;

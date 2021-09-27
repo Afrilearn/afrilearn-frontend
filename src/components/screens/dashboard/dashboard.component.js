@@ -40,18 +40,14 @@ import RecommendationLoader from "../../includes/Loaders/recommendationLoader.co
 import ClassesLoader from "../../includes/Loaders/classesLoader.component";
 import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
 import PastQuestionsLoader from "../../includes/Loaders/pastQuestionsBox.component";
-import { Modal, ModalHeader, ModalBody} from "reactstrap";
-import bullet from "../../../assets/img/circleBullet.png";
-import logo from "../../../assets/img/logonew.png";
 import {Helmet} from "react-helmet";
-
-
+import MobileDownloadBox from '../../includes/dashboard/downloadMobilePopUp.component';
 
 const Dashboard = (props) => {
-  const [modal, setModal] = useState(true);
-  const toggle = (e) => {
+  const [mobileDownload, setMobileDownload] = useState(true);
+  const toggleMobileDownload = (e) => {
     e.preventDefault()
-    setModal(!modal)    
+    setMobileDownload(!mobileDownload)
   }
   const {
     activeEnrolledCourseId,
@@ -383,282 +379,187 @@ const Dashboard = (props) => {
   };
 
   return (
-    <span id="classes" className="dashboard">
-       <Helmet>
-        <meta charSet="utf-8" />
-        <title>{dashboardEnrolledCourse.enrolledCourse ? dashboardEnrolledCourse.enrolledCourse.courseId.name+' | Myafrilearn.com':
-                "Welcome"
-              }</title>
-        <meta name="description" content='Student Dashboard' />
-      </Helmet>  
-      <div id="dashboardFirstSection" className="container-fluid relative">
-        <div className="row">
-          <div className="col-md-12">
-            <h1>
-              {enrolledCourseLoader ? (
-                "Welcome!"
-                // <img
-                //   className="social"
-                //   src={require("../../../assets/img/loading.gif")}
-                //   alt="google"
-                // />
-              ) : dashboardEnrolledCourse.enrolledCourse ? (
-                dashboardEnrolledCourse.enrolledCourse.courseId.name
-              ) : (
-                "Welcome"
-              )}
-            </h1>
-          </div>
-        </div>
-        <div className="row push2 mobileCenter">
-          <div className="col-md-12">
-            <h2 className="boldFont">Welcome {fullName.toProperCase()}!</h2>
-            <p>Explore the fun in learning💃</p>
-          </div>
-        </div>
-        <div className="row push2"></div>
-        <div className="row push2 push3">
-          <div className="col-md-12">
-            <a href="#subjects">My Subjects</a> &nbsp;|&nbsp;{" "}
-            <a href="#pastQuestions">Past Questions</a> &nbsp;|&nbsp;{" "}
-            <a href="#resumePlaying">Resume Watching</a> &nbsp;|&nbsp;{" "}
-            <a href="#topTen">Top Ten Video</a> &nbsp;|&nbsp;{" "}
-            <a href="#performance">Performance Summary</a> &nbsp;|&nbsp;{" "}
-            <a href="#classroom">Classroom</a> &nbsp;|&nbsp;{" "}
-            <a href="#favourite">My Favourite</a> &nbsp;|&nbsp;{" "}
-            
-            <a href="#recommendations">Recommendations</a>
-            &nbsp;|&nbsp; <a href="#recentActivities">Recent Activities</a>
-          </div>
-        </div>
-      </div>
-      <div id="dashboardSecondSection" className="container-fluid relative">
-        <a name="subjects"></a>
-        <h4>My Subjects</h4>
-        {activeEnrolledCourseId && enrolledCourseLoader ? (
-          <SubjectLoader />
-        ) : (
-          <div className="row">{subjectList()}</div>
-        )}
-        <a name="pastQuestions"></a>
-        <h4 className="push5">Past Questions</h4>
-        {activeEnrolledCourseId && enrolledCourseLoader ? (
-          <PastQuestionsLoader />
-        ) : (
-          <div className="row jj">{pastQuestionsList()}</div>
-        )}
-        <a name="resumePlaying"></a>
-        <h4 className="push5 resumePlayingBox">Resume Watching</h4>
-        <div className="row push10 resumePlaying resumePlayingDashboard">      
-          { unFinishedVideoLoader ? (
-              <SubjectLoader />
-          ) : (
-            unFinishedVideosList()
-          )}
-               
-        </div>
-
-        <a name="topTen"></a>
-        <h4 className="push5 resumePlayingBox">Top Ten Lessons <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
-        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
-          { topTenVideoLoader ? (
-              <SubjectLoader />
-          ) : (
-            topTenList()
-          )}
-          
-        </div>
-
-        <a name="performance"></a>
-        <h4 className="push5">Performance Summary</h4>       
-        {activeEnrolledCourseId && performanceSummaryLoader ? (
-          <RecentActivityLoader />
-        ) : (
+    <>
+      <MobileDownloadBox visible={mobileDownload} toggleVisible={toggleMobileDownload} />
+      <span id="classes" className="dashboard">
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{dashboardEnrolledCourse.enrolledCourse ? dashboardEnrolledCourse.enrolledCourse.courseId.name+' | Myafrilearn.com':
+                  "Welcome"
+                }</title>
+          <meta name="description" content='Student Dashboard' />
+        </Helmet>  
+        <div id="dashboardFirstSection" className="container-fluid relative">
           <div className="row">
-            <div className="col-md-4 myChart">
-              <PieChart
-                data={[
-                  {
-                    title: "Below Average",
-                    value: belowAverage,
-                    color: "#FF5B5B",
-                  },
-                  { title: "Average", value: average, color: "#FDAD51" },
-                  { title: "No Rating", value: noRating, color: "#908989" },
-                  { title: "Excelling", value: excelling, color: "#84BB29 " },
-                ]}
-                lineWidth={32}
-                rounded
-              />
-            </div>
-            <div className="col-md-8 subjectList">
-              <PerformanceBox
-                excel={true}
-                title="Excelling In"
-                data={excellingText}
-              />
-              <PerformanceBox
-                average={true}
-                title="Average In"
-                data={averageText}
-              />
-              <PerformanceBox
-                belowAverage={true}
-                title="Below Average In"
-                data={belowAverageText}
-              />
-              <PerformanceBox
-                noRating={true}
-                title="No rating"
-                data={noRatingText}
-              />
+            <div className="col-md-12">
+              <h1>
+                {enrolledCourseLoader ? (
+                  "Welcome!"
+                  // <img
+                  //   className="social"
+                  //   src={require("../../../assets/img/loading.gif")}
+                  //   alt="google"
+                  // />
+                ) : dashboardEnrolledCourse.enrolledCourse ? (
+                  dashboardEnrolledCourse.enrolledCourse.courseId.name
+                ) : (
+                  "Welcome"
+                )}
+              </h1>
             </div>
           </div>
-        )}  
-
-        <a name="classroom"></a>
-        <h4 className="push5">Classroom</h4>
-        <div className="row push8">
-          <div className="col-md-12 right underline">
-            <Tooltip
-              placement="top"
-              trigger={["hover"]}
-              overlay={
-                <span>
-                  Enter your Class Code to attend a class and interact with top
-                  Educators.
-                </span>
-              }
-            >
-              <Link onClick={handleJoinClass}>Join A Classroom</Link>
-            </Tooltip>
+          <div className="row push2 mobileCenter">
+            <div className="col-md-12">
+              <h2 className="boldFont">Welcome {fullName.toProperCase()}!</h2>
+              <p>Explore the fun in learning💃</p>
+            </div>
+          </div>
+          <div className="row push2"></div>
+          <div className="row push2 push3">
+            <div className="col-md-12">
+              <a href="#subjects">My Subjects</a> &nbsp;|&nbsp;{" "}
+              <a href="#pastQuestions">Past Questions</a> &nbsp;|&nbsp;{" "}
+              <a href="#resumePlaying">Resume Watching</a> &nbsp;|&nbsp;{" "}
+              <a href="#topTen">Top Ten Video</a> &nbsp;|&nbsp;{" "}
+              <a href="#performance">Performance Summary</a> &nbsp;|&nbsp;{" "}
+              <a href="#classroom">Classroom</a> &nbsp;|&nbsp;{" "}
+              <a href="#favourite">My Favourite</a> &nbsp;|&nbsp;{" "}
+              
+              <a href="#recommendations">Recommendations</a>
+              &nbsp;|&nbsp; <a href="#recentActivities">Recent Activities</a>
+            </div>
           </div>
         </div>
-        {classMembershipLoader ? <ClassesLoader /> : classList()}
-        
-
-        <a name="favourite"></a>
-        <h4 className="push5 resumePlayingBox">My Fav <small className="showAll"><Link to="/more-info?section=favourites">Show all</Link></small></h4>
-        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
-          { favouriteVideoLoader ? (
-              <SubjectLoader />
+        <div id="dashboardSecondSection" className="container-fluid relative">
+          <a name="subjects"></a>
+          <h4>My Subjects</h4>
+          {activeEnrolledCourseId && enrolledCourseLoader ? (
+            <SubjectLoader />
           ) : (
-            favouriteList()
+            <div className="row">{subjectList()}</div>
           )}
+          <a name="pastQuestions"></a>
+          <h4 className="push5">Past Questions</h4>
+          {activeEnrolledCourseId && enrolledCourseLoader ? (
+            <PastQuestionsLoader />
+          ) : (
+            <div className="row jj">{pastQuestionsList()}</div>
+          )}
+          <a name="resumePlaying"></a>
+          <h4 className="push5 resumePlayingBox">Resume Watching</h4>
+          <div className="row push10 resumePlaying resumePlayingDashboard">      
+            { unFinishedVideoLoader ? (
+                <SubjectLoader />
+            ) : (
+              unFinishedVideosList()
+            )}
+                
+          </div>
+
+          <a name="topTen"></a>
+          <h4 className="push5 resumePlayingBox">Top Ten Lessons <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
+          <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
+            { topTenVideoLoader ? (
+                <SubjectLoader />
+            ) : (
+              topTenList()
+            )}
+            
+          </div>
+
+          <a name="performance"></a>
+          <h4 className="push5">Performance Summary</h4>       
+          {activeEnrolledCourseId && performanceSummaryLoader ? (
+            <RecentActivityLoader />
+          ) : (
+            <div className="row">
+              <div className="col-md-4 myChart">
+                <PieChart
+                  data={[
+                    {
+                      title: "Below Average",
+                      value: belowAverage,
+                      color: "#FF5B5B",
+                    },
+                    { title: "Average", value: average, color: "#FDAD51" },
+                    { title: "No Rating", value: noRating, color: "#908989" },
+                    { title: "Excelling", value: excelling, color: "#84BB29 " },
+                  ]}
+                  lineWidth={32}
+                  rounded
+                />
+              </div>
+              <div className="col-md-8 subjectList">
+                <PerformanceBox
+                  excel={true}
+                  title="Excelling In"
+                  data={excellingText}
+                />
+                <PerformanceBox
+                  average={true}
+                  title="Average In"
+                  data={averageText}
+                />
+                <PerformanceBox
+                  belowAverage={true}
+                  title="Below Average In"
+                  data={belowAverageText}
+                />
+                <PerformanceBox
+                  noRating={true}
+                  title="No rating"
+                  data={noRatingText}
+                />
+              </div>
+            </div>
+          )}  
+
+          <a name="classroom"></a>
+          <h4 className="push5">Classroom</h4>
+          <div className="row push8">
+            <div className="col-md-12 right underline">
+              <Tooltip
+                placement="top"
+                trigger={["hover"]}
+                overlay={
+                  <span>
+                    Enter your Class Code to attend a class and interact with top
+                    Educators.
+                  </span>
+                }
+              >
+                <Link onClick={handleJoinClass}>Join A Classroom</Link>
+              </Tooltip>
+            </div>
+          </div>
+          {classMembershipLoader ? <ClassesLoader /> : classList()}
           
+
+          <a name="favourite"></a>
+          <h4 className="push5 resumePlayingBox">My Fav <small className="showAll"><Link to="/more-info?section=favourites">Show all</Link></small></h4>
+          <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
+            { favouriteVideoLoader ? (
+                <SubjectLoader />
+            ) : (
+              favouriteList()
+            )}
+            
+          </div>
+
+          <a name="recommendations"></a>
+          <h4 className="push5">Recommendations</h4>
+          {recommendationLoader ? <RecommendationLoader /> : recommendationList()}
+
+          <a name="recentActivities"></a>
+          <h4 className="push5">Recent Activities</h4>
+          {recentActivitiesLoader ? (
+            <RecentActivityLoader />
+          ) : (
+            recentActivitiesList()
+          )}
         </div>
-
-        <a name="recommendations"></a>
-        <h4 className="push5">Recommendations</h4>
-        {recommendationLoader ? <RecommendationLoader /> : recommendationList()}
-
-        <a name="recentActivities"></a>
-        <h4 className="push5">Recent Activities</h4>
-        {recentActivitiesLoader ? (
-          <RecentActivityLoader />
-        ) : (
-          recentActivitiesList()
-        )}
-      </div>
-      <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
-        <ModalHeader toggle={toggle}>
-          <img src={logo} alt="downloadMobileHeader" className="downloadMobileHeader"/>
-        </ModalHeader>
-        <ModalBody>        
-            <div className="container downloadMobile">
-              <div className="row">
-                <div className="col-md-12 head1">
-                  Download the Afrilearn mobile App to enjoy more fun features such as:
-                </div>               
-              </div>
-              <div className="row">
-                <div className="col-md-2"></div>               
-                <div className="col-md-8">
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Gamified learning challenge with friends to win weekly cash prizes</span>
-                    </div>
-                  </div>       
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Full access to 50,000+ practice tests & solutions with instant results</span>
-                    </div>
-                  </div>       
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Pass WAEC, JAMB-UTME, NECO, BECE & more in one sitting</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Get online Homework Help with instant solutions from expert tutors</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Discover your areas of strength with real-time analytics tools</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Secure university admission and achieve unlimited success in life</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-md-12">
-                      <span className="myRow1">Download the App for free to start winning now!</span>
-                    </div>                    
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-6">
-                      <a
-                        href="https://play.google.com/store/apps/details?id=com.afrilearn"
-                        target="_blank"
-                      >
-                        <img
-                          className=""
-                          src={require("../../../assets/img/playstore.png")}
-                          alt="playstore"
-                        />
-                      </a>
-                    </div>    
-                    <div className="col-6">
-                     <a> <img
-                          className=""
-                          src={require("../../../assets/img/applestore.png")}
-                          alt="applestore"
-                        />
-                      </a>
-                    </div>                    
-                  </div>                                
-                </div>
-                <div className="col-md-2"></div>
-              </div>
-            </div>         
-        </ModalBody>     
-        {/* <ModalFooter>
-          <Button color="primary"> <Link to="/register">Register for Free</Link></Button>         
-        </ModalFooter> */}
-     </Modal>
-    </span>
+      </span>
+    </>
   );
 };
 

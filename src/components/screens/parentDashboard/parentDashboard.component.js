@@ -13,7 +13,8 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import {Helmet} from "react-helmet";
 
-import './css/style.css'
+import './css/style.css';
+import MobileDownloadBox from '../../includes/dashboard/downloadMobilePopUp.component';
 
 const terms = [
   { name: 'First Term', _id: '5fc8d1b20fae0a06bc22db5c' },
@@ -148,8 +149,15 @@ const ParentDashboard = props => {
       })
     }
   }
+  const [mobileDownload, setMobileDownload] = useState(true);
+  const toggleMobileDownload = (e) => {
+    e.preventDefault()
+    setMobileDownload(!mobileDownload)
+  }
 
   return (
+    <>
+    <MobileDownloadBox visible={mobileDownload} toggleVisible={toggleMobileDownload} />
     <div id='parent-dashboard' className='negative-top'>
       <Helmet>
         <meta charSet="utf-8" />
@@ -456,6 +464,7 @@ const ParentDashboard = props => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

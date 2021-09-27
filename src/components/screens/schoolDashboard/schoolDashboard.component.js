@@ -18,6 +18,7 @@ import {
 } from "../../../redux/actions/schoolActions";
 import { inputChange } from "../../../redux/actions/authActions";
 import {Helmet} from "react-helmet";
+import MobileDownloadBox from '../../includes/dashboard/downloadMobilePopUp.component';
 
 const padWithZero = (num) => (num > 9 ? num : "0" + num);
 
@@ -85,8 +86,14 @@ const SchoolDashboard = (props) => {
       return <h6>No past questions yet</h6>;
     }
   };
-
+  const [mobileDownload, setMobileDownload] = useState(true);
+  const toggleMobileDownload = (e) => {
+    e.preventDefault()
+    setMobileDownload(!mobileDownload)
+  }
   return (
+    <>
+    <MobileDownloadBox visible={mobileDownload} toggleVisible={toggleMobileDownload} />
     <div id="school-dashboard" className="negative-top dashboard">
       <Helmet>
         <meta charSet="utf-8" />
@@ -294,6 +301,7 @@ const SchoolDashboard = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
