@@ -126,8 +126,8 @@ const ClassroomStudent = (props) => {
   );
   let subjectsToDisplay = clazz?.relatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
-    subjectsToDisplay = clazz?.relatedSubjects.filter((subject) =>
-      clazz.subjectIds.includes(subject._id)
+    subjectsToDisplay = classRelatedSubjects.filter((subject) =>
+      clazz.subjectIds.find((i) => i.subjectId == subject._id)
     );
   }
   const subjectList = () => {

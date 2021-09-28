@@ -214,10 +214,6 @@ export const populateDashboardUnfinishedVideos = () => async (dispatch) => {
     });
 
     const result = await API.getDashboardUnFinishedVideos();
-<<<<<<< HEAD
-=======
-
->>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
     dispatch({
       type: GET_USER_DASHBOARD_UNFINISHED_VIDEOS_SUCCESS,
       payload: result.data.data,

@@ -25,10 +25,10 @@ import {
   getClassBasicDetails,
   addNewAdminToClass,
 } from "./../../../redux/actions/classActions";
-import {  
+import {
   populateDashboardUnfinishedVideos,
   populateDashboardTopTenVideos,
-  populateDashboardFavouriteVideos 
+  populateDashboardFavouriteVideos,
 } from "./../../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
@@ -44,30 +44,26 @@ import SubjectBoxLoader from "../../includes/Loaders/subjectBoxLoader.component"
 import slugify from "react-slugify";
 import AnnouncementsLoader from "../../includes/Loaders/announcementsLoader.component";
 import ClassWorksLoader from "../../includes/Loaders/classworksLoader.component";
-<<<<<<< HEAD
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import ResumeWatching from "../../includes/dashboard/resumeWatching.component";
 import TopTen from "../../includes/dashboard/topTen.component";
 import Favourite from "../../includes/dashboard/favourites.component";
 import norecent from "../../../assets/img/norecent.png";
 import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
-=======
-import { Helmet } from "react-helmet";
->>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
 
 const ClassroomTeacher = (props) => {
-  const { 
+  const {
     activeEnrolledCourseId,
     clazz,
     userData,
-    error, 
+    error,
     dashboardUnFinishedVideos,
     unFinishedVideoLoader,
     topTenVideoLoader,
     dashboardTopTenVideos,
     favouriteVideoLoader,
     dashboardFavouriteVideos,
-    activeCourseId 
+    activeCourseId,
   } = props;
 
   const [announcementText, setAnnouncementText] = useState(null);
@@ -116,7 +112,7 @@ const ClassroomTeacher = (props) => {
   let subjectsToDisplay = classRelatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
     subjectsToDisplay = classRelatedSubjects.filter((subject) =>
-      clazz.subjectIds.includes(subject._id)
+      clazz.subjectIds.find((i) => i.subjectId == subject._id)
     );
   }
   const classRelatedSubjectsLoading = useSelector(
@@ -171,7 +167,7 @@ const ClassroomTeacher = (props) => {
     const data1 = {
       enrolledCourseId: activeCourseId,
     };
-    
+
     dispatch(getClassSubjects(activeEnrolledCourseId));
     dispatch(getMembersInClass(activeEnrolledCourseId));
     dispatch(getClassAssignedContents(activeEnrolledCourseId));
@@ -179,16 +175,20 @@ const ClassroomTeacher = (props) => {
     dispatch(getClassPastQuestions(activeEnrolledCourseId));
     dispatch(getClassBasicDetails(activeEnrolledCourseId));
     dispatch(populateDashboardUnfinishedVideos());
-    dispatch(populateDashboardTopTenVideos(activeEnrolledCourseId ? data1 : null))
-    dispatch(populateDashboardFavouriteVideos(activeEnrolledCourseId ? data : null));
-  
+    dispatch(
+      populateDashboardTopTenVideos(activeEnrolledCourseId ? data1 : null)
+    );
+    dispatch(
+      populateDashboardFavouriteVideos(activeEnrolledCourseId ? data : null)
+    );
+
     mounted.current = true;
     window.scrollTo(0, 0);
     props.inputChange("dashboardRoute", true);
     props.inputChange("inClass", true);
     props.inputChange("targetUser", null);
 
-    toggleTab("1");    
+    toggleTab("1");
   }, [activeEnrolledCourseId]);
 
   if (error.id === "SEND_CLASS_INVITE_SUCCESS") {
@@ -270,15 +270,9 @@ const ClassroomTeacher = (props) => {
     });
     props.clearErrors();
   }
-<<<<<<< HEAD
-  // if (clazz) {
-  //   props.inputChange("activeCourseId", clazz.courseId && clazz.courseId._id);
-  // }
-=======
   if (clazz) {
     props.inputChange("activeCourseId", clazz?.courseId && clazz.courseId._id);
   }
->>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
   const copyToClipboard = (e) => {
     e.preventDefault();
     var textField = document.createElement("textarea");
@@ -592,18 +586,16 @@ const ClassroomTeacher = (props) => {
 
   const unFinishedVideosList = () => {
     if (
-      dashboardUnFinishedVideos.unFinishedVideos &&     
+      dashboardUnFinishedVideos.unFinishedVideos &&
       dashboardUnFinishedVideos.unFinishedVideos.length
-    ) {      
+    ) {
       // eslint-disable-next-line array-callback-return
       let counter = 0;
-      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {  
-        if(counter<6){
-          ++counter
-          return (
-            <ResumeWatching item= {item}/>
-          );     
-        } 
+      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {
+        if (counter < 6) {
+          ++counter;
+          return <ResumeWatching item={item} />;
+        }
       });
     } else {
       return (
@@ -615,19 +607,14 @@ const ClassroomTeacher = (props) => {
   };
 
   const topTenList = () => {
-    if (
-      dashboardTopTenVideos.lessons &&     
-      dashboardTopTenVideos.lessons.length
-    ) {      
+    if (dashboardTopTenVideos.lessons && dashboardTopTenVideos.lessons.length) {
       // eslint-disable-next-line array-callback-return
       let counter = 0;
-      return dashboardTopTenVideos.lessons.map((item, index) => {  
-        if(counter<6){
-          ++counter
-          return (
-            <TopTen item= {item}/>
-          );     
-        } 
+      return dashboardTopTenVideos.lessons.map((item, index) => {
+        if (counter < 6) {
+          ++counter;
+          return <TopTen item={item} />;
+        }
       });
     } else {
       return (
@@ -637,21 +624,16 @@ const ClassroomTeacher = (props) => {
       );
     }
   };
-  
+
   const favouriteList = () => {
-    if (
-      dashboardFavouriteVideos &&     
-      dashboardFavouriteVideos.length
-    ) {      
+    if (dashboardFavouriteVideos && dashboardFavouriteVideos.length) {
       let counter = 0;
-      // eslint-disable-next-line array-callback-return     
+      // eslint-disable-next-line array-callback-return
       return dashboardFavouriteVideos.map((item, index) => {
-        if(counter<6){
-          ++counter
-          return (
-            <Favourite item= {item}/>
-          );
-        }         
+        if (counter < 6) {
+          ++counter;
+          return <Favourite item={item} />;
+        }
       });
     } else {
       return (
@@ -661,17 +643,9 @@ const ClassroomTeacher = (props) => {
       );
     }
   };
- 
 
   return (
     <div>
-<<<<<<< HEAD
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{clazz.courseId && clazz.courseId.name? clazz.courseId.name:''} | Future of learning</title>
-        <meta name="description" content='Classroom | Teacher | Subjects' />
-      </Helmet> 
-=======
       {clazz && clazz.courseId && (
         <Helmet>
           <meta charSet="utf-8" />
@@ -681,7 +655,6 @@ const ClassroomTeacher = (props) => {
           <meta name="description" content="Classroom | Teacher | Subjects" />
         </Helmet>
       )}
->>>>>>> 12a2c15 (SIgn Up for teacher, Payment per Subjects)
       <Modal
         isOpen={modal}
         toggle={toggleModal}
@@ -1070,36 +1043,35 @@ const ClassroomTeacher = (props) => {
                 </div>
                 <a name="resumePlaying"></a>
                 <h4 className="push5 resumePlayingBox">Resume Watching</h4>
-                <div className="row push10 resumePlaying resumePlayingDashboard">      
-                  { unFinishedVideoLoader ? (
-                      <SubjectLoader />
+                <div className="row push10 resumePlaying resumePlayingDashboard">
+                  {unFinishedVideoLoader ? (
+                    <SubjectLoader />
                   ) : (
                     unFinishedVideosList()
                   )}
-                      
                 </div>
                 <a name="topTen"></a>
-                <h4 className="push5 resumePlayingBox topT">Top Ten Lessons <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
-                <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
-                  { topTenVideoLoader ? (
-                      <SubjectLoader />
-                  ) : (
-                    topTenList()
-                  )}
-                  
+                <h4 className="push5 resumePlayingBox topT">
+                  Top Ten Lessons{" "}
+                  <small className="showAll">
+                    <Link to="/more-info?section=topTen">Show all</Link>
+                  </small>
+                </h4>
+                <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">
+                  {topTenVideoLoader ? <SubjectLoader /> : topTenList()}
                 </div>
                 <a name="favourite"></a>
-                <h4 className="push5 resumePlayingBox favT">My Fav <small className="showAll"><Link to="/more-info?section=favourites">Show all</Link></small></h4>
-                <div className="row push10 resumePlaying myTopTen resumePlayingDashboard favU">      
-                  { favouriteVideoLoader ? (
-                      <SubjectLoader />
-                  ) : (
-                    favouriteList()
-                  )}
-                  
+                <h4 className="push5 resumePlayingBox favT">
+                  My Fav{" "}
+                  <small className="showAll">
+                    <Link to="/more-info?section=favourites">Show all</Link>
+                  </small>
+                </h4>
+                <div className="row push10 resumePlaying myTopTen resumePlayingDashboard favU">
+                  {favouriteVideoLoader ? <SubjectLoader /> : favouriteList()}
                 </div>
               </div>
-              
+
               <div className="announcements ">
                 <main>
                   <div class="row justify-content-between">
@@ -1256,7 +1228,7 @@ ClassroomTeacher.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeEnrolledCourseId: state.auth.activeEnrolledCourseId,
-  
+
   clazz: state.class.class,
   dashboardData: state.course.dashboardData,
   classMembers: state.class.classMembers,
@@ -1266,13 +1238,13 @@ const mapStateToProps = (state) => ({
   user: state.auth.user.role,
   userData: state.auth.user,
   error: state.error,
-  dashboardUnFinishedVideos:state.course.dashboardUnFinishedVideos,
-  unFinishedVideoLoader:state.course.unFinishedVideoLoader,
+  dashboardUnFinishedVideos: state.course.dashboardUnFinishedVideos,
+  unFinishedVideoLoader: state.course.unFinishedVideoLoader,
   topTenVideoLoader: state.course.topTenVideoLoader,
   dashboardTopTenVideos: state.course.dashboardTopTenVideos,
   favouriteVideoLoader: state.course.favouriteVideoLoader,
   dashboardFavouriteVideos: state.course.dashboardFavouriteVideos,
-  activeCourseId: state.auth.activeCourseId
+  activeCourseId: state.auth.activeCourseId,
 });
 
 export default connect(mapStateToProps, {
@@ -1286,5 +1258,5 @@ export default connect(mapStateToProps, {
   makeAnnouncement,
   populateDashboardUnfinishedVideos,
   populateDashboardTopTenVideos,
-  populateDashboardFavouriteVideos
+  populateDashboardFavouriteVideos,
 })(ClassroomTeacher);

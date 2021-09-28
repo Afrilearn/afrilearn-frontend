@@ -22,7 +22,7 @@ import {
   populateDashboardPerformanceSummary,
   populateDashboardUnfinishedVideos,
   populateDashboardTopTenVideos,
-  populateDashboardFavouriteVideos
+  populateDashboardFavouriteVideos,
 } from "./../../../redux/actions/courseActions";
 import { inputChange as authInputChange } from "./../../../redux/actions/authActions";
 import { inputChange as pastQuestionInputChange } from "./../../../redux/actions/pastQuestionsActions";
@@ -40,19 +40,17 @@ import RecommendationLoader from "../../includes/Loaders/recommendationLoader.co
 import ClassesLoader from "../../includes/Loaders/classesLoader.component";
 import SubjectLoader from "../../includes/Loaders/subjectListLoader.component";
 import PastQuestionsLoader from "../../includes/Loaders/pastQuestionsBox.component";
-import { Modal, ModalHeader, ModalBody} from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import bullet from "../../../assets/img/circleBullet.png";
 import logo from "../../../assets/img/logonew.png";
-import {Helmet} from "react-helmet";
-
-
+import { Helmet } from "react-helmet";
 
 const Dashboard = (props) => {
   const [modal, setModal] = useState(true);
   const toggle = (e) => {
-    e.preventDefault()
-    setModal(!modal)    
-  }
+    e.preventDefault();
+    setModal(!modal);
+  };
   const {
     activeEnrolledCourseId,
     dashboardData,
@@ -80,7 +78,7 @@ const Dashboard = (props) => {
     topTenVideoLoader,
     dashboardTopTenVideos,
     favouriteVideoLoader,
-    dashboardFavouriteVideos   
+    dashboardFavouriteVideos,
   } = props;
   const mounted = useRef();
 
@@ -100,9 +98,7 @@ const Dashboard = (props) => {
     props.populateDashboardClassMembership(
       activeEnrolledCourseId ? data : null
     );
-    props.populateDashboardTopTenVideos(
-      activeEnrolledCourseId ? data : null
-    );
+    props.populateDashboardTopTenVideos(activeEnrolledCourseId ? data : null);
     props.populateDashboardRecommendations(
       activeEnrolledCourseId ? data : null
     );
@@ -115,7 +111,6 @@ const Dashboard = (props) => {
     props.populateDashboardFavouriteVideos(
       activeEnrolledCourseId ? data : null
     );
-    
   }, [activeEnrolledCourseId]);
 
   const subjectList = () => {
@@ -153,7 +148,7 @@ const Dashboard = (props) => {
     ) {
       let pastQuestions =
         dashboardEnrolledCourse.enrolledCourse.courseId.relatedPastQuestions;
-        console.log(pastQuestions)
+      console.log(pastQuestions);
       return pastQuestions.map((item, index) => {
         return (
           <PastQuestionsBox
@@ -170,6 +165,7 @@ const Dashboard = (props) => {
       return <h6> &nbsp;No past questions yet</h6>;
     }
   };
+  console.log("dashboardClassMembership", dashboardClassMembership);
 
   const classList = () => {
     if (
@@ -182,10 +178,10 @@ const Dashboard = (props) => {
           <ClassroomBox
             bullet2={index % 2 === 0 ? true : false}
             id={item._id}
-            className={item.classId.name}
-            classId={item.classId._id}
-            classCode={item.classId.classCode}
-            teacher={item.classId.userId && item.classId.userId.fullName}
+            className={item?.classId?.name}
+            classId={item?.classId?._id}
+            classCode={item?.classId?.classCode}
+            teacher={item?.classId?.userId && item?.classId?.userId.fullName}
             item={item}
           />
         );
@@ -255,26 +251,25 @@ const Dashboard = (props) => {
     } else {
       return (
         <div className="empty-class-state-2">
-          <img src={norecent} /> <p>You currently do not have any recorded recent activities</p>
+          <img src={norecent} />{" "}
+          <p>You currently do not have any recorded recent activities</p>
         </div>
       );
     }
   };
- 
+
   const unFinishedVideosList = () => {
     if (
-      dashboardUnFinishedVideos.unFinishedVideos &&     
+      dashboardUnFinishedVideos.unFinishedVideos &&
       dashboardUnFinishedVideos.unFinishedVideos.length
-    ) {      
+    ) {
       // eslint-disable-next-line array-callback-return
       let counter = 0;
-      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {  
-        if(counter<6){
-          ++counter
-          return (
-            <ResumeWatching item= {item}/>
-          );     
-        } 
+      return dashboardUnFinishedVideos.unFinishedVideos.map((item, index) => {
+        if (counter < 6) {
+          ++counter;
+          return <ResumeWatching item={item} />;
+        }
       });
     } else {
       return (
@@ -286,19 +281,14 @@ const Dashboard = (props) => {
   };
 
   const topTenList = () => {
-    if (
-      dashboardTopTenVideos.lessons &&     
-      dashboardTopTenVideos.lessons.length
-    ) {      
+    if (dashboardTopTenVideos.lessons && dashboardTopTenVideos.lessons.length) {
       // eslint-disable-next-line array-callback-return
       let counter = 0;
-      return dashboardTopTenVideos.lessons.map((item, index) => {  
-        if(counter<6){
-          ++counter
-          return (
-            <TopTen item= {item}/>
-          );     
-        } 
+      return dashboardTopTenVideos.lessons.map((item, index) => {
+        if (counter < 6) {
+          ++counter;
+          return <TopTen item={item} />;
+        }
       });
     } else {
       return (
@@ -308,21 +298,16 @@ const Dashboard = (props) => {
       );
     }
   };
-  
+
   const favouriteList = () => {
-    if (
-      dashboardFavouriteVideos &&     
-      dashboardFavouriteVideos.length
-    ) {      
+    if (dashboardFavouriteVideos && dashboardFavouriteVideos.length) {
       let counter = 0;
-      // eslint-disable-next-line array-callback-return     
+      // eslint-disable-next-line array-callback-return
       return dashboardFavouriteVideos.map((item, index) => {
-        if(counter<6){
-          ++counter
-          return (
-            <Favourite item= {item}/>
-          );
-        }         
+        if (counter < 6) {
+          ++counter;
+          return <Favourite item={item} />;
+        }
       });
     } else {
       return (
@@ -384,29 +369,30 @@ const Dashboard = (props) => {
 
   return (
     <span id="classes" className="dashboard">
-       <Helmet>
+      <Helmet>
         <meta charSet="utf-8" />
-        <title>{dashboardEnrolledCourse.enrolledCourse ? dashboardEnrolledCourse.enrolledCourse.courseId.name+' | Myafrilearn.com':
-                "Welcome"
-              }</title>
-        <meta name="description" content='Student Dashboard' />
-      </Helmet>  
+        <title>
+          {dashboardEnrolledCourse.enrolledCourse
+            ? dashboardEnrolledCourse.enrolledCourse.courseId.name +
+              " | Myafrilearn.com"
+            : "Welcome"}
+        </title>
+        <meta name="description" content="Student Dashboard" />
+      </Helmet>
       <div id="dashboardFirstSection" className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">
             <h1>
-              {enrolledCourseLoader ? (
-                "Welcome!"
-                // <img
+              {enrolledCourseLoader
+                ? "Welcome!"
+                : // <img
                 //   className="social"
                 //   src={require("../../../assets/img/loading.gif")}
                 //   alt="google"
                 // />
-              ) : dashboardEnrolledCourse.enrolledCourse ? (
-                dashboardEnrolledCourse.enrolledCourse.courseId.name
-              ) : (
-                "Welcome"
-              )}
+                dashboardEnrolledCourse.enrolledCourse
+                ? dashboardEnrolledCourse.enrolledCourse.courseId.name
+                : "Welcome"}
             </h1>
           </div>
         </div>
@@ -426,7 +412,6 @@ const Dashboard = (props) => {
             <a href="#performance">Performance Summary</a> &nbsp;|&nbsp;{" "}
             <a href="#classroom">Classroom</a> &nbsp;|&nbsp;{" "}
             <a href="#favourite">My Favourite</a> &nbsp;|&nbsp;{" "}
-            
             <a href="#recommendations">Recommendations</a>
             &nbsp;|&nbsp; <a href="#recentActivities">Recent Activities</a>
           </div>
@@ -449,28 +434,23 @@ const Dashboard = (props) => {
         )}
         <a name="resumePlaying"></a>
         <h4 className="push5 resumePlayingBox">Resume Watching</h4>
-        <div className="row push10 resumePlaying resumePlayingDashboard">      
-          { unFinishedVideoLoader ? (
-              <SubjectLoader />
-          ) : (
-            unFinishedVideosList()
-          )}
-               
+        <div className="row push10 resumePlaying resumePlayingDashboard">
+          {unFinishedVideoLoader ? <SubjectLoader /> : unFinishedVideosList()}
         </div>
 
         <a name="topTen"></a>
-        <h4 className="push5 resumePlayingBox">Top Ten Lessons <small className="showAll"><Link to="/more-info?section=topTen">Show all</Link></small></h4>
-        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
-          { topTenVideoLoader ? (
-              <SubjectLoader />
-          ) : (
-            topTenList()
-          )}
-          
+        <h4 className="push5 resumePlayingBox">
+          Top Ten Lessons{" "}
+          <small className="showAll">
+            <Link to="/more-info?section=topTen">Show all</Link>
+          </small>
+        </h4>
+        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">
+          {topTenVideoLoader ? <SubjectLoader /> : topTenList()}
         </div>
 
         <a name="performance"></a>
-        <h4 className="push5">Performance Summary</h4>       
+        <h4 className="push5">Performance Summary</h4>
         {activeEnrolledCourseId && performanceSummaryLoader ? (
           <RecentActivityLoader />
         ) : (
@@ -514,7 +494,7 @@ const Dashboard = (props) => {
               />
             </div>
           </div>
-        )}  
+        )}
 
         <a name="classroom"></a>
         <h4 className="push5">Classroom</h4>
@@ -535,17 +515,16 @@ const Dashboard = (props) => {
           </div>
         </div>
         {classMembershipLoader ? <ClassesLoader /> : classList()}
-        
 
         <a name="favourite"></a>
-        <h4 className="push5 resumePlayingBox">My Fav <small className="showAll"><Link to="/more-info?section=favourites">Show all</Link></small></h4>
-        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">      
-          { favouriteVideoLoader ? (
-              <SubjectLoader />
-          ) : (
-            favouriteList()
-          )}
-          
+        <h4 className="push5 resumePlayingBox">
+          My Fav{" "}
+          <small className="showAll">
+            <Link to="/more-info?section=favourites">Show all</Link>
+          </small>
+        </h4>
+        <div className="row push10 resumePlaying myTopTen resumePlayingDashboard">
+          {favouriteVideoLoader ? <SubjectLoader /> : favouriteList()}
         </div>
 
         <a name="recommendations"></a>
@@ -562,102 +541,128 @@ const Dashboard = (props) => {
       </div>
       <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
         <ModalHeader toggle={toggle}>
-          <img src={logo} alt="downloadMobileHeader" className="downloadMobileHeader"/>
+          <img
+            src={logo}
+            alt="downloadMobileHeader"
+            className="downloadMobileHeader"
+          />
         </ModalHeader>
-        <ModalBody>        
-            <div className="container downloadMobile">
-              <div className="row">
-                <div className="col-md-12 head1">
-                  Download the Afrilearn mobile App to enjoy more fun features such as:
-                </div>               
+        <ModalBody>
+          <div className="container downloadMobile">
+            <div className="row">
+              <div className="col-md-12 head1">
+                Download the Afrilearn mobile App to enjoy more fun features
+                such as:
               </div>
-              <div className="row">
-                <div className="col-md-2"></div>               
-                <div className="col-md-8">
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Gamified learning challenge with friends to win weekly cash prizes</span>
-                    </div>
-                  </div>       
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Full access to 50,000+ practice tests & solutions with instant results</span>
-                    </div>
-                  </div>       
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Pass WAEC, JAMB-UTME, NECO, BECE & more in one sitting</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Get online Homework Help with instant solutions from expert tutors</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Discover your areas of strength with real-time analytics tools</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-1 desktopOnly">
-                      <img src={bullet} alt="bullet"/>
-                    </div>
-                    <div className="col-11">
-                       <span>Secure university admission and achieve unlimited success in life</span>
-                    </div>
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-md-12">
-                      <span className="myRow1">Download the App for free to start winning now!</span>
-                    </div>                    
-                  </div> 
-                  <div className="row myRow">
-                    <div className="col-6">
-                      <a
-                        href="https://play.google.com/store/apps/details?id=com.afrilearn"
-                        target="_blank"
-                      >
-                        <img
-                          className=""
-                          src={require("../../../assets/img/playstore.png")}
-                          alt="playstore"
-                        />
-                      </a>
-                    </div>    
-                    <div className="col-6">
-                     <a> <img
-                          className=""
-                          src={require("../../../assets/img/applestore.png")}
-                          alt="applestore"
-                        />
-                      </a>
-                    </div>                    
-                  </div>                                
+            </div>
+            <div className="row">
+              <div className="col-md-2"></div>
+              <div className="col-md-8">
+                <div className="row myRow">
+                  <div className="col-1 desktopOnly">
+                    <img src={bullet} alt="bullet" />
+                  </div>
+                  <div className="col-11">
+                    <span>
+                      Gamified learning challenge with friends to win weekly
+                      cash prizes
+                    </span>
+                  </div>
                 </div>
-                <div className="col-md-2"></div>
+                <div className="row myRow">
+                  <div className="col-1 desktopOnly">
+                    <img src={bullet} alt="bullet" />
+                  </div>
+                  <div className="col-11">
+                    <span>
+                      Full access to 50,000+ practice tests & solutions with
+                      instant results
+                    </span>
+                  </div>
+                </div>
+                <div className="row myRow">
+                  <div className="col-1 desktopOnly">
+                    <img src={bullet} alt="bullet" />
+                  </div>
+                  <div className="col-11">
+                    <span>
+                      Pass WAEC, JAMB-UTME, NECO, BECE & more in one sitting
+                    </span>
+                  </div>
+                </div>
+                <div className="row myRow">
+                  <div className="col-1 desktopOnly">
+                    <img src={bullet} alt="bullet" />
+                  </div>
+                  <div className="col-11">
+                    <span>
+                      Get online Homework Help with instant solutions from
+                      expert tutors
+                    </span>
+                  </div>
+                </div>
+                <div className="row myRow">
+                  <div className="col-1 desktopOnly">
+                    <img src={bullet} alt="bullet" />
+                  </div>
+                  <div className="col-11">
+                    <span>
+                      Discover your areas of strength with real-time analytics
+                      tools
+                    </span>
+                  </div>
+                </div>
+                <div className="row myRow">
+                  <div className="col-1 desktopOnly">
+                    <img src={bullet} alt="bullet" />
+                  </div>
+                  <div className="col-11">
+                    <span>
+                      Secure university admission and achieve unlimited success
+                      in life
+                    </span>
+                  </div>
+                </div>
+                <div className="row myRow">
+                  <div className="col-md-12">
+                    <span className="myRow1">
+                      Download the App for free to start winning now!
+                    </span>
+                  </div>
+                </div>
+                <div className="row myRow">
+                  <div className="col-6">
+                    <a
+                      href="https://play.google.com/store/apps/details?id=com.afrilearn"
+                      target="_blank"
+                    >
+                      <img
+                        className=""
+                        src={require("../../../assets/img/playstore.png")}
+                        alt="playstore"
+                      />
+                    </a>
+                  </div>
+                  <div className="col-6">
+                    <a>
+                      {" "}
+                      <img
+                        className=""
+                        src={require("../../../assets/img/applestore.png")}
+                        alt="applestore"
+                      />
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>         
-        </ModalBody>     
+              <div className="col-md-2"></div>
+            </div>
+          </div>
+        </ModalBody>
         {/* <ModalFooter>
           <Button color="primary"> <Link to="/register">Register for Free</Link></Button>         
         </ModalFooter> */}
-     </Modal>
+      </Modal>
     </span>
   );
 };
@@ -702,8 +707,8 @@ const mapStateToProps = (state) => ({
   dashboardRecentActivites: state.course.dashboardRecentActivites,
   recentActivitiesLoader: state.course.recentActivitiesLoader,
   performanceSummaryLoader: state.course.performanceSummaryLoader,
-  dashboardUnFinishedVideos:state.course.dashboardUnFinishedVideos,
-  unFinishedVideoLoader:state.course.unFinishedVideoLoader,
+  dashboardUnFinishedVideos: state.course.dashboardUnFinishedVideos,
+  unFinishedVideoLoader: state.course.unFinishedVideoLoader,
   topTenVideoLoader: state.course.topTenVideoLoader,
   dashboardTopTenVideos: state.course.dashboardTopTenVideos,
   favouriteVideoLoader: state.course.favouriteVideoLoader,
@@ -724,5 +729,5 @@ export default connect(mapStateToProps, {
   pastQuestionInputChange,
   populateDashboardUnfinishedVideos,
   populateDashboardTopTenVideos,
-  populateDashboardFavouriteVideos
+  populateDashboardFavouriteVideos,
 })(Dashboard);
