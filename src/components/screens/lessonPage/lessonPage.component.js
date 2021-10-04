@@ -75,7 +75,7 @@ import "rc-tooltip/assets/bootstrap_white.css";
 import ReportBox from "../../includes/modal/reportLesson.component";
 import TimeBack from "../../../assets/img/TimeBack.svg";
 import TimeForward from "../../../assets/img/TimeForward.svg";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 const LessonPage = (props) => {
   const parsed = queryString.parse(props.location.search);
@@ -130,6 +130,7 @@ const LessonPage = (props) => {
     (lesson) => lesson._id === parsed.lessonId
   );
 
+  console.log("lesson", lesson);
   const currentTermIndex =
     lesson && terms && terms?.findIndex((term) => term.id === lesson.termId);
   const nextTerm = terms[currentTermIndex + 1];
@@ -520,8 +521,8 @@ const LessonPage = (props) => {
     <React.Fragment>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{lesson  ? lesson.title : "Video Lesson Page"}</title>
-        <meta name="description" content='Video Lesson' />
+        <title>{lesson ? lesson.title : "Video Lesson Page"}</title>
+        <meta name="description" content="Video Lesson" />
       </Helmet>
       <div id="lessonPageSectionOne">
         <div className="negative_margin"></div>
@@ -679,7 +680,7 @@ const LessonPage = (props) => {
         </div>
         {video && video.videoUrl && (
           <div class="play-wrapper">
-            <img
+            {/* <img
               src={TimeBack}
               className="player-controls-icon player-controls-icon-backward"
               onClick={() => {
@@ -696,7 +697,7 @@ const LessonPage = (props) => {
               onClick={() =>
                 ref.current.seekTo(ref.current.getCurrentTime() + 10, "seconds")
               }
-            />
+            /> */}
 
             <ReactPlayer
               className="react-player"
@@ -713,7 +714,7 @@ const LessonPage = (props) => {
               url={video && video.videoUrl}
               controls="true"
               width="100%"
-              height="auto"
+              height="500px"
               muted={false}
               playing={true}
               ref={ref}
@@ -826,9 +827,9 @@ const LessonPage = (props) => {
                             ) : (
                               ""
                             )}
-                            <br/>
-                            <ReportBox lesson={lesson}/>
-                            <br/>
+                            <br />
+                            <ReportBox lesson={lesson} />
+                            <br />
                           </span>
                         }
                       >

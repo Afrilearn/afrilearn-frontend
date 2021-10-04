@@ -9,6 +9,7 @@ import {
   paymentPlans,
   inputChange,
   verifyPayStackPayment,
+  getTeacherPaymentPlans,
 } from "./../../../redux/actions/paymentActions";
 import { Link } from "react-router-dom";
 import { getChildren } from "../../../redux/actions/parentActions";
@@ -43,12 +44,11 @@ const Payment = (props) => {
     role,
     error,
     user,
+    teacherPaymentPlans,
   } = props;
   let paymentPlansToShow = categories;
   if (role === "602f3ce39b146b3201c2dc1d") {
-    paymentPlansToShow = categories.filter((i) => i.category?._id === role);
-  } else {
-    paymentPlansToShow = categories.filter((i) => i.category?._id !== role);
+    paymentPlansToShow = teacherPaymentPlans;
   }
 
   const [selected, setSelected] = useState(null);
@@ -249,9 +249,11 @@ const Payment = (props) => {
         dispatch(getActiveSubs(user._id));
       }
       // do componentDidMount logic
+
       mounted.current = true;
       window.scrollTo(0, 0);
       props.paymentPlans();
+      dispatch(getTeacherPaymentPlans());
       props.getRoles();
       user.classOwnership.push(newClass);
       if (role === "607ededa2712163504210684") {
@@ -831,6 +833,7 @@ Payment.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  teacherPaymentPlans: state.payment.teacherPaymentPlans,
   categories: state.payment.paymentPlans,
   paymentPlanId: state.payment.paymentPlanId,
   paymentAmount: state.payment.paymentAmount,
