@@ -7,6 +7,8 @@ import {
   GET_PAYMENT_PLANS_FAILURE,
   PAYMENT_VERIFICATION_SUCCESS,
   PAYMENT_VERIFICATION_FAILURE,
+  GET_TEACHER_PAYMENT_PLANS_SUCCESS,
+  GET_TEACHER_PAYMENT_PLANS_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -27,10 +29,6 @@ export const paymentPlans = () => async (dispatch, getState) => {
     document.body.classList.add("loading-indicator");
     const result = await API.getPaymentPlans();
     let plan = result.data.paymentPlans;
-    // if(getState().auth.user.role){
-    //    plan = result.data.paymentPlans.filter(el=>el.category === getState().auth.user.role)
-    // }
-
     dispatch({
       type: GET_PAYMENT_PLANS_SUCCESS,
       payload: plan,
@@ -52,18 +50,44 @@ export const paymentPlans = () => async (dispatch, getState) => {
     });
   }
 };
+export const getTeacherPaymentPlans = () => async (dispatch, getState) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.getTeacherPaymentPlans();
+    let plan = result.data.paymentPlans;
+    dispatch({
+      type: GET_TEACHER_PAYMENT_PLANS_SUCCESS,
+      payload: plan,
+    });
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_TEACHER_PAYMENT_PLANS_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_TEACHER_PAYMENT_PLANS_FAILURE,
+    });
+  }
+};
 export const verifyPayStackPayment = (data) => async (dispatch) => {
   try {
-    document.body.classList.add('loading-indicator')
-    const result = await API.verifyPayStackPayment(data);    
-    
+    document.body.classList.add("loading-indicator");
+    const result = await API.verifyPayStackPayment(data);
+
     dispatch({
       type: PAYMENT_VERIFICATION_SUCCESS,
-      payload:result.data.data.verified
+      payload: result.data.data.verified,
     });
-    document.body.classList.remove('loading-indicator')
-    console.log(result.data.data.verified)
-    if(result.data.data.verified ===true){
+    document.body.classList.remove("loading-indicator");
+    console.log(result.data.data.verified);
+    if (result.data.data.verified === true) {
       dispatch(
         returnErrors(
           "Payment verified successfully",
@@ -71,7 +95,7 @@ export const verifyPayStackPayment = (data) => async (dispatch) => {
           "PAYMENT_VERIFICATION_SUCCESS"
         )
       );
-    }else{
+    } else {
       dispatch(
         returnErrors(
           "Error verifying payment",
@@ -80,9 +104,8 @@ export const verifyPayStackPayment = (data) => async (dispatch) => {
         )
       );
     }
-   
   } catch (err) {
-    document.body.classList.remove('loading-indicator')
+    document.body.classList.remove("loading-indicator");
     dispatch(
       returnErrors(
         err.response.data.errors
