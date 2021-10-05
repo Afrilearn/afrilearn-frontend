@@ -176,8 +176,6 @@ const Signup = (props) => {
         "!subjectId && role === '602f3ce39b146b3201c2dc1d'",
         !subjectId && role === "602f3ce39b146b3201c2dc1d"
       );
-      console.log("subjectId", !subjectId);
-      console.log("user", user);
       props.registerUser(user);
       ReactGA.event({
         category: "User Signup",
