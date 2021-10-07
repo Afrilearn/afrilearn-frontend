@@ -81,7 +81,7 @@
     margin-top: -72px;
 }
 .storyFull .react-player {
-    height: 100% !important;
+    height: 400px !important;
 }
 @media screen and (max-width: 768px) {
     #storriesSecondSection {
