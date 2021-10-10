@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import './css/style.css';
 import {Helmet} from "react-helmet";
+import parse from "html-react-parser";
 
 
 const Stories = props => {  

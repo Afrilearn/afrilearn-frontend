@@ -305,17 +305,24 @@ const About = props => {
                         />       
                     <TeamBox   
                         other2="true"                    
-                        image={require('../../../assets/img/Segun.jpg')}
+                        image={require('../../../assets/img/segun1.JPG')}
                         name="Segun Shofola"
                         position="Associate, Video Production"
                         details="A calm media professional, Segun studied Mass Communication at the Federal Polytechnic, Kwara State, Nigeria after which he enhanced his video production skills at PEFTI Film Institute. His professional journey started at DAAR Communications where he worked as Video Editor for seven years, after which he joined Masters Sports as a producer and director. Prior to joining Afrilearn, Segun has brought his wealth of experience to life with the successful delivery of ground-breaking projects like Knorr Taste Quest and Pecadomor with R2tv. He loves playing video games and hopes to tour the world’s continents someday."
                         />     
                     <TeamBox   
-                        other4="true"                    
+                        other2="true"                    
                         image={require('../../../assets/img/Feyikemi.jpg')}
                         name="Feyikemi Alaka"
-                        position="Associate, Product Design & Communication"
+                        position="Associate, Product Design"
                         details="Feyikemi holds a degree in Computer Science from the University of Ibadan. A discerning designer who believes in building user-friendly products through a design lens, Folakemi started off her career as a UI/UX Designer at Cloudware Technologies and also worked as a freelancer on various design projects. Feyikemi is a problem solver that loves working on solutions that improve people's lives and contribute to the growth of the design community. Prior to joining Afrilearn, she has designed varied products from Hospital Management System, Ecommerce to E-learning applications. Feyikemi now works on Afrilearn’s user experience, and loves pixel-nudging them until they're perfect! When she's not busy improving a design, she enjoys watching movies or taking a walk with her headset plugged in."
+                        />      
+                    <TeamBox   
+                        other4="true"                    
+                        image={require('../../../assets/img/Nifemi Obafemi.png')}
+                        name="Nifemi Obafemi"
+                        position="Associate, Storytelling & Communication"
+                        details="A lawyer by training, Nifemi’s passion for storytelling prompted her foray into the media and creative industry. Based on her belief that the media has a revolutionary role to play in shaping Africa’s future, Nifemi has spearheaded media relations in few organizations where she leveraged strategic storytelling to influence people and drive growth. As an author of three books, two of which are fiction narratives, Nifemi loves meditation and journaling."
                         />                 
                 </div>            
             </div>  
@@ -382,7 +389,7 @@ const About = props => {
                         "
                     /> 
                     <TeamBox 
-                        image={require('../../../assets/img/ngozii.jpeg')}
+                        image={require('../../../assets/img/Ngozi Ayanru 1.jpg')}
                         name="Ngozi Ayanru"
                         other3="true"
                         position="Managing Partner, Realty Invest"
