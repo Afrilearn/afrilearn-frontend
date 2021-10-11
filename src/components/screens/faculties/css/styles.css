@@ -4,109 +4,96 @@
 .green {
   color: #688a02 !important;
 }
-/* Style the search field */
-form.faculty-search {
-  border: 1px solid rgb(238, 237, 237);
-  background-color: #f1f1f181;
-  /* 688a02 */
+#faculties {
+  padding: 0 100px;
 }
-form.faculty-search input[type="text"] {
-  padding: 10px;
-  font-size: 17px;
-  border: unset;
-  float: left;
-  width: 80%;
-  background: transparent;
+#faculties .heading-text {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 41px;
+  letter-spacing: 0.04em;
+  color: #200e32;
 }
-#faculties .intro{
-  font-size: 19px;
+#faculties .sub-heading-text {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 34px;
+  letter-spacing: 0.04em;
+  color: #c8c4c4;
 }
-#faculties .my-2 {
-  margin-bottom: .5rem!important;
-  font-size: 16px;
-  text-align: justify;
-}
-#faculties strong {
-  font-size: 20px;
-}
-#faculties .lastGuy {
-  font-size: 18px;
-}
-/* Style the submit button */
-form.faculty-search button {
-  float: left;
-  width: 20%;
-  padding: 10px;
-  background: transparent;
-  color: white;
-  font-size: 17px;
-  border: unset;
-  border-left: none; /* Prevent double borders */
-  cursor: pointer;
-}
+#faculties .p {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 30px;
+  /* or 200% */
 
-form.faculty-search button:hover {
-  background: transparent;
+  color: #000000;
 }
+#faculties .avatar {
+  width: 108.34px;
+  height: 108.34px;
 
-/* Clear floats */
-form.faculty-search::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.show-on-hover {
-  min-height: 260px;
-  max-height: 360px;
-  width: 226px;
-  background-color: #fff;
-  position: absolute;
-  display: none;
-  padding: 20px 10px;
-  box-shadow: 1 1 1 blur #000;
-  overflow-y: scroll;
-  z-index: 2;
-  /* border: solid 1px rgb(241, 239, 239); */
-}
-.faculty-member .img {
-  height: 260px;
-  width: 226px;
+  border: 4.63469px solid #ffffff;
+  border-radius: 57.9336px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  /* border: solid 1px rgb(241, 239, 239); */
 }
-.faculty33 .m-3 {
-  margin: 0.4rem!important;
+.faculty-member {
+  width: 31%;
+  min-height: 628px;
+
+  background: #ffffff;
+  border: 0.579336px solid #e5e5e5;
+  box-sizing: border-box;
+  border-radius: 2.89668px;
 }
-.faculty33{
-  padding: 2px 60px;
+.faculty-member .image-section {
+  border-bottom: 1.15867px solid #f5f5f5;
+  padding: 50px 16px;
 }
-.show-on-hover::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+.faculty-member .text-section {
+  padding: 16px;
 }
-.faculty-members:hover .img {
-  opacity: 0.6;
+.faculty-member .member-name {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18.5387px;
+  line-height: 25px;
+  letter-spacing: 0.01em;
+  color: #000000;
 }
-.faculty-member:hover .show-on-hover {
-  display: block;
-  border: solid 1px rgb(241, 239, 239);
+.faculty-member .para {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16.6799px;
+  line-height: 35px;
+  /* or 210% */
+
+  color: #000000;
 }
-.faculty-member:hover .img {
-  opacity: 1;
-  border: solid 1px rgb(241, 239, 239);
-}
-@media screen and (max-width: 900px) {
-  .show-on-hover {
-    height: 100px;
-    width: 100px;
+@media screen and (max-width: 1200px) {
+  #faculties {
+    padding: 0 50px;
   }
-  .faculty-member .img {
-    height: 100px;
-    width: 100px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+  .faculty-member {
+    width: 40%;
+    min-height: 300px;
+  }
+}
+@media screen and (max-width: 600px) {
+  #faculties {
+    padding: 0 16px;
+  }
+  .faculty-member {
+    width: 100%;
   }
 }
