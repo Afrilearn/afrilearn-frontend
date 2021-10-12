@@ -7,7 +7,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import './css/style.css';
 import {Helmet} from "react-helmet";
+import { Link } from "react-router-dom";
 import parse from "html-react-parser";
+import Bg from './../../../assets/img/croods 1.png';
+import FloatImg from './../../../assets/img/image 6.png';
+
 
 
 const Stories = props => {  
@@ -32,9 +36,9 @@ const Stories = props => {
     
     const userStoryList = () => {
         if (userStories && userStories.length) {
-          return userStories.map((item) => {
+          return userStories.map((item, index) => {
             return (
-                <StoryBox story={item} key={item.id}/>
+                <StoryBox story={item} key={item.id} storyIndex={index}/>
             );
           });
         } else {
@@ -54,28 +58,36 @@ const Stories = props => {
                 <title>Impact Stories & Features | myafrilearn.com</title>
                 <meta name="description" content="Stories and Features" />
             </Helmet>      
-            <div id="storriesFirstSection" className="container-fluid relative">    </div>
-            <div id="storriesSecondSection" className="container-fluid">
+            <div id="storriesFirstSection" className="container-fluid relative">    
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-6 partOne relative">
                         <h1>Impact Stories & Features</h1>
-                        <p>Whatever goes into a mind comes out in a life.</p>
-                    </div>                
-                </div>
-            </div>
-            <div id="storriesThirdSection" className="container-fluid">
+                        <h3>Whatever goes into a mind comes out<br className="desktopOnly"/> in a life</h3>
+                        <img src={FloatImg} className="imgFloat desktopOnly"/>
+                    </div>
+                    <div className="col-md-6 partTwo">
+                        <img src={Bg} className="fullWidth"/>
+                    </div>
+                </div>            
+            </div>           
+            <div id="storriesThirdSection" className="container-fluid"> 
                 <div className="row">
+                <div className="row">
+                    <div className="col-md-6">
+                        <h3 className="storyHeadingColor">AFRI-WINNERS</h3>
+                        <p>Hear what the weekly winners of Africhallenge have to say</p>
+                    </div>
+                    <div className="col-md-6">
+                    <div className="right"><Link className="storySeeAll">SEE ALL</Link></div> 
+                    </div>
+                </div>
                     {userStoryList()}                     
                 </div>
-            </div>
-            {/* <div className="center"><span className="myButton"><Link>VIEW ALL STORIES</Link></span></div>  
-            <div id="storriesThirdSection" className="container-fluid storriesFourthSection">  
+            </div>             
+            {/* <div id="storriesThirdSection" className="container-fluid storriesFourthSection">  
                 <h2>SpotLight: Children in Emergency</h2>              
                 <div className="row">
-                    <StoryBox/>
-                    <StoryBox/>
-                    <StoryBox/>
-                    <StoryBox/>                             
+                {userStoryList()}                             
                 </div>                
             </div>  
             <div className="center part2"><span className="myButton"><Link>VIEW ALL STORIES</Link></span></div> 

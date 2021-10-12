@@ -1,12 +1,46 @@
 #storriesFirstSection{
-	background-image: url('../../../../assets/img/sample.jpg');
+	/* background-image: url('../../../../assets/img/sample.jpg');
 	background-repeat: no-repeat;
 	background-position: top center;
 	background-attachment: fixed;
 	background-size: cover;
 	margin-top: -115px;
-	color: white;
-    height: 95vh;
+	color: white; */
+    /* height: 95vh; */
+    background-color: #FBFBFB;   
+}
+#storriesFirstSection .partOne h3{
+    color: #4A5568;
+}
+
+#storriesFirstSection .partOne {
+    padding: 150px 60px 150px 90px;
+}
+#storriesFirstSection .imgFloat {
+    position: absolute;
+    top: 209px;
+    right: 264px;
+}
+#storriesFirstSection .partTwo{
+    margin-top: 90px;
+}
+.storyHeadingColor{
+    color: #C8C4C4;
+}
+.storySeeAll{
+    padding: 4px 7px;
+    background-color: #E3FDAC !important;
+    color: #84BB29 !important;
+    border-radius: 5px;
+}
+.storyReadMore {
+    display: inline-block;
+    float: right;
+    font-size: 13px;
+}
+
+#storriesFirstSection h1{
+    font-size: 70px;
 }
 #storriesSecondSection{
     padding: 0px 120px 40px 120px;
@@ -81,7 +115,14 @@
     margin-top: -72px;
 }
 .storyFull .react-player {
-    height: 400px !important;
+    height: 500px !important;
+}
+.storyViewSingle{
+    padding: 94px 103px;
+}
+.storyViewSingleTitle {
+    margin-top: 26px;
+    margin-bottom: -2px;
 }
 @media screen and (max-width: 768px) {
     #storriesSecondSection {
@@ -97,6 +138,23 @@
     }
     #storriesThirdSection span {
         height: 196px;        
+    }
+    #storriesFirstSection .partOne {
+        padding: 50px 20px;
+        margin-top: 50px;
+    }
+    #storriesFirstSection h1 {
+        font-size: 49px;
+    }
+    #storriesFirstSection .partTwo {
+        margin-top: 2px;
+    }
+    .storyViewSingle {
+        padding: 50px 20px;
+        margin-top: 71px;
+    }
+    .storyFull .react-player {
+        height: 216px !important;
     }
   
 }

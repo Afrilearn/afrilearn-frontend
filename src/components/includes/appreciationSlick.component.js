@@ -41,6 +41,16 @@ class SimpleSlider extends React.Component {
     return (
       <Slider {...settings}> 
           <Box 
+            content="I got an A+ in my test! I love your comprehensive and accurate curriculum. Thanks a lot!"
+            name="Isabella"
+            dClass="JSS 3"
+          />
+          <Box 
+            content="Learning is easier with Afrilearn. I really love this class, you guys are amazing 😘😘😘😘😘😘😘😘😘"
+            name="Omoigho Blessing"
+            dClass="JSS 2"
+          />
+          <Box 
             content="Since I began using Afrilearn to teach my Basic Science classes a few months ago, some of my students who used to score 25% now score over 75%. It’s been extremely exciting for them and for me. I love this new easy way of teaching"
             name="Mr. Idris Lawal"
             dClass="Teacher, Kano, Nigeria"
