@@ -6,7 +6,7 @@ import moment from "moment";
 import parse from "html-react-parser";
 
 const Box = props => {	
-    const {story} = props;
+    const {story,storyIndex} = props;
     const [modal, setModal] = useState(false);
     const toggle = () => {
        setModal(!modal);
@@ -31,15 +31,16 @@ const Box = props => {
              <img src={story.fileURL} alt={story.title} className="fullWidth"  onClick={()=>toggle()}/> 
             }
            
-           
-            <span  onClick={()=>toggle()}>
+           <Link to={`impact-story/${storyIndex}`}>
+            <span>
                 <h5>{story.title.length >20? story.title.substr(0,17)+'...' :story.title}</h5>
                 <p>{story.description.length >100? parse(story.description.substr(0,87)+'...') :parse(story.description)}</p>
-                <small>Posted on: {moment(story.createdAt).format('DD-MM-YYYY')}</small>
-                <p className="readMore"><Link><b>{'>'} See the story</b></Link></p>
+                <small>{moment(story.createdAt).format('ll')} <small className="storyReadMore"><b>Read More</b></small></small>
+                {/* <p className="readMore"><Link><b>{'>'} See the story</b></Link></p> */}
             </span>
+            </Link>
         </div> 
-        <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
+        {/* <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
             <ModalHeader toggle={toggle}>{story.title}</ModalHeader>
             <ModalBody>  
                 <div className="container-fluid">
@@ -68,13 +69,12 @@ const Box = props => {
                             {parse(story.description)}
                         </div>
                     </div>
-                </div>    
-                 
+                </div>
             </ModalBody>            
             <ModalFooter>
                 
             </ModalFooter>   
-        </Modal>   
+        </Modal>    */}
        </>  
 
     );
