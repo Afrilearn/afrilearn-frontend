@@ -272,3 +272,36 @@ img.threeImg {
     left: 4px;
   }
 }
+
+.checkbox-box {
+  height: 110px;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* margin: 16px 0; */
+  border: solid 1px currentColor;
+  border-radius: 10px;
+  background-color: rgba(196, 196, 196, 0.22);
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 1.3rem !important;
+  margin-top: 3px;
+}
+.checkbox-box::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+.checkbox-box-item {
+  display: flex;
+  align-items: baseline;
+}
+.checkbox-box-item input {
+  min-width: unset !important;
+  height: unset !important;
+}
+.checkbox-box-item label {
+  margin-left: 10px;
+}
