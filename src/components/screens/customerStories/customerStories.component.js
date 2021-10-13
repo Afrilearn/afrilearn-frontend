@@ -9,7 +9,7 @@ import './css/style.css';
 import {Helmet} from "react-helmet";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
-import Bg from './../../../assets/img/croods 1.png';
+import Bg from './../../../assets/img/about3.jpg';
 import FloatImg from './../../../assets/img/image 6.png';
 
 
@@ -62,7 +62,7 @@ const Stories = props => {
                 <div className="row">
                     <div className="col-md-6 partOne relative">
                         <h1>Impact Stories & Features</h1>
-                        <h3>Whatever goes into a mind comes out<br className="desktopOnly"/> in a life</h3>
+                        <h3>Whatever goes into a mind comes out<br className="desktopOnly"/> in a life.</h3>
                         <img src={FloatImg} className="imgFloat desktopOnly"/>
                     </div>
                     <div className="col-md-6 partTwo">
@@ -74,8 +74,8 @@ const Stories = props => {
                 <div className="row">
                 <div className="row">
                     <div className="col-md-6">
-                        <h3 className="storyHeadingColor">AFRI-WINNERS</h3>
-                        <p>Hear what the weekly winners of Africhallenge have to say</p>
+                        <h3 className="storyHeadingColor">AFRILEARN CHALLENGE WINNERS</h3>
+                        <p>What the weekly winners of #AfrilearnChallenge have to say</p>
                     </div>
                     <div className="col-md-6">
                     <div className="right"><Link className="storySeeAll">SEE ALL</Link></div> 

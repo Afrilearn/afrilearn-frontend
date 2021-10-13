@@ -265,7 +265,27 @@ const About = props => {
                     <div className="col-md-6">
                         
                     </div>
-                </div>            
+                </div>   
+                <div className="row">
+                    <div className="col-md-6">
+                        
+                    </div>
+                    <div className="col-md-6 push1">
+                        <div className="row">
+                            <div className="col-2">
+                                <FontAwesomeIcon icon={faTrophy} />
+                            </div>
+                            <div className="col-3">
+                                <h4>Sept 2021</h4>
+                            </div>
+                            <div className="col-7">
+                                <p>Awarded Changemaker Innovation of the Year 2021 by <a href="https://www.instagram.com/p/CT4qebPj58v/" target="_blank" rel="noopener noreferrer"><span className="bold">ACT Foundation.</span></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+                       
                            
             </div>
             <a href="/" name="team">&nbsp;</a>
@@ -277,16 +297,16 @@ const About = props => {
                 </div>  
                 <div className="row">
                     <TeamBox 
-                        image={require('../../../assets/img/Isaac.jpg')}
+                        image={require('../../../assets/img/Isaac Oladipupo.png')}
                         name="Isaac Oladipupo"
-                        position="Co-founder"
-                        details="Isaac started out as the youngest Journalist at Genevieve Magazine. He was pioneer Head of New Media at global mega-church Daystar, where he led the award-winning creative team to deliver 600% digital growth. He has since served as member of the Future Awards Africa Board of Judges and was nominated a World Economic Forum Young Global Leader in 2020. Isaac holds a certificate in Online Teaching and Learning from Harvard, and a Master's degree in Public & International Affairs from the University of Lagos."
+                        position="Co-founder & CEO"
+                        details="Isaac holds a Bachelor's degree in Management Technology, Master's degree in Public & International Affairs from the University of Lagos, an E-Learning certificate from Harvard, and a Product Management Certificate from Product School, USA. Isaac started out as the youngest Journalist at Genevieve Magazine. He was pioneer Head of New Media at international non-profit, Daystar, where he led the award-winning creative team to deliver 600% digital growth. He has since served as member of the Future Awards Africa Board of Judges and was nominated a World Economic Forum Young Global Leader in 2021."
                         />
                     <TeamBox 
                         other2="true"
                         image={require('../../../assets/img/Gabriel.jpg')}
                         name="Gabriel Olatunji-Legend"
-                        position="Co-founder"
+                        position="Co-founder & Head of Content"
                         details="From a Reporter, Gabriel grew to become a PR Executive, and then COO of BBB Media and BroadwayTV, a top media agency in Lagos. While in this position, he spearheaded the marketing campaign of some of Nigeria’s highest-grossing cinema movies in the last three years and transformed rejected brands into fans favorites. He oversees Content Development at Afrilearn. Gabriel holds a degree in Mass Communication from Covenant University."
                         />
                     
@@ -338,9 +358,17 @@ const About = props => {
                         // other1="true"
                         name="Sunday Olorunsheyi"
                         position="Co-founder, Pertinence Group"
-                        details="A global business leader with over 20 years building businesses across different sectors, Sunday Olorunsheyi is Co-founder of the multi-billion Pertinence Group (owners of ABC and VIP Gardens with a team of over 3,000 staff nationwide) and CEO of Globarel Group.
-                            Sunday currently seats on the board of multiple thriving businesses including Pertinence Properties Limited, HostNowNow Limited, Prodigit Consulting Limited, 1st Royal Character and Values Limited, Petfam Technical Services Nigeria Limited, PettySave Limited, DataFirst Technologies, Landshares Limited and Globarel Limited. Sunday who recently concluded his third Masters in Global Management from Salford University, United Kingdom, is also a faculty member at The African Leadership forum.
-                            "/>
+                        details="Sunday Olorunsheyi is a successful serial entrepreneur, a business and management consultant, an investment advisor, and a global keynote speaker. He also serves a vast number of clientele in different fields on matters of Management Strategy Development, Business Expansion, Product/Service Development, Activation & Adaptation, Sales and Marketing, Portfolio Management, Investment Risk Assessment, and General Business Development. Olorunsheyi has been able to undeniably take a rightful seat as a globally recognized and successful businessman.
+
+                        He is the Co-Founder of Pertinence Group, a multi-billion Enterprise Development and People Empowerment Company, having a workforce of over 5000 associates, with major interests in Technology, Real Estate, Agriculture, Media and Financial Services.
+                        
+                        Olorunsheyi as an advocate of growth, innovation, and development is also well known for his activities with regards to proper management of talent, skills and resources and creating enabling environment for young Nigerians in the Real estate sector and in other endeavours.
+                        
+                        As a man who loves to give back to people, he is known to help business owners and young folks alike to make headways through training and guidance using the Olorunsheyi Mentorship Program as a platform.
+                        
+                        In addition to this, his love to further make an impact is expressed through many philanthropic acts carried out by his foundation “The Olorunsheyi Foundation” which constantly addresses and tackles issues of poverty alleviation, poor education, and community health.
+                        
+                        He is a knowledge lover and has bagged two master’s degrees in business administration and Public Administration from reputable institutions including the Business School Netherlands. He is currently studying for a Ph.D. at Charisma University."/>
                     <TeamBox 
                         image={require('../../../assets/img/Adeola.jpg')}                      
                         name="Olusola Adeola"
