@@ -52,9 +52,13 @@
 }
 .faculty-member .image-section {
   border-bottom: 1.15867px solid #f5f5f5;
-  padding: 50px 16px;
-  min-height: 213px;
+  /* padding: 50px 16px; */
+  height: 413px;
+  overflow: hidden;
   border: 0.579336px solid #e5e5e5;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
 }
 .faculty-member .text-section {
   padding: 17px;
