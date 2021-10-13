@@ -39,7 +39,7 @@ export default function Faculties() {
   const FacultyMember = ({ name, image, description }) => {
     return (
       <div className="faculty-member m-2 m-lg-0 my-lg-3">
-        <div class="d-flex align-items-center flex-column image-section">
+        <div class="d-flex align-items-center flex-column image-section img">
           <div class="avatar" style={{ backgroundImage: `url(${image})` }} />
           <div className="member-name text-center mt-2">{name}</div>
         </div>
