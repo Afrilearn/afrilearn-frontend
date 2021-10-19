@@ -121,15 +121,18 @@ const ClassroomStudent = (props) => {
     }
     item.style.borderBottom = "4px solid #84BB29";
   };
+
   const classRelatedSubjects = useSelector(
     (state) => state.class.classRelatedSubjects
   );
+
   let subjectsToDisplay = clazz?.relatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
     subjectsToDisplay = classRelatedSubjects.filter((subject) =>
       clazz.subjectIds.find((i) => i.subjectId == subject._id)
     );
   }
+
   const subjectList = () => {
     if (subjectsToDisplay) {
       return subjectsToDisplay.map((item) => {
@@ -152,6 +155,7 @@ const ClassroomStudent = (props) => {
       return <h6>No Subject list yet</h6>;
     }
   };
+
   const classMembersList = () => {
     if (classMembers && classMembers.length > 0) {
       return classMembers.map((classMember) => (
@@ -233,11 +237,13 @@ const ClassroomStudent = (props) => {
       return <div className="container padding-30">No Classwork yet</div>;
     }
   };
+
   String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+
   const classAnonouncements = () => {
     if (clazz.classAnnouncements && clazz.classAnnouncements.length > 0) {
       return clazz.classAnnouncements.map((classAnnouncement) => {
@@ -335,11 +341,14 @@ const ClassroomStudent = (props) => {
       return <h6>No Announcement list yet</h6>;
     }
   };
+
   const handlePerformance = () => {
     const data = { classId: props.match.params.classId };
     props.getPerformanceInClass(activeCourseId, data);
   };
+
   const subjects = [];
+
   clazz.relatedSubjects &&
     clazz.relatedSubjects.forEach((subject) => {
       const assignedContent = clazz.teacherAssignedContents.filter(
@@ -494,6 +503,15 @@ const ClassroomStudent = (props) => {
                       "Oh oh! No work due soon!"
                     )}
                   </div>
+                  {/* <div className="upcoming-events" id="examinationSection">
+                    <h4>Examination</h4>
+                    <hr/>
+                    <h5>Mathematics First Term JSS 1</h5>
+                    <h6>Objective & Theory</h6>
+                    <h6>Duration: 60mins</h6>
+                    <hr/>
+                    <Link>GET STARTED</Link>
+                  </div> */}
                 </aside>
                 <main className="container-fluid">
                   {clazz.classAnnouncements &&

@@ -7,6 +7,10 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+#classroomTeacherSectionTwo .subjects img.subjectImage {
+  margin-bottom: 24px;
+  width: 100%;
+}
 .btn .btn-success,
 .dColor {
   color: #fff;
@@ -146,9 +150,6 @@
 }
 #classroomTeacherSectionTwo .announcements {
   justify-content: center;
-}
-#classroomTeacherSectionTwo .subjects {
-  margin-bottom: 50px;
 }
 #classroomTeacherSectionTwo .dropDownContent {
   height: 0px !important;
