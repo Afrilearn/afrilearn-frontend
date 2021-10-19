@@ -349,8 +349,21 @@ const MyNav = (props) => {
                     onClick={() => setIsOpen(false)}
                   >
                     My Dashboard
-                  </NavLink>
+                  </NavLink>                  
                 </NavItem>
+                {
+                  user.role === "602f3ce39b146b3201c2dc1d" ?
+                  <NavItem>
+                    <NavLink
+                      tag={Link}
+                      to="/dashboard"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Examination
+                    </NavLink>                  
+                  </NavItem>:null
+                }
+                
                 {user.role !== "606ed82e70f40e18e029165e" ? (
                   <NavItem>
                     {user.role !== "602f3ce39b146b3201c2dc1d" &&
@@ -415,11 +428,6 @@ const MyNav = (props) => {
                 ) : null}
               </NavLink>
             </NavItem>
-            {/* <NavItem>
-              <NavLink tag={Link} to="/stories">
-                 Stories
-              </NavLink>
-            </NavItem> */}
             <NavItem>
               <NavLink tag={Link} to="/about" onClick={() => setIsOpen(false)}>
                 About Us
@@ -471,16 +479,7 @@ const MyNav = (props) => {
                   >
                     Manage Profile
                   </DropdownItem>
-                  <DropdownItem divider />
-                  {/* <DropdownItem tag={Link} to="/select-pay">
-                    Payment History
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/profile">
-                    Invite Your Friends
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/classes/teacher">
-                    Teacher's Dashboard
-                  </DropdownItem> */}
+                  <DropdownItem divider />                 
                   <DropdownItem>
                     <a
                       href="https://ppu1xtjahc2.typeform.com/to/I7DJS3Bd"

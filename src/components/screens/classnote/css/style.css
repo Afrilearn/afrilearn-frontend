@@ -157,11 +157,11 @@
   margin-top: 15px;
 }
 #classNoteSecondSection .content img {
-  display: block;
+  /* display: block;
   margin-bottom: 20px;
   margin-top: 10px;
   width: 100%;
-  height: auto;
+  height: auto; */
   object-fit: contain;
 }
 

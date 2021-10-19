@@ -1,0 +1,317 @@
+.Exam {
+    padding: 115px 90px 120px 90px;
+    background: black;
+    margin-top: -81px;
+    color: white;
+    height: 120vh;
+}
+
+.Exam .partOne {
+    padding-right: 150px;
+}
+
+.Exam .headingOne {
+    font-size: 15pt;
+    color: white;
+}
+
+.Exam .p3 {
+    margin-top: 20px;
+}
+
+.Exam .afterNav {
+    padding-left: 48px;
+    margin-bottom: 120px;
+}
+
+img.motivation {
+    margin: auto;
+    margin-bottom: auto;
+    display: block;
+    margin-bottom: 10px;
+    height: 160px;
+    width: 160px;
+    object-fit: contain;
+    object-position: top;
+}
+
+.Exam img.myBadge {
+    width: 26px;
+    margin-top: -3px;
+    object-fit: contain;
+    height: 25px;
+}
+
+.Exam a.myReport {
+    list-style: none;
+    margin-right: 11px;
+}
+
+.Exam .categoryBadge {
+    border-radius: 10px;
+    box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
+    padding: 7px 11px;
+    color: white;
+    font-size: 15px;
+    font-family: font1;
+    text-align: center;
+    background: #84BB29 ;
+}
+
+.Exam .bg-success {
+    background-color: #84BB29  !important;
+}
+
+.Exam .push33 {
+    margin-top: -2px;
+}
+
+.Exam .second {
+    margin-left: 39px;
+}
+
+.Exam .third {
+    display: block;
+    padding: 6px 11px;
+}
+.Exam .first {
+    margin-left: 30px;
+}
+
+.Exam .myProgress,
+.Exam .question {
+    margin-top: 37px;
+}
+
+.Exam .progress {
+    height: 0.5rem;
+}
+
+.Exam .myQuestion {
+    box-shadow: 0pt 0.5pt 4pt rgba(0, 0, 0, 0.1);
+    padding: 10px 21px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    width: 81%;
+    background: white;
+    color: black !important;
+}
+
+.Exam .beforeOptions {
+    margin-bottom: 27px;
+}
+
+.Exam a.report,
+.Exam .previous,
+.Exam .skip {
+    border-radius: 6px;
+    background: #969fa9 !important;
+    color: white !important;
+    font-family: font1;
+    padding: 7px 35px;
+}
+
+.Exam a.previous {
+    background: #84BB29  !important;
+}
+
+.Exam a.skip {
+    background: #fabf61 !important;
+    margin-left: 16px;
+}
+
+.Exam .afterReport {
+    float: right;
+    text-align: right;
+}
+
+.Exam .beforeReport {
+    margin-top: 19px;
+    width: 86%;
+}
+
+.Exam .timerSection {
+    padding-left: 33px;
+}
+
+.Exam .timer {
+    border-radius: 7px;
+    box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
+    padding: 7px 11px;
+    color: white;
+    font-size: 14px;
+    font-family: font1;
+    float: right;
+    background: #84BB29 ;
+}
+
+.Exam .questionImgSection, .Exam .questionSection, .Exam .questionSection span, .Exam .questionSection p {
+    width: 81%;
+    font-size: 17px !important;
+    font-family: font1 !important;
+    color: white !important;
+    line-height: 24px !important;
+    background: transparent !important;
+}
+
+.Exam img.questionImg {
+    height: 147px;
+    width: 180px;
+    border: solid 5px gray;
+}
+
+.Exam .timerTitle {
+    margin-right: 16px;
+}
+
+.Exam .checkUps {
+    margin-top: 43px;
+    margin-left: 1px;
+}
+
+.Exam a.previous img {
+    width: 14px;
+    height: 12px;
+}
+
+.Exam .status {
+    background: white;
+    border-radius: 10px;
+    padding: 3px 2px;
+    color: #84BB29 ;
+    font-family: font2;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.Exam .selectedOption {
+    background: #84BB29  !important;
+    color: white !important;
+}
+
+.reportModalClass .modal-header h5 {
+    text-align: center !important;
+    font-family: font2;
+}
+
+.Exam .push3 {
+    margin-left: 1px;
+}
+
+.Exam .push2 {
+    margin-top: 28px;
+}
+
+.Exam .push4 {
+    width: 86%;
+}
+
+
+@media screen and (max-width: 768px) {
+    .Exam {
+        padding: 155px 20px 20px 20px;
+    }
+
+    .Exam .gh {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .Exam .badgeSection {
+        margin-left: 0px;
+    }
+
+    .Exam .push33 {
+        margin-top: 8px;
+    }
+
+    .Exam .p3 {
+        margin-top: 0px;
+    }
+
+    .Exam .p4 {
+        margin-top: 30px;
+    }
+
+    .Exam .afterNav {
+        padding-left: 15px;
+    }
+
+    .Exam .categoryBadge {
+        margin-right: 0px;
+        margin-bottom: 9px;
+        display: block;
+        margin-left: 0px;
+        font-size: 14px;
+        width: 100%;
+        padding: 7px 11px;
+    }
+
+    .Exam .headingOne {
+        font-size: 15pt;
+        margin-bottom: 10px;
+    }
+
+    .Exam .headingTwo {
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .Exam .push4 {
+        width: 100%;
+    }
+
+    .Exam .beforeReport {
+        margin-top: 16px;
+        width: 100%;
+        margin: auto;
+    }
+
+    a.report,
+    .previous,
+    .skip {
+        margin-bottom: 8px;
+        display: inline-block;
+        width: 100%;
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+
+    a.skip,
+    a.previous {
+        margin-left: 0px;
+        text-align: left;
+    }
+
+    .Exam .myQuestion {
+        padding: 6px 14px;
+        width: 100% !important;
+        font-size: 14px;
+    }
+
+    .Exam a.skip {
+        background: #fabf61 !important;
+        margin-left: 0px;
+        text-align: center;
+        margin-left: 0px;
+    }
+
+    .Exam a.previous {
+        text-align: center;
+    }
+
+    .Exam .partOne {
+        padding-right: 15px;
+    }
+
+    .Exam .afterReport {
+        padding-right: 0px;
+    }
+    .beforeReport img {
+        margin-top: -4px;
+    }
+    .Exam .questionImgSection, .Exam .questionSection, .questionSection span, .questionSection p {
+        width: 90% !important;
+        font-size: 15px !important;      
+    }
+}

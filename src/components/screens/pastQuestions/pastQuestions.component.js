@@ -43,7 +43,7 @@ const PastQuestions = props => {
        return <h5>0ops!, No subject found, check back later</h5>
     }
 
-}
+  }
 
   return ( 
     <>
