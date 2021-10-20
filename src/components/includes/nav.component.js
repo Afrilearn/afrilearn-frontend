@@ -76,6 +76,10 @@ import Analytics from "../../analytics";
 import Stories from "../screens/customerStories/customerStories.component";
 import faculties from "../screens/faculties/faculties.component";
 import ViewImpactStory from "../screens/customerStories/viewStory.component";
+import ExamLog from "../screens/examLog/examLog";
+import ExamResults from "../screens/ExamResults/ExamResults";
+import ExamResult from "../screens/ExamResult/ExamResult";
+import AddExam from "../screens/AddExam/AddExam";
 
 const MyNav = (props) => {
   const {
@@ -549,6 +553,10 @@ const MyNav = (props) => {
           exact
           component={pastQuestionExamPage}
         />
+        <Route path="/add-exam" exact component={AddExam} />
+        <Route path="/exams" exact component={ExamLog} />
+        <Route path="/exams/:examId" exact component={ExamResults} />
+        <Route path="/exams/:examId/:resultId" exact component={ExamResult} />
         <Route path="/past-questions/:categoryId" component={pastQuestions} />
         <Route
           path="/classes/:classId/:subjectId/quiz"

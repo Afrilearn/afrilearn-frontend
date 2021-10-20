@@ -1,0 +1,51 @@
+#examLog {
+  background-color: #000000;
+  min-height: 100vh;
+}
+#examLogSectionOne {
+  background-image: url("../../../assets/img/parent-header.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  height: 365px;
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#examLog .input::placeholder {
+  color: #c4c4c4;
+}
+
+.exam-item {
+  width: 100%;
+  height: calc(512px / 4);
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.46);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.exam-item:first-of-type {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.exam-item:last-of-type {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom: none;
+}
+@media screen and (max-width: 600px) {
+  .exam-item {
+    width: 600px;
+  }
+  .exams-list {
+    overflow-x: scroll;
+  }
+}

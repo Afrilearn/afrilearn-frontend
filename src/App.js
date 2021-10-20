@@ -12,6 +12,8 @@ import { loadUser } from "./redux/actions/authActions";
 import { getCourses } from "./redux/actions/courseActions";
 import Navigation from "./components/includes/nav.component";
 import ReactGA from "react-ga";
+import AddTheoryQuestion from "./components/includes/AddTheoryQuestion/AddTheoryQuestion";
+import ExamResults from "./components/screens/ExamResults/ExamResults";
 
 const App = () => {
   useEffect(() => {

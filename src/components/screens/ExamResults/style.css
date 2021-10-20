@@ -1,0 +1,35 @@
+#examResults {
+  background-color: #000000;
+  min-height: 100vh;
+}
+#examResults .table-responsive {
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%,
+    rgba(51, 50, 50, 0) 142.59%,
+    rgba(51, 50, 50, 0) 145.33%
+  );
+}
+#examResults .table {
+  overflow: hidden;
+}
+#examResults .table th,
+#examResults .table td {
+  border-top: none !important;
+}
+
+#examResultsSectionOne {
+  background-image: url("../../../assets/img/parent-header.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  /* margin-top: -115px; */
+  color: white;
+  height: 365px;
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
