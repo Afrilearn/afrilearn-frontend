@@ -453,7 +453,8 @@ input.searchBox {
 }
 
 select.general,
-input.general {
+input.general,
+textarea.general {
   width: 100%;
   margin-top: 20px;
   background: rgba(49, 48, 48, 0.9);
@@ -771,4 +772,10 @@ select.no-appearance {
   border: solid 0.5px #222222;
   background: white !important;
   color: #222222 !important;
+}
+.nunito {
+  font-family: Nunito;
+}
+.light-font {
+  font-weight: lighter;
 }

@@ -1077,4 +1077,23 @@ export default {
       headers: this.headers(),
     });
   },
+  getExams() {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/exam`,
+      headers: this.headers(),
+    });
+  },
+  getExam(id) {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/exam/${id}`,
+    });
+  },
+  getExamResult(id) {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/exam-result/${id}`,
+    });
+  },
 };

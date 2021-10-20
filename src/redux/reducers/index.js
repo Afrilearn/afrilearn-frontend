@@ -8,10 +8,11 @@ import subjectReducer from "./subjectReducer";
 import classReducer from "./classReducer";
 import pastQuestionsReducer from "./pastQuestionsReducer";
 import searchReducer from "./searchReducer";
-import parentReducer from "./parentReducer"
+import parentReducer from "./parentReducer";
 import schoolReducer from "./schoolReducer";
 import commentReducer from "./commentReducer";
 import feedReducer from "./feedReducer";
+import examReducer from "./examReducer";
 import userStoriesReducer from "./userStoriesReducer";
 
 export default combineReducers({
@@ -27,6 +28,7 @@ export default combineReducers({
   parent: parentReducer,
   school: schoolReducer,
   comment: commentReducer,
+  exam: examReducer,
   feed: feedReducer,
-  userStory:userStoriesReducer
+  userStory: userStoriesReducer,
 });
