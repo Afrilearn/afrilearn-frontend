@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import secondsToHms from "../../../assets/js/secondsToHms";
-import { getExam } from "../../../redux/actions/examActions";
+import secondsToHms from "../../../../assets/js/secondsToHms";
+import { getExam } from "../../../../redux/actions/examActions";
 import "./style.css";
 
 export default function ExamResults(props) {

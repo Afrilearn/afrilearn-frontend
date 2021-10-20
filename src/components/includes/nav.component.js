@@ -76,10 +76,12 @@ import Analytics from "../../analytics";
 import Stories from "../screens/customerStories/customerStories.component";
 import faculties from "../screens/faculties/faculties.component";
 import ViewImpactStory from "../screens/customerStories/viewStory.component";
-import ExamLog from "../screens/examLog/examLog";
-import ExamResults from "../screens/ExamResults/ExamResults";
-import ExamResult from "../screens/ExamResult/ExamResult";
+// import ExamLog from "../screens/examLog/examLog";
+// import ExamResults from "../screens/ExamResults/ExamResults";
+import ExamResult from "../screens/exam/ExamResult/ExamResult";
 import AddExam from "../screens/AddExam/AddExam";
+import ExamResults from "../screens/exam/ExamResults/ExamResults";
+import ExamLog from "../screens/exam/examLog/examLog";
 
 const MyNav = (props) => {
   const {
@@ -353,10 +355,9 @@ const MyNav = (props) => {
                     onClick={() => setIsOpen(false)}
                   >
                     My Dashboard
-                  </NavLink>                  
+                  </NavLink>
                 </NavItem>
-                {
-                  user.role === "602f3ce39b146b3201c2dc1d" ?
+                {user.role === "602f3ce39b146b3201c2dc1d" ? (
                   <NavItem>
                     <NavLink
                       tag={Link}
@@ -364,10 +365,10 @@ const MyNav = (props) => {
                       onClick={() => setIsOpen(false)}
                     >
                       Examination
-                    </NavLink>                  
-                  </NavItem>:null
-                }
-                
+                    </NavLink>
+                  </NavItem>
+                ) : null}
+
                 {user.role !== "606ed82e70f40e18e029165e" ? (
                   <NavItem>
                     {user.role !== "602f3ce39b146b3201c2dc1d" &&
@@ -483,7 +484,7 @@ const MyNav = (props) => {
                   >
                     Manage Profile
                   </DropdownItem>
-                  <DropdownItem divider />                 
+                  <DropdownItem divider />
                   <DropdownItem>
                     <a
                       href="https://ppu1xtjahc2.typeform.com/to/I7DJS3Bd"
