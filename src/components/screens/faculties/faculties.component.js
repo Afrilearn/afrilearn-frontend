@@ -56,7 +56,7 @@ export default function Faculties() {
 
   return (
     <div>
-      <div className="my-5" id="faculties">
+      <div className="my-5 pt-5" id="faculties">
         <div className="">
           <h1 className="heading-text">Faculty</h1>
           <h1 className="sub-heading-text">Meet our Faculty!</h1>

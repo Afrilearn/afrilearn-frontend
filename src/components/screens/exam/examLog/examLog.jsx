@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getExams } from "../../../../redux/actions/examActions";
-// import { getExams } from "../../../redux/actions/examActions";
 
 export default function ExamLog() {
   const dispatch = useDispatch();
