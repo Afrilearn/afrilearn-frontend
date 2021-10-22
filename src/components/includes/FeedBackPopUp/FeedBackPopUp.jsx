@@ -34,7 +34,6 @@ on Afrilearn?: ${preferences[preference]?.text}\n
 you know?: ${rating}`;
     localStorage.setItem("afriLearn:lastFeedBack", new Date());
     dispatch(updateProfile({ feedBack: feedBackText, rating }));
-
     toggleModal();
   };
   if (!visible) return null;
@@ -167,8 +166,11 @@ you know?: ${rating}`;
           {page === 6 && (
             <div>
               <div class="d-flex justify-content-center align-items-center h-100 w-100 flex-column">
-                <h1 className="bold baloo text-center">
-                  We’re done! Thank you for sharing your feedback
+                <h1 className="bold baloo text-center mt-0 mt-md-5">
+                  We’re done!
+                </h1>
+                <h1 className="bold baloo text-center mb-2 mb-md-5">
+                  Thank you for sharing your feedback
                 </h1>
                 <button
                   className="btn btn-lg bg-secondary text-white"
