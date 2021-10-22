@@ -555,7 +555,7 @@ const MyNav = (props) => {
           exact
           component={pastQuestionExamPage}
         />
-        <Route path="/add-exam/:examId" exact component={AddExamQuestion} />
+        <Route path="/add-exam/:examId" component={AddExamQuestion} />
         <Route path="/add-exam" exact component={AddExam} />
         <Route path="/exams" exact component={ExamLog} />
         <Route path="/exams/:examId" exact component={ExamResults} />

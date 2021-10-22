@@ -9,13 +9,16 @@ export default function AddExam() {
         <div className="col-12 col-md-3">
           <div className="exam-progress-box p-3 mb-2 p-md-4">
             <h3 className="bold text-white nunito mb-5">Set Up Examination</h3>
-            <div className="exam-progress-item-after exam-progress-item  text-white d-flex align-items-center">
-              <div className="exam-progress-item-indicator exam-progress-item-visited"></div>
-              <span>Set Ups</span>
-            </div>
-            <div className="exam-progress-item  text-white d-flex align-items-center">
-              <div className="exam-progress-item-indicator"></div>
-              <span>Examination Questions</span>
+            <div className="exam-progress-items">
+              <small></small>
+              <div className="exam-progress-item-after exam-progress-item  text-white d-flex align-items-center">
+                <div className="exam-progress-item-indicator exam-progress-item-visited"></div>
+                <span>Set Ups</span>
+              </div>
+              <div className="exam-progress-item  text-white d-flex align-items-center">
+                <div className="exam-progress-item-indicator"></div>
+                <span>Examination Questions</span>
+              </div>
             </div>
           </div>
         </div>

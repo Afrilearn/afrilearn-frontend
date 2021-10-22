@@ -15,10 +15,6 @@
   border-radius: 10px;
 }
 
-.exam-progress-item {
-  /* border: solid 1px #ffffff; */
-  margin-bottom: 30px;
-}
 .exam-progress-item-indicator {
   width: 15px;
   height: 15px;
