@@ -82,7 +82,7 @@ import ExamResult from "../screens/exam/cms/ExamResult/ExamResult";
 import AddExam from "../screens/exam/cms/AddExam/AddExam";
 import ExamResults from "../screens/exam/cms/ExamResults/ExamResults";
 import ExamLog from "../screens/exam/cms/examLog/examLog";
-import AddExamQuestion from "../screens/exam/AddExamQuestion/AddExamQuestion";
+import AddExamQuestion from "../screens/exam/cms/AddExamQuestion/AddExamQuestion";
 
 const MyNav = (props) => {
   const {

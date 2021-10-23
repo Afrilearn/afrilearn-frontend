@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import SunEditor, { buttonList } from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import HTMLEditor from "../../../includes/htmlEditor/htmlEditor.component";
+import HTMLEditor from "../../../../includes/htmlEditor/htmlEditor.component";
 // import SunEditor from "suneditor-react";
 
 import "./style.css";
