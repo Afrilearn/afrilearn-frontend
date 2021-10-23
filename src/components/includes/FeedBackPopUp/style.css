@@ -1,0 +1,119 @@
+.feedback-pop {
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.233);
+  z-index: 99999;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  top: 0;
+  left: 0;
+}
+.feedback-pop-content {
+  width: 943px;
+  background-color: #fff;
+  min-height: 300px;
+  border-radius: 30px;
+  padding: 130px;
+}
+.feedback-progress-bar span {
+  position: absolute;
+  top: 10px;
+  /* left: 30%; */
+}
+.feedback-progress-bar {
+  width: 100%;
+  background: rgba(123, 140, 95, 0.21);
+  display: flex;
+  height: 10px;
+  /* border-radius: 5px; */
+  /* overflow: hidden; */
+  position: relative;
+}
+.feedback-progress {
+  background: rgba(123, 140, 95, 0.21);
+  background: #84bb29;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.feedback-message-box {
+  /* min-height: 250px; */
+  /* border: 1px solid #000; */
+  width: 100%;
+  margin-top: 30px;
+}
+.rating-container {
+  width: 670px;
+  height: 61.08px;
+  border: 1.90883px solid #333333;
+  box-sizing: border-box;
+  border-radius: 3.81766px;
+  margin: 0 auto;
+}
+.rating-select {
+  flex: 10% 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 0.552514px solid #333333;
+  font-weight: bold;
+  font-family: "Baloo 2";
+  height: 100%;
+}
+.rating-selected {
+  background-color: #84bb29;
+  color: white;
+}
+.rating-select:last-of-type {
+  border-right: none;
+}
+.preference-button {
+  width: 518px;
+  height: 63.38px;
+  background: rgba(196, 196, 196, 0.22);
+  border-radius: 8.21557px;
+  display: flex;
+  padding: 0 !important;
+  align-items: center;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.prefered-button {
+  width: 518px;
+  height: 63.38px;
+  background: #84bb29;
+  color: white;
+  border-radius: 8.21557px;
+  display: flex;
+  padding: 0 !important;
+  align-items: center;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.preference-button-label {
+  flex: 45.77px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #c4c4c4;
+  /* border-radius: 8.21557px 0px 0px 8.21557px; */
+  /* padding: 15px; */
+  height: 100%;
+  margin-right: 10px;
+}
+@media screen and (max-width: 950px) {
+  .feedback-pop-content {
+    width: 100%;
+    padding: 40px;
+  }
+  .rating-container {
+    width: 100%;
+    height: 40px;
+  }
+  .preference-button {
+    width: 100%;
+    height: 63.38px;
+  }
+}

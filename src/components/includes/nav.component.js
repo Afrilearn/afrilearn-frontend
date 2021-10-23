@@ -82,6 +82,7 @@ import ExamResult from "../screens/exam/cms/ExamResult/ExamResult";
 import AddExam from "../screens/exam/cms/AddExam/AddExam";
 import ExamResults from "../screens/exam/cms/ExamResults/ExamResults";
 import ExamLog from "../screens/exam/cms/examLog/examLog";
+import AddExamQuestion from "../screens/exam/AddExamQuestion/AddExamQuestion";
 
 const MyNav = (props) => {
   const {
@@ -554,6 +555,7 @@ const MyNav = (props) => {
           exact
           component={pastQuestionExamPage}
         />
+        <Route path="/add-exam/:examId" component={AddExamQuestion} />
         <Route path="/add-exam" exact component={AddExam} />
         <Route path="/exams" exact component={ExamLog} />
         <Route path="/exams/:examId" exact component={ExamResults} />
