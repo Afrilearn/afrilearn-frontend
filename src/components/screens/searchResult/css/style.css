@@ -63,7 +63,7 @@
 }
 
 #classNoteSecondSection .content img {
-  display: block;
+  /* display: block; */
   margin-bottom: 20px;
   margin-top: 10px;
 }

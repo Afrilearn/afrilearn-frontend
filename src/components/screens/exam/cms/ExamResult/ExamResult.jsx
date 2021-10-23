@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getResult } from "../../../../redux/actions/examActions";
+import { getResult } from "../../../../../redux/actions/examActions";
 import "./style.css";
 
 export default function ExamResult() {

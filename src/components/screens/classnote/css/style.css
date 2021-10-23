@@ -148,7 +148,7 @@
   font-size: 23px;
 }
 
-#classNoteSecondSection .content {
+#classNoteSecondSection .classnoteContent{
   text-align: justify;
   margin-top: 16px;
   padding-right: 467px;
@@ -156,13 +156,9 @@
 #classNoteSecondSection .stat {
   margin-top: 15px;
 }
-#classNoteSecondSection .content img {
-  /* display: block;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  width: 100%;
-  height: auto; */
+#classNoteSecondSection .classnoteContent img {
   object-fit: contain;
+  max-width: 100%;
 }
 
 #classNoteSecondSection #navigation p {
@@ -174,7 +170,7 @@
   .controlBar ul li {
     margin-right: 29px;   
 }
-#classNoteSecondSection .content {
+#classNoteSecondSection .classnoteContent {
   padding-right: 15px;
 }
   #classNoteFirstSection {
@@ -193,10 +189,6 @@
     margin-top: 145px;
     margin-bottom: 0px;
     padding: 0px 20px;
-}
-#classNoteSecondSection .content img {
-  object-fit: contain;
-  width: 100%;
 }
 
   .controlBar .backArrow {

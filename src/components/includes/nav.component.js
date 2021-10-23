@@ -78,10 +78,10 @@ import faculties from "../screens/faculties/faculties.component";
 import ViewImpactStory from "../screens/customerStories/viewStory.component";
 // import ExamLog from "../screens/examLog/examLog";
 // import ExamResults from "../screens/ExamResults/ExamResults";
-import ExamResult from "../screens/exam/ExamResult/ExamResult";
-import AddExam from "../screens/AddExam/AddExam";
-import ExamResults from "../screens/exam/ExamResults/ExamResults";
-import ExamLog from "../screens/exam/examLog/examLog";
+import ExamResult from "../screens/exam/cms/ExamResult/ExamResult";
+import AddExam from "../screens/exam/cms/AddExam/AddExam";
+import ExamResults from "../screens/exam/cms/ExamResults/ExamResults";
+import ExamLog from "../screens/exam/cms/examLog/examLog";
 
 const MyNav = (props) => {
   const {

@@ -58,8 +58,8 @@ export default function Faculties() {
     <div>
       <div className="my-5" id="faculties">
         <div className="">
-          <h1 className="heading-text">Faculty</h1>
-          <h1 className="sub-heading-text">Meet our Faculty!</h1>
+          {/* <h1 className="heading-text">Faculty</h1> */}
+          <h1 className="heading-text">Meet our Faculty!</h1>
           <p className="p">
             Afrilearn would like to thank every individual, organization, and
             government who has dedicated their time, resources, and expertise to
