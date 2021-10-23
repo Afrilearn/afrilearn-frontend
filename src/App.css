@@ -776,6 +776,9 @@ select.no-appearance {
 .nunito {
   font-family: Nunito;
 }
+.baloo {
+  font-family: "Baloo 2", cursive;
+}
 .light-font {
   font-weight: lighter;
 }

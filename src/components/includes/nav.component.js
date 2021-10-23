@@ -79,9 +79,10 @@ import ViewImpactStory from "../screens/customerStories/viewStory.component";
 // import ExamLog from "../screens/examLog/examLog";
 // import ExamResults from "../screens/ExamResults/ExamResults";
 import ExamResult from "../screens/exam/ExamResult/ExamResult";
-import AddExam from "../screens/AddExam/AddExam";
+import AddExam from "../screens/exam/AddExam/AddExam";
 import ExamResults from "../screens/exam/ExamResults/ExamResults";
 import ExamLog from "../screens/exam/examLog/examLog";
+import AddExamQuestion from "../screens/exam/AddExamQuestion/AddExamQuestion";
 
 const MyNav = (props) => {
   const {
@@ -554,6 +555,7 @@ const MyNav = (props) => {
           exact
           component={pastQuestionExamPage}
         />
+        <Route path="/add-exam/:examId" component={AddExamQuestion} />
         <Route path="/add-exam" exact component={AddExam} />
         <Route path="/exams" exact component={ExamLog} />
         <Route path="/exams/:examId" exact component={ExamResults} />
