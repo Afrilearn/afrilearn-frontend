@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./style.css";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../../redux/actions/authActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function FeedBackPopUp({ visible = false, toggleModal }) {
   const [page, setPage] = useState(1);
@@ -40,6 +42,12 @@ you know?: ${rating}`;
   return (
     <div className="feedback-pop nunito">
       <div className="feedback-pop-content ">
+        <FontAwesomeIcon
+          icon={faTimes}
+          size="lg"
+          className="feedback-pop-content-close cursor"
+          onClick={() => toggleModal()}
+        />
         <h4 className="bold nunito text-center">
           We'd 💖 your feedback to give you the best learning experience
           possible!
@@ -69,7 +77,7 @@ you know?: ${rating}`;
                   onChange={(e) => setAcheived(e.target.value)}
                   class="form-control"
                   id="exampleFormControlTextarea1"
-                  rows="8"
+                  rows="6"
                 ></textarea>
               </div>{" "}
             </div>
@@ -88,7 +96,7 @@ you know?: ${rating}`;
                   onChange={(e) => setMostLoved(e.target.value)}
                   class="form-control"
                   id="exampleFormControlTextarea1"
-                  rows="8"
+                  rows="6"
                 ></textarea>
               </div>{" "}
             </div>
@@ -107,7 +115,7 @@ you know?: ${rating}`;
                   onChange={(e) => setAdvise(e.target.value)}
                   class="form-control"
                   id="exampleFormControlTextarea1"
-                  rows="8"
+                  rows="6"
                 ></textarea>
               </div>{" "}
             </div>
