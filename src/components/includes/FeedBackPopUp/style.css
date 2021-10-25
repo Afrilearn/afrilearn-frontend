@@ -11,12 +11,19 @@
   top: 0;
   left: 0;
 }
+.feedback-pop-content-close {
+  background-color: #fff;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
 .feedback-pop-content {
-  width: 943px;
+  width: 50%;
   background-color: #fff;
   min-height: 300px;
   border-radius: 30px;
-  padding: 130px;
+  padding: 50px 40px;
+  position: relative;
 }
 .feedback-progress-bar span {
   position: absolute;
