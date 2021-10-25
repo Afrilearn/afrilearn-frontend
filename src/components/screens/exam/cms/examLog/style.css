@@ -3,7 +3,7 @@
   min-height: 100vh;
 }
 #examLogSectionOne {
-  background-image: url("../../../../assets/img/parent-header.png");
+  background-image: url("../../../../../assets/img/parent-header.png");
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -41,11 +41,42 @@
   border-bottom-left-radius: 10px;
   border-bottom: none;
 }
+#examLogSectionOne  {
+  font-size: 40px;
+}
+#examLogSectionTwo .shift1{
+  margin-left: 77px !important;
+}
+#examLogSectionTwo svg.searchButton {
+  margin: 12px !important;
+}
+#examLogSectionTwo svg.addExam{
+  margin-right: 11px;
+}
+#examLogSectionTwo  {
+  font-size: 19px;
+}
+.exams-list .viewRecord {
+  padding: 6px 31px;
+}
+.exam-item {
+  padding: 18px 41px !important;
+}
 @media screen and (max-width: 600px) {
   .exam-item {
     width: 600px;
   }
   .exams-list {
     overflow-x: scroll;
+  }
+  #examLogSectionTwo .shift1 {
+    margin-left: 0px !important;
+  }
+  #examLogSectionTwo {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  #examLogSectionTwo svg.addExam {
+    margin-right: 1px;
   }
 }

@@ -8,7 +8,8 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getExams } from "../../../../redux/actions/examActions";
+import { getExams } from "../../../../../redux/actions/examActions";
+// import { getExams } from "../../../redux/actions/examActions";
 
 export default function ExamLog() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function ExamLog() {
     dispatch(getExams());
   }, []);
   const exams = useSelector((state) => state.exam.exams);
+ 
   const ExamItem = ({ index, exam }) => {
     return (
       <div className="exam-item p-2  p-md-4">
@@ -32,7 +34,7 @@ export default function ExamLog() {
           {exam?.questionTypeId?.name}
         </div>
         <Link to={`/exams/${exam?._id}`}>
-          <button className="text-white green-bg btn nunito btn-sm">
+          <button className="text-white green-bg btn nunito btn-sm viewRecord">
             VIEW
           </button>
         </Link>
@@ -75,8 +77,8 @@ export default function ExamLog() {
         <div className="d-flex justify-content-between align-items-end">
           <p className="text-white  nunito bold">Published Exams</p>
           <Link to="/add-exam">
-            <p className="green  nunito ml-2 ml-md-5">
-              <FontAwesomeIcon icon={faPlus} className="green" /> Set Up New
+            <p className="green  nunito ml-2 ml-md-5 shift1">
+              <FontAwesomeIcon icon={faPlus} className="green addExam" /> Set Up New
               Exam
             </p>
           </Link>
@@ -85,9 +87,9 @@ export default function ExamLog() {
           </p>
         </div>
         <div className="row my-3">
-          <div className="col-12 col-md-5">
+          <div className="col-12 col-md-4">
             <div className="border rounded-pill bg-transparent d-flex align-items-center">
-              <FontAwesomeIcon icon={faSearch} className="text-white m-3" />
+              <FontAwesomeIcon icon={faSearch} className="text-white m-3 searchButton" />
               <input
                 type="text"
                 className="bg-transparent w-auto text-white border-0 input nunito"
