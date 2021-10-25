@@ -1,3 +1,13 @@
+#facultyPage {
+  padding: 75px 72px;
+}
+#facultyFirstSection p {
+  font-size: 19px;
+}
+
+
+
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -109,10 +119,15 @@
 }
 .faculty-member:hover .text-section {
   display: block;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
   border-top: 0.579336px solid #e5e5e5;
+  /* -webkit-animation: moveDown 0.5s ease-in-out;
+  animation: moveDown 0.5s ease-in-out; */
 }
 .faculty-member:hover .img {
   opacity: 1;
-  transform: scale(1.1);
+  /* -webkit-animation: moveDown 0.5s ease-in-out;
+  animation: moveDown 0.5s ease-in-out; */
+  /* transform: scale(1.1); */
+
 }

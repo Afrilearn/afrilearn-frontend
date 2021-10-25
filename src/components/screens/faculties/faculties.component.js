@@ -55,53 +55,73 @@ export default function Faculties() {
   };
 
   return (
-    <div>
-      <div className="my-5 pt-5" id="faculties">
-        <div className="">
-          {/* <h1 className="heading-text">Faculty</h1> */}
-          <h1 className="heading-text">Meet our Faculty!</h1>
-          <p className="p">
-            Afrilearn would like to thank every individual, organization, and
-            government who has dedicated their time, resources, and expertise to
-            our mission of delivering quality education to Africans anywhere.
-            The vast content on Afrilearn is made possible by the selfless
-            commitment of our in-house team alongside our seasoned network of
-            highly experienced teachers, volunteers, and partners.
-          </p>
-
-          {filtered && filtered.length === 0 && (
-            <div className="card">
-              <div className="card-body text-center">
-                List of faculty members is currently empty
-              </div>
+    <div className="container-fluid" id="facultyPage">
+        <div className="row" id="facultyFirstSection">
+            <div className="col-md-12">
+              <h1 className="heading-text">Meet our Faculty!</h1>
+              <p className="p">
+                Afrilearn would like to thank every individual, organization, and
+                government who has dedicated their time, resources, and expertise to
+                our mission of delivering quality education to Africans anywhere.
+                The vast content on Afrilearn is made possible by the selfless
+                commitment of our in-house team alongside our seasoned network of
+                highly experienced teachers, volunteers, and partners.
+              </p>
             </div>
-          )}
-          <div class="d-flex justify-content-center justify-content-lg-around flex-wrap faculty-members mt-2 mt-lg-5">
-            {filtered.map((item, index) => (
-              <FacultyMember
-                key={index}
-                name={item.name}
-                image={item.image}
-                description={item.description}
-              />
-            ))}
-          </div>
-
-          {/* <br />
-          <br />
-          <p>________________</p>
-          <h3 className="green">
-            <strong>You too can inspire Africa to love learning!</strong>
-          </h3>
-          <p className="lastGuy">
-            By joining our network of genius tutors and content providers to
-            deliver quality education for Africans anywhere. To join our ace
-            team, simply send an email to{" "}
-            <a href="mailto:hello@myafrilearn.com">hello@myafrilearn.com.</a>
-          </p> */}
         </div>
-      </div>
-      <Footer />
+        <div className="row" id="facultySecondSection">
+            <div className="col-md-4">
+                 
+            </div>
+        </div>
     </div>
+    // <div>
+    //   <div className="my-5 pt-5" id="faculties">
+    //     <div className="">
+    //       {/* <h1 className="heading-text">Faculty</h1> */}
+    //       <h1 className="heading-text">Meet our Faculty!</h1>
+    //       <p className="p">
+    //         Afrilearn would like to thank every individual, organization, and
+    //         government who has dedicated their time, resources, and expertise to
+    //         our mission of delivering quality education to Africans anywhere.
+    //         The vast content on Afrilearn is made possible by the selfless
+    //         commitment of our in-house team alongside our seasoned network of
+    //         highly experienced teachers, volunteers, and partners.
+    //       </p>
+
+    //       {filtered && filtered.length === 0 && (
+    //         <div className="card">
+    //           <div className="card-body text-center">
+    //             List of faculty members is currently empty
+    //           </div>
+    //         </div>
+    //       )}
+    //       <div class="d-flex justify-content-center justify-content-lg-around flex-wrap faculty-members mt-2 mt-lg-5">
+    //         {filtered.map((item, index) => (
+    //           <FacultyMember
+    //             key={index}
+    //             name={item.name}
+    //             image={item.image}
+    //             description={item.description}
+    //           />
+    //         ))}
+    //       </div>
+
+    //       {/* <br />
+    //       <br />
+    //       <p>________________</p>
+    //       <h3 className="green">
+    //         <strong>You too can inspire Africa to love learning!</strong>
+    //       </h3>
+    //       <p className="lastGuy">
+    //         By joining our network of genius tutors and content providers to
+    //         deliver quality education for Africans anywhere. To join our ace
+    //         team, simply send an email to{" "}
+    //         <a href="mailto:hello@myafrilearn.com">hello@myafrilearn.com.</a>
+    //       </p> */}
+    //     </div>
+    //   </div>
+    //   <Footer />
+    // </div>
   );
 }
