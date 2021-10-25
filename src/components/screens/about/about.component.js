@@ -34,7 +34,7 @@ const About = props => {
 		<span id="about"> 
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>About Us - Know more about Afrilearn</title>
+                <title>About Us - Learn more about Afrilearn</title>
                 <meta name="description" content="Afrilearn is an education technology enterprise leveraging seasoned teachers, animators and developers to deliver affordable, world-class education for Africans, anywhere." />
             </Helmet>      
             <div id="aboutFirstSection" className="container-fluid relative">

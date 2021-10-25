@@ -1,133 +1,74 @@
 #facultyPage {
-  padding: 75px 72px;
+  padding: 75px  72px;
+  overflow-y: hidden;
 }
-#facultyFirstSection p {
+#facultyFirstSection p, #facultyThirdSection p{
   font-size: 19px;
 }
-
-
-
-
+#facultyFirstSection .heading-text {
+  color: #688a02;
+}
+#facultySecondSection {
+  margin-top: 43px;
+}
+#facultySecondSection img {
+  height: 267px;
+  object-fit: cover;
+  object-position: top;
+  width: 100%;
+}
+#facultySecondSection .col-md-2, #facultyFirstSection .col-md-12{
+  padding: 6px;
+}
+#facultySecondSection p {
+  padding: 14px 7px;
+  text-align: left;
+  position: absolute;
+  left: 0px;
+  display: none;
+  z-index: 20;
+  background: white;
+  height: 267px;
+  overflow-x: auto;
+}
+.singleProfile:hover p{
+  display: block !important;
+}
+.singleProfile:hover img{
+  opacity: 1 !important;
+  animation-name: bounce;
+  animation-duration: 1s;
+}
+.imageCollection:hover img {
+  opacity: 0.6;  
+}
+#facultyThirdSection {
+  margin-top: 100px;
+}
 .uppercase {
   text-transform: uppercase;
 }
 .green {
   color: #688a02 !important;
 }
-#faculties {
-  padding: 0 100px;
-}
-#faculties .heading-text {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 30px;
-  line-height: 41px;
-  letter-spacing: 0.04em;
-  color: #200e32;
-}
-#faculties .sub-heading-text {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 25px;
-  line-height: 34px;
-  letter-spacing: 0.04em;
-  color: #c8c4c4;
-}
-#faculties .p {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 30px;
-  color: #000000;
-}
-#faculties .avatar {
-  width: 108.34px;
-  height: 108.34px;
 
-  border: 4.63469px solid #ffffff;
-  border-radius: 57.9336px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-.faculty-member {
-  width: 31%;
-  background: #ffffff;
-  box-sizing: border-box;
-  border-radius: 2.89668px;
-  position: relative;
-}
-.faculty-member .image-section {
-  border-bottom: 1.15867px solid #f5f5f5;
-  /* padding: 50px 16px; */
-  height: 413px;
-  overflow: hidden;
-  border: 0.579336px solid #e5e5e5;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-}
-.faculty-member .text-section {
-  padding: 17px;
-  position: absolute;
-  /* width: 100%; */
-  display: none;
-  min-height: 415px;
-  border: 0.579336px solid #e5e5e5;
-  z-index: 2;
-  background-color: #fff;
-  border-top: 0px solid #000;
-}
-.faculty-member .member-name {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 18.5387px;
-  line-height: 25px;
-  letter-spacing: 0.01em;
-  color: #000000;
-}
-.faculty-member .para {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16.6799px;
-  line-height: 35px;
-  color: #000000;
-}
-@media screen and (max-width: 1200px) {
-  #faculties {
-    padding: 0 50px;
+
+@keyframes bounce {
+  0% {
+    opacity: 0.2;
   }
-  .faculty-member {
-    width: 40%;
+  100% {
+    opacity: 0.6;
   }
 }
+
+
+
+
 @media screen and (max-width: 600px) {
-  #faculties {
-    padding: 0 16px;
+  #facultyPage {
+    padding: 50px 20px;
+    overflow-y: hidden;
+    margin-top: 58px;
   }
-  .faculty-member {
-    width: 100%;
-  }
-}
-.faculty-members:hover .img {
-  opacity: 0.6;
-}
-.faculty-member:hover .text-section {
-  display: block;
-  /* transform: scale(1.1); */
-  border-top: 0.579336px solid #e5e5e5;
-  /* -webkit-animation: moveDown 0.5s ease-in-out;
-  animation: moveDown 0.5s ease-in-out; */
-}
-.faculty-member:hover .img {
-  opacity: 1;
-  /* -webkit-animation: moveDown 0.5s ease-in-out;
-  animation: moveDown 0.5s ease-in-out; */
-  /* transform: scale(1.1); */
-
 }

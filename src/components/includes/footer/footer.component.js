@@ -53,6 +53,9 @@ const Footer = (props) => {
               <li>
                 <a href="/contact#career">Media</a>
               </li> 
+              <li>
+                <a href="/join-the-team" target='_blank'>Work with Afrilearn</a>
+              </li> 
               <li className="download">
                 <a href="https://play.google.com/store/apps/details?id=com.afrilearn" target='_blank'>Download our App</a>
               </li>           
