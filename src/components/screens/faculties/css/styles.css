@@ -51,6 +51,9 @@
 .green {
   color: #688a02 !important;
 }
+.freebirdLightBackground {
+  background-color: white !important;
+}
 
 
 @keyframes bounce {

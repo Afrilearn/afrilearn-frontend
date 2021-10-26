@@ -31,7 +31,7 @@ export default function WorkWithAfrilearn() {
             </div>
         </div>
         <div className="row relative" id="facultySecondSection">
-           <embed type="text/html" src="https://docs.google.com/forms/d/e/1FAIpQLSeYK6O8pQzqnnaTZXx8LLNAeVvDpgjMjhM1T0_yxlSZoUntvQ/viewform" height='2000px' width='300px'/>
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeYK6O8pQzqnnaTZXx8LLNAeVvDpgjMjhM1T0_yxlSZoUntvQ/viewform" height='1900px' title="Join Afrilearn"></iframe>          
         </div>        
     </div>
     <Footer />
