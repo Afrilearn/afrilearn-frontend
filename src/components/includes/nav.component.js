@@ -75,6 +75,7 @@ import ProtectedRoute from "../includes/protectedRoute.component";
 import Analytics from "../../analytics";
 import Stories from "../screens/customerStories/customerStories.component";
 import faculties from "../screens/faculties/faculties.component";
+import WorkWithAfrilearn from "../screens/faculties/workWithAfrilearn.component";
 import ViewImpactStory from "../screens/customerStories/viewStory.component";
 // import ExamLog from "../screens/examLog/examLog";
 // import ExamResults from "../screens/ExamResults/ExamResults";
@@ -534,6 +535,8 @@ const MyNav = (props) => {
         <Route path="/privacy_policy" component={PrivacyPolicy} />
         <Route path="/accept-request" component={AcceptRequests} />
         <Route path="/faculty" component={faculties} />
+        <Route path="/join-the-team" component={WorkWithAfrilearn} />
+        
         <Route path="/contact" component={contact} />
         <Route
           path="/past-questions/instructions"

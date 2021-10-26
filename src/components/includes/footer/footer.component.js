@@ -40,7 +40,7 @@ const Footer = (props) => {
                 <Link to="/partnership">Partnership</Link>
               </li>
               <li>
-                <a href="/contact#career">Careers</a>
+                <a href="/join-the-team" target='_blank'>Careers</a>
               </li>             
               <li>
                 <Link to="/contact">Contact</Link>
@@ -52,6 +52,9 @@ const Footer = (props) => {
               </li>  
               <li>
                 <a href="/contact#career">Media</a>
+              </li> 
+              <li>
+                <a href="/join-the-team" target='_blank'>Teach on Afrilearn</a>
               </li> 
               <li className="download">
                 <a href="https://play.google.com/store/apps/details?id=com.afrilearn" target='_blank'>Download our App</a>

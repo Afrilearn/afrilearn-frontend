@@ -31,7 +31,13 @@
   font-weight: normal;
   font-style: normal;
 }
-
+embed html .freebirdLightBackground, embed body{
+  background: white !important;
+}
+embed:focus {
+  outline: none;
+  background: white !important;
+}
 /* @font-face {
   font-family: 'font2';
   src: url('./assets/fonts/Baloo-Regular-400.ttf') format('opentype');
@@ -602,7 +608,6 @@ img.dropDownIcon1 {
   .mobileOnly {
     display: block !important;
   }
-
   img.backButton {
     position: absolute;
     left: 16px !important;
@@ -672,7 +677,7 @@ img.dropDownIcon1 {
   }
 
   .bg-light {
-    background-color: transparent !important;
+    /* background-color: transparent !important; */
     z-index: 20;
     color: white !important;
     position: absolute;
