@@ -102,6 +102,11 @@ export default function ExamResults(props) {
                 ))}
               </tbody>
             </table>
+            {exam.results && exam.results.length === 0 && (
+              <div className="exams-empty rounded d-flex justify-content-center align-items-center text-white nunito flex-column">
+                <span>No results has been submitted for this Exam.</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

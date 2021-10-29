@@ -46,7 +46,10 @@ you know?: ${rating}`;
           icon={faTimes}
           size="lg"
           className="feedback-pop-content-close cursor"
-          onClick={() => toggleModal()}
+          onClick={() => {
+            localStorage.setItem("afriLearn:lastFeedBack", new Date());
+            toggleModal();
+          }}
         />
         <h4 className="bold nunito text-center">
           We'd 💖 your feedback to give you the best learning experience

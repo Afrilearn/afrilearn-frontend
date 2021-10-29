@@ -1,17 +1,27 @@
-import { faImage, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Link,
   Route,
   Switch,
   useHistory,
+  useParams,
   useRouteMatch,
 } from "react-router-dom";
-import SunEditor, { buttonList } from "suneditor-react";
+import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import HTMLEditor from "../../../../includes/htmlEditor/htmlEditor.component";
-// import SunEditor from "suneditor-react";
+import {
+  addExamQuestion,
+  deleteQuestion,
+  getExam,
+  inputChange,
+  updateExam,
+  updateExamQuestion,
+} from "../../../../../redux/actions/examActions";
+import parse from "html-react-parser";
 
 import "./style.css";
 
@@ -28,40 +38,66 @@ const btnList = [
   ["fullScreen", "showBlocks", "codeView"],
 ];
 export default function AddExamQuestion(props) {
-  const [block, setBlock] = useState("Objective");
-  const [selcetedQuestion, setSelcetedQuestion] = useState(0);
-  const questions = [1, 2, 3, 4, 5];
-  const options = [];
-  function isScrolledIntoView(el) {
-    var rect = el.getBoundingClientRect();
-    var elemTop = rect.top;
-    var elemBottom = rect.bottom;
+  const dispatch = useDispatch();
 
-    // Only completely visible elements return true:
-    var isVisible = elemTop >= 0 && elemBottom <= window.innerHeight;
-    // Partially visible elements return true:
-    //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
-    return isVisible;
-  }
-  for (let index = 0; index < 50; index++) {
-    options.push(index + 1);
-  }
+  const params = useParams();
+  const [block, setBlock] = useState("Objective");
+  const [question, setQuestion] = useState(null);
+
+  const exam = useSelector((state) => state.exam.exam);
+  const selcetedQuestion = useSelector((state) => state.exam.selcetedQuestion);
+  console.log("selcetedQuestion", selcetedQuestion);
+  const questions = exam.questions;
+  console.log("exam", exam);
+  console.log("question", question);
+  // console.log("exam", exam);
+  useEffect(() => {
+    dispatch(inputChange("selcetedQuestion", questions[0]));
+  }, []);
+  useEffect(() => {
+    dispatch(getExam(params.examId));
+    setQuestion(questions[0]);
+  }, []);
+
+  const addNewQuestion = (data) => {
+    dispatch(
+      inputChange("questions", [
+        ...questions,
+        { id: `${questions.length + 1}`, ...data },
+      ])
+    );
+  };
+
+  const updateQuestion = (question) => {
+    const questionIndex = questions.findIndex(
+      (i) => i.id === selcetedQuestion?.id
+    );
+    const nnn = questions;
+
+    if (questionIndex !== -1) {
+      nnn[questionIndex] = question;
+    }
+    dispatch(inputChange("questions", nnn));
+  };
+
   const { path, url } = useRouteMatch();
   const {
     location: { pathname },
   } = useHistory();
-  // console.log("pathname", pathname === url + "/preview");
 
   const inPreview = pathname === url + "/preview";
-  const ObjectiveQuestionPreviewItem = ({ index }) => {
+  const ObjectiveQuestionPreviewItem = ({ index, question }) => {
     return (
-      <div id={`previewQuestionNo${index}`} className="mb-5">
+      <div id={`previewQuestionNo${question.id}`} className="mb-5">
         <div className="w-100 bg-white p-4 rounded-3 d-flex">
           <span className="">Question {index + 1}</span>
-          <FontAwesomeIcon icon={faImage} size="lg" className="mr-2 ml-auto" />
+          {/* <FontAwesomeIcon icon={faImage} size="lg" className="mr-2 ml-auto" /> */}
           <FontAwesomeIcon
+            onClick={() => {
+              dispatch(deleteQuestion(question._id));
+            }}
             icon={faTrash}
-            className="text-danger mx-2"
+            className="text-danger mx-2 ml-auto"
             size="lg"
           />
         </div>
@@ -69,31 +105,205 @@ export default function AddExamQuestion(props) {
 
         <div className="py-2">
           <p className="text-white">
-            Which angle is represented in the diagram shown?
+            {question.question && parse(question.question)}
           </p>
         </div>
-        <div className="option-item">A. 129</div>
-        <div className="option-item">B. 35</div>
-        <div className="option-item">C. 45</div>
-        <div className="option-item">D. 90</div>
+        <div className="option-item">
+          A. {question.optionOne && parse(question.optionOne)}
+        </div>
+        <div className="option-item">
+          B. {question.optionTwo && parse(question.optionTwo)}
+        </div>
+        <div className="option-item">
+          C. {question.optionThree && parse(question.optionThree)}
+        </div>
+        <div className="option-item">
+          D. {question.optionFour && parse(question.optionFour)}
+        </div>
       </div>
     );
   };
-  const TheoryQuestionPreviewItem = ({ index }) => {
+  const TheoryQuestionPreviewItem = ({ index, question }) => {
+    console.log("question", question);
     return (
-      <div id={`previewQuestionNo${index}`} className="mb-5">
+      <div id={`previewQuestionNo${question.id}`} className="mb-5">
         <div className="w-100 bg-white p-4 rounded-3 d-flex">
           <span className="">Question {index + 1}</span>
-          <FontAwesomeIcon icon={faImage} size="lg" className="mr-2 ml-auto" />
+          {/* <FontAwesomeIcon icon={faImage} size="lg" className="mr-2 ml-auto" /> */}
           <FontAwesomeIcon
+            onClick={() => {
+              dispatch(deleteQuestion(question._id));
+            }}
             icon={faTrash}
-            className="text-danger mx-2"
+            className="text-danger mx-2 ml-auto"
             size="lg"
           />
         </div>
         {/* <SunEditor /> */}
 
-        <div className="min-h-300 bg-secondary my-3 rounded w-100"></div>
+        <div className="min-h-300 bg-white my-3 rounded w-100">
+          <div className="p-2">
+            <p className="text-black">
+              {question.question && parse(question.question)}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const NavigationItem = ({ i, index }) => (
+    <div
+      className={`question-nav-item ${
+        question?._id === i._id && "question-nav-item-selected"
+      }`}
+      onClick={() => {
+        // dispatch(inputChange("selcetedQuestion", i));
+        setBlock(i.type);
+        setQuestion(null);
+        setTimeout(() => {
+          setQuestion(i);
+        }, 200);
+      }}
+    >
+      {index + 1}
+    </div>
+  );
+
+  const AddNewItemButton = () => {
+    return (
+      <div className="dropdown">
+        <div
+          className="question-nav-item "
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <FontAwesomeIcon icon={faPlus} />
+        </div>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          {(exam.questionTypeId?._id === "61683f7ddf6ca80c9c5a3283" ||
+            exam.questionTypeId?._id === "61683f90df6ca80c9c5a3287") && (
+            <li
+              class="dropdown-item"
+              onClick={() => {
+                dispatch(
+                  addExamQuestion({
+                    question: "",
+                    answer: "",
+                    examId: params.examId,
+                    options: ["", "", "", ""],
+                    type: "Objective",
+                  })
+                );
+                // addNewQuestion({
+                //   question: "",
+                //   answer: "",
+                //   optionOne: "",
+                //   optionTwo: "",
+                //   optionThree: "",
+                //   optionFour: "",
+                //   type: "Objective",
+                // });
+              }}
+            >
+              Add Objective Question
+            </li>
+          )}
+          {(exam.questionTypeId?._id === "61683f87df6ca80c9c5a3285" ||
+            exam.questionTypeId?._id === "61683f90df6ca80c9c5a3287") && (
+            <li
+              class="dropdown-item"
+              onClick={() => {
+                dispatch(
+                  addExamQuestion({
+                    question: "",
+                    answer: "",
+                    examId: params.examId,
+
+                    type: "Theory",
+                  })
+                );
+                // addNewQuestion({
+                //   question: "",
+                //   answer: "",
+                //   optionOne: "",
+                //   optionTwo: "",
+                //   optionThree: "",
+                //   optionFour: "",
+                //   type: "Theory",
+                // });
+              }}
+            >
+              Add Theory Question
+            </li>
+          )}{" "}
+        </ul>
+      </div>
+    );
+  };
+
+  const AddQuestion = () => {
+    return (
+      <div className="dropdown">
+        <button
+          className="add-new-question-button"
+          id="dropdownMenuButton2"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <FontAwesomeIcon icon={faPlus} color="white" /> Add new question
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          {(exam.questionTypeId?._id === "61683f7ddf6ca80c9c5a3283" ||
+            exam.questionTypeId?._id === "61683f90df6ca80c9c5a3287") && (
+            <li
+              class="dropdown-item"
+              onClick={() => {
+                dispatch(
+                  addExamQuestion({
+                    question: "",
+                    answer: "",
+                    examId: params.examId,
+                    options: ["", "", "", ""],
+                    type: "Objective",
+                  })
+                );
+              }}
+            >
+              Add Objective Question
+            </li>
+          )}
+          {(exam.questionTypeId?._id === "61683f87df6ca80c9c5a3285" ||
+            exam.questionTypeId?._id === "61683f90df6ca80c9c5a3287") && (
+            <li
+              class="dropdown-item"
+              onClick={() => {
+                dispatch(
+                  addExamQuestion({
+                    question: "",
+                    answer: "",
+                    examId: params.examId,
+
+                    type: "Theory",
+                  })
+                );
+                // addNewQuestion({
+                //   question: "",
+                //   answer: "",
+                //   optionOne: "",
+                //   optionTwo: "",
+                //   optionThree: "",
+                //   optionFour: "",
+                //   type: "Theory",
+                // });
+              }}
+            >
+              Add Theory Question
+            </li>
+          )}
+        </ul>
       </div>
     );
   };
@@ -103,7 +313,11 @@ export default function AddExamQuestion(props) {
       <div className="container-fluid row g-md-2 pt-2 pt-md-5">
         <div className="col-12 col-md-3">
           <div className="exam-progress-box p-3 mb-2 p-md-4 d-flex flex-column align-items-start">
-            <h3 className="bold text-white nunito mb-5">Set Up Examination</h3>
+            <h3 className="bold text-white nunito">Set Up Examination</h3>
+            <p className="bold text-white nunito">{exam.title}</p>
+            <p className="bold text-white nunito mb-5">
+              {exam.questionTypeId?.name}
+            </p>
             <div className="exam-progress-items">
               <small></small>
               <div className="exam-progress-item-after exam-progress-item  text-white d-flex align-items-center">
@@ -115,32 +329,53 @@ export default function AddExamQuestion(props) {
                 <span>Examination Questions</span>
               </div>
             </div>
-            {!inPreview && (
+            {/* {!inPreview && (
               <Link to={`${url}/generate`} className="green underlined mt-auto">
                 <p className="green underlined ">Generate questions</p>
               </Link>
-            )}
+            )} */}
             {!inPreview && (
-              <div className="d-flex align-items-center">
-                <button className="btn btn-lg green-bg text-white px-5">
-                  PUBLISH
-                </button>
-                <Link to={`${url}/preview`}>
-                  <span className="text-white underline ml-3">Preview</span>
-                </Link>
+              <div className="d-flex align-items-center mt-auto">
+                {exam.publish ? (
+                  <button
+                    className="btn btn-lg green-bg text-white px-5"
+                    onClick={() => {
+                      dispatch(updateExam(exam._id, { publish: false }));
+                    }}
+                  >
+                    UNPUBLISH
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-lg green-bg text-white px-5"
+                    onClick={() => {
+                      dispatch(updateExam(exam._id, { publish: true }));
+                    }}
+                  >
+                    PUBLISH
+                  </button>
+                )}
+
+                {questions.length > 0 && (
+                  <Link to={`${url}/preview`}>
+                    <span className="text-white underline ml-3">Preview</span>
+                  </Link>
+                )}
               </div>
             )}
+            <span className="text-white my-3">
+              This Exam is currently{" "}
+              {exam.publish ? "Published" : "Unpublished"}
+            </span>
             <Link to={url}>
-              <button className="add-new-question-button">
-                <FontAwesomeIcon icon={faPlus} color="white" /> Add new question
-              </button>
+              <AddQuestion />
             </Link>
           </div>
         </div>
         <div className="col-12 col-md-9 mb-2">
           <div className="similar-box">
             <Switch>
-              <Route path={`${path}/generate`}>
+              {/* <Route path={`${path}/generate`}>
                 <div className="p-2 p-md-4">
                   <div className="row g-2">
                     <div className="col-12 col-md-8">
@@ -197,208 +432,435 @@ export default function AddExamQuestion(props) {
                   </div>
                 </div>
               </Route>
+              
+               */}
               <Route path={`${path}/preview`}>
-                <div className="p-2 p-md-4">
-                  <div className="d-flex align-items-center">
-                    <div
-                      className={`select-block ${
-                        block === "Objective" && "selected-block"
-                      }`}
-                      onClick={() => setBlock("Objective")}
-                    >
-                      <span>Objective</span>
-                    </div>
-                    <div
-                      className={`select-block ${
-                        block === "Theory" && "selected-block"
-                      }`}
-                      onClick={() => setBlock("Theory")}
-                    >
-                      <span>Theory</span>
-                    </div>
+                {questions && questions.length === 0 ? (
+                  <div className="exams-empty rounded d-flex justify-content-center align-items-center text-white nunito flex-column">
+                    <Link to={url}>
+                      <AddQuestion />
+                    </Link>
                   </div>
-                  {block === "Objective" && (
+                ) : (
+                  <div className="p-2 p-md-4">
+                    {/* <div className="d-flex align-items-center">
+                      <div
+                        className={`select-block ${
+                          block === "Objective" && "selected-block"
+                        }`}
+                        onClick={() => setBlock("Objective")}
+                      >
+                        <span>Objective</span>
+                      </div>
+                      <div
+                        className={`select-block ${
+                          block === "Theory" && "selected-block"
+                        }`}
+                        onClick={() => setBlock("Theory")}
+                      >
+                        <span>Theory</span>
+                      </div>
+                    </div>
+                  */}
                     <div className="row g-3  py-2 py-md-4">
                       <div className="col-12 col-md-9 order-1 order-md-0">
-                        {options.map((i, index) => (
-                          <ObjectiveQuestionPreviewItem index={index} />
-                        ))}
+                        {questions.map((i, index) => {
+                          if (i.type === "Objective") {
+                            return (
+                              <ObjectiveQuestionPreviewItem
+                                index={index}
+                                question={i}
+                              />
+                            );
+                          } else {
+                            return (
+                              <TheoryQuestionPreviewItem
+                                index={index}
+                                question={i}
+                              />
+                            );
+                          }
+                        })}
                       </div>
                       <div className="col-12 col-md-3 order-0 order-md-1 position-relative">
                         <div className="d-flex flex-wrap options-box  p-2 p-md-4">
-                          {options.map((i, index) => (
-                            <a href={`#previewQuestionNo${index}`}>
-                              <div
-                                className={`question-nav-item ${
-                                  selcetedQuestion === index &&
-                                  "question-nav-item-selected"
-                                }`}
-                              >
-                                {i}
+                          {questions.map((i, index) => (
+                            <a href={`#previewQuestionNo${i.id}`}>
+                              <div className={`question-nav-item`}>
+                                {index + 1}
                               </div>
                             </a>
                           ))}
                         </div>
                       </div>
                     </div>
-                  )}
-                  {block === "Theory" && (
-                    <div className="row g-3 p-2 p-md-4">
-                      <div className="col-12 col-md-9 order-1 order-md-0">
-                        {options.map((i, index) => (
-                          <TheoryQuestionPreviewItem index={index} />
-                        ))}
+
+                    {/* {block === "Theory" && (
+                      <div className="row g-3 p-2 p-md-4">
+                        <div className="col-12 col-md-9 order-1 order-md-0">
+                          {questions
+                            .filter((i) => i.type === "Theory")
+                            .map((i, index) => (
+                              <TheoryQuestionPreviewItem
+                                index={index}
+                                question={i}
+                              />
+                            ))}
+                        </div>
+                        <div className="col-12 col-md-3 order-0 order-md-1 position-relative">
+                          <div className="d-flex flex-wrap options-box  p-2 p-md-4">
+                            {questions
+                              .filter((i) => i.type === "Theory")
+                              .map((i, index) => (
+                                <a href={`#previewQuestionNo${i.id}`}>
+                                  <div className={`question-nav-item`}>
+                                    {i.id}
+                                  </div>
+                                </a>
+                              ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )} */}
+                  </div>
+                )}
               </Route>
               <Route exact path={path}>
-                <div className="d-flex align-items-center">
-                  <div
-                    className={`select-block ${
-                      block === "Objective" && "selected-block"
-                    }`}
-                    onClick={() => setBlock("Objective")}
-                  >
-                    <span>Objective</span>
+                {questions && questions.length === 0 ? (
+                  <div className="exams-empty rounded d-flex justify-content-center align-items-center text-white nunito flex-column">
+                    <AddQuestion />
                   </div>
-                  <div
-                    className={`select-block ${
-                      block === "Theory" && "selected-block"
-                    }`}
-                    onClick={() => setBlock("Theory")}
-                  >
-                    <span>Theory</span>
-                  </div>
-                </div>
-                <div>
-                  {block === "Objective" && (
-                    <div className="row g-3 p-2 p-md-4">
-                      <div className="col-12 col-md-9 order-1 order-md-0">
-                        <div className="w-100 bg-white p-4 rounded-3 d-flex">
-                          <span className="bold nunito">
-                            New Objective Question{" "}
-                          </span>
-                        </div>
-                        <div className="min-h-300 bg-secondary my-3 rounded w-100">
-                          <SunEditor
-                            setOptions={{
-                              height: 300,
-                              buttonList: btnList,
-                            }}
-                          />
-                        </div>
-                        <div className="add-question-option">
-                          <div className="bg-white p-4">A</div>
-                          <input
-                            type="text"
-                            className="bg-transparent border-0 w-100"
-                          />
-                        </div>
-                        <div className="add-question-option">
-                          <div className="bg-white p-4">B</div>
-                          <input
-                            type="text"
-                            className="bg-transparent border-0 w-100"
-                          />
-                        </div>
-                        <div className="add-question-option">
-                          <div className="bg-white p-4">C</div>
-                          <input
-                            type="text"
-                            className="bg-transparent border-0 w-100"
-                          />
-                        </div>
-                        <div className="add-question-option">
-                          <div className="bg-white p-4">D</div>
-                          <input
-                            type="text"
-                            className="bg-transparent border-0 w-100"
-                          />
-                        </div>
-                        <label
-                          htmlFor="questionType"
-                          className="text-light mt-3"
-                        >
-                          Correct Option
-                        </label>
-                        <select
-                          className="general border"
-                          name="subjectId"
-                          id="questionType"
-                        >
-                          <option>Select corect option</option>
-                        </select>
-                        <label htmlFor="title" className="text-light mt-3">
-                          Assign mark(score)
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="2"
-                          id="title"
-                          className="general border"
-                          name="email"
-                        />
-                        <div className="mt-3">
-                          <input
-                            type="checkbox"
-                            id="vehicle1"
-                            name="vehicle1"
-                            value="Bike"
-                          />
-                          <label for="vehicle1" className="ml-2 text-white">
-                            Use this for all questions
-                          </label>
-                        </div>
-                        <button className="btn btn-lg bg-white text-black mt-3">
-                          Submit
-                        </button>
+                ) : (
+                  <div>
+                    <div className="d-flex align-items-center">
+                      <div
+                        className={`select-block ${
+                          block === "Objective" && "selected-block"
+                        }`}
+                      >
+                        <span>Objective</span>
                       </div>
-                      <div className="col-12 col-md-3 order-0 order-md-1">
-                        <div className="d-flex flex-wrap">
-                          {questions.map((i, index) => (
-                            <div
-                              className={`question-nav-item ${
-                                selcetedQuestion === index &&
-                                "question-nav-item-selected"
-                              }`}
-                              onClick={() => setSelcetedQuestion(index)}
-                            >
-                              {i}
+                      <div
+                        className={`select-block ${
+                          block === "Theory" && "selected-block"
+                        }`}
+                      >
+                        <span>Theory</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="row g-3 p-2 p-md-4">
+                        <div className="col-12 col-md-9 order-1 order-md-0">
+                          {questions && questions.length > 0 && !question && (
+                            <div className="w-100 p-5 d-flex justify-content-center align-items-center">
+                              <span className="text-white">
+                                Select a question number
+                              </span>
                             </div>
-                          ))}
+                          )}
+                          {block === "Objective" && question && (
+                            <div className="">
+                              <div className="w-100 bg-white p-4 rounded-3 d-flex">
+                                <span className="bold nunito">
+                                  Question{" "}
+                                  {questions.findIndex(
+                                    (i) => i._id === question?._id
+                                  ) + 1}
+                                </span>
+                              </div>
+                              <div className="min-h-300 bg-secondary my-3 rounded w-100">
+                                {question && (
+                                  <SunEditor
+                                    setOptions={{
+                                      height: 300,
+                                      buttonList: btnList,
+                                    }}
+                                    defaultValue={question?.question}
+                                    onChange={(text) => {
+                                      setQuestion((currentQuestion) => ({
+                                        ...currentQuestion,
+                                        question: text,
+                                      }));
+                                      // dispatch(
+                                      //   inputChange("selcetedQuestion", {
+                                      //     ...selcetedQuestion,
+                                      //     question: text,
+                                      //   })
+                                      // );
+                                      // const index = questions.findIndex(
+                                      //   (i) => i.id === selcetedQuestion?.id
+                                      // );
+                                      // console.log("index", index);
+                                      // const focu = questions.find(
+                                      //   (i) => i.id === selcetedQuestion?.id
+                                      // );
+                                      // console.log("focu", focu);
+                                      // focu.question = text;
+                                      // const copyquestions = questions;
+                                      // copyquestions.splice(index, 1, focu);
+                                      // dispatch(
+                                      //   inputChange("questions", copyquestions)
+                                      // );
+                                    }}
+                                  />
+                                )}
+                              </div>
+                              <div className="add-question-option">
+                                <div className="bg-white p-4">A</div>
+                                <input
+                                  type="text"
+                                  className="bg-transparent border-0 w-100 text-white ml-2"
+                                  defaultValue={question?.options[0]}
+                                  onChange={(e) => {
+                                    const options = question.options;
+                                    options[0] = e.target.value;
+                                    setQuestion((currentQuestion) => ({
+                                      ...currentQuestion,
+                                      options,
+                                    }));
+                                    // dispatch(
+                                    //   inputChange("selcetedQuestion", {
+                                    //     ...selcetedQuestion,
+                                    //     optionOne: e.target.value,
+                                    //   })
+                                    // );
+                                  }}
+                                />
+                              </div>
+                              <div className="add-question-option">
+                                <div className="bg-white p-4">B</div>
+                                <input
+                                  type="text"
+                                  readOnly={!question?.options[0]}
+                                  className="bg-transparent border-0 w-100 text-white ml-2"
+                                  defaultValue={question?.options[1]}
+                                  onChange={(e) => {
+                                    const options = question.options;
+                                    options[1] = e.target.value;
+                                    setQuestion((currentQuestion) => ({
+                                      ...currentQuestion,
+                                      options,
+                                    }));
+                                    // dispatch(
+                                    //   inputChange("selcetedQuestion", {
+                                    //     ...selcetedQuestion,
+                                    //     optionTwo: e.target.value,
+                                    //   })
+                                    // );
+                                  }}
+                                />
+                              </div>
+                              <div className="add-question-option">
+                                <div className="bg-white p-4">C</div>
+                                <input
+                                  type="text"
+                                  readOnly={!question?.options[1]}
+                                  className="bg-transparent border-0 w-100 text-white ml-2"
+                                  defaultValue={question?.options[2]}
+                                  onChange={(e) => {
+                                    const options = question.options;
+                                    options[2] = e.target.value;
+                                    setQuestion((currentQuestion) => ({
+                                      ...currentQuestion,
+                                      options,
+                                    }));
+                                    // dispatch(
+                                    //   inputChange("selcetedQuestion", {
+                                    //     ...selcetedQuestion,
+                                    //     optionThree: e.target.value,
+                                    //   })
+                                    // );
+                                  }}
+                                />
+                              </div>
+                              <div className="add-question-option">
+                                <div className="bg-white p-4">D</div>
+                                <input
+                                  type="text"
+                                  readOnly={!question?.options[2]}
+                                  className="bg-transparent border-0 w-100 text-white ml-2"
+                                  defaultValue={question?.options[3]}
+                                  onChange={(e) => {
+                                    const options = question.options;
+                                    options[3] = e.target.value;
+                                    setQuestion((currentQuestion) => ({
+                                      ...currentQuestion,
+                                      options,
+                                    }));
+                                    // dispatch(
+                                    //   inputChange("selcetedQuestion", {
+                                    //     ...selcetedQuestion,
+                                    //     optionFour: e.target.value,
+                                    //   })
+                                    // );
+                                  }}
+                                />
+                              </div>
+                              <label
+                                htmlFor="questionType"
+                                className="text-light mt-3"
+                              >
+                                Correct Option
+                              </label>
+                              <select
+                                className="general border"
+                                name="subjectId"
+                                id="questionType"
+                                onChange={(e) => {
+                                  setQuestion((currentQuestion) => ({
+                                    ...currentQuestion,
+                                    correct_option: e.target.value,
+                                  }));
+                                  // correct_option
+                                  // dispatch(
+                                  //   inputChange("selcetedQuestion", {
+                                  //     ...selcetedQuestion,
+                                  //     correct_option: e.target.value,
+                                  //   })
+                                  // );
+                                }}
+                              >
+                                <option>Select corect option</option>
+                                {question?.options.map((i, index) => (
+                                  <option
+                                    value={index}
+                                    key={index}
+                                    selected={index === question.correct_option}
+                                  >
+                                    {i}
+                                  </option>
+                                ))}
+                              </select>
+                              <label
+                                htmlFor="title"
+                                className="text-light mt-3"
+                              >
+                                Assign mark(score)
+                              </label>
+                              <input
+                                type="number"
+                                placeholder="0"
+                                id="title"
+                                className="general border"
+                                name="mark_weight"
+                                onChange={(e) => {
+                                  setQuestion((currentQuestion) => ({
+                                    ...currentQuestion,
+                                    mark_weight: Number(e.target.value),
+                                  }));
+                                }}
+                              />
+                              {/* <div className="mt-3">
+                                <input
+                                  type="checkbox"
+                                  id="vehicle1"
+                                  name="vehicle1"
+                                  value="Bike"
+                                />
+                                <label
+                                  for="vehicle1"
+                                  className="ml-2 text-white"
+                                >
+                                  Use this for all questions
+                                </label>
+                              </div> */}
+                              <button
+                                className="btn btn-lg bg-white text-black mt-3"
+                                onClick={() =>
+                                  dispatch(
+                                    updateExamQuestion(question._id, {
+                                      question: question.question,
+                                      correct_option: question.correct_option,
+                                      options: question.options,
+                                    })
+                                  )
+                                }
+                              >
+                                Save Changes
+                              </button>
+                            </div>
+                          )}
+                          {block === "Theory" && question && (
+                            <div className="border-bottom">
+                              <div className="w-100 bg-white p-4 rounded-3 d-flex">
+                                <span className="bold nunito">
+                                  Question{" "}
+                                  {questions.findIndex(
+                                    (i) => i._id === question?._id
+                                  ) + 1}
+                                </span>
+                              </div>
+                              {/* <SunEditor /> */}
+                              <div className="min-h-300 bg-secondary my-3 rounded w-100">
+                                {question && (
+                                  <SunEditor
+                                    setOptions={{
+                                      height: 300,
+                                      buttonList: btnList,
+                                    }}
+                                    defaultValue={question?.question}
+                                    onChange={(text) => {
+                                      setQuestion((currentQuestion) => ({
+                                        ...currentQuestion,
+                                        question: text,
+                                      }));
+                                      // dispatch(
+                                      //   inputChange("selcetedQuestion", {
+                                      //     ...selcetedQuestion,
+                                      //     question: text,
+                                      //   })
+                                      // );
+                                      // const index = questions.findIndex(
+                                      //   (i) => i.id === selcetedQuestion?.id
+                                      // );
+                                      // console.log("index", index);
+                                      // const focu = questions.find(
+                                      //   (i) => i.id === selcetedQuestion?.id
+                                      // );
+                                      // console.log("focu", focu);
+                                      // focu.question = text;
+                                      // const copyquestions = questions;
+                                      // copyquestions.splice(index, 1, focu);
+                                      // dispatch(
+                                      //   inputChange("questions", copyquestions)
+                                      // );
+                                    }}
+                                  />
+                                )}
+                              </div>
+
+                              <button
+                                className="btn btn-lg bg-white text-black mt-3"
+                                onClick={() => {
+                                  dispatch(
+                                    updateExamQuestion(question._id, {
+                                      question: question.question,
+                                    })
+                                  );
+                                }}
+                              >
+                                Save Changes
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        <div className="col-12 col-md-3 order-0 order-md-1">
+                          <div className="d-flex flex-wrap">
+                            {questions &&
+                              questions.map((i, index) => (
+                                <NavigationItem
+                                  i={i}
+                                  key={index}
+                                  index={index}
+                                />
+                              ))}
+                            <AddNewItemButton />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  )}
-                  {block === "Theory" && (
-                    <div className="row g-3 p-2 p-md-4">
-                      <div className="border-bottom">
-                        <div className="col-12 col-md-9">
-                          <div className="w-100 bg-white p-4 rounded-3 d-flex">
-                            <span className="bold nunito">
-                              New Theory Question{" "}
-                            </span>
-                          </div>
-                          {/* <SunEditor /> */}
-                          <div className="min-h-300 bg-secondary my-3 rounded w-100">
-                            <SunEditor
-                              setOptions={{
-                                height: 300,
-                                buttonList: btnList,
-                              }}
-                            />
-                          </div>
-                          <button className="btn btn-lg bg-white text-black mt-3">
-                            Submit
-                          </button>
-                        </div>
-                        <div className="col-12 col-md-3 p-2 p-md-4"></div>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </Route>
             </Switch>
           </div>

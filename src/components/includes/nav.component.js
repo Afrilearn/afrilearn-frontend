@@ -12,7 +12,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import homepage from "../screens/homepage/homePage.component";
 import about from "../screens/about/about.component";
@@ -333,6 +333,7 @@ const MyNav = (props) => {
       props.getSearchResults(keyword);
     }
   };
+  const clazz = useSelector((state) => state.class.class);
 
   return (
     <Router>
@@ -362,10 +363,10 @@ const MyNav = (props) => {
                   <NavItem>
                     <NavLink
                       tag={Link}
-                      to="/dashboard"
+                      to={`/exams?classId=${clazz._id}`}
                       onClick={() => setIsOpen(false)}
                     >
-                      Examination
+                      Examinations
                     </NavLink>
                   </NavItem>
                 ) : null}
