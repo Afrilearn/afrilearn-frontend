@@ -503,15 +503,15 @@ const ClassroomStudent = (props) => {
                       "Oh oh! No work due soon!"
                     )}
                   </div>
-                  {/* <div className="upcoming-events" id="examinationSection">
+                  <div className="upcoming-events" id="examinationSection">
                     <h4>Examination</h4>
                     <hr/>
                     <h5>Mathematics First Term JSS 1</h5>
                     <h6>Objective & Theory</h6>
                     <h6>Duration: 60mins</h6>
                     <hr/>
-                    <Link>GET STARTED</Link>
-                  </div> */}
+                    <Link to="/exam/instructions">GET STARTED</Link>
+                  </div>
                 </aside>
                 <main className="container-fluid">
                   {clazz.classAnnouncements &&

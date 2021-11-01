@@ -36,8 +36,8 @@
 }
 .singleProfile:hover img{
   opacity: 1 !important;
-  animation-name: bounce;
-  animation-duration: 1s;
+  /* animation-name: bounce;
+  animation-duration: 1s; */
 }
 .imageCollection:hover img {
   opacity: 0.6;  

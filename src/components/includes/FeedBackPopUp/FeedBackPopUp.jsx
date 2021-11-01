@@ -27,11 +27,11 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
       preference: preferences[preference]?.text,
     };
     const feedBackText = `1. What were you looking to achieve by using Afrilearn? Were you
-able to achieve it?: ${acheived}\n
-2. What do you love most about Afrilearn?: ${mostLoved}\n
-3. What’s one thing you wish we could do, or do better?:${advise}\n
+able to achieve it?: ${acheived}\n\n
+2. What do you love most about Afrilearn?: ${mostLoved}\n\n
+3. What’s one thing you wish we could do, or do better?:${advise}\n\n
 4. What’s your interface preference for your preferred experience
-on Afrilearn?: ${preferences[preference]?.text}\n
+on Afrilearn?: ${preferences[preference]?.text}\n\n
 5. How likely are you to recommend Afrilearn to someone 
 you know?: ${rating}`;
     localStorage.setItem("afriLearn:lastFeedBack", new Date());

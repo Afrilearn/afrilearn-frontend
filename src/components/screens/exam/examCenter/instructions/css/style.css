@@ -1,109 +1,73 @@
-.Instructions {
-    padding: 115px 90px 90px 90px;
+.examInstructions {
+    padding: 55px 90px 90px 90px;
     background: black;
-    margin-top: -81px;
 }
-.Instructions .afterNav{
+.examInstructions .afterNav{
     padding-left: 48px; 
 }
-.Instructions .headingOne {
+.examInstructions .headingOne {
     text-align: center;
     margin-bottom: 50px;
-    color: #84BB29;
     font-family: font2;
+    color: white;
 }
-.Instructions img.takeOff {
-    width: 100%;
-    object-fit: contain; 
-    margin-top: -40px; 
+#examInstruction2 .examLogo {
+    width: 236px;
+    height: 191px;
+    margin: auto;
+    display: block;
+    object-fit: contain;
 }
-.Instructions .p2 {
+#examInstructions hr {
+    background: white;
+}
+#examInstruction3, #examInstruction4 {
+    padding: 37px 170px;
+    color: white;
+}
+#examInstruction4{
+    padding: 20px 170px;
     font-size: 17px;
 }
-.Instructions .title {
-    margin-top: 6px;
-    color: #84BB29;
+#examInstruction3 img {
+    width: 30px;
+    height: 30px;
+    margin-top: -6px;
+    margin-right: 7px;
 }
-.Instructions img.icon {
-    width: 35px;
+#examInstruction3 .col-md-6 {
+    margin-bottom: 30px;
 }
-.Instructions .before {
-    margin-top: 50px;
-    font-family: font2;
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: white;
-}
-.Instructions img.bullet {
-    margin-left: 15px;
-}
-.Instructions .push {
-    margin-bottom: 20px;
-    color: white;
-}
-.Instructions .ready{
-    color: #84BB29;
-    margin-top: 30px;
-}
-.Instructions .subjectName {
-    background: #15823C;
-    padding: 4px 13px;
+#examInstruction5 a {
+    color: grey !important;
+    background: white !important;
+    padding: 10px 65px;
     border-radius: 5px;
-    color: #84BB29;
+    display: inline-block;
+    margin-top: 38px;
 }
-.Instructions .push9{
-    margin-top: 30px;
-    font-size: 17px;
-}
-.Instructions a.submit {
-    background: #84BB29  !important;
-    border-radius: 24px;
-    padding: 10px 38px;
-    color: white !important;
-}
-.Instructions .push2 {
-    margin-top: 23px;
-    margin-bottom: 50px;
-}
-/* .Instructions .front {
-    position: relative;
-    z-index: 20;
-} */
 
 @media screen and (max-width: 768px) {
-    .Instructions {
+    .examInstructions {
         padding: 100px 20px 20px 20px;
         margin-top: 0px;
     }
-    .Instructions img.icon {
-        width: 20px;
+    #examInstruction2 .examLogo {
+        width: 194px;
+        height: 151px;        
     }
-    .Instructions .title {
-        margin-top: 4px;
-        font-size: 13px;
-        margin-left: 6px;
+    #examInstruction3, #examInstruction4 {
+        padding:17px;   
+        font-size: 14px;      
     }
-    .Instructions .col-9.right {
-        text-align: left;
-        padding-left: 0;
+    #examInstruction3 .right {
+       text-align: left !important;    
     }
-    .Instructions .push9{
-        font-size: 15px;
+    #examInstruction4 {
+       margin-top: -20px;    
     }
-    .Instructions .push .col-10 {
-        margin-left: 17px;
-        font-size: 15px;
-    }
-    .Instructions img.takeOff {
-        width: 47%;       
-        margin: auto;
-        display: block;
-    }
-    .Instructions .title2 {
-        margin-left: -22px;
-    }
-    .Instructions a.submit {
-        display: block;
-        text-align: center;
+    #examInstruction5 a {
+        padding: 8px 51px;      
+        margin-top: 21px;
     }
 }

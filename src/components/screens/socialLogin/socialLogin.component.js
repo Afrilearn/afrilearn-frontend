@@ -20,7 +20,8 @@ const SocialSignup = props => {
         location,
         className,
         phoneNumber,
-        referralCode
+        referralCode,
+        socialCampaign
     } = props;
 
     const mounted = useRef(); 
@@ -96,6 +97,9 @@ const SocialSignup = props => {
             }
             if(referralCode){
                 user['referralCode'] = referralCode;
+            }
+            if (socialCampaign) {
+                user.social = true;
             }
             
             props.socialLoginUpdate(user);        
@@ -182,5 +186,6 @@ const mapStateToProps = (state) => ({
     className: state.auth.className, 
     phoneNumber: state.auth.phoneNumber, 
     referralCode:state.auth.referralCode, 
+    socialCampaign: state.auth.socialCampaign,
 });
 export default connect(mapStateToProps, {inputChange, getRoles, clearErrors, socialLoginUpdate, courseEnrolment})(SocialSignup);

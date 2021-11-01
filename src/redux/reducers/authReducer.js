@@ -94,6 +94,7 @@ const initialState = {
   actives: [],
   blogs: [],
   faculties: [],
+  socialCampaign:false
 };
 
 const authReducer = (state = initialState, action) => {

@@ -84,6 +84,7 @@ import AddExam from "../screens/exam/cms/AddExam/AddExam";
 import ExamResults from "../screens/exam/cms/ExamResults/ExamResults";
 import ExamLog from "../screens/exam/cms/examLog/examLog";
 import AddExamQuestion from "../screens/exam/cms/AddExamQuestion/AddExamQuestion";
+import ExamInstructions from "../screens/exam/examCenter/instructions/instructions.component";
 
 const MyNav = (props) => {
   const {
@@ -640,6 +641,7 @@ const MyNav = (props) => {
         <Route path="/feeds" component={Feeds} />
         <Route path="/impact-stories" component={Stories} />
         <Route path="/impact-story/:storyId" component={ViewImpactStory} />
+        <Route path="/exam/instructions" component={ExamInstructions} />
       </Switch>
       <Analytics />
     </Router>
