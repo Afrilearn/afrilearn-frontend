@@ -83,6 +83,7 @@ import AddExam from "../screens/exam/cms/AddExam/AddExam";
 import ExamResults from "../screens/exam/cms/ExamResults/ExamResults";
 import ExamLog from "../screens/exam/cms/examLog/examLog";
 import AddExamQuestion from "../screens/exam/cms/AddExamQuestion/AddExamQuestion";
+import AcquisitionAgentNetwork from "../screens/AcquisitionAgentNetwork/AcquisitionAgentNetwork";
 
 const MyNav = (props) => {
   const {
@@ -557,6 +558,10 @@ const MyNav = (props) => {
           component={pastQuestionExamPage}
         />
         <Route path="/add-exam/:examId" component={AddExamQuestion} />
+        <Route
+          path="/acquisition-agent-network"
+          component={AcquisitionAgentNetwork}
+        />
         <Route path="/add-exam" exact component={AddExam} />
         <Route path="/exams" exact component={ExamLog} />
         <Route path="/exams/:examId" exact component={ExamResults} />
