@@ -251,10 +251,10 @@ const QuestionBox = props => {
             </div>
         </div>
         <div className="optionSection">
-            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous3"><span className=""><img src={leftIcon} alt='logo' className=""/> Previous</span> </Link> : null}
+            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous3"><span className=""><img src={leftIcon} alt='logo' className="movement"/> Previous</span> </Link> : null}
             <Link onClick={handleClosure}><img src={submitButton} className="submitButton"/></Link>
             <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link>
-            { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip1"><span className=""><img src={rightIcon} alt='logo' className=""/> Skip</span> </Link>:null} 
+            { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip1"><span className=""><img src={rightIcon} alt='logo' className="movement"/> Skip</span> </Link>:null} 
         </div>
         <div className="row blue beforeReport">
             
