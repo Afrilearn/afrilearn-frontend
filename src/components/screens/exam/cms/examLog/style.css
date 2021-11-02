@@ -18,7 +18,10 @@
 #examLog .input::placeholder {
   color: #c4c4c4;
 }
-
+.exams-empty {
+  border: 1px dashed #dddddd;
+  padding: 50px 0;
+}
 .exam-item {
   width: 100%;
   height: calc(512px / 4);
@@ -32,6 +35,15 @@
   justify-content: space-between;
   align-items: center;
 }
+.exam-item .one-space {
+  flex: 10% 0 0;
+}
+.exam-item .two-space {
+  flex: 20% 0 0;
+}
+.exam-item .three-space {
+  flex: 30% 0 0;
+}
 .exam-item:first-of-type {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -41,19 +53,19 @@
   border-bottom-left-radius: 10px;
   border-bottom: none;
 }
-#examLogSectionOne  {
+#examLogSectionOne {
   font-size: 40px;
 }
-#examLogSectionTwo .shift1{
+#examLogSectionTwo .shift1 {
   margin-left: 77px !important;
 }
 #examLogSectionTwo svg.searchButton {
   margin: 12px !important;
 }
-#examLogSectionTwo svg.addExam{
+#examLogSectionTwo svg.addExam {
   margin-right: 11px;
 }
-#examLogSectionTwo  {
+#examLogSectionTwo {
   font-size: 19px;
 }
 .exams-list .viewRecord {

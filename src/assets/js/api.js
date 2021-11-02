@@ -1084,10 +1084,66 @@ export default {
       headers: this.headers(),
     });
   },
+  getTerms() {
+    return axios({
+      method: "get",
+      url: `${this.url}terms`,
+    });
+  },
+  addExam(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}exams/exam`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  addExamQuestion(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}exams/exam-question`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  updateExamQuestion(questionId, data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}exams/exam-theory-question/${questionId}`,
+      headers: this.headers(),
+      data,
+    });
+  },
+  getExamTypes() {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/exam-question-type`,
+    });
+  },
   getExam(id) {
     return axios({
       method: "get",
       url: `${this.url}exams/exam/${id}`,
+    });
+  },
+  deleteQuestion(id) {
+    return axios({
+      method: "delete",
+      url: `${this.url}exams/question/${id}`,
+    });
+  },
+  updateExam(id, data) {
+    return axios({
+      method: "patch",
+      url: `${this.url}exams/exam/${id}`,
+      data,
+    });
+  },
+  updateExamScore(resultId, resultItemId, score) {
+    return axios({
+      method: "post",
+      url: `${this.url}exams/exam-result/${resultId}/${resultItemId}`,
+      data: { score },
     });
   },
   getExamResult(id) {

@@ -12,7 +12,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import homepage from "../screens/homepage/homePage.component";
 import about from "../screens/about/about.component";
@@ -84,6 +84,7 @@ import ExamLog from "../screens/exam/cms/examLog/examLog";
 import AddExamQuestion from "../screens/exam/cms/AddExamQuestion/AddExamQuestion";
 import ExamInstructions from "../screens/exam/examCenter/instructions/instructions.component";
 import ExamCenter from "../screens/exam/examCenter/exam/exam.component";
+import AcquisitionAgentNetwork from "../screens/AcquisitionAgentNetwork/AcquisitionAgentNetwork";
 
 const MyNav = (props) => {
   const {
@@ -334,6 +335,7 @@ const MyNav = (props) => {
       props.getSearchResults(keyword);
     }
   };
+  const clazz = useSelector((state) => state.class.class);
 
   return (
     <Router>
@@ -363,10 +365,10 @@ const MyNav = (props) => {
                   <NavItem>
                     <NavLink
                       tag={Link}
-                      to="/dashboard"
+                      to={`/exams?classId=${clazz._id}`}
                       onClick={() => setIsOpen(false)}
                     >
-                      Examination
+                      Examinations
                     </NavLink>
                   </NavItem>
                 ) : null}
@@ -559,6 +561,10 @@ const MyNav = (props) => {
           component={pastQuestionExamPage}
         />
         <Route path="/add-exam/:examId" component={AddExamQuestion} />
+        <Route
+          path="/acquisition-agent-network"
+          component={AcquisitionAgentNetwork}
+        />
         <Route path="/add-exam" exact component={AddExam} />
         <Route path="/exams" exact component={ExamLog} />
         <Route path="/exams/:examId" exact component={ExamResults} />
