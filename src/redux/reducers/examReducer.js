@@ -6,6 +6,8 @@ import {
   GET_QUESTIONS_SUCCESS,
   GET_RESULT_SUCCESS,
   UPDATE_RESULT_SUCCESS,
+  GET_STUDENT_EXAMS_SUCCESS,
+  GET_EXAMINATION_INFORMATION_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -13,6 +15,8 @@ const initialState = {
   exams: [],
   result: {},
   exam: {},
+  studentExam: {},
+  examinationInfo: {}
 };
 
 const examReducer = (state = initialState, action) => {
@@ -57,7 +61,19 @@ const examReducer = (state = initialState, action) => {
         exam: action.payload,
         exams: state.exams.splice(examIndex, 1, action.payload),
       };
-
+    case GET_STUDENT_EXAMS_SUCCESS:
+      return {
+        ...state,
+        studentExam: action.payload,
+      };
+    case GET_EXAMINATION_INFORMATION_SUCCESS:
+      localStorage.setItem("subjectName", action.payload.subjectId?.mainSubjectId.name);
+      localStorage.setItem("term", action.payload.termId?.name);
+      localStorage.setItem("duration", action.payload.duration * 1000 * 60);
+      return {
+        ...state,
+        examinationInfo: action.payload,
+      };
     default:
       return state;
   }

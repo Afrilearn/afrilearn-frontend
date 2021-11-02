@@ -16,6 +16,9 @@ import {
     POPULATE_SUBMITTED_ANSWER,
     SUBMIT_RESULT_SUCCESS,
     SUBMIT_RESULT_FAILURE,
+    GET_EXAMINATION_QUESTIONS_SUCCESS,
+    GET_EXAMINATION_INFORMATION_FAILURE,
+    GET_EXAMINATION_QUESTIONS_FAILURE
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -31,20 +34,6 @@ export const inputChange = (name, value) => async (dispatch) => {
     console.error(error);
   }
 };
-
-// export const pastQuestionInputChange = (name, value) => async (dispatch) => {
-//     try {
-//       dispatch({
-//         type: PAST_QUESTIONS_INPUT_CHANGE,
-//         payload: {
-//           name: name,
-//           value: value,
-//         },
-//       });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
 
 export const loadSubjects = (examId) => async dispatch => {    
     try {   
@@ -160,6 +149,44 @@ export const loadQuizQuestions = (questions) => async dispatch => {
     } catch (err) {  
         dispatch({
             type: LOAD_QUESTIONS_FAILURE          
+        })	
+    }
+}
+
+export const loadExamQuestions = (examId) => async dispatch => {    
+    try {   
+        document.body.classList.add('loading-indicator');	   
+        const result = await API.getExamQuestions('61807f3c1a5eec0016682dbc');
+        
+        let questions = [];  
+        let questionTags= []; 
+        let questionTime=60;   
+        let subjectId =null;
+        let motivations = [];     
+      
+        questions = result.data.data.questions;
+        let questionLength =questions.length;
+        for(let i =0; i<questionLength; i++){
+            questionTags.push(1)
+        }   
+        // questionTime = result.data.subject_details.duration; 
+        questionTime = questionTime * 1000 * 60;         
+      
+        dispatch({
+            type: GET_EXAMINATION_QUESTIONS_SUCCESS,
+            payload:{
+                questions,
+                questionTags,
+                questionTime,
+                subjectId,
+                motivations                    
+            }       
+        })        
+        document.body.classList.remove('loading-indicator');    
+    } catch (err) {       
+        document.body.classList.remove('loading-indicator');         
+        dispatch({
+            type: GET_EXAMINATION_QUESTIONS_FAILURE         
         })	
     }
 }

@@ -164,12 +164,12 @@ const authReducer = (state = initialState, action) => {
     case SOCIAL_LOGIN_UPDATE_SUCCESS:
       let myObj = {};
       let otherObj = {};
-      socket.emit("login", {
-        userId: action.payload.user._id,
-        email: action.payload.user.email,
-        profilePhotoUrl: action.payload.user.profilePhotoUrl,
-        name: action.payload.user.fullName,
-      });
+      // socket.emit("login", {
+      //   userId: action.payload.user._id,
+      //   email: action.payload.user.email,
+      //   profilePhotoUrl: action.payload.user.profilePhotoUrl,
+      //   name: action.payload.user.fullName,
+      // });
 
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);

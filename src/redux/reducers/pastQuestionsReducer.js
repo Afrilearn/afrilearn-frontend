@@ -6,6 +6,7 @@ import {
   SAVE_USER_ANSWER,
   UPDATE_QUESTION_TAG,
   POPULATE_SUBMITTED_ANSWER,
+  GET_EXAMINATION_QUESTIONS_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -68,6 +69,7 @@ const pastQuestionsReducer = (state = initialState, action) => {
       };
 
     case LOAD_QUESTIONS_SUCCESS:
+    case GET_EXAMINATION_QUESTIONS_SUCCESS:
       return {
         ...state,
         questions: action.payload.questions,

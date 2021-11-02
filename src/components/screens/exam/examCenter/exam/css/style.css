@@ -1,4 +1,4 @@
-.Exam {
+.Examination {
     padding: 115px 90px 120px 90px;
     background: black;
     margin-top: -81px;
@@ -6,20 +6,20 @@
     height: 120vh;
 }
 
-.Exam .partOne {
+.Examination .partOne {
     padding-right: 150px;
 }
 
-.Exam .headingOne {
+.Examination .headingOne {
     font-size: 15pt;
     color: white;
 }
 
-.Exam .p3 {
+.Examination .p3 {
     margin-top: 20px;
 }
 
-.Exam .afterNav {
+.Examination .afterNav {
     padding-left: 48px;
     margin-bottom: 120px;
 }
@@ -35,19 +35,34 @@ img.motivation {
     object-position: top;
 }
 
-.Exam img.myBadge {
+.Examination img.myBadge {
     width: 26px;
     margin-top: -3px;
     object-fit: contain;
     height: 25px;
 }
-
-.Exam a.myReport {
-    list-style: none;
-    margin-right: 11px;
+.Examination .submitButton{
+    width: 64%;
+    margin: auto;
+    display: block;
+    margin-top: 5px;
 }
 
-.Exam .categoryBadge {
+.Examination .optionSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 82%;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.Examination a.myReport {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.Examination .categoryBadge {
     border-radius: 10px;
     box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
     padding: 7px 11px;
@@ -58,52 +73,53 @@ img.motivation {
     background: #84BB29 ;
 }
 
-.Exam .bg-success {
+.Examination .bg-success {
     background-color: #84BB29  !important;
 }
 
-.Exam .push33 {
+.Examination .push33 {
     margin-top: -2px;
 }
 
-.Exam .second {
+.Examination .second {
     margin-left: 39px;
 }
 
-.Exam .third {
+.Examination .third {
     display: block;
     padding: 6px 11px;
 }
-.Exam .first {
+.Examination .first {
     margin-left: 30px;
 }
 
-.Exam .myProgress,
-.Exam .question {
+.Examination .myProgress,
+.Examination .question {
     margin-top: 37px;
 }
 
-.Exam .progress {
+.Examination .progress {
     height: 0.5rem;
 }
 
-.Exam .myQuestion {
-    box-shadow: 0pt 0.5pt 4pt rgba(0, 0, 0, 0.1);
+.Examination .myQuestion {
+    box-shadow: 0pt 0.5pt 4pt rgb(0 0 0 / 10%);
     padding: 10px 21px;
-    border-radius: 6px;
+    border-radius: 11px;
     margin-bottom: 16px;
     width: 81%;
-    background: white;
-    color: black !important;
+    background: black;
+    color: white !important;
+    border: dotted 2px;
 }
 
-.Exam .beforeOptions {
+.Examination .beforeOptions {
     margin-bottom: 27px;
 }
 
-.Exam a.report,
-.Exam .previous,
-.Exam .skip {
+.Examination a.report,
+.Examination .previous,
+.Examination .skip {
     border-radius: 6px;
     background: #969fa9 !important;
     color: white !important;
@@ -111,30 +127,30 @@ img.motivation {
     padding: 7px 35px;
 }
 
-.Exam a.previous {
+.Examination a.previous {
     background: #84BB29  !important;
 }
 
-.Exam a.skip {
+.Examination a.skip {
     background: #fabf61 !important;
     margin-left: 16px;
 }
 
-.Exam .afterReport {
+.Examination .afterReport {
     float: right;
     text-align: right;
 }
 
-.Exam .beforeReport {
+.Examination .beforeReport {
     margin-top: 19px;
     width: 86%;
 }
 
-.Exam .timerSection {
+.Examination .timerSection {
     padding-left: 33px;
 }
 
-.Exam .timer {
+.Examination .timer {
     border-radius: 7px;
     box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
     padding: 7px 11px;
@@ -145,7 +161,7 @@ img.motivation {
     background: #84BB29 ;
 }
 
-.Exam .questionImgSection, .Exam .questionSection, .Exam .questionSection span, .Exam .questionSection p {
+.Examination .questionImgSection, .Examination .questionSection, .Examination .questionSection span, .Examination .questionSection p {
     width: 81%;
     font-size: 17px !important;
     font-family: font1 !important;
@@ -154,37 +170,37 @@ img.motivation {
     background: transparent !important;
 }
 
-.Exam img.questionImg {
+.Examination img.questionImg {
     height: 147px;
     width: 180px;
     border: solid 5px gray;
 }
 
-.Exam .timerTitle {
+.Examination .timerTitle {
     margin-right: 16px;
 }
 
-.Exam .checkUps {
+.Examination .checkUps {
     margin-top: 43px;
     margin-left: 1px;
 }
 
-.Exam a.previous img {
+.Examination a.previous img {
     width: 14px;
     height: 12px;
 }
 
-.Exam .status {
+.Examination .status {
     background: white;
-    border-radius: 10px;
-    padding: 3px 2px;
+    border-radius: 50%;
+    padding: 6px 2px;
     color: #84BB29 ;
     font-family: font2;
     display: block;
     margin-bottom: 20px;
 }
 
-.Exam .selectedOption {
+.Examination .selectedOption {
     background: #84BB29  !important;
     color: white !important;
 }
@@ -194,50 +210,50 @@ img.motivation {
     font-family: font2;
 }
 
-.Exam .push3 {
+.Examination .push3 {
     margin-left: 1px;
 }
 
-.Exam .push2 {
+.Examination .push2 {
     margin-top: 28px;
 }
 
-.Exam .push4 {
+.Examination .push4 {
     width: 86%;
 }
 
 
 @media screen and (max-width: 768px) {
-    .Exam {
+    .Examination {
         padding: 155px 20px 20px 20px;
     }
 
-    .Exam .gh {
+    .Examination .gh {
         width: 100% !important;
         text-align: center !important;
     }
 
-    .Exam .badgeSection {
+    .Examination .badgeSection {
         margin-left: 0px;
     }
 
-    .Exam .push33 {
+    .Examination .push33 {
         margin-top: 8px;
     }
 
-    .Exam .p3 {
+    .Examination .p3 {
         margin-top: 0px;
     }
 
-    .Exam .p4 {
+    .Examination .p4 {
         margin-top: 30px;
     }
 
-    .Exam .afterNav {
+    .Examination .afterNav {
         padding-left: 15px;
     }
 
-    .Exam .categoryBadge {
+    .Examination .categoryBadge {
         margin-right: 0px;
         margin-bottom: 9px;
         display: block;
@@ -247,21 +263,21 @@ img.motivation {
         padding: 7px 11px;
     }
 
-    .Exam .headingOne {
+    .Examination .headingOne {
         font-size: 15pt;
         margin-bottom: 10px;
     }
 
-    .Exam .headingTwo {
+    .Examination .headingTwo {
         margin-bottom: 10px;
         display: block;
     }
 
-    .Exam .push4 {
+    .Examination .push4 {
         width: 100%;
     }
 
-    .Exam .beforeReport {
+    .Examination .beforeReport {
         margin-top: 16px;
         width: 100%;
         margin: auto;
@@ -283,34 +299,34 @@ img.motivation {
         text-align: left;
     }
 
-    .Exam .myQuestion {
+    .Examination .myQuestion {
         padding: 6px 14px;
         width: 100% !important;
         font-size: 14px;
     }
 
-    .Exam a.skip {
+    .Examination a.skip {
         background: #fabf61 !important;
         margin-left: 0px;
         text-align: center;
         margin-left: 0px;
     }
 
-    .Exam a.previous {
+    .Examination a.previous {
         text-align: center;
     }
 
-    .Exam .partOne {
+    .Examination .partOne {
         padding-right: 15px;
     }
 
-    .Exam .afterReport {
+    .Examination .afterReport {
         padding-right: 0px;
     }
     .beforeReport img {
         margin-top: -4px;
     }
-    .Exam .questionImgSection, .Exam .questionSection, .questionSection span, .questionSection p {
+    .Examination .questionImgSection, .Examination .questionSection, .questionSection span, .questionSection p {
         width: 90% !important;
         font-size: 15px !important;      
     }

@@ -1,44 +1,35 @@
 import React, { useEffect, useRef } from "react";
 import './css/style.css';
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
-import PropTypes from "prop-types";
-import { inputChange } from '../../../../../redux/actions/pastQuestionsActions';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { getStudentExamInformation } from '../../../../../redux/actions/examActions';
 import Icon1 from '../../../../../assets/img/questionsE.svg';
 import Icon2 from '../../../../../assets/img/Category.svg';
 import Icon3 from '../../../../../assets/img/TimeE.svg';
 
 const ExamInstructionsPage = props => {  
     const mounted = useRef(); 
+    const dispatch = useDispatch();
+    const examinationInfo = useSelector(
+        (state) => state.exam.examinationInfo
+      );
     useEffect(()=>{
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
-            window.scrollTo(0, 0);  
-            props.inputChange('pastQuestionRedirect', false)          
+            window.scrollTo(0, 0); 
+            dispatch(getStudentExamInformation(props.match.params.examId))                 
         } else {
             // do componentDidUpdate logic          
           } 	       
     })  
-   
-    const { 
-        selectedCategory,
-        selectedSubject,
-        selectedYear, 
-        questionLength,   
-        questionTime, 
-        examType,
-        quizTitle,
-        fullName,
-        lessonSubjectName
-    } = props;
-
+      
 	return (        
 		<> 
         <div className="container-fluid examInstructions">
             <div className="row">
                 <div className="col-md-12">
-                   <h2 className="headingOne center">Mathematics First Term JSS 1</h2> 
+                   <h2 className="headingOne center">{`${examinationInfo?.subjectId?.mainSubjectId.name} ${examinationInfo?.termId?.name}`}</h2> 
                 </div>
             </div>
             <div className="row" id="examInstruction2">                
@@ -52,10 +43,10 @@ const ExamInstructionsPage = props => {
                     <span><img src={Icon1} alt="total number of exam questions"/>QUESTIONS: 50</span>
                 </div>
                 <div className="col-md-6 right">
-                    <span><img src={Icon2} alt="total number of exam questions"/> QUESTION TYPE: OBJECTIVE & THEORY</span>
+                    <span><img src={Icon2} alt="total number of exam questions"/> QUESTION TYPE: {examinationInfo?.questionTypeId?.name}</span>
                 </div>
-                <div className="col-md-6">
-                    <span><img src={Icon3} alt="total number of exam questions"/>TIME: 60MINS</span>
+                <div className="col-md-6 rr">
+                    <span><img src={Icon3} alt="total number of exam questions"/>TIME: {examinationInfo?.duration}Mins</span>
                 </div>
             </div>           
             <hr/>
@@ -71,7 +62,7 @@ const ExamInstructionsPage = props => {
             </div>
             <div className="row" id="examInstruction5">
                 <div className="col-md-12 center">
-                   <Link>LET’S GO</Link>
+                   <Link to="/take-exam">LET’S GO</Link>
                 </div>                
             </div>
         </div>     
@@ -79,19 +70,4 @@ const ExamInstructionsPage = props => {
 	);
 };
 
-ExamInstructionsPage.propTypes= {   
-    inputChange: PropTypes.func.isRequired,  
-}
-
-const mapStateToProps = state => ({    
-    selectedCategory: state.course.selectedCategory,
-    examType: state.pastQuestion.examType,
-    quizTitle: state.pastQuestion.quizTitle,
-    selectedSubject: state.pastQuestion.selectedSubject,
-    selectedYear: state.pastQuestion.selectedYear,
-    questionLength: state.pastQuestion.questionLength,   
-    questionTime: state.pastQuestion.questionTime,
-    fullName: state.auth.fullName,
-    lessonSubjectName:  state.subject.lessonSubjectName
-})
-export default connect(mapStateToProps, {inputChange})(ExamInstructionsPage);
+export default ExamInstructionsPage;
