@@ -50,14 +50,14 @@ const examReducer = (state = initialState, action) => {
         ...state,
         exams: { ...state.exam, questions: [...questions] },
       };
-    case ADD_EXAM_QUESTION_SUCCESS:
-      return {
-        ...state,
-        exam: {
-          ...state.exam,
-          questions: [...state.exam.questions, action.payload],
-        },
-      };
+      case ADD_EXAM_QUESTION_SUCCESS:
+        return {
+          ...state,
+          exam: {
+            ...state.exam,
+            questions: [...state.exam.questions, action.payload],
+          },
+        };
     case GET_QUESTIONS_SUCCESS:
       return {
         ...state,
@@ -82,7 +82,7 @@ const examReducer = (state = initialState, action) => {
       };
 
     case ADD_EXAM_SUCCESS:
-    case GET_EXAM_SUCCESS:
+    case GET_EXAM_SUCCESS:      
       return {
         ...state,
         exam: action.payload,

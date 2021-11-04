@@ -1,4 +1,3 @@
-import socket from "../../assets/js/socket";
 import {
   INPUT_CHANGE,
   GET_ROLES_SUCCESS,
@@ -22,21 +21,6 @@ import {
   GET_FACULTIES_SUCCESS,
   GET_RECENT_BLOGS_SUCCESS,
 } from "../actions/types";
-// import socketClient from "socket.io-client";
-
-// const SERVER = "http://127.0.0.1:5000/";
-// var socket = socketClient(SERVER);
-socket.on("get_users_online", (users) => {
-  console.log("get_users_online", users);
-});
-socket.on("promt_invite", (data) => {
-  console.log("promt_invite", data);
-  socket.emit("joinRoom", {
-    username: "Random ",
-    user: { fullName: "Random User" },
-    roomname: data.roomname,
-  });
-});
 
 const initialState = {
   drop: false,
@@ -164,13 +148,6 @@ const authReducer = (state = initialState, action) => {
     case SOCIAL_LOGIN_UPDATE_SUCCESS:
       let myObj = {};
       let otherObj = {};
-      // socket.emit("login", {
-      //   userId: action.payload.user._id,
-      //   email: action.payload.user.email,
-      //   profilePhotoUrl: action.payload.user.profilePhotoUrl,
-      //   name: action.payload.user.fullName,
-      // });
-
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);
       }
@@ -343,7 +320,6 @@ const authReducer = (state = initialState, action) => {
       };
     case LOGOUT_SUCCESS:
       localStorage.removeItem("token");
-      socket.disconnect();
       return {
         ...state,
         drop: false,

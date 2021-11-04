@@ -63,7 +63,7 @@ const Footer = (props) => {
                 <a href="https://play.google.com/store/apps/details?id=com.afrilearn" target='_blank'>Android App</a>
               </li>
               <li>
-                <a href="" target='_blank'>iOS App</a>
+                <a href="https://apps.apple.com/ng/app/afrilearn/id1587978653" target='_blank'>iOS App</a>
               </li>
             </ul>
           </div>

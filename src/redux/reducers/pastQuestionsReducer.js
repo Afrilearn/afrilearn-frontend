@@ -52,6 +52,7 @@ const initialState = {
   quizTitle: "",
   quizLessonId: "",
   nextLessonLocation: "",
+  examId:""
 };
 
 const pastQuestionsReducer = (state = initialState, action) => {

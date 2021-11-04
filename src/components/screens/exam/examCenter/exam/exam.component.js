@@ -20,12 +20,13 @@ const Exam = props => {
     const dispatch = useDispatch();
     let examInfo = '';
 
-    useEffect(()=>{
+    useEffect(()=>{        
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
             window.scrollTo(0, 0);
-            dispatch(loadExamQuestions())           
+            dispatch(loadExamQuestions(props.match.params.examId))  
+            dispatch(inputChange('examId',props.match.params.examId))             
         } else {
             // do componentDidUpdate logic  
                              
@@ -35,6 +36,7 @@ const Exam = props => {
         selectedSubject,
         selectedYear,
         selectedCategory,
+        submittedAnswers,
         questions,
         currentQuestion,
         progressBarStatus,
@@ -134,7 +136,7 @@ const Exam = props => {
 		<>  
            {pastQuestionRedirect ? <Redirect to={pastQuestionRedirectLocation} /> : null}          
            <div className="container-fluid Examination">
-                <h2 className="center">{`${localStorage.getItem('subjectName')} ${localStorage.getItem('term')}`} </h2>
+                <h2 className="center h12">{`${localStorage.getItem('subjectName')} ${localStorage.getItem('term')}`} </h2>
                 <div className="row">                            
                    <div className="col-md-9 partOne">                                   
                         {/* <div className="row">                          
@@ -381,5 +383,6 @@ const mapStateToProps = state => ({
     pastQuestionRedirect:state.pastQuestion.pastQuestionRedirect,
     pastQuestionRedirectLocation:state.pastQuestion.pastQuestionRedirectLocation,  
     examType: state.pastQuestion.examType,    
+    submittedAnswers:state.pastQuestion.submittedAnswers,   
 })
 export default connect(mapStateToProps, {inputChange, flagQuestion})(Exam);

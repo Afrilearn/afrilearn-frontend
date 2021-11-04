@@ -205,10 +205,11 @@
   margin: 5px 0;
 }
 #classroomStudentSectionTwo .announcements aside .upcoming-events a {
-  color: #84bb29 !important;
   text-align: end;
-  display: block;
-  text-decoration: underline;
+  text-decoration: none;
+  background: #84bb29 !important;
+  padding: 7px;
+  border-radius: 6px;
 }
 #classroomStudentSectionTwo .announcements main article {
   height: 70px;

@@ -17,8 +17,9 @@ import {
     SUBMIT_RESULT_SUCCESS,
     SUBMIT_RESULT_FAILURE,
     GET_EXAMINATION_QUESTIONS_SUCCESS,
-    GET_EXAMINATION_INFORMATION_FAILURE,
-    GET_EXAMINATION_QUESTIONS_FAILURE
+    GET_EXAMINATION_QUESTIONS_FAILURE,
+    SUBMIT_EXAM_RESULT_SUCCESS,
+    SUBMIT_EXAM_RESULT_FAILURE
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -156,7 +157,7 @@ export const loadQuizQuestions = (questions) => async dispatch => {
 export const loadExamQuestions = (examId) => async dispatch => {    
     try {   
         document.body.classList.add('loading-indicator');	   
-        const result = await API.getExamQuestions('61807f3c1a5eec0016682dbc');
+        const result = await API.getExamQuestions(examId);
         
         let questions = [];  
         let questionTags= []; 
@@ -325,6 +326,43 @@ export const submitUserScore = (remark, score) => async (dispatch, getState) => 
         );
         dispatch({
           type: SUBMIT_RESULT_FAILURE,
+        });
+    }
+}
+
+export const submitExamScore = () => async (dispatch, getState) => {    
+    try {             
+        const { userId } = getState().auth;
+        const { submittedAnswers, speed, correctAnswers, answers, questionLength, examId } = getState().pastQuestion;              
+        const response = {
+            "results":submittedAnswers,
+            "userId": userId,
+            "examId":examId,                   
+            "timeSpent":`${speed}`,
+            "numberOfCorrectAnswers":correctAnswers,
+            "numberOfWrongAnswers":questionLength - (correctAnswers + answers.filter(item => item === -1).length),
+            "numberOfSkippedQuestions":answers.filter(item => item === -1).length,        
+            "score": '',
+            "remark": '', 
+        }
+        console.log(response)
+        await API.submitExamAnswer(response);      
+        dispatch({
+            type: SUBMIT_EXAM_RESULT_SUCCESS                     
+        }) 
+
+    } catch (err) {        
+        dispatch(
+          returnErrors(
+            err.response.data.errors
+              ? err.response.data.errors
+              : err.response.data.error,
+            err.response.data.status,
+            'SUBMIT_EXAM_RESULT_FAILURE'
+          )
+        );
+        dispatch({
+          type: SUBMIT_EXAM_RESULT_FAILURE,
         });
     }
 }

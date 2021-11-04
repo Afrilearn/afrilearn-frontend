@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import './css/style.css';
 import { Link } from "react-router-dom";
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getStudentExamInformation } from '../../../../../redux/actions/examActions';
+import { inputChange } from './../../../../../redux/actions/pastQuestionsActions';
 import Icon1 from '../../../../../assets/img/questionsE.svg';
 import Icon2 from '../../../../../assets/img/Category.svg';
 import Icon3 from '../../../../../assets/img/TimeE.svg';
@@ -18,7 +19,8 @@ const ExamInstructionsPage = props => {
             // do componentDidMount logic
             mounted.current = true;
             window.scrollTo(0, 0); 
-            dispatch(getStudentExamInformation(props.match.params.examId))                 
+            dispatch(getStudentExamInformation(props.match.params.examId))   
+            dispatch(inputChange('pastQuestionRedirect',false))                 
         } else {
             // do componentDidUpdate logic          
           } 	       
@@ -62,7 +64,7 @@ const ExamInstructionsPage = props => {
             </div>
             <div className="row" id="examInstruction5">
                 <div className="col-md-12 center">
-                   <Link to="/take-exam">LET’S GO</Link>
+                   <Link to={`/take-exam/${props.match.params.examId}`}>LET’S GO</Link>
                 </div>                
             </div>
         </div>     

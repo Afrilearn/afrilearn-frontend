@@ -647,7 +647,7 @@ const MyNav = (props) => {
         <Route path="/impact-stories" component={Stories} />
         <Route path="/impact-story/:storyId" component={ViewImpactStory} />
         <Route path="/exam/instructions/:examId" component={ExamInstructions} />
-        <Route path="/take-exam" component={ExamCenter} />
+        <Route path="/take-exam/:examId" component={ExamCenter} />
       </Switch>
       <Analytics />
     </Router>

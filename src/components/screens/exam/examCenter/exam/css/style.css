@@ -52,7 +52,9 @@ img.motivation {
     width: 30px;
     object-fit: contain;
 }
-
+.Examination .h12 {
+    margin-bottom: 76px;
+}
 
 .Examination .optionSection {
     display: flex;

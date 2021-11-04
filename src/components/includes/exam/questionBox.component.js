@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
-import { inputChange, saveUserAnswer, populateSubmittedAnswer } from './../../../redux/actions/pastQuestionsActions';
+import { connect, useDispatch } from 'react-redux';
+import { inputChange, saveUserAnswer, populateSubmittedAnswer, submitExamScore } from './../../../redux/actions/pastQuestionsActions';
 import Swal from 'sweetalert2';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +17,7 @@ import rightIcon from '../../../assets/img/exam-icon-right.png';
 /*eslint-disable eqeqeq*/
 
 const QuestionBox = props => {  
+    const dispatch = useDispatch();
     const [modal1, setModal1] = useState(false);
     const toggle1 = () => {     
         setModal1(!modal1); 
@@ -53,65 +54,22 @@ const QuestionBox = props => {
     })();
 
     const {
-    currentQuestion,
-    questions,
-    progressBarStatus,  
-    progressBarUnit,
-    correctAnswers, 
-    isAuthenticated,
-    answers,
-    motivations,
-    questionLength,
-    motivationItemNo,
-    motivationInterval,
-    motivateGoodPerformance, 
-    examType
-    }=props;   
-
-    const handleNextQuestion = async answer => {   
-        
-        // if(examType ==='pastQuestions'){
-        //     const CheckPoint25Percent = Math.round(0.25 * questionLength);
-        //     const CheckPoint50Percent = Math.round(0.50 * questionLength);
-        //     const CheckPoint75Percent = Math.round(0.75 * questionLength);    
-        //     const performanceCheckPoint = CheckPoint50Percent/2;
-        
-        //     if(currentQuestion === CheckPoint25Percent){
-        //       props.inputChange('motivationInterval', 0);
-        //       props.inputChange('motivateGoodPerformance', false);
-        //       let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-        //       props.inputChange('motivationItemNo', itemNo);
-        //       setModal1(true);
-        //       setTimeout(function(){ setModal1(false)}, 4000);       
-        //     }
-        
-        //     if(currentQuestion === CheckPoint50Percent && correctAnswers >= performanceCheckPoint){
-        //       props.inputChange('motivationInterval', 1);
-        //       props.inputChange('motivateGoodPerformance', true);
-        //       let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-        //       props.inputChange('motivationItemNo', itemNo);
-        //       setModal1(true);
-        //       setTimeout(function(){ setModal1(false)}, 4000);       
-        //     }else if(currentQuestion === CheckPoint50Percent){
-        //       props.inputChange('motivationInterval', 1);
-        //       props.inputChange('motivateGoodPerformance', false);
-        //       let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-        //       props.inputChange('motivationItemNo', itemNo);
-        //       setModal1(true);
-        //       setTimeout(function(){ setModal1(false)}, 4000);     
-        //     }
-           
-        //     if(currentQuestion === CheckPoint75Percent){
-        //       props.inputChange('motivationInterval', 2);
-        //       props.inputChange('motivateGoodPerformance', false);
-        //       let itemNo =  Math.floor(((Math.random() * 5) + 1)) -1;
-        //       props.inputChange('motivationItemNo', itemNo);
-        //       setModal1(true);
-        //       setTimeout(function(){ setModal1(false)}, 4000);       
-        //     }
-            
-        // }
-       
+        currentQuestion,
+        questions,
+        progressBarStatus,  
+        progressBarUnit,
+        correctAnswers, 
+        isAuthenticated,
+        answers,
+        motivations,
+        questionLength,
+        motivationItemNo,
+        motivationInterval,
+        motivateGoodPerformance, 
+        examType
+    }= props;   
+    
+    const handleNextQuestion = async answer => {        
         await handleCorrectAnswerCheck(answer);
         await handleSaveAnswer(answer);
         await prepareSubmittedAnswer(answer);
@@ -123,7 +81,8 @@ const QuestionBox = props => {
         }
         return true;
     };
-    const handleClosure = async () => {
+
+    const handleClosure = async () => {      
         Swal.fire({
             title: 'Do you want to submit?',
             text: 'Sure you’re ready to submit?',
@@ -134,35 +93,40 @@ const QuestionBox = props => {
         }).then((result) => {
             if (result.value) {
                 if(isAuthenticated){
+                    dispatch(submitExamScore())
                     Swal.fire(
                         'Submitted!',
-                        'Your test details are been recorded.',
+                        'Your exam details are been recorded.',
                         'success'
                     )       
                 }
-                props.inputChange('currentQuestion', 0);                
-                props.inputChange('pastQuestionRedirectLocation', '/past-questions/remark');
+                props.inputChange('pastQuestionRedirectLocation', '/dashboard');
                 props.inputChange('pastQuestionRedirect', true);
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Cancelled',
-                    'You can continue the test :)',
+                    'You can continue the exam :)',
                     'error'
                 )
             }
         })
     };
+
     const handlePrevious = async () => {
         if(currentQuestion > 0){
             props.inputChange('currentQuestion', currentQuestion - 1); 
+            props.inputChange('progressBarStatus', progressBarStatus - progressBarUnit);  
         }     
     };
+
     const handleLastQuestionCheck = () => {
         return questions.length - 1 <= currentQuestion ? true : false;
     };
+
     const handleSaveAnswer = async answer => {
         props.saveUserAnswer(answer);
     };
+
     const prepareSubmittedAnswer = async answer => {
         let status = null;
         if(answer === -1){
@@ -173,21 +137,25 @@ const QuestionBox = props => {
             status='incorrect' 
         }
         let response = {
-            question_id:questions[currentQuestion].question_id,
-            option_selected:answer,
-            correct_option:questions[currentQuestion].correct_option,
-            status
+            status,
+            questionId:questions[currentQuestion].id,
+            optionSelected:answer,
+            correctOption:questions[currentQuestion].correct_option,          
+            markWeight:questions[currentQuestion].mark_weight
         }
         props.populateSubmittedAnswer(response)     
     };
+
     const handleCorrectAnswerCheck = async answer => {
         if (answer == questions[currentQuestion].correct_option) {
             props.inputChange('correctAnswers', correctAnswers + 1);    
         } 
     };
+
     const sentenceCase = (str) =>{
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
     const optionList = () => {         
         if(props.options.length){
               // eslint-disable-next-line array-callback-return
@@ -214,6 +182,7 @@ const QuestionBox = props => {
         }
         
     }
+
     const handleTextToSpeech = () => {
         let options = '';
         for (let index = 0; index < questions[currentQuestion].options.length; ++index) {
@@ -255,15 +224,6 @@ const QuestionBox = props => {
             <Link onClick={handleClosure}><img src={submitButton} className="submitButton"/></Link>
             <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link>
             { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip1"><span className=""><img src={rightIcon} alt='logo' className="movement"/> Skip</span> </Link>:null} 
-        </div>
-        <div className="row blue beforeReport">
-            
-            {/* <div className="col-5 mobilePadOff">
-            <Link className="previous gh" onClick={handleClosure}>Submit</Link> <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link><Speech id="audio" text={handleTextToSpeech()} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} />} />             
-            </div>
-            <div className="col-7 afterReport">
-            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous"><span className=""><img src={require('../../../assets/img/next.svg')} alt='logo' className=""/> Previous</span> </Link> : null}   { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip"><span className=""><img src={require('../../../assets/img/skip.svg')} alt='logo' className=""/> Skip</span> </Link>:null}                                                                                          
-            </div> */}
         </div>
         { examType ==='pastQuestions'? 
       
@@ -309,5 +269,6 @@ const mapStateToProps = state => ({
     motivationInterval: state.pastQuestion.motivationInterval,
     motivateGoodPerformance: state.pastQuestion.motivateGoodPerformance,
     examType: state.pastQuestion.examType,
+    submittedAnswers:state.pastQuestion.submittedAnswers,
 })
 export default connect(mapStateToProps, {inputChange, saveUserAnswer, populateSubmittedAnswer})(QuestionBox);
