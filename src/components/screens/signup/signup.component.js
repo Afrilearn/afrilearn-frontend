@@ -21,6 +21,8 @@ import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
 import { getCourseSubjects } from "../../../redux/actions/courseActions";
 import Select from "react-select";
+import { useJwt } from "react-jwt";
+const token = "Your JWT";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -46,6 +48,7 @@ const Signup = (props) => {
     schoolName,
     courseCategoryId,
     phoneNumber,
+    socialCampaign
   } = props;
 
   const parsed = queryString.parse(props.location.search);
@@ -59,7 +62,9 @@ const Signup = (props) => {
       if (parsed.referralCode) {
         props.inputChange("referralCode", parsed.referralCode);
       }
-
+      if (parsed.social) {
+        props.inputChange("socialCampaign", true);
+      }      
       if (!roles.length) {
         props.getRoles();
       }
@@ -172,10 +177,10 @@ const Signup = (props) => {
       if (referralCode) {
         user.referralCode = referralCode;
       }
-      console.log(
-        "!subjectId && role === '602f3ce39b146b3201c2dc1d'",
-        !subjectId && role === "602f3ce39b146b3201c2dc1d"
-      );
+      if (socialCampaign) {
+        user.social = true;
+      }
+     
       props.registerUser(user);
       ReactGA.event({
         category: "User Signup",
@@ -505,6 +510,7 @@ const mapStateToProps = (state) => ({
   courseCategoryId: state.auth.courseCategoryId,
   schoolName: state.auth.schoolName,
   passwordMode: state.auth.passwordMode,
+  socialCampaign: state.auth.socialCampaign,
   error: state.error,
 });
 export default connect(mapStateToProps, {

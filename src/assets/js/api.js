@@ -1152,4 +1152,33 @@ export default {
       url: `${this.url}exams/exam-result/${id}`,
     });
   },
+  getStudentExams(id) {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/class/${id}`,
+      headers: this.headers(),
+    });
+  },
+  getExamInformation(id) {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/instruction/${id}`,
+      headers: this.headers(),
+    });
+  },
+  getExamQuestions(id) {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/exam-question/${id}`,
+      headers: this.headers(),
+    });
+  },
+  submitExamAnswer(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}exams/exam-result`,
+      headers: this.headers(),
+      data
+    });
+  },
 };

@@ -16,6 +16,10 @@ import {
     POPULATE_SUBMITTED_ANSWER,
     SUBMIT_RESULT_SUCCESS,
     SUBMIT_RESULT_FAILURE,
+    GET_EXAMINATION_QUESTIONS_SUCCESS,
+    GET_EXAMINATION_QUESTIONS_FAILURE,
+    SUBMIT_EXAM_RESULT_SUCCESS,
+    SUBMIT_EXAM_RESULT_FAILURE
 } from './types';
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -31,20 +35,6 @@ export const inputChange = (name, value) => async (dispatch) => {
     console.error(error);
   }
 };
-
-// export const pastQuestionInputChange = (name, value) => async (dispatch) => {
-//     try {
-//       dispatch({
-//         type: PAST_QUESTIONS_INPUT_CHANGE,
-//         payload: {
-//           name: name,
-//           value: value,
-//         },
-//       });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
 
 export const loadSubjects = (examId) => async dispatch => {    
     try {   
@@ -160,6 +150,44 @@ export const loadQuizQuestions = (questions) => async dispatch => {
     } catch (err) {  
         dispatch({
             type: LOAD_QUESTIONS_FAILURE          
+        })	
+    }
+}
+
+export const loadExamQuestions = (examId) => async dispatch => {    
+    try {   
+        document.body.classList.add('loading-indicator');	   
+        const result = await API.getExamQuestions(examId);
+        
+        let questions = [];  
+        let questionTags= []; 
+        let questionTime=60;   
+        let subjectId =null;
+        let motivations = [];     
+      
+        questions = result.data.data.questions;
+        let questionLength =questions.length;
+        for(let i =0; i<questionLength; i++){
+            questionTags.push(1)
+        }   
+        // questionTime = result.data.subject_details.duration; 
+        questionTime = questionTime * 1000 * 60;         
+      
+        dispatch({
+            type: GET_EXAMINATION_QUESTIONS_SUCCESS,
+            payload:{
+                questions,
+                questionTags,
+                questionTime,
+                subjectId,
+                motivations                    
+            }       
+        })        
+        document.body.classList.remove('loading-indicator');    
+    } catch (err) {       
+        document.body.classList.remove('loading-indicator');         
+        dispatch({
+            type: GET_EXAMINATION_QUESTIONS_FAILURE         
         })	
     }
 }
@@ -298,6 +326,43 @@ export const submitUserScore = (remark, score) => async (dispatch, getState) => 
         );
         dispatch({
           type: SUBMIT_RESULT_FAILURE,
+        });
+    }
+}
+
+export const submitExamScore = () => async (dispatch, getState) => {    
+    try {             
+        const { userId } = getState().auth;
+        const { submittedAnswers, speed, correctAnswers, answers, questionLength, examId } = getState().pastQuestion;              
+        const response = {
+            "results":submittedAnswers,
+            "userId": userId,
+            "examId":examId,                   
+            "timeSpent":`${speed}`,
+            "numberOfCorrectAnswers":correctAnswers,
+            "numberOfWrongAnswers":questionLength - (correctAnswers + answers.filter(item => item === -1).length),
+            "numberOfSkippedQuestions":answers.filter(item => item === -1).length,        
+            "score": '',
+            "remark": '', 
+        }
+        console.log(response)
+        await API.submitExamAnswer(response);      
+        dispatch({
+            type: SUBMIT_EXAM_RESULT_SUCCESS                     
+        }) 
+
+    } catch (err) {        
+        dispatch(
+          returnErrors(
+            err.response.data.errors
+              ? err.response.data.errors
+              : err.response.data.error,
+            err.response.data.status,
+            'SUBMIT_EXAM_RESULT_FAILURE'
+          )
+        );
+        dispatch({
+          type: SUBMIT_EXAM_RESULT_FAILURE,
         });
     }
 }

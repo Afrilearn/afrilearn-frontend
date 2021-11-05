@@ -4,10 +4,10 @@ import Swal from 'sweetalert2';
 import './css/style.css';
 import { Link, Redirect } from "react-router-dom";
 import { Progress, Modal, ModalHeader, ModalBody, CustomInput } from 'reactstrap';
-import { connect } from 'react-redux';
-import { inputChange, flagQuestion } from './../../../../redux/actions/pastQuestionsActions';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { inputChange, flagQuestion, loadExamQuestions } from './../../../../../redux/actions/pastQuestionsActions';
 import PropTypes from "prop-types";
-import QuestionBox from '../../../includes/pastQuestions/questionBox.component';
+import QuestionBox from '../../../../includes/exam/questionBox.component';
 
 const Exam = props => {  
     const mounted = useRef(); 
@@ -16,11 +16,17 @@ const Exam = props => {
     const toggle = () => {     
         setModal(!modal); 
     }  
-    useEffect(()=>{
+
+    const dispatch = useDispatch();
+    let examInfo = '';
+
+    useEffect(()=>{        
         if (!mounted.current) {
             // do componentDidMount logic
             mounted.current = true;
             window.scrollTo(0, 0);
+            dispatch(loadExamQuestions(props.match.params.examId))  
+            dispatch(inputChange('examId',props.match.params.examId))             
         } else {
             // do componentDidUpdate logic  
                              
@@ -30,6 +36,7 @@ const Exam = props => {
         selectedSubject,
         selectedYear,
         selectedCategory,
+        submittedAnswers,
         questions,
         currentQuestion,
         progressBarStatus,
@@ -128,12 +135,11 @@ const Exam = props => {
 	return (        
 		<>  
            {pastQuestionRedirect ? <Redirect to={pastQuestionRedirectLocation} /> : null}          
-           <div className="container-fluid Exam">
+           <div className="container-fluid Examination">
+                <h2 className="center h12">{`${localStorage.getItem('subjectName')} ${localStorage.getItem('term')}`} </h2>
                 <div className="row">                            
-                   <div className="col-md-9 partOne">  
-                   { examType ==='pastQuestions'? 
-                      <>                    
-                        <div className="row">                          
+                   <div className="col-md-9 partOne">                                   
+                        {/* <div className="row">                          
                             <div className="col-md-2 push33">
                                <span className="headingOne">Examination:</span>   
                             </div>
@@ -208,8 +214,7 @@ const Exam = props => {
                                     </Timer>
                                 </span>                           
                             </div>
-                        </div>
-                    </> :''}
+                        </div>               */}
                         <div className="row myProgress push4">
                             <div className="col-md-12">
                                 <Progress animated  color="success" value={progressBarStatus} />
@@ -217,13 +222,12 @@ const Exam = props => {
                         </div>
                         {questionList()}                        
                    </div>
-                   <div className="col-md-3 timerSection desktopOnly">
-                   { examType ==='pastQuestions'?  
+                   <div className="col-md-3 timerSection desktopOnly">               
                       <div className="row push3">
                             <div className="col-md-12">
                                 <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
                                 <Timer
-                                    initialTime={questionTime}
+                                    initialTime={localStorage.getItem('duration')}
                                     lastUnit="m"
                                     direction="backward"
                                     checkpoints={[
@@ -271,8 +275,7 @@ const Exam = props => {
                                     
                                 </span> 
                             </div>
-                      </div>
-                      :''}
+                      </div>                
                       <div className="row checkUps center">
                            {questionTagsList()}                                                               
                       </div>
@@ -380,5 +383,6 @@ const mapStateToProps = state => ({
     pastQuestionRedirect:state.pastQuestion.pastQuestionRedirect,
     pastQuestionRedirectLocation:state.pastQuestion.pastQuestionRedirectLocation,  
     examType: state.pastQuestion.examType,    
+    submittedAnswers:state.pastQuestion.submittedAnswers,   
 })
 export default connect(mapStateToProps, {inputChange, flagQuestion})(Exam);

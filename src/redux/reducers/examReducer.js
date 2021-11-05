@@ -6,6 +6,8 @@ import {
   GET_QUESTIONS_SUCCESS,
   GET_RESULT_SUCCESS,
   UPDATE_RESULT_SUCCESS,
+  GET_STUDENT_EXAMS_SUCCESS,
+  GET_EXAMINATION_INFORMATION_SUCCESS,
   GET_EXAM_TYPES_SUCCESS,
   ADD_EXAM_SUCCESS,
   GET_TERMS_SUCCESS,
@@ -20,6 +22,9 @@ const initialState = {
   terms: [],
   exams: [],
   result: {},
+  exam: {},
+  studentExam: {},
+  examinationInfo: {},
   exam: { questions: [] },
   addExamStatus: "pending",
   addingExam: false,
@@ -45,14 +50,14 @@ const examReducer = (state = initialState, action) => {
         ...state,
         exams: { ...state.exam, questions: [...questions] },
       };
-    case ADD_EXAM_QUESTION_SUCCESS:
-      return {
-        ...state,
-        exam: {
-          ...state.exam,
-          questions: [...state.exam.questions, action.payload],
-        },
-      };
+      case ADD_EXAM_QUESTION_SUCCESS:
+        return {
+          ...state,
+          exam: {
+            ...state.exam,
+            questions: [...state.exam.questions, action.payload],
+          },
+        };
     case GET_QUESTIONS_SUCCESS:
       return {
         ...state,
@@ -77,7 +82,7 @@ const examReducer = (state = initialState, action) => {
       };
 
     case ADD_EXAM_SUCCESS:
-    case GET_EXAM_SUCCESS:
+    case GET_EXAM_SUCCESS:      
       return {
         ...state,
         exam: action.payload,
@@ -112,7 +117,19 @@ const examReducer = (state = initialState, action) => {
         exam: action.payload,
         exams: newExs,
       };
-
+    case GET_STUDENT_EXAMS_SUCCESS:
+      return {
+        ...state,
+        studentExam: action.payload,
+      };
+    case GET_EXAMINATION_INFORMATION_SUCCESS:
+      localStorage.setItem("subjectName", action.payload.subjectId?.mainSubjectId.name);
+      localStorage.setItem("term", action.payload.termId?.name);
+      localStorage.setItem("duration", action.payload.duration * 1000 * 60);
+      return {
+        ...state,
+        examinationInfo: action.payload,
+      };
     default:
       return state;
   }

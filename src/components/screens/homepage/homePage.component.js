@@ -171,7 +171,7 @@ const Homepage = (props) => {
           <div className="col-md-6 box">
             <h1>Get Ahead with Afrilearn!</h1>
             <h4>
-            Enjoy Complete Primary & Secondary School Education Online (Ages 6-18) for Best Grades and Success in life.
+            Enjoy Complete Primary & Secondary School Education Online (Ages 6-18) <br className="desktopOnly"/>for Best Grades and Success in life.
             </h4>
 
             <div className="row courseSelectSection">
@@ -722,17 +722,15 @@ const Homepage = (props) => {
                 </a>
               </div>
               <div className="col-6 right">
-                <Tooltip
-                  placement="top"
-                  trigger={["hover"]}
-                  overlay={<span>Coming soon!</span>}
-                >
+              <a  href="https://apps.apple.com/ng/app/afrilearn/id1587978653"
+                  target="_blank"
+                > 
                   <img
                     className=""
                     src={require("../../../assets/img/applestore.png")}
                     alt="applestore"
                   />
-                </Tooltip>
+               </a>
               </div>
             </div>
           </div>

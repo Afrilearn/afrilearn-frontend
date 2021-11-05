@@ -644,7 +644,8 @@ const Dashboard = (props) => {
                     </a>
                   </div>
                   <div className="col-6">
-                    <a>
+                    <a  href="https://apps.apple.com/ng/app/afrilearn/id1587978653"
+                      target="_blank">
                       {" "}
                       <img
                         className=""

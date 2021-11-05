@@ -151,7 +151,7 @@
 #classNoteSecondSection .classnoteContent{
   text-align: justify;
   margin-top: 16px;
-  padding-right: 467px;
+  padding-right: 67px;
 }
 #classNoteSecondSection .stat {
   margin-top: 15px;
@@ -159,6 +159,7 @@
 #classNoteSecondSection .classnoteContent img {
   object-fit: contain;
   max-width: 100%;
+  display: block;
 }
 
 #classNoteSecondSection #navigation p {

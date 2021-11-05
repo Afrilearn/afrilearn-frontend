@@ -7,9 +7,10 @@ import man from "../../../assets/img/man.png";
 import woman from "../../../assets/img/woman.png";
 import ellipse from "../../../assets/img/Ellipse.png";
 import sendicon from "../../../assets/img/sendicon.png";
-import { connect, useSelector } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { getClass, createComment } from "./../../../redux/actions/classActions";
 import { getPerformanceInClass } from "./../../../redux/actions/courseActions";
+import { getStudentExam } from "./../../../redux/actions/examActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import { PieChart } from "react-minimal-pie-chart";
@@ -42,18 +43,23 @@ const ClassroomStudent = (props) => {
     (state) => state.class.teacherAssignedContents
   );
 
+  const studentExam = useSelector(
+    (state) => state.exam.studentExam
+  );
+
   const [newComment, setNewComment] = useState(null);
 
   const [activeTab, setActiveTab] = useState("1");
 
   // eslint-disable-next-line no-unused-vars
   const mounted = useRef();
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (!mounted.current) {
+    if (!mounted.current) {    
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-
+      dispatch(getStudentExam(props.match.params.classId))
       props.getClass(props.match.params.classId);
     } else {
       // do componentDidUpdate logic
@@ -503,15 +509,17 @@ const ClassroomStudent = (props) => {
                       "Oh oh! No work due soon!"
                     )}
                   </div>
-                  {/* <div className="upcoming-events" id="examinationSection">
-                    <h4>Examination</h4>
-                    <hr/>
-                    <h5>Mathematics First Term JSS 1</h5>
-                    <h6>Objective & Theory</h6>
-                    <h6>Duration: 60mins</h6>
-                    <hr/>
-                    <Link>GET STARTED</Link>
-                  </div> */}
+                  {Object.keys(studentExam).length? 
+                    <div className="upcoming-events" id="examinationSection">
+                      <h4>Examination</h4>
+                      <hr/>
+                      <h5>{`${studentExam.subjectId.mainSubjectId.name} ${studentExam.termId.name}`}</h5>
+                      <h6>{studentExam.questionTypeId.name}</h6>
+                      <h6>Duration: {studentExam.duration}mins</h6>
+                      <hr/>
+                      <Link to={`/exam/instructions/${studentExam.id}`}>GET STARTED</Link>
+                    </div>
+                  :''}                  
                 </aside>
                 <main className="container-fluid">
                   {clazz.classAnnouncements &&

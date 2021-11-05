@@ -77,13 +77,13 @@ import Stories from "../screens/customerStories/customerStories.component";
 import faculties from "../screens/faculties/faculties.component";
 import WorkWithAfrilearn from "../screens/faculties/workWithAfrilearn.component";
 import ViewImpactStory from "../screens/customerStories/viewStory.component";
-// import ExamLog from "../screens/examLog/examLog";
-// import ExamResults from "../screens/ExamResults/ExamResults";
 import ExamResult from "../screens/exam/cms/ExamResult/ExamResult";
 import AddExam from "../screens/exam/cms/AddExam/AddExam";
 import ExamResults from "../screens/exam/cms/ExamResults/ExamResults";
 import ExamLog from "../screens/exam/cms/examLog/examLog";
 import AddExamQuestion from "../screens/exam/cms/AddExamQuestion/AddExamQuestion";
+import ExamInstructions from "../screens/exam/examCenter/instructions/instructions.component";
+import ExamCenter from "../screens/exam/examCenter/exam/exam.component";
 import AcquisitionAgentNetwork from "../screens/AcquisitionAgentNetwork/AcquisitionAgentNetwork";
 
 const MyNav = (props) => {
@@ -646,6 +646,8 @@ const MyNav = (props) => {
         <Route path="/feeds" component={Feeds} />
         <Route path="/impact-stories" component={Stories} />
         <Route path="/impact-story/:storyId" component={ViewImpactStory} />
+        <Route path="/exam/instructions/:examId" component={ExamInstructions} />
+        <Route path="/take-exam/:examId" component={ExamCenter} />
       </Switch>
       <Analytics />
     </Router>

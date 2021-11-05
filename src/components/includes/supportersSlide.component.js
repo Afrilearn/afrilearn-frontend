@@ -52,8 +52,8 @@ class SimpleSlider extends React.Component {
            <img src={require('../../assets/img/download.png')} alt="Orange Corners"/> 
            <img src={require('../../assets/img/African Union Logo.jpg')} alt="African Union Logo"/> 
            <img src={require('../../assets/img/Friends of prof.png')} alt="Friends of prof"/>
-           <img src={require('../../assets/img/UK Nigeria tech hub logo.jpg')} alt="UK Nigeria tech hub logo"/>   
-                   
+           <img src={require('../../assets/img/UK Nigeria tech hub logo.jpg')} alt="UK Nigeria tech hub logo"/>
+           <img src={require('../../assets/img/act.png')} alt="Aspire coronation trust foundation"/>          
       </Slider>
     );
   }
