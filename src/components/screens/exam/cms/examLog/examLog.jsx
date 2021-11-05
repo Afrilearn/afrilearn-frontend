@@ -19,6 +19,7 @@ export default function ExamLog(props) {
   const parsed = queryString.parse(props.location.search);
   const loadingExams = useSelector((state) => state.exam.loadingExams);
   const exams = useSelector((state) => state.exam.exams);
+  console.log("exams", exams);
 
   const ExamItem = ({ index, exam }) => {
     return (

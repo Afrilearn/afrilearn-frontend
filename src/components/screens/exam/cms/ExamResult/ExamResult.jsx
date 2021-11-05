@@ -18,6 +18,7 @@ export default function ExamResult() {
     dispatch(getResult(resultId));
   }, []);
   const result = useSelector((state) => state.exam.result);
+  console.log("result.results", result.results);
   let totalTheoryScore = 0;
   let totalObjectiveScore = 0;
   if (result && result.results) {
@@ -27,10 +28,10 @@ export default function ExamResult() {
         resultItem.questionId.type === "Objective" &&
         resultItem.correctOption === resultItem.optionSelected
       ) {
-        totalObjectiveScore += resultItem.mark_weight;
+        totalObjectiveScore += resultItem.markWeight;
       }
       if (resultItem.questionId.type === "Theory") {
-        totalTheoryScore += resultItem.assignedScore;
+        totalTheoryScore += resultItem.assignedScore || 0;
       }
     }
   }
@@ -41,7 +42,7 @@ export default function ExamResult() {
     const type = item.questionId.type;
     let assignedScore = 0;
     if (type === "Objective" && item.correctOption === item.optionSelected) {
-      assignedScore = item.mark_weight;
+      assignedScore = item.markWeight;
     }
     if (type === "Theory") {
       assignedScore = item.assignedScore;
@@ -109,12 +110,21 @@ export default function ExamResult() {
               {item?.questionId?.question && parse(item?.questionId?.question)}
             </p>
             <p className="nunito text-white mt-5">Answer:</p>
-            <div className="answer-box">
-              <p className="text-white nunito light-font text-justify">
-                {item?.questionId?.options[item?.optionSelected] &&
-                  parse(item?.questionId?.options[item?.optionSelected])}
-              </p>
-            </div>
+            {type === "Objective" && (
+              <div className="answer-box">
+                <p className="text-white nunito light-font text-justify">
+                  {item?.questionId?.options[item?.optionSelected] &&
+                    parse(item?.questionId?.options[item?.optionSelected])}
+                </p>
+              </div>
+            )}
+            {type === "Theory" && (
+              <div className="answer-box">
+                <p className="text-white nunito light-font text-justify">
+                  {item?.answer && parse(item?.answer)}
+                </p>
+              </div>
+            )}
           </div>
         </div>
         <hr />

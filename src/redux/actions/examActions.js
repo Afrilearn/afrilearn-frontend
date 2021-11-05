@@ -25,6 +25,8 @@ import {
   UPDATE_EXAM_FAILURE,
   DELETE_QUESTION_SUCCESS,
   DELETE_QUESTION_FAILURE,
+  UPDATE_RESULT_SUCCESS,
+  UPDATE_RESULT_FAILURE,
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -402,8 +404,8 @@ export const updateExamResultScore = (resultId, resultItemId, score) => async (
     document.body.classList.add("loading-indicator");
     const result = await API.updateExamScore(resultId, resultItemId, score);
     dispatch({
-      type: UPDATE_EXAM_SUCCESS,
-      payload: result.data.data.exam,
+      type: UPDATE_RESULT_SUCCESS,
+      payload: result.data.data.result,
     });
     document.body.classList.remove("loading-indicator");
   } catch (err) {
@@ -414,11 +416,11 @@ export const updateExamResultScore = (resultId, resultItemId, score) => async (
           ? err.response.data.errors
           : err.response.data.error,
         err.response.data.status,
-        "UPDATE_EXAM_FAILURE"
+        "UPDATE_RESULT_FAILURE"
       )
     );
     dispatch({
-      type: UPDATE_EXAM_FAILURE,
+      type: UPDATE_RESULT_FAILURE,
     });
   }
 };
