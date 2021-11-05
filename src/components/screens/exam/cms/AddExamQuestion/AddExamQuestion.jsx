@@ -781,7 +781,7 @@ export default function AddExamQuestion(props) {
                             </div>
                           )}
                           {block === "Theory" && question && (
-                            <div className="border-bottom">
+                            <div className="border-bottom pb-3">
                               <div className="w-100 bg-white p-4 rounded-3 d-flex">
                                 <span className="bold nunito">
                                   Question{" "}
