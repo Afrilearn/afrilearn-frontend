@@ -37,7 +37,7 @@ const App = () => {
     ReactGA.initialize("UA-141691274-1");
     ReactGA.pageview(window.location.pathname + window.location.search);
   });
-  const [showFeedBackPopUp, setShowFeedBackPopUp] = useState(false);
+  const [showFeedBackPopUp, setShowFeedBackPopUp] = useState(true);
 
   return (
     <Provider store={store}>
