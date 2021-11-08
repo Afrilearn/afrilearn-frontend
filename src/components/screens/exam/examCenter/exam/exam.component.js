@@ -5,7 +5,7 @@ import './css/style.css';
 import { Link, Redirect } from "react-router-dom";
 import { Progress, Modal, ModalHeader, ModalBody, CustomInput } from 'reactstrap';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { inputChange, flagQuestion, loadExamQuestions } from './../../../../../redux/actions/pastQuestionsActions';
+import { inputChange, flagQuestion, loadExamQuestions, submitExamScore } from './../../../../../redux/actions/pastQuestionsActions';
 import PropTypes from "prop-types";
 import QuestionBox from '../../../../includes/exam/questionBox.component';
 
@@ -68,6 +68,7 @@ const Exam = props => {
                         options={questions[currentQuestion].options}  
                         imagePosition ={questions[currentQuestion].question_position}   
                         image= {questions[currentQuestion].question_image} 
+                        questionType ={questions[currentQuestion].type}
                         handleReport ={handleFlagQuestion}               
                     />              
             
@@ -257,9 +258,12 @@ const Exam = props => {
                                                             'Your test details are recorded successfully!',
                                                             'success'
                                                         )       
-                                                    }                                                 
+                                                    }  
+                                                    props.inputChange('pastQuestionRedirectLocation', '/dashboard');
+                                                    props.inputChange('pastQuestionRedirect', true);                                               
                                                     props.inputChange('currentQuestion', 0);
                                                     props.inputChange('speed', questionTime/60000);
+                                                    dispatch(submitExamScore())
 
                                                 }) 
                                             } 

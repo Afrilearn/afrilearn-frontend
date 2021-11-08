@@ -56,6 +56,11 @@ img.motivation {
     margin-bottom: 76px;
 }
 
+.Examination textarea{
+    width: 82%;
+    padding: 15px;
+}
+
 .Examination .optionSection {
     display: flex;
     flex-direction: row;

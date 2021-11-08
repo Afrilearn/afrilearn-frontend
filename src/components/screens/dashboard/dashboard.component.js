@@ -165,7 +165,6 @@ const Dashboard = (props) => {
       return <h6> &nbsp;No past questions yet</h6>;
     }
   };
-  console.log("dashboardClassMembership", dashboardClassMembership);
 
   const classList = () => {
     if (

@@ -19,7 +19,7 @@ const Box = (props) => {
             alt="classroom"
             className="bullet"
           />
-          &nbsp;&nbsp;{props.className} - {props.classCode}
+          &nbsp;&nbsp;{capitalizeFirstLetter(props.className)} - {props.classCode}
         </span>
       </div>
       <div className="col-md-4">

@@ -42,7 +42,7 @@ const ExamInstructionsPage = props => {
             <hr/>
             <div className="row" id="examInstruction3">
                 <div className="col-md-6">
-                    <span><img src={Icon1} alt="total number of exam questions"/>QUESTIONS: 50</span>
+                    <span><img src={Icon1} alt="total number of exam questions"/>QUESTIONS: {examinationInfo?.questionsCount}</span>
                 </div>
                 <div className="col-md-6 right">
                     <span><img src={Icon2} alt="total number of exam questions"/> QUESTION TYPE: {examinationInfo?.questionTypeId?.name}</span>

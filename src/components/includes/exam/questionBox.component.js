@@ -156,31 +156,37 @@ const QuestionBox = props => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    const optionList = () => {         
-        if(props.options.length){
-              // eslint-disable-next-line array-callback-return
-            return props.options.map((item, index) => {   
-                let symbol = 'A.';
-                if(index === 0){
-                    symbol = 'A.'
-                }else if(index === 1){
-                    symbol = 'B.' 
-                }else if(index === 2){
-                    symbol = 'C.' 
-                }else if(index === 3){
-                    symbol = 'D.' 
-                }else if(index === 4){
-                    symbol = 'E.' 
-                }    
-                if(item){                 
-                    return <Link key={index} onClick={handleNextQuestion.bind(this, index)}> <p className={answers[currentQuestion] === index ? 'myQuestion selectedOption' : 'myQuestion'} key={index}>{symbol}&nbsp;&nbsp;&nbsp; {parse(sentenceCase(item))}</p></Link>   
-                }      
-                        
-            })
+    const optionList = () => {      
+        if(props.questionType === 'Theory'){
+            return <textarea rows="8" cols="20">
+
+            </textarea>
         }else{
-        return <h5>0ops!, No subject found</h5>
-        }
-        
+            if(props.options.length){
+                // eslint-disable-next-line array-callback-return
+              return props.options.map((item, index) => {   
+                  let symbol = 'A.';
+                  if(index === 0){
+                      symbol = 'A.'
+                  }else if(index === 1){
+                      symbol = 'B.' 
+                  }else if(index === 2){
+                      symbol = 'C.' 
+                  }else if(index === 3){
+                      symbol = 'D.' 
+                  }else if(index === 4){
+                      symbol = 'E.' 
+                  }    
+                  if(item){                 
+                      return <Link key={index} onClick={handleNextQuestion.bind(this, index)}> <p className={answers[currentQuestion] === index ? 'myQuestion selectedOption' : 'myQuestion'} key={index}>{symbol}&nbsp;&nbsp;&nbsp; {parse(sentenceCase(item))}</p></Link>   
+                  }      
+                          
+              })
+          }else{
+          return <h5>0ops!, no options found</h5>
+          }      
+        }      
+          
     }
 
     const handleTextToSpeech = () => {
@@ -204,6 +210,7 @@ const QuestionBox = props => {
         }
         return decodeEntities(questions[currentQuestion].question)+options      
     };
+
     return (
     <>
         <div className="row question">
