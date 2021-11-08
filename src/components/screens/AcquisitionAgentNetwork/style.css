@@ -1,4 +1,140 @@
+#AgentSectionOne {
+  background: #fbfbfb;
+  height: 588.67px;
+  width: 100%;
+}
+#AgentSectionOne .container {
+  height: 588.67px;
+  background-image: url("../../../assets/img/bgOne.png");
+  background-repeat: no-repeat;
+  background-position: right;
+}
 #acquisition-network {
-  background-color: #000000;
+  font-family: Nunito;
+}
+#acquisition-network .modal-content {
+  background-color: #ffffff;
+}
+#acquisition-network h1 {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 65px;
+  color: #200e32;
+}
+#acquisition-network h1.light {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 41px;
+  letter-spacing: 0.04em;
+  color: #c8c4c4;
+}
+#acquisition-network p {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 34px;
+  color: #4a5568;
+}
+#acquisition-network p.medium {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 35px;
+  letter-spacing: 0.02em;
+  color: #2d3748;
+}
+#acquisition-network p.small {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 29px;
+  font-feature-settings: "salt" on, "liga" off;
+  color: #18191f;
+}
+#acquisition-network button {
+  /* background: #84bb29; */
+  border-radius: 10px;
+  border: none;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+  display: flex;
+  align-items: flex-end;
+  /* text-align: right; */
   color: #ffffff;
+  padding: 10px;
+}
+#acquisition-network .white-box {
+  width: 100%;
+  min-height: 300px;
+
+  background: #ffffff;
+  box-shadow: 0px 9.04831px 18.0966px rgba(41, 41, 42, 0.07);
+  border-radius: 7.23864px;
+}
+#acquisition-network .list-box {
+  width: 21.54px;
+  height: 21.54px;
+  background: #84bb29;
+  border-radius: 1.4359px;
+  flex-shrink: 0;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+#AgentSectionTwo,
+#AgentSectionThree {
+  margin-top: 50px;
+  margin-bottom: 150px;
+}
+#AgentSectionFour {
+  background: #f5f5f5;
+  padding: 100px;
+}
+@media screen and (max-width: 900px) {
+  #AgentSectionOne {
+    background: #fbfbfb;
+    height: 388.67px;
+    width: 100%;
+  }
+  #AgentSectionOne .container {
+    height: 388.67px;
+    background-size: cover;
+    background-position: bottom;
+  }
+  #acquisition-network .white-box {
+    min-height: 200px;
+  }
+  #AgentSectionTwo,
+  #AgentSectionThree {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  #AgentSectionFour {
+    background: #f5f5f5;
+    padding: 20px;
+  }
+  #acquisition-network h1 {
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 55px;
+    color: #200e32;
+  }
+  #acquisition-network .form-control-lg {
+    height: auto;
+  }
+}
+@media screen and (max-width: 750px) {
+  /* #AgentSectionOne {
+    margin-top: 90px;
+  } */
 }

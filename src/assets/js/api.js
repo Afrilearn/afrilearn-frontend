@@ -1178,7 +1178,14 @@ export default {
       method: "post",
       url: `${this.url}exams/exam-result`,
       headers: this.headers(),
-      data
+      data,
+    });
+  },
+  submitEntry(data) {
+    return axios({
+      method: "post",
+      url: `${this.url}agent`,
+      data,
     });
   },
 };

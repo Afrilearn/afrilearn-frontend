@@ -110,7 +110,8 @@
 #classroomStudentSectionTwo .content-section {
   width: 90%;
   margin: auto;
-  top: 75px;
+  /* top: 75px; */
+  padding-top: 75px;
   padding-bottom: 100px;
   position: relative;
   min-height: 500px;
@@ -118,6 +119,7 @@
 @media screen and (max-width: 1200px) {
   #classroomStudentSectionTwo .content-section {
     width: 100%;
+    /* padding-top: u; */
   }
 }
 #classroomStudentSectionTwo .announcements {
