@@ -43,6 +43,22 @@ export default function AddExamQuestion(props) {
   const params = useParams();
   const [block, setBlock] = useState("Objective");
   const [question, setQuestion] = useState(null);
+  const contentImagesRef = useRef([]);
+
+  const handleImageUpload = (targetImgElement, index, state, imageInfo) => {
+    if (imageInfo?.src?.includes("http://")) return;
+    if (!imageInfo?.src) return;
+    var blobBin = imageInfo?.src && atob(imageInfo?.src?.split(",")[1]);
+    var array = [];
+    for (var i = 0; i < blobBin.length; i++) {
+      array.push(blobBin.charCodeAt(i));
+    }
+    var file = new Blob([new Uint8Array(array)], { type: "image/jpg" });
+    contentImagesRef.current = [
+      ...contentImagesRef.current,
+      { file: file, src: imageInfo.src },
+    ];
+  };
 
   const exam = useSelector((state) => state.exam.exam);
   const selcetedQuestion = useSelector((state) => state.exam.selcetedQuestion);
@@ -463,7 +479,7 @@ export default function AddExamQuestion(props) {
                     </div>
                   */}
                     <div className="row g-3  py-2 py-md-4">
-                      <div className="col-12 col-md-9 order-1 order-md-0">
+                      <div className="col-12 col-md-8 order-1 order-md-0">
                         {questions.map((i, index) => {
                           if (i.type === "Objective") {
                             return (
@@ -482,7 +498,7 @@ export default function AddExamQuestion(props) {
                           }
                         })}
                       </div>
-                      <div className="col-12 col-md-3 order-0 order-md-1 position-relative">
+                      <div className="col-12 col-md-4 order-0 order-md-1 position-relative">
                         <div className="d-flex flex-wrap options-box  p-2 p-md-4">
                           {questions.map((i, index) => (
                             <a href={`#previewQuestionNo${i.id}`}>
@@ -550,7 +566,7 @@ export default function AddExamQuestion(props) {
                     </div>
                     <div>
                       <div className="row g-3 p-2 p-md-4">
-                        <div className="col-12 col-md-9 order-1 order-md-0">
+                        <div className="col-12 col-md-8 order-1 order-md-0">
                           {questions && questions.length > 0 && !question && (
                             <div className="w-100 p-5 d-flex justify-content-center align-items-center">
                               <span className="text-white">
@@ -576,6 +592,7 @@ export default function AddExamQuestion(props) {
                                       buttonList: btnList,
                                     }}
                                     defaultValue={question?.question}
+                                    onImageUpload={handleImageUpload}
                                     onChange={(text) => {
                                       setQuestion((currentQuestion) => ({
                                         ...currentQuestion,
@@ -605,6 +622,7 @@ export default function AddExamQuestion(props) {
                                   />
                                 )}
                               </div>
+                              <label className="text-light mt-3">Options</label>
                               <div className="add-question-option">
                                 <div className="bg-white p-4">A</div>
                                 <input
@@ -727,7 +745,13 @@ export default function AddExamQuestion(props) {
                                     key={index}
                                     selected={index === question.correct_option}
                                   >
-                                    {i}
+                                    {index === 0
+                                      ? "A"
+                                      : index === 1
+                                      ? "B"
+                                      : index === 2
+                                      ? "C"
+                                      : "D"}
                                   </option>
                                 ))}
                               </select>
@@ -742,11 +766,11 @@ export default function AddExamQuestion(props) {
                                 placeholder="0"
                                 id="title"
                                 className="general border"
-                                name="mark_weight"
+                                name="markWeight"
                                 onChange={(e) => {
                                   setQuestion((currentQuestion) => ({
                                     ...currentQuestion,
-                                    mark_weight: Number(e.target.value),
+                                    markWeight: Number(e.target.value),
                                   }));
                                 }}
                               />
@@ -765,13 +789,19 @@ export default function AddExamQuestion(props) {
                                 </label>
                               </div> */}
                               <button
-                                className="btn btn-lg bg-white text-black mt-3"
+                                className="btn btn-lg bg-white text-black mt-4"
                                 onClick={() =>
                                   dispatch(
                                     updateExamQuestion(question._id, {
                                       question: question.question,
                                       correct_option: question.correct_option,
                                       options: question.options,
+                                      contentImages: contentImagesRef.current.map(
+                                        (cnt) => cnt.file
+                                      ),
+                                      contentUrls: contentImagesRef.current.map(
+                                        (cnt) => cnt.src
+                                      ),
                                     })
                                   )
                                 }
@@ -781,7 +811,7 @@ export default function AddExamQuestion(props) {
                             </div>
                           )}
                           {block === "Theory" && question && (
-                            <div className="border-bottom">
+                            <div className="border-bottom pb-3">
                               <div className="w-100 bg-white p-4 rounded-3 d-flex">
                                 <span className="bold nunito">
                                   Question{" "}
@@ -830,7 +860,7 @@ export default function AddExamQuestion(props) {
                               </div>
 
                               <button
-                                className="btn btn-lg bg-white text-black mt-3"
+                                className="btn btn-lg bg-white text-black mt-4"
                                 onClick={() => {
                                   dispatch(
                                     updateExamQuestion(question._id, {
@@ -844,7 +874,7 @@ export default function AddExamQuestion(props) {
                             </div>
                           )}
                         </div>
-                        <div className="col-12 col-md-3 order-0 order-md-1">
+                        <div className="col-12 col-md-4 order-0 order-md-1">
                           <div className="d-flex flex-wrap">
                             {questions &&
                               questions.map((i, index) => (
@@ -854,7 +884,9 @@ export default function AddExamQuestion(props) {
                                   index={index}
                                 />
                               ))}
-                            <AddNewItemButton />
+                            <div className="col-3 d-flex justify-content-center flex-shrink-0">
+                              <AddNewItemButton />
+                            </div>
                           </div>
                         </div>
                       </div>

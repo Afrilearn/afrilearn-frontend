@@ -48,7 +48,7 @@ const examReducer = (state = initialState, action) => {
       questions.splice(upQuestionIndex, 1, action.payload);
       return {
         ...state,
-        exams: { ...state.exam, questions: [...questions] },
+        exam: { ...state.exam, questions: [...questions] },
       };
       case ADD_EXAM_QUESTION_SUCCESS:
         return {

@@ -88,7 +88,7 @@ export default function AddExam(props) {
             dispatch(addExam(data));
           }}
         >
-          <label htmlFor="title" className="text-light">
+          <label htmlFor="title" className="text-light mt-4 mb-1">
             Exam Title
           </label>
           <input
@@ -100,7 +100,7 @@ export default function AddExam(props) {
             required
             onChange={(e) => setTitle(e.target.value)}
           />
-          <label htmlFor="questionType" className="text-light mt-2">
+          <label htmlFor="questionType" className="text-light mt-4 mb-1">
             Question Type
           </label>
           <select
@@ -118,7 +118,7 @@ export default function AddExam(props) {
             ))}
           </select>
 
-          <label htmlFor="questionType" className="text-light mt-2">
+          <label htmlFor="questionType" className="text-light mt-4 mb-1">
             Select Subject
           </label>
           <select
@@ -136,7 +136,7 @@ export default function AddExam(props) {
             ))}
           </select>
 
-          <label htmlFor="questionType" className="text-light mt-2">
+          <label htmlFor="questionType" className="text-light mt-4 mb-1">
             Term
           </label>
           <select
@@ -154,7 +154,7 @@ export default function AddExam(props) {
             ))}
           </select>
 
-          <label htmlFor="duration" className="text-light mt-2">
+          <label htmlFor="duration" className="text-light mt-4 mb-1">
             Set Duration
           </label>
           <input
@@ -166,7 +166,7 @@ export default function AddExam(props) {
             required
             onChange={(e) => setDuration(e.target.value)}
           />
-          <label htmlFor="instruction" className="text-light mt-2">
+          <label htmlFor="instruction" className="text-light mt-4 mb-1">
             Exam Instruction (optional)
           </label>
           <textarea
