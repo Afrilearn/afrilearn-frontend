@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { updateProfile } from "../../../redux/actions/authActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 export default function FeedBackPopUp({ visible = false, toggleModal }) {
   const [page, setPage] = useState(1);
@@ -18,6 +19,21 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
   const [acheived, setAcheived] = useState("");
   const [mostLoved, setMostLoved] = useState("");
   const [advise, setAdvise] = useState("");
+
+  const showWarning = (message) => {
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      position: "top",
+    });
+  };
+
   const handleSubmit = () => {
     const data = {
       rating,
@@ -200,8 +216,11 @@ you know?: ${rating}`;
         {page !== 6 && (
           <div className="feedback-message-nav d-flex mt-3 mt-md-5 justify-content-between align-items-center">
             <div
-              className="underline text-secondary mr-auto"
-              onClick={() => setPage((currentValue) => 6)}
+              className="underline text-secondary mr-auto cursor"
+              onClick={() => {
+                localStorage.setItem("afriLearn:lastFeedBack", new Date());
+                toggleModal();
+              }}
             >
               Skip
             </div>
@@ -215,7 +234,32 @@ you know?: ${rating}`;
             <button
               className="btn green-bg mx-2 text-white px-4"
               disabled={page === 6}
-              onClick={() => setPage((currentValue) => currentValue + 1)}
+              // onClick={() => setPage((currentValue) => currentValue + 1)}
+              onClick={() => {
+                if (page === 1 && !acheived) {
+                  showWarning(
+                    "Please tell us, What were you looking to achieve by using Afrilearn? Were you able to achieve it?"
+                  );
+                } else if (page === 2 && !mostLoved) {
+                  showWarning(
+                    "Please tell us, What do you love most about Afrilearn?"
+                  );
+                } else if (page === 3 && !advise) {
+                  showWarning(
+                    "Please tell us, What’s one thing you wish we could do, or do better?"
+                  );
+                } else if (page === 4 && preference === null) {
+                  showWarning(
+                    "Please tell us, What’s your interface preference for your preferred experience on Afrilearn?"
+                  );
+                } else if (page === 5 && !rating) {
+                  showWarning(
+                    "Please tell us, How likely are you to recommend Afrilearn to someone you know?"
+                  );
+                } else {
+                  setPage((currentValue) => currentValue + 1);
+                }
+              }}
             >
               Next
             </button>

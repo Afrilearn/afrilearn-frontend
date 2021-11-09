@@ -31,7 +31,8 @@
   font-weight: normal;
   font-style: normal;
 }
-embed html .freebirdLightBackground, embed body{
+embed html .freebirdLightBackground,
+embed body {
   background: white !important;
 }
 embed:focus {
@@ -369,7 +370,7 @@ img.logo {
   margin-right: 21px;
 }
 
-img.searchIcon {
+.searchIcon {
   width: 22px;
   height: 23px;
 }
@@ -400,7 +401,7 @@ input.searchBox {
   z-index: 9999;
 }
 
-.searchArea img.searchIcon1 {
+.searchArea .searchIcon1 {
   width: 14px;
   height: 14px;
   margin-right: 12px;
@@ -427,7 +428,7 @@ input.searchBox {
   display: block;
 }
 
-.searchArea:hover img.searchIcon {
+.searchArea:hover .searchIcon {
   position: absolute;
   left: 32px;
   top: 9px;
@@ -636,6 +637,7 @@ img.dropDownIcon1 {
     background: black;
     border-radius: 5px;
     padding: 20px;
+    /* font-family: Nunito !important; */
   }
 
   .navbar-light .navbar-toggler-icon {
@@ -692,7 +694,7 @@ img.dropDownIcon1 {
     width: 100%;
   }
 
-  .searchArea:hover img.searchIcon {
+  .searchArea:hover .searchIcon {
     top: 23px;
   }
 
@@ -779,7 +781,7 @@ select.no-appearance {
   color: #222222 !important;
 }
 .nunito {
-  font-family: Nunito;
+  font-family: Nunito !important;
 }
 .baloo {
   font-family: "Baloo 2", cursive;

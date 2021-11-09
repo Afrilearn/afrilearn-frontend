@@ -85,6 +85,8 @@ import AddExamQuestion from "../screens/exam/cms/AddExamQuestion/AddExamQuestion
 import ExamInstructions from "../screens/exam/examCenter/instructions/instructions.component";
 import ExamCenter from "../screens/exam/examCenter/exam/exam.component";
 import AcquisitionAgentNetwork from "../screens/AcquisitionAgentNetwork/AcquisitionAgentNetwork";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const MyNav = (props) => {
   const {
@@ -339,7 +341,17 @@ const MyNav = (props) => {
 
   return (
     <Router>
-      <Navbar color="light" light expand="md">
+      <Navbar
+        className={
+          window.location.pathname === "/acquisition-agent-network" && "nunito"
+        }
+        color={
+          window.location.pathname === "/acquisition-agent-network"
+            ? "white"
+            : "light"
+        }
+        expand="md"
+      >
         <NavbarBrand tag={Link} to="/">
           <img
             className="logo"
@@ -349,7 +361,7 @@ const MyNav = (props) => {
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar>
+          <Nav className="ml-auto" navbar color="white">
             {isAuthenticated ? (
               <>
                 <NavItem>
@@ -420,11 +432,18 @@ const MyNav = (props) => {
                     name="keyword"
                     onChange={handleSearch}
                   />
-                  <img
-                    className="searchIcon"
-                    src={require("../../assets/img/search.png")}
-                    alt="Afrilearn Search button"
-                  />
+                  {window.location.pathname === "/acquisition-agent-network" ? (
+                    <FontAwesomeIcon
+                      icon={faSearch}
+                      className="searchIcon d-inline-block"
+                    />
+                  ) : (
+                    <img
+                      className="searchIcon"
+                      src={require("../../assets/img/search.png")}
+                      alt="Afrilearn Search button"
+                    />
+                  )}
                 </form>
                 {isSearching ? (
                   <img
@@ -538,7 +557,7 @@ const MyNav = (props) => {
         <Route path="/accept-request" component={AcceptRequests} />
         <Route path="/faculty" component={faculties} />
         <Route path="/join-the-team" component={WorkWithAfrilearn} />
-        
+
         <Route path="/contact" component={contact} />
         <Route
           path="/past-questions/instructions"
