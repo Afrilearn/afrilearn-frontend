@@ -136,183 +136,112 @@ const Exam = props => {
 	return (        
 		<>  
            {pastQuestionRedirect ? <Redirect to={pastQuestionRedirectLocation} /> : null}          
-           <div className="container-fluid Examination">
-                <h2 className="center h12">{`${localStorage.getItem('subjectName')} ${localStorage.getItem('term')}`} </h2>
-                <div className="row">                            
-                   <div className="col-md-9 partOne">                                   
-                        {/* <div className="row">                          
-                            <div className="col-md-2 push33">
-                               <span className="headingOne">Examination:</span>   
+           <div className="container-fluid Examination">                
+                <div className="row">  
+                    <div className="col-md-2"></div>       
+                    <div className="col-md-10">
+                        <div className="row">
+                            <div className="col-md-9 partOne"> 
+                                <h2 className="h12">{`${localStorage.getItem('subjectName')} ${localStorage.getItem('term')}`} </h2>
+                                <div className="row myProgress push4">
+                                    <div className="col-md-12">
+                                        <Progress animated  color="success" value={progressBarStatus} />
+                                    </div>
+                                </div>
+                                {questionList()}                        
                             </div>
-                            <div className="col-md-7 badgeSection">
-                                <span className="categoryBadge first">                                   
-                                     {selectedCategory}       
-                                </span>                              
-                            </div>                           
-                        </div>
-                        <div className="row p3">                           
-                            <div className="col-md-1 push33">
-                                <span className="headingOne">{subjectTag}:</span>   
-                            </div>
-                            <div className="col-md-6 badgeSection">
-                                <span className="categoryBadge second">{selectedSubject}</span>                              
-                            </div>
-                            <div className="col-md-1 push33">
-                                <span className="headingOne">Year:</span>   
-                            </div>
-                            <div className="col-md-2 badgeSection">
-                                <span className="categoryBadge third">{selectedYear}</span>                              
-                            </div>
-                        </div>
-                        <div className="row p4 mobileOnly">
-                            <div className="col-md-12">
-                                <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
-                                    <Timer
-                                        initialTime={questionTime}
-                                        lastUnit="m"
-                                        direction="backward"
-                                        checkpoints={[
-                                            {
-                                                time: 600000,
-                                                callback: () => Swal.fire('Time Left!', 'You have 10 mins left')
-                                            }, 
-                                            {
-                                                time: speedRange3,
-                                                callback: () =>  props.inputChange('speed', speedRange3/60000)
-                                            },
-                                            {
-                                                time: speedRange2,
-                                                callback: () =>  props.inputChange('speed', speedRange2/60000)
-                                            },  
-                                            {
-                                                time: speedRange1,
-                                                callback: () =>  props.inputChange('speed', speedRange1/60000)
-                                            },                                                                            
-                                            {
-                                                time: 0,
-                                                callback: () => {
-                                                    Swal.fire('Time Up!', 'Thanks for attempting the test').then(() => {
-                                                        if(isAuthenticated){
-                                                            Swal.fire(
-                                                                'Submitted!',
-                                                                'Your test details are recorded successfully!',
-                                                                'success'
-                                                            )       
-                                                        }                                                 
-                                                        props.inputChange('currentQuestion', 0);
-                                                        props.inputChange('speed', questionTime/60000);
+                            <div className="col-md-3 timerSection desktopOnly">               
+                                <div className="row push3">
+                                        <div className="col-md-12">
+                                            <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
+                                            <Timer
+                                                initialTime={localStorage.getItem('duration')}
+                                                lastUnit="m"
+                                                direction="backward"
+                                                checkpoints={[
+                                                    {
+                                                        time: 600000,
+                                                        callback: () => Swal.fire('Time Left!', 'You have 10 mins left')
+                                                    }, 
+                                                    {
+                                                        time: speedRange3,
+                                                        callback: () =>  props.inputChange('speed', speedRange3/60000)
+                                                    },
+                                                    {
+                                                        time: speedRange2,
+                                                        callback: () =>  props.inputChange('speed', speedRange2/60000)
+                                                    },  
+                                                    {
+                                                        time: speedRange1,
+                                                        callback: () =>  props.inputChange('speed', speedRange1/60000)
+                                                    },                                                                            
+                                                    {
+                                                        time: 0,
+                                                        callback: () => {
+                                                            Swal.fire('Time Up!', 'Thanks for attempting the test').then(() => {
+                                                                if(isAuthenticated){
+                                                                    Swal.fire(
+                                                                        'Submitted!',
+                                                                        'Your test details are recorded successfully!',
+                                                                        'success'
+                                                                    )       
+                                                                }  
+                                                                props.inputChange('pastQuestionRedirectLocation', '/dashboard');
+                                                                props.inputChange('pastQuestionRedirect', true);                                               
+                                                                props.inputChange('currentQuestion', 0);
+                                                                props.inputChange('speed', questionTime/60000);
+                                                                dispatch(submitExamScore())
 
-                                                    }) 
-                                                } 
-                                            }                                         
-                                        ]}
-                                    >
-                                        {() => (
-                                            <React.Fragment>
-                                                <Timer.Minutes /> mins <Timer.Seconds /> sec                                        
-                                            </React.Fragment>
-                                        )}
-                                    </Timer>
-                                </span>                           
-                            </div>
-                        </div>               */}
-                        <div className="row myProgress push4">
-                            <div className="col-md-12">
-                                <Progress animated  color="success" value={progressBarStatus} />
-                            </div>
-                        </div>
-                        {questionList()}                        
-                   </div>
-                   <div className="col-md-3 timerSection desktopOnly">               
-                      <div className="row push3">
-                            <div className="col-md-12">
-                                <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
-                                <Timer
-                                    initialTime={localStorage.getItem('duration')}
-                                    lastUnit="m"
-                                    direction="backward"
-                                    checkpoints={[
-                                        {
-                                            time: 600000,
-                                            callback: () => Swal.fire('Time Left!', 'You have 10 mins left')
-                                        }, 
-                                        {
-                                            time: speedRange3,
-                                            callback: () =>  props.inputChange('speed', speedRange3/60000)
-                                        },
-                                        {
-                                            time: speedRange2,
-                                            callback: () =>  props.inputChange('speed', speedRange2/60000)
-                                        },  
-                                        {
-                                            time: speedRange1,
-                                            callback: () =>  props.inputChange('speed', speedRange1/60000)
-                                        },                                                                            
-                                        {
-                                            time: 0,
-                                            callback: () => {
-                                                Swal.fire('Time Up!', 'Thanks for attempting the test').then(() => {
-                                                    if(isAuthenticated){
-                                                        Swal.fire(
-                                                            'Submitted!',
-                                                            'Your test details are recorded successfully!',
-                                                            'success'
-                                                        )       
-                                                    }  
-                                                    props.inputChange('pastQuestionRedirectLocation', '/dashboard');
-                                                    props.inputChange('pastQuestionRedirect', true);                                               
-                                                    props.inputChange('currentQuestion', 0);
-                                                    props.inputChange('speed', questionTime/60000);
-                                                    dispatch(submitExamScore())
-
-                                                }) 
-                                            } 
-                                        }                                         
-                                    ]}
-                                >
-                                    {() => (
-                                        <React.Fragment>
-                                            <Timer.Minutes /> mins <Timer.Seconds /> sec                                        
-                                        </React.Fragment>
-                                    )}
-                                </Timer>
+                                                            }) 
+                                                        } 
+                                                    }                                         
+                                                ]}
+                                            >
+                                                {() => (
+                                                    <React.Fragment>
+                                                        <Timer.Minutes /> mins <Timer.Seconds /> sec                                        
+                                                    </React.Fragment>
+                                                )}
+                                            </Timer>
+                                                
+                                            </span> 
+                                        </div>
+                                </div>                
+                                <div className="row checkUps center">
+                                    {questionTagsList()}                                                               
+                                </div>
+                                <div className="row push3 push2">
+                                    <div className="col-md-12">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <span className="status attempted">&nbsp;</span>
+                                                </div>  
+                                                <div className="col-md-3">
+                                                    Attempted
+                                                </div> 
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <span className="status skipped">&nbsp;</span>
+                                                </div>  
+                                                <div className="col-md-3">
+                                                    Skipped
+                                                </div> 
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <span className="status pending">&nbsp;</span>
+                                                </div>  
+                                                <div className="col-md-3">
+                                                    Pending
+                                                </div> 
+                                            </div>
+                                    </div>
                                     
-                                </span> 
+                                </div>
                             </div>
-                      </div>                
-                      <div className="row checkUps center">
-                           {questionTagsList()}                                                               
-                      </div>
-                      <div className="row push3 push2">
-                          <div className="col-md-12">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <span className="status attempted">&nbsp;</span>
-                                    </div>  
-                                    <div className="col-md-3">
-                                        Attempted
-                                    </div> 
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <span className="status skipped">&nbsp;</span>
-                                    </div>  
-                                    <div className="col-md-3">
-                                        Skipped
-                                    </div> 
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <span className="status pending">&nbsp;</span>
-                                    </div>  
-                                    <div className="col-md-3">
-                                        Pending
-                                    </div> 
-                                </div>
-                          </div>
-                           
-                      </div>
-                   </div>
+                        </div> 
+                    </div> 
                 </div>
            </div>
            <Modal isOpen={modal} toggle={toggle} className="reportModalClass">               

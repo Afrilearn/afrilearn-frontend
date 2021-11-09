@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-NZ7WGLW');</script>
+  <head>  
       <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <link
@@ -56,10 +51,7 @@
 
   </head>
   <body oncontextmenu="return true">
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ7WGLW"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -98,7 +90,7 @@
       })();
     </script>
     <!--End of Tawk.to Script-->
-    <!-- <script>
+    <script>
           document.onkeydown = function (e) { 
                 if (event.keyCode == 123) { 
                     return false; 
@@ -116,6 +108,15 @@
                     return false; 
                 } 
             } 
-    </script> -->
+    </script>
+    <script>
+      function initFreshChat() {
+        window.fcWidget.init({
+          token: "c723a5e9-ccf3-4adc-b22e-abb8d065f38b",
+          host: "https://wchat.freshchat.com"
+        });
+      }
+      function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"Freshdesk Messaging-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
+    </script>
   </body>
 </html>

@@ -81,6 +81,7 @@ you know?: ${rating}`;
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
+                  required
                 ></textarea>
               </div>{" "}
             </div>
@@ -100,6 +101,7 @@ you know?: ${rating}`;
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
+                  required
                 ></textarea>
               </div>{" "}
             </div>
@@ -119,6 +121,7 @@ you know?: ${rating}`;
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
+                  required
                 ></textarea>
               </div>{" "}
             </div>

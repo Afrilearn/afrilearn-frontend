@@ -1,18 +1,18 @@
 .Examination {
     padding: 115px 90px 120px 90px;
-    background: black;
+    background: white;
     margin-top: -81px;
-    color: white;
+    color: #333333;
     height: 120vh;
 }
 
 .Examination .partOne {
-    padding-right: 150px;
+    padding-right: 48px;
 }
 
 .Examination .headingOne {
     font-size: 15pt;
-    color: white;
+    color: #333333;
 }
 
 .Examination .p3 {
@@ -53,7 +53,7 @@ img.motivation {
     object-fit: contain;
 }
 .Examination .h12 {
-    margin-bottom: 76px;
+    margin-bottom: 50px;
 }
 
 .Examination textarea{
@@ -79,7 +79,7 @@ img.motivation {
     border-radius: 10px;
     box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
     padding: 7px 11px;
-    color: white;
+    color: #333333;
     font-size: 15px;
     font-family: font1;
     text-align: center;
@@ -116,14 +116,11 @@ img.motivation {
 }
 
 .Examination .myQuestion {
-    box-shadow: 0pt 0.5pt 4pt rgb(0 0 0 / 10%);
+    box-shadow: 0 0.5pt 4pt rgb(0 0 0 / 10%);
     padding: 10px 21px;
-    border-radius: 11px;
+    border-radius: 6px;
     margin-bottom: 16px;
     width: 81%;
-    background: black;
-    color: white !important;
-    border: dotted 2px;
 }
 
 .Examination .beforeOptions {
@@ -167,7 +164,7 @@ img.motivation {
     border-radius: 7px;
     box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
     padding: 7px 11px;
-    color: white;
+    color: #333333;
     font-size: 14px;
     font-family: font1;
     float: right;
@@ -178,7 +175,7 @@ img.motivation {
     width: 81%;
     font-size: 17px !important;
     font-family: font1 !important;
-    color: white !important;
+    color: #333333 !important;
     line-height: 24px !important;
     background: transparent !important;
 }
@@ -204,10 +201,10 @@ img.motivation {
 }
 
 .Examination .status {
-    background: white;
-    border-radius: 50%;
-    padding: 6px 2px;
-    color: #84BB29 ;
+    background: red;
+    border-radius: 10px;
+    padding: 3px 2px;
+    color: #fff;
     font-family: font2;
     display: block;
     margin-bottom: 20px;
@@ -215,7 +212,7 @@ img.motivation {
 
 .Examination .selectedOption {
     background: #84BB29  !important;
-    color: white !important;
+    color: #333333 !important;
 }
 
 .reportModalClass .modal-header h5 {
