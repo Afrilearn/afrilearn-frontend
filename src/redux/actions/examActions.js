@@ -142,7 +142,7 @@ export const addExamQuestion = (data) => async (dispatch, getState) => {
     dispatch({
       type: EXAM_INPUT_CHANGE,
       payload: {
-        name: "addExamStatus",
+        name: "addQuestionStatus",
         value: "started",
       },
     });
@@ -154,7 +154,7 @@ export const addExamQuestion = (data) => async (dispatch, getState) => {
     dispatch({
       type: EXAM_INPUT_CHANGE,
       payload: {
-        name: "addExamStatus",
+        name: "addQuestionStatus",
         value: "success",
       },
     });
@@ -164,7 +164,7 @@ export const addExamQuestion = (data) => async (dispatch, getState) => {
     dispatch({
       type: EXAM_INPUT_CHANGE,
       payload: {
-        name: "addExamStatus",
+        name: "addQuestionStatus",
         value: "failed",
       },
     });
@@ -191,7 +191,7 @@ export const updateExamQuestion = (questionId, data) => async (
     dispatch({
       type: EXAM_INPUT_CHANGE,
       payload: {
-        name: "addExamStatus",
+        name: "updateQuestionStatus",
         value: "started",
       },
     });
@@ -203,7 +203,7 @@ export const updateExamQuestion = (questionId, data) => async (
     dispatch({
       type: EXAM_INPUT_CHANGE,
       payload: {
-        name: "addExamStatus",
+        name: "updateQuestionStatus",
         value: "success",
       },
     });
@@ -213,7 +213,7 @@ export const updateExamQuestion = (questionId, data) => async (
     dispatch({
       type: EXAM_INPUT_CHANGE,
       payload: {
-        name: "addExamStatus",
+        name: "updateQuestionStatus",
         value: "failed",
       },
     });
@@ -452,7 +452,7 @@ export const getResult = (id) => async (dispatch, getState) => {
   }
 };
 export const getStudentExam = (classId) => async (dispatch) => {
-  try {   
+  try {
     const result = await API.getStudentExams(classId);
     dispatch({
       type: GET_STUDENT_EXAMS_SUCCESS,
@@ -476,7 +476,7 @@ export const getStudentExam = (classId) => async (dispatch) => {
   }
 };
 export const getStudentExamInformation = (examId) => async (dispatch) => {
-  try {   
+  try {
     document.body.classList.add("loading-indicator");
     const result = await API.getExamInformation(examId);
     dispatch({
