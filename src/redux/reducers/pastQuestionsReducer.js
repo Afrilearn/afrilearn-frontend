@@ -88,6 +88,7 @@ const pastQuestionsReducer = (state = initialState, action) => {
         speedRange3: (action.payload.questionTime / 4) * 3,
         speed: ((action.payload.questionTime / 4) * 1) / 60000,
         motivations: action.payload.motivations,
+        submittedAnswers:[]
       };
 
     case FLAG_QUESTION_SUCCESS:

@@ -81,12 +81,11 @@ const QuestionBox = props => {
             props.inputChange('progressBarStatus', progressBarStatus + progressBarUnit);        
         }
         if(props.questionType === 'Theory'){
-            // if(Object.keys(submittedAnswers[currentQuestion]).length){
-            //     // setTheoryAnswer(submittedAnswers[currentQuestion+1].answer)
-            //     console.log('am here')
-            // }else{
-            //     setTheoryAnswer('')
-            // }
+            if(submittedAnswers[currentQuestion+1]){
+                setTheoryAnswer(submittedAnswers[currentQuestion+1].answer)
+            }else{
+                setTheoryAnswer('')
+            }            
         }   
         return true;
     };
@@ -121,6 +120,7 @@ const QuestionBox = props => {
         })
     };
 
+    //handle previous
     const handlePrevious = async () => {
         if(currentQuestion > 0){
             props.inputChange('currentQuestion', currentQuestion - 1); 
@@ -144,7 +144,7 @@ const QuestionBox = props => {
         if(props.questionType !== 'Theory'){
             if(answer === -1){
                 status='skipped'
-            }else if(answer === questions[currentQuestion].correct_option){
+            }else if(answer === questions[currentQuestion].correctOption){
                 status='correct'
             }else{
                 status='incorrect' 
@@ -154,8 +154,8 @@ const QuestionBox = props => {
             status,
             questionId:questions[currentQuestion].id,
             optionSelected:answer,
-            correctOption:questions[currentQuestion].correct_option,          
-            markWeight:questions[currentQuestion].mark_weight,        
+            correctOption:questions[currentQuestion].correctOption,          
+            markWeight:questions[currentQuestion].markWeight,        
         }
 
         if(props.questionType === 'Theory'){
@@ -165,7 +165,7 @@ const QuestionBox = props => {
     };
 
     const handleCorrectAnswerCheck = async answer => {
-        if (answer == questions[currentQuestion].correct_option) {
+        if (answer == questions[currentQuestion].correctOption) {
             props.inputChange('correctAnswers', correctAnswers + 1);    
         } 
     };
