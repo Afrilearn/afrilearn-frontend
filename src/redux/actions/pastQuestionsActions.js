@@ -345,7 +345,6 @@ export const submitExamScore = () => async (dispatch, getState) => {
             "score": '',
             "remark": '', 
         }
-        console.log(response)
         await API.submitExamAnswer(response);      
         dispatch({
             type: SUBMIT_EXAM_RESULT_SUCCESS                     

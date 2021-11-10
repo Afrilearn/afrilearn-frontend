@@ -60,7 +60,7 @@ const QuestionBox = props => {
         isAuthenticated,
         answers,
         motivations,
-        questionLength,
+        submittedAnswers,
         motivationItemNo,
         motivationInterval,
         motivateGoodPerformance, 
@@ -80,6 +80,14 @@ const QuestionBox = props => {
             props.inputChange('currentQuestion', currentQuestion + 1);  
             props.inputChange('progressBarStatus', progressBarStatus + progressBarUnit);        
         }
+        if(props.questionType === 'Theory'){
+            // if(Object.keys(submittedAnswers[currentQuestion]).length){
+            //     // setTheoryAnswer(submittedAnswers[currentQuestion+1].answer)
+            //     console.log('am here')
+            // }else{
+            //     setTheoryAnswer('')
+            // }
+        }   
         return true;
     };
 
@@ -116,7 +124,10 @@ const QuestionBox = props => {
     const handlePrevious = async () => {
         if(currentQuestion > 0){
             props.inputChange('currentQuestion', currentQuestion - 1); 
-            props.inputChange('progressBarStatus', progressBarStatus - progressBarUnit);  
+            props.inputChange('progressBarStatus', progressBarStatus - progressBarUnit);          
+            if(props.questionType === 'Theory'){              
+                setTheoryAnswer(submittedAnswers[currentQuestion-1].answer)
+            }  
         }     
     };
 
@@ -146,6 +157,10 @@ const QuestionBox = props => {
             correctOption:questions[currentQuestion].correct_option,          
             markWeight:questions[currentQuestion].mark_weight,        
         }
+
+        if(props.questionType === 'Theory'){
+            response['answer'] = theoryAnswer
+        }
         props.populateSubmittedAnswer(response)     
     };
 
@@ -166,7 +181,7 @@ const QuestionBox = props => {
                 <textarea rows="8" cols="20" value={theoryAnswer} onChange={e=>setTheoryAnswer(e.target.value)}>
 
                 </textarea>
-                <button>Next</button>
+                <button onClick={handleNextQuestion.bind(this,'')}>Next</button>
             </span>
             )
         }else{

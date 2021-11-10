@@ -341,17 +341,7 @@ const MyNav = (props) => {
 
   return (
     <Router>
-      <Navbar
-        className={
-          window.location.pathname === "/acquisition-agent-network" && "nunito"
-        }
-        color={
-          window.location.pathname === "/acquisition-agent-network"
-            ? "white"
-            : "light"
-        }
-        expand="md"
-      >
+     <Navbar color="light" light expand="md">
         <NavbarBrand tag={Link} to="/">
           <img
             className="logo"

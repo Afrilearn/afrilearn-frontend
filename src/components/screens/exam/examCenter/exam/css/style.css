@@ -73,6 +73,11 @@ img.motivation {
     background: white;
     border: solid 1px #84BB29;
 }
+.Examination .rs-container {
+    width: 100%;
+    margin-top: 13px;
+    display: block;
+}
 
 .Examination .optionSection {
     display: flex;
@@ -236,7 +241,7 @@ img.motivation {
 
 .Examination .selectedOption {
     background: #84BB29  !important;
-    color: #333333 !important;
+    color: white !important;
 }
 
 .reportModalClass .modal-header h5 {

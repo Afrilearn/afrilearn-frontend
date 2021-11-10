@@ -44,6 +44,9 @@ const Footer = (props) => {
               </li>             
               <li>
                 <Link to="/contact">Contact</Link>
+              </li>    
+              <li>
+                <Link to="/acquisition-agent-network">We are hiring</Link>
               </li>              
             </ul>
             <ul className="floatUl desktopOnly">
