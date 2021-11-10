@@ -9,9 +9,6 @@ import { faFlag, faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import Speech from 'react-speech';
 import { Modal, ModalBody, } from 'reactstrap';
 import parse from 'html-react-parser';
-import submitButton from '../../../assets/img/exam-submit.png';
-import leftIcon from '../../../assets/img/exam-icon-left.png';
-import rightIcon from '../../../assets/img/exam-icon-right.png';
 
 
 /*eslint-disable eqeqeq*/
@@ -19,6 +16,7 @@ import rightIcon from '../../../assets/img/exam-icon-right.png';
 const QuestionBox = props => {  
     const dispatch = useDispatch();
     const [modal1, setModal1] = useState(false);
+    const [theoryAnswer, setTheoryAnswer] = useState('');
     const toggle1 = () => {     
         setModal1(!modal1); 
     } 
@@ -69,9 +67,12 @@ const QuestionBox = props => {
         examType
     }= props;   
     
-    const handleNextQuestion = async answer => {        
-        await handleCorrectAnswerCheck(answer);
-        await handleSaveAnswer(answer);
+    const handleNextQuestion = async answer => {  
+        if(props.questionType !== 'Theory'){
+            await handleCorrectAnswerCheck(answer);
+            await handleSaveAnswer(answer);
+        }      
+      
         await prepareSubmittedAnswer(answer);
         if (handleLastQuestionCheck()) {
             handleClosure()
@@ -84,12 +85,12 @@ const QuestionBox = props => {
 
     const handleClosure = async () => {      
         Swal.fire({
-            title: 'Do you want to submit?',
-            text: 'Sure you’re ready to submit?',
+            title: 'SUBMIT EXAM',
+            text: "This action submit all your answers so far and signifies the end of your examination. Are you sure you want to submit?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, Submit!',
-            cancelButtonText: 'No, cancel'
+            cancelButtonText: 'No, i’m not ready'
         }).then((result) => {
             if (result.value) {
                 if(isAuthenticated){
@@ -129,19 +130,21 @@ const QuestionBox = props => {
 
     const prepareSubmittedAnswer = async answer => {
         let status = null;
-        if(answer === -1){
-            status='skipped'
-        }else if(answer === questions[currentQuestion].correct_option){
-            status='correct'
-        }else{
-            status='incorrect' 
+        if(props.questionType !== 'Theory'){
+            if(answer === -1){
+                status='skipped'
+            }else if(answer === questions[currentQuestion].correct_option){
+                status='correct'
+            }else{
+                status='incorrect' 
+            }
         }
         let response = {
             status,
             questionId:questions[currentQuestion].id,
             optionSelected:answer,
             correctOption:questions[currentQuestion].correct_option,          
-            markWeight:questions[currentQuestion].mark_weight
+            markWeight:questions[currentQuestion].mark_weight,        
         }
         props.populateSubmittedAnswer(response)     
     };
@@ -158,9 +161,14 @@ const QuestionBox = props => {
 
     const optionList = () => {      
         if(props.questionType === 'Theory'){
-            return <textarea rows="8" cols="20">
+            return (
+            <span className="relative">
+                <textarea rows="8" cols="20" value={theoryAnswer} onChange={e=>setTheoryAnswer(e.target.value)}>
 
-            </textarea>
+                </textarea>
+                <button>Next</button>
+            </span>
+            )
         }else{
             if(props.options.length){
                 // eslint-disable-next-line array-callback-return
@@ -231,7 +239,7 @@ const QuestionBox = props => {
             <Link className="previous gh" onClick={handleClosure}>Submit</Link> <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link><Speech id="audio" text={handleTextToSpeech()} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} />} />             
             </div>
             <div className="col-7 afterReport">
-            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous"><span className=""><img src={require('../../../assets/img/next.svg')} alt='logo' className=""/> Previous</span> </Link> : null}   { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip"><span className=""><img src={require('../../../assets/img/skip.svg')} alt='logo' className=""/> Skip</span> </Link>:null}                                                                                          
+            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous"><span className="">Previous</span> </Link> : null}   { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip"><span className="">Skip</span> </Link>:null}                                                                                          
             </div>
         </div>
         {/* <div className="optionSection">

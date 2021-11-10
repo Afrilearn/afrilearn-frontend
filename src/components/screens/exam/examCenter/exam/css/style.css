@@ -59,6 +59,19 @@ img.motivation {
 .Examination textarea{
     width: 82%;
     padding: 15px;
+    position: relative;
+}
+
+.Examination button {
+    position: absolute;
+    bottom: 9px;
+    right: 4px;
+    resize: none;
+    padding: 3px 11px;
+    border-radius: 5px;
+    color: #84BB29;
+    background: white;
+    border: solid 1px #84BB29;
 }
 
 .Examination .optionSection {
@@ -83,7 +96,7 @@ img.motivation {
     font-size: 15px;
     font-family: font1;
     text-align: center;
-    background: #84BB29 ;
+    background: #84BB29;
 }
 
 .Examination .bg-success {
@@ -137,13 +150,19 @@ img.motivation {
     padding: 7px 35px;
 }
 
+.Examination .typeActive{
+    color: #84BB29  !important;
+}
+
 .Examination a.previous {
     background: #84BB29  !important;
 }
 
 .Examination a.skip {
-    background: #fabf61 !important;
+    background: white !important;
     margin-left: 16px;
+    color: #fabf61 !important;
+    border: solid 1px #fabf61;
 }
 
 .Examination .afterReport {
@@ -156,19 +175,18 @@ img.motivation {
     width: 86%;
 }
 
-.Examination .timerSection {
-    padding-left: 33px;
-}
-
 .Examination .timer {
     border-radius: 7px;
     box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
     padding: 7px 11px;
-    color: #333333;
+    color: white;
     font-size: 14px;
     font-family: font1;
     float: right;
-    background: #84BB29 ;
+    background: #333333;
+}
+.Examination .timerSection {
+    padding-left: 0px !important;
 }
 
 .Examination .questionImgSection, .Examination .questionSection, .Examination .questionSection span, .Examination .questionSection p {
@@ -192,7 +210,12 @@ img.motivation {
 
 .Examination .checkUps {
     margin-top: 43px;
-    margin-left: 1px;
+    /* margin-left: 1px; */
+}
+
+.Examination .op {
+    padding-right: 15px
+;
 }
 
 .Examination a.previous img {
@@ -208,6 +231,7 @@ img.motivation {
     font-family: font2;
     display: block;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 .Examination .selectedOption {
@@ -230,6 +254,19 @@ img.motivation {
 
 .Examination .push4 {
     width: 86%;
+}
+
+.Examination .examTypeSection h5, .Examination .examTypeSection h6{
+    margin-bottom: 23px;
+}
+.Examination .putBorderLeft {
+    border-left: solid 1px lightgrey;
+    padding-left: 30px;
+}
+
+.Examination h5.examType {
+    font-weight: bold;
+    margin-top: 7px;
 }
 
 
@@ -314,6 +351,8 @@ img.motivation {
         width: 100% !important;
         font-size: 14px;
     }
+
+   
 
     .Examination a.skip {
         background: #fabf61 !important;

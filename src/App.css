@@ -39,6 +39,7 @@ embed:focus {
   outline: none;
   background: white !important;
 }
+
 /* @font-face {
   font-family: 'font2';
   src: url('./assets/fonts/Baloo-Regular-400.ttf') format('opentype');
@@ -68,6 +69,7 @@ html,
 body {
   font-family: font1 !important;
   overflow-x: hidden;
+  padding-right: 0px !important;
 }
 
 .absolute {

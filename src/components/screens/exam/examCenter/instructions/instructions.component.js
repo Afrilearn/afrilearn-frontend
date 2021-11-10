@@ -47,7 +47,7 @@ const ExamInstructionsPage = props => {
                         <div className="col-md-6 right">
                             <span><img src={Icon3} alt="total number of exam questions"/>TIME: {examinationInfo?.duration}Mins</span>
                         </div>
-                        <div className="col-md-6 rr">
+                        <div className="col-md-8 rr">
                             <span><img src={Icon2} alt="total number of exam questions"/>QUESTION TYPE: {examinationInfo?.questionTypeId?.name}</span>
                         </div>
                     </div>           

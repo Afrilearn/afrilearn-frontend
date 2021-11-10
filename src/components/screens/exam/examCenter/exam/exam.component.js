@@ -60,8 +60,8 @@ const Exam = props => {
         examType   
     }=props;     
     
-    const questionList = () => {         
-        if(questions.length){                        
+    const questionList = () => {            
+        if(questions.length){                          
             return <QuestionBox            
                         QuestionNo={currentQuestion+1}
                         QuestionTitle={questions[currentQuestion].question}
@@ -77,11 +77,13 @@ const Exam = props => {
         }
 		
     }
+
     const handleRenavigation = async questionNumber => {
         props.inputChange('currentQuestion', questionNumber); 
         let myQuestionNumber = questionNumber +1;       
         props.inputChange('progressBarStatus', myQuestionNumber * progressBarUnit);         
     };
+
     const questionTagsList = () => {         
         if(questionTags.length){
             return questionTags.map((item, index) => { 
@@ -93,9 +95,11 @@ const Exam = props => {
            return <h5>0ops!, No tag found</h5>
         }        
     }
+
     const handleFlagQuestion = () => {
         setModal(true)
     };
+
     const reportQuestion = () => {
         let questionId =  questions[currentQuestion].question_id;
         let message = `The question with id ${questionId} has the following complaints:`;
@@ -126,6 +130,7 @@ const Exam = props => {
         props.flagQuestion(data)
         setModal(false)
     }; 
+
     const handleChange = (e) => {  
         const target = e.target;
         const name = target.id;
@@ -138,8 +143,12 @@ const Exam = props => {
            {pastQuestionRedirect ? <Redirect to={pastQuestionRedirectLocation} /> : null}          
            <div className="container-fluid Examination">                
                 <div className="row">  
-                    <div className="col-md-2"></div>       
-                    <div className="col-md-10">
+                    <div className="col-md-2 examTypeSection">
+                        <h5 className="examType">Exam Type</h5>
+                        <h6 className={`${questions && questions.length && questions[currentQuestion].type === 'Objective'?'typeActive':''}`}>Objective</h6>
+                        <h6 className={`${questions && questions.length && questions[currentQuestion].type === 'Theory'?'typeActive':''}`}>Theory</h6>
+                    </div>       
+                    <div className="col-md-10 putBorderLeft">
                         <div className="row">
                             <div className="col-md-9 partOne"> 
                                 <h2 className="h12">{`${localStorage.getItem('subjectName')} ${localStorage.getItem('term')}`} </h2>
@@ -152,7 +161,7 @@ const Exam = props => {
                             </div>
                             <div className="col-md-3 timerSection desktopOnly">               
                                 <div className="row push3">
-                                        <div className="col-md-12">
+                                        <div className="col-md-12 paddingLeftOff">
                                             <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
                                             <Timer
                                                 initialTime={localStorage.getItem('duration')}
@@ -178,11 +187,11 @@ const Exam = props => {
                                                     {
                                                         time: 0,
                                                         callback: () => {
-                                                            Swal.fire('Time Up!', 'Thanks for attempting the test').then(() => {
+                                                            Swal.fire('Time Up!', 'Thanks for attempting the exam').then(() => {
                                                                 if(isAuthenticated){
                                                                     Swal.fire(
                                                                         'Submitted!',
-                                                                        'Your test details are recorded successfully!',
+                                                                        'Your exam details are recorded successfully!',
                                                                         'success'
                                                                     )       
                                                                 }  
@@ -211,7 +220,7 @@ const Exam = props => {
                                     {questionTagsList()}                                                               
                                 </div>
                                 <div className="row push3 push2">
-                                    <div className="col-md-12">
+                                    <div className="col-md-12 paddingLeftOff op">
                                             <div className="row">
                                                 <div className="col-md-3">
                                                     <span className="status attempted">&nbsp;</span>
