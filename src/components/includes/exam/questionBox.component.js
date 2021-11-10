@@ -120,6 +120,7 @@ const QuestionBox = props => {
         })
     };
 
+    //handle previous
     const handlePrevious = async () => {
         if(currentQuestion > 0){
             props.inputChange('currentQuestion', currentQuestion - 1); 
