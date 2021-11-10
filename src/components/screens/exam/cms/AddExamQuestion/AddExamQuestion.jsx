@@ -22,7 +22,7 @@ import {
   updateExamQuestion,
 } from "../../../../../redux/actions/examActions";
 import parse from "html-react-parser";
-
+import Swal from "sweetalert2";
 import "./style.css";
 
 const btnList = [
@@ -324,6 +324,40 @@ export default function AddExamQuestion(props) {
     );
   };
 
+  const showWarning = (message) => {
+    Swal.fire({
+      html: message,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      timer: 3500,
+      position: "top",
+    });
+  };
+  const addQuestionStatus = useSelector(
+    (state) => state.exam.addQuestionStatus
+  );
+  const updateQuestionStatus = useSelector(
+    (state) => state.exam.updateQuestionStatus
+  );
+
+  useEffect(() => {
+    if (addQuestionStatus === "success") {
+      showWarning("Question added successfully.");
+    }
+    if (addQuestionStatus === "failed") {
+      showWarning("Error adding the question, try again.");
+    }
+    if (updateQuestionStatus === "success") {
+      showWarning("Question updated successfully.");
+    }
+    if (updateQuestionStatus === "failed") {
+      showWarning("Error updating the question, try again.");
+    }
+  }, [addQuestionStatus, updateQuestionStatus]);
   return (
     <div id="add-exam">
       <div className="container-fluid row g-md-2 pt-2 pt-md-5">
@@ -475,7 +509,7 @@ export default function AddExamQuestion(props) {
                         onClick={() => setBlock("Theory")}
                       >
                         <span>Theory</span>
-                      </div>
+                      </div> 
                     </div>
                   */}
                     <div className="row g-3  py-2 py-md-4">
@@ -884,9 +918,9 @@ export default function AddExamQuestion(props) {
                                   index={index}
                                 />
                               ))}
-                            <div className="col-3 d-flex justify-content-center flex-shrink-0">
-                              <AddNewItemButton />
-                            </div>
+                            {/* <div className="col-3 d-flex justify-content-center flex-shrink-0"> */}
+                            <AddNewItemButton />
+                            {/* </div> */}
                           </div>
                         </div>
                       </div>
