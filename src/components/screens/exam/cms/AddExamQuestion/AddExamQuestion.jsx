@@ -125,16 +125,16 @@ export default function AddExamQuestion(props) {
           </p>
         </div>
         <div className="option-item">
-          A. {question.optionOne && parse(question.optionOne)}
+          A. {question.options && parse(question.options[0])}
         </div>
         <div className="option-item">
-          B. {question.optionTwo && parse(question.optionTwo)}
+          B. {question.options && parse(question.options[1])}
         </div>
         <div className="option-item">
-          C. {question.optionThree && parse(question.optionThree)}
+          C. {question.options && parse(question.options[2])}
         </div>
         <div className="option-item">
-          D. {question.optionFour && parse(question.optionFour)}
+          D. {question.options && parse(question.options[3])}
         </div>
       </div>
     );
@@ -761,13 +761,13 @@ export default function AddExamQuestion(props) {
                                 onChange={(e) => {
                                   setQuestion((currentQuestion) => ({
                                     ...currentQuestion,
-                                    correct_option: e.target.value,
+                                    correctOption: e.target.value,
                                   }));
-                                  // correct_option
+                                  // correctOption
                                   // dispatch(
                                   //   inputChange("selcetedQuestion", {
                                   //     ...selcetedQuestion,
-                                  //     correct_option: e.target.value,
+                                  //     correctOption: e.target.value,
                                   //   })
                                   // );
                                 }}
@@ -777,7 +777,7 @@ export default function AddExamQuestion(props) {
                                   <option
                                     value={index}
                                     key={index}
-                                    selected={index === question.correct_option}
+                                    selected={index === question.correctOption}
                                   >
                                     {index === 0
                                       ? "A"
@@ -798,6 +798,7 @@ export default function AddExamQuestion(props) {
                               <input
                                 type="number"
                                 placeholder="0"
+                                defaultValue={question.markWeight}
                                 id="title"
                                 className="general border"
                                 name="markWeight"
@@ -827,8 +828,9 @@ export default function AddExamQuestion(props) {
                                 onClick={() =>
                                   dispatch(
                                     updateExamQuestion(question._id, {
+                                      markWeight: question.markWeight,
                                       question: question.question,
-                                      correct_option: question.correct_option,
+                                      correctOption: question.correctOption,
                                       options: question.options,
                                       contentImages: contentImagesRef.current.map(
                                         (cnt) => cnt.file

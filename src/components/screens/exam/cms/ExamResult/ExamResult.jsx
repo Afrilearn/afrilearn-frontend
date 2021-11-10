@@ -17,6 +17,7 @@ export default function ExamResult() {
   useEffect(() => {
     dispatch(getResult(resultId));
   }, []);
+  const optionLabels = ["A", "B", "C", "D"];
   const result = useSelector((state) => state.exam.result);
   console.log("result.results", result.results);
   let totalTheoryScore = 0;
@@ -112,10 +113,32 @@ export default function ExamResult() {
             <p className="nunito text-white mt-5">Answer:</p>
             {type === "Objective" && (
               <div className="answer-box">
-                <p className="text-white nunito light-font text-justify">
+                <p className="text-white nunito light-font text-justify ">
+                  <strong>
+                    Correct Option : <br />
+                  </strong>
+                  {optionLabels[[item?.correctOption]]}.{" "}
+                  {item?.questionId?.options[item?.correctOption] &&
+                    parse(item?.questionId?.options[item?.correctOption])}
+                </p>
+                <p
+                  className={`text-white nunito light-font text-justify ${
+                    item?.correctOption === item?.optionSelected
+                      ? "text-success"
+                      : "text-danger"
+                  }`}
+                >
+                  <strong>
+                    Selected Option : <br />
+                  </strong>
+                  {optionLabels[[item?.optionSelected]]}.{" "}
                   {item?.questionId?.options[item?.optionSelected] &&
                     parse(item?.questionId?.options[item?.optionSelected])}
                 </p>
+                {/* <p className="text-white nunito light-font text-justify">
+                  {item?.questionId?.options[item?.optionSelected] &&
+                    parse(item?.questionId?.options[item?.optionSelected])}
+                </p> */}
               </div>
             )}
             {type === "Theory" && (
