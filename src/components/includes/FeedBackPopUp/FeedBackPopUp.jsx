@@ -44,16 +44,31 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
     };
     const feedBackText = `
     <ol>
-        <li>What were you looking to achieve by using Afrilearn? Were you able to achieve it?: ${acheived}</li>
-        <li>What do you love most about Afrilearn?: ${mostLoved}</li>
-        <li>What&rsquo;s one thing you wish we could do, or do better?:${advise}</li>
-        <li>What&rsquo;s your interface preference for your preferred experience on Afrilearn?: ${preferences[preference]?.text}</li>
-        <li>How likely are you to recommend Afrilearn to someone&nbsp;you&nbsp;know?:&nbsp;${rating}</li>
-      </ol>
+    <li>How likely are you to recommend Afrilearn to someone you know?&nbsp;<strong>${rating}</strong></li>
+    <li>
+    <p>What were you looking to achieve by using Afrilearn? Were you able to achieve it?</p>
+    <p><strong>${acheived}</strong></p>
+    </li>
+    <li>
+    <p>What do you love most about Afrilearn?</p>
+    <p><strong>${mostLoved}</strong></p>
+    </li>
+    <li>
+    <div>&nbsp;What's one thing you wish we could do, or do better?</div>
+    <div>&nbsp;</div>
+    <div>
+    <div><strong>${advise}</strong></div>
+    <div>
+    <div>&nbsp;</div>
+    </div>
+    </div>
+    </li>
+    </ol>
     `;
     localStorage.setItem("afriLearn:lastFeedBack", new Date());
     dispatch(updateProfile({ feedBack: feedBackText }));
     toggleModal();
+    // console.log("feedBackText", feedBackText);
   };
   if (!visible) return null;
   return (
@@ -75,14 +90,14 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
         <div className="feedback-progress-bar my-5">
           <div
             className="feedback-progress"
-            style={{ flexBasis: `${(page * 100) / 6}%` }}
+            style={{ flexBasis: `${(page * 100) / 5}%` }}
           ></div>
-          <span style={{ left: `${Math.floor((page * 100) / 6)}%` }}>
-            {Math.floor((page * 100) / 6)}%
+          <span style={{ left: `${Math.floor((page * 100) / 5)}%` }}>
+            {Math.floor((page * 100) / 5)}%
           </span>
         </div>
         <div className="feedback-message-box">
-          {page === 1 && (
+          {page === 2 && (
             <div>
               <div class="mb-3">
                 <label
@@ -98,12 +113,11 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
-                  required
                 ></textarea>
               </div>{" "}
             </div>
           )}
-          {page === 2 && (
+          {page === 3 && (
             <div>
               <div class="mb-3">
                 <label
@@ -118,12 +132,11 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
-                  required
                 ></textarea>
               </div>{" "}
             </div>
           )}
-          {page === 3 && (
+          {page === 4 && (
             <div>
               <div class="mb-3">
                 <label
@@ -138,37 +151,12 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
-                  required
                 ></textarea>
               </div>{" "}
             </div>
           )}
-          {page === 4 && (
-            <div>
-              <div class="mb-3">
-                <label
-                  for="exampleFormControlTextarea1"
-                  placeholder="Type your answer here"
-                  class="form-label nunito bold"
-                >
-                  What’s your interface preference for your preferred experience
-                  on Afrilearn?
-                </label>
-                {preferences.map((i, index) => (
-                  <button
-                    className={`preference-button ${
-                      preference === index && "prefered-button"
-                    }`}
-                    onClick={() => setPreference(index)}
-                  >
-                    <div className="preference-button-label">{i.label}</div>
-                    <span className="nunito bold">{i.text}</span>
-                  </button>
-                ))}
-              </div>{" "}
-            </div>
-          )}
-          {page === 5 && (
+
+          {page === 1 && (
             <div>
               <div class="mb-3">
                 <label
@@ -194,7 +182,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
               </div>
             </div>
           )}
-          {page === 6 && (
+          {page === 5 && (
             <div>
               <div class="d-flex justify-content-center align-items-center h-100 w-100 flex-column">
                 <h1 className="bold baloo text-center mt-0 mt-md-5">
@@ -214,7 +202,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
           )}
         </div>
 
-        {page !== 6 && (
+        {page !== 5 && (
           <div className="feedback-message-nav d-flex mt-3 mt-md-5 justify-content-between align-items-center">
             <div
               className="underline text-secondary mr-auto cursor"
@@ -234,26 +222,22 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
             </button>
             <button
               className="btn green-bg mx-2 text-white px-4"
-              disabled={page === 6}
+              disabled={page === 5}
               // onClick={() => setPage((currentValue) => currentValue + 1)}
               onClick={() => {
-                if (page === 1 && !acheived) {
+                if (page === 2 && !acheived) {
                   showWarning(
                     "Please tell us, What were you looking to achieve by using Afrilearn? Were you able to achieve it?"
                   );
-                } else if (page === 2 && !mostLoved) {
+                } else if (page === 3 && !mostLoved) {
                   showWarning(
                     "Please tell us, What do you love most about Afrilearn?"
                   );
-                } else if (page === 3 && !advise) {
+                } else if (page === 4 && !advise) {
                   showWarning(
                     "Please tell us, What’s one thing you wish we could do, or do better?"
                   );
-                } else if (page === 4 && preference === null) {
-                  showWarning(
-                    "Please tell us, What’s your interface preference for your preferred experience on Afrilearn?"
-                  );
-                } else if (page === 5 && !rating) {
+                } else if (page === 1 && !rating) {
                   showWarning(
                     "Please tell us, How likely are you to recommend Afrilearn to someone you know?"
                   );
