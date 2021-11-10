@@ -47,6 +47,7 @@ export default function AcquisitionAgentNetwork() {
   );
 
   useEffect(() => {
+    window.scrollTo(0, 0);   
     if (agentStoryStatus === "success") {
       showWarning("Your data was submitted, we will get back to you soon.");
     }
@@ -56,6 +57,7 @@ export default function AcquisitionAgentNetwork() {
   }, [agentStoryStatus]);
 
   return (
+    <>
     <div id="acquisition-network">
       <div id="AgentSectionOne">
         <div className="container">
@@ -317,8 +319,9 @@ export default function AcquisitionAgentNetwork() {
             </div>
           </div>
         </div>
-      </div>
-      <Footer />
+      </div>     
     </div>
+     <Footer />
+     </>
   );
 }

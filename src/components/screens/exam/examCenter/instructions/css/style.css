@@ -1,6 +1,6 @@
 .examInstructions {
     padding: 55px 90px 90px 90px;
-    background: black;
+    background: white;
 }
 .examInstructions .afterNav{
     padding-left: 48px; 
@@ -9,7 +9,8 @@
     text-align: center;
     margin-bottom: 50px;
     font-family: font2;
-    color: white;
+    color: #333333;
+    font-weight: bold;
 }
 #examInstruction2 .examLogo {
     width: 236px;
@@ -19,32 +20,51 @@
     object-fit: contain;
 }
 #examInstructions hr {
-    background: white;
+    background: #333333;
 }
 #examInstruction3, #examInstruction4 {
     padding: 37px 170px;
-    color: white;
+    color: #333333;
+}
+#examInstruction3 {
+    text-transform: uppercase;
 }
 #examInstruction4{
     padding: 20px 170px;
     font-size: 17px;
 }
+#examInstruction4 svg {
+    margin-top: -4px;
+    width: 15px;
+    height: 19px;
+    color: #FDAD51;
+}
 #examInstruction3 img {
     width: 30px;
     height: 30px;
-    margin-top: -6px;
-    margin-right: 7px;
+    margin-top: -4px;
+    margin-right: 16px;
 }
+.examInstructions .putBorderLeft {
+    border-left: solid 1px lightgrey;
+}
+.examInstructions hr {
+    border:none
+}
+
 #examInstruction3 .rr {
     margin-top: 30px;
 }
 #examInstruction5 a {
-    color: grey !important;
-    background: white !important;
-    padding: 10px 65px;
+    color: white !important;
+    background: #84BB29 !important;
+    padding: 10px 137px;
     border-radius: 5px;
     display: inline-block;
     margin-top: 38px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 2px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    font-weight: bold;
+    margin-left: 28px;
 }
 
 @media screen and (max-width: 768px) {

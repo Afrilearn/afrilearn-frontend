@@ -41,7 +41,7 @@
 #contactSecondSection svg{
     font-size: 22px;
 }
-#contactSecondSection input, textarea{
+#contactSecondSection input,#contactSecondSection textarea{
     width: 100%;
     padding: 7px 12px;
     background: #f5f5f5;

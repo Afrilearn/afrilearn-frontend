@@ -9,9 +9,6 @@ import { faFlag, faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import Speech from 'react-speech';
 import { Modal, ModalBody, } from 'reactstrap';
 import parse from 'html-react-parser';
-import submitButton from '../../../assets/img/exam-submit.png';
-import leftIcon from '../../../assets/img/exam-icon-left.png';
-import rightIcon from '../../../assets/img/exam-icon-right.png';
 
 
 /*eslint-disable eqeqeq*/
@@ -19,6 +16,7 @@ import rightIcon from '../../../assets/img/exam-icon-right.png';
 const QuestionBox = props => {  
     const dispatch = useDispatch();
     const [modal1, setModal1] = useState(false);
+    const [theoryAnswer, setTheoryAnswer] = useState('');
     const toggle1 = () => {     
         setModal1(!modal1); 
     } 
@@ -62,16 +60,19 @@ const QuestionBox = props => {
         isAuthenticated,
         answers,
         motivations,
-        questionLength,
+        submittedAnswers,
         motivationItemNo,
         motivationInterval,
         motivateGoodPerformance, 
         examType
     }= props;   
     
-    const handleNextQuestion = async answer => {        
-        await handleCorrectAnswerCheck(answer);
-        await handleSaveAnswer(answer);
+    const handleNextQuestion = async answer => {  
+        if(props.questionType !== 'Theory'){
+            await handleCorrectAnswerCheck(answer);
+            await handleSaveAnswer(answer);
+        }      
+      
         await prepareSubmittedAnswer(answer);
         if (handleLastQuestionCheck()) {
             handleClosure()
@@ -79,17 +80,25 @@ const QuestionBox = props => {
             props.inputChange('currentQuestion', currentQuestion + 1);  
             props.inputChange('progressBarStatus', progressBarStatus + progressBarUnit);        
         }
+        if(props.questionType === 'Theory'){
+            // if(Object.keys(submittedAnswers[currentQuestion]).length){
+            //     // setTheoryAnswer(submittedAnswers[currentQuestion+1].answer)
+            //     console.log('am here')
+            // }else{
+            //     setTheoryAnswer('')
+            // }
+        }   
         return true;
     };
 
     const handleClosure = async () => {      
         Swal.fire({
-            title: 'Do you want to submit?',
-            text: 'Sure you’re ready to submit?',
+            title: 'SUBMIT EXAM',
+            text: "This action submit all your answers so far and signifies the end of your examination. Are you sure you want to submit?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, Submit!',
-            cancelButtonText: 'No, cancel'
+            cancelButtonText: 'No, i’m not ready'
         }).then((result) => {
             if (result.value) {
                 if(isAuthenticated){
@@ -115,7 +124,10 @@ const QuestionBox = props => {
     const handlePrevious = async () => {
         if(currentQuestion > 0){
             props.inputChange('currentQuestion', currentQuestion - 1); 
-            props.inputChange('progressBarStatus', progressBarStatus - progressBarUnit);  
+            props.inputChange('progressBarStatus', progressBarStatus - progressBarUnit);          
+            if(props.questionType === 'Theory'){              
+                setTheoryAnswer(submittedAnswers[currentQuestion-1].answer)
+            }  
         }     
     };
 
@@ -129,19 +141,25 @@ const QuestionBox = props => {
 
     const prepareSubmittedAnswer = async answer => {
         let status = null;
-        if(answer === -1){
-            status='skipped'
-        }else if(answer === questions[currentQuestion].correct_option){
-            status='correct'
-        }else{
-            status='incorrect' 
+        if(props.questionType !== 'Theory'){
+            if(answer === -1){
+                status='skipped'
+            }else if(answer === questions[currentQuestion].correct_option){
+                status='correct'
+            }else{
+                status='incorrect' 
+            }
         }
         let response = {
             status,
             questionId:questions[currentQuestion].id,
             optionSelected:answer,
             correctOption:questions[currentQuestion].correct_option,          
-            markWeight:questions[currentQuestion].mark_weight
+            markWeight:questions[currentQuestion].mark_weight,        
+        }
+
+        if(props.questionType === 'Theory'){
+            response['answer'] = theoryAnswer
         }
         props.populateSubmittedAnswer(response)     
     };
@@ -156,31 +174,42 @@ const QuestionBox = props => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    const optionList = () => {         
-        if(props.options.length){
-              // eslint-disable-next-line array-callback-return
-            return props.options.map((item, index) => {   
-                let symbol = 'A.';
-                if(index === 0){
-                    symbol = 'A.'
-                }else if(index === 1){
-                    symbol = 'B.' 
-                }else if(index === 2){
-                    symbol = 'C.' 
-                }else if(index === 3){
-                    symbol = 'D.' 
-                }else if(index === 4){
-                    symbol = 'E.' 
-                }    
-                if(item){                 
-                    return <Link key={index} onClick={handleNextQuestion.bind(this, index)}> <p className={answers[currentQuestion] === index ? 'myQuestion selectedOption' : 'myQuestion'} key={index}>{symbol}&nbsp;&nbsp;&nbsp; {parse(sentenceCase(item))}</p></Link>   
-                }      
-                        
-            })
+    const optionList = () => {      
+        if(props.questionType === 'Theory'){
+            return (
+            <span className="relative">
+                <textarea rows="8" cols="20" value={theoryAnswer} onChange={e=>setTheoryAnswer(e.target.value)}>
+
+                </textarea>
+                <button onClick={handleNextQuestion.bind(this,'')}>Next</button>
+            </span>
+            )
         }else{
-        return <h5>0ops!, No subject found</h5>
-        }
-        
+            if(props.options.length){
+                // eslint-disable-next-line array-callback-return
+              return props.options.map((item, index) => {   
+                  let symbol = 'A.';
+                  if(index === 0){
+                      symbol = 'A.'
+                  }else if(index === 1){
+                      symbol = 'B.' 
+                  }else if(index === 2){
+                      symbol = 'C.' 
+                  }else if(index === 3){
+                      symbol = 'D.' 
+                  }else if(index === 4){
+                      symbol = 'E.' 
+                  }    
+                  if(item){                 
+                      return <Link key={index} onClick={handleNextQuestion.bind(this, index)}> <p className={answers[currentQuestion] === index ? 'myQuestion selectedOption' : 'myQuestion'} key={index}>{symbol}&nbsp;&nbsp;&nbsp; {parse(sentenceCase(item))}</p></Link>   
+                  }      
+                          
+              })
+          }else{
+          return <h5>0ops!, no options found</h5>
+          }      
+        }      
+          
     }
 
     const handleTextToSpeech = () => {
@@ -204,6 +233,7 @@ const QuestionBox = props => {
         }
         return decodeEntities(questions[currentQuestion].question)+options      
     };
+
     return (
     <>
         <div className="row question">
@@ -219,12 +249,20 @@ const QuestionBox = props => {
                 {optionList()}                                      
             </div>
         </div>
-        <div className="optionSection">
+        <div className="row blue beforeReport">
+            <div className="col-5 mobilePadOff">
+            <Link className="previous gh" onClick={handleClosure}>Submit</Link> <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link><Speech id="audio" text={handleTextToSpeech()} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} />} />             
+            </div>
+            <div className="col-7 afterReport">
+            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous"><span className="">Previous</span> </Link> : null}   { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip"><span className="">Skip</span> </Link>:null}                                                                                          
+            </div>
+        </div>
+        {/* <div className="optionSection">
             { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous3"><span className=""><img src={leftIcon} alt='logo' className="movement"/> Previous</span> </Link> : null}
             <Link onClick={handleClosure}><img src={submitButton} className="submitButton"/></Link>
             <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link>
             { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip1"><span className=""><img src={rightIcon} alt='logo' className="movement"/> Skip</span> </Link>:null} 
-        </div>
+        </div> */}
         { examType ==='pastQuestions'? 
       
         <Modal isOpen={modal1} toggle={toggle1}>

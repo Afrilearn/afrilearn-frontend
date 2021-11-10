@@ -98,6 +98,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
+                  required
                 ></textarea>
               </div>{" "}
             </div>
@@ -117,6 +118,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
+                  required
                 ></textarea>
               </div>{" "}
             </div>
@@ -136,6 +138,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="6"
+                  required
                 ></textarea>
               </div>{" "}
             </div>
