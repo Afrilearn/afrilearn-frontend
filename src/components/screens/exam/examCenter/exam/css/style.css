@@ -183,13 +183,22 @@ img.motivation {
 .Examination .timer {
     border-radius: 7px;
     box-shadow: 0pt 0.5pt 10pt rgba(0, 0, 0, 0.1);
-    padding: 7px 11px;
-    color: white;
+    padding: 7px 11px; 
     font-size: 14px;
     font-family: font1;
-    float: right;
+    float: right;    
+}
+
+.Examination .normalTime {
+    color: white;
     background: #333333;
 }
+
+.Examination .injuryTime {
+    color: red;
+    background: white;
+}
+
 .Examination .timerSection {
     padding-left: 0px !important;
 }
