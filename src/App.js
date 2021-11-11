@@ -33,7 +33,7 @@ const App = () => {
           setShowFeedBackPopUp(true);
         }
       }
-    }, 10000);
+    }, 30000);
     setTimeout(() => {
       if (
         !localStorage.getItem("afriLearn:downloadAppPopUp") ||
