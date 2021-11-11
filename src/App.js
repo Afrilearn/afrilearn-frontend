@@ -14,6 +14,7 @@ import Navigation from "./components/includes/nav.component";
 import ReactGA from "react-ga";
 import FeedBackPopUp from "./components/includes/FeedBackPopUp/FeedBackPopUp";
 import moment from "moment";
+import DownloadAppsPopUp from "./components/includes/DownloadAppsPopUp/DownloadAppsPopUp";
 
 const App = () => {
   useEffect(() => {
@@ -33,17 +34,33 @@ const App = () => {
         }
       }
     }, 10000);
+    setTimeout(() => {
+      if (
+        !localStorage.getItem("afriLearn:afriLearn:downloadAppPopUp") ||
+        moment().diff(
+          moment(localStorage.getItem("afriLearn:afriLearn:downloadAppPopUp")),
+          "days"
+        ) >= 7
+      ) {
+        setShowDownloadAppsPopUp(true);
+      }
+    }, 100000);
     //FeedBack Pop Up
     ReactGA.initialize("UA-141691274-1");
     ReactGA.pageview(window.location.pathname + window.location.search);
   });
-  const [showFeedBackPopUp, setShowFeedBackPopUp] = useState(true);
+  const [showDownloadAppsPopUp, setShowDownloadAppsPopUp] = useState(false);
+  const [showFeedBackPopUp, setShowFeedBackPopUp] = useState(false);
 
   return (
     <Provider store={store}>
       <FeedBackPopUp
         visible={showFeedBackPopUp}
         toggleModal={() => setShowFeedBackPopUp(false)}
+      />
+      <DownloadAppsPopUp
+        visible={showDownloadAppsPopUp}
+        toggleModal={() => setShowDownloadAppsPopUp(false)}
       />
       <Navigation />
     </Provider>

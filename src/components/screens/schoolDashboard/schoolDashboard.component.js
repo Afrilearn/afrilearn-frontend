@@ -17,7 +17,7 @@ import {
   uploadSchoolCoverPhoto,
 } from "../../../redux/actions/schoolActions";
 import { inputChange } from "../../../redux/actions/authActions";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 const padWithZero = (num) => (num > 9 ? num : "0" + num);
 
@@ -29,6 +29,7 @@ const SchoolDashboard = (props) => {
 
   const dispatch = useDispatch();
   const school = useSelector((state) => state.school.school);
+  console.log("school", school);
   const courses = useSelector((state) => state.school.courses);
   const profile = useSelector((state) => state.school.profile);
   const coverPhoto = useSelector((state) => state.school.coverPhoto);
@@ -74,10 +75,12 @@ const SchoolDashboard = (props) => {
       return pastQuestions.map((item, index) => {
         return (
           <PastQuestionsBox
+            description={item.pastQuestionTypes[0].description}
             title={item.pastQuestionTypes[0].name}
             other={index % 2 === 0 ? true : false}
             categoryId={item.pastQuestionTypes[0].categoryId}
             categoryName={item.pastQuestionTypes[0].name}
+            image={item.pastQuestionTypes[0].imageUrl}
           />
         );
       });
@@ -85,14 +88,13 @@ const SchoolDashboard = (props) => {
       return <h6>No past questions yet</h6>;
     }
   };
-
   return (
     <div id="school-dashboard" className="negative-top dashboard">
       <Helmet>
         <meta charSet="utf-8" />
         <title>School | Future of learning</title>
-        <meta name="description" content='School | Children | Subjects' />
-      </Helmet> 
+        <meta name="description" content="School | Children | Subjects" />
+      </Helmet>
       <div
         className="top-display"
         style={{
@@ -210,6 +212,17 @@ const SchoolDashboard = (props) => {
                   onInput={(e) => {
                     setLessonsCourseId(e.target.value);
                     setCourseIndex(indexincourses(e.target.value));
+                    const target =
+                      school &&
+                      school.schoolClassesData.find(
+                        (i) => i.courseId === e.target.value
+                      );
+                    dispatch(
+                      inputChange(
+                        "activeCoursePaidStatus",
+                        target.paymentIsActive
+                      )
+                    );
                   }}
                 >
                   <option disabled value="">

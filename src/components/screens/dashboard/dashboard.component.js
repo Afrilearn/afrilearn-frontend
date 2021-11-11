@@ -538,7 +538,7 @@ const Dashboard = (props) => {
           recentActivitiesList()
         )}
       </div>
-      <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
+      {/* <Modal isOpen={modal} toggle={toggle} className="trendingModalClass">
         <ModalHeader toggle={toggle}>
           <img
             src={logo}
@@ -659,10 +659,10 @@ const Dashboard = (props) => {
             </div>
           </div>
         </ModalBody>
-        {/* <ModalFooter>
+        </Modal> */}
+      {/* <ModalFooter>
           <Button color="primary"> <Link to="/register">Register for Free</Link></Button>         
         </ModalFooter> */}
-      </Modal>
     </span>
   );
 };
