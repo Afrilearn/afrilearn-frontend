@@ -36,9 +36,9 @@ const App = () => {
     }, 10000);
     setTimeout(() => {
       if (
-        !localStorage.getItem("afriLearn:afriLearn:downloadAppPopUp") ||
+        !localStorage.getItem("afriLearn:downloadAppPopUp") ||
         moment().diff(
-          moment(localStorage.getItem("afriLearn:afriLearn:downloadAppPopUp")),
+          moment(localStorage.getItem("afriLearn:downloadAppPopUp")),
           "days"
         ) >= 7
       ) {
