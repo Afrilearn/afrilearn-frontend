@@ -15,6 +15,52 @@ export default function ExamResults(props) {
   }, []);
   const exam = useSelector((state) => state.exam.exam);
 
+  const ResultItem = ({ result }) => {
+    let totalTheoryScore = 0;
+    let totalObjectiveScore = 0;
+    let totalScore = 0;
+    if (result && result.results) {
+      for (let index = 0; index < result.results.length; index++) {
+        const resultItem = result.results[index];
+        totalScore += resultItem.markWeight;
+        if (
+          resultItem.questionId.type === "Objective" &&
+          resultItem.correctOption === resultItem.optionSelected
+        ) {
+          totalObjectiveScore += resultItem.markWeight;
+        }
+        if (resultItem.questionId.type === "Theory") {
+          totalTheoryScore += resultItem.assignedScore || 0;
+        }
+      }
+    }
+    return (
+      <tr>
+        <th scope="row" className="text-white light-font nunito">
+          {result?.userId.fullName}
+        </th>
+        <td className="text-white light-font nunito">
+          {new Date(result.createdAt).toDateString()}
+        </td>
+        <td
+          className={`nunito ${
+            result.status === "marked" ? "text-success" : "text-danger"
+          }`}
+        >
+          {result.status === "marked" ? "Marked" : "Pending"}
+        </td>
+        <td className="text-white light-font nunito">
+          {totalTheoryScore + totalObjectiveScore}
+        </td>
+        <td className="text-white light-font nunito">
+          <Link to={`/exams/${props.match.params.examId}/${result._id}`}>
+            <FontAwesomeIcon icon={faAngleRight} />
+          </Link>
+        </td>
+      </tr>
+    );
+  };
+
   return (
     <div id="examResults">
       <div id="examResultsSectionOne">
@@ -31,7 +77,7 @@ export default function ExamResults(props) {
                 Exam Type: {exam?.questionTypeId?.name}
               </p>
               <p className="text-white light-font nunito">
-                Duration: {secondsToHms(exam.duration)}
+                Duration: {secondsToHms(exam.duration * 60)}
               </p>
             </div>
             <div>
@@ -72,33 +118,7 @@ export default function ExamResults(props) {
               </thead>
               <tbody>
                 {exam.results?.map((result, index) => (
-                  <tr>
-                    <th scope="row" className="text-white light-font nunito">
-                      {result?.userId.fullName}
-                    </th>
-                    <td className="text-white light-font nunito">
-                      {new Date(result.createdAt).toDateString()}
-                    </td>
-                    <td
-                      className={`nunito ${
-                        result.status === "marked"
-                          ? "text-success"
-                          : "text-danger"
-                      }`}
-                    >
-                      {result.status === "marked" ? "Marked" : "Pending"}
-                    </td>
-                    <td className="text-white light-font nunito">
-                      {result.score}
-                    </td>
-                    <td className="text-white light-font nunito">
-                      <Link
-                        to={`/exams/${props.match.params.examId}/${result._id}`}
-                      >
-                        <FontAwesomeIcon icon={faAngleRight} />
-                      </Link>
-                    </td>
-                  </tr>
+                  <ResultItem result={result} />
                 ))}
               </tbody>
             </table>

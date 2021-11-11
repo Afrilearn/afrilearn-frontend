@@ -17,13 +17,16 @@ export default function ExamResult() {
   useEffect(() => {
     dispatch(getResult(resultId));
   }, []);
+  const optionLabels = ["A", "B", "C", "D"];
   const result = useSelector((state) => state.exam.result);
   console.log("result.results", result.results);
   let totalTheoryScore = 0;
   let totalObjectiveScore = 0;
+  let totalScore = 0;
   if (result && result.results) {
     for (let index = 0; index < result.results.length; index++) {
       const resultItem = result.results[index];
+      totalScore += resultItem.markWeight;
       if (
         resultItem.questionId.type === "Objective" &&
         resultItem.correctOption === resultItem.optionSelected
@@ -48,15 +51,52 @@ export default function ExamResult() {
       assignedScore = item.assignedScore;
     }
     return (
-      <div className="answer-item py-2 py-md-5">
+      <div className="answer-item py-2 ">
         <div className="row mb-4">
           <div className="col-12 col-md-5">
             <div className="text-white nunito light-font">&nbsp;</div>
-            <div className="long-badge">
+            <div className="long-badge mb-2">
               <span className="nunito">
                 Question {index} of {lenght}
               </span>
             </div>
+            <p className="nunito text-white bold">
+              {item?.questionId?.question && parse(item?.questionId?.question)}
+            </p>
+            <p className="nunito text-white ">Answer:</p>
+            {type === "Objective" && (
+              <div className="answer-box">
+                <p className="text-white nunito light-font text-justify ">
+                  <strong>
+                    Correct Option : <br />
+                  </strong>
+                  {optionLabels[[item?.correctOption]]}.{" "}
+                  {item?.questionId?.options[item?.correctOption] &&
+                    parse(item?.questionId?.options[item?.correctOption])}
+                </p>
+                <p
+                  className={`text-white nunito light-font text-justify ${
+                    item?.correctOption === item?.optionSelected
+                      ? "text-success"
+                      : "text-danger"
+                  }`}
+                >
+                  <strong>
+                    Selected Option : <br />
+                  </strong>
+                  {optionLabels[[item?.optionSelected]]}.{" "}
+                  {item?.questionId?.options[item?.optionSelected] &&
+                    parse(item?.questionId?.options[item?.optionSelected])}
+                </p>
+              </div>
+            )}
+            {type === "Theory" && (
+              <div className="answer-box">
+                <p className="text-white nunito light-font text-justify">
+                  {item?.answer && parse(item?.answer)}
+                </p>
+              </div>
+            )}
           </div>
           <div className="col-12 col-md-2"></div>
           <div className="col-12 col-md-5 my-2 my-md-0">
@@ -104,29 +144,6 @@ export default function ExamResult() {
           </div>
         </div>
 
-        <div className="row mb-4">
-          <div className="col-12 col-md-5">
-            <p className="nunito text-white bold">
-              {item?.questionId?.question && parse(item?.questionId?.question)}
-            </p>
-            <p className="nunito text-white mt-5">Answer:</p>
-            {type === "Objective" && (
-              <div className="answer-box">
-                <p className="text-white nunito light-font text-justify">
-                  {item?.questionId?.options[item?.optionSelected] &&
-                    parse(item?.questionId?.options[item?.optionSelected])}
-                </p>
-              </div>
-            )}
-            {type === "Theory" && (
-              <div className="answer-box">
-                <p className="text-white nunito light-font text-justify">
-                  {item?.answer && parse(item?.answer)}
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
         <hr />
       </div>
     );
@@ -155,6 +172,16 @@ export default function ExamResult() {
               </p>
               <p className="text-white mt-3 nunito light-font">
                 Total Score: {totalObjectiveScore + totalTheoryScore}
+              </p>
+              <p className="text-white mt-3 nunito light-font">
+                Overall: {totalScore}
+              </p>
+              <p className="text-white mt-3 nunito light-font">
+                Percentage :{" "}
+                {Math.ceil(
+                  ((totalObjectiveScore + totalTheoryScore) * 100) / totalScore
+                )}
+                %
               </p>
             </div>
             {/* <div>
