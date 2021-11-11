@@ -20,6 +20,7 @@ import {
   GET_ACTIVE_SUBS_SUCCESS,
   GET_FACULTIES_SUCCESS,
   GET_RECENT_BLOGS_SUCCESS,
+  GET_SCHOOL_PROFILE_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -78,7 +79,7 @@ const initialState = {
   actives: [],
   blogs: [],
   faculties: [],
-  socialCampaign:false
+  socialCampaign: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -141,6 +142,15 @@ const authReducer = (state = initialState, action) => {
         numberOfClassNote: action.payload.numberOfClassNote,
         numberOfQuizQuestions: action.payload.numberOfQuizQuestions,
         allUsers: action.payload.allUsers,
+      };
+    case GET_SCHOOL_PROFILE_SUCCESS:
+      return {
+        ...state,
+        activeCoursePaidStatus:
+          action.payload &&
+          action.payload.schoolClassesData &&
+          action.payload.schoolClassesData[0] &&
+          action.payload.schoolClassesData[0].paymentIsActive,
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -246,7 +256,7 @@ const authReducer = (state = initialState, action) => {
         role: action.payload.user.role ? action.payload.user.role : "",
         state: action.payload.user.state ? action.payload.user.state : "",
       };
-     
+
       return {
         ...state,
         ...myObj,
