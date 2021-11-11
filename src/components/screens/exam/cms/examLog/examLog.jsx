@@ -37,8 +37,8 @@ export default function ExamLog(props) {
           {exam?.questionTypeId?.name}
         </div>
         <Link to={`/exams/${exam?._id}`}>
-          <button className="text-white green-bg btn nunito btn-sm viewRecord two-space">
-            VIEW
+          <button className="text-white green-bg btn nunito btn-sm viewRecord two-space uppercase mr-2 mr-md-0 text-center">
+            View Result Submission
           </button>
         </Link>
         <div className="btn-group dropdown ">

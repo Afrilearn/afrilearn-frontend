@@ -41,7 +41,7 @@ export default function AddExam(props) {
   const [duration, setDuration] = useState(0);
   const [instruction, setInstruction] = useState("");
   const [totalNumberOfQuestions, setTotalNumberOfQuestions] = useState(0);
-  const [deadline, setDeadline] = useState(new Date().toISOString());
+  const [deadline, setDeadline] = useState("");
 
   let subjectsToDisplay = classRelatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
@@ -88,41 +88,43 @@ export default function AddExam(props) {
             dispatch(addExam(data));
           }}
         >
-          <label htmlFor="title" className="text-light mt-4 mb-1">
+          <label htmlFor="title" className="text-light mb-1">
             Exam Title
           </label>
           <input
             type="text"
             placeholder="Title"
             id="title"
-            className="general border"
+            className="general mb-4 mt-0 border"
             name="email"
             required
             onChange={(e) => setTitle(e.target.value)}
           />
-          <label htmlFor="questionType" className="text-light mt-4 mb-1">
+          <label htmlFor="questionType" className="text-light mb-1">
             Question Type
           </label>
           <select
-            className="general border"
+            className="general mb-4 mt-0 border"
             name="subjectId"
             id="questionType"
             required
             onChange={(e) => setQuestionTypeId(e.target.value)}
           >
             <option unselectable>Select Question Type</option>
-            {examTypes.map((i, index) => (
-              <option key={index} value={i._id}>
-                {i.name}
-              </option>
-            ))}
+            {examTypes
+              .sort((a, b) => a.position.localeCompare(b.position))
+              .map((i, index) => (
+                <option key={index} value={i._id}>
+                  {i.name}
+                </option>
+              ))}
           </select>
 
-          <label htmlFor="questionType" className="text-light mt-4 mb-1">
+          <label htmlFor="questionType" className="text-light mb-1">
             Select Subject
           </label>
           <select
-            className="general border"
+            className="general mb-4 mt-0 border"
             name="subjectId"
             id="questionType"
             required
@@ -136,11 +138,11 @@ export default function AddExam(props) {
             ))}
           </select>
 
-          <label htmlFor="questionType" className="text-light mt-4 mb-1">
+          <label htmlFor="questionType" className="text-light mb-1">
             Term
           </label>
           <select
-            className="general border"
+            className="general mb-4 mt-0 border"
             name="subjectId"
             id="questionType"
             required
@@ -154,29 +156,42 @@ export default function AddExam(props) {
             ))}
           </select>
 
-          <label htmlFor="duration" className="text-light mt-4 mb-1">
+          <label htmlFor="duration" className="text-light mb-1">
             Set Duration
           </label>
           <input
             type="number"
             placeholder="Duration in minutes"
             id="duration"
-            className="general border"
+            className="general mb-4 mt-0 border"
             name="email"
             required
             onChange={(e) => setDuration(e.target.value)}
           />
-          <label htmlFor="instruction" className="text-light mt-4 mb-1">
+          <label htmlFor="duration" className="text-light mb-1">
+            Set Deadline
+          </label>
+
+          <input
+            type="datetime-local"
+            id="deadline"
+            name="deadline"
+            required
+            className="general mb-4 mt-0 border white-placeholder"
+            onChange={(e) => setDeadline(e.target.value)}
+          />
+
+          <label htmlFor="instruction" className="text-light mb-1">
             Exam Instruction (optional)
           </label>
           <textarea
-            cols={15}
+            // cols={35}
+            rows="10"
             type="number"
             placeholder="instruction"
             id="instruction"
-            className="general border"
+            className="general mb-4 mt-0 border"
             name="email"
-            required
             onChange={(e) => setInstruction(e.target.value)}
           />
           <div className="d-flex justify-content-end">

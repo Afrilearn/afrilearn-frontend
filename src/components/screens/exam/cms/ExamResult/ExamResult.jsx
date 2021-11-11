@@ -55,9 +55,14 @@ export default function ExamResult() {
         <div className="row mb-4">
           <div className="col-12 col-md-5">
             <div className="text-white nunito light-font">&nbsp;</div>
-            <div className="long-badge mb-2">
+            <div className="long-badge mb-2 d-flex justify-content-between">
               <span className="nunito">
                 Question {index} of {lenght}
+              </span>
+              <span className="nunito mr-2">
+                <strong>
+                  {item.markWeight} Mark{item.markWeight > 1 ? "s" : ""}
+                </strong>
               </span>
             </div>
             <p className="nunito text-white bold">
@@ -112,10 +117,11 @@ export default function ExamResult() {
             >
               <input
                 readOnly={type === "Objective"}
-                type="text"
+                type="number"
                 className="input px-3 text-white "
                 placeholder="Assign Score"
                 defaultValue={assignedScore}
+                max={item.markWeight}
                 onChange={(e) => setScore(e.target.value)}
                 required
               />

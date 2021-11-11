@@ -1,4 +1,4 @@
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faFileCsv } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import secondsToHms from "../../../../../assets/js/secondsToHms";
 import { getExam } from "../../../../../redux/actions/examActions";
 import "./style.css";
+import Workbook from "react-excel-workbook";
 
 export default function ExamResults(props) {
   const { examId } = useParams();
@@ -14,6 +15,30 @@ export default function ExamResults(props) {
     dispatch(getExam(examId));
   }, []);
   const exam = useSelector((state) => state.exam.exam);
+  const excelData1 = exam.results?.map((item) => {
+    let totalTheoryScore = 0;
+    let totalObjectiveScore = 0;
+    let totalScore = 0;
+    for (let index = 0; index < item.results.length; index++) {
+      const resultItem = item.results[index];
+      totalScore += resultItem.markWeight;
+      if (
+        resultItem.questionId.type === "Objective" &&
+        resultItem.correctOption === resultItem.optionSelected
+      ) {
+        totalObjectiveScore += resultItem.markWeight;
+      }
+      if (resultItem.questionId.type === "Theory") {
+        totalTheoryScore += resultItem.assignedScore || 0;
+      }
+    }
+    return {
+      submitted: new Date(item.createdAt).toString(),
+      name: item.userId && item.userId.fullName,
+      status: item.status,
+      score: totalTheoryScore + totalObjectiveScore,
+    };
+  });
 
   const ResultItem = ({ result }) => {
     let totalTheoryScore = 0;
@@ -36,7 +61,7 @@ export default function ExamResults(props) {
     }
     return (
       <tr>
-        <th scope="row" className="text-white light-font nunito">
+        <th scope="row" className="text-white light-font nunito sentence">
           {result?.userId.fullName}
         </th>
         <td className="text-white light-font nunito">
@@ -90,7 +115,29 @@ export default function ExamResults(props) {
         <hr />
         <div className="container-fluid px-2 px-md-5 py-2 py-md-5">
           <div className="d-flex justify-content-between">
-            <p className="text-white bold nunito">Submissions</p>
+            <div className="d-flex">
+              <p className="text-white bold nunito ">Submissions</p>
+
+              <Workbook
+                filename="Submissions.xlsx"
+                element={
+                  <FontAwesomeIcon
+                    icon={faFileCsv}
+                    color="grey"
+                    size="lg"
+                    className="mx-2 cursor"
+                    title="Download as CSV"
+                  />
+                }
+              >
+                <Workbook.Sheet data={excelData1} name="Submissions">
+                  <Workbook.Column label="Name" value="name" />
+                  <Workbook.Column label="Submitted on" value="submitted" />
+                  <Workbook.Column label="Status" value="status" />
+                  <Workbook.Column label="Score" value="score" />
+                </Workbook.Sheet>
+              </Workbook>
+            </div>
             <p className="text-white light-font nunito">
               {exam?.results?.length} students
             </p>

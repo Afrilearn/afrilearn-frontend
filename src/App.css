@@ -791,3 +791,15 @@ select.no-appearance {
 .light-font {
   font-weight: lighter;
 }
+.white-placeholder::placeholder {
+  color: white;
+}
+.white-placeholder::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+.sentence {
+  text-transform: capitalize !important;
+}
+.uppercase {
+  text-transform: uppercase !important;
+}
