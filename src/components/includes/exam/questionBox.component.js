@@ -78,15 +78,16 @@ const QuestionBox = props => {
             handleClosure()
         } else {
             props.inputChange('currentQuestion', currentQuestion + 1);  
-            props.inputChange('progressBarStatus', progressBarStatus + progressBarUnit);        
+            props.inputChange('progressBarStatus', progressBarStatus + progressBarUnit);  
+            if(props.questionType === 'Theory'){
+                if(submittedAnswers[currentQuestion+1]){
+                    setTheoryAnswer(submittedAnswers[currentQuestion+1].answer)
+                }else{
+                    setTheoryAnswer('')
+                }            
+            }         
         }
-        if(props.questionType === 'Theory'){
-            if(submittedAnswers[currentQuestion+1]){
-                setTheoryAnswer(submittedAnswers[currentQuestion+1].answer)
-            }else{
-                setTheoryAnswer('')
-            }            
-        }   
+       
         return true;
     };
 
@@ -180,8 +181,7 @@ const QuestionBox = props => {
             <span className="relative">
                 <textarea rows="8" cols="20" value={theoryAnswer} onChange={e=>setTheoryAnswer(e.target.value)}>
 
-                </textarea>
-                <button onClick={handleNextQuestion.bind(this,'')}>Next</button>
+                </textarea>               
             </span>
             )
         }else{
@@ -242,7 +242,7 @@ const QuestionBox = props => {
                 {
                 props.image && props.imagePosition ==='above'? <p className="questionImgSection"><img src={props.image} alt='logo' className="centerImage questionImg"/></p>: null
                 }
-                <p className="beforeOptions questionSection">{parse(props.QuestionTitle)}</p> 
+                <p className="beforeOptions questionSection">{parse(props.QuestionTitle)}<small>{props.markWeight}marks</small></p> 
                 {
                 props.image && props.imagePosition !=='above'? <p className="questionImgSection"><img src={props.image} alt='logo' className="centerImage questionImg"/></p>: null
                 }
@@ -251,10 +251,10 @@ const QuestionBox = props => {
         </div>
         <div className="row blue beforeReport">
             <div className="col-5 mobilePadOff">
-            <Link className="previous gh" onClick={handleClosure}>Submit</Link> <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link><Speech id="audio" text={handleTextToSpeech()} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} />} />             
+              {props.questionType !== 'Theory' ?<Link className="previous gh" onClick={handleClosure}>Submit</Link>:<Link className="previous gh" onClick={handleNextQuestion.bind(this,5)}>Next</Link>}  <Link onClick={props.handleReport} className="myReport" title="Report Question"><FontAwesomeIcon icon={faFlag} color="#e36b6b" /></Link><Speech id="audio" text={handleTextToSpeech()} textAsButton={true} displayText={<FontAwesomeIcon icon={faMicrophone} />} />             
             </div>
             <div className="col-7 afterReport">
-            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous"><span className="">Previous</span> </Link> : null}   { questions.length - 1 > currentQuestion ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip"><span className="">Skip</span> </Link>:null}                                                                                          
+            { currentQuestion>0 ? <Link onClick={handlePrevious} className="previous"><span className="">Previous</span> </Link> : null}   { (questions.length - 1 > currentQuestion) && props.questionType !== 'Theory' ? <Link onClick={handleNextQuestion.bind(this, -1)} className="skip"><span className="">Skip</span> </Link>:null}                                                                                  
             </div>
         </div>
         {/* <div className="optionSection">

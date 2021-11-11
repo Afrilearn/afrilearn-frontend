@@ -57,7 +57,7 @@ const Exam = props => {
         subjectTag,
         pastQuestionRedirect,
         pastQuestionRedirectLocation,   
-        examType   
+        injuryTime  
     }=props;     
     
     const questionList = () => {            
@@ -69,6 +69,7 @@ const Exam = props => {
                         imagePosition ={questions[currentQuestion].question_position}   
                         image= {questions[currentQuestion].question_image} 
                         questionType ={questions[currentQuestion].type}
+                        markWeight ={questions[currentQuestion].markWeight}
                         handleReport ={handleFlagQuestion}               
                     />              
             
@@ -162,7 +163,7 @@ const Exam = props => {
                             <div className="col-md-3 timerSection desktopOnly">               
                                 <div className="row push3">
                                         <div className="col-md-12 paddingLeftOff">
-                                            <span className="headingOne timerTitle">Time Left:</span> <span className="timer">
+                                            <span className="headingOne timerTitle">Time Left:</span> <span className={`timer ${injuryTime?'injuryTime':'normalTime'}`}>
                                             <Timer
                                                 initialTime={localStorage.getItem('duration')}
                                                 lastUnit="m"
@@ -170,7 +171,7 @@ const Exam = props => {
                                                 checkpoints={[
                                                     {
                                                         time: 600000,
-                                                        callback: () => Swal.fire('Time Left!', 'You have 10 mins left')
+                                                        callback: () => props.inputChange('injuryTime', true)
                                                     }, 
                                                     {
                                                         time: speedRange3,
@@ -326,5 +327,6 @@ const mapStateToProps = state => ({
     pastQuestionRedirectLocation:state.pastQuestion.pastQuestionRedirectLocation,  
     examType: state.pastQuestion.examType,    
     submittedAnswers:state.pastQuestion.submittedAnswers,   
+    injuryTime:state.pastQuestion.injuryTime  
 })
 export default connect(mapStateToProps, {inputChange, flagQuestion})(Exam);
