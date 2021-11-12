@@ -35,7 +35,7 @@ const Box = (props) => {
               props.inputChange("inClass", true);
             }}
           >
-            Enter
+            Enter classroom
           </Link>
         </div>
       ) : (

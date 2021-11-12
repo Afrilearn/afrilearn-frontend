@@ -456,7 +456,7 @@ export const getStudentExam = (classId) => async (dispatch) => {
     const result = await API.getStudentExams(classId);
     dispatch({
       type: GET_STUDENT_EXAMS_SUCCESS,
-      payload: result.data.data.exams,
+      payload: result.data.data.exams || {},
     });
     // document.body.classList.remove("loading-indicator");
   } catch (err) {
