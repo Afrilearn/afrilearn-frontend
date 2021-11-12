@@ -15,7 +15,10 @@ import { Link } from "react-router-dom";
 import { getChildren } from "../../../redux/actions/parentActions";
 import { getMembersInClass } from "./../../../redux/actions/classActions";
 import { getActiveSubs, getRoles } from "./../../../redux/actions/authActions";
-import { getSchoolProfile } from "./../../../redux/actions/schoolActions";
+import {
+  getSchoolCourses,
+  getSchoolProfile,
+} from "./../../../redux/actions/schoolActions";
 import { clearErrors } from "./../../../redux/actions/errorActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
@@ -53,7 +56,10 @@ const Payment = (props) => {
     teacherPaymentPlans,
   } = props;
   let paymentPlansToShow = categories;
-  if (role === "602f3ce39b146b3201c2dc1d") {
+  if (
+    role === "602f3ce39b146b3201c2dc1d" ||
+    role === "607ededa2712163504210684"
+  ) {
     paymentPlansToShow = teacherPaymentPlans;
   }
 
@@ -106,6 +112,7 @@ const Payment = (props) => {
           <option
             value={course.courseId}
             // disabled={actives.includes(course.courseId)}
+            className={course._id}
           >
             {course.className}{" "}
             {/* {actives.includes(course.courseId) && "(Subscribed)"} */}
@@ -252,6 +259,15 @@ const Payment = (props) => {
   if (user.classOwnership?.findIndex((i) => i.id == newClass.id) === -1) {
     user.classOwnership.push(newClass);
   }
+
+  useEffect(() => {
+    if (role === "607ededa2712163504210684") {
+      dispatch(getSchoolProfile(user.schoolId && user.schoolId._id));
+
+      dispatch(getSchoolCourses(user.schoolId._id));
+    }
+  }, [role]);
+
   useEffect(() => {
     if (!mounted.current) {
       if (!childId) {
@@ -264,10 +280,6 @@ const Payment = (props) => {
       props.paymentPlans();
       dispatch(getTeacherPaymentPlans());
       props.getRoles();
-
-      if (role === "607ededa2712163504210684") {
-        dispatch(getSchoolProfile(user.schoolId && user.schoolId._id));
-      }
     } else {
       // do componentDidUpdate logic
       if (error.id === "PAYMENT_VERIFICATION_SUCCESS") {
@@ -339,7 +351,7 @@ const Payment = (props) => {
     email,
     amount:
       paymentAmount * 100 * (subjectIds.length > 0 ? subjectIds.length : 1),
-    publicKey: "pk_test_3dcff710f2e06eb86516e0b044bcfe16390512d0",
+    publicKey: "pk_live_a9c31ffce1eca1674882580da27446be439723bf",
     channels: ["card"],
   };
 
@@ -393,6 +405,19 @@ const Payment = (props) => {
       courseId == 1 &&
       subjectIds.length === 0
     ) {
+      Swal.fire({
+        html: "Please select a subject subscribe to.",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+        timer: 3500,
+        // position: 'top-end',,
+      });
+      props.clearErrors();
+    } else if (role === "607ededa2712163504210684" && subjectIds.length === 0) {
       Swal.fire({
         html: "Please select a subject subscribe to.",
         showClass: {
@@ -517,7 +542,11 @@ const Payment = (props) => {
       data["newClassName"] = nameOfClass;
     }
     if (classToPayFor) {
-      data["classId"] = classToPayFor._id;
+      if (role === "607ededa2712163504210684") {
+        data["classId"] = classToPayFor.classId;
+      } else {
+        data["classId"] = classToPayFor._id;
+      }
     }
     if (subjectIds) {
       data["subjectIds"] = subjectIds;
@@ -560,8 +589,7 @@ const Payment = (props) => {
                     <h3>Step 1: Select Class</h3>
                   ) : null}
                   {/* for student and school*/}
-                  {role === "5fd08fba50964811309722d5" ||
-                  role === "607ededa2712163504210684" ? (
+                  {role === "5fd08fba50964811309722d5" ? (
                     <select
                       class="form-select form-select-lg mb-3"
                       aria-label=".form-select-lg example"
@@ -741,6 +769,76 @@ const Payment = (props) => {
                           )}
                         </>
                       ) : null}
+                    </>
+                  ) : null}
+                  {/* for school */}
+                  {role === "607ededa2712163504210684" ? (
+                    <>
+                      <select
+                        class="form-select form-select-lg mb-3"
+                        aria-label=".form-select-lg example"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setCourseId(e.target.value);
+                          setNewClassContent(null);
+
+                          const cc = school.schoolClassesData.find(
+                            (i) => i.courseId === e.target.value
+                          );
+                          unselectAll();
+                          setClassToPayFor(cc);
+                          dispatch(getCourseSubjects(e.target.value));
+                          setSubjectIds([]);
+                        }}
+                      >
+                        <option selected disabled>
+                          Select Class
+                        </option>
+                        {courseList()}
+                      </select>
+                      {courseId && courseId != 1 && (
+                        <>
+                          {subjectsForSignUp.length > 0 && (
+                            <div>
+                              <label>Select Multiple Subjects</label>
+                              <div class="checkbox-box form-control">
+                                {subjectsForSignUp.map((i, index) => (
+                                  <div
+                                    key={index}
+                                    className="checkbox-box-item"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      id={i._id}
+                                      name="vehicle1"
+                                      value={i._id}
+                                      defaultChecked={subjectIds.includes(
+                                        i._id
+                                      )}
+                                      onChange={(e) => {
+                                        const init = subjectIds;
+                                        const index = init.findIndex(
+                                          (i) => i === e.target.value
+                                        );
+                                        if (index !== -1) {
+                                          init.splice(index, 1);
+                                          setSubjectIds(init);
+                                        } else {
+                                          init.push(e.target.value);
+                                          setSubjectIds(init);
+                                        }
+                                      }}
+                                    />
+                                    <label for={i._id}>
+                                      {i.mainSubjectId.name}
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      )}
                     </>
                   ) : null}
 
