@@ -7,6 +7,22 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+.studentResult ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.studentResult ul li{
+  display: inline-block;
+  width: 50%;
+  margin-top: 20px;
+  font-size: 20px; 
+}
+.studentResult hr {
+  width: 42%;
+  background-color: #84BB29 !important;
+  margin-top: 6px;
+}
 #classroomStudentSectionTwo {
   width: 100%;
   background-color: black;

@@ -49,11 +49,19 @@ const ClassroomStudent = (props) => {
 
   const [newComment, setNewComment] = useState(null);
 
-  const [activeTab, setActiveTab] = useState("1");
+  const [activeTab, setActiveTab] = useState("6");
+
+  const [examResultTab, setExamResultTab] = useState(1);
+
+  const handleExamResultNavigation = (section,e) =>{   
+    e.preventDefault()
+    setExamResultTab(section)
+  }
 
   // eslint-disable-next-line no-unused-vars
   const mounted = useRef();
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (!mounted.current) {    
       // do componentDidMount logic
@@ -369,7 +377,7 @@ const ClassroomStudent = (props) => {
         name: subject.mainSubjectId.name,
         assignedContent,
       });
-    });
+  });
 
   return (
     <div>
@@ -438,6 +446,15 @@ const ClassroomStudent = (props) => {
                 }}
               >
                 Class Performance
+              </NavLink>
+            </NavItem>
+            <NavItem className="tab-nav-item tab-nav-item-6">
+              <NavLink
+                onClick={() => {
+                  toggle("6");
+                }}
+              >
+                Examination
               </NavLink>
             </NavItem>
           </Nav>
@@ -821,6 +838,21 @@ const ClassroomStudent = (props) => {
                   </div>
                 </div>
               </span>
+            </TabPane>
+            <TabPane tabId="6">
+              <div className="container-fluid studentResult">
+                <div className="row">
+                  <div className="col-md-6">
+                     <ul>
+                       <li><Link onClick={handleExamResultNavigation.bind(this,1)}>Upcoming Exams</Link><hr/></li>
+                       <li><Link onClick={handleExamResultNavigation.bind(this,2)}>Completed Exams</Link><hr/></li>
+                     </ul>
+                  </div>
+                  <div className="col-md-6">
+
+                  </div>
+                </div>
+              </div>
             </TabPane>
           </TabContent>
         </div>
