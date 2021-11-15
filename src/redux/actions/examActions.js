@@ -29,6 +29,8 @@ import {
   DELETE_QUESTION_FAILURE,
   UPDATE_RESULT_SUCCESS,
   UPDATE_RESULT_FAILURE,
+  GET_STUDENTS_EXAM_RECORD_SUCCESS,
+  GET_STUDENTS_EXAM_RECORD_FAILURE
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -44,7 +46,7 @@ export const inputChange = (name, value) => async (dispatch) => {
     console.error(error);
   }
 };
-export const getExamTypes = () => async (dispatch, getState) => {
+export const getExamTypes = () => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
     dispatch({
@@ -90,7 +92,7 @@ export const getExamTypes = () => async (dispatch, getState) => {
     });
   }
 };
-export const addExam = (data) => async (dispatch, getState) => {
+export const addExam = (data) => async (dispatch) => {
   try {
     document.body.classList.add("loading-indicator");
     dispatch({
@@ -497,6 +499,31 @@ export const getStudentExamInformation = (examId) => async (dispatch) => {
     );
     dispatch({
       type: GET_EXAMINATION_INFORMATION_FAILURE,
+    });
+  }
+};
+export const getStudentsExaminationRecord = (classId) => async (dispatch) => {
+  try {
+    document.body.classList.add("loading-indicator");
+    const result = await API.getExamRecord(classId);
+    dispatch({
+      type: GET_STUDENTS_EXAM_RECORD_SUCCESS,
+      payload: result.data.data.exams,
+    });
+    document.body.classList.remove("loading-indicator");
+  } catch (err) {
+    document.body.classList.remove("loading-indicator");
+    dispatch(
+      returnErrors(
+        err.response.data.errors
+          ? err.response.data.errors
+          : err.response.data.error,
+        err.response.data.status,
+        "GET_STUDENTS_EXAM_RECORD_FAILURE"
+      )
+    );
+    dispatch({
+      type: GET_STUDENTS_EXAM_RECORD_FAILURE,
     });
   }
 };

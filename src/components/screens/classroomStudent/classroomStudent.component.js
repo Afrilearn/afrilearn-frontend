@@ -18,6 +18,7 @@ import Chart from "r-chart";
 import { inputChange } from "./../../../redux/actions/authActions";
 import SubjectBox from "./../../includes/performance/subjectBox.component";
 import PastQuestionBox from "./../../includes/performance/pastQuestions.component";
+import ExamBox from "./../../includes/exam/upcomingExamBox.component";
 
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -151,7 +152,7 @@ const ClassroomStudent = (props) => {
         return (
           <Box
             image={item.mainSubjectId.imageUrl}
-            singleClass={true}
+            // singleClass={true}
             dashboard={true}
             compiledNotes={item.relatedLessons.length}
             registeredUsers={50000}
@@ -846,14 +847,45 @@ const ClassroomStudent = (props) => {
                 <div className="row">
                   <div className="col-md-6">
                      <ul>
-                       <li><Link onClick={handleExamResultNavigation.bind(this,1)}>Upcoming Exams</Link><hr/></li>
-                       <li><Link onClick={handleExamResultNavigation.bind(this,2)}>Completed Exams</Link><hr/></li>
+                       <li><Link onClick={handleExamResultNavigation.bind(this,1)}>Upcoming Exams</Link>{examResultTab ===1?<hr/>:''}</li>
+                       <li><Link onClick={handleExamResultNavigation.bind(this,2)}>Completed Exams</Link>{examResultTab ===2?<hr/>:''}</li>
                      </ul>
                   </div>
                   <div className="col-md-6">
 
                   </div>
                 </div>
+                <span className="boxArea">
+                {examResultTab ===1?
+                  <>
+                    <ExamBox/>
+                    <ExamBox/>
+                    <ExamBox/>        
+                    <ExamBox/>  
+                  </>   
+                  :
+                  <>
+                   <div className="row">
+                      <div className="col-md-4">
+                        Exams                                        
+                      </div>
+                      <div className="col-md-2 center">
+                        Date Submitted
+                      </div>
+                      <div className="col-md-4 center">
+                        Status
+                      </div>
+                      <div className="col-md-2">
+                        Total Score
+                      </div>
+                    </div>  
+                    <ExamBox/>
+                    <ExamBox/>
+                    <ExamBox/>        
+                    <ExamBox/>  
+                  </> 
+                }                    
+                </span>
               </div>
             </TabPane>
           </TabContent>

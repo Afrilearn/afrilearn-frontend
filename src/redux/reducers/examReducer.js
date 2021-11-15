@@ -14,6 +14,7 @@ import {
   ADD_EXAM_QUESTION_SUCCESS,
   UPDATE_EXAM_QUESTION_SUCCESS,
   DELETE_QUESTION_SUCCESS,
+  GET_STUDENTS_EXAM_RECORD_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   addingExam: false,
   loadingExams: false,
   selcetedQuestion: {},
+  studentExams:[]
 };
 
 const examReducer = (state = initialState, action) => {
@@ -135,6 +137,11 @@ const examReducer = (state = initialState, action) => {
         ...state,
         examinationInfo: action.payload,
       };
+    case GET_STUDENTS_EXAM_RECORD_SUCCESS:
+        return {
+          ...state,
+          studentExams: action.payload,
+        };
     default:
       return state;
   }
