@@ -8,7 +8,14 @@ import woman from "../../../assets/img/woman.png";
 import ellipse from "../../../assets/img/Ellipse.png";
 import sendicon from "../../../assets/img/sendicon.png";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { getClass, createComment } from "./../../../redux/actions/classActions";
+import {
+  getClass,
+  createComment,
+  getMembersInClass,
+  getClassSubjects,
+  getClassAssignedContents,
+  getClassBasicDetails,
+} from "./../../../redux/actions/classActions";
 import { getPerformanceInClass } from "./../../../redux/actions/courseActions";
 import { getStudentExam } from "./../../../redux/actions/examActions";
 import PropTypes from "prop-types";
@@ -67,7 +74,11 @@ const ClassroomStudent = (props) => {
       mounted.current = true;
       window.scrollTo(0, 0);
       dispatch(getStudentExam(props.match.params.classId));
-      props.getClass(props.match.params.classId);
+      dispatch(getClassSubjects(props.match.params.classId));
+      dispatch(getClassAssignedContents(props.match.params.classId));
+      dispatch(getClassBasicDetails(props.match.params.classId));
+      dispatch(getMembersInClass(props.match.params.classId));
+      // props.getClass(props.match.params.classId);
     } else {
       // do componentDidUpdate logic
     }
@@ -139,9 +150,9 @@ const ClassroomStudent = (props) => {
     (state) => state.class.classRelatedSubjects
   );
 
-  let subjectsToDisplay = clazz?.relatedSubjects;
+  let subjectsToDisplay = classRelatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
-    subjectsToDisplay = clazz?.relatedSubjects.filter((subject) =>
+    subjectsToDisplay = classRelatedSubjects?.filter((subject) =>
       clazz.subjectIds.find((i) => i.subjectId == subject._id)
     );
   }
@@ -156,9 +167,9 @@ const ClassroomStudent = (props) => {
             dashboard={true}
             compiledNotes={item.relatedLessons.length}
             registeredUsers={50000}
-            courseId={clazz.courseId._id}
+            courseId={clazz.courseId?._id}
             subjectId={item._id}
-            courseName={clazz.courseId.name}
+            courseName={clazz.courseId?.name}
             subjectId={item._id}
             subjectName={item.mainSubjectId.name}
           />
@@ -185,9 +196,9 @@ const ClassroomStudent = (props) => {
   };
 
   const myContents =
-    clazz.teacherAssignedContents &&
-    clazz.teacherAssignedContents.length > 0 &&
-    clazz.teacherAssignedContents.filter(
+    teacherAssignedContents &&
+    teacherAssignedContents.length > 0 &&
+    teacherAssignedContents.filter(
       (item) =>
         item.audience === "all" ||
         (item.userIds && item.userIds.includes(props.userId))
