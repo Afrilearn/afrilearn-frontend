@@ -43,9 +43,7 @@ const ClassroomStudent = (props) => {
     (state) => state.class.teacherAssignedContents
   );
 
-  const studentExam = useSelector(
-    (state) => state.exam.studentExam
-  );
+  const studentExam = useSelector((state) => state.exam.studentExam);
 
   const [newComment, setNewComment] = useState(null);
 
@@ -63,11 +61,11 @@ const ClassroomStudent = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!mounted.current) {    
+    if (!mounted.current) {
       // do componentDidMount logic
       mounted.current = true;
       window.scrollTo(0, 0);
-      dispatch(getStudentExam(props.match.params.classId))
+      dispatch(getStudentExam(props.match.params.classId));
       props.getClass(props.match.params.classId);
     } else {
       // do componentDidUpdate logic
@@ -142,7 +140,7 @@ const ClassroomStudent = (props) => {
 
   let subjectsToDisplay = clazz?.relatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
-    subjectsToDisplay = classRelatedSubjects.filter((subject) =>
+    subjectsToDisplay = clazz?.relatedSubjects.filter((subject) =>
       clazz.subjectIds.find((i) => i.subjectId == subject._id)
     );
   }
@@ -526,17 +524,21 @@ const ClassroomStudent = (props) => {
                       "Oh oh! No work due soon!"
                     )}
                   </div>
-                  {Object.keys(studentExam).length? 
+                  {Object.keys(studentExam).length ? (
                     <div className="upcoming-events" id="examinationSection">
                       <h4>Examination</h4>
-                      <hr/>
+                      <hr />
                       <h5>{`${studentExam.subjectId.mainSubjectId.name} ${studentExam.termId.name}`}</h5>
                       <h6>{studentExam.questionTypeId.name}</h6>
                       <h6>Duration: {studentExam.duration}mins</h6>
-                      <hr/>
-                      <Link to={`/exam/instructions/${studentExam.id}`}>GET STARTED</Link>
+                      <hr />
+                      <Link to={`/exam/instructions/${studentExam.id}`}>
+                        GET STARTED
+                      </Link>
                     </div>
-                  :''}                  
+                  ) : (
+                    ""
+                  )}
                 </aside>
                 <main className="container-fluid">
                   {clazz.classAnnouncements &&
