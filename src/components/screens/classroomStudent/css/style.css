@@ -26,7 +26,7 @@
 .studentResult .boxArea{
   background: linear-gradient(181.01deg, rgba(51, 50, 50, 0.36) 0.87%, rgba(51, 50, 50, 0.36) 68.85%, rgba(51, 50, 50, 0) 142.59%, rgba(51, 50, 50, 0) 145.33%);
   display: block;
-  margin-top: 50px;
+  margin-top: 24px;
   color: #AAA6A6;
 }
 .studentResult .boxArea h5{

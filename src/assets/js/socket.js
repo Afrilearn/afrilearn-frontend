@@ -3,5 +3,6 @@ const { LocalServer, HerokuServer } = require("./api");
 
 const SERVER = HerokuServer;
 
-const socket = socketClient(SERVER);
+// const socket = socketClient(SERVER);
+const socket = null;
 export default socket;

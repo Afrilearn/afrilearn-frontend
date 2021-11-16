@@ -33,7 +33,8 @@ const initialState = {
   addingExam: false,
   loadingExams: false,
   selcetedQuestion: {},
-  studentExams:[]
+  studentPendingExams:[],
+  studentTakenExams:[],
 };
 
 const examReducer = (state = initialState, action) => {
@@ -140,7 +141,8 @@ const examReducer = (state = initialState, action) => {
     case GET_STUDENTS_EXAM_RECORD_SUCCESS:
         return {
           ...state,
-          studentExams: action.payload,
+          studentTakenExams: action.payload.takenExam,
+          studentPendingExams: action.payload.pendingExam
         };
     default:
       return state;

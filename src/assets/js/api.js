@@ -8,7 +8,7 @@ export const LocalURL = LocalServer + "api/v1/";
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 export default {
-  url: LocalURL,
+  url: HerokuURL,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
@@ -1192,6 +1192,7 @@ export default {
     return axios({
       method: "get",
       url: `${this.url}exams/student-exams/${classId}`,
+      headers: this.headers(),
     });
   },
 };

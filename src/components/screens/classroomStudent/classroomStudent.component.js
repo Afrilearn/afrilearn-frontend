@@ -17,7 +17,7 @@ import {
   getClassBasicDetails,
 } from "./../../../redux/actions/classActions";
 import { getPerformanceInClass } from "./../../../redux/actions/courseActions";
-import { getStudentExam } from "./../../../redux/actions/examActions";
+import { getStudentExam, getStudentsExaminationRecord } from "./../../../redux/actions/examActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import { PieChart } from "react-minimal-pie-chart";
@@ -45,6 +45,7 @@ const ClassroomStudent = (props) => {
     performance,
     overallPerformance,
     overallProgress,
+    userId
   } = props;
 
   const teacherAssignedContents = useSelector(
@@ -52,7 +53,8 @@ const ClassroomStudent = (props) => {
   );
 
   const studentExam = useSelector((state) => state.exam.studentExam);
-
+  const studentTakenExams = useSelector((state) => state.exam.studentTakenExams);
+  const studentPendingExams = useSelector((state) => state.exam.studentPendingExams);
   const [newComment, setNewComment] = useState(null);
 
   const [activeTab, setActiveTab] = useState("6");
@@ -78,7 +80,7 @@ const ClassroomStudent = (props) => {
       dispatch(getClassAssignedContents(props.match.params.classId));
       dispatch(getClassBasicDetails(props.match.params.classId));
       dispatch(getMembersInClass(props.match.params.classId));
-      // props.getClass(props.match.params.classId);
+      dispatch(getStudentsExaminationRecord(props.match.params.classId))
     } else {
       // do componentDidUpdate logic
     }
@@ -192,6 +194,28 @@ const ClassroomStudent = (props) => {
       ));
     } else {
       return <div className="container padding-30">No Members list yet</div>;
+    }
+  };
+  
+  const pendingExamRecords = () => {   
+    if (studentPendingExams && studentPendingExams.length > 0) {
+      return studentPendingExams.map((record, key) => {       
+          return  <ExamBox item={record} key={key}/>        
+        }       
+      );
+    } else {
+      return <div className="container padding-30">No Pending Exam Record Found</div>;
+    }
+  };
+
+  const takenExamRecords = () => {   
+    if (studentTakenExams && studentTakenExams.length > 0) {
+      return studentTakenExams.map((record, key) => {       
+          return  <ExamBox item={record} key={key} taken={true}/>        
+        }       
+      );
+    } else {
+      return <div className="container padding-30">No Exam Record Found</div>;
     }
   };
 
@@ -496,6 +520,21 @@ const ClassroomStudent = (props) => {
                       {clazz.courseId && clazz.courseId.alias}
                     </Button>
                   </div>
+                  {Object.keys(studentExam).length ? (
+                    <div className="upcoming-events" id="examinationSection">
+                      <h4>Examination</h4>
+                      <hr />
+                      <h5>{`${studentExam.subjectId.mainSubjectId.name} ${studentExam.termId.name}`}</h5>
+                      <h6>{studentExam.questionTypeId.name}</h6>
+                      <h6>Duration: {studentExam.duration}mins</h6>
+                      <hr />
+                      <Link to={`/exam/instructions/${studentExam.id}`}>
+                        GET STARTED
+                      </Link>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <div className="upcoming-events">
                     <h4>Upcoming</h4>
                     {clazz.teacherAssignedContents &&
@@ -535,22 +574,7 @@ const ClassroomStudent = (props) => {
                     ) : (
                       "Oh oh! No work due soon!"
                     )}
-                  </div>
-                  {Object.keys(studentExam).length ? (
-                    <div className="upcoming-events" id="examinationSection">
-                      <h4>Examination</h4>
-                      <hr />
-                      <h5>{`${studentExam.subjectId.mainSubjectId.name} ${studentExam.termId.name}`}</h5>
-                      <h6>{studentExam.questionTypeId.name}</h6>
-                      <h6>Duration: {studentExam.duration}mins</h6>
-                      <hr />
-                      <Link to={`/exam/instructions/${studentExam.id}`}>
-                        GET STARTED
-                      </Link>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  </div>                 
                 </aside>
                 <main className="container-fluid">
                   {clazz.classAnnouncements &&
@@ -869,10 +893,7 @@ const ClassroomStudent = (props) => {
                 <span className="boxArea">
                 {examResultTab ===1?
                   <>
-                    <ExamBox/>
-                    <ExamBox/>
-                    <ExamBox/>        
-                    <ExamBox/>  
+                   {pendingExamRecords()}
                   </>   
                   :
                   <>
@@ -890,10 +911,7 @@ const ClassroomStudent = (props) => {
                         Total Score
                       </div>
                     </div>  
-                    <ExamBox/>
-                    <ExamBox/>
-                    <ExamBox/>        
-                    <ExamBox/>  
+                   {takenExamRecords()}
                   </> 
                 }                    
                 </span>

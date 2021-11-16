@@ -502,14 +502,33 @@ export const getStudentExamInformation = (examId) => async (dispatch) => {
     });
   }
 };
-export const getStudentsExaminationRecord = (classId) => async (dispatch) => {
-  try {
+export const getStudentsExaminationRecord = (classId) => async (dispatch,getState) => {
+  try {    
     document.body.classList.add("loading-indicator");
     const result = await API.getExamRecord(classId);
+    let pendingExam = [];
+    let takenExam =[];
+    const { userId } = getState().auth;
+
+    if(result.data.data.exams && result.data.data.exams.length){
+      result.data.data.exams.map((record)=>{
+        const result =   record.participants.filter((item)=> item===userId);       
+        if(result.length>0){
+          takenExam.push(record)         
+        }else{
+          pendingExam.push(record)
+        }
+      })     
+    }  
+     
     dispatch({
       type: GET_STUDENTS_EXAM_RECORD_SUCCESS,
-      payload: result.data.data.exams,
+      payload: {
+        takenExam,
+        pendingExam
+      }
     });
+
     document.body.classList.remove("loading-indicator");
   } catch (err) {
     document.body.classList.remove("loading-indicator");
