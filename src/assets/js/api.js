@@ -1188,4 +1188,11 @@ export default {
       data,
     });
   },
+  getExamRecord(classId) {
+    return axios({
+      method: "get",
+      url: `${this.url}exams/student-exams/${classId}`,
+      headers: this.headers(),
+    });
+  },
 };
