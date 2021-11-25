@@ -537,19 +537,19 @@ const Feeds = (props) => {
     const sideBarOffset = document.querySelector(".sticky-part-one");
     const sideBarTwoOffset = document.querySelector(".sticky-part-two");
     const mainSection = document.querySelector(".sticky-part.col-md-7");
-    if (window.scrollY > sideBarOffset.clientTop) {
+    if (sideBarOffset && window.scrollY > sideBarOffset.clientTop) {
       sideBarOffset.classList.add("sticky-now-one");
       mainSection.classList.add("middle-now");
     } else {
-      sideBarOffset.classList.remove("sticky-now-one");
-      mainSection.classList.remove("middle-now");
+      sideBarOffset && sideBarOffset.classList.remove("sticky-now-one");
+      mainSection && mainSection.classList.remove("middle-now");
     }
-    if (window.scrollY > sideBarTwoOffset.clientTop) {
+    if (sideBarTwoOffset && window.scrollY > sideBarTwoOffset.clientTop) {
       sideBarTwoOffset.classList.add("sticky-now-two");
       mainSection.classList.add("middle-now");
     } else {
-      sideBarTwoOffset.classList.remove("sticky-now-two");
-      mainSection.classList.remove("middle-now");
+      sideBarTwoOffset && sideBarTwoOffset.classList.remove("sticky-now-two");
+      mainSection && mainSection.classList.remove("middle-now");
     }
   });
 

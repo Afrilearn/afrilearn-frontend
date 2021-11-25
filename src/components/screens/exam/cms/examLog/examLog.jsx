@@ -116,7 +116,7 @@ export default function ExamLog(props) {
               <input
                 type="text"
                 className="bg-transparent w-auto text-white border-0 input nunito"
-                placeholder="Search friends by name"
+                placeholder="Search exams by name"
               />
             </div>
           </div>

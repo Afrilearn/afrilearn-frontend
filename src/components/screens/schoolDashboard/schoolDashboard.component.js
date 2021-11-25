@@ -8,7 +8,7 @@ import {
 import { getSubjectAndRelatedLessons } from "../../../redux/actions/subjectActions";
 import { clearErrors } from "../../../redux/actions/errorActions";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import "./css/style.css";
 import {
@@ -240,6 +240,42 @@ const SchoolDashboard = (props) => {
                       </option>
                     ))}
                 </select>
+
+                <div class="dropup ms-auto ">
+                  <button
+                    class="btn btn-secondary p-2"
+                    style={{
+                      backgroundColor: "rgba(38, 170, 118, 0.28)",
+                      color: "rgba(38, 170, 118, 1)",
+                      borderRadius: 7,
+                      borderWidth: 0,
+                    }}
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Examinations
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    {school &&
+                      school.schoolClassesData &&
+                      school.schoolClassesData.map((course) => (
+                        <li>
+                          <NavLink
+                            class="dropdown-item"
+                            to={`/exams?classId=${course.classId}`}
+                            key={course.classId}
+                          >
+                            {course.className}
+                          </NavLink>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
               </div>
               <div
                 id="classes"
