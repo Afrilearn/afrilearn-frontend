@@ -57,7 +57,7 @@ const ClassroomStudent = (props) => {
   const studentPendingExams = useSelector((state) => state.exam.studentPendingExams);
   const [newComment, setNewComment] = useState(null);
 
-  const [activeTab, setActiveTab] = useState("6");
+  const [activeTab, setActiveTab] = useState("1");
 
   const [examResultTab, setExamResultTab] = useState(1);
 
@@ -165,7 +165,7 @@ const ClassroomStudent = (props) => {
         return (
           <Box
             image={item.mainSubjectId.imageUrl}
-            // singleClass={true}
+            singleClass={true}
             dashboard={true}
             compiledNotes={item.relatedLessons.length}
             registeredUsers={50000}
@@ -528,9 +528,9 @@ const ClassroomStudent = (props) => {
                       <h6>{studentExam.questionTypeId.name}</h6>
                       <h6>Duration: {studentExam.duration}mins</h6>
                       <hr />
-                      <Link to={`/exam/instructions/${studentExam.id}`}>
+                      {/* <Link to={`/exam/instructions/${studentExam.id}`}>
                         GET STARTED
-                      </Link>
+                      </Link> */}
                     </div>
                   ) : (
                     ""

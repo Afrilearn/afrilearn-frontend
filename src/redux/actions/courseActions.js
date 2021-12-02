@@ -39,6 +39,7 @@ import {
   GET_AFRILEARN_TOPTEN_VIDEOS_FAILURE,
   GET_COURSE_SUBJECTS_SUCCESS,
   GET_COURSE_SUBJECTS_FAILURE,
+  CLEAR_STUDENT_EXAM_RECORDS 
 } from "./types";
 
 export const inputChange = (name, value) => async (dispatch) => {
@@ -405,6 +406,10 @@ export const populateDashboardClassMembership = (data) => async (dispatch) => {
     dispatch({
       type: GET_USER_DASHBOARD_CLASS_MEMBERSHIP_SUCCESS,
       payload: result.data.data,
+    });
+    
+    dispatch({
+      type:  CLEAR_STUDENT_EXAM_RECORDS     
     });
 
     dispatch({

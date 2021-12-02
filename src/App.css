@@ -356,6 +356,13 @@ img.logo {
   color: white !important;
 }
 
+.bg-dark {
+  background-color: #FDFDFD !important;
+  padding: 12px 28px;
+  z-index: 20;
+  color: #999 !important;
+}
+
 .nav-link {
   padding: 7px 17px !important;
 }

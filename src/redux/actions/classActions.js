@@ -302,8 +302,7 @@ export const getClassBasicDetails = (classId) => async (dispatch) => {
       payload: {
         class: result.data.data.class,
       },
-    });
-
+    });   
     document.body.classList.remove("loading-indicator");
     dispatch({
       type: CLASS_INPUT_CHANGE,

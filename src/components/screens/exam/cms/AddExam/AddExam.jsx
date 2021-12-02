@@ -42,6 +42,7 @@ export default function AddExam(props) {
   const [instruction, setInstruction] = useState("");
   const [totalNumberOfQuestions, setTotalNumberOfQuestions] = useState(0);
   const [deadline, setDeadline] = useState("");
+  const [startDate, setStartDate] = useState("");
 
   let subjectsToDisplay = classRelatedSubjects;
   if (clazz?.subjectIds && clazz.subjectIds.length > 0) {
@@ -83,6 +84,7 @@ export default function AddExam(props) {
               instruction,
               totalNumberOfQuestions,
               deadline,
+              startDate,
               classId: parsed.classId,
             };
             dispatch(addExam(data));
@@ -167,6 +169,19 @@ export default function AddExam(props) {
             name="email"
             required
             onChange={(e) => setDuration(e.target.value)}
+          />
+
+          <label htmlFor="startDate" className="text-light mb-1">
+            Set Start Date
+          </label>
+
+          <input
+            type="datetime-local"
+            id="startDate"
+            name="startDate"
+            required
+            className="general mb-4 mt-0 border white-placeholder"
+            onChange={(e) => setStartDate(e.target.value)}
           />
           <label htmlFor="duration" className="text-light mb-1">
             Set Deadline
