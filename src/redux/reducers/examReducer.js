@@ -14,7 +14,8 @@ import {
   ADD_EXAM_QUESTION_SUCCESS,
   UPDATE_EXAM_QUESTION_SUCCESS,
   DELETE_QUESTION_SUCCESS,
-  GET_STUDENTS_EXAM_RECORD_SUCCESS
+  GET_STUDENTS_EXAM_RECORD_SUCCESS,
+  CLEAR_STUDENT_EXAM_RECORDS
 } from "../actions/types";
 
 const initialState = {
@@ -33,8 +34,8 @@ const initialState = {
   addingExam: false,
   loadingExams: false,
   selcetedQuestion: {},
-  studentPendingExams:[],
-  studentTakenExams:[],
+  studentPendingExams: [],
+  studentTakenExams: [],
 };
 
 const examReducer = (state = initialState, action) => {
@@ -139,11 +140,18 @@ const examReducer = (state = initialState, action) => {
         examinationInfo: action.payload,
       };
     case GET_STUDENTS_EXAM_RECORD_SUCCESS:
-        return {
-          ...state,
-          studentTakenExams: action.payload.takenExam,
-          studentPendingExams: action.payload.pendingExam
-        };
+      return {
+        ...state,
+        studentTakenExams: action.payload.takenExam,
+        studentPendingExams: action.payload.pendingExam
+      };
+    case CLEAR_STUDENT_EXAM_RECORDS:
+      return {
+        ...state,
+        studentTakenExams: [],
+        studentPendingExams: []
+      };
+
     default:
       return state;
   }

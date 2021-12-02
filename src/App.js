@@ -11,12 +11,14 @@ import "./App.css";
 import { loadUser } from "./redux/actions/authActions";
 import { getCourses } from "./redux/actions/courseActions";
 import Navigation from "./components/includes/nav.component";
+import WhiteVersionNav from './components/whiteVersion/common/navigation/nav.component';
 import ReactGA from "react-ga";
 import FeedBackPopUp from "./components/includes/FeedBackPopUp/FeedBackPopUp";
 import moment from "moment";
 import DownloadAppsPopUp from "./components/includes/DownloadAppsPopUp/DownloadAppsPopUp";
 
 const App = () => {
+
   useEffect(() => {
     store.dispatch(loadUser());
     //FeedBack Pop Up
@@ -34,6 +36,7 @@ const App = () => {
         }
       }
     }, 30000);
+
     setTimeout(() => {
       if (
         !localStorage.getItem("afriLearn:downloadAppPopUp") ||
@@ -49,6 +52,7 @@ const App = () => {
     ReactGA.initialize("UA-141691274-1");
     ReactGA.pageview(window.location.pathname + window.location.search);
   });
+
   const [showDownloadAppsPopUp, setShowDownloadAppsPopUp] = useState(false);
   const [showFeedBackPopUp, setShowFeedBackPopUp] = useState(false);
 
