@@ -66,6 +66,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
     </ol>
     `;
     localStorage.setItem("afriLearn:lastFeedBack", new Date());
+    localStorage.setItem("afriLearn:feedBackStatus", "submitted");
     dispatch(updateProfile({ feedBack: feedBackText }));
     toggleModal();
     // console.log("feedBackText", feedBackText);
@@ -80,6 +81,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
           className="feedback-pop-content-close cursor"
           onClick={() => {
             localStorage.setItem("afriLearn:lastFeedBack", new Date());
+            localStorage.setItem("afriLearn:feedBackStatus", "skipped");
             toggleModal();
           }}
         />
@@ -208,6 +210,7 @@ export default function FeedBackPopUp({ visible = false, toggleModal }) {
               className="underline text-secondary mr-auto cursor"
               onClick={() => {
                 localStorage.setItem("afriLearn:lastFeedBack", new Date());
+                localStorage.setItem("afriLearn:feedBackStatus", "skipped");
                 toggleModal();
               }}
             >

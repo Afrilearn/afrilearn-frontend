@@ -7,37 +7,43 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.studentResult ul{
+.studentResult ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.studentResult ul li{
+.studentResult ul li {
   display: inline-block;
   width: 50%;
   margin-top: 20px;
-  font-size: 20px; 
+  font-size: 20px;
 }
 .studentResult hr {
   width: 42%;
-  background-color: #84BB29 !important;
+  background-color: #84bb29 !important;
   margin-top: 6px;
 }
-.studentResult .boxArea{
-  background: linear-gradient(181.01deg, rgba(51, 50, 50, 0.36) 0.87%, rgba(51, 50, 50, 0.36) 68.85%, rgba(51, 50, 50, 0) 142.59%, rgba(51, 50, 50, 0) 145.33%);
+.studentResult .boxArea {
+  background: linear-gradient(
+    181.01deg,
+    rgba(51, 50, 50, 0.36) 0.87%,
+    rgba(51, 50, 50, 0.36) 68.85%,
+    rgba(51, 50, 50, 0) 142.59%,
+    rgba(51, 50, 50, 0) 145.33%
+  );
   display: block;
   margin-top: 24px;
-  color: #AAA6A6;
+  color: #aaa6a6;
 }
-.studentResult .boxArea h5{
+.studentResult .boxArea h5 {
   color: white;
   margin-bottom: -1px;
 }
-.studentResult .boxArea >.row{
+.studentResult .boxArea > .row {
   padding: 26px;
 }
 .studentResult .boxArea a {
-  background-color: #84BB29 !important;
+  background-color: #84bb29 !important;
   padding: 6px 14px;
   border-radius: 5px;
   color: white !important;
@@ -144,10 +150,19 @@
 @media screen and (max-width: 1200px) {
   #classroomStudentSectionTwo .tab {
     position: relative;
-    width: auto;
+    width: 100%;
     top: 120px;
     right: unset;
-    height: auto;
+    height: 119px;
+    padding-top: 50px;
+  }
+}
+@media screen and (max-width: 768px) {
+  #classroomStudentSectionTwo #classes {
+    padding: 50px 20px !important;
+    padding-top: 50px;
+    margin-top: -10px;
+    padding-top: 16px !important;
   }
 }
 #classroomStudentSectionTwo .content-section {
