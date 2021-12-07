@@ -119,10 +119,8 @@ export default function AddExamQuestion(props) {
         </div>
         {/* <SunEditor /> */}
 
-        <div className="py-2">
-          <p className="text-white">
-            {question.question && parse(question.question)}
-          </p>
+        <div className="my-2 bg-white p-4 rounded-3">
+          <p className=" ">{question.question && parse(question.question)}</p>
         </div>
         <div className="option-item">
           A. {question.options && parse(question.options[0])}
