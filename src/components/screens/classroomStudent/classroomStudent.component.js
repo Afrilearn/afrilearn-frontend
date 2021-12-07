@@ -17,7 +17,10 @@ import {
   getClassBasicDetails,
 } from "./../../../redux/actions/classActions";
 import { getPerformanceInClass } from "./../../../redux/actions/courseActions";
-import { getStudentExam, getStudentsExaminationRecord } from "./../../../redux/actions/examActions";
+import {
+  getStudentExam,
+  getStudentsExaminationRecord,
+} from "./../../../redux/actions/examActions";
 import PropTypes from "prop-types";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import { PieChart } from "react-minimal-pie-chart";
@@ -45,7 +48,7 @@ const ClassroomStudent = (props) => {
     performance,
     overallPerformance,
     overallProgress,
-    userId
+    userId,
   } = props;
 
   const teacherAssignedContents = useSelector(
@@ -53,18 +56,22 @@ const ClassroomStudent = (props) => {
   );
 
   const studentExam = useSelector((state) => state.exam.studentExam);
-  const studentTakenExams = useSelector((state) => state.exam.studentTakenExams);
-  const studentPendingExams = useSelector((state) => state.exam.studentPendingExams);
+  const studentTakenExams = useSelector(
+    (state) => state.exam.studentTakenExams
+  );
+  const studentPendingExams = useSelector(
+    (state) => state.exam.studentPendingExams
+  );
   const [newComment, setNewComment] = useState(null);
 
   const [activeTab, setActiveTab] = useState("1");
 
   const [examResultTab, setExamResultTab] = useState(1);
 
-  const handleExamResultNavigation = (section,e) =>{   
-    e.preventDefault()
-    setExamResultTab(section)
-  }
+  const handleExamResultNavigation = (section, e) => {
+    e.preventDefault();
+    setExamResultTab(section);
+  };
 
   // eslint-disable-next-line no-unused-vars
   const mounted = useRef();
@@ -80,7 +87,7 @@ const ClassroomStudent = (props) => {
       dispatch(getClassAssignedContents(props.match.params.classId));
       dispatch(getClassBasicDetails(props.match.params.classId));
       dispatch(getMembersInClass(props.match.params.classId));
-      dispatch(getStudentsExaminationRecord(props.match.params.classId))
+      dispatch(getStudentsExaminationRecord(props.match.params.classId));
     } else {
       // do componentDidUpdate logic
     }
@@ -196,24 +203,24 @@ const ClassroomStudent = (props) => {
       return <div className="container padding-30">No Members list yet</div>;
     }
   };
-  
-  const pendingExamRecords = () => {   
+
+  const pendingExamRecords = () => {
     if (studentPendingExams && studentPendingExams.length > 0) {
-      return studentPendingExams.map((record, key) => {       
-          return  <ExamBox item={record} key={key}/>        
-        }       
-      );
+      return studentPendingExams.map((record, key) => {
+        return <ExamBox item={record} key={key} />;
+      });
     } else {
-      return <div className="container padding-30">No Pending Exam Record Found</div>;
+      return (
+        <div className="container padding-30">No Pending Exam Record Found</div>
+      );
     }
   };
 
-  const takenExamRecords = () => {   
+  const takenExamRecords = () => {
     if (studentTakenExams && studentTakenExams.length > 0) {
-      return studentTakenExams.map((record, key) => {       
-          return  <ExamBox item={record} key={key} taken={true}/>        
-        }       
-      );
+      return studentTakenExams.map((record, key) => {
+        return <ExamBox item={record} key={key} taken={true} />;
+      });
     } else {
       return <div className="container padding-30">No Exam Record Found</div>;
     }
@@ -411,7 +418,7 @@ const ClassroomStudent = (props) => {
         name: subject.mainSubjectId.name,
         assignedContent,
       });
-  });
+    });
 
   return (
     <div>
@@ -574,7 +581,7 @@ const ClassroomStudent = (props) => {
                     ) : (
                       "Oh oh! No work due soon!"
                     )}
-                  </div>                 
+                  </div>
                 </aside>
                 <main className="container-fluid">
                   {clazz.classAnnouncements &&
@@ -881,39 +888,41 @@ const ClassroomStudent = (props) => {
               <div className="container-fluid studentResult">
                 <div className="row">
                   <div className="col-md-6">
-                     <ul>
-                       <li><Link onClick={handleExamResultNavigation.bind(this,1)}>Upcoming Exams</Link>{examResultTab ===1?<hr/>:''}</li>
-                       <li><Link onClick={handleExamResultNavigation.bind(this,2)}>Completed Exams</Link>{examResultTab ===2?<hr/>:''}</li>
-                     </ul>
+                    <ul>
+                      <li>
+                        <Link
+                          onClick={handleExamResultNavigation.bind(this, 1)}
+                        >
+                          Upcoming Exams
+                        </Link>
+                        {examResultTab === 1 ? <hr /> : ""}
+                      </li>
+                      <li>
+                        <Link
+                          onClick={handleExamResultNavigation.bind(this, 2)}
+                        >
+                          Completed Exams
+                        </Link>
+                        {examResultTab === 2 ? <hr /> : ""}
+                      </li>
+                    </ul>
                   </div>
-                  <div className="col-md-6">
-
-                  </div>
+                  <div className="col-md-6"></div>
                 </div>
                 <span className="boxArea">
-                {examResultTab ===1?
-                  <>
-                   {pendingExamRecords()}
-                  </>   
-                  :
-                  <>
-                   <div className="row">
-                      <div className="col-md-4">
-                        Exams                                        
+                  {examResultTab === 1 ? (
+                    <>{pendingExamRecords()}</>
+                  ) : (
+                    <>
+                      <div className="row">
+                        <div className="col-md-4">Exams</div>
+                        <div className="col-md-2 center">Date Submitted</div>
+                        <div className="col-md-4 center">Status</div>
+                        <div className="col-md-2">Total Score</div>
                       </div>
-                      <div className="col-md-2 center">
-                        Date Submitted
-                      </div>
-                      <div className="col-md-4 center">
-                        Status
-                      </div>
-                      <div className="col-md-2">
-                        Total Score
-                      </div>
-                    </div>  
-                   {takenExamRecords()}
-                  </> 
-                }                    
+                      {takenExamRecords()}
+                    </>
+                  )}
                 </span>
               </div>
             </TabPane>
