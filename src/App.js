@@ -24,31 +24,31 @@ const App = () => {
     //FeedBack Pop Up
     setTimeout(() => {
       const isAuthenticated = store.getState().auth.isAuthenticated;
-      if (
-        !localStorage.getItem("afriLearn:lastFeedBack") ||
-        moment().diff(
+      if(!localStorage.getItem("afriLearn:lastFeedBack")){
+        localStorage.setItem("afriLearn:lastFeedBack", new Date());
+      }else{
+        if(moment().diff(
           moment(localStorage.getItem("afriLearn:lastFeedBack")),
           "days"
-        ) >= 7
-      ) {
-        if (isAuthenticated) {
+        ) >= 7 && isAuthenticated && !localStorage.getItem("afriLearn:feedBackStatus")){
           setShowFeedBackPopUp(true);
         }
-      }
+      }     
     }, 30000);
-
-    setTimeout(() => {
-      if (
-        !localStorage.getItem("afriLearn:downloadAppPopUp") ||
-        moment().diff(
-          moment(localStorage.getItem("afriLearn:downloadAppPopUp")),
-          "days"
-        ) >= 7
-      ) {
-        setShowDownloadAppsPopUp(true);
-      }
-    }, 100000);
-    //FeedBack Pop Up
+    
+    //Download PopUp
+    // setTimeout(() => {
+    //   if (
+    //     !localStorage.getItem("afriLearn:downloadAppPopUp") ||
+    //     moment().diff(
+    //       moment(localStorage.getItem("afriLearn:downloadAppPopUp")),
+    //       "days"
+    //     ) >= 7
+    //   ) {
+    //     setShowDownloadAppsPopUp(true);
+    //   }
+    // }, 100000);
+  
     ReactGA.initialize("UA-141691274-1");
     ReactGA.pageview(window.location.pathname + window.location.search);
   });
