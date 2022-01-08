@@ -64,7 +64,7 @@ const LessonItem = (props) => {
       >
         {inClass && isStudent
           ? "Content locked"
-          : "Please subscribe to unlock content"}
+          : "Login or Register for free to unlock content"}
       </Link>
     ) : (
       <span>Quiz</span>
@@ -86,7 +86,7 @@ const LessonItem = (props) => {
           inClass && isStudent && e.preventDefault();
         }}
       >
-        Please subscribe to unlock content
+        Login or Register for free to unlock content
       </Link>
     ) : (
       <span>Lesson video</span>
@@ -116,7 +116,7 @@ const LessonItem = (props) => {
       >
         {inClass && isStudent
           ? "Content locked"
-          : "Please subscribe to unlock content"}
+          : "Login or Register for free to unlock content"}
       </Link>
     ) : (
       <span>Lesson note</span>
@@ -140,7 +140,7 @@ const LessonItem = (props) => {
       >
         {inClass && isStudent
           ? "Content locked"
-          : "Please subscribe to unlock content"}
+          : "Login or Register for free to unlock content"}
       </Link>
     ) : (
       <span>View Content</span>

@@ -571,13 +571,12 @@ const Payment = (props) => {
           <div class="row">
             <div class="col-md-5">
               <div className="box">
-                <h3>Unlock Unlimited Access!</h3>
-                <p className="one">Video & Audio Lessons</p>
-                <p className="two">Rich & Ready Class Notes</p>
-                <p className="three">Practice Quizzes & Solutions</p>
-                <p className="four">Gain Mastery with Storytelling</p>
-                <p className="one">Learn on Any Device, Anytime, Anywhere</p>
-                <p className="two">Achieve Academic Excellence</p>
+                <h3>Unlock With Afrilearn Premium</h3>
+                <p className="one">Unlimited Video Lessons</p>              
+                <p className="three">Skills (Coding & Vocational)</p>       
+                <p className="one">Online Homework Help</p>    
+                <p className="four">No Adverts</p>
+                <p className="two">School Administrative Features <br/>(Examination, Attendance, Payments, Results etc.)</p>
               </div>
             </div>
             <div class="col-md-7">
