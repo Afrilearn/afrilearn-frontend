@@ -1,7 +1,7 @@
 {
   "name": "afrilearn",
   "homepage": "https://www.exambly.com",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
@@ -72,6 +72,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "secure": "HTTPS=true PORT=3303 SSL_CRT_FILE=~/devsecops/sec/s1-local-fullchain.pem SSL_KEY_FILE=~/devsecops/sec/s1-local.key HOST=s1.local react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

@@ -1,14 +1,21 @@
 import axios from "axios";
-const URL =
-  "http://afrilearnbackend-env.eba-kmm3jyax.eu-west-3.elasticbeanstalk.com/api/v1/";
-export const HerokuServer = "https://afrilearn-backend-01.herokuapp.com/";
-export const HerokuURL = HerokuServer + "api/v1/";
-export const LocalServer = "http://localhost:5000/";
-export const LocalURL = LocalServer + "api/v1/";
+const URL = 'https://s1.local:3301';
+export const HerokuServer = 'https://s1.local:3301';
+export const HerokuURL = HerokuServer + 'api/v1/';
+export const LocalServer = 'https://s1.local:3302/';
+export const LocalURL = LocalServer + 'api/v1/';
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
+
+export const API_URL = "https://s1.local:3301"
+export const SOCKET_URL = "wss://s1.local:3301"
+export const V2_ENDPOINT = API_URL + "/api/v2/"
+
+// JWT DEFAULT TOKEN
+export var DEFAULT_TOKEN = "F0c7ljTmi25e7LMIF0Wz01lZlkHX9b57DFTqUHFyWeVOlKAsKR0E5JdBOvdunpqv"
+
 export default {
-  url: HerokuURL,
+  url: V2_ENDPOINT,
   url2: PastQuestionURL,
   headers(fileupload = false) {
     const token = localStorage.getItem("token");
