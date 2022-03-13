@@ -1,14 +1,14 @@
 import axios from "axios";
 const URL = 'https://s1.local:3301';
-export const HerokuServer = 'https://s1.local:3301';
-export const HerokuURL = HerokuServer + 'api/v1/';
-export const LocalServer = 'https://s1.local:3302/';
-export const LocalURL = LocalServer + 'api/v1/';
+export const HerokuServer = 'https://afrilearn-api-v2.s1.sa';
+export const HerokuURL = HerokuServer + 'api/v2/';
+export const LocalServer = 'https://afrilearn-api-v2.s1.sa/';
+export const LocalURL = LocalServer + 'api/v2/';
 const PastQuestionURL = "https://api.exambly.com/adminpanel/v2/";
 
 
-export const API_URL = "https://s1.local:3301"
-export const SOCKET_URL = "wss://s1.local:3301"
+export const API_URL = "https://afrilearn-api-v2.s1.sa"
+export const SOCKET_URL = "wss://afrilearn-api-v2.s1.sa/"
 export const V2_ENDPOINT = API_URL + "/api/v2/"
 
 // JWT DEFAULT TOKEN
