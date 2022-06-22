@@ -77,6 +77,10 @@ img.threeImg {
   background-color: #fdc9a6;
 }
 
+#selectPaymentPageSectionOne .sub-lenght ._3-months {
+  background-color: #50e55a;
+}
+
 #selectPaymentPageSectionOne .pay-methods .item {
   width: 90%;
   height: 333px;
@@ -229,6 +233,8 @@ img.threeImg {
 #selectPaymentPageSectionOne .box .four::before {
   background: #50e55a;
 }
+
+
 #selectPaymentPageSectionOne .box p::after {
   content: "";
   width: 2px;
