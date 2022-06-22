@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store";
 import "bootstrap/dist/css/bootstrap.css";
@@ -16,9 +16,11 @@ import ReactGA from "react-ga";
 import FeedBackPopUp from "./components/includes/FeedBackPopUp/FeedBackPopUp";
 import moment from "moment";
 import DownloadAppsPopUp from "./components/includes/DownloadAppsPopUp/DownloadAppsPopUp";
+import { ThemeContext } from "./contexts/theme";
 
 const App = () => {
-
+const theme = useContext(ThemeContext)
+console.log("Theme ==>", theme)
   useEffect(() => {
     store.dispatch(loadUser());
     //FeedBack Pop Up

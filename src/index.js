@@ -7,6 +7,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ru from "javascript-time-ago/locale/ru";
 import { hydrate, render } from 'react-dom';
+import { ThemeProvider } from "./contexts/theme";
 
 
 TimeAgo.addDefaultLocale(en);
@@ -14,9 +15,9 @@ TimeAgo.addLocale(ru);
 
 const rootElement = document.getElementById('root');
 if (rootElement.hasChildNodes()) {
-    hydrate(<App />, rootElement);
+    hydrate(<ThemeProvider><App /></ThemeProvider>, rootElement);
 } else {
-    render(<App />, rootElement);
+    render(<ThemeProvider><App /></ThemeProvider>, rootElement);
 }
 
 
