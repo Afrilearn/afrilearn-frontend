@@ -446,11 +446,17 @@ const MyNav = (props) => {
                 ) : null}
               </NavLink>
             </NavItem>
+            <NavItem className="mt-1 pt-1">
+              <a  tag={Link} href="https://kidcode-six.vercel.app/" onClick={() => setIsOpen(false)}>
+                  KidsCode
+              </a>
+            </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/about" onClick={() => setIsOpen(false)}>
                 About Us
               </NavLink>
             </NavItem>
+            
             {isAuthenticated ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
