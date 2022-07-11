@@ -447,7 +447,7 @@ const MyNav = (props) => {
               </NavLink>
             </NavItem>
             <NavItem className="mt-1 pt-1">
-              <a  tag={Link} href="https://kidcode-six.vercel.app/" onClick={() => setIsOpen(false)}>
+              <a  tag={Link} href="https://kidscode.myafrilearn.com/" onClick={() => setIsOpen(false)}>
                   KidsCode
               </a>
             </NavItem>
