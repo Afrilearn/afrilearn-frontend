@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faHandshake, faSmile, faAward, faBomb, faUser, faTrophy,faEdit, faRocket, faUsers } from '@fortawesome/free-solid-svg-icons';
 import ValueBox from './../../includes/valueBox.component';
@@ -11,8 +11,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import './css/style.css';
 import {Helmet} from "react-helmet";
+import { ThemeContext } from "../../../App";
 
 const About = props => {  
+    const { theme } = useContext(ThemeContext)
     const mounted = useRef(); 
     const {   
         classes     
@@ -28,20 +30,42 @@ const About = props => {
         } else {
             // do componentDidUpdate logic          
           } 	       
-    })       
+    })
+
+    const aboutStyle = {
+        dark: {
+          backgroundColor: "black",
+          color: "white"
+        },
+        light: {
+          backgroundColor: "#e0e0e0",
+          color: "black"
+        },
+        common: {
+          transition: 'all 1s ease'
+        }
+      }
+    
+      const themeStyle = {
+        ...aboutStyle.common,
+        ...(theme === 'light'? aboutStyle.light: aboutStyle.dark)
+      }
    
 	return (        
-		<span id="about"> 
+		<span id="about" > 
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>About Us - Learn more about Afrilearn</title>
                 <meta name="description" content="Afrilearn is an education technology enterprise leveraging seasoned teachers, animators and developers to deliver affordable, world-class education for Africans, anywhere." />
             </Helmet>      
-            <div id="aboutFirstSection" className="container-fluid relative">
+            <div id="aboutFirstSection" 
+            className="container-fluid relative"
+            // style={themeStyle}
+            >
                 <div className="overlay"></div>
                 <div className="row">                   
-                    <div className="col-md-7">               
-                        <h1 className="bold">Africa’s best-loved e-learning brand.</h1>
+                    <div className="col-md-7" color="white">               
+                        <h1 className="bold" >Africa’s best-loved e-learning brand.</h1>
                         <hr/><br/>
                         <h3>Delivering affordable, world-class education for Africans, anywhere.</h3>                    
                     </div>  

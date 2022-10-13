@@ -364,7 +364,8 @@ const MyNav = (props) => {
 
   return (
     <Router>
-     <Navbar  light expand="md" whiteVersion
+     <Navbar  expand="md"
+     color={theme === 'light'? 'dark' : 'light'} 
       style={themeStyle}
      >
         <NavbarBrand tag={Link} to="/">
@@ -377,7 +378,7 @@ const MyNav = (props) => {
         <ThemeToggle /> 
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar color="white">
+          <Nav className="ml-auto" navbar>
             {isAuthenticated ? (
               <>
                 <NavItem>
