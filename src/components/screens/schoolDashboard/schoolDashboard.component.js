@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import PastQuestionsBox from "../../includes/pastQuestions/box.component";
 import {
@@ -18,10 +18,12 @@ import {
 } from "../../../redux/actions/schoolActions";
 import { inputChange } from "../../../redux/actions/authActions";
 import { Helmet } from "react-helmet";
+import { ThemeContext } from "../../../App";
 
 const padWithZero = (num) => (num > 9 ? num : "0" + num);
 
 const SchoolDashboard = (props) => {
+  const { theme } = useContext(ThemeContext)
   const { user } = props;
   const [lessonsCourseId, setLessonsCourseId] = useState("");
 
@@ -34,6 +36,24 @@ const SchoolDashboard = (props) => {
   const profile = useSelector((state) => state.school.profile);
   const coverPhoto = useSelector((state) => state.school.coverPhoto);
 
+  const schoolStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...schoolStyle.common,
+    ...(theme === 'light'? schoolStyle.light: schoolStyle.dark)
+  }
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
@@ -116,7 +136,7 @@ const SchoolDashboard = (props) => {
           </label>
         )}
       </div>
-      <div className="px-3 px-sm-4 px-md-5">
+      <div className="px-3 px-sm-4 px-md-5" style={themeStyle}>
         <div className="d-flex justify-content-center mx-auto">
           <div
             className="d-flex flex-column flex-md-row align-items-center"
@@ -195,7 +215,7 @@ const SchoolDashboard = (props) => {
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-center mt-5">
+        <div className="d-flex justify-content-center mt-5" >
           <div className="w-100" style={{ maxWidth: "100%" }}>
             <div className="container-fluid relative mt-3 mt-md-0">
               <div className="d-flex mb-3 align-items-center">
