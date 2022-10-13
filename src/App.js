@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store";
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,7 +17,12 @@ import FeedBackPopUp from "./components/includes/FeedBackPopUp/FeedBackPopUp";
 import moment from "moment";
 import DownloadAppsPopUp from "./components/includes/DownloadAppsPopUp/DownloadAppsPopUp";
 
+
+export const ThemeContext = createContext()
+
+
 const App = () => {
+const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
     store.dispatch(loadUser());
@@ -56,8 +61,15 @@ const App = () => {
   const [showDownloadAppsPopUp, setShowDownloadAppsPopUp] = useState(false);
   const [showFeedBackPopUp, setShowFeedBackPopUp] = useState(false);
 
+
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "dark"? "light" : "dark"))
+  }
+
   return (
     <Provider store={store}>
+      <ThemeContext.Provider value={{theme, setTheme}}>
+      <div id={theme}>
       <FeedBackPopUp
         visible={showFeedBackPopUp}
         toggleModal={() => setShowFeedBackPopUp(false)}
@@ -67,6 +79,8 @@ const App = () => {
         toggleModal={() => setShowDownloadAppsPopUp(false)}
       />
       <Navigation />
+      </div>
+      </ThemeContext.Provider>
     </Provider>
   );
 };

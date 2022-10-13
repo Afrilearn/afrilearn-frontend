@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./css/style.css";
 import AppreciationBox from "../../includes/appreciationSlick.component";
@@ -25,11 +25,32 @@ import queryString from "query-string";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import socket from "../../../assets/js/socket";
+import { ThemeContext } from "../../../App";
 // import VideoThumbnail from 'react-video-thumbnail';
 // import VideoPlayer from 'simple-react-video-thumbnail'
 
 const Homepage = (props) => {
   const parsed = queryString.parse(props.location.search);
+  const { theme } = useContext(ThemeContext)
+
+  const homepageStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...homepageStyle.common,
+    ...(theme === 'light'? homepageStyle.light: homepageStyle.dark)
+  }
 
   const {
     classLabel,
@@ -138,7 +159,7 @@ const Homepage = (props) => {
 
   const user = useSelector((state) => state.auth.user);
   return (
-    <span id="homepage">
+    <span id="homepage" style={themeStyle}>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Afrilearn | Future of learning</title>

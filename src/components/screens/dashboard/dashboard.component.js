@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import "./css/style.css";
 import Box from "./../../includes/subjectBadgeForSlick/subjectBox.component";
 import PastQuestionsBox from "../../includes/pastQuestions/box.component";
@@ -44,9 +44,31 @@ import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import bullet from "../../../assets/img/circleBullet.png";
 import logo from "../../../assets/img/logonew.png";
 import { Helmet } from "react-helmet";
+import { ThemeContext } from "../../../App";
 
 const Dashboard = (props) => {
   const [modal, setModal] = useState(true);
+  const { theme } = useContext(ThemeContext);
+
+  const dashboardStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...dashboardStyle.common,
+    ...(theme === 'light'? dashboardStyle.light: dashboardStyle.dark)
+  }
+
   const toggle = (e) => {
     e.preventDefault();
     setModal(!modal);
@@ -368,7 +390,7 @@ const Dashboard = (props) => {
 
   return (
     <span id="classes" className="dashboard">
-      <Helmet>
+      <Helmet style={themeStyle}>
         <meta charSet="utf-8" />
         <title>
           {dashboardEnrolledCourse.enrolledCourse

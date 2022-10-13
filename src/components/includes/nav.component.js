@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Collapse,
   Navbar,
@@ -87,6 +87,8 @@ import ExamCenter from "../screens/exam/examCenter/exam/exam.component";
 import AcquisitionAgentNetwork from "../screens/AcquisitionAgentNetwork/AcquisitionAgentNetwork";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from './../../App';
+import ThemeToggle from "../ThemeToggle";
 
 const MyNav = (props) => {
   const {
@@ -338,10 +340,33 @@ const MyNav = (props) => {
     }
   };
   const clazz = useSelector((state) => state.class.class);
+  const { theme } = useContext(ThemeContext);
+
+  const headerStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...headerStyle.common,
+    ...(theme === 'light'? headerStyle.light: headerStyle.dark)
+  }
+
 
   return (
     <Router>
-     <Navbar color="light" light expand="md" whiteVersion>
+     <Navbar  light expand="md" whiteVersion
+      style={themeStyle}
+     >
         <NavbarBrand tag={Link} to="/">
           <img
             className="logo"
@@ -349,6 +374,7 @@ const MyNav = (props) => {
             alt="Afrilearn Logo"
           />
         </NavbarBrand>
+        <ThemeToggle /> 
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar color="white">
@@ -448,7 +474,7 @@ const MyNav = (props) => {
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/about" onClick={() => setIsOpen(false)}>
-                About Us
+                About Us {theme}
               </NavLink>
             </NavItem>
             {isAuthenticated ? (
@@ -515,6 +541,7 @@ const MyNav = (props) => {
             ) : (
               <>
                 <NavItem>
+                  
                   <NavLink
                     tag={Link}
                     to="/login"
@@ -533,6 +560,7 @@ const MyNav = (props) => {
                   >
                     Register
                   </NavLink>
+                  
                 </NavItem>
               </>
             )}

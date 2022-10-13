@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useContext} from "react";
 import { Link } from "react-router-dom";
 import "./css/style.css";
 import { connect } from "react-redux";
+import { ThemeContext } from "../../../App";
 
 const Footer = (props) => {
+  const {theme } = useContext(ThemeContext)
   const { students, numberOfClassNote, numberOfQuizQuestions } = props;
+
+
+  const footerStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...footerStyle.common,
+    ...(theme === 'light'? footerStyle.light: footerStyle.dark)
+  }
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   return (
-    <span id="footer">
-      <div className="container-fluid">
+    <span id="footer" >
+      <div className="container-fluid" style={themeStyle}>
         <div className="row r1">
           <div className="col-md-4">
             {/* <h6>Why Afrilearn?</h6> */}

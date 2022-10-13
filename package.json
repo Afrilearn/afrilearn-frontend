@@ -56,6 +56,7 @@
     "react-slugify": "^2.0.3",
     "react-snap": "^1.23.0",
     "react-speech": "^1.0.2",
+    "react-switch": "^7.0.0",
     "react-time-ago": "^6.2.2",
     "react-tsparticles": "^1.18.11",
     "reactstrap": "^8.1.1",

@@ -40,6 +40,14 @@ embed:focus {
   background: white !important;
 }
 
+#light{
+  background-color: #fff;
+}
+
+#dark{
+  background-color: #000000;
+}
+
 /* @font-face {
   font-family: 'font2';
   src: url('./assets/fonts/Baloo-Regular-400.ttf') format('opentype');
