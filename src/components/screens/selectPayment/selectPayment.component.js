@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 // import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { usePaystackPayment } from "react-paystack";
 import "./css/style.css";
@@ -25,8 +25,10 @@ import Swal from "sweetalert2";
 import queryString from "query-string";
 import { Helmet } from "react-helmet";
 import { getCourseSubjects } from "../../../redux/actions/courseActions";
+import { ThemeContext } from "../../../App";
 
 const Payment = (props) => {
+  const { theme } = useContext(ThemeContext)
   const unselectAll = () => {
     var allInputs = document.getElementsByTagName("input");
     for (var i = 0, max = allInputs.length; i < max; i++) {
@@ -556,6 +558,25 @@ const Payment = (props) => {
     // console.log("data", data);
   };
 
+  const paymentStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...paymentStyle.common,
+    ...(theme === 'light'? paymentStyle.light: paymentStyle.dark)
+  }
+
   const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
   };
@@ -566,7 +587,7 @@ const Payment = (props) => {
         <title>Payment Page | Myafrilearn.com</title>
         <meta name="description" content="Payment Page" />
       </Helmet>
-      <div id="selectPaymentPageSectionOne">
+      <div id="selectPaymentPageSectionOne" style={themeStyle}>
         <div class="container">
           <div class="row">
             <div class="col-md-5">

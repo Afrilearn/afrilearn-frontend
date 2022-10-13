@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import './css/style.css'; 
 // import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -6,8 +6,10 @@ import PropTypes from "prop-types";
 import { inputChange } from '../../../redux/actions/authActions';
 import Box from '../../includes/subjectBox.component';
 import {Helmet} from "react-helmet";
+import { ThemeContext } from "../../../App";
 
 const SubjectPage = props => {  
+    const { theme } = useContext(ThemeContext)
     const mounted = useRef(); 
     useEffect(()=>{
         if (!mounted.current) {
@@ -59,6 +61,25 @@ const SubjectPage = props => {
         }
 		
     }
+
+    const subjectStyle = {
+        dark: {
+          backgroundColor: "black",
+          color: "white"
+        },
+        light: {
+          backgroundColor: "#e0e0e0",
+          color: "black"
+        },
+        common: {
+          transition: 'all 1s ease'
+        }
+      }
+    
+      const themeStyle = {
+        ...subjectStyle.common,
+        ...(theme === 'light'? subjectStyle.light: subjectStyle.dark)
+      }
     
 	return (        
 		<>   
@@ -67,7 +88,10 @@ const SubjectPage = props => {
                 <title>Subject Page | Myafrilearn.com</title>
                 <meta name="description" content='Subject Page' />
             </Helmet>             
-           <div className="container-fluid Subject" onClick={handleCloseBox}>
+           <div className="container-fluid Subject" 
+           onClick={handleCloseBox}
+           
+           >
                 <div className="row">
                  
                    <div className="col-md-10 afterNav">

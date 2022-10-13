@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import { PieChart } from "react-minimal-pie-chart";
 import "./css/style.css";
@@ -16,8 +16,10 @@ import PropTypes from "prop-types";
 import SubjectBox from "./../../includes/performance/subjectBox.component";
 import PastQuestionBox from "./../../includes/performance/pastQuestions.component";
 import SubjectProgressLoader from '../../includes/Loaders/subjectProgressLoader.component';
+import { ThemeContext } from "../../../App";
 
 const Performance = (props) => {
+  const {theme} = useContext(ThemeContext)
   const {
     chartSection,
     activeCourseId,
@@ -121,13 +123,36 @@ const Performance = (props) => {
     });
   };
 
+  const performanceStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...performanceStyle.common,
+    ...(theme === 'light'? performanceStyle.light: performanceStyle.dark)
+  }
+
   return (
     <span id="performance">
       <div
         id="performanceFirstSection"
         className="container-fluid relative"
       ></div>
-      <div id="performanceSecondSection" className="container-fluid">
+      <div 
+      id="performanceSecondSection" 
+      className="container-fluid"
+      style={themeStyle}
+      >
         <div className="row">
           <div className="col-md-5">
             <div className="row">

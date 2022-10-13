@@ -390,7 +390,7 @@ const Dashboard = (props) => {
 
   return (
     <span id="classes" className="dashboard">
-      <Helmet style={themeStyle}>
+      <Helmet >
         <meta charSet="utf-8" />
         <title>
           {dashboardEnrolledCourse.enrolledCourse
@@ -400,7 +400,8 @@ const Dashboard = (props) => {
         </title>
         <meta name="description" content="Student Dashboard" />
       </Helmet>
-      <div id="dashboardFirstSection" className="container-fluid relative">
+      <div id="dashboardFirstSection" 
+      className="container-fluid relative">
         <div className="row">
           <div className="col-md-12">
             <h1>
@@ -438,7 +439,10 @@ const Dashboard = (props) => {
           </div>
         </div>
       </div>
-      <div id="dashboardSecondSection" className="container-fluid relative">
+      <div id="dashboardSecondSection" 
+      className="container-fluid relative"
+      style={themeStyle}
+      >
         <a name="subjects"></a>
         <h4>My Subjects</h4>
         {activeEnrolledCourseId && enrolledCourseLoader ? (
