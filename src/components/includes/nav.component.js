@@ -475,7 +475,7 @@ const MyNav = (props) => {
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/about" onClick={() => setIsOpen(false)}>
-                About Us {theme}
+                About Us
               </NavLink>
             </NavItem>
             {isAuthenticated ? (

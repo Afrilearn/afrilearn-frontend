@@ -40,7 +40,7 @@ const Homepage = (props) => {
     },
     light: {
       backgroundColor: "#e0e0e0",
-      color: "black"
+      color: "#000"
     },
     common: {
       transition: 'all 1s ease'
@@ -234,7 +234,7 @@ const Homepage = (props) => {
           <div className="col-md-3"> </div>
         </div>
       </div>
-      <div className="container-fluid afterBanner relative">
+      <div className="container-fluid afterBanner relative" style={themeStyle}>
         <div className="row row2 landingPageAdd relative">
           <h1 className="hOne">Why Afrilearn works…</h1>
           <div className="col-md-4">
@@ -578,7 +578,7 @@ const Homepage = (props) => {
             </span>
           </div>
         </div>
-        <div className="row relative">
+        <div className="row relative" >
           <Particles id="tsparticles" options={PaticleOption} />
           <div className="col-md-6">
             <iframe

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import event from "../../../assets/img/event.png";
 import "./css/style.css";
@@ -8,8 +8,10 @@ import { clearErrors } from "../../../redux/actions/errorActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Helmet} from "react-helmet";
+import { ThemeContext } from "../../../App";
 
 const FaqPage = (props) => {
+  const { theme } = useContext(ThemeContext)
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -20,6 +22,25 @@ const FaqPage = (props) => {
       // do componentDidUpdate logic
     }
   });
+
+  const faqStyle = {
+    dark: {
+      backgroundColor: "black",
+      color: "white"
+    },
+    light: {
+      backgroundColor: "#e0e0e0",
+      color: "black"
+    },
+    common: {
+      transition: 'all 1s ease'
+    }
+  }
+
+  const themeStyle = {
+    ...faqStyle.common,
+    ...(theme === 'light'? faqStyle.light: faqStyle.dark)
+  }
 
   return (
     <div id="faqPage">
@@ -33,7 +54,7 @@ const FaqPage = (props) => {
           Frequently <span>Asked Questions</span>
         </h1>
       </div>
-      <div id="faqPageSectionTwo">
+      <div id="faqPageSectionTwo" style={themeStyle}>
         <div class="top-text">
           <p>Our FAQs</p>
           <h1>Have any questions?</h1>
